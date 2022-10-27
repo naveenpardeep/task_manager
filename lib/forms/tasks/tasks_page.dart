@@ -6,6 +6,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
 import '../project/project_controller.dart';
+import 'task_image_controller.dart';
 
 class TasksPage extends GetView<TasksController> {
   const TasksPage({Key? key}) : super(key: key);
@@ -44,6 +45,7 @@ class TasksPage extends GetView<TasksController> {
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             NsgInput(
                               dataItem: controller.currentItem,
@@ -73,7 +75,8 @@ class TasksPage extends GetView<TasksController> {
                                     presentation: 'Комментарий')
                               ],
                               elementEditPageName: Routes.commentRowPage,
-                            )
+                            ),
+                            //Flexible(fit: FlexFit.loose, child: imageGallery()),
                           ],
                         ),
                       )),
@@ -83,6 +86,15 @@ class TasksPage extends GetView<TasksController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget imageGallery() {
+    return NsgFilePicker(
+      showAsWidget: true,
+      callback: (value) {},
+      objectsList: Get.find<TaskImageController>().images,
+      allowedFileFormats: const [],
     );
   }
 }
