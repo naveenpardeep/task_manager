@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nsg_controls/nsg_border.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -23,7 +24,7 @@ class TasksPage extends GetView<TasksController> {
             key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 NsgAppBar(
                   text: controller.currentItem.isEmpty
@@ -58,25 +59,22 @@ class TasksPage extends GetView<TasksController> {
                               label: 'Описание',
                             ),
                             NsgInput(
-                                selectionController:
-                                    Get.find<ProjectController>(),
+                                selectionController: Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameProjectId,
                                 label: 'Проект',
                                 selectionForm: Routes.projectListPage),
                             NsgTable(
-                              controller:
-                                  Get.find<CommentTableTasksController>(),
+                              controller: Get.find<CommentTableTasksController>(),
                               columns: [
                                 NsgTableColumn(
-                                    name:
-                                        TaskDocCommentsTableGenerated.nameText,
+                                    name: TaskDocCommentsTableGenerated.nameText,
                                     expanded: true,
                                     presentation: 'Комментарий')
                               ],
                               elementEditPageName: Routes.commentRowPage,
                             ),
-                            //Flexible(fit: FlexFit.loose, child: imageGallery()),
+                            Flexible(child: imageGallery()),
                           ],
                         ),
                       )),
@@ -87,6 +85,10 @@ class TasksPage extends GetView<TasksController> {
         ),
       ),
     );
+  }
+
+  Widget imageGallery2() {
+    return NsgBorder(child: Text("AAA"));
   }
 
   Widget imageGallery() {
