@@ -5,6 +5,13 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100);
+  
+  @override
+  Future<TaskDoc> doCreateNewItem() async {
+    var item = await super.doCreateNewItem();
+    item.date = DateTime.now();
+    return item;
+  }
 }
 
 class CommentTableTasksController

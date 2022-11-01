@@ -48,6 +48,48 @@ class TasksPage extends GetView<TasksController> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            // NsgInput(
+                            //       dataItem: controller.currentItem,
+                            //       fieldName: TaskDocGenerated.nameDate,
+                            //       //disabled: true,
+                            //       label: 'Создана',
+                            //     ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: NsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameDate,
+                                    disabled: true,
+                                    label: 'Создана',
+                                  ),
+                                ),
+                                Flexible(
+                                  child: NsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameDateUpdated,
+                                    disabled: true,
+                                    label: 'Обновлена',
+                                  ),
+                                ),
+                                Flexible(
+                                  child: NsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameDateClosed,
+                                    disabled: true,
+                                    label: 'Закрыта',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            NsgInput(
+                                selectionController:
+                                    Get.find<ProjectController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameProjectId,
+                                label: 'Проект',
+                                selectionForm: Routes.projectListPage),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameText,
@@ -58,17 +100,14 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameDescription,
                               label: 'Описание',
                             ),
-                            NsgInput(
-                                selectionController: Get.find<ProjectController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameProjectId,
-                                label: 'Проект',
-                                selectionForm: Routes.projectListPage),
+
                             NsgTable(
-                              controller: Get.find<CommentTableTasksController>(),
+                              controller:
+                                  Get.find<CommentTableTasksController>(),
                               columns: [
                                 NsgTableColumn(
-                                    name: TaskDocCommentsTableGenerated.nameText,
+                                    name:
+                                        TaskDocCommentsTableGenerated.nameText,
                                     expanded: true,
                                     presentation: 'Комментарий')
                               ],
