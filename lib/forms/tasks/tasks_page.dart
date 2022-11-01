@@ -116,6 +116,18 @@ class TasksPage extends GetView<TasksController> {
                               columns: [
                                 NsgTableColumn(
                                     name:
+                                        TaskDocCommentsTableGenerated.nameDate,
+                                    width: 80,
+                                    //expanded: true,
+                                    presentation: 'Дата'),
+                                NsgTableColumn(
+                                    name: TaskDocCommentsTableGenerated
+                                        .nameAuthorId,
+                                    width: 80,
+                                    //expanded: true,
+                                    presentation: 'Автор'),
+                                NsgTableColumn(
+                                    name:
                                         TaskDocCommentsTableGenerated.nameText,
                                     expanded: true,
                                     presentation: 'Комментарий')
