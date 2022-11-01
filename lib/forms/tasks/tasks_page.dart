@@ -91,6 +91,13 @@ class TasksPage extends GetView<TasksController> {
                                 label: 'Проект',
                                 selectionForm: Routes.projectListPage),
                             NsgInput(
+                                selectionController:
+                                    Get.find<ProjectController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameSprintId,
+                                label: 'Спринт',
+                                selectionForm: Routes.projectListPage),
+                            NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameText,
                               label: 'Заголовок',
@@ -99,6 +106,8 @@ class TasksPage extends GetView<TasksController> {
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDescription,
                               label: 'Описание',
+                              minLines: 3,
+                              maxLines: 20,
                             ),
 
                             NsgTable(
