@@ -147,16 +147,12 @@ class TasksPage extends GetView<TasksController> {
     );
   }
 
-  Widget imageGallery2() {
-    return NsgBorder(child: Text("AAA"));
-  }
-
   Widget imageGallery() {
-    return NsgFilePicker(
-      showAsWidget: true,
-      callback: (value) {},
-      objectsList: Get.find<TaskImageController>().images,
-      allowedFileFormats: const [],
-    );
+    return Get.find<TaskImageController>().obx((state) => NsgFilePicker(
+          showAsWidget: true,
+          callback: (value) {},
+          objectsList: Get.find<TaskImageController>().images,
+          allowedFileFormats: const [],
+        ));
   }
 }

@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_error_widget.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import '../../model/data_controller_model.dart';
 
@@ -17,10 +19,11 @@ class TaskImageController extends NsgDataController<Picture> {
   @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
-    // var dataController = Get.find<DataController>();
-    // if (dataController.currentPage == NsgPage.naOtgruzku) {
-    //   cmp.add(name: PictureGenerated.nameOwnerId, value: Get.find<ZayavkaNaOtgruzkuController>().currentItem.id);
-    // }
+    var taskController = Get.find<TasksController>();
+
+    cmp.add(
+        name: PictureGenerated.nameOwnerId,
+        value: taskController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
   }
 
@@ -33,6 +36,7 @@ class TaskImageController extends NsgDataController<Picture> {
         if (img.id == '') {
           var pic = Picture();
           pic.name = img.description;
+          pic.ownerId = Get.find<TasksController>().currentItem.id;
 
           if (kIsWeb) {
             File imagefile = File.fromUri(Uri(path: img.filePath));
@@ -46,12 +50,10 @@ class TaskImageController extends NsgDataController<Picture> {
       }
       progress.hide();
       Get.back();
-    } catch (ex) {
+    } on Exception catch (ex) {
       progress.hide();
-      Get.showSnackbar(GetSnackBar(
-        title: 'ОШИБКА',
-        message: ex.toString(),
-      ));
+      NsgErrorWidget.showError(ex);
+      rethrow;
     }
   }
 
