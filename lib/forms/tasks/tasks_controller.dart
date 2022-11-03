@@ -6,7 +6,15 @@ import 'task_image_controller.dart';
 
 class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100);
+      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+    referenceList = [
+      TaskDocGenerated.nameProjectId,
+      TaskDocGenerated.nameSprintId,
+      TaskDocGenerated.nameTaskStatusId,
+      TaskDocGenerated.nameAuthorId,
+      TaskDocGenerated.nameAssigneeId
+    ];
+  }
 
   @override
   Future<TaskDoc> doCreateNewItem() async {

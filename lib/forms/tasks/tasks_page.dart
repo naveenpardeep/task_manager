@@ -86,6 +86,13 @@ class TasksPage extends GetView<TasksController> {
                                 selectionController:
                                     Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameTaskStatusId,
+                                label: 'Статус',
+                                selectionForm: Routes.projectListPage),
+                            NsgInput(
+                                selectionController:
+                                    Get.find<ProjectController>(),
+                                dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameProjectId,
                                 label: 'Проект',
                                 selectionForm: Routes.projectListPage),
