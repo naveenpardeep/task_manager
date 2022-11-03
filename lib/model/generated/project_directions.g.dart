@@ -4,34 +4,30 @@ import 'package:nsg_data/nsg_data.dart';
 import 'dart:typed_data';
 import '../data_controller_model.dart';
 
-/// СтатусыЗадач
-class TaskStatusGenerated extends NsgDataItem {
+/// НаправленияПроектов
+class ProjectDirectionsGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
-  static const nameIsDone = 'isDone';
 
   static final Map<String, String> fieldNameDict = {
    nameName: 'Наименование',
-   nameIsDone: 'Статус завершения',
  };
 
   @override
-  String get typeName => 'TaskStatus';
+  String get typeName => 'ProjectDirections';
 
   @override
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
-    addField(NsgDataBoolField(nameIsDone), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
-    fieldList.fields[nameIsDone]?.presentation = 'Статус завершения';
   }
 
   @override
   String toString() => name;
 
   @override
-  NsgDataItem getNewObject() => TaskStatus();
+  NsgDataItem getNewObject() => ProjectDirections();
 
   /// Идентификатор
   @override
@@ -45,13 +41,8 @@ class TaskStatusGenerated extends NsgDataItem {
 
   set name(String value) => setFieldValue(nameName, value);
 
-  /// СтатусЗавершения
-  bool get isDone => getFieldValue(nameIsDone) as bool;
-
-  set isDone(bool value) => setFieldValue(nameIsDone, value);
-
   @override
   String get apiRequestItems {
-    return '/Data/TaskStatus';
+    return '/Data/ProjectDirections';
   }
 }
