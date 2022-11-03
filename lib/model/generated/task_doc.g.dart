@@ -44,7 +44,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameText), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
-    addField(NsgDataReferenceField<TaskStatusItem>(nameTaskStatusId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameComments), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
@@ -121,13 +121,13 @@ class TaskDocGenerated extends NsgDataItem {
 
   /// СтатусыЗадач
   String get taskStatusId => getFieldValue(nameTaskStatusId).toString();
-  TaskStatusItem get taskStatus => getReferent<TaskStatusItem>(nameTaskStatusId);
-  Future<TaskStatusItem> taskStatusAsync() async {
-   return await getReferentAsync<TaskStatusItem>(nameTaskStatusId);
+  TaskStatus get taskStatus => getReferent<TaskStatus>(nameTaskStatusId);
+  Future<TaskStatus> taskStatusAsync() async {
+   return await getReferentAsync<TaskStatus>(nameTaskStatusId);
   }
 
   set taskStatusId(String value) => setFieldValue(nameTaskStatusId, value);
-  set taskStatus(TaskStatusItem value) =>
+  set taskStatus(TaskStatus value) =>
     setFieldValue(nameTaskStatusId, value.id);
 
   /// Комментарии
