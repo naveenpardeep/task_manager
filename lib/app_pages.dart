@@ -32,7 +32,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.tasksPage,
-      page: () => TasksPage(),
+      page: () => const TasksPage(),
       binding: TasksListBinding(),
     ),
     GetPage(
@@ -42,12 +42,12 @@ class AppPages {
     ),
     GetPage(
       name: Routes.projectPage,
-      page: () => ProjectPage(),
+      page: () => const ProjectPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
       name: Routes.commentRowPage,
-      page: () => TasksCommentRowPage(),
+      page: () => const TasksCommentRowPage(),
       binding: TasksListBinding(),
     ),
   ];
