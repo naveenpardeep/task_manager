@@ -15,18 +15,19 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameText = 'text';
   static const nameProjectId = 'projectId';
   static const nameSprintId = 'sprintId';
+  static const nameTaskStatusId = 'taskStatusId';
   static const nameComments = 'comments';
   static const nameCheckList = 'checkList';
   static const nameAuthorId = 'authorId';
   static const nameAssigneeId = 'assigneeId';
 
   static final Map<String, String> fieldNameDict = {
-   nameDate: '',
-   nameDateClosed: '',
-   nameDateUpdated: '',
-   nameComment: '',
-   nameDescription: '',
-   nameText: '',
+   nameDate: 'Дата документа',
+   nameDateClosed: 'Дата закрытия',
+   nameDateUpdated: 'Дата обновления',
+   nameComment: 'Комментарий',
+   nameDescription: 'Описание задачи',
+   nameText: 'Текст задачи',
  };
 
   @override
@@ -43,16 +44,17 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameText), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatusItem>(nameTaskStatusId), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameComments), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
-    fieldList.fields[nameDate]?.presentation = '';
-    fieldList.fields[nameDateClosed]?.presentation = '';
-    fieldList.fields[nameDateUpdated]?.presentation = '';
-    fieldList.fields[nameComment]?.presentation = '';
-    fieldList.fields[nameDescription]?.presentation = '';
-    fieldList.fields[nameText]?.presentation = '';
+    fieldList.fields[nameDate]?.presentation = 'Дата документа';
+    fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
+    fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
+    fieldList.fields[nameComment]?.presentation = 'Комментарий';
+    fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
+    fieldList.fields[nameText]?.presentation = 'Текст задачи';
   }
 
   @override
@@ -116,6 +118,17 @@ class TaskDocGenerated extends NsgDataItem {
   set sprintId(String value) => setFieldValue(nameSprintId, value);
   set sprint(SprintDoc value) =>
     setFieldValue(nameSprintId, value.id);
+
+  /// СтатусыЗадач
+  String get taskStatusId => getFieldValue(nameTaskStatusId).toString();
+  TaskStatusItem get taskStatus => getReferent<TaskStatusItem>(nameTaskStatusId);
+  Future<TaskStatusItem> taskStatusAsync() async {
+   return await getReferentAsync<TaskStatusItem>(nameTaskStatusId);
+  }
+
+  set taskStatusId(String value) => setFieldValue(nameTaskStatusId, value);
+  set taskStatus(TaskStatusItem value) =>
+    setFieldValue(nameTaskStatusId, value.id);
 
   /// Комментарии
   NsgDataTable<TaskDocCommentsTable> get comments => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameComments);

@@ -10,7 +10,7 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameName = 'name';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: '',
+   nameName: 'Наименование',
  };
 
   @override
@@ -20,7 +20,7 @@ class ProjectItemGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
-    fieldList.fields[nameName]?.presentation = '';
+    fieldList.fields[nameName]?.presentation = 'Наименование';
   }
 
   @override

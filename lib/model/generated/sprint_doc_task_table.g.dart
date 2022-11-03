@@ -12,7 +12,7 @@ class SprintDocTaskTableGenerated extends NsgDataItem {
   static const nameText = 'text';
 
   static final Map<String, String> fieldNameDict = {
-   nameText: '',
+   nameText: 'Комментарий',
  };
 
   @override
@@ -24,7 +24,7 @@ class SprintDocTaskTableGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<SprintDoc>(nameOwnerId), primaryKey: false);
     addField(NsgDataReferenceField<TaskDoc>(nameTaskId), primaryKey: false);
     addField(NsgDataStringField(nameText, maxLength: 250), primaryKey: false);
-    fieldList.fields[nameText]?.presentation = '';
+    fieldList.fields[nameText]?.presentation = 'Комментарий';
   }
 
   @override

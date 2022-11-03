@@ -14,7 +14,7 @@ class TaskDocCommentsTableGenerated extends NsgDataItem {
 
   static final Map<String, String> fieldNameDict = {
    nameText: 'Текст',
-   nameDate: '',
+   nameDate: 'Дата комментария',
  };
 
   @override
@@ -28,7 +28,7 @@ class TaskDocCommentsTableGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     fieldList.fields[nameText]?.presentation = 'Текст';
-    fieldList.fields[nameDate]?.presentation = '';
+    fieldList.fields[nameDate]?.presentation = 'Дата комментария';
   }
 
   @override

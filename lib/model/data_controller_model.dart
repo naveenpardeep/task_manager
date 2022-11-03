@@ -8,6 +8,8 @@ export 'task_doc_check_list_table.dart';
 export 'generated/task_doc_check_list_table.g.dart';
 export 'task_status.dart';
 export 'generated/task_status.g.dart';
+export 'task_status.dart';
+export 'generated/task_status.g.dart';
 export 'sprint_doc.dart';
 export 'generated/sprint_doc.g.dart';
 export 'sprint_doc_task_table.dart';

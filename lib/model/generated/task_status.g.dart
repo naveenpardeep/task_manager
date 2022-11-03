@@ -8,11 +8,9 @@ import '../data_controller_model.dart';
 class TaskStatusGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
-  static const nameIsDone = 'isDone';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: '',
-   nameIsDone: '',
+   nameName: 'Наименование',
  };
 
   @override
@@ -22,9 +20,7 @@ class TaskStatusGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
-    addField(NsgDataBoolField(nameIsDone), primaryKey: false);
-    fieldList.fields[nameName]?.presentation = '';
-    fieldList.fields[nameIsDone]?.presentation = '';
+    fieldList.fields[nameName]?.presentation = 'Наименование';
   }
 
   @override
@@ -45,13 +41,8 @@ class TaskStatusGenerated extends NsgDataItem {
 
   set name(String value) => setFieldValue(nameName, value);
 
-  /// СтатусЗавершения
-  bool get isDone => getFieldValue(nameIsDone) as bool;
-
-  set isDone(bool value) => setFieldValue(nameIsDone, value);
-
   @override
   String get apiRequestItems {
-    return '/Data/TaskStatus';
+    return '/Data/ProjectDirections';
   }
 }

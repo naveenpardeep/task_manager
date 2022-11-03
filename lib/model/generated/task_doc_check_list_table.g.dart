@@ -12,8 +12,8 @@ class TaskDocCheckListTableGenerated extends NsgDataItem {
   static const nameIsDone = 'isDone';
 
   static final Map<String, String> fieldNameDict = {
-   nameText: '',
-   nameIsDone: '',
+   nameText: 'Сделать',
+   nameIsDone: 'Выполнено',
  };
 
   @override
@@ -25,8 +25,8 @@ class TaskDocCheckListTableGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskDoc>(nameOwnerId), primaryKey: false);
     addField(NsgDataStringField(nameText), primaryKey: false);
     addField(NsgDataBoolField(nameIsDone), primaryKey: false);
-    fieldList.fields[nameText]?.presentation = '';
-    fieldList.fields[nameIsDone]?.presentation = '';
+    fieldList.fields[nameText]?.presentation = 'Сделать';
+    fieldList.fields[nameIsDone]?.presentation = 'Выполнено';
   }
 
   @override
