@@ -6,6 +6,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
 import '../project/project_controller.dart';
+import '../task_status/task_status_controller.dart';
 import 'task_image_controller.dart';
 
 class TasksPage extends GetView<TasksController> {
@@ -84,11 +85,11 @@ class TasksPage extends GetView<TasksController> {
                             ),
                             NsgInput(
                                 selectionController:
-                                    Get.find<ProjectController>(),
+                                    Get.find<TaskStatusController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameTaskStatusId,
                                 label: 'Статус',
-                                selectionForm: Routes.projectListPage),
+                                selectionForm: Routes.taskStatusListPage),
                             NsgInput(
                                 selectionController:
                                     Get.find<ProjectController>(),

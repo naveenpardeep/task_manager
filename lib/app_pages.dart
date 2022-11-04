@@ -4,6 +4,9 @@ import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'forms/project/project_binding.dart';
 import 'forms/project/project_list_page.dart';
 import 'forms/project/project_page.dart';
+import 'forms/task_status/task_status_binding.dart';
+import 'forms/task_status/task_status_list_page.dart';
+import 'forms/task_status/task_status_page.dart';
 import 'forms/tasks/tasks_binding.dart';
 import 'forms/tasks/tasks_list_page.dart';
 import 'forms/tasks/tasks_page.dart';
@@ -50,6 +53,16 @@ class AppPages {
       page: () => const TasksCommentRowPage(),
       binding: TasksListBinding(),
     ),
+    GetPage(
+      name: Routes.taskStatusPage,
+      page: () => const TaskStatusPage(),
+      binding: TaskStatusBinding(),
+    ),
+    GetPage(
+      name: Routes.taskStatusListPage,
+      page: () => TaskStatusListPage(),
+      binding: TaskStatusBinding(),
+    ),
   ];
 }
 
@@ -61,4 +74,6 @@ abstract class Routes {
   static const projectListPage = '/projectListPage';
   static const projectPage = '/projectPage';
   static const commentRowPage = '/commentRowPage';
+  static const taskStatusListPage = '/taskStatusListPage';
+  static const taskStatusPage = '/taskStatusPage';
 }
