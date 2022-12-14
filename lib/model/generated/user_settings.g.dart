@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import '../data_controller_model.dart';
 
 /// НастройкиПользователейСервисов
-class UserSettingsGenerated extends NsgDataItem {
+class UserSettingsGenerated extends NsgDataItem with NsgUserSettings {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameSettings = 'settings';
@@ -41,16 +41,20 @@ class UserSettingsGenerated extends NsgDataItem {
   set id(String value) => setFieldValue(nameId, value);
 
   /// Наименование
+  @override
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
 
   /// НастройкиСтрока
+  @override
   String get settings => getFieldValue(nameSettings).toString();
 
+  @override
   set settings(String value) => setFieldValue(nameSettings, value);
 
   /// ПользовательСервисов
+  @override
   String get userId => getFieldValue(nameUserId).toString();
 
   set userId(String value) => setFieldValue(nameUserId, value);
