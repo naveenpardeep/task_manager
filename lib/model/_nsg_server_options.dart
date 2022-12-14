@@ -1,3 +1,3 @@
 class NsgServerOptions {
-  static const String serverUriDataController = 'http://alex.nsgsoft.ru:5085';
+  static const String serverUriDataController = 'http://alex.nsgsoft.ru:5086';
 }
