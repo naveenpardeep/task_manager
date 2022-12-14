@@ -18,9 +18,8 @@ class DataController extends DataControllerGenerated {
   @override
   Future onInit() async {
     if (provider == null) {
-      //TODO: enter application server identifier
       provider = NsgDataProvider(
-          applicationName: 'app_name',
+          applicationName: 'nsg_task_manager',
           firebaseToken: '',
           applicationVersion: '');
       //firebaseToken: nsgFirebase == null ? '' : nsgFirebase!.firebasetoken);

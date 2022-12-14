@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NsgDataControllerMode.defaultDataControllerMode =
+    //     const NsgDataControllerMode(storageType: NsgDataStorageType.local);
     return GetMaterialApp(
       textDirection: TextDirection.ltr,
       defaultTransition: Transition.rightToLeftWithFade,
