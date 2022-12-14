@@ -27,7 +27,7 @@ class TaskImageController extends NsgDataController<Picture> {
     return NsgDataRequestParams(compare: cmp);
   }
 
-  Future saveImages() async {
+  Future<bool> saveImages() async {
     var progress = NsgProgressDialog(textDialog: 'Сохранение фото');
     progress.show();
     try {
@@ -55,6 +55,7 @@ class TaskImageController extends NsgDataController<Picture> {
       NsgErrorWidget.showError(ex);
       rethrow;
     }
+    return true;
   }
 
   @override
