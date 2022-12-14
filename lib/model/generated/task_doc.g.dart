@@ -119,7 +119,7 @@ class TaskDocGenerated extends NsgDataItem {
   set sprint(SprintDoc value) =>
     setFieldValue(nameSprintId, value.id);
 
-  /// СтатусыЗадач
+  /// СтатусЗадачи
   String get taskStatusId => getFieldValue(nameTaskStatusId).toString();
   TaskStatus get taskStatus => getReferent<TaskStatus>(nameTaskStatusId);
   Future<TaskStatus> taskStatusAsync() async {
