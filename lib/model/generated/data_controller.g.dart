@@ -10,10 +10,7 @@ class DataControllerGenerated extends NsgBaseController {
   @override
   Future onInit() async {
     final info = await PackageInfo.fromPlatform();
-    provider ??= NsgDataProvider(
-        applicationName: 'task_manager_app',
-        applicationVersion: info.version,
-        firebaseToken: '');
+    provider ??= NsgDataProvider(applicationName: 'task_manager_app', applicationVersion: info.version, firebaseToken: '');
     provider!.serverUri = NsgServerOptions.serverUriDataController;
 
     NsgDataClient.client
