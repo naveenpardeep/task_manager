@@ -6,6 +6,8 @@ export 'task_doc_comments_table.dart';
 export 'generated/task_doc_comments_table.g.dart';
 export 'task_doc_check_list_table.dart';
 export 'generated/task_doc_check_list_table.g.dart';
+export 'task_doc_files_table.dart';
+export 'generated/task_doc_files_table.g.dart';
 export 'task_status.dart';
 export 'generated/task_status.g.dart';
 export 'project_directions.dart';

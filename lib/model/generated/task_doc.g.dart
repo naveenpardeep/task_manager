@@ -19,6 +19,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameTaskStatusId = 'taskStatusId';
   static const nameComments = 'comments';
   static const nameCheckList = 'checkList';
+  static const nameFiles = 'files';
   static const nameAuthorId = 'authorId';
   static const nameAssigneeId = 'assigneeId';
   static const namePriority = 'priority';
@@ -49,6 +50,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameComments), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskDocFilesTable>(nameFiles), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
@@ -139,6 +141,10 @@ class TaskDocGenerated extends NsgDataItem {
 
   /// ЧекЛист
   NsgDataTable<TaskDocCheckListTable> get checkList => NsgDataTable<TaskDocCheckListTable>(owner: this, fieldName: nameCheckList);
+
+
+  /// ТаблицаФайлы
+  NsgDataTable<TaskDocFilesTable> get files => NsgDataTable<TaskDocFilesTable>(owner: this, fieldName: nameFiles);
 
 
   /// Автор
