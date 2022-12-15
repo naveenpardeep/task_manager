@@ -3,6 +3,7 @@ import 'package:nsg_data/nsg_data.dart';
 // ignore: unused_import
 import 'dart:typed_data';
 import '../data_controller_model.dart';
+import '../enums.dart';
 
 /// Задача
 class TaskDocGenerated extends NsgDataItem {
@@ -20,6 +21,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameCheckList = 'checkList';
   static const nameAuthorId = 'authorId';
   static const nameAssigneeId = 'assigneeId';
+  static const namePriority = 'priority';
 
   static final Map<String, String> fieldNameDict = {
    nameDate: 'Дата документа',
@@ -49,6 +51,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
+    addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
@@ -159,6 +162,11 @@ class TaskDocGenerated extends NsgDataItem {
   set assigneeId(String value) => setFieldValue(nameAssigneeId, value);
   set assignee(UserAccount value) =>
     setFieldValue(nameAssigneeId, value.id);
+
+  /// Приоритет
+  EPriority get priority => NsgEnum.fromValue(EPriority, getFieldValue(namePriority)) as EPriority;
+
+  set priority(EPriority value) => setFieldValue(namePriority, value);
 
   @override
   String get apiRequestItems {
