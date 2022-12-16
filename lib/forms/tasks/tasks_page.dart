@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
@@ -92,7 +93,14 @@ class TasksPage extends GetView<TasksController> {
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameTaskStatusId,
                                 label: 'Статус',
-                                selectionForm: Routes.taskStatusListPage),
+                               // selectionForm: Routes.taskStatusListPage
+                                ),
+                            NsgInput(
+                              selectionController:  Get.find<UserAccountController>(),
+                              dataItem:controller.currentItem,
+                              fieldName: TaskDocGenerated.nameAssigneeId,
+                              label: 'Исполнитель',
+                            ),
                             NsgInput(
                                 selectionController:
                                     Get.find<ProjectController>(),
@@ -145,7 +153,7 @@ class TasksPage extends GetView<TasksController> {
                             //   elementEditPageName: Routes.commentRowPage,
                             // ),
 
-                           // Flexible(child: imageGallery()),
+                            // Flexible(child: imageGallery()),
                           ],
                         ),
                       )),
