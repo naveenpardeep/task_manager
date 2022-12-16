@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:nsg_controls/formfields/nsg_input.dart';
@@ -24,37 +25,47 @@ class _HomepageState extends State<Homepage> {
             backgroundColor: const Color(0xff7876D9),
             flexibleSpace:
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-           InkWell(
-                child:
-                const Padding(padding: EdgeInsets.all(10),child: Text(
-                  "Проекты",
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                )),
-                onTap: () {
-                  var form = NsgSelection(
-                    inputType: NsgInputType.reference,
-                    controller: projectController,
-                  );
-                  form.selectFromArray(
-                    'Проекты',
-                    (item) {
-                      var row = ProjectItemGenerated();
-                     // row.name = item as ProjectItem;
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextButton(
+                    child: Row(
+                      children: const [
+                        Text(
+                          'Проекты',
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                        Icon(Icons.arrow_drop_down)
+                      ],
+                    ),
+                    onPressed: () {
+                      var form = NsgSelection(
+                        inputType: NsgInputType.reference,
+                        controller: projectController,
+                      );
+                      form.selectFromArray(
+                        'Проекты',
+                        (item) {
+                          var row = ProjectItemGenerated();
+                          // row.name = item as ProjectItem;
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-             const Padding(padding: EdgeInsets.all(10),child: Text(
-                  "Все заявки",
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                )),
-                const Padding(padding: EdgeInsets.all(10),child: Text(
-                  "Мои задачи",
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                )),
+                  )),
+              const Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    "Все заявки",
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  )),
+              const Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    "Мои задачи",
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  )),
             ])));
   }
 }
