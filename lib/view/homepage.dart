@@ -43,7 +43,6 @@ class _HomepageState extends State<Homepage> {
           backgroundColor: const Color(0xff7876D9),
           flexibleSpace:
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-               
             Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextButton(
@@ -94,6 +93,10 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (projectName.isEmpty)
+          const  Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Icon(Icons.arrow_upward)),
           Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
@@ -102,7 +105,7 @@ class _HomepageState extends State<Homepage> {
               )),
           Row(
             children: [
-               Expanded(
+              Expanded(
                   child: Padding(
                       padding: EdgeInsets.all(15),
                       child: Text('Поиск по тексту'))),
@@ -118,7 +121,7 @@ class _HomepageState extends State<Homepage> {
                   child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text('очистить фильтры'))),
-           const  Spacer(),
+              const Spacer(),
               Expanded(
                   child: NsgButton(
                 width: width * 0.15,

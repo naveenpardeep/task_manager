@@ -88,42 +88,39 @@ class TasksPage extends GetView<TasksController> {
                             //   ],
                             // ),
                             NsgInput(
-                                selectionController:
-                                    Get.find<TaskStatusController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameTaskStatusId,
-                                label: 'Статус',
-                               // selectionForm: Routes.taskStatusListPage
-                                ),
+                              selectionController:
+                                  Get.find<TaskStatusController>(),
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameTaskStatusId,
+                              label: 'Статус',
+                              // selectionForm: Routes.taskStatusListPage
+                            ),
                             NsgInput(
-                              selectionController:  Get.find<UserAccountController>(),
-                              dataItem:controller.currentItem,
+                              selectionController:
+                                  Get.find<UserAccountController>(),
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameAssigneeId,
                               label: 'Исполнитель',
                             ),
                             NsgInput(
-                            
-                              dataItem:controller.currentItem,
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
                               label: 'Название задачи',
                             ),
                             NsgInput(
-                            
-                              dataItem:controller.currentItem,
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDescription,
                               label: 'Описание задачи',
                               minLines: 3,
                               maxLines: 20,
                             ),
-                             NsgInput(
-                            
-                              dataItem:controller.currentItem,
+                            NsgInput(
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.namePriority,
                               label: 'Приоритет',
                             ),
-                             NsgInput(
-                            
-                              dataItem:controller.currentItem,
+                            NsgInput(
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameComment,
                               label: 'Комментарий',
                               minLines: 3,
