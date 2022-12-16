@@ -30,7 +30,7 @@ class TasksListPage extends GetView<TasksController> {
               width: 100,
               presentation: 'Статус'),
           NsgTableColumn(
-              name: TaskDocGenerated.nameText,
+              name: TaskDocGenerated.nameName,
               width: 100,
               presentation: 'Заголовок'),
           NsgTableColumn(

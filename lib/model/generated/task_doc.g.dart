@@ -11,13 +11,13 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameDate = 'date';
   static const nameDateClosed = 'dateClosed';
   static const nameDateUpdated = 'dateUpdated';
-  static const nameComment = 'comment';
   static const nameDescription = 'description';
-  static const nameText = 'text';
+  static const nameName = 'name';
+  static const nameComment = 'comment';
   static const nameProjectId = 'projectId';
   static const nameSprintId = 'sprintId';
   static const nameTaskStatusId = 'taskStatusId';
-  static const nameComments = 'comments';
+  static const nameTableComments = 'tableComments';
   static const nameCheckList = 'checkList';
   static const nameFiles = 'files';
   static const nameAuthorId = 'authorId';
@@ -28,9 +28,9 @@ class TaskDocGenerated extends NsgDataItem {
    nameDate: 'Дата документа',
    nameDateClosed: 'Дата закрытия',
    nameDateUpdated: 'Дата обновления',
-   nameComment: 'Комментарий',
    nameDescription: 'Описание задачи',
-   nameText: 'Текст задачи',
+   nameName: 'Текст задачи',
+   nameComment: 'Комментарий',
  };
 
   @override
@@ -42,13 +42,13 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
-    addField(NsgDataStringField(nameComment), primaryKey: false);
     addField(NsgDataStringField(nameDescription), primaryKey: false);
-    addField(NsgDataStringField(nameText), primaryKey: false);
+    addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataStringField(nameComment), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
-    addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameComments), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameTableComments), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocFilesTable>(nameFiles), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
@@ -57,10 +57,13 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
-    fieldList.fields[nameComment]?.presentation = 'Комментарий';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
-    fieldList.fields[nameText]?.presentation = 'Текст задачи';
+    fieldList.fields[nameName]?.presentation = 'Текст задачи';
+    fieldList.fields[nameComment]?.presentation = 'Комментарий';
   }
+
+  @override
+  String toString() => name;
 
   @override
   NsgDataItem getNewObject() => TaskDoc();
@@ -87,20 +90,20 @@ class TaskDocGenerated extends NsgDataItem {
 
   set dateUpdated(DateTime value) => setFieldValue(nameDateUpdated, value);
 
-  /// Комментарий
-  String get comment => getFieldValue(nameComment).toString();
-
-  set comment(String value) => setFieldValue(nameComment, value);
-
   /// ОписаниеЗадачи
   String get description => getFieldValue(nameDescription).toString();
 
   set description(String value) => setFieldValue(nameDescription, value);
 
   /// ТекстЗадачи
-  String get text => getFieldValue(nameText).toString();
+  String get name => getFieldValue(nameName).toString();
 
-  set text(String value) => setFieldValue(nameText, value);
+  set name(String value) => setFieldValue(nameName, value);
+
+  /// Комментарий
+  String get comment => getFieldValue(nameComment).toString();
+
+  set comment(String value) => setFieldValue(nameComment, value);
 
   /// Проект
   String get projectId => getFieldValue(nameProjectId).toString();
@@ -135,8 +138,8 @@ class TaskDocGenerated extends NsgDataItem {
   set taskStatus(TaskStatus value) =>
     setFieldValue(nameTaskStatusId, value.id);
 
-  /// Комментарии
-  NsgDataTable<TaskDocCommentsTable> get comments => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameComments);
+  /// ТаблицаКомментарии
+  NsgDataTable<TaskDocCommentsTable> get tableComments => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableComments);
 
 
   /// ЧекЛист
