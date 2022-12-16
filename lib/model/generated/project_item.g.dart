@@ -8,9 +8,11 @@ import '../data_controller_model.dart';
 class ProjectItemGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
+  static const nameDate = 'date';
 
   static final Map<String, String> fieldNameDict = {
    nameName: 'Наименование',
+   nameDate: 'Дата создания',
  };
 
   @override
@@ -20,7 +22,9 @@ class ProjectItemGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataDateField(nameDate), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
+    fieldList.fields[nameDate]?.presentation = 'Дата создания';
   }
 
   @override
@@ -40,6 +44,11 @@ class ProjectItemGenerated extends NsgDataItem {
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
+
+  /// ДатаСоздания
+  DateTime get date => getFieldValue(nameDate) as DateTime;
+
+  set date(DateTime value) => setFieldValue(nameDate, value);
 
   @override
   String get apiRequestItems {

@@ -3,6 +3,7 @@ import 'package:nsg_data/nsg_data.dart';
 // ignore: depend_on_referenced_packages
 import 'package:package_info_plus/package_info_plus.dart';
 import '../_nsg_server_options.dart';
+import '../enums.dart';
 import '../data_controller_model.dart';
 
 class DataControllerGenerated extends NsgBaseController {
@@ -22,6 +23,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(TaskDocCheckListTable(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(TaskDocFilesTable(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(TaskStatus(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(ProjectDirections(), remoteProvider: provider);
@@ -35,6 +38,8 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(UserAccount(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(UserSettings(), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(EPriority(0, ''), remoteProvider: provider);
     provider!.useNsgAuthorization = true;
     var db = NsgLocalDb.instance;
     await db.init('task_manager_app');

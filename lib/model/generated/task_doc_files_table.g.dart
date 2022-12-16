@@ -5,34 +5,37 @@ import 'dart:typed_data';
 import '../data_controller_model.dart';
 
 /// Задача.ТаблицаКомментарии
-class TaskDocCommentsTableGenerated extends NsgDataItem {
+class TaskDocFilesTableGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
-  static const nameText = 'text';
+  static const nameName = 'name';
   static const nameDate = 'date';
-  static const nameAuthorId = 'authorId';
+  static const nameFile = 'file';
 
   static final Map<String, String> fieldNameDict = {
-   nameText: 'Текст',
-   nameDate: 'Дата комментария',
+   nameName: 'Наименование',
+   nameDate: 'Дата загрузки',
  };
 
   @override
-  String get typeName => 'TaskDocCommentsTable';
+  String get typeName => 'TaskDocFilesTable';
 
   @override
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<TaskDoc>(nameOwnerId), primaryKey: false);
-    addField(NsgDataStringField(nameText, maxLength: 200), primaryKey: false);
+    addField(NsgDataStringField(nameName, maxLength: 200), primaryKey: false);
     addField(NsgDataDateField(nameDate), primaryKey: false);
-    addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
-    fieldList.fields[nameText]?.presentation = 'Текст';
-    fieldList.fields[nameDate]?.presentation = 'Дата комментария';
+    addField(NsgDataBinaryField(nameFile), primaryKey: false);
+    fieldList.fields[nameName]?.presentation = 'Наименование';
+    fieldList.fields[nameDate]?.presentation = 'Дата загрузки';
   }
 
   @override
-  NsgDataItem getNewObject() => TaskDocCommentsTable();
+  String toString() => name;
+
+  @override
+  NsgDataItem getNewObject() => TaskDocFilesTable();
 
   /// Guid - идентификатор объета
   @override
@@ -54,29 +57,25 @@ class TaskDocCommentsTableGenerated extends NsgDataItem {
   set owner(TaskDoc value) =>
     setFieldValue(nameOwnerId, value.id);
 
-  /// Комментарий
-  String get text => getFieldValue(nameText).toString();
+  /// Наименование
+  String get name => getFieldValue(nameName).toString();
 
-  set text(String value) => setFieldValue(nameText, value);
+  set name(String value) => setFieldValue(nameName, value);
 
-  /// ДатаКомментария
+  /// ДатаЗагрузки
   DateTime get date => getFieldValue(nameDate) as DateTime;
 
   set date(DateTime value) => setFieldValue(nameDate, value);
 
-  /// Автор
-  String get authorId => getFieldValue(nameAuthorId).toString();
-  UserAccount get author => getReferent<UserAccount>(nameAuthorId);
-  Future<UserAccount> authorAsync() async {
-   return await getReferentAsync<UserAccount>(nameAuthorId);
+  /// Файл
+  List<int> get file {
+    return getFieldValue(nameFile) as List<int>;
   }
 
-  set authorId(String value) => setFieldValue(nameAuthorId, value);
-  set author(UserAccount value) =>
-    setFieldValue(nameAuthorId, value.id);
+  set file(List<int> value) => setFieldValue(nameFile, value);
 
   @override
   String get apiRequestItems {
-    return '/Data/TaskDocCommentsTable';
+    return '/Data/TaskDocFilesTable';
   }
 }
