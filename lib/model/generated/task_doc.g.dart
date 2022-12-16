@@ -13,6 +13,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameDateUpdated = 'dateUpdated';
   static const nameDescription = 'description';
   static const nameName = 'name';
+  static const nameComment = 'comment';
   static const nameProjectId = 'projectId';
   static const nameSprintId = 'sprintId';
   static const nameTaskStatusId = 'taskStatusId';
@@ -29,6 +30,7 @@ class TaskDocGenerated extends NsgDataItem {
    nameDateUpdated: 'Дата обновления',
    nameDescription: 'Описание задачи',
    nameName: 'Текст задачи',
+   nameComment: 'Комментарий',
  };
 
   @override
@@ -42,6 +44,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
     addField(NsgDataStringField(nameDescription), primaryKey: false);
     addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataStringField(nameComment), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
@@ -56,6 +59,7 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
     fieldList.fields[nameName]?.presentation = 'Текст задачи';
+    fieldList.fields[nameComment]?.presentation = 'Комментарий';
   }
 
   @override
@@ -95,6 +99,11 @@ class TaskDocGenerated extends NsgDataItem {
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
+
+  /// Комментарий
+  String get comment => getFieldValue(nameComment).toString();
+
+  set comment(String value) => setFieldValue(nameComment, value);
 
   /// Проект
   String get projectId => getFieldValue(nameProjectId).toString();
