@@ -27,12 +27,15 @@ class TasksPage extends GetView<TasksController> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 NsgAppBar(
+                  backColor: Color(0xff7876D9),
                   text: controller.currentItem.isEmpty
                       ? 'Новая задача'.toUpperCase()
                       : controller.currentItem.date.toString().toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
+                  color: Colors.white,
+
                   colorsInverted: true,
-                  bottomCircular: true,
+                  // bottomCircular: true,
                   onPressed: () {
                     controller.itemPageCancel();
                   },
@@ -54,35 +57,35 @@ class TasksPage extends GetView<TasksController> {
                             //       //disabled: true,
                             //       label: 'Создана',
                             //     ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Flexible(
-                                  child: NsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameDate,
-                                    disabled: true,
-                                    label: 'Создана',
-                                  ),
-                                ),
-                                Flexible(
-                                  child: NsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameDateUpdated,
-                                    disabled: true,
-                                    label: 'Обновлена',
-                                  ),
-                                ),
-                                Flexible(
-                                  child: NsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameDateClosed,
-                                    disabled: true,
-                                    label: 'Закрыта',
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   children: [
+                            //     Flexible(
+                            //       child: NsgInput(
+                            //         dataItem: controller.currentItem,
+                            //         fieldName: TaskDocGenerated.nameDate,
+                            //         disabled: true,
+                            //         label: 'Создана',
+                            //       ),
+                            //     ),
+                            //     Flexible(
+                            //       child: NsgInput(
+                            //         dataItem: controller.currentItem,
+                            //         fieldName: TaskDocGenerated.nameDateUpdated,
+                            //         disabled: true,
+                            //         label: 'Обновлена',
+                            //       ),
+                            //     ),
+                            //     Flexible(
+                            //       child: NsgInput(
+                            //         dataItem: controller.currentItem,
+                            //         fieldName: TaskDocGenerated.nameDateClosed,
+                            //         disabled: true,
+                            //         label: 'Закрыта',
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             NsgInput(
                                 selectionController:
                                     Get.find<TaskStatusController>(),
@@ -117,31 +120,32 @@ class TasksPage extends GetView<TasksController> {
                               maxLines: 20,
                             ),
 
-                            NsgTable(
-                              controller:
-                                  Get.find<CommentTableTasksController>(),
-                              columns: [
-                                NsgTableColumn(
-                                    name:
-                                        TaskDocCommentsTableGenerated.nameDate,
-                                    width: 80,
-                                    //expanded: true,
-                                    presentation: 'Дата'),
-                                NsgTableColumn(
-                                    name: TaskDocCommentsTableGenerated
-                                        .nameAuthorId,
-                                    width: 80,
-                                    //expanded: true,
-                                    presentation: 'Автор'),
-                                NsgTableColumn(
-                                    name:
-                                        TaskDocCommentsTableGenerated.nameText,
-                                    expanded: true,
-                                    presentation: 'Комментарий')
-                              ],
-                              elementEditPageName: Routes.commentRowPage,
-                            ),
-                            Flexible(child: imageGallery()),
+                            // NsgTable(
+                            //   controller:
+                            //       Get.find<CommentTableTasksController>(),
+                            //   columns: [
+                            //     NsgTableColumn(
+                            //         name:
+                            //             TaskDocCommentsTableGenerated.nameDate,
+                            //         width: 80,
+                            //         //expanded: true,
+                            //         presentation: 'Дата'),
+                            //     NsgTableColumn(
+                            //         name: TaskDocCommentsTableGenerated
+                            //             .nameAuthorId,
+                            //         width: 80,
+                            //         //expanded: true,
+                            //         presentation: 'Автор'),
+                            //     NsgTableColumn(
+                            //         name:
+                            //             TaskDocCommentsTableGenerated.nameText,
+                            //         expanded: true,
+                            //         presentation: 'Комментарий')
+                            //   ],
+                            //   elementEditPageName: Routes.commentRowPage,
+                            // ),
+
+                           // Flexible(child: imageGallery()),
                           ],
                         ),
                       )),

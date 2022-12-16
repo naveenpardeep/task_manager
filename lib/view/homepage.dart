@@ -6,7 +6,9 @@ import 'package:nsg_controls/formfields/nsg_input.dart';
 import 'package:nsg_controls/formfields/nsg_input_type.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_selection.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import '../model/generated/project_item.g.dart';
 
@@ -124,6 +126,10 @@ class _HomepageState extends State<Homepage> {
                 text: 'создать заявку',
                 color: Colors.white,
                 backColor: Color(0xff7876D9),
+                onPressed: () {
+                  Get.find<TasksController>().createNewItemAsync();
+                  Get.toNamed(Routes.tasksPage);
+                },
               ))
             ],
           )
