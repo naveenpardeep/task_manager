@@ -116,10 +116,7 @@ class _HomepageState extends State<Homepage> {
                   child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text('очистить фильтры'))),
-              Expanded(
-                  child: SizedBox(
-                width: width * 0.3,
-              )),
+           const  Spacer(),
               Expanded(
                   child: NsgButton(
                 width: width * 0.15,
