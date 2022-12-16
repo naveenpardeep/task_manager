@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -16,12 +17,14 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
-  @override
- // Future<TaskDoc> doCreateNewItem() async {
-  //  var item = await super.doCreateNewItem();
-  //  item.dat = DateTime.now();
-   // return item;
- // }
+  @override 
+  Future<TaskDoc> createNewItemAsync() async{
+    
+    var dataitem= await super.createNewItemAsync();
+  
+    dataitem.date=DateTime.now() ;
+    return dataitem;
+  }
 
   @override
   Future<bool> itemPagePost(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -15,6 +17,10 @@ class TasksPage extends GetView<TasksController> {
 
   @override
   Widget build(BuildContext context) {
+    var todaydate = controller.currentItem.date;
+
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    String formatted = formateddate.format(todaydate);
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -87,6 +93,7 @@ class TasksPage extends GetView<TasksController> {
                             //     ),
                             //   ],
                             // ),
+                            NsgText('Создано :$formatted'),
                             NsgInput(
                               selectionController:
                                   Get.find<TaskStatusController>(),
@@ -126,6 +133,11 @@ class TasksPage extends GetView<TasksController> {
                               minLines: 3,
                               maxLines: 20,
                             ),
+                            //   NsgInput(
+                            //   dataItem: controller.currentItem,
+                            //   fieldName: TaskDocGenerated.nameFiles,
+
+                            // ),
                             // NsgInput(
                             //     selectionController:
                             //         Get.find<ProjectController>(),
@@ -179,7 +191,7 @@ class TasksPage extends GetView<TasksController> {
                             //   elementEditPageName: Routes.commentRowPage,
                             // ),
 
-                            // Flexible(child: imageGallery()),
+                            //  Flexible(child: imageGallery()),
                           ],
                         ),
                       )),
@@ -193,11 +205,12 @@ class TasksPage extends GetView<TasksController> {
   }
 
   Widget imageGallery() {
-    return Get.find<TaskImageController>().obx((state) => NsgFilePicker(
-          showAsWidget: true,
-          callback: (value) {},
-          objectsList: Get.find<TaskImageController>().images,
-          allowedFileFormats: const [],
-        ));
+    // return Get.find<TaskImageController>().obx((state) =>
+    return NsgFilePicker(
+      showAsWidget: true,
+      callback: (value) {},
+      objectsList: Get.find<TaskImageController>().images,
+      allowedFileFormats: const [],
+    );
   }
 }

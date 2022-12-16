@@ -128,7 +128,7 @@ class _HomepageState extends State<Homepage> {
                 icon: Icons.add,
                 text: 'создать заявку',
                 color: Colors.white,
-                backColor: Color(0xff7876D9),
+                backColor: const Color(0xff7876D9),
                 onPressed: () {
                   Get.find<TasksController>().createNewItemAsync();
                   Get.toNamed(Routes.tasksPage);
