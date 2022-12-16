@@ -102,31 +102,60 @@ class TasksPage extends GetView<TasksController> {
                               label: 'Исполнитель',
                             ),
                             NsgInput(
-                                selectionController:
-                                    Get.find<ProjectController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameProjectId,
-                                label: 'Проект',
-                                selectionForm: Routes.projectListPage),
-                            NsgInput(
-                                selectionController:
-                                    Get.find<ProjectController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameSprintId,
-                                label: 'Спринт',
-                                selectionForm: Routes.projectListPage),
-                            NsgInput(
-                              dataItem: controller.currentItem,
+                            
+                              dataItem:controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
-                              label: 'Заголовок',
+                              label: 'Название задачи',
                             ),
                             NsgInput(
-                              dataItem: controller.currentItem,
+                            
+                              dataItem:controller.currentItem,
                               fieldName: TaskDocGenerated.nameDescription,
-                              label: 'Описание',
+                              label: 'Описание задачи',
                               minLines: 3,
                               maxLines: 20,
                             ),
+                             NsgInput(
+                            
+                              dataItem:controller.currentItem,
+                              fieldName: TaskDocGenerated.namePriority,
+                              label: 'Приоритет',
+                            ),
+                             NsgInput(
+                            
+                              dataItem:controller.currentItem,
+                              fieldName: TaskDocGenerated.nameComment,
+                              label: 'Комментарий',
+                              minLines: 3,
+                              maxLines: 20,
+                            ),
+                            // NsgInput(
+                            //     selectionController:
+                            //         Get.find<ProjectController>(),
+                            //     dataItem: controller.currentItem,
+                            //     fieldName: TaskDocGenerated.nameProjectId,
+                            //     label: 'Проект',
+                            //     //selectionForm: Routes.projectListPage
+                            //     ),
+                            // NsgInput(
+                            //     selectionController:
+                            //         Get.find<ProjectController>(),
+                            //     dataItem: controller.currentItem,
+                            //     fieldName: TaskDocGenerated.nameSprintId,
+                            //     label: 'Спринт',
+                            //     selectionForm: Routes.projectListPage),
+                            // NsgInput(
+                            //   dataItem: controller.currentItem,
+                            //   fieldName: TaskDocGenerated.nameName,
+                            //   label: 'Заголовок',
+                            // ),
+                            // NsgInput(
+                            //   dataItem: controller.currentItem,
+                            //   fieldName: TaskDocGenerated.nameDescription,
+                            //   label: 'Описание',
+                            //   minLines: 3,
+                            //   maxLines: 20,
+                            // ),
 
                             // NsgTable(
                             //   controller:
