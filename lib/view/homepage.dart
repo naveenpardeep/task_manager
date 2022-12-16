@@ -30,6 +30,12 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          actions: [
+            Image.asset(
+              'lib/assets/images/logo.png',
+              height: 70,
+            ),
+          ],
           backgroundColor: const Color(0xff7876D9),
           flexibleSpace:
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -83,10 +89,12 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            projectName.isEmpty ? 'Select Project' : projectName,
-            textScaleFactor: 1.4,
-          ),
+          Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                projectName.isEmpty ? 'Select Project' : projectName,
+                textScaleFactor: 1.4,
+              )),
         ],
       ),
     );
