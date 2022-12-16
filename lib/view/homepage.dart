@@ -17,55 +17,78 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  String projectName = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    projectName;
+  }
+
   var projectController = Get.find<ProjectController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: const Color(0xff7876D9),
-            flexibleSpace:
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextButton(
-                    child: Row(
-                      children: const [
-                        Text(
-                          'Проекты',
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                        Icon(Icons.arrow_drop_down)
-                      ],
-                    ),
-                    onPressed: () {
-                      var form = NsgSelection(
-                        inputType: NsgInputType.reference,
-                        controller: projectController,
-                      );
-                      form.selectFromArray(
+      appBar: AppBar(
+          backgroundColor: const Color(0xff7876D9),
+          flexibleSpace:
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextButton(
+                  child: Row(
+                    children: const [
+                      Text(
                         'Проекты',
-                        (item) {
-                          var row = ProjectItemGenerated();
-                          // row.name = item as ProjectItem;
-                        },
-                      );
-                    },
-                  )),
-              const Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                    "Все заявки",
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  )),
-              const Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                    "Мои задачи",
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  )),
-            ])));
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      Icon(Icons.arrow_drop_down)
+                    ],
+                  ),
+                  onPressed: () {
+                    var form = NsgSelection(
+                      inputType: NsgInputType.reference,
+                      controller: projectController,
+                    );
+                    form.selectFromArray(
+                      'Проекты',
+                      (item) {
+                        var row = ProjectItemGenerated();
+                        // row.name = item as ProjectItem;
+                        setState(() {
+                          projectName = projectController.currentItem.name;
+                        });
+
+                        projectController.sendNotify();
+                      },
+                    );
+                  },
+                )),
+            const Padding(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  "Все заявки",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                )),
+            const Padding(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  "Мои задачи",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                )),
+          ])),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            projectName.isEmpty ? 'Select Project' : projectName,
+            textScaleFactor: 1.4,
+          ),
+        ],
+      ),
+    );
   }
 }
