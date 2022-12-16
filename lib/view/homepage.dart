@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:nsg_controls/formfields/nsg_input.dart';
 import 'package:nsg_controls/formfields/nsg_input_type.dart';
+import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_selection.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 
@@ -28,6 +29,7 @@ class _HomepageState extends State<Homepage> {
   var projectController = Get.find<ProjectController>();
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           actions: [
@@ -39,6 +41,7 @@ class _HomepageState extends State<Homepage> {
           backgroundColor: const Color(0xff7876D9),
           flexibleSpace:
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+               
             Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextButton(
@@ -95,6 +98,38 @@ class _HomepageState extends State<Homepage> {
                 projectName.isEmpty ? 'Select Project' : projectName,
                 textScaleFactor: 1.4,
               )),
+          Row(
+            children: [
+               Expanded(
+                  child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Text('Поиск по тексту'))),
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text('Поиск по дате'))),
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text('Поиск по создателю'))),
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text('очистить фильтры'))),
+              Expanded(
+                  child: SizedBox(
+                width: width * 0.3,
+              )),
+              Expanded(
+                  child: NsgButton(
+                width: width * 0.15,
+                icon: Icons.add,
+                text: 'создать заявку',
+                color: Colors.white,
+                backColor: Color(0xff7876D9),
+              ))
+            ],
+          )
         ],
       ),
     );

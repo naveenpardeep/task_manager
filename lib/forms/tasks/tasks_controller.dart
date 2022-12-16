@@ -17,11 +17,11 @@ class TasksController extends NsgDataController<TaskDoc> {
   }
 
   @override
-  Future<TaskDoc> doCreateNewItem() async {
-    var item = await super.doCreateNewItem();
-    item.date = DateTime.now();
-    return item;
-  }
+ // Future<TaskDoc> doCreateNewItem() async {
+  //  var item = await super.doCreateNewItem();
+  //  item.dat = DateTime.now();
+   // return item;
+ // }
 
   @override
   Future<bool> itemPagePost(
