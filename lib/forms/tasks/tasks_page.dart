@@ -106,7 +106,7 @@ class TasksPage extends GetView<TasksController> {
                                 selectionForm: Routes.projectListPage),
                             NsgInput(
                               dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameText,
+                              fieldName: TaskDocGenerated.nameName,
                               label: 'Заголовок',
                             ),
                             NsgInput(

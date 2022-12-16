@@ -47,7 +47,7 @@ class CommentTableTasksController
   CommentTableTasksController()
       : super(
             masterController: Get.find<TasksController>(),
-            tableFieldName: TaskDocGenerated.nameComments) {
+            tableFieldName: TaskDocGenerated.nameTableComments) {
     readOnly = false;
     editModeAllowed = true;
     requestOnInit = true;
