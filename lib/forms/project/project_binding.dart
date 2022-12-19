@@ -10,5 +10,6 @@ class ProjectBinding extends Bindings {
     Get.put(ProjectController());
     Get.put(TasksController());
     Get.put(UserAccountController());
+  
   }
 }
