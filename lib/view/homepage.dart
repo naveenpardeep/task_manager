@@ -172,7 +172,19 @@ class _HomepageState extends State<Homepage> {
                                 onPressed: () {})
                           ],
                         ),
-                        Divider(),
+                        const Divider(),
+                        Card(
+                          color: Color.fromRGBO(120, 118, 217, 0.12),
+                          child: Column(
+                            children: [
+                              Text('NSG-1234'),
+                              Text(
+                                  'Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
+                              Text(
+                                  'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
+                            ],
+                          ),
+                        )
                       ],
                     ))),
             Expanded(
@@ -210,6 +222,18 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
+                        Card(
+                          color: Color.fromRGBO(120, 118, 217, 0.12),
+                          child: Column(
+                            children: [
+                              Text('NSG-1234'),
+                              Text(
+                                  'Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
+                              Text(
+                                  'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
+                            ],
+                          ),
+                        )
                       ],
                     ))),
             Expanded(
@@ -247,6 +271,20 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
+                        Container(
+                            height: 98,
+                            child: Card(
+                              color: const Color.fromRGBO(255, 0, 0, 0.12),
+                              child: Column(
+                                children: [
+                                  Text('NSG-1234'),
+                                  Text(
+                                      '  Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
+                                  Text(
+                                      'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
+                                ],
+                              ),
+                            ))
                       ],
                     ))),
           ])
