@@ -6,6 +6,7 @@ import 'package:nsg_controls/formfields/nsg_input.dart';
 import 'package:nsg_controls/formfields/nsg_input_type.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_selection.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -94,7 +95,7 @@ class _HomepageState extends State<Homepage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (projectName.isEmpty)
-          const  Padding(
+            const Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Icon(Icons.arrow_upward)),
           Padding(
@@ -135,7 +136,120 @@ class _HomepageState extends State<Homepage> {
                 },
               ))
             ],
-          )
+          ),
+          Row(children: [
+            Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.travel_explore),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('Все заявки'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('4'))),
+                            TextButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        Divider(),
+                      ],
+                    ))),
+            Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.pause),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('Приостановлено'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('20'))),
+                            TextButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                      ],
+                    ))),
+            Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.delete_forever_sharp),
+                            Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: NsgText('К удалению'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('20'))),
+                            TextButton(
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                      ],
+                    ))),
+          ])
         ],
       ),
     );
