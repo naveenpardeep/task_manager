@@ -9,6 +9,8 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameDate = 'date';
+  static const nameStatusDoneId = 'statusDoneId';
+  static const nameStatusCancelledId = 'statusCancelledId';
 
   static final Map<String, String> fieldNameDict = {
    nameName: 'Наименование',
@@ -23,6 +25,8 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataDateField(nameDate), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
   }
@@ -49,6 +53,28 @@ class ProjectItemGenerated extends NsgDataItem {
   DateTime get date => getFieldValue(nameDate) as DateTime;
 
   set date(DateTime value) => setFieldValue(nameDate, value);
+
+  /// СтатусЗавершения
+  String get statusDoneId => getFieldValue(nameStatusDoneId).toString();
+  TaskStatus get statusDone => getReferent<TaskStatus>(nameStatusDoneId);
+  Future<TaskStatus> statusDoneAsync() async {
+   return await getReferentAsync<TaskStatus>(nameStatusDoneId);
+  }
+
+  set statusDoneId(String value) => setFieldValue(nameStatusDoneId, value);
+  set statusDone(TaskStatus value) =>
+    setFieldValue(nameStatusDoneId, value.id);
+
+  /// СтатусОтмены
+  String get statusCancelledId => getFieldValue(nameStatusCancelledId).toString();
+  TaskStatus get statusCancelled => getReferent<TaskStatus>(nameStatusCancelledId);
+  Future<TaskStatus> statusCancelledAsync() async {
+   return await getReferentAsync<TaskStatus>(nameStatusCancelledId);
+  }
+
+  set statusCancelledId(String value) => setFieldValue(nameStatusCancelledId, value);
+  set statusCancelled(TaskStatus value) =>
+    setFieldValue(nameStatusCancelledId, value.id);
 
   @override
   String get apiRequestItems {
