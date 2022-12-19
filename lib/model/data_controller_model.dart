@@ -10,6 +10,8 @@ export 'task_doc_files_table.dart';
 export 'generated/task_doc_files_table.g.dart';
 export 'task_status.dart';
 export 'generated/task_status.g.dart';
+export 'task_status_transition_table.dart';
+export 'generated/task_status_transition_table.g.dart';
 export 'project_directions.dart';
 export 'generated/project_directions.g.dart';
 export 'sprint_doc.dart';

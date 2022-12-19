@@ -9,6 +9,8 @@ class TaskStatusGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameIsDone = 'isDone';
+  static const nameProjectId = 'projectId';
+  static const nameTransitionTable = 'transitionTable';
 
   static final Map<String, String> fieldNameDict = {
    nameName: 'Наименование',
@@ -23,6 +25,8 @@ class TaskStatusGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataBoolField(nameIsDone), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskStatusTransitionTable>(nameTransitionTable), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameIsDone]?.presentation = 'Статус завершения';
   }
@@ -49,6 +53,21 @@ class TaskStatusGenerated extends NsgDataItem {
   bool get isDone => getFieldValue(nameIsDone) as bool;
 
   set isDone(bool value) => setFieldValue(nameIsDone, value);
+
+  /// Проект
+  String get projectId => getFieldValue(nameProjectId).toString();
+  ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
+  Future<ProjectItem> projectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameProjectId);
+  }
+
+  set projectId(String value) => setFieldValue(nameProjectId, value);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
+
+  /// СтатусыПерехода
+  NsgDataTable<TaskStatusTransitionTable> get transitionTable => NsgDataTable<TaskStatusTransitionTable>(owner: this, fieldName: nameTransitionTable);
+
 
   @override
   String get apiRequestItems {

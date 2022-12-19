@@ -27,6 +27,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(TaskStatus(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(TaskStatusTransitionTable(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(ProjectDirections(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(SprintDoc(), remoteProvider: provider);
@@ -40,6 +42,7 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(UserSettings(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(EPriority(0, ''), remoteProvider: provider);
+    await NsgLocalDb.instance.init(provider!.applicationName);
     provider!.useNsgAuthorization = true;
     var db = NsgLocalDb.instance;
     await db.init('task_manager_app');
