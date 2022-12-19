@@ -56,7 +56,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.taskStatusPage,
-      page: () => const TaskStatusPage(),
+      page: () =>  TaskStatusPage(),
       binding: TaskStatusBinding(),
     ),
     GetPage(

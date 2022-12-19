@@ -10,7 +10,7 @@ class TaskStatusListPage extends GetView<TaskStatusController> {
 
   final _textTitle = 'Статусы задач'.toUpperCase();
   final _textNoItems = 'Нет элементов';
-  final _elementPage = Routes.tasksPage;
+  final _elementPage = Routes.taskStatusPage;
 
   @override
   Widget build(BuildContext context) {

@@ -47,8 +47,9 @@ class DataController extends DataControllerGenerated {
     if (_animationFinished && status.isSuccess && !gotoDone) {
       gotoDone = true;
      // Get.offAndToNamed(Routes.tasksListPage);
-      Get.offAndToNamed(Routes.homePage);
+     Get.offAndToNamed(Routes.homePage);
    // Get.offAndToNamed(Routes.taskStatusListPage);
+  //  Get.offAndToNamed(Routes.projectListPage);
     }
   }
 }
