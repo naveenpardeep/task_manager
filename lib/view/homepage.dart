@@ -9,6 +9,7 @@ import 'package:nsg_controls/nsg_selection.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import '../model/generated/project_item.g.dart';
@@ -22,6 +23,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String projectName = '';
+  var taskConstroller = Get.find<TasksController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -153,7 +155,7 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: NsgText('4'))),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -173,18 +175,11 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        Card(
-                          color: Color.fromRGBO(120, 118, 217, 0.12),
-                          child: Column(
-                            children: [
-                              Text('NSG-1234'),
-                              Text(
-                                  'Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
-                              Text(
-                                  'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
-                            ],
-                          ),
-                        )
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskList()),
+                          ],
+                        ),
                       ],
                     ))),
             Expanded(
@@ -202,7 +197,7 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: NsgText('20'))),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -222,18 +217,11 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        Card(
-                          color: Color.fromRGBO(120, 118, 217, 0.12),
-                          child: Column(
-                            children: [
-                              Text('NSG-1234'),
-                              Text(
-                                  'Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
-                              Text(
-                                  'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
-                            ],
-                          ),
-                        )
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskList()),
+                          ],
+                        ),
                       ],
                     ))),
             Expanded(
@@ -271,25 +259,111 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        Container(
-                            height: 98,
-                            child: Card(
-                              color: const Color.fromRGBO(255, 0, 0, 0.12),
-                              child: Column(
-                                children: [
-                                  Text('NSG-1234'),
-                                  Text(
-                                      '  Название задачи и/или её краткое описание длиной не более двух строк (самый заполненный вариант карточки задачи '),
-                                  Text(
-                                      'создано 02.09.22 в 22:41 (обновлено 03.09.22 в 12:19)')
-                                ],
-                              ),
-                            ))
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskDeleted()),
+                          ],
+                        ),
                       ],
                     ))),
           ])
         ],
       ),
     );
+  }
+
+  Widget getTaskList() {
+    List<Widget> list = [];
+    var taskStatuscontroller = Get.find<TaskStatusController>();
+    var tasksList = taskConstroller.items;
+
+   // var taskstart = tasksList.where((
+   //     (element) => element.taskStatus == taskStatuscontroller.currentItem));
+    for (var tasks in tasksList) {
+      // if (tasks.name
+      //     .toString()
+      //    .toLowerCase()
+      //    .contains(searchvalue.toLowerCase()))
+      {
+        list.add(GestureDetector(
+          onTap: () {
+            taskConstroller.currentItem = tasks;
+            Get.toNamed(Routes.tasksPage);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                    height: 98,
+                    child: Card(
+                        color: const Color.fromRGBO(120, 118, 217, 0.12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tasks.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ))),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
+  }
+
+  Widget getTaskDeleted() {
+    List<Widget> list = [];
+    for (var tasks in taskConstroller.items) {
+      // if (tasks.name
+      //     .toString()
+      //    .toLowerCase()
+      //    .contains(searchvalue.toLowerCase()))
+      {
+        list.add(GestureDetector(
+          onTap: () {
+            taskConstroller.currentItem = tasks;
+            Get.toNamed(Routes.tasksPage);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                    height: 98,
+                    child: Card(
+                        color: const Color.fromRGBO(255, 0, 0, 0.12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tasks.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ))),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
   }
 }

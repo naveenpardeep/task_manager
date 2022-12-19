@@ -9,10 +9,10 @@ class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
-      TaskDocGenerated.nameProjectId,
-      TaskDocGenerated.nameSprintId,
+    //  TaskDocGenerated.nameProjectId,
+     // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
-      TaskDocGenerated.nameAuthorId,
+     // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId
     ];
   }
@@ -28,7 +28,7 @@ class TasksController extends NsgDataController<TaskDoc> {
 
   @override
   Future<bool> itemPagePost(
-      {bool goBack = true, bool useValidation = true}) async {
+      {bool goBack = true, bool useValidation = false}) async {
     var imageController = Get.find<TaskImageController>();
     if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
       await imageController.saveImages();
