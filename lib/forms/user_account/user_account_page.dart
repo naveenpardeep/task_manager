@@ -25,7 +25,7 @@ class UserAccountPage extends GetView<UserAccountController> {
               children: <Widget>[
                 NsgAppBar(
                   text: controller.currentItem.isEmpty
-                      ? 'Новый статус задачи'.toUpperCase()
+                      ? 'Новый User'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
