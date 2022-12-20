@@ -23,6 +23,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String projectName = '';
+  bool isWorkButton=false;
   var taskConstroller = Get.find<TasksController>();
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _HomepageState extends State<Homepage> {
                         var row = ProjectItemGenerated();
                         // row.name = item as ProjectItem;
                         setState(() {
+                          isWorkButton=false;
                           projectName = projectController.currentItem.name;
                         });
 
@@ -85,6 +87,22 @@ class _HomepageState extends State<Homepage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 )),
+                Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextButton(
+                  child: 
+                      Text(
+                        'В работе',
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                     
+                     
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isWorkButton=true;
+                    });
+                  })),
             const Padding(
                 padding: EdgeInsets.all(15),
                 child: Text(
@@ -139,7 +157,10 @@ class _HomepageState extends State<Homepage> {
               ))
             ],
           ),
-          Row(children: [
+           isWorkButton==false?
+          Row(children: 
+         [
+            
             Expanded(
                 child: Padding(
                     padding: EdgeInsets.all(15),
@@ -151,7 +172,7 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: NsgText('Все заявки'))),
+                                    child: NsgText('Новые'))),
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
@@ -224,6 +245,48 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ],
                     ))),
+                    Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.work_outline_outlined),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('На будущее'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
+                            TextButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskList()),
+                          ],
+                        ),
+                      ],
+                    ))),
             Expanded(
                 child: Padding(
                     padding: const EdgeInsets.all(15),
@@ -265,7 +328,149 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                       ],
+                    )))
+          
+         ])
+          
+          :
+          //isWorkbutton true
+Row(children: 
+         [
+            
+          Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.hourglass_top),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('В работе'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
+                            TextButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskList()),
+                          ],
+                        ),
+                      ],
                     ))),
+            Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.manage_search),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('На проверке'))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
+                            TextButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskList()),
+                          ],
+                        ),
+                      ],
+                    ))),
+            Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.done),
+                            Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: NsgText('Выполнено '))),
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: NsgText('20'))),
+                            TextButton(
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      'по дате',
+                                      style:
+                                          TextStyle(color: Color(0xff6D6BD6)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff6D6BD6),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {})
+                          ],
+                        ),
+                        const Divider(),
+                        Column(
+                          children: [
+                            taskConstroller.obx((state) => getTaskDeleted()),
+                          ],
+                        ),
+                      ],
+                    ))),
+          
+          
+          
+          
+          
+          
+          
+          
           ])
         ],
       ),
