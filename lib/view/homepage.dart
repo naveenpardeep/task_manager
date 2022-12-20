@@ -11,7 +11,10 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/model/enums/e_taskStatus.dart';
+import 'package:task_manager_app/model/enums/e_taskStatus.dart';
 
+import '../model/enums.dart';
 import '../model/generated/project_item.g.dart';
 
 class Homepage extends StatefulWidget {
@@ -483,7 +486,7 @@ Row(children:
     var tasksList = taskConstroller.items;
 
    // var taskstart = tasksList.where((
-   //     (element) => element.taskStatus == taskStatuscontroller.currentItem));
+   //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
     for (var tasks in tasksList) {
       // if (tasks.name
       //     .toString()
