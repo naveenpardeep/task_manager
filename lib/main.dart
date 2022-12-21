@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.rightToLeftWithFade,
       title: 'Титан Контроль',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
           bodyText1: TextStyle(
