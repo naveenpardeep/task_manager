@@ -12,31 +12,36 @@ class TasksController extends NsgDataController<TaskDoc> {
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
     //  TaskDocGenerated.nameProjectId,
-     // TaskDocGenerated.nameSprintId,
+      // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
-     // TaskDocGenerated.nameAuthorId,
+      // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId
     ];
   }
-  
-   @override
-  NsgDataRequestParams get getRequestFilter {
-    var cmp = NsgCompare();
-    var projectController = Get.find<ProjectController>();
 
-    cmp.add(
-        name: TaskDocGenerated.nameTaskStatusId,
-        value: projectController.currentItem.id);
-    return NsgDataRequestParams(compare: cmp);
-  }
+  // @override
+  // NsgDataRequestParams get getRequestFilter {
+  //   // var cmp = NsgCompare();
+  //   // var projectController = Get.find<ProjectController>();
 
+  //   // cmp.add(
+  //   //     name: TaskDocGenerated.nameTaskStatusId,
+  //   //     value: projectController.currentItem.id);
+  //   // return NsgDataRequestParams(compare: cmp);
 
-  @override 
-  Future<TaskDoc> createNewItemAsync() async{
-    
-    var dataitem= await super.createNewItemAsync();
-  
-    dataitem.date=DateTime.now() ;
+  //   var filter = super.getRequestFilter;
+  //   var projectController = Get.find<ProjectController>();
+  //   filter.compare.add(
+  //       name: TaskDocGenerated.nameTaskStatusId,
+  //       value: projectController.currentItem.id);
+  //   return filter;
+  // }
+
+  @override
+  Future<TaskDoc> createNewItemAsync() async {
+    var dataitem = await super.createNewItemAsync();
+
+    dataitem.date = DateTime.now();
     return dataitem;
   }
 
