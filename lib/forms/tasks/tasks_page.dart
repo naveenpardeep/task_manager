@@ -100,7 +100,7 @@ class TasksPage extends GetView<TasksController> {
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskStatusId,
                               label: 'Статус',
-                              // selectionForm: Routes.taskStatusListPage
+                            
                             ),
                             NsgInput(
                               selectionController:

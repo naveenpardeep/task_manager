@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import 'task_image_controller.dart';
@@ -16,6 +18,18 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameAssigneeId
     ];
   }
+  
+   @override
+  NsgDataRequestParams get getRequestFilter {
+    var cmp = NsgCompare();
+    var projectController = Get.find<ProjectController>();
+
+    cmp.add(
+        name: TaskDocGenerated.nameTaskStatusId,
+        value: projectController.currentItem.id);
+    return NsgDataRequestParams(compare: cmp);
+  }
+
 
   @override 
   Future<TaskDoc> createNewItemAsync() async{
