@@ -166,7 +166,7 @@ class _HomepageState extends State<Homepage> {
             
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
@@ -208,7 +208,7 @@ class _HomepageState extends State<Homepage> {
                     ))),
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
@@ -250,7 +250,7 @@ class _HomepageState extends State<Homepage> {
                     ))),
                     Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
@@ -292,7 +292,7 @@ class _HomepageState extends State<Homepage> {
                     ))),
             Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
@@ -439,7 +439,7 @@ Row(children:
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: NsgText('20'))),
+                                    child: NsgText(taskConstroller.items.length.toString()))),
                             TextButton(
                                 child: Row(
                                   children: const [
