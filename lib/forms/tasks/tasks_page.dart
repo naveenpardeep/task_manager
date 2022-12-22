@@ -133,6 +133,16 @@ class TasksPage extends GetView<TasksController> {
                               minLines: 3,
                               maxLines: 20,
                             ),
+                             NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameDateRemind,
+                              label: 'Напонинание о задаче',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameDateDeadline,
+                              label: 'Срок выполнения',
+                            ),
                             //   NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName: TaskDocGenerated.nameFiles,
