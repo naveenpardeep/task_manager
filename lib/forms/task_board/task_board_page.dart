@@ -5,8 +5,11 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+
+import '../../app_pages.dart';
 
 class TaskBoardPage extends GetView<TaskBoardController> {
   const TaskBoardPage({Key? key}) : super(key: key);
@@ -53,7 +56,21 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               fieldName: TaskBoardGenerated.nameName,
                               label: 'Название экрана ',
                             ),
-                           
+                            NsgTable(
+                              controller: Get.find<TaskStatusController>(),
+                              elementEditPageName: Routes.taskStatusPage,
+                              availableButtons: [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement
+                              ],
+                              columns: [
+                                NsgTableColumn(
+                                  
+                                    name: TaskStatusGenerated.nameName,
+                                    expanded: true,
+                                    presentation: 'Статусы'),
+                              ],
+                            )
                          
                           ],
                         ),
