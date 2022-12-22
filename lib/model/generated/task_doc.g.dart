@@ -11,6 +11,8 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameDate = 'date';
   static const nameDateClosed = 'dateClosed';
   static const nameDateUpdated = 'dateUpdated';
+  static const nameDateRemind = 'dateRemind';
+  static const nameDateDeadline = 'dateDeadline';
   static const nameDescription = 'description';
   static const nameName = 'name';
   static const nameComment = 'comment';
@@ -28,6 +30,8 @@ class TaskDocGenerated extends NsgDataItem {
    nameDate: 'Дата документа',
    nameDateClosed: 'Дата закрытия',
    nameDateUpdated: 'Дата обновления',
+   nameDateRemind: 'Дата напоминания',
+   nameDateDeadline: 'Дата напоминания',
    nameDescription: 'Описание задачи',
    nameName: 'Текст задачи',
    nameComment: 'Комментарий',
@@ -42,6 +46,8 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
+    addField(NsgDataDateField(nameDateRemind), primaryKey: false);
+    addField(NsgDataDateField(nameDateDeadline), primaryKey: false);
     addField(NsgDataStringField(nameDescription), primaryKey: false);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataStringField(nameComment), primaryKey: false);
@@ -57,6 +63,8 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
+    fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
+    fieldList.fields[nameDateDeadline]?.presentation = 'Дата напоминания';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
     fieldList.fields[nameName]?.presentation = 'Текст задачи';
     fieldList.fields[nameComment]?.presentation = 'Комментарий';
@@ -89,6 +97,16 @@ class TaskDocGenerated extends NsgDataItem {
   DateTime get dateUpdated => getFieldValue(nameDateUpdated) as DateTime;
 
   set dateUpdated(DateTime value) => setFieldValue(nameDateUpdated, value);
+
+  /// ДатаНапоминания
+  DateTime get dateRemind => getFieldValue(nameDateRemind) as DateTime;
+
+  set dateRemind(DateTime value) => setFieldValue(nameDateRemind, value);
+
+  /// ДатаНапоминания
+  DateTime get dateDeadline => getFieldValue(nameDateDeadline) as DateTime;
+
+  set dateDeadline(DateTime value) => setFieldValue(nameDateDeadline, value);
 
   /// ОписаниеЗадачи
   String get description => getFieldValue(nameDescription).toString();

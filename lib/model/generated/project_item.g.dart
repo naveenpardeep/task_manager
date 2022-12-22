@@ -11,6 +11,8 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameDate = 'date';
   static const nameStatusDoneId = 'statusDoneId';
   static const nameStatusCancelledId = 'statusCancelledId';
+  static const nameLeaderId = 'leaderId';
+  static const nameContractor = 'contractor';
 
   static final Map<String, String> fieldNameDict = {
    nameName: 'Наименование',
@@ -27,6 +29,8 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatus>(nameLeaderId), primaryKey: false);
+    addField(NsgDataStringField(nameContractor), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
   }
@@ -75,6 +79,22 @@ class ProjectItemGenerated extends NsgDataItem {
   set statusCancelledId(String value) => setFieldValue(nameStatusCancelledId, value);
   set statusCancelled(TaskStatus value) =>
     setFieldValue(nameStatusCancelledId, value.id);
+
+  /// Руководитель
+  String get leaderId => getFieldValue(nameLeaderId).toString();
+  TaskStatus get leader => getReferent<TaskStatus>(nameLeaderId);
+  Future<TaskStatus> leaderAsync() async {
+   return await getReferentAsync<TaskStatus>(nameLeaderId);
+  }
+
+  set leaderId(String value) => setFieldValue(nameLeaderId, value);
+  set leader(TaskStatus value) =>
+    setFieldValue(nameLeaderId, value.id);
+
+  /// Заказчик
+  String get contractor => getFieldValue(nameContractor).toString();
+
+  set contractor(String value) => setFieldValue(nameContractor, value);
 
   @override
   String get apiRequestItems {
