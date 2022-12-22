@@ -28,6 +28,7 @@ class _HomepageState extends State<Homepage> {
   String projectName = '';
   bool isWorkButton=false;
   var taskConstroller = Get.find<TasksController>();
+  var projectController = Get.find<ProjectController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -35,9 +36,10 @@ class _HomepageState extends State<Homepage> {
     projectName;
   }
 
-  var projectController = Get.find<ProjectController>();
+  
   @override
   Widget build(BuildContext context) {
+     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +53,7 @@ class _HomepageState extends State<Homepage> {
           flexibleSpace:
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.fromLTRB(50, 10, 15, 15),
                 child: TextButton(
                   child: Row(
                     children: const [
@@ -117,14 +119,14 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (projectName.isEmpty)
-            const Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Icon(Icons.arrow_upward)),
+          // if (projectName.isEmpty)
+          //   const Padding(
+          //       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          //       child: Icon(Icons.arrow_upward)),
           Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                projectName.isEmpty ? 'Select Project' : projectName,
+                projectName,
                 textScaleFactor: 1.4,
               )),
           Row(
