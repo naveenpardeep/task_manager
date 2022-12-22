@@ -39,7 +39,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.tasksPage,
-      page: () => const TasksPage(),
+      page: () =>  TasksPage(),
       binding: TasksListBinding(),
     ),
     GetPage(
