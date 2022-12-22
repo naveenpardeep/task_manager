@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectPage extends GetView<ProjectController> {
@@ -49,11 +50,24 @@ class ProjectPage extends GetView<ProjectController> {
                         child: Column(
                           children: [
                             NsgText('Создано :$formatted'),
+                               NsgInput(
+                               selectionController:
+                                 Get.find<UserAccountController>(),
+                              dataItem: controller.currentItem,
+                              fieldName: ProjectItemGenerated.nameLeaderId,
+                              label: 'Руководитель проекта',
+                            ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameName,
                               label: 'Наименование',
                             ),
+                               NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: ProjectItemGenerated.nameContractor,
+                              label: 'Заказчик',
+                            ),
+                         
                           ],
                         ),
                       )),

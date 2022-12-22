@@ -35,9 +35,17 @@ class ProjectListPage extends GetView<ProjectController> {
               expanded: true,
               presentation: 'Название проекта'),
           NsgTableColumn(
+              name: ProjectItemGenerated.nameLeaderId,
+              expanded: true,
+              presentation: 'Руководитель проекта'),
+          NsgTableColumn(
               name: ProjectItemGenerated.nameDate,
               expanded: true,
               presentation: 'Дата создания'),
+          NsgTableColumn(
+              name: ProjectItemGenerated.nameContractor,
+              expanded: true,
+              presentation: 'Заказчик'),
         ]);
   }
 }
