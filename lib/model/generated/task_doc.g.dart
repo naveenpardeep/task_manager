@@ -31,7 +31,7 @@ class TaskDocGenerated extends NsgDataItem {
    nameDateClosed: 'Дата закрытия',
    nameDateUpdated: 'Дата обновления',
    nameDateRemind: 'Дата напоминания',
-   nameDateDeadline: 'Дата напоминания',
+   nameDateDeadline: 'Срок выполнения',
    nameDescription: 'Описание задачи',
    nameName: 'Текст задачи',
    nameComment: 'Комментарий',
@@ -64,7 +64,7 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
     fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
-    fieldList.fields[nameDateDeadline]?.presentation = 'Дата напоминания';
+    fieldList.fields[nameDateDeadline]?.presentation = 'Срок выполнения';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
     fieldList.fields[nameName]?.presentation = 'Текст задачи';
     fieldList.fields[nameComment]?.presentation = 'Комментарий';
@@ -103,7 +103,7 @@ class TaskDocGenerated extends NsgDataItem {
 
   set dateRemind(DateTime value) => setFieldValue(nameDateRemind, value);
 
-  /// ДатаНапоминания
+  /// СрокВыполнения
   DateTime get dateDeadline => getFieldValue(nameDateDeadline) as DateTime;
 
   set dateDeadline(DateTime value) => setFieldValue(nameDateDeadline, value);
