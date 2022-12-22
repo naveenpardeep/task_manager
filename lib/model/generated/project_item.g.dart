@@ -29,7 +29,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
-    addField(NsgDataReferenceField<TaskStatus>(nameLeaderId), primaryKey: false);
+    addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
@@ -82,13 +82,13 @@ class ProjectItemGenerated extends NsgDataItem {
 
   /// Руководитель
   String get leaderId => getFieldValue(nameLeaderId).toString();
-  TaskStatus get leader => getReferent<TaskStatus>(nameLeaderId);
-  Future<TaskStatus> leaderAsync() async {
-   return await getReferentAsync<TaskStatus>(nameLeaderId);
+  UserAccount get leader => getReferent<UserAccount>(nameLeaderId);
+  Future<UserAccount> leaderAsync() async {
+   return await getReferentAsync<UserAccount>(nameLeaderId);
   }
 
   set leaderId(String value) => setFieldValue(nameLeaderId, value);
-  set leader(TaskStatus value) =>
+  set leader(UserAccount value) =>
     setFieldValue(nameLeaderId, value.id);
 
   /// Заказчик
