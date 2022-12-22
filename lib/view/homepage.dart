@@ -9,13 +9,16 @@ import 'package:nsg_controls/nsg_selection.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/enums/e_taskStatus.dart';
 import 'package:task_manager_app/model/enums/e_taskStatus.dart';
+import 'package:task_manager_app/model/task_board.dart';
 
 import '../model/enums.dart';
 import '../model/generated/project_item.g.dart';
+import '../model/generated/task_board.g.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -29,6 +32,7 @@ class _HomepageState extends State<Homepage> {
   bool isWorkButton=false;
   var taskConstroller = Get.find<TasksController>();
   var projectController = Get.find<ProjectController>();
+  var taskBoardController=Get.find<TaskBoardController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -143,6 +147,33 @@ class _HomepageState extends State<Homepage> {
                   child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text('Поиск по создателю'))),
+                      Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: TextButton(
+                         child: Text('Доска с задачами',style: TextStyle(color: Colors.black),),
+                         onPressed:() {
+                      
+                        var form = NsgSelection(
+                      inputType: NsgInputType.reference,
+                      controller: Get.find<TaskBoardController>(),
+                    );
+                    form.selectFromArray(
+                      'Доски с задачами',
+                      (item) {
+                        var row = TaskBoardGenerated();
+                        // row.name = item as ProjectItem;
+                        
+                        setState(() {
+                         
+                         // screenName = taskBoardController.currentItem.name;
+                        });
+
+                       taskBoardController.sendNotify();
+                      },
+                    );
+
+                      },))),
               Expanded(
                   child: Padding(
                       padding: const EdgeInsets.all(15),

@@ -3,20 +3,15 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
-
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
-import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/generated/task_board_status_table.g.dart';
 
-import '../../app_pages.dart';
-
-class TaskBoardPage extends GetView<TaskBoardController> {
-  const TaskBoardPage({Key? key}) : super(key: key);
+class TaskStatusRowPage extends GetView<TaskStatusTableController> {
+  const TaskStatusRowPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -31,8 +26,8 @@ class TaskBoardPage extends GetView<TaskBoardController> {
               children: <Widget>[
                 NsgAppBar(
                   text: controller.currentItem.isEmpty
-                      ? 'Экран '.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
+                      ? 'Status '.toUpperCase()
+                      : controller.currentItem.status.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -50,29 +45,13 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                         
                             NsgInput(
+                              selectionController: Get.find<TaskStatusController>(),
                               dataItem: controller.currentItem,
-                              fieldName: TaskBoardGenerated.nameName,
-                              label: 'Название экрана ',
+                              fieldName:
+                                  TaskBoardStatusTableGenerated.nameStatusId,
+                              label: 'Status ',
                             ),
-                            NsgTable(
-                              
-                              controller: Get.find<TaskStatusTableController>(),
-                              elementEditPageName: Routes.taskrow,
-                              availableButtons: [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                   
-                                    name: TaskBoardStatusTableGenerated.nameStatusId,
-                                    expanded: true,
-                                    presentation: 'Статусы'),
-                              ],
-                            )
-                         
                           ],
                         ),
                       )),

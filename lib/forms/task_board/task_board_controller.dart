@@ -1,11 +1,34 @@
+import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/model/task_board.dart';
 
-import '../../model/project_item.dart';
+import '../../model/generated/task_board.g.dart';
+
+import '../project/project_controller.dart';
 
 class TaskBoardController extends NsgDataController<TaskBoard> {
   TaskBoardController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100);
-  
+      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+    masterController = Get.find<ProjectController>();
+  }
+  @override
+  Future<NsgDataItem> doCreateNewItem() async {
+    // TODO: implement doCreateNewItem
+    var element = await super.doCreateNewItem() as TaskBoard;
+    element.id = Guid.newGuid();
+    element.project = Get.find<ProjectController>().currentItem;
 
+    return element;
+  }
+
+  @override
+  NsgDataRequestParams get getRequestFilter {
+    var cmp = NsgCompare();
+    var projectController = Get.find<ProjectController>();
+
+    cmp.add(
+        name: TaskBoardGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+    return NsgDataRequestParams(compare: cmp);
+  }
 }
