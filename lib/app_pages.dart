@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
+import 'package:task_manager_app/model/task_board.dart';
 import 'package:task_manager_app/model/user_account.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
@@ -82,6 +84,11 @@ class AppPages {
       page: () => UserAccountListPage(),
       binding: ProjectBinding(), 
     ),
+       GetPage(
+      name: Routes.taskBoard,
+      page: () => TaskBoardPage(),
+      binding: ProjectBinding(), 
+    ),
   ];
 }
 
@@ -98,4 +105,5 @@ abstract class Routes {
   static const homePage='/homePage';
   static const userAccount='/userAccount';
   static const userAccountListPage='/userAccountListPage';
+  static const taskBoard='/taskBoard';
 }

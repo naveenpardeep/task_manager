@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_list.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -12,7 +15,7 @@ class ProjectPage extends GetView<ProjectController> {
 
   @override
   Widget build(BuildContext context) {
-     var todaydate = controller.currentItem.date;
+    var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     String formatted = formateddate.format(todaydate);
@@ -50,9 +53,9 @@ class ProjectPage extends GetView<ProjectController> {
                         child: Column(
                           children: [
                             NsgText('Создано :$formatted'),
-                               NsgInput(
-                               selectionController:
-                                 Get.find<UserAccountController>(),
+                            NsgInput(
+                              selectionController:
+                                  Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameLeaderId,
                               label: 'Руководитель проекта',
@@ -62,12 +65,25 @@ class ProjectPage extends GetView<ProjectController> {
                               fieldName: ProjectItemGenerated.nameName,
                               label: 'Наименование',
                             ),
-                               NsgInput(
+                            NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
-                         
+                            NsgTable(
+                              controller: Get.find<TaskBoardController>(),
+                              elementEditPageName: Routes.taskBoard,
+                              availableButtons: [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement
+                              ],
+                              columns: [
+                                NsgTableColumn(
+                                    name: TaskBoardGenerated.nameName,
+                                    expanded: true,
+                                    presentation: 'Название доски'),
+                              ],
+                            )
                           ],
                         ),
                       )),
