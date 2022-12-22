@@ -20,11 +20,24 @@ class ProjectListPage extends GetView<ProjectController> {
         title: _textTitle,
         textNoItems: _textNoItems,
         elementEditPage: _elementPage,
+        onElementTap: (element) {
+          element as ProjectItem;
+          controller.currentItem = element;
+          Get.toNamed(Routes.homePage);
+        },
+        availableButtons: [
+          NsgTableMenuButtonType.createNewElement,
+          NsgTableMenuButtonType.editElement
+        ],
         columns: [
           NsgTableColumn(
               name: ProjectItemGenerated.nameName,
               expanded: true,
-              presentation: 'Наименование'),
+              presentation: 'Название проекта'),
+          NsgTableColumn(
+              name: ProjectItemGenerated.nameDate,
+              expanded: true,
+              presentation: 'Дата создания'),
         ]);
   }
 }
