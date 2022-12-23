@@ -11,8 +11,8 @@ class ProjectController extends NsgDataController<ProjectItem> {
   Future<NsgDataItem> doCreateNewItem() async {
     // TODO: implement doCreateNewItem
     var element = await super.doCreateNewItem();
-    
-    element.id = Guid.newGuid();
+
+    // element.id = Guid.newGuid();
 
     return element;
   }
@@ -21,8 +21,8 @@ class ProjectController extends NsgDataController<ProjectItem> {
   Future<ProjectItem> createNewItemAsync() async {
     // TODO: implement createNewItemAsync
     var element = await super.createNewItemAsync();
-   
-    element.date = DateTime.now();
+
+    // element.date = DateTime.now();
     return element;
   }
 }
