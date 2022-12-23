@@ -39,6 +39,9 @@ class ProjectItemGenerated extends NsgDataItem {
   String toString() => name;
 
   @override
+  bool get createOnServer => true;
+
+  @override
   NsgDataItem getNewObject() => ProjectItem();
 
   /// Идентификатор
