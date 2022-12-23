@@ -15,7 +15,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
 
     // element.id = Guid.newGuid();
 
-    var element = await super.doCreateNewItem() as ProjectItem;
+   
     
     element.id = Guid.newGuid();
     
