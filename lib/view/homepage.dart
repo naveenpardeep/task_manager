@@ -44,6 +44,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -105,269 +106,272 @@ class _HomepageState extends State<Homepage> {
                   textAlign: TextAlign.center,
                 )),
           ])),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // if (projectName.isEmpty)
-          //   const Padding(
-          //       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-          //       child: Icon(Icons.arrow_upward)),
-          Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                projectName,
-                textScaleFactor: 1.4,
-              )),
-          Row(
-            children: [
-              Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Text('Поиск по тексту'))),
-              Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text('Поиск по дате'))),
-              Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text('Поиск по создателю'))),
-              Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(1),
-                      child: Column(
-                        children: [
-                          TextButton(
-                            child: Text(
-                              'Доска с задачами',
-                              style: TextStyle(color: Colors.black),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // if (projectName.isEmpty)
+            //   const Padding(
+            //       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            //       child: Icon(Icons.arrow_upward)),
+            Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  projectName,
+                  textScaleFactor: 1.4,
+                )),
+            Row(
+              children: [
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Text('Поиск по тексту'))),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text('Поиск по дате'))),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text('Поиск по создателю'))),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(1),
+                        child: Column(
+                          children: [
+                            TextButton(
+                              child: Text(
+                                'Доска с задачами',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () {
+                                var form = NsgSelection(
+                                  inputType: NsgInputType.reference,
+                                  controller: Get.find<TaskBoardController>(),
+                                );
+                                form.selectFromArray(
+                                  'Доски с задачами',
+                                  (item) {
+                                    var row = TaskBoardGenerated();
+                                    // row.name = item as ProjectItem;
+
+                                    setState(() {
+                                      // screenName = taskBoardController.currentItem.name;
+                                    });
+
+                                    taskBoardController.sendNotify();
+                                  },
+                                );
+                              },
                             ),
-                            onPressed: () {
-                              var form = NsgSelection(
-                                inputType: NsgInputType.reference,
-                                controller: Get.find<TaskBoardController>(),
-                              );
-                              form.selectFromArray(
-                                'Доски с задачами',
-                                (item) {
-                                  var row = TaskBoardGenerated();
-                                  // row.name = item as ProjectItem;
+                            const Divider(
+                              color: Color(0xff7876D9),
+                            )
+                          ],
+                        ))),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text('очистить фильтры'))),
+                const Spacer(),
+                Expanded(
+                    child: NsgButton(
+                  width: width * 0.15,
+                  icon: Icons.add,
+                  text: 'создать заявку',
+                  color: Colors.white,
+                  backColor: const Color(0xff7876D9),
+                  onPressed: () {
+                    Get.find<TasksController>().createNewItemAsync();
+                    Get.toNamed(Routes.tasksPage);
+                  },
+                ))
+              ],
+            ),
+            //  if (taskBoardController.currentItem.isNotEmpty)
+            taskStatusTableController.obx((state) => SingleChildScrollView(child: Expanded(child: getStatusList())))
 
-                                  setState(() {
-                                    // screenName = taskBoardController.currentItem.name;
-                                  });
-
-                                  taskBoardController.sendNotify();
-                                },
-                              );
-                            },
-                          ),
-                          const Divider(
-                            color: Color(0xff7876D9),
-                          )
-                        ],
-                      ))),
-              Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text('очистить фильтры'))),
-              const Spacer(),
-              Expanded(
-                  child: NsgButton(
-                width: width * 0.15,
-                icon: Icons.add,
-                text: 'создать заявку',
-                color: Colors.white,
-                backColor: const Color(0xff7876D9),
-                onPressed: () {
-                  Get.find<TasksController>().createNewItemAsync();
-                  Get.toNamed(Routes.tasksPage);
-                },
-              ))
-            ],
-          ),
-          //  if (taskBoardController.currentItem.isNotEmpty)
-          taskStatusTableController.obx((state) => getStatusList())
-
-          // Row(children: [
-          //   Expanded(
-          //       child: Padding(
-          //           padding: EdgeInsets.all(10),
-          //           child: Column(
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.travel_explore),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText('Новые'))),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText(taskConstroller.items.length
-          //                               .toString()))),
-          //                   TextButton(
-          //                       child: Row(
-          //                         children: [
-          //                           Text(
-          //                             'по дате',
-          //                             style:
-          //                                 TextStyle(color: Color(0xff6D6BD6)),
-          //                             textAlign: TextAlign.center,
-          //                           ),
-          //                           Icon(
-          //                             Icons.arrow_drop_down,
-          //                             color: Color(0xff6D6BD6),
-          //                           )
-          //                         ],
-          //                       ),
-          //                       onPressed: () {})
-          //                 ],
-          //               ),
-          //               const Divider(),
-          //               Column(
-          //                 children: [
-          //                   taskConstroller.obx((state) => getTaskList()),
-          //                 ],
-          //               ),
-          //             ],
-          //           ))),
-          //   Expanded(
-          //       child: Padding(
-          //           padding: EdgeInsets.all(10),
-          //           child: Column(
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.pause),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText('Приостановлено'))),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText(taskConstroller.items.length
-          //                               .toString()))),
-          //                   TextButton(
-          //                       child: Row(
-          //                         children: [
-          //                           Text(
-          //                             'по дате',
-          //                             style:
-          //                                 TextStyle(color: Color(0xff6D6BD6)),
-          //                             textAlign: TextAlign.center,
-          //                           ),
-          //                           Icon(
-          //                             Icons.arrow_drop_down,
-          //                             color: Color(0xff6D6BD6),
-          //                           )
-          //                         ],
-          //                       ),
-          //                       onPressed: () {})
-          //                 ],
-          //               ),
-          //               const Divider(),
-          //               Column(
-          //                 children: [
-          //                   taskConstroller.obx((state) => getTaskList()),
-          //                 ],
-          //               ),
-          //             ],
-          //           ))),
-          //   Expanded(
-          //       child: Padding(
-          //           padding: EdgeInsets.all(10),
-          //           child: Column(
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.work_outline_outlined),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText('На будущее'))),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText(taskConstroller.items.length
-          //                               .toString()))),
-          //                   TextButton(
-          //                       child: Row(
-          //                         children: [
-          //                           Text(
-          //                             'по дате',
-          //                             style:
-          //                                 TextStyle(color: Color(0xff6D6BD6)),
-          //                             textAlign: TextAlign.center,
-          //                           ),
-          //                           Icon(
-          //                             Icons.arrow_drop_down,
-          //                             color: Color(0xff6D6BD6),
-          //                           )
-          //                         ],
-          //                       ),
-          //                       onPressed: () {})
-          //                 ],
-          //               ),
-          //               const Divider(),
-          //               Column(
-          //                 children: [
-          //                   taskConstroller.obx((state) => getTaskList()),
-          //                 ],
-          //               ),
-          //             ],
-          //           ))),
-          //   Expanded(
-          //       child: Padding(
-          //           padding: const EdgeInsets.all(10),
-          //           child: Column(
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   const Icon(Icons.delete_forever_sharp),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: const EdgeInsets.all(5),
-          //                           child: NsgText('К удалению'))),
-          //                   Expanded(
-          //                       child: Padding(
-          //                           padding: EdgeInsets.all(5),
-          //                           child: NsgText('20'))),
-          //                   TextButton(
-          //                       child: Row(
-          //                         children: const [
-          //                           Text(
-          //                             'по дате',
-          //                             style:
-          //                                 TextStyle(color: Color(0xff6D6BD6)),
-          //                             textAlign: TextAlign.center,
-          //                           ),
-          //                           Icon(
-          //                             Icons.arrow_drop_down,
-          //                             color: Color(0xff6D6BD6),
-          //                           )
-          //                         ],
-          //                       ),
-          //                       onPressed: () {})
-          //                 ],
-          //               ),
-          //               const Divider(),
-          //               Column(
-          //                 children: [
-          //                   taskConstroller.obx((state) => getTaskDeleted()),
-          //                 ],
-          //               ),
-          //             ],
-          //           )))
-          // ])
-        ],
+            // Row(children: [
+            //   Expanded(
+            //       child: Padding(
+            //           padding: EdgeInsets.all(10),
+            //           child: Column(
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   Icon(Icons.travel_explore),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText('Новые'))),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText(taskConstroller.items.length
+            //                               .toString()))),
+            //                   TextButton(
+            //                       child: Row(
+            //                         children: [
+            //                           Text(
+            //                             'по дате',
+            //                             style:
+            //                                 TextStyle(color: Color(0xff6D6BD6)),
+            //                             textAlign: TextAlign.center,
+            //                           ),
+            //                           Icon(
+            //                             Icons.arrow_drop_down,
+            //                             color: Color(0xff6D6BD6),
+            //                           )
+            //                         ],
+            //                       ),
+            //                       onPressed: () {})
+            //                 ],
+            //               ),
+            //               const Divider(),
+            //               Column(
+            //                 children: [
+            //                   taskConstroller.obx((state) => getTaskList()),
+            //                 ],
+            //               ),
+            //             ],
+            //           ))),
+            //   Expanded(
+            //       child: Padding(
+            //           padding: EdgeInsets.all(10),
+            //           child: Column(
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   Icon(Icons.pause),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText('Приостановлено'))),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText(taskConstroller.items.length
+            //                               .toString()))),
+            //                   TextButton(
+            //                       child: Row(
+            //                         children: [
+            //                           Text(
+            //                             'по дате',
+            //                             style:
+            //                                 TextStyle(color: Color(0xff6D6BD6)),
+            //                             textAlign: TextAlign.center,
+            //                           ),
+            //                           Icon(
+            //                             Icons.arrow_drop_down,
+            //                             color: Color(0xff6D6BD6),
+            //                           )
+            //                         ],
+            //                       ),
+            //                       onPressed: () {})
+            //                 ],
+            //               ),
+            //               const Divider(),
+            //               Column(
+            //                 children: [
+            //                   taskConstroller.obx((state) => getTaskList()),
+            //                 ],
+            //               ),
+            //             ],
+            //           ))),
+            //   Expanded(
+            //       child: Padding(
+            //           padding: EdgeInsets.all(10),
+            //           child: Column(
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   Icon(Icons.work_outline_outlined),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText('На будущее'))),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText(taskConstroller.items.length
+            //                               .toString()))),
+            //                   TextButton(
+            //                       child: Row(
+            //                         children: [
+            //                           Text(
+            //                             'по дате',
+            //                             style:
+            //                                 TextStyle(color: Color(0xff6D6BD6)),
+            //                             textAlign: TextAlign.center,
+            //                           ),
+            //                           Icon(
+            //                             Icons.arrow_drop_down,
+            //                             color: Color(0xff6D6BD6),
+            //                           )
+            //                         ],
+            //                       ),
+            //                       onPressed: () {})
+            //                 ],
+            //               ),
+            //               const Divider(),
+            //               Column(
+            //                 children: [
+            //                   taskConstroller.obx((state) => getTaskList()),
+            //                 ],
+            //               ),
+            //             ],
+            //           ))),
+            //   Expanded(
+            //       child: Padding(
+            //           padding: const EdgeInsets.all(10),
+            //           child: Column(
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   const Icon(Icons.delete_forever_sharp),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: const EdgeInsets.all(5),
+            //                           child: NsgText('К удалению'))),
+            //                   Expanded(
+            //                       child: Padding(
+            //                           padding: EdgeInsets.all(5),
+            //                           child: NsgText('20'))),
+            //                   TextButton(
+            //                       child: Row(
+            //                         children: const [
+            //                           Text(
+            //                             'по дате',
+            //                             style:
+            //                                 TextStyle(color: Color(0xff6D6BD6)),
+            //                             textAlign: TextAlign.center,
+            //                           ),
+            //                           Icon(
+            //                             Icons.arrow_drop_down,
+            //                             color: Color(0xff6D6BD6),
+            //                           )
+            //                         ],
+            //                       ),
+            //                       onPressed: () {})
+            //                 ],
+            //               ),
+            //               const Divider(),
+            //               Column(
+            //                 children: [
+            //                   taskConstroller.obx((state) => getTaskDeleted()),
+            //                 ],
+            //               ),
+            //             ],
+            //           )))
+            // ])
+          ],
+        ),
       ),
     );
   }
 
   Widget getStatusList() {
+    double height=MediaQuery.of(context).size.height;
     List<Widget> list = [];
 
     var statusList = taskStatusTableController.items;
@@ -390,7 +394,8 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: getTasklength(status.status))),
+                                    child: taskConstroller
+                                .obx((state) => getTasklength(status.status)))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -410,25 +415,28 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        Column(
-                          children: [
-                            taskConstroller
-                                .obx((state) => getTaskList(status.status)),
-                          ],
-                        ),
+                       Column(
+                                children: [
+                                  taskConstroller
+                                      .obx((state) => SingleChildScrollView(child: Container(height:height*0.6,child: getTaskList(status.status))),
+                       )],
+                              ),
+                            
+                         
+                       
                       ],
                     ))),
           ]),
         ));
       }
     }
-    return SingleChildScrollView(
-        child: Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Row(
-        children: list,
-      ),
-    ));
+    return  Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Row(
+          children: list,
+        ),
+      
+    );
   }
 
   Widget getTasklength(TaskStatus status) {
@@ -442,7 +450,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
-    var taskStatuscontroller = Get.find<TaskStatusController>();
+   
     var tasksList = taskConstroller.items;
 
     // var taskstart = tasksList.where((
@@ -487,7 +495,7 @@ class _HomepageState extends State<Homepage> {
         child: Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Column(
-        children: list,
+        children:   list,
       ),
     ));
   }

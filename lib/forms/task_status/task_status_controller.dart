@@ -10,6 +10,14 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     masterController = Get.find<ProjectController>();
   }
+//  @override
+//   Future<TaskStatus> createNewItemAsync() {
+//     // TODO: implement createNewItemAsync
+//     var item=super.createNewItemAsync() as TaskStatus;
+//     item.name=Guid.newGuid();
+//     return item;
+//   }
+
   @override
   Future<NsgDataItem> doCreateNewItem() async {
     // TODO: implement doCreateNewItem
