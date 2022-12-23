@@ -15,10 +15,10 @@ class ProjectPage extends GetView<ProjectController> {
 
   @override
   Widget build(BuildContext context) {
-    var todaydate = controller.currentItem.date;
+    // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    String formatted = formateddate.format(todaydate);
+    // String formatted = formateddate.format(controller.currentItem.date);
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -52,7 +52,8 @@ class ProjectPage extends GetView<ProjectController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgText('Создано :$formatted'),
+                            NsgText(
+                                'Создано :${formateddate.format(controller.currentItem.date)}'),
                             NsgInput(
                               selectionController:
                                   Get.find<UserAccountController>(),
