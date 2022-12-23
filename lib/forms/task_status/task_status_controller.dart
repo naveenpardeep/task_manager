@@ -47,6 +47,8 @@ class TaskStatusTableController
           tableFieldName: TaskBoardGenerated.nameStatusTable,
         );
 
+   
+
    @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();

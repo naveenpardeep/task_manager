@@ -18,6 +18,15 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameAssigneeId
     ];
   }
+       @override
+  Future<NsgDataItem> doCreateNewItem() async {
+    // TODO: implement doCreateNewItem
+    var element = await super.doCreateNewItem() as TaskDoc;
+    element.id = Guid.newGuid();
+    element.project = Get.find<ProjectController>().currentItem;
+
+    return element;
+  }
 
 
   @override

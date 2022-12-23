@@ -60,7 +60,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               
                               controller: Get.find<TaskStatusTableController>(),
                               elementEditPageName: Routes.taskrow,
-                              availableButtons: [
+                              availableButtons: const [
                                 NsgTableMenuButtonType.createNewElement,
                                 NsgTableMenuButtonType.editElement
                               ],
