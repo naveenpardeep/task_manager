@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/enums/e_taskStatus.dart';
 import 'package:task_manager_app/model/enums/e_taskStatus.dart';
 import 'package:task_manager_app/model/task_board.dart';
+import 'package:task_manager_app/model/task_status.dart';
 
 import '../model/enums.dart';
 import '../model/generated/project_item.g.dart';
@@ -185,7 +186,7 @@ class _HomepageState extends State<Homepage> {
               ))
             ],
           ),
-        //  if (taskBoardController.currentItem.isNotEmpty)
+          //  if (taskBoardController.currentItem.isNotEmpty)
           taskStatusTableController.obx((state) => getStatusList())
 
           // Row(children: [
@@ -389,8 +390,7 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: NsgText(taskConstroller.items.length
-                                        .toString()))),
+                                    child: getTasklength(status.status))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -412,7 +412,8 @@ class _HomepageState extends State<Homepage> {
                         const Divider(),
                         Column(
                           children: [
-                            taskConstroller.obx((state) => getTaskList()),
+                            taskConstroller
+                                .obx((state) => getTaskList(status.status)),
                           ],
                         ),
                       ],
@@ -430,7 +431,16 @@ class _HomepageState extends State<Homepage> {
     ));
   }
 
-  Widget getTaskList() {
+  Widget getTasklength(TaskStatus status) {
+    var tasksList = taskConstroller.items;
+
+    var taskLength =
+        tasksList.where(((element) => element.taskStatus == status));
+
+    return Text(taskLength.length.toString());
+  }
+
+  Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
     var taskStatuscontroller = Get.find<TaskStatusController>();
     var tasksList = taskConstroller.items;
@@ -438,6 +448,8 @@ class _HomepageState extends State<Homepage> {
     // var taskstart = tasksList.where((
     //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
     for (var tasks in tasksList) {
+      if (tasks.taskStatus != status) continue;
+
       // if (tasks.name
       //     .toString()
       //    .toLowerCase()
