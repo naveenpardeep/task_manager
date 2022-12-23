@@ -15,6 +15,10 @@ class ProjectListPage extends GetView<ProjectController> {
   @override
   Widget build(BuildContext context) {
     return NsgListPage(
+      appBarIcon: null,
+      appBarIcon2: null,
+      appBarBackColor: Color(0xff7876D9),
+      appBarColor: Colors.white,
         type: NsgListPageMode.table,
         controller: controller,
         title: _textTitle,
