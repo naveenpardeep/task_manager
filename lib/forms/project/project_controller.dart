@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 
@@ -10,10 +11,10 @@ class ProjectController extends NsgDataController<ProjectItem> {
   @override
   Future<NsgDataItem> doCreateNewItem() async {
     // TODO: implement doCreateNewItem
-    var element = await super.doCreateNewItem();
+    var element = await super.doCreateNewItem() as ProjectItem;
     
     element.id = Guid.newGuid();
-
+    
     return element;
   }
 
@@ -21,7 +22,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
   Future<ProjectItem> createNewItemAsync() async {
     // TODO: implement createNewItemAsync
     var element = await super.createNewItemAsync();
-   
+ 
     element.date = DateTime.now();
     return element;
   }
