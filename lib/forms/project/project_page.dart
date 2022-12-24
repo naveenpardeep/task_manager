@@ -10,11 +10,25 @@ import 'package:task_manager_app/forms/task_board/task_board_list.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class ProjectPage extends GetView<ProjectController> {
+class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
+ @override
+  State<ProjectPage> createState() => _ProjectpageState();
+}
+
+class _ProjectpageState extends State<ProjectPage> {
+  var controller= Get.find<ProjectController>();
+   bool isHidden=true;
+@override
+void initState() {
+    // TODO: implement initState
+    super.initState();
+    isHidden;
+  }
 
   @override
   Widget build(BuildContext context) {
+   
     // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
@@ -71,6 +85,15 @@ class ProjectPage extends GetView<ProjectController> {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
+                            if(isHidden==true)
+                            NsgButton(text: 'Save and Next',onPressed: () {
+                              setState(() {
+                                isHidden=false;
+                                controller.itemPagePost(goBack: false);
+                              });
+                              
+                            },),
+                            if(isHidden==false)
                             NsgTable(
                               controller: Get.find<TaskBoardController>(),
                               elementEditPageName: Routes.taskBoard,
