@@ -35,16 +35,18 @@ class _HomepageState extends State<Homepage> {
   var projectController = Get.find<ProjectController>();
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
+  String searchvalue = '';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     projectName;
+    searchvalue;
   }
 
   @override
   Widget build(BuildContext context) {
-    double height=MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -125,7 +127,15 @@ class _HomepageState extends State<Homepage> {
                 Expanded(
                     child: Padding(
                         padding: EdgeInsets.all(15),
-                        child: Text('Поиск по тексту'))),
+                        child: TextField(
+                            decoration: const InputDecoration(
+                                // prefixIcon: Icon(Icons.search),
+                                hintText: 'Поиск по тексту'),
+                            onChanged: (val) {
+                              searchvalue = val;
+
+                              taskStatusTableController.sendNotify();
+                            }))),
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(15),
@@ -189,7 +199,8 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
             //  if (taskBoardController.currentItem.isNotEmpty)
-            taskStatusTableController.obx((state) => SingleChildScrollView(child: Expanded(child: getStatusList())))
+            taskStatusTableController.obx((state) =>
+                SingleChildScrollView(child: Expanded(child: getStatusList())))
 
             // Row(children: [
             //   Expanded(
@@ -371,7 +382,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget getStatusList() {
-    double height=MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     List<Widget> list = [];
 
     var statusList = taskStatusTableController.items;
@@ -394,8 +405,8 @@ class _HomepageState extends State<Homepage> {
                             Expanded(
                                 child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: taskConstroller
-                                .obx((state) => getTasklength(status.status)))),
+                                    child: taskConstroller.obx((state) =>
+                                        getTasklength(status.status)))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -415,27 +426,27 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                       Column(
-                                children: [
-                                  taskConstroller
-                                      .obx((state) => SingleChildScrollView(child: Container(height:height*0.6,child: getTaskList(status.status))),
-                       )],
-                              ),
-                            
-                         
-                       
+                        Column(
+                          children: [
+                            taskConstroller.obx(
+                              (state) => SingleChildScrollView(
+                                  child: Container(
+                                      height: height * 0.6,
+                                      child: getTaskList(status.status))),
+                            )
+                          ],
+                        ),
                       ],
                     ))),
           ]),
         ));
       }
     }
-    return  Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: Row(
-          children: list,
-        ),
-      
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Row(
+        children: list,
+      ),
     );
   }
 
@@ -450,7 +461,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
-   
+
     var tasksList = taskConstroller.items;
 
     // var taskstart = tasksList.where((
@@ -458,11 +469,10 @@ class _HomepageState extends State<Homepage> {
     for (var tasks in tasksList) {
       if (tasks.taskStatus != status) continue;
 
-      // if (tasks.name
-      //     .toString()
-      //    .toLowerCase()
-      //    .contains(searchvalue.toLowerCase()))
-      {
+      if (tasks.name
+          .toString()
+          .toLowerCase()
+          .contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
             taskConstroller.currentItem = tasks;
@@ -495,7 +505,7 @@ class _HomepageState extends State<Homepage> {
         child: Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Column(
-        children:   list,
+        children: list,
       ),
     ));
   }
