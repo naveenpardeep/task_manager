@@ -46,6 +46,8 @@ void initState() {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  color:  Colors.white,
+                  backColor: Color(0xff7876D9),
                   text: controller.currentItem.isEmpty
                       ? 'Новый проект'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),

@@ -126,7 +126,7 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Expanded(
                     child: Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         child: TextField(
                             decoration: const InputDecoration(
                                 // prefixIcon: Icon(Icons.search),
@@ -136,13 +136,13 @@ class _HomepageState extends State<Homepage> {
 
                               taskStatusTableController.sendNotify();
                             }))),
-                Expanded(
+                const Expanded(
                     child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: EdgeInsets.all(15),
                         child: Text('Поиск по дате'))),
-                Expanded(
+                const Expanded(
                     child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: EdgeInsets.all(15),
                         child: Text('Поиск по создателю'))),
                 Expanded(
                     child: Padding(
@@ -150,7 +150,7 @@ class _HomepageState extends State<Homepage> {
                         child: Column(
                           children: [
                             TextButton(
-                              child: Text(
+                              child: const Text(
                                 'Доска с задачами',
                                 style: TextStyle(color: Colors.black),
                               ),
@@ -179,9 +179,9 @@ class _HomepageState extends State<Homepage> {
                             )
                           ],
                         ))),
-                Expanded(
+                const Expanded(
                     child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: EdgeInsets.all(15),
                         child: Text('очистить фильтры'))),
                 const Spacer(),
                 Expanded(
@@ -393,30 +393,30 @@ class _HomepageState extends State<Homepage> {
           child: Row(children: [
             Expanded(
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
                           children: [
                             Expanded(
                                 child: Padding(
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     child: NsgText(status.status.toString()))),
                             Expanded(
                                 child: Padding(
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     child: taskConstroller.obx((state) =>
                                         getTasklength(status.status)))),
                             TextButton(
                                 child: Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'по дате',
                                       style:
                                           TextStyle(color: Color(0xff6D6BD6)),
                                       textAlign: TextAlign.center,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.arrow_drop_down,
                                       color: Color(0xff6D6BD6),
                                     )
@@ -485,15 +485,19 @@ class _HomepageState extends State<Homepage> {
                     height: 98,
                     child: Card(
                         color: const Color.fromRGBO(120, 118, 217, 0.12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              tasks.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                tasks.name,
+                                style:
+                                    const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text('создано: ${tasks.date}' ,style: TextStyle(color: Colors.grey),)
+                            ],
+                          ),
                         ))),
               ),
             ],
