@@ -198,7 +198,7 @@ class _HomepageState extends State<Homepage> {
             ),
             //  if (taskBoardController.currentItem.isNotEmpty)
             taskStatusTableController.obx((state) =>
-                SingleChildScrollView(child: Expanded(child: getStatusList())))
+                SingleChildScrollView(child: getStatusList()))
 
             // Row(children: [
             //   Expanded(
@@ -496,7 +496,7 @@ class _HomepageState extends State<Homepage> {
                               Row(
                                 children: [
                                  const Icon(Icons.access_time),
-                                  Text('создано: ${formateddate.format(tasks.date)}' ,style: const TextStyle(color: Color(0xff10051C)),),
+                                  Expanded(child: Text('создано: ${formateddate.format(tasks.date)}' ,style: const TextStyle(color: Color(0xff10051C)),)),
                                 ],
                               )
                             ],
