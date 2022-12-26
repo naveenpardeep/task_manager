@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -12,7 +12,7 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
   }
 //  @override
 //   Future<TaskStatus> createNewItemAsync() {
-//     // TODO: implement createNewItemAsync
+//   
 //     var item=super.createNewItemAsync() as TaskStatus;
 //     item.name=Guid.newGuid();
 //     return item;
@@ -20,7 +20,7 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
-    // TODO: implement doCreateNewItem
+   
     var element = await super.doCreateNewItem() as TaskStatus;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;

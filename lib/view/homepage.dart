@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:nsg_controls/formfields/nsg_input.dart';
-import 'package:nsg_controls/formfields/nsg_input_type.dart';
+import 'package:intl/intl.dart';
+
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_selection.dart';
+
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
-import 'package:task_manager_app/model/enums/e_taskStatus.dart';
-import 'package:task_manager_app/model/enums/e_taskStatus.dart';
-import 'package:task_manager_app/model/task_board.dart';
+
 import 'package:task_manager_app/model/task_status.dart';
 
-import '../model/enums.dart';
+
 import '../model/generated/project_item.g.dart';
 import '../model/generated/task_board.g.dart';
 
@@ -36,9 +33,10 @@ class _HomepageState extends State<Homepage> {
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   String searchvalue = '';
+  DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     projectName;
     searchvalue;
@@ -46,7 +44,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+   
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -430,7 +428,7 @@ class _HomepageState extends State<Homepage> {
                           children: [
                             taskConstroller.obx(
                               (state) => SingleChildScrollView(
-                                  child: Container(
+                                  child: SizedBox(
                                       height: height * 0.6,
                                       child: getTaskList(status.status))),
                             )
@@ -481,7 +479,7 @@ class _HomepageState extends State<Homepage> {
           child: Row(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                     height: 98,
                     child: Card(
                         color: const Color.fromRGBO(120, 118, 217, 0.12),
@@ -495,7 +493,12 @@ class _HomepageState extends State<Homepage> {
                                 style:
                                     const TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text('создано: ${tasks.date}' ,style: TextStyle(color: Colors.grey),)
+                              Row(
+                                children: [
+                                 const Icon(Icons.access_time),
+                                  Text('создано: ${formateddate.format(tasks.date)}' ,style: const TextStyle(color: Color(0xff10051C)),),
+                                ],
+                              )
                             ],
                           ),
                         ))),
@@ -514,48 +517,4 @@ class _HomepageState extends State<Homepage> {
     ));
   }
 
-  Widget getTaskDeleted() {
-    List<Widget> list = [];
-    for (var tasks in taskConstroller.items) {
-      // if (tasks.name
-      //     .toString()
-      //    .toLowerCase()
-      //    .contains(searchvalue.toLowerCase()))
-      {
-        list.add(GestureDetector(
-          onTap: () {
-            taskConstroller.currentItem = tasks;
-            Get.toNamed(Routes.tasksPage);
-          },
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                    height: 98,
-                    child: Card(
-                        color: const Color.fromRGBO(255, 0, 0, 0.12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              tasks.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ))),
-              ),
-            ],
-          ),
-        ));
-      }
-    }
-    return SingleChildScrollView(
-        child: Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Column(
-        children: list,
-      ),
-    ));
-  }
 }

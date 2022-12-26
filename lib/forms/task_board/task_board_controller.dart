@@ -13,7 +13,7 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
   }
   @override
   Future<NsgDataItem> doCreateNewItem() async {
-    // TODO: implement doCreateNewItem
+   
     var element = await super.doCreateNewItem() as TaskBoard;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;

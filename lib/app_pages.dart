@@ -3,8 +3,7 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
-import 'package:task_manager_app/model/task_board.dart';
-import 'package:task_manager_app/model/user_account.dart';
+
 import 'package:task_manager_app/view/homepage.dart';
 
 import 'forms/project/project_binding.dart';
@@ -42,7 +41,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.tasksPage,
-      page: () =>  TasksPage(),
+      page: () =>  const TasksPage(),
       binding: TasksListBinding(),
     ),
     GetPage(
@@ -62,7 +61,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.taskStatusPage,
-      page: () =>  TaskStatusPage(),
+      page: () =>  const TaskStatusPage(),
       binding: TaskStatusBinding(),
     ),
     GetPage(
@@ -72,12 +71,12 @@ class AppPages {
     ),
     GetPage(
       name: Routes.homePage,
-      page: () => Homepage(),
+      page: () => const Homepage(),
       binding: ProjectBinding(), 
     ),
      GetPage(
       name: Routes.userAccount,
-      page: () => UserAccountPage(),
+      page: () => const UserAccountPage(),
       binding: ProjectBinding(), 
     ),
      GetPage(
@@ -87,12 +86,12 @@ class AppPages {
     ),
        GetPage(
       name: Routes.taskBoard,
-      page: () => TaskBoardPage(),
+      page: () => const TaskBoardPage(),
       binding: ProjectBinding(), 
     ),
      GetPage(
       name: Routes.taskrow,
-      page: () => TaskStatusRowPage(),
+      page: () => const TaskStatusRowPage(),
       binding: ProjectBinding(), 
     ),
     

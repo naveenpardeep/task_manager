@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
@@ -16,7 +15,6 @@ class TaskBoardPage extends GetView<TaskBoardController> {
 
   @override
   Widget build(BuildContext context) {
-
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -30,6 +28,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  color: Colors.white,
                   text: controller.currentItem.isEmpty
                       ? 'Экран '.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
@@ -50,14 +49,12 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                         
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskBoardGenerated.nameName,
                               label: 'Название экрана ',
                             ),
                             NsgTable(
-                              
                               controller: Get.find<TaskStatusTableController>(),
                               elementEditPageName: Routes.taskrow,
                               availableButtons: const [
@@ -66,13 +63,12 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               ],
                               columns: [
                                 NsgTableColumn(
-                                   
-                                    name: TaskBoardStatusTableGenerated.nameStatusId,
+                                    name: TaskBoardStatusTableGenerated
+                                        .nameStatusId,
                                     expanded: true,
                                     presentation: 'Статусы'),
                               ],
                             )
-                         
                           ],
                         ),
                       )),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data.dart';
+
 import 'app_pages.dart';
 
 void main() {

@@ -7,8 +7,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-import '../../app_pages.dart';
-import '../project/project_controller.dart';
+
 import '../task_status/task_status_controller.dart';
 import 'task_image_controller.dart';
 
@@ -34,10 +33,10 @@ class TasksPage extends GetView<TasksController> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 NsgAppBar(
-                  backColor: Color(0xff7876D9),
+                  backColor: const Color(0xff7876D9),
                   text: controller.currentItem.isEmpty
                       ? 'Новая задача'.toUpperCase()
-                      : controller.currentItem.date.toString().toUpperCase(),
+                      : controller.currentItem.name.toString().toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   color: Colors.white,
 

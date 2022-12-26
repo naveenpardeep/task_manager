@@ -6,7 +6,7 @@ import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_board/task_board_list.dart';
+
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -21,7 +21,7 @@ class _ProjectpageState extends State<ProjectPage> {
    bool isHidden=true;
 @override
 void initState() {
-    // TODO: implement initState
+    
     super.initState();
     isHidden;
   }
@@ -47,7 +47,7 @@ void initState() {
               children: <Widget>[
                 NsgAppBar(
                   color:  Colors.white,
-                  backColor: Color(0xff7876D9),
+                  backColor: const Color(0xff7876D9),
                   text: controller.currentItem.isEmpty
                       ? 'Новый проект'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
@@ -88,7 +88,7 @@ void initState() {
                               label: 'Заказчик',
                             ),
                             if(isHidden==true)
-                            NsgButton(text: 'Save and Next',onPressed: () {
+                            NsgButton(text: 'Сохранить и далее',color: Colors.white,onPressed: () {
                               setState(() {
                                 isHidden=false;
                                 controller.itemPagePost(goBack: false);
@@ -99,7 +99,7 @@ void initState() {
                             NsgTable(
                               controller: Get.find<TaskBoardController>(),
                               elementEditPageName: Routes.taskBoard,
-                              availableButtons: [
+                              availableButtons: const [
                                 NsgTableMenuButtonType.createNewElement,
                                 NsgTableMenuButtonType.editElement
                               ],

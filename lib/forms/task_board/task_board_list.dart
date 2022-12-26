@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
+
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
@@ -22,7 +22,7 @@ class TaskBoardListPage extends GetView<TaskBoardController> {
         textNoItems: _textNoItems,
         elementEditPage: _elementPage,
        
-        availableButtons: [
+        availableButtons: const [
           NsgTableMenuButtonType.createNewElement,
           NsgTableMenuButtonType.editElement
         ],
