@@ -9,13 +9,14 @@ import '../../app_pages.dart';
 class UserAccountListPage extends GetView<UserAccountController> {
   UserAccountListPage({Key? key}) : super(key: key);
 
-  final _textTitle = 'User'.toUpperCase();
-  final _textNoItems = 'Нет элементов';
+  final _textTitle = 'Список пользователей'.toUpperCase();
+  final _textNoItems = 'Нет пользователя';
   final _elementPage = Routes.userAccount;
 
   @override
   Widget build(BuildContext context) {
     return NsgListPage(
+        appBarColor: Colors.white,
         type: NsgListPageMode.table,
         controller: controller,
         title: _textTitle,

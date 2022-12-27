@@ -4,7 +4,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-
+import '../../app_pages.dart';
 
 class UserAccountPage extends GetView<UserAccountController> {
   const UserAccountPage({Key? key}) : super(key: key);
@@ -24,8 +24,9 @@ class UserAccountPage extends GetView<UserAccountController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  color: Colors.white,
                   text: controller.currentItem.isEmpty
-                      ? 'Новый User'.toUpperCase()
+                      ? 'Новый пользователь'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
@@ -49,6 +50,13 @@ class UserAccountPage extends GetView<UserAccountController> {
                               fieldName: UserAccountGenerated.nameName,
                               label: 'Наименование',
                             ),
+                            NsgButton(
+                              text: 'Список пользователей',
+                              color: Colors.white,
+                              onPressed: () {
+                                Get.toNamed(Routes.userAccountListPage);
+                              },
+                            )
                           ],
                         ),
                       )),

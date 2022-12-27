@@ -114,6 +114,18 @@ class _HomepageState extends State<Homepage> {
                     Get.toNamed(Routes.tasksListPage);
                   },
                 )),
+                  Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                child: TextButton(
+                  child: const Text(
+                    'Добавить пользователя',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.userAccount);
+                  },
+                )),
           ])),
       body: SingleChildScrollView(
         child: Column(

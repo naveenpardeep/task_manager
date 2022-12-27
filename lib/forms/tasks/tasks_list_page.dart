@@ -8,7 +8,7 @@ import 'tasks_controller.dart';
 class TasksListPage extends GetView<TasksController> {
   TasksListPage({Key? key}) : super(key: key);
 
-  final _textTitle = 'Задачи'.toUpperCase();
+  final _textTitle = 'Все задачи'.toUpperCase();
   final _textNoItems = 'Задачи ещё не добавлены';
   final _elementPage = Routes.tasksPage;
 
