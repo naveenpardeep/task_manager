@@ -514,6 +514,7 @@ class _HomepageState extends State<Homepage> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
+                              Text(tasks.description,maxLines: 2,),
                               Row(
                                 children: [
                                   const Icon(
