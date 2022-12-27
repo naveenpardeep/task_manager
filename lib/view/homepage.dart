@@ -110,7 +110,9 @@ class _HomepageState extends State<Homepage> {
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.tasksListPage);
+                  },
                 )),
           ])),
       body: SingleChildScrollView(

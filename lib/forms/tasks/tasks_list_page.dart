@@ -15,6 +15,8 @@ class TasksListPage extends GetView<TasksController> {
   @override
   Widget build(BuildContext context) {
     return NsgListPage(
+        appBarColor: Colors.white,
+        appBarIcon2: null,
         type: NsgListPageMode.table,
         controller: controller,
         title: _textTitle,
@@ -32,7 +34,7 @@ class TasksListPage extends GetView<TasksController> {
           NsgTableColumn(
               name: TaskDocGenerated.nameName,
               width: 100,
-              presentation: 'Заголовок'),
+              presentation: 'Название задачи'),
           NsgTableColumn(
               name: TaskDocGenerated.nameDescription,
               width: 100,
@@ -42,10 +44,10 @@ class TasksListPage extends GetView<TasksController> {
               name: TaskDocGenerated.nameProjectId,
               width: 100,
               presentation: 'Проект'),
-          NsgTableColumn(
-              name: TaskDocGenerated.nameSprintId,
-              width: 100,
-              presentation: 'Спринт')
+          // NsgTableColumn(
+          //     name: TaskDocGenerated.nameSprintId,
+          //     width: 100,
+          //     presentation: 'Спринт')
         ]);
   }
 }
