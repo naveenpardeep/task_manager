@@ -114,7 +114,7 @@ class _HomepageState extends State<Homepage> {
                     Get.toNamed(Routes.tasksListPage);
                   },
                 )),
-                  Padding(
+            Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
                 child: TextButton(
                   child: const Text(
@@ -489,9 +489,13 @@ class _HomepageState extends State<Homepage> {
       if (tasks.taskStatus != status) continue;
 
       if (tasks.name
-          .toString()
-          .toLowerCase()
-          .contains(searchvalue.toLowerCase())) {
+              .toString()
+              .toLowerCase()
+              .contains(searchvalue.toLowerCase()) ||
+          tasks.description
+              .toString()
+              .toLowerCase()
+              .contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
             taskConstroller.currentItem = tasks;
@@ -514,7 +518,10 @@ class _HomepageState extends State<Homepage> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(tasks.description,maxLines: 2,),
+                              Text(
+                                tasks.description,
+                                maxLines: 2,
+                              ),
                               Row(
                                 children: [
                                   const Icon(

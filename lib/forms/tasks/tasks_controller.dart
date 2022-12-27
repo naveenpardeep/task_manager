@@ -11,7 +11,7 @@ class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
-      //  TaskDocGenerated.nameProjectId,
+       TaskDocGenerated.nameProjectId,
       // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
@@ -28,7 +28,6 @@ class TasksController extends NsgDataController<TaskDoc> {
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
-    // TODO: implement doCreateNewItem
     var element = await super.doCreateNewItem() as TaskDoc;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
