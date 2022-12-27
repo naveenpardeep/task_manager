@@ -11,6 +11,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
 import 'package:task_manager_app/model/task_status.dart';
 
@@ -31,6 +32,7 @@ class _HomepageState extends State<Homepage> {
   var projectController = Get.find<ProjectController>();
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
+  var userAccountController= Get.find<UserAccountController>();
   String searchvalue = '';
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
@@ -122,7 +124,8 @@ class _HomepageState extends State<Homepage> {
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {
+                  onPressed: () async{
+                    await userAccountController.createNewItemAsync();
                     Get.toNamed(Routes.userAccount);
                   },
                 )),
