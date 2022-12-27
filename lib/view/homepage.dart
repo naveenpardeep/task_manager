@@ -81,10 +81,10 @@ class _HomepageState extends State<Homepage> {
                         var row = ProjectItemGenerated();
                         // row.name = item as ProjectItem;
                         setState(() {
-                          isWorkButton = false;
+                        
                           projectName = projectController.currentItem.name;
                         });
-
+                        taskStatusTableController.sendNotify();
                         projectController.sendNotify();
                       },
                     );
@@ -183,15 +183,19 @@ class _HomepageState extends State<Homepage> {
                                 );
                                 form.selectFromArray(
                                   'Доски с задачами',
-                                  (item) {
+                                  (item)   {
                                     var row = TaskBoardGenerated();
                                     // row.name = item as ProjectItem;
 
                                     setState(() {
                                       // screenName = taskBoardController.currentItem.name;
                                     });
-
+                                    taskConstroller.sendNotify();
+                          
+                                    taskStatusTableController.sendNotify();
+                              
                                     taskBoardController.sendNotify();
+                               
                                   },
                                 );
                               },
