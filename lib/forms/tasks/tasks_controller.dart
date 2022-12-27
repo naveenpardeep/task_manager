@@ -11,14 +11,22 @@ class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
-    //  TaskDocGenerated.nameProjectId,
+      //  TaskDocGenerated.nameProjectId,
       // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId
     ];
   }
-       @override
+  @override
+  Future<List<NsgDataItem>> doRequestItems() async {
+    controllerFilter.isOpen = true;
+    controllerFilter.isPeriodAllowed = true;
+    controllerFilter.periodFieldName = TaskDocGenerated.nameDate;
+    return super.doRequestItems();
+  }
+
+  @override
   Future<NsgDataItem> doCreateNewItem() async {
     // TODO: implement doCreateNewItem
     var element = await super.doCreateNewItem() as TaskDoc;
@@ -27,7 +35,6 @@ class TasksController extends NsgDataController<TaskDoc> {
 
     return element;
   }
-
 
   @override
   Future<TaskDoc> createNewItemAsync() async {
