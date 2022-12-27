@@ -14,7 +14,6 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import 'package:task_manager_app/model/task_status.dart';
 
-
 import '../model/generated/project_item.g.dart';
 import '../model/generated/task_board.g.dart';
 
@@ -36,7 +35,6 @@ class _HomepageState extends State<Homepage> {
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
   void initState() {
-
     super.initState();
     projectName;
     searchvalue;
@@ -44,7 +42,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-   
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -104,6 +101,16 @@ class _HomepageState extends State<Homepage> {
                   "Мои задачи",
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
+                )),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                child: TextButton(
+                  child: const Text(
+                    'Все задачи',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  onPressed: () {},
                 )),
           ])),
       body: SingleChildScrollView(
@@ -197,8 +204,8 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
             //  if (taskBoardController.currentItem.isNotEmpty)
-            taskStatusTableController.obx((state) =>
-                SingleChildScrollView(child: getStatusList()))
+            taskStatusTableController
+                .obx((state) => SingleChildScrollView(child: getStatusList()))
 
             // Row(children: [
             //   Expanded(
@@ -490,13 +497,22 @@ class _HomepageState extends State<Homepage> {
                             children: [
                               Text(
                                 tasks.name,
-                                style:
-                                    const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               Row(
                                 children: [
-                                 const Icon(Icons.access_time),
-                                  Expanded(child: Text('создано: ${formateddate.format(tasks.date)}' ,style: const TextStyle(color: Color(0xff10051C)),)),
+                                  const Icon(
+                                    Icons.access_time,
+                                    size: 12,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    'создано: ${formateddate.format(tasks.date)}',
+                                    textScaleFactor: 0.8,
+                                    style: const TextStyle(
+                                        color: Color(0xff10051C)),
+                                  )),
                                 ],
                               )
                             ],
@@ -516,5 +532,4 @@ class _HomepageState extends State<Homepage> {
       ),
     ));
   }
-
 }
