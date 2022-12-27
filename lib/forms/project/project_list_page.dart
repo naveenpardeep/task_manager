@@ -17,6 +17,12 @@ class ProjectListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           actions: [
+            Image.asset(
+              'lib/assets/images/logo.png',
+              height: 70,
+            ),
+          ],
           title: Center(
               child: Text(
             _textTitle.toString(),
