@@ -76,6 +76,7 @@ class CommentTableTasksController
   Future<TaskDocCommentsTable> doCreateNewItem() async {
     var item = await super.doCreateNewItem();
     item.date = DateTime.now();
+    
     return item;
   }
 }
