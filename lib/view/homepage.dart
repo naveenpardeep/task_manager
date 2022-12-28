@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 
 import 'package:task_manager_app/model/task_status.dart';
 
@@ -103,7 +104,6 @@ class _HomepageState extends State<Homepage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 )),
-           
             Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
                 child: TextButton(
@@ -439,15 +439,18 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        Column(
-                          children: [
-                            taskConstroller.obx(
-                              (state) => SingleChildScrollView(
-                                  child: SizedBox(
-                                      height: height * 0.6,
-                                      child: getTaskList(status.status))),
-                            )
-                          ],
+                        wrapdragTraget(
+                          status: status,
+                          child: Column(
+                            children: [
+                              taskConstroller.obx(
+                                (state) => SingleChildScrollView(
+                                    child: SizedBox(
+                                        height: height * 0.6,
+                                        child: getTaskList(status.status))),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ))),
@@ -493,14 +496,14 @@ class _HomepageState extends State<Homepage> {
         list.add(GestureDetector(
           onTap: () {
             taskConstroller.currentItem = tasks;
-            taskConstroller.currentItem.taskStatus=status;
+            taskConstroller.currentItem.taskStatus = status;
             Get.toNamed(Routes.tasksPage);
           },
           child: Row(
             children: [
               Expanded(
                 child: Draggable(
-                  data: status,
+                  data: tasks,
                   feedback: SizedBox(
                       height: 98,
                       width: 300,
@@ -583,32 +586,6 @@ class _HomepageState extends State<Homepage> {
                           ))),
                 ),
               ),
-              DragTarget<TaskStatus>(
-                builder: (context, accepted, rejected) {
-                return AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: EdgeInsets.symmetric(vertical: accepted.isNotEmpty ? 10 : 0),
-            decoration: BoxDecoration(
-                color: ControlOptions.instance.colorText.withOpacity(0.1),
-                border: Border.all(width: accepted.isNotEmpty ? 1 : 1, color: accepted.isNotEmpty ? Colors.red : Colors.black12)),
-            child: Container(height: 5, decoration: const BoxDecoration()));
-      
-                },
-              
-                onWillAccept: (status) {
-                  
-                  return true;
-                },
-                onAccept: (status) {
-                
-                  //  taskStatusTableController.currentItem.status=status;
-                    taskConstroller.currentItem.taskStatus=status;
-                   tasks.taskStatus = status;
-                    taskConstroller.itemPagePost();
-                    taskConstroller.sendNotify();
-                
-                },
-              ),
             ],
           ),
         ));
@@ -621,5 +598,29 @@ class _HomepageState extends State<Homepage> {
         children: list,
       ),
     ));
+  }
+
+  Widget wrapdragTraget(
+      {required TaskBoardStatusTable status, required Column child}) {
+    return DragTarget<TaskDoc>(
+      builder: (context, accepted, rejected) {
+        return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+                color: ControlOptions.instance.colorText.withOpacity(0.1),
+                border: Border.all(
+                    width: accepted.isNotEmpty ? 1 : 1,
+                    color: accepted.isNotEmpty ? Colors.red : Colors.black12)),
+            child: child);
+      },
+      onWillAccept: (data) {
+        return true;
+      },
+      onAccept: (data) {
+        data.taskStatus = status.status;
+        taskConstroller.currentItem = data;
+        taskConstroller.itemPagePost(goBack: false);
+      },
+    );
   }
 }

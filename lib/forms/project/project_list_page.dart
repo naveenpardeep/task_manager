@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 
@@ -59,6 +62,7 @@ class ProjectListPage extends StatelessWidget {
             textNoItems: _textNoItems,
             elementEditPage: _elementPage,
             onElementTap: (element) {
+             
               element as ProjectItem;
               controller.currentItem = element;
               Get.toNamed(Routes.homePage);
