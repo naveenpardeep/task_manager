@@ -24,13 +24,14 @@ class TasksListPage extends GetView<TasksController> {
         elementEditPage: _elementPage,
         columns: [
           NsgTableColumn(
+              name: TaskDocGenerated.nameProjectId,
+              width: 100,
+              presentation: 'Проект'),
+          NsgTableColumn(
               name: TaskDocGenerated.nameDate,
               width: 100,
               presentation: 'Дата'),
-          NsgTableColumn(
-              name: TaskDocGenerated.nameTaskStatusId,
-              width: 100,
-              presentation: 'Статус'),
+
           NsgTableColumn(
               name: TaskDocGenerated.nameName,
               width: 100,
@@ -41,9 +42,10 @@ class TasksListPage extends GetView<TasksController> {
               presentation: 'Описание',
               expanded: true),
           NsgTableColumn(
-              name: TaskDocGenerated.nameProjectId,
+              name: TaskDocGenerated.nameTaskStatusId,
               width: 100,
-              presentation: 'Проект'),
+              presentation: 'Статус'),
+
           // NsgTableColumn(
           //     name: TaskDocGenerated.nameSprintId,
           //     width: 100,

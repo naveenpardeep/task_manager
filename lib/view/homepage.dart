@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
   var projectController = Get.find<ProjectController>();
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
-  var userAccountController= Get.find<UserAccountController>();
+  var userAccountController = Get.find<UserAccountController>();
   String searchvalue = '';
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
@@ -81,7 +81,6 @@ class _HomepageState extends State<Homepage> {
                         var row = ProjectItemGenerated();
                         // row.name = item as ProjectItem;
                         setState(() {
-                        
                           projectName = projectController.currentItem.name;
                         });
                         taskStatusTableController.sendNotify();
@@ -104,18 +103,7 @@ class _HomepageState extends State<Homepage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 )),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                child: TextButton(
-                  child: const Text(
-                    'Все задачи',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () {
-                    Get.toNamed(Routes.tasksListPage);
-                  },
-                )),
+           
             Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
                 child: TextButton(
@@ -124,7 +112,7 @@ class _HomepageState extends State<Homepage> {
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () async{
+                  onPressed: () async {
                     await userAccountController.createNewItemAsync();
                     Get.toNamed(Routes.userAccount);
                   },
@@ -183,7 +171,7 @@ class _HomepageState extends State<Homepage> {
                                 );
                                 form.selectFromArray(
                                   'Доски с задачами',
-                                  (item)   {
+                                  (item) {
                                     var row = TaskBoardGenerated();
                                     // row.name = item as ProjectItem;
 
@@ -191,11 +179,10 @@ class _HomepageState extends State<Homepage> {
                                       // screenName = taskBoardController.currentItem.name;
                                     });
                                     taskConstroller.sendNotify();
-                                 // await  taskConstroller.doCreateNewItem();
+                                    // await  taskConstroller.doCreateNewItem();
                                     taskStatusTableController.sendNotify();
-                              
+
                                     taskBoardController.sendNotify();
-                               
                                   },
                                 );
                               },
@@ -506,47 +493,121 @@ class _HomepageState extends State<Homepage> {
         list.add(GestureDetector(
           onTap: () {
             taskConstroller.currentItem = tasks;
+            taskConstroller.currentItem.taskStatus=status;
             Get.toNamed(Routes.tasksPage);
           },
           child: Row(
             children: [
               Expanded(
-                child: SizedBox(
-                    height: 98,
-                    child: Card(
-                        color: const Color.fromRGBO(120, 118, 217, 0.12),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tasks.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                tasks.description,
-                                maxLines: 2,
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.access_time,
-                                    size: 12,
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                    'создано: ${formateddate.format(tasks.date)}',
-                                    textScaleFactor: 0.8,
-                                    style: const TextStyle(
-                                        color: Color(0xff10051C)),
-                                  )),
-                                ],
-                              )
-                            ],
-                          ),
-                        ))),
+                child: Draggable(
+                  data: status,
+                  feedback: SizedBox(
+                      height: 98,
+                      width: 300,
+                      child: Card(
+                          color: const Color.fromRGBO(120, 118, 217, 0.12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tasks.name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  tasks.description,
+                                  maxLines: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.access_time,
+                                      size: 12,
+                                    ),
+                                    Text(
+                                      'создано: ${formateddate.format(tasks.date)}',
+                                      textScaleFactor: 0.8,
+                                      style: const TextStyle(
+                                          color: Color(0xff10051C)),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ))),
+                  childWhenDragging: Container(
+                    height: 100.0,
+                    width: 100.0,
+                    color: Colors.pinkAccent,
+                    child: const Center(
+                      child: Text('Dragging'),
+                    ),
+                  ),
+                  child: SizedBox(
+                      height: 98,
+                      child: Card(
+                          color: const Color.fromRGBO(120, 118, 217, 0.12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tasks.name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  tasks.description,
+                                  maxLines: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.access_time,
+                                      size: 12,
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                      'создано: ${formateddate.format(tasks.date)}',
+                                      textScaleFactor: 0.8,
+                                      style: const TextStyle(
+                                          color: Color(0xff10051C)),
+                                    )),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ))),
+                ),
+              ),
+              DragTarget<TaskStatus>(
+                builder: (context, accepted, rejected) {
+                return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: EdgeInsets.symmetric(vertical: accepted.isNotEmpty ? 10 : 0),
+            decoration: BoxDecoration(
+                color: ControlOptions.instance.colorText.withOpacity(0.1),
+                border: Border.all(width: accepted.isNotEmpty ? 1 : 1, color: accepted.isNotEmpty ? Colors.red : Colors.black12)),
+            child: Container(height: 5, decoration: const BoxDecoration()));
+      
+                },
+              
+                onWillAccept: (status) {
+                  
+                  return true;
+                },
+                onAccept: (status) {
+                
+                  //  taskStatusTableController.currentItem.status=status;
+                    taskConstroller.currentItem.taskStatus=status;
+                   tasks.taskStatus = status;
+                    taskConstroller.itemPagePost();
+                    taskConstroller.sendNotify();
+                
+                },
               ),
             ],
           ),

@@ -15,6 +15,7 @@ class ProjectListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width= MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
            actions: [
@@ -23,11 +24,27 @@ class ProjectListPage extends StatelessWidget {
               height: 70,
             ),
           ],
-          title: Center(
-              child: Text(
+          title: Row(
+            children: [
+              SizedBox(width: width*0.4,),
+              Text(
             _textTitle.toString(),
             style: const TextStyle(color: Colors.white),
-          )),
+          ),
+           Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+            child: TextButton(
+              child: const Text(
+                'Все задачи',
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Get.toNamed(Routes.tasksListPage);
+              },
+            )),
+            ],
+          ),
           backgroundColor: const Color(0xff7876D9),
         ),
         body: NsgListPage(
