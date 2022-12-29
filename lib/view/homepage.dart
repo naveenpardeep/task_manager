@@ -173,13 +173,14 @@ class _HomepageState extends State<Homepage> {
                                   'Доски с задачами',
                                   (item) {
                                     var row = TaskBoardGenerated();
+                                    
                                     // row.name = item as ProjectItem;
 
                                     setState(() {
                                       // screenName = taskBoardController.currentItem.name;
                                     });
-                                    taskConstroller.sendNotify();
-                                    // await  taskConstroller.doCreateNewItem();
+                                    taskConstroller.refreshData();
+
                                     taskStatusTableController.sendNotify();
 
                                     taskBoardController.sendNotify();
@@ -396,12 +397,16 @@ class _HomepageState extends State<Homepage> {
 
   Widget getStatusList() {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    
+
     List<Widget> list = [];
 
     var statusList = taskStatusTableController.items;
 
     for (var status in statusList) {
       {
+
         list.add(Expanded(
           child: Row(children: [
             Expanded(
@@ -411,10 +416,9 @@ class _HomepageState extends State<Homepage> {
                       children: [
                         Row(
                           children: [
-                            Expanded(
-                                child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: NsgText(status.status.toString()))),
+                            Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: NsgText(status.status.toString())),
                             Expanded(
                                 child: Padding(
                                     padding: const EdgeInsets.all(5),
@@ -439,13 +443,14 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         const Divider(),
-                        wrapdragTraget(
+                        wrapdragTarget(
                           status: status,
                           child: Column(
                             children: [
                               taskConstroller.obx(
                                 (state) => SingleChildScrollView(
                                     child: SizedBox(
+                                        width: width,
                                         height: height * 0.6,
                                         child: getTaskList(status.status))),
                               )
@@ -600,7 +605,7 @@ class _HomepageState extends State<Homepage> {
     ));
   }
 
-  Widget wrapdragTraget(
+  Widget wrapdragTarget(
       {required TaskBoardStatusTable status, required Column child}) {
     return DragTarget<TaskDoc>(
       builder: (context, accepted, rejected) {
@@ -609,7 +614,7 @@ class _HomepageState extends State<Homepage> {
             decoration: BoxDecoration(
                 color: ControlOptions.instance.colorText.withOpacity(0.1),
                 border: Border.all(
-                    width: accepted.isNotEmpty ? 1 : 1,
+                    width: accepted.isNotEmpty ? 10 : 1,
                     color: accepted.isNotEmpty ? Colors.red : Colors.black12)),
             child: child);
       },

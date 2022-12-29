@@ -41,6 +41,7 @@ class ProjectListPage extends StatelessWidget {
                 'Все задачи',
                 style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
+                textScaleFactor: 1.5,
               ),
               onPressed: () {
                 Get.toNamed(Routes.tasksListPage);
@@ -62,9 +63,13 @@ class ProjectListPage extends StatelessWidget {
             textNoItems: _textNoItems,
             elementEditPage: _elementPage,
             onElementTap: (element) {
-             
+            var taskBoardController= Get.find<TaskBoardController>();
+           
+            taskBoardController.sendNotify();
               element as ProjectItem;
+              
               controller.currentItem = element;
+             
               Get.toNamed(Routes.homePage);
             },
             availableButtons: const [
