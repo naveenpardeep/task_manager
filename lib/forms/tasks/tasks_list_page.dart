@@ -40,6 +40,11 @@ class TasksListPage extends GetView<TasksController> {
               name: TaskDocGenerated.nameDescription,
               width: 100,
               presentation: 'Описание',
+              expanded: true),   
+          NsgTableColumn(
+              name: TaskDocGenerated.nameAssigneeId,
+              width: 100,
+              presentation: 'Исполнитель',
               expanded: true),
           NsgTableColumn(
               name: TaskDocGenerated.nameTaskStatusId,
