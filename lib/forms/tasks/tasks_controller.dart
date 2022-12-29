@@ -40,6 +40,8 @@ class TasksController extends NsgDataController<TaskDoc> {
     var dataitem = await super.createNewItemAsync();
 
     dataitem.date = DateTime.now();
+    dataitem.dateDeadline=DateTime(2023,01,01);
+    dataitem.dateRemind=DateTime(2023,01,01);
     return dataitem;
   }
 

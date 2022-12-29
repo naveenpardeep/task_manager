@@ -12,7 +12,7 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
   }
 //  @override
 //   Future<TaskStatus> createNewItemAsync() {
-//   
+//
 //     var item=super.createNewItemAsync() as TaskStatus;
 //     item.name=Guid.newGuid();
 //     return item;
@@ -20,7 +20,6 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
-   
     var element = await super.doCreateNewItem() as TaskStatus;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
@@ -54,10 +53,12 @@ class TaskStatusTableController
           masterController: Get.find<TaskBoardController>(),
           tableFieldName: TaskBoardGenerated.nameStatusTable,
         );
+  @override
+  Future itemRemove({bool goBack = true}) {
+    return super.itemRemove();
+  }
 
-   
-
-   @override
+  @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
     var projectController = Get.find<ProjectController>();

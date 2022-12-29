@@ -59,9 +59,11 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               elementEditPageName: Routes.taskrow,
                               availableButtons: const [
                                 NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement
+                                NsgTableMenuButtonType.editElement,
+                                NsgTableMenuButtonType.removeElement
                               ],
                               columns: [
+                                
                                 NsgTableColumn(
                                     name: TaskBoardStatusTableGenerated
                                         .nameStatusId,
