@@ -65,7 +65,10 @@ class ProjectListPage extends StatelessWidget {
             textNoItems: _textNoItems,
             elementEditPage: _elementPage,
             onElementTap: (element) {
-            
+              var taskConstroller = Get.find<TasksController>();
+
+              taskConstroller.refreshData();
+
               element as ProjectItem;
 
               controller.currentItem = element;
