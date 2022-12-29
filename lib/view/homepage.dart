@@ -42,10 +42,12 @@ class _HomepageState extends State<Homepage> {
 
     projectName;
     searchvalue;
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(

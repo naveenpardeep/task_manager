@@ -12,8 +12,15 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
     masterController = Get.find<ProjectController>();
   }
   @override
+  Future afterRequestItems(List<NsgDataItem> newItemsList) async {
+    if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
+      currentItem = newItemsList.first as TaskBoard;
+    }
+    return await super.afterRequestItems(newItemsList);
+  }
+
+  @override
   Future<NsgDataItem> doCreateNewItem() async {
-   
     var element = await super.doCreateNewItem() as TaskBoard;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;

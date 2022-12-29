@@ -18,10 +18,10 @@ class ProjectListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width= MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-           actions: [
+          actions: [
             Image.asset(
               'lib/assets/images/logo.png',
               height: 70,
@@ -29,24 +29,26 @@ class ProjectListPage extends StatelessWidget {
           ],
           title: Row(
             children: [
-              SizedBox(width: width*0.4,),
-              Text(
-            _textTitle.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-            child: TextButton(
-              child: const Text(
-                'Все задачи',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-                textScaleFactor: 1.5,
+              SizedBox(
+                width: width * 0.4,
               ),
-              onPressed: () {
-                Get.toNamed(Routes.tasksListPage);
-              },
-            )),
+              Text(
+                _textTitle.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                  child: TextButton(
+                    child: const Text(
+                      'Все задачи',
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                      textScaleFactor: 1.5,
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.tasksListPage);
+                    },
+                  )),
             ],
           ),
           backgroundColor: const Color(0xff7876D9),
@@ -63,14 +65,11 @@ class ProjectListPage extends StatelessWidget {
             textNoItems: _textNoItems,
             elementEditPage: _elementPage,
             onElementTap: (element) {
-            var taskBoardController= Get.find<TaskBoardController>();
-            taskBoardController.selectedItem;
-           
-            taskBoardController.sendNotify();
+            
               element as ProjectItem;
-              
+
               controller.currentItem = element;
-             
+
               Get.toNamed(Routes.homePage);
             },
             availableButtons: const [
