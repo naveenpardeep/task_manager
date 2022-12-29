@@ -39,6 +39,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
+
     projectName;
     searchvalue;
   }
@@ -104,19 +105,19 @@ class _HomepageState extends State<Homepage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 )),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                child: TextButton(
-                  child: const Text(
-                    'Добавить пользователя',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () async {
-                    await userAccountController.createNewItemAsync();
-                    Get.toNamed(Routes.userAccount);
-                  },
-                )),
+            // Padding(
+            //     padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+            //     child: TextButton(
+            //       child: const Text(
+            //         'Добавить пользователя',
+            //         style: TextStyle(color: Colors.white),
+            //         textAlign: TextAlign.center,
+            //       ),
+            //       onPressed: () async {
+            //         await userAccountController.createNewItemAsync();
+            //         Get.toNamed(Routes.userAccount);
+            //       },
+            //     )),
           ])),
       body: SingleChildScrollView(
         child: Column(
@@ -165,27 +166,7 @@ class _HomepageState extends State<Homepage> {
                                 style: TextStyle(color: Colors.black),
                               ),
                               onPressed: () {
-                                var form = NsgSelection(
-                                  inputType: NsgInputType.reference,
-                                  controller: Get.find<TaskBoardController>(),
-                                );
-                                form.selectFromArray(
-                                  'Доски с задачами',
-                                  (item) {
-                                    var row = TaskBoardGenerated();
-                                    
-                                    // row.name = item as ProjectItem;
-
-                                    setState(() {
-                                      // screenName = taskBoardController.currentItem.name;
-                                    });
-                                    taskConstroller.refreshData();
-
-                                    taskStatusTableController.sendNotify();
-
-                                    taskBoardController.sendNotify();
-                                  },
-                                );
+                                selectTaskScreen();
                               },
                             ),
                             const Divider(
@@ -398,7 +379,6 @@ class _HomepageState extends State<Homepage> {
   Widget getStatusList() {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    
 
     List<Widget> list = [];
 
@@ -406,7 +386,6 @@ class _HomepageState extends State<Homepage> {
 
     for (var status in statusList) {
       {
-
         list.add(Expanded(
           child: Row(children: [
             Expanded(
@@ -625,6 +604,27 @@ class _HomepageState extends State<Homepage> {
         data.taskStatus = status.status;
         taskConstroller.currentItem = data;
         taskConstroller.itemPagePost(goBack: false);
+      },
+    );
+  }
+
+  selectTaskScreen() {
+    var form = NsgSelection(
+      inputType: NsgInputType.reference,
+      controller: Get.find<TaskBoardController>(),
+    );
+    form.selectFromArray(
+      'Доски с задачами',
+      (item) {
+        var row = TaskBoardGenerated();
+
+        // row.name = item as ProjectItem;
+
+        taskConstroller.refreshData();
+
+        taskStatusTableController.sendNotify();
+
+        taskBoardController.sendNotify();
       },
     );
   }

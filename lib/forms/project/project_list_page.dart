@@ -64,6 +64,7 @@ class ProjectListPage extends StatelessWidget {
             elementEditPage: _elementPage,
             onElementTap: (element) {
             var taskBoardController= Get.find<TaskBoardController>();
+            taskBoardController.selectedItem;
            
             taskBoardController.sendNotify();
               element as ProjectItem;
