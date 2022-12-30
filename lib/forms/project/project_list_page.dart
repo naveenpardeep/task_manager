@@ -53,49 +53,52 @@ class ProjectListPage extends StatelessWidget {
           ),
           backgroundColor: const Color(0xff7876D9),
         ),
-        body: NsgListPage(
-            appBar: const SizedBox(),
-            appBarIcon: null,
-            appBarIcon2: null,
-            appBarBackColor: const Color(0xff7876D9),
-            appBarColor: Colors.white,
-            type: NsgListPageMode.table,
-            controller: controller,
-            title: _textTitle,
-            textNoItems: _textNoItems,
-            elementEditPage: _elementPage,
-            onElementTap: (element) {
-              var taskConstroller = Get.find<TasksController>();
+        body: Tooltip(
+          message: 'Click on the project for more details',
+          child: NsgListPage(
+              appBar: const SizedBox(),
+              appBarIcon: null,
+              appBarIcon2: null,
+              appBarBackColor: const Color(0xff7876D9),
+              appBarColor: Colors.white,
+              type: NsgListPageMode.table,
+              controller: controller,
+              title: _textTitle,
+              textNoItems: _textNoItems,
+              elementEditPage: _elementPage,
+              onElementTap: (element) {
+                var taskConstroller = Get.find<TasksController>();
 
-              taskConstroller.refreshData();
+                taskConstroller.refreshData();
 
-              element as ProjectItem;
+                element as ProjectItem;
 
-              controller.currentItem = element;
+                controller.currentItem = element;
 
-              Get.toNamed(Routes.homePage);
-            },
-            availableButtons: const [
-              NsgTableMenuButtonType.createNewElement,
-              NsgTableMenuButtonType.editElement,
-            ],
-            columns: [
-              NsgTableColumn(
-                  name: ProjectItemGenerated.nameName,
-                  expanded: true,
-                  presentation: 'Название проекта'),
-              NsgTableColumn(
-                  name: ProjectItemGenerated.nameLeaderId,
-                  expanded: true,
-                  presentation: 'Руководитель проекта'),
-              NsgTableColumn(
-                  name: ProjectItemGenerated.nameDate,
-                  expanded: true,
-                  presentation: 'Дата создания'),
-              NsgTableColumn(
-                  name: ProjectItemGenerated.nameContractor,
-                  expanded: true,
-                  presentation: 'Заказчик'),
-            ]));
+                Get.toNamed(Routes.homePage);
+              },
+              availableButtons: const [
+                NsgTableMenuButtonType.createNewElement,
+                NsgTableMenuButtonType.editElement,
+              ],
+              columns: [
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameName,
+                    expanded: true,
+                    presentation: 'Название проекта'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameLeaderId,
+                    expanded: true,
+                    presentation: 'Руководитель проекта'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameDate,
+                    expanded: true,
+                    presentation: 'Дата создания'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameContractor,
+                    expanded: true,
+                    presentation: 'Заказчик'),
+              ]),
+        ));
   }
 }
