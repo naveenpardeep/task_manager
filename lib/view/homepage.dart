@@ -161,16 +161,27 @@ class _HomepageState extends State<Homepage> {
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: TextField(
-                            controller: textEditController,
-                            decoration: const InputDecoration(
-                                // prefixIcon: Icon(Icons.search),
-                                hintText: 'Поиск по тексту'),
-                            onChanged: (val) {
-                              searchvalue = val;
+                        child: Tooltip(
+                          message: 'Поиск по тексту задачи, Описание задачи',
+                          child: TextField(
+                              controller: textEditController,
+                              decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                      onPressed: (() {
+                                        setState(() {
+                                          textEditController.clear();
+                                          searchvalue = '';
+                                        });
+                                      }),
+                                      icon: const Icon(Icons.cancel)),
+                                  // prefixIcon: Icon(Icons.search),
+                                  hintText: 'Поиск по тексту'),
+                              onChanged: (val) {
+                                searchvalue = val;
 
-                              taskStatusTableController.sendNotify();
-                            }))),
+                                taskStatusTableController.sendNotify();
+                              }),
+                        ))),
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(0),
