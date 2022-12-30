@@ -171,15 +171,18 @@ class _HomepageState extends State<Homepage> {
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(0),
-                        child: NsgDatePicker(
-                            label: 'Поиск по дате',
-                            initialTime: DateTime.now(),
-                            onClose: ((endDate) {
-                              searchDate = endDate;
-                              isDatesearch = true;
+                        child: Tooltip(
+                          message: 'Поиск задач по дате создания',
+                          child: NsgDatePicker(
+                              label: 'Поиск по дате',
+                              initialTime: DateTime.now(),
+                              onClose: ((endDate) {
+                                searchDate = endDate;
+                                isDatesearch = true;
 
-                              taskConstroller.refreshData();
-                            })))),
+                                taskConstroller.refreshData();
+                              })),
+                        ))),
                 const Expanded(
                     child: Padding(
                         padding: EdgeInsets.all(15),
@@ -189,14 +192,18 @@ class _HomepageState extends State<Homepage> {
                         padding: const EdgeInsets.all(1),
                         child: Column(
                           children: [
-                            TextButton(
-                              child: const Text(
-                                'Доска с задачами',
-                                style: TextStyle(color: Colors.black),
+                            Tooltip(
+                              message:
+                                  'Выберите экран, на котором вы хотите отобразить статус',
+                              child: TextButton(
+                                child: const Text(
+                                  'Доска с задачами',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                onPressed: () {
+                                  selectTaskScreen();
+                                },
                               ),
-                              onPressed: () {
-                                selectTaskScreen();
-                              },
                             ),
                             const Divider(
                               color: Color(0xff7876D9),
@@ -470,7 +477,11 @@ class _HomepageState extends State<Homepage> {
                                     child: SizedBox(
                                         width: width,
                                         height: height * 0.6,
-                                        child: getTaskList(status.status))),
+                                        child: Tooltip(
+                                            message:
+                                                'Drag and drop измените статус задачи',
+                                            child:
+                                                getTaskList(status.status)))),
                               )
                             ],
                           ),
