@@ -19,6 +19,11 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
   @override
+  Future itemRemove({bool goBack = true}) {
+  
+    return super.itemRemove();
+  }
+  @override
   Future<List<NsgDataItem>> doRequestItems() async {
     controllerFilter.isOpen = true;
     controllerFilter.isPeriodAllowed = true;

@@ -77,7 +77,7 @@ class ProjectListPage extends StatelessWidget {
             },
             availableButtons: const [
               NsgTableMenuButtonType.createNewElement,
-              NsgTableMenuButtonType.editElement
+              NsgTableMenuButtonType.editElement,
             ],
             columns: [
               NsgTableColumn(

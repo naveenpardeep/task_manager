@@ -28,13 +28,17 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String projectName = '';
-  bool isWorkButton = false;
+  bool isDatesearch = false;
   var taskConstroller = Get.find<TasksController>();
   var projectController = Get.find<ProjectController>();
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   var userAccountController = Get.find<UserAccountController>();
+  var textEditController = TextEditingController();
   String searchvalue = '';
+  DateTime searchDate = DateTime.now();
+  DateFormat searchformat = DateFormat("dd-MM-yyyy");
+
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
   void initState() {
@@ -42,12 +46,13 @@ class _HomepageState extends State<Homepage> {
 
     projectName;
     searchvalue;
-    
+    searchDate;
+    isDatesearch;
+    textEditController;
   }
 
   @override
   Widget build(BuildContext context) {
-    
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -141,6 +146,7 @@ class _HomepageState extends State<Homepage> {
                     child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: TextField(
+                            controller: textEditController,
                             decoration: const InputDecoration(
                                 // prefixIcon: Icon(Icons.search),
                                 hintText: 'Поиск по тексту'),
@@ -149,10 +155,18 @@ class _HomepageState extends State<Homepage> {
 
                               taskStatusTableController.sendNotify();
                             }))),
-                const Expanded(
+                Expanded(
                     child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Text('Поиск по дате'))),
+                        padding: const EdgeInsets.all(0),
+                        child: NsgDatePicker(
+                            label: 'Поиск по дате',
+                            initialTime: DateTime.now(),
+                            onClose: ((endDate) {
+                              searchDate = endDate;
+                              isDatesearch = true;
+
+                              taskConstroller.refreshData();
+                            })))),
                 const Expanded(
                     child: Padding(
                         padding: EdgeInsets.all(15),
@@ -176,10 +190,18 @@ class _HomepageState extends State<Homepage> {
                             )
                           ],
                         ))),
-                const Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Text('очистить фильтры'))),
+                Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isDatesearch = false;
+                            searchDate = DateTime.now();
+                            searchvalue = '';
+                            textEditController.clear();
+                          });
+                        },
+                        child: const Text('очистить фильтры'))),
                 const Spacer(),
                 Expanded(
                     child: NsgButton(
@@ -454,11 +476,13 @@ class _HomepageState extends State<Homepage> {
 
   Widget getTasklength(TaskStatus status) {
     var tasksList = taskConstroller.items;
-
+    var length;
     var taskLength =
         tasksList.where(((element) => element.taskStatus == status));
 
-    return Text(taskLength.length.toString());
+    length = taskLength.length.toString();
+
+    return Text(length);
   }
 
   Widget getTaskList(TaskStatus status) {
@@ -478,7 +502,109 @@ class _HomepageState extends State<Homepage> {
           tasks.description
               .toString()
               .toLowerCase()
-              .contains(searchvalue.toLowerCase())) {
+              .contains(searchvalue.toLowerCase()))
+      // ignore: curly_braces_in_flow_control_structures
+      if (isDatesearch == true) {
+        if (searchformat.format(tasks.date) ==
+            searchformat.format(searchDate)) {
+          list.add(GestureDetector(
+            onTap: () {
+              taskConstroller.currentItem = tasks;
+              taskConstroller.currentItem.taskStatus = status;
+              Get.toNamed(Routes.tasksPage);
+            },
+            child: Row(
+              children: [
+                Expanded(
+                  child: Draggable(
+                    data: tasks,
+                    feedback: SizedBox(
+                        height: 98,
+                        width: 300,
+                        child: Card(
+                            color: const Color.fromRGBO(120, 118, 217, 0.12),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tasks.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    tasks.description,
+                                    maxLines: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.access_time,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        'создано: ${formateddate.format(tasks.date)}',
+                                        textScaleFactor: 0.8,
+                                        style: const TextStyle(
+                                            color: Color(0xff10051C)),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ))),
+                    childWhenDragging: Container(
+                      height: 100.0,
+                      width: 100.0,
+                      color: Colors.pinkAccent,
+                      child: const Center(
+                        child: Text('Dragging'),
+                      ),
+                    ),
+                    child: SizedBox(
+                        height: 98,
+                        child: Card(
+                            color: Color.fromARGB(239, 248, 250, 252),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tasks.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    tasks.description,
+                                    maxLines: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.access_time,
+                                        size: 12,
+                                      ),
+                                      Expanded(
+                                          child: Text(
+                                        'создано: ${formateddate.format(tasks.date)}',
+                                        textScaleFactor: 0.8,
+                                        style: const TextStyle(
+                                            color: Color(0xff10051C)),
+                                      )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ))),
+                  ),
+                ),
+              ],
+            ),
+          ));
+        }
+      } else {
         list.add(GestureDetector(
           onTap: () {
             taskConstroller.currentItem = tasks;
@@ -537,7 +663,7 @@ class _HomepageState extends State<Homepage> {
                   child: SizedBox(
                       height: 98,
                       child: Card(
-                          color: const Color.fromRGBO(120, 118, 217, 0.12),
+                          color: Color.fromARGB(239, 248, 250, 252),
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Column(
@@ -596,7 +722,9 @@ class _HomepageState extends State<Homepage> {
                 color: ControlOptions.instance.colorText.withOpacity(0.1),
                 border: Border.all(
                     width: accepted.isNotEmpty ? 10 : 1,
-                    color: accepted.isNotEmpty ? Colors.red : Colors.black12)),
+                    color: accepted.isNotEmpty
+                        ? Colors.red
+                        : const Color.fromRGBO(120, 118, 217, 0.12))),
             child: child);
       },
       onWillAccept: (data) {
