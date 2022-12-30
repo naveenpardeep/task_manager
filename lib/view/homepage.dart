@@ -152,7 +152,7 @@ class _HomepageState extends State<Homepage> {
                                 hintText: 'Поиск по тексту'),
                             onChanged: (val) {
                               searchvalue = val;
-
+                             
                               taskStatusTableController.sendNotify();
                             }))),
                 Expanded(
@@ -164,7 +164,7 @@ class _HomepageState extends State<Homepage> {
                             onClose: ((endDate) {
                               searchDate = endDate;
                               isDatesearch = true;
-
+                             
                               taskConstroller.refreshData();
                             })))),
                 const Expanded(
@@ -426,7 +426,7 @@ class _HomepageState extends State<Homepage> {
                                 child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: taskConstroller.obx((state) =>
-                                        getTasklength(status.status)))),
+                                     searchvalue.isEmpty?   getTasklength(status.status): Text('')))),
                             TextButton(
                                 child: Row(
                                   children: [
@@ -502,7 +502,8 @@ class _HomepageState extends State<Homepage> {
           tasks.description
               .toString()
               .toLowerCase()
-              .contains(searchvalue.toLowerCase()))
+              .contains(searchvalue.toLowerCase())
+          )
       // ignore: curly_braces_in_flow_control_structures
       if (isDatesearch == true) {
         if (searchformat.format(tasks.date) ==
