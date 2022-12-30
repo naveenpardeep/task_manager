@@ -71,10 +71,13 @@ class _HomepageState extends State<Homepage> {
                 child: TextButton(
                   child: Row(
                     children: const [
-                      Text(
-                        'Проекты',
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
+                      Tooltip(
+                        message: 'Выберите проект здесь',
+                        child: Text(
+                          'Проекты',
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       Icon(Icons.arrow_drop_down)
                     ],
@@ -451,14 +454,14 @@ class _HomepageState extends State<Homepage> {
                                             : Text('')))),
                             TextButton(
                                 child: Row(
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       'по дате',
                                       style:
                                           TextStyle(color: Color(0xff6D6BD6)),
                                       textAlign: TextAlign.center,
                                     ),
-                                    const Icon(
+                                    Icon(
                                       Icons.arrow_drop_down,
                                       color: Color(0xff6D6BD6),
                                     )
@@ -477,11 +480,7 @@ class _HomepageState extends State<Homepage> {
                                     child: SizedBox(
                                         width: width,
                                         height: height * 0.6,
-                                        child: Tooltip(
-                                            message:
-                                                'Drag and drop измените статус задачи',
-                                            child:
-                                                getTaskList(status.status)))),
+                                        child: getTaskList(status.status))),
                               )
                             ],
                           ),
@@ -686,42 +685,45 @@ class _HomepageState extends State<Homepage> {
                       child: Text('Dragging'),
                     ),
                   ),
-                  child: SizedBox(
-                      height: 98,
-                      child: Card(
-                          color: Color.fromARGB(239, 248, 250, 252),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tasks.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  tasks.description,
-                                  maxLines: 2,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.access_time,
-                                      size: 12,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      'создано: ${formateddate.format(tasks.date)}',
-                                      textScaleFactor: 0.8,
-                                      style: const TextStyle(
-                                          color: Color(0xff10051C)),
-                                    )),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ))),
+                  child: Tooltip(
+                    message: 'Drag and drop измените статус задачи',
+                    child: SizedBox(
+                        height: 98,
+                        child: Card(
+                            color: const Color.fromARGB(239, 248, 250, 252),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tasks.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    tasks.description,
+                                    maxLines: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.access_time,
+                                        size: 12,
+                                      ),
+                                      Expanded(
+                                          child: Text(
+                                        'создано: ${formateddate.format(tasks.date)}',
+                                        textScaleFactor: 0.8,
+                                        style: const TextStyle(
+                                            color: Color(0xff10051C)),
+                                      )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ))),
+                  ),
                 ),
               ),
             ],
