@@ -33,11 +33,17 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
     var projectController = Get.find<ProjectController>();
     var taskStatusController = Get.find<TaskBoardController>();
 
+    var projectStatuses = <String>[];
+    for (var e in taskStatusController.currentItem.statusTable.rows) {
+      projectStatuses.add(e.statusId);
+    }
+
     cmp.add(
         //  name: TaskStatusGenerated.nameProjectId,
         // value: projectController.currentItem.id);
-        name: TaskStatusGenerated.nameProjectId,
-        value: taskStatusController.currentItem.id);
+        name: TaskStatusGenerated.nameId,
+        value: projectStatuses,
+        comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
 
     // var filter = super.getRequestFilter;
