@@ -19,6 +19,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(ProjectItem(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(ProjectItemUserTable(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(TaskDoc(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(TaskDocCommentsTable(), remoteProvider: provider);
@@ -40,6 +42,8 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(SprintDoc(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(SprintDocTaskTable(), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(Invitation(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(Picture(), remoteProvider: provider);
     NsgDataClient.client
