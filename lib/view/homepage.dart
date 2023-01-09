@@ -462,7 +462,7 @@ class _HomepageState extends State<Homepage> {
                                     child: taskConstroller.obx((state) =>
                                         searchvalue.isEmpty
                                             ? getTasklength(status.status)
-                                            : Text('')))),
+                                            : const Text('')))),
                             TextButton(
                                 child: Row(
                                   children: const [
@@ -601,7 +601,7 @@ class _HomepageState extends State<Homepage> {
                     child: SizedBox(
                         height: 98,
                         child: Card(
-                            color: Color.fromARGB(239, 248, 250, 252),
+                            color: const Color.fromARGB(239, 248, 250, 252),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: Column(

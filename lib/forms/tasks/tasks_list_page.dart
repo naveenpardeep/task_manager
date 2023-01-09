@@ -22,6 +22,7 @@ class TasksListPage extends GetView<TasksController> {
         title: _textTitle,
         textNoItems: _textNoItems,
         elementEditPage: _elementPage,
+        availableButtons: const [NsgTableMenuButtonType.editElement,NsgTableMenuButtonType.filterPeriod,NsgTableMenuButtonType.filterPeriod,NsgTableMenuButtonType.filterText,NsgTableMenuButtonType.refreshTable],
         columns: [
           NsgTableColumn(
               name: TaskDocGenerated.nameProjectId,
