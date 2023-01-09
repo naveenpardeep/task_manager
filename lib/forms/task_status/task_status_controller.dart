@@ -31,10 +31,13 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
     var projectController = Get.find<ProjectController>();
+    var taskStatusController = Get.find<TaskBoardController>();
 
     cmp.add(
+        //  name: TaskStatusGenerated.nameProjectId,
+        // value: projectController.currentItem.id);
         name: TaskStatusGenerated.nameProjectId,
-        value: projectController.currentItem.id);
+        value: taskStatusController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
 
     // var filter = super.getRequestFilter;
