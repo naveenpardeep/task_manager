@@ -27,15 +27,15 @@ class TaskDocGenerated extends NsgDataItem {
   static const namePriority = 'priority';
 
   static final Map<String, String> fieldNameDict = {
-   nameDate: 'Дата документа',
-   nameDateClosed: 'Дата закрытия',
-   nameDateUpdated: 'Дата обновления',
-   nameDateRemind: 'Дата напоминания',
-   nameDateDeadline: 'Срок выполнения',
-   nameDescription: 'Описание задачи',
-   nameName: 'Текст задачи',
-   nameComment: 'Комментарий',
- };
+    nameDate: 'Дата документа',
+    nameDateClosed: 'Дата закрытия',
+    nameDateUpdated: 'Дата обновления',
+    nameDateRemind: 'Дата напоминания',
+    nameDateDeadline: 'Срок выполнения',
+    nameDescription: 'Описание задачи',
+    nameName: 'Текст задачи',
+    nameComment: 'Комментарий',
+  };
 
   @override
   String get typeName => 'TaskDoc';

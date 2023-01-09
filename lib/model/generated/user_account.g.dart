@@ -11,8 +11,8 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameLastChange = 'lastChange';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
- };
+    nameName: 'Наименование',
+  };
 
   @override
   String get typeName => 'UserAccount';

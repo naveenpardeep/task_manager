@@ -13,11 +13,12 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameStatusCancelledId = 'statusCancelledId';
   static const nameLeaderId = 'leaderId';
   static const nameContractor = 'contractor';
+  static const nameTableUsers = 'tableUsers';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
-   nameDate: 'Дата создания',
- };
+    nameName: 'Наименование',
+    nameDate: 'Дата создания',
+  };
 
   @override
   String get typeName => 'ProjectItem';
@@ -31,6 +32,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
   }
@@ -98,6 +100,10 @@ class ProjectItemGenerated extends NsgDataItem {
   String get contractor => getFieldValue(nameContractor).toString();
 
   set contractor(String value) => setFieldValue(nameContractor, value);
+
+  /// ТаблицаПользователи
+  NsgDataTable<TaskDocCommentsTable> get tableUsers => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableUsers);
+
 
   @override
   String get apiRequestItems {

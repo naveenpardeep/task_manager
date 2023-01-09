@@ -11,11 +11,15 @@ class DataControllerGenerated extends NsgBaseController {
   @override
   Future onInit() async {
     final info = await PackageInfo.fromPlatform();
+    NsgMetrica.activate();
+    NsgMetrica.reportAppStart();
     provider ??= NsgDataProvider(applicationName: 'task_manager_app', applicationVersion: info.version, firebaseToken: '');
     provider!.serverUri = NsgServerOptions.serverUriDataController;
 
     NsgDataClient.client
         .registerDataItem(ProjectItem(), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(ProjectItemUserTable(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(TaskDoc(), remoteProvider: provider);
     NsgDataClient.client
@@ -38,6 +42,8 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(SprintDoc(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(SprintDocTaskTable(), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(Invitation(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(Picture(), remoteProvider: provider);
     NsgDataClient.client

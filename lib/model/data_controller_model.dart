@@ -1,5 +1,7 @@
 export 'project_item.dart';
 export 'generated/project_item.g.dart';
+export 'project_item_user_table.dart';
+export 'generated/project_item_user_table.g.dart';
 export 'task_doc.dart';
 export 'generated/task_doc.g.dart';
 export 'task_doc_comments_table.dart';
@@ -22,6 +24,8 @@ export 'sprint_doc.dart';
 export 'generated/sprint_doc.g.dart';
 export 'sprint_doc_task_table.dart';
 export 'generated/sprint_doc_task_table.g.dart';
+export 'invitation.dart';
+export 'generated/invitation.g.dart';
 export 'picture.dart';
 export 'generated/picture.g.dart';
 export 'user_account.dart';

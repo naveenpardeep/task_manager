@@ -13,9 +13,9 @@ class TaskDocCommentsTableGenerated extends NsgDataItem {
   static const nameAuthorId = 'authorId';
 
   static final Map<String, String> fieldNameDict = {
-   nameText: 'Текст',
-   nameDate: 'Дата комментария',
- };
+    nameText: 'Текст',
+    nameDate: 'Дата комментария',
+  };
 
   @override
   String get typeName => 'TaskDocCommentsTable';

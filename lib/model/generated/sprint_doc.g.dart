@@ -11,8 +11,8 @@ class SprintDocGenerated extends NsgDataItem {
   static const nameTaskTable = 'taskTable';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Комментарий',
- };
+    nameName: 'Комментарий',
+  };
 
   @override
   String get typeName => 'SprintDoc';

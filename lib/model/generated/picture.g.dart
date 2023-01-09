@@ -12,10 +12,10 @@ class PictureGenerated extends NsgDataItem {
   static const nameOwnerId = 'ownerId';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
-   nameImage: 'Картинка',
-   nameOwnerId: 'Владелец',
- };
+    nameName: 'Наименование',
+    nameImage: 'Картинка',
+    nameOwnerId: 'Владелец',
+  };
 
   @override
   String get typeName => 'Picture';

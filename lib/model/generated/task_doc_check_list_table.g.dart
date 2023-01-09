@@ -12,9 +12,9 @@ class TaskDocCheckListTableGenerated extends NsgDataItem {
   static const nameIsDone = 'isDone';
 
   static final Map<String, String> fieldNameDict = {
-   nameText: 'Сделать',
-   nameIsDone: 'Выполнено',
- };
+    nameText: 'Сделать',
+    nameIsDone: 'Выполнено',
+  };
 
   @override
   String get typeName => 'TaskDocCheckListTable';
