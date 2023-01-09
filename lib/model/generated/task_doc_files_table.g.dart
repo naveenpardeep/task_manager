@@ -13,9 +13,9 @@ class TaskDocFilesTableGenerated extends NsgDataItem {
   static const nameFile = 'file';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
-   nameDate: 'Дата загрузки',
- };
+    nameName: 'Наименование',
+    nameDate: 'Дата загрузки',
+  };
 
   @override
   String get typeName => 'TaskDocFilesTable';

@@ -13,9 +13,9 @@ class TaskStatusGenerated extends NsgDataItem {
   static const nameTransitionTable = 'transitionTable';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
-   nameIsDone: 'Статус завершения',
- };
+    nameName: 'Наименование',
+    nameIsDone: 'Статус завершения',
+  };
 
   @override
   String get typeName => 'TaskStatus';

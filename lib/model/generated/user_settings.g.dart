@@ -12,8 +12,8 @@ class UserSettingsGenerated extends NsgDataItem with NsgUserSettings {
   static const nameUserId = 'userId';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
- };
+    nameName: 'Наименование',
+  };
 
   @override
   String get typeName => 'UserSettings';
@@ -44,6 +44,7 @@ class UserSettingsGenerated extends NsgDataItem with NsgUserSettings {
   @override
   String get name => getFieldValue(nameName).toString();
 
+  @override
   set name(String value) => setFieldValue(nameName, value);
 
   /// НастройкиСтрока

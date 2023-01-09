@@ -15,9 +15,9 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameContractor = 'contractor';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
-   nameDate: 'Дата создания',
- };
+    nameName: 'Наименование',
+    nameDate: 'Дата создания',
+  };
 
   @override
   String get typeName => 'ProjectItem';

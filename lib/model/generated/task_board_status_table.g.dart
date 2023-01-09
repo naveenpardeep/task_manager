@@ -11,7 +11,7 @@ class TaskBoardStatusTableGenerated extends NsgDataItem {
   static const nameStatusId = 'statusId';
 
   static final Map<String, String> fieldNameDict = {
- };
+  };
 
   @override
   String get typeName => 'TaskBoardStatusTable';

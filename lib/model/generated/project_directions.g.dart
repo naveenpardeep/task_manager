@@ -10,8 +10,8 @@ class ProjectDirectionsGenerated extends NsgDataItem {
   static const nameName = 'name';
 
   static final Map<String, String> fieldNameDict = {
-   nameName: 'Наименование',
- };
+    nameName: 'Наименование',
+  };
 
   @override
   String get typeName => 'ProjectDirections';
