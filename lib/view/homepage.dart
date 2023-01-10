@@ -60,7 +60,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    screenName = taskBoardController.currentItem.name;
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
