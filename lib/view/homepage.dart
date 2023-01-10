@@ -32,6 +32,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String projectName = '';
   bool isDatesearch = false;
+  String screenName = '';
   final ScrollController horizontalScroll = ScrollController();
   final ScrollController verticalScroll = ScrollController();
   var taskConstroller = Get.find<TasksController>();
@@ -54,10 +55,12 @@ class _HomepageState extends State<Homepage> {
     searchDate;
     isDatesearch;
     textEditController;
+    screenName;
   }
 
   @override
   Widget build(BuildContext context) {
+    screenName = taskBoardController.currentItem.name;
     projectName = projectController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -197,10 +200,9 @@ class _HomepageState extends State<Homepage> {
                             message: 'Поиск задач по дате создания',
                             child: NsgPeriodFilter(
                               controller: taskConstroller,
-                                label: 'Поиск по дате',
-                               // initialTime: DateTime.now(),
-                               
-                               ),
+                              label: 'Поиск по дате',
+                              // initialTime: DateTime.now(),
+                            ),
                           ))),
                   const Expanded(
                       child: Padding(
@@ -215,8 +217,8 @@ class _HomepageState extends State<Homepage> {
                                 message:
                                     'Выберите экран, на котором вы хотите отобразить статус',
                                 child: TextButton(
-                                  child: const Text(
-                                    'Доска с задачами',
+                                  child: Text(
+                                    'Доска с задачами ' + screenName,
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   onPressed: () {
@@ -250,8 +252,9 @@ class _HomepageState extends State<Homepage> {
                     color: Colors.white,
                     backColor: const Color(0xff7876D9),
                     onPressed: () {
-                      Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
-                     // Get.toNamed(Routes.tasksPage);
+                      Get.find<TasksController>()
+                          .newItemPageOpen(pageName: Routes.tasksPage);
+                      // Get.toNamed(Routes.tasksPage);
                     },
                   ))
                 ],
@@ -792,6 +795,9 @@ class _HomepageState extends State<Homepage> {
       'Доски с задачами',
       (item) {
         var row = TaskBoardGenerated();
+        setState(() {
+          screenName = taskBoardController.currentItem.name;
+        });
 
         // row.name = item as ProjectItem;
 
