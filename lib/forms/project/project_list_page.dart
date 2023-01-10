@@ -62,7 +62,7 @@ class ProjectListPage extends StatelessWidget {
                   ),
                   onPressed: () async {
                     await userAccountController.createNewItemAsync();
-                    Get.toNamed(Routes.userAccount);
+                    Get.toNamed(Routes.userAccountListPage);
                   },
                 )),
             ],
@@ -96,6 +96,7 @@ class ProjectListPage extends StatelessWidget {
               availableButtons: const [
                 NsgTableMenuButtonType.createNewElement,
                 NsgTableMenuButtonType.editElement,
+                NsgTableMenuButtonType.removeElement
               ],
               columns: [
                 NsgTableColumn(
