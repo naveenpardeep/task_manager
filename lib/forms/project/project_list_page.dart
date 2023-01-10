@@ -9,13 +9,14 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../user_account/user_account_controller.dart';
 
-class ProjectListPage extends StatelessWidget {
+class ProjectListPage extends  GetView<ProjectController> {
+ 
   ProjectListPage({Key? key}) : super(key: key);
 
   final _textTitle = 'Проекты'.toUpperCase();
   final _textNoItems = 'Проекты ещё не добавлены';
   final _elementPage = Routes.projectPage;
-  var controller = Get.find<ProjectController>();
+ // var controller = Get.find<ProjectController>();
     var userAccountController = Get.find<UserAccountController>();
 
   @override
