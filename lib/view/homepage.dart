@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nsg_controls/formfields/nsg_period_filter.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:nsg_data/helpers/nsg_period.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -131,19 +133,19 @@ class _HomepageState extends State<Homepage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 )),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                child: TextButton(
-                  child: const Text(
-                    'Добавить пользователя',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () async {
-                    await userAccountController.createNewItemAsync();
-                    Get.toNamed(Routes.userAccount);
-                  },
-                )),
+            // Padding(
+            //     padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+            //     child: TextButton(
+            //       child: const Text(
+            //         'Добавить пользователя',
+            //         style: TextStyle(color: Colors.white),
+            //         textAlign: TextAlign.center,
+            //       ),
+            //       onPressed: () async {
+            //         await userAccountController.createNewItemAsync();
+            //         Get.toNamed(Routes.userAccount);
+            //       },
+            //     )),
           ])),
       body: AdaptiveScrollbar(
         controller: horizontalScroll,
@@ -193,15 +195,12 @@ class _HomepageState extends State<Homepage> {
                           padding: const EdgeInsets.all(0),
                           child: Tooltip(
                             message: 'Поиск задач по дате создания',
-                            child: NsgDatePicker(
+                            child: NsgPeriodFilter(
+                              controller: taskConstroller,
                                 label: 'Поиск по дате',
-                                initialTime: DateTime.now(),
-                                onClose: ((endDate) {
-                                  searchDate = endDate;
-                                  isDatesearch = true;
-
-                                  taskConstroller.refreshData();
-                                })),
+                               // initialTime: DateTime.now(),
+                               
+                               ),
                           ))),
                   const Expanded(
                       child: Padding(
@@ -251,8 +250,8 @@ class _HomepageState extends State<Homepage> {
                     color: Colors.white,
                     backColor: const Color(0xff7876D9),
                     onPressed: () {
-                      Get.find<TasksController>().createNewItemAsync();
-                      Get.toNamed(Routes.tasksPage);
+                      Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
+                     // Get.toNamed(Routes.tasksPage);
                     },
                   ))
                 ],

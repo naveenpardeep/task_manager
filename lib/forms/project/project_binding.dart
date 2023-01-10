@@ -6,6 +6,8 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
+import '../task_status/project_status_controller.dart';
+
 class ProjectBinding extends Bindings {
   @override
   void dependencies() {
@@ -15,6 +17,7 @@ class ProjectBinding extends Bindings {
     Get.put(TaskStatusController());
     Get.put(TaskBoardController());
     Get.put(TaskStatusTableController());
+    Get.put(ProjectStatusController());
   
   }
 }

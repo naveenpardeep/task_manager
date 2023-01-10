@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/model/generated/task_board_status_table.g.dart';
@@ -45,7 +46,7 @@ class TaskStatusRowPage extends GetView<TaskStatusTableController> {
                         child: Column(
                           children: [
                             NsgInput(
-                              selectionController: Get.find<TaskStatusController>(),
+                              selectionController: Get.find<ProjectStatusController>(),
                               dataItem: controller.currentItem,
                               fieldName:
                                   TaskBoardStatusTableGenerated.nameStatusId,

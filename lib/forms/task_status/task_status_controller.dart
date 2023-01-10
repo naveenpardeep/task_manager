@@ -32,18 +32,27 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
     var cmp = NsgCompare();
     var projectController = Get.find<ProjectController>();
     var taskStatusController = Get.find<TaskBoardController>();
+    if (taskStatusController.currentItem.isNotEmpty) {
+      var projectStatuses = <String>[];
+      for (var e in taskStatusController.currentItem.statusTable.rows) {
+        projectStatuses.add(e.statusId);
+      }
 
-    // var projectStatuses = <String>[];
-    // for (var e in taskStatusController.currentItem.statusTable.rows) {
-    //   projectStatuses.add(e.statusId);
-    // }
-
-    cmp.add(
-          name: TaskStatusGenerated.nameProjectId,
-        value: projectController.currentItem.id);
-      // name: TaskStatusGenerated.nameId,
-      // value: projectStatuses,
-      //comparisonOperator: NsgComparisonOperator.inList);
+      cmp.add(
+          //  name: TaskStatusGenerated.nameProjectId,
+          //value: projectController.currentItem.id);
+          name: TaskStatusGenerated.nameId,
+          value: projectStatuses,
+          comparisonOperator: NsgComparisonOperator.inList);
+    }
+else{
+   cmp.add(
+           name: TaskStatusGenerated.nameProjectId,
+          value: projectController.currentItem.id);
+         // name: TaskStatusGenerated.nameId,
+         // value: projectStatuses,
+         // comparisonOperator: NsgComparisonOperator.inList);
+}
     return NsgDataRequestParams(compare: cmp);
 
     // var filter = super.getRequestFilter;
@@ -67,22 +76,22 @@ class TaskStatusTableController
     return super.itemRemove();
   }
 
-  @override
-  NsgDataRequestParams get getRequestFilter {
-    var cmp = NsgCompare();
-    var projectController = Get.find<ProjectController>();
-        var taskStatusController = Get.find<TaskBoardController>();
-     var projectStatuses = <String>[];
-    for (var e in taskStatusController.currentItem.statusTable.rows) {
-      projectStatuses.add(e.statusId);
-    }
+  // @override
+  // NsgDataRequestParams get getRequestFilter {
+  //   var cmp = NsgCompare();
+  //   var projectController = Get.find<ProjectController>();
+  //       var taskStatusController = Get.find<TaskBoardController>();
+  //    var projectStatuses = <String>[];
+  //   for (var e in taskStatusController.currentItem.statusTable.rows) {
+  //     projectStatuses.add(e.statusId);
+  //   }
 
-    cmp.add(
-     //  name: TaskBoardGenerated.nameProjectId,
-       // value: projectController.currentItem.id);
-          name: TaskStatusGenerated.nameId,
-       value: projectStatuses,
-      comparisonOperator: NsgComparisonOperator.inList);
-    return NsgDataRequestParams(compare: cmp);
-  }
+  //   cmp.add(
+  //    //  name: TaskBoardGenerated.nameProjectId,
+  //      // value: projectController.currentItem.id);
+  //         name: TaskStatusGenerated.nameId,
+  //      value: projectStatuses,
+  //     comparisonOperator: NsgComparisonOperator.inList);
+  //   return NsgDataRequestParams(compare: cmp);
+  // }
 }

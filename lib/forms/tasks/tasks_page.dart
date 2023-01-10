@@ -96,7 +96,7 @@ class TasksPage extends GetView<TasksController> {
                             NsgText('Создано :$formatted'),
                             NsgInput(
                               selectionController:
-                                  Get.find<TaskStatusTableController>(),
+                                  Get.find<TaskStatusController>(),
                                  
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskStatusId,

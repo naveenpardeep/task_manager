@@ -7,6 +7,7 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
+import '../user_account/user_account_controller.dart';
 
 class ProjectListPage extends StatelessWidget {
   ProjectListPage({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class ProjectListPage extends StatelessWidget {
   final _textNoItems = 'Проекты ещё не добавлены';
   final _elementPage = Routes.projectPage;
   var controller = Get.find<ProjectController>();
+    var userAccountController = Get.find<UserAccountController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ProjectListPage extends StatelessWidget {
           title: Row(
             children: [
               SizedBox(
-                width: width * 0.4,
+                width: width * 0.27,
               ),
               Text(
                 _textTitle.toString(),
@@ -49,6 +51,20 @@ class ProjectListPage extends StatelessWidget {
                       Get.toNamed(Routes.tasksListPage);
                     },
                   )),
+                  Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                child: TextButton(
+                  child: const Text(
+                    'Добавить пользователя',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                    textScaleFactor: 1.5,
+                  ),
+                  onPressed: () async {
+                    await userAccountController.createNewItemAsync();
+                    Get.toNamed(Routes.userAccount);
+                  },
+                )),
             ],
           ),
           backgroundColor: const Color(0xff7876D9),
