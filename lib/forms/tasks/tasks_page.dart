@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -96,9 +97,11 @@ class TasksPage extends GetView<TasksController> {
                             NsgInput(
                               selectionController:
                                   Get.find<TaskStatusTableController>(),
+                                 
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskStatusId,
                               label: 'Статус',
+                               
                             
                             ),
                             NsgInput(

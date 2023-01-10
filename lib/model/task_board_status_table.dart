@@ -6,6 +6,6 @@ class TaskBoardStatusTable extends TaskBoardStatusTableGenerated {
     @override 
   String toString() {
     // TODO: implement toString
-    return status.name;
+    return status.name.toString();
   }
 }
