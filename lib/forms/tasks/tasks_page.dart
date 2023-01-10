@@ -145,6 +145,8 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameDateDeadline,
                               label: 'Срок выполнения',
                             ),
+
+                             Flexible(child: imageGallery()),
                             //   NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName: TaskDocGenerated.nameFiles,
@@ -203,7 +205,7 @@ class TasksPage extends GetView<TasksController> {
                             //   elementEditPageName: Routes.commentRowPage,
                             // ),
 
-                            //  Flexible(child: imageGallery()),
+                            
                           ],
                         ),
                       )),

@@ -9,20 +9,21 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../user_account/user_account_controller.dart';
 
-class ProjectListPage extends  GetView<ProjectController> {
- 
+class ProjectListPage extends GetView<ProjectController> {
   ProjectListPage({Key? key}) : super(key: key);
 
   final _textTitle = 'Проекты'.toUpperCase();
   final _textNoItems = 'Проекты ещё не добавлены';
   final _elementPage = Routes.projectPage;
- // var controller = Get.find<ProjectController>();
-    var userAccountController = Get.find<UserAccountController>();
+  // var controller = Get.find<ProjectController>();
+  var userAccountController = Get.find<UserAccountController>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           actions: [
             Image.asset(
@@ -52,20 +53,21 @@ class ProjectListPage extends  GetView<ProjectController> {
                       Get.toNamed(Routes.tasksListPage);
                     },
                   )),
-                  Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                child: TextButton(
-                  child: const Text(
-                    'Добавить пользователя',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                    textScaleFactor: 1.5,
-                  ),
-                  onPressed: ()  {
-                     userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
-                   // Get.toNamed(Routes.userAccountListPage);
-                  },
-                )),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                  child: TextButton(
+                    child: const Text(
+                      'Добавить пользователя',
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                      textScaleFactor: 1.5,
+                    ),
+                    onPressed: () {
+                      userAccountController.newItemPageOpen(
+                          pageName: Routes.userAccountListPage);
+                      // Get.toNamed(Routes.userAccountListPage);
+                    },
+                  )),
             ],
           ),
           backgroundColor: const Color(0xff7876D9),
