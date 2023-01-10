@@ -60,9 +60,9 @@ class ProjectListPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     textScaleFactor: 1.5,
                   ),
-                  onPressed: () async {
-                    await userAccountController.createNewItemAsync();
-                    Get.toNamed(Routes.userAccountListPage);
+                  onPressed: ()  {
+                     userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
+                   // Get.toNamed(Routes.userAccountListPage);
                   },
                 )),
             ],

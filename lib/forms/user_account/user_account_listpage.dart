@@ -20,6 +20,10 @@ class UserAccountListPage extends GetView<UserAccountController> {
         controller: controller,
         title: _textTitle,
         textNoItems: _textNoItems,
+        appBarIcon2: Icons.check,
+         appBarOnPressed2: () {
+                    controller.itemPagePost();
+                  },
         elementEditPage: _elementPage,
         availableButtons: const [
           NsgTableMenuButtonType.createNewElement,

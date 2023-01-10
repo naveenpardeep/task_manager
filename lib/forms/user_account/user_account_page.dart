@@ -50,13 +50,13 @@ class UserAccountPage extends GetView<UserAccountController> {
                               fieldName: UserAccountGenerated.nameName,
                               label: 'Наименование',
                             ),
-                            NsgButton(
-                              text: 'Список пользователей',
-                              color: Colors.white,
-                              onPressed: () {
-                                Get.toNamed(Routes.userAccountListPage);
-                              },
-                            )
+                            // NsgButton(
+                            //   text: 'Список пользователей',
+                            //   color: Colors.white,
+                            //   onPressed: () {
+                            //     Get.toNamed(Routes.userAccountListPage);
+                            //   },
+                            // )
                           ],
                         ),
                       )),
