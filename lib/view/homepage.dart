@@ -572,10 +572,19 @@ class _HomepageState extends State<Homepage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    tasks.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.priority_high_rounded,
+                                        color: Colors.red,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        tasks.name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     tasks.description,
@@ -615,10 +624,19 @@ class _HomepageState extends State<Homepage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    tasks.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.priority_high_rounded,
+                                        color: Colors.red,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        tasks.name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     tasks.description,
@@ -670,10 +688,19 @@ class _HomepageState extends State<Homepage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  tasks.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                        Icons.priority_high_rounded,
+                                        color: Colors.red,
+                                        size: 12,
+                                      ),
+                                    Text(
+                                      tasks.name,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
                                 Text(
                                   tasks.description,
@@ -715,10 +742,15 @@ class _HomepageState extends State<Homepage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    tasks.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                    
+                                      Text(
+                                        tasks.name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     tasks.description,

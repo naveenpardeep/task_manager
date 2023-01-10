@@ -12,6 +12,10 @@ class ProjectController extends NsgDataController<ProjectItem> {
   Future itemRemove({bool goBack = true}) {
     return super.itemRemove();
   }
+   @override
+      Future itemsRemove(List<NsgDataItem> itemsToRemove) {
+    // TODO: implement itemsRemove
+    return super.itemsRemove(itemsToRemove);}
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {

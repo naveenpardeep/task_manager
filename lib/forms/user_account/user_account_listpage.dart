@@ -27,7 +27,8 @@ class UserAccountListPage extends GetView<UserAccountController> {
         elementEditPage: _elementPage,
         availableButtons: const [
           NsgTableMenuButtonType.createNewElement,
-          NsgTableMenuButtonType.editElement
+          NsgTableMenuButtonType.editElement,
+          NsgTableMenuButtonType.removeElement
         ],
         columns: [
           NsgTableColumn(
