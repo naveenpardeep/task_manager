@@ -225,7 +225,7 @@ class _HomepageState extends State<Homepage> {
                           child: Column(
                             children: [
                               TextButton(
-                                child: const Text('Поиск по создателю',
+                                child: const Text('Поиск по исполнителю',
                                     style: TextStyle(color: Colors.black)),
                                 onPressed: () {
                                   selectCreator();
@@ -891,7 +891,7 @@ class _HomepageState extends State<Homepage> {
       controller: Get.find<UserAccountController>(),
     );
     form.selectFromArray(
-      'Поиск по создателю',
+      'Поиск по исполнителю',
       (item) {
         var row = UserAccountGenerated();
         setState(() {
