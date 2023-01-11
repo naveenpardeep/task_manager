@@ -1,5 +1,6 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -217,7 +218,7 @@ class _HomepageState extends State<Homepage> {
                                     'Выберите экран, на котором вы хотите отобразить статус',
                                 child: TextButton(
                                   child: Text(
-                                    'Доска с задачами ' + screenName,
+                                    'Доска с задачами   $screenName',
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   onPressed: () {
@@ -744,7 +745,8 @@ class _HomepageState extends State<Homepage> {
                                 children: [
                                   Row(
                                     children: [
-                                    
+                               
+                                  
                                       Text(
                                         tasks.name,
                                         style: const TextStyle(
