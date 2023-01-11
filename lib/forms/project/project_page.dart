@@ -87,7 +87,7 @@ void initState() {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
-                            if(isHidden==true)
+                            if(isHidden==true && controller.currentItem.name.isEmpty)
                             NsgButton(text: 'Сохранить и далее',color: Colors.white,onPressed: () {
                               setState(() {
                                 isHidden=false;
@@ -95,7 +95,7 @@ void initState() {
                               });
                               
                             },),
-                            if(isHidden==false)
+                            if(controller.currentItem.name.isNotEmpty)
                             NsgTable(
                               controller: Get.find<TaskBoardController>(),
                               elementEditPageName: Routes.taskBoard,

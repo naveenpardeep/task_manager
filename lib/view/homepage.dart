@@ -19,6 +19,7 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums.dart';
 
 import 'package:task_manager_app/model/task_status.dart';
 
@@ -776,6 +777,12 @@ class _HomepageState extends State<Homepage> {
                                 children: [
                                   Row(
                                     children: [
+                                      // if(taskConstroller.currentItem.priority==EPriority.high)
+                                      //  const Icon(
+                                      //   Icons.priority_high_rounded,
+                                      //   color: Colors.red,
+                                      //   size: 12,
+                                      // ),
                                       Text(
                                         tasks.name,
                                         style: const TextStyle(
