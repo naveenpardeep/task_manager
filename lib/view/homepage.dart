@@ -586,9 +586,12 @@ class _HomepageState extends State<Homepage> {
             searchformat.format(searchDate)) {
           list.add(GestureDetector(
             onTap: () {
-              taskConstroller.currentItem = tasks;
-              taskConstroller.currentItem.taskStatus = status;
-              Get.toNamed(Routes.tasksPage);
+              //taskConstroller.currentItem = tasks;
+              //taskConstroller.currentItem.taskStatus = status;
+              tasks.taskStatus = status;
+              taskConstroller.itemPageOpen(tasks, Routes.tasksPage,
+                  needRefreshSelectedItem: true);
+              //Get.toNamed(Routes.tasksPage);
             },
             child: Row(
               children: [
@@ -702,9 +705,12 @@ class _HomepageState extends State<Homepage> {
       } else {
         list.add(GestureDetector(
           onTap: () {
-            taskConstroller.currentItem = tasks;
-            taskConstroller.currentItem.taskStatus = status;
-            Get.toNamed(Routes.tasksPage);
+            // taskConstroller.currentItem = tasks;
+            // taskConstroller.currentItem.taskStatus = status;
+            // Get.toNamed(Routes.tasksPage);
+            tasks.taskStatus = status;
+            taskConstroller.itemPageOpen(tasks, Routes.tasksPage,
+                needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
