@@ -8,7 +8,6 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-
 import '../task_status/task_status_controller.dart';
 import 'task_image_controller.dart';
 
@@ -97,12 +96,9 @@ class TasksPage extends GetView<TasksController> {
                             NsgInput(
                               selectionController:
                                   Get.find<TaskStatusController>(),
-                                 
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskStatusId,
                               label: 'Статус',
-                               
-                            
                             ),
                             NsgInput(
                               selectionController:
@@ -135,7 +131,7 @@ class TasksPage extends GetView<TasksController> {
                               minLines: 3,
                               maxLines: 20,
                             ),
-                             NsgInput(
+                            NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDateRemind,
                               label: 'Напонинание о задаче',
@@ -146,7 +142,7 @@ class TasksPage extends GetView<TasksController> {
                               label: 'Срок выполнения',
                             ),
 
-                             Flexible(child: imageGallery()),
+                            Flexible(child: imageGallery()),
                             //   NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName: TaskDocGenerated.nameFiles,
@@ -204,8 +200,6 @@ class TasksPage extends GetView<TasksController> {
                             //   ],
                             //   elementEditPageName: Routes.commentRowPage,
                             // ),
-
-                            
                           ],
                         ),
                       )),
@@ -220,11 +214,13 @@ class TasksPage extends GetView<TasksController> {
 
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
-    return NsgFilePicker(
-      showAsWidget: true,
-      callback: (value) {},
-      objectsList: Get.find<TaskImageController>().images,
-      allowedFileFormats: const [],
+    return Get.find<TaskImageController>().obx(
+      (state) => NsgFilePicker(
+        showAsWidget: true,
+        callback: (value) {},
+        objectsList: Get.find<TaskImageController>().images,
+        allowedFileFormats: const [],
+      ),
     );
   }
 }
