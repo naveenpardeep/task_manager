@@ -12,23 +12,21 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
- @override
+  @override
   State<ProjectPage> createState() => _ProjectpageState();
 }
 
 class _ProjectpageState extends State<ProjectPage> {
-  var controller= Get.find<ProjectController>();
-   bool isHidden=true;
-@override
-void initState() {
-    
+  var controller = Get.find<ProjectController>();
+  bool isHidden = true;
+  @override
+  void initState() {
     super.initState();
     isHidden;
   }
 
   @override
   Widget build(BuildContext context) {
-   
     // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
@@ -46,7 +44,7 @@ void initState() {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  color:  Colors.white,
+                  color: Colors.white,
                   backColor: const Color(0xff7876D9),
                   text: controller.currentItem.isEmpty
                       ? 'Новый проект'.toUpperCase()
@@ -87,29 +85,40 @@ void initState() {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
-                            if(isHidden==true && controller.currentItem.name.isEmpty)
-                            NsgButton(text: 'Сохранить и далее',color: Colors.white,onPressed: () {
-                              setState(() {
-                                isHidden=false;
-                                controller.itemPagePost(goBack: false);
-                              });
-                              
-                            },),
-                            if(controller.currentItem.name.isNotEmpty)
-                            NsgTable(
-                              controller: Get.find<TaskBoardController>(),
-                              elementEditPageName: Routes.taskBoard,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name: TaskBoardGenerated.nameName,
-                                    expanded: true,
-                                    presentation: 'Название доски'),
-                              ],
-                            )
+                            if (isHidden == true &&
+                                controller.currentItem.name.isEmpty)
+                              NsgButton(
+                                text: 'Сохранить и далее',
+                                color: Colors.white,
+                                onPressed: () {
+                                  if (controller.currentItem.name.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Пожалуйста, введите название проекта ')));
+                                  } else {
+                                    setState(() {
+                                      isHidden = false;
+                                      controller.itemPagePost(goBack: false);
+                                    });
+                                  }
+                                },
+                              ),
+                            if (controller.currentItem.name.isNotEmpty)
+                              NsgTable(
+                                controller: Get.find<TaskBoardController>(),
+                                elementEditPageName: Routes.taskBoard,
+                                availableButtons: const [
+                                  NsgTableMenuButtonType.createNewElement,
+                                  NsgTableMenuButtonType.editElement
+                                ],
+                                columns: [
+                                  NsgTableColumn(
+                                      name: TaskBoardGenerated.nameName,
+                                      expanded: true,
+                                      presentation: 'Название доски'),
+                                ],
+                              )
                           ],
                         ),
                       )),
