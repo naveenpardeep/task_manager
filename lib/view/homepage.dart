@@ -165,9 +165,20 @@ class _HomepageState extends State<Homepage> {
               //       child: Icon(Icons.arrow_upward)),
               Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Text(
-                    projectName,
-                    textScaleFactor: 1.4,
+                  child: Row(
+                    children: [
+                      Text(
+                        projectName,
+                        textScaleFactor: 1.4,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit_rounded),
+                        onPressed: () {
+                          projectController.currentItem.name = projectName;
+                          Get.toNamed(Routes.projectPage);
+                        },
+                      )
+                    ],
                   )),
               Row(
                 children: [
@@ -203,6 +214,7 @@ class _HomepageState extends State<Homepage> {
                             child: NsgPeriodFilter(
                               controller: taskConstroller,
                               label: 'Поиск по дате',
+
                               // initialTime: DateTime.now(),
                             ),
                           ))),
