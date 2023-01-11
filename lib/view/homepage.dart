@@ -36,7 +36,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String projectName = '';
   bool isDatesearch = false;
-  String screenName = '';
+ 
   final ScrollController horizontalScroll = ScrollController();
   final ScrollController verticalScroll = ScrollController();
   var taskConstroller = Get.find<TasksController>();
@@ -45,6 +45,7 @@ class _HomepageState extends State<Homepage> {
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   var userAccountController = Get.find<UserAccountController>();
   var textEditController = TextEditingController();
+  String? screenName;
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
   DateFormat searchformat = DateFormat("dd-MM-yyyy");
@@ -59,7 +60,7 @@ class _HomepageState extends State<Homepage> {
     searchDate;
     isDatesearch;
     textEditController;
-    screenName;
+    screenName=taskBoardController.currentItem.name;
   }
 
   @override
