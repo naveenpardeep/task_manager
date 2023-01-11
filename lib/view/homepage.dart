@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -204,10 +206,23 @@ class _HomepageState extends State<Homepage> {
                               // initialTime: DateTime.now(),
                             ),
                           ))),
-                  const Expanded(
+                  Expanded(
                       child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Text('Поиск по создателю'))),
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            children: [
+                              TextButton(
+                                child: const Text('Поиск по создателю',
+                                    style: TextStyle(color: Colors.black)),
+                                onPressed: () {
+                                  selectCreator();
+                                },
+                              ),
+                              const Divider(
+                                color: Color(0xff7876D9),
+                              )
+                            ],
+                          ))),
                   Expanded(
                       child: Padding(
                           padding: const EdgeInsets.all(1),
@@ -219,7 +234,7 @@ class _HomepageState extends State<Homepage> {
                                 child: TextButton(
                                   child: Text(
                                     'Доска с задачами   $screenName',
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                   onPressed: () {
                                     selectTaskScreen();
@@ -547,6 +562,10 @@ class _HomepageState extends State<Homepage> {
           tasks.description
               .toString()
               .toLowerCase()
+              .contains(searchvalue.toLowerCase()) ||
+          tasks.assignee
+              .toString()
+              .toLowerCase()
               .contains(searchvalue.toLowerCase()))
       // ignore: curly_braces_in_flow_control_structures
       if (isDatesearch == true) {
@@ -692,10 +711,10 @@ class _HomepageState extends State<Homepage> {
                                 Row(
                                   children: [
                                     const Icon(
-                                        Icons.priority_high_rounded,
-                                        color: Colors.red,
-                                        size: 12,
-                                      ),
+                                      Icons.priority_high_rounded,
+                                      color: Colors.red,
+                                      size: 12,
+                                    ),
                                     Text(
                                       tasks.name,
                                       style: const TextStyle(
@@ -745,8 +764,6 @@ class _HomepageState extends State<Homepage> {
                                 children: [
                                   Row(
                                     children: [
-                               
-                                  
                                       Text(
                                         tasks.name,
                                         style: const TextStyle(
@@ -833,6 +850,28 @@ class _HomepageState extends State<Homepage> {
         });
 
         // row.name = item as ProjectItem;
+
+        taskConstroller.refreshData();
+
+        taskStatusTableController.sendNotify();
+
+        taskBoardController.sendNotify();
+      },
+    );
+  }
+
+  selectCreator() {
+    var form = NsgSelection(
+      inputType: NsgInputType.reference,
+      controller: Get.find<UserAccountController>(),
+    );
+    form.selectFromArray(
+      'Поиск по создателю',
+      (item) {
+        var row = UserAccountGenerated();
+        setState(() {
+          searchvalue = userAccountController.currentItem.name;
+        });
 
         taskConstroller.refreshData();
 
