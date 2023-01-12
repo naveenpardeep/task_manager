@@ -35,6 +35,7 @@ class ProjectListPage extends GetView<ProjectController> {
           title: width >= 600
               ? Row(
                   children: [
+                  const Expanded(child:  SizedBox()),
                     Expanded(
                       child: Text(
                         _textTitle.toString(),
@@ -60,7 +61,7 @@ class ProjectListPage extends GetView<ProjectController> {
                       child: Padding(
                           padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
                           child: TextButton(
-                            child: Text(
+                            child: const Text(
                               'Добавить пользователя',
                               style: TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
@@ -98,7 +99,7 @@ class ProjectListPage extends GetView<ProjectController> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
                           child: TextButton(
-                            child: Text(
+                            child: const Text(
                               'Добавить пользователя',
                               style: TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
