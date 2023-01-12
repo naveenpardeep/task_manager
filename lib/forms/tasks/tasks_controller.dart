@@ -11,7 +11,7 @@ class TasksController extends NsgDataController<TaskDoc> {
   TasksController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
-       TaskDocGenerated.nameProjectId,
+      TaskDocGenerated.nameProjectId,
       // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
@@ -20,9 +20,9 @@ class TasksController extends NsgDataController<TaskDoc> {
   }
   @override
   Future itemRemove({bool goBack = true}) {
-  
     return super.itemRemove();
   }
+
   @override
   Future<List<NsgDataItem>> doRequestItems() async {
     controllerFilter.isOpen = true;
@@ -45,18 +45,19 @@ class TasksController extends NsgDataController<TaskDoc> {
     var dataitem = await super.createNewItemAsync();
 
     dataitem.date = DateTime.now();
-    dataitem.dateDeadline=DateTime(2023,01,01);
-    dataitem.dateRemind=DateTime(2023,01,01);
+    dataitem.dateDeadline = DateTime(2023, 01, 01);
+    dataitem.dateRemind = DateTime(2023, 01, 01);
+    await Get.find<TaskImageController>().refreshData();
     return dataitem;
   }
 
   @override
   Future<bool> itemPagePost(
       {bool goBack = true, bool useValidation = false}) async {
-   var imageController = Get.find<TaskImageController>();
-   if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
-     await imageController.saveImages();
-   }
+    var imageController = Get.find<TaskImageController>();
+    if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
+      await imageController.saveImages();
+    }
     return await super
         .itemPagePost(goBack: goBack, useValidation: useValidation);
   }
@@ -83,7 +84,7 @@ class CommentTableTasksController
   Future<TaskDocCommentsTable> doCreateNewItem() async {
     var item = await super.doCreateNewItem();
     item.date = DateTime.now();
-    
+
     return item;
   }
 }
