@@ -902,7 +902,8 @@ class _HomepageState extends State<Homepage> {
                                       color: Colors.red,
                                       size: 12,
                                     ),
-                                    Text(projectController.currentItem.projectPrefix),
+                                    Text(projectController
+                                        .currentItem.projectPrefix),
                                     Text(
                                       tasks.name,
                                       style: const TextStyle(
@@ -950,16 +951,10 @@ class _HomepageState extends State<Homepage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(projectController.currentItem.projectPrefix),
+                                  Text(projectController
+                                      .currentItem.projectPrefix),
                                   Row(
                                     children: [
-                                      // if(taskConstroller.currentItem.priority==EPriority.high)
-                                      //  const Icon(
-                                      //   Icons.priority_high_rounded,
-                                      //   color: Colors.red,
-                                      //   size: 12,
-                                      // ),
-                                     
                                       Expanded(
                                         child: Text(
                                           tasks.name,
