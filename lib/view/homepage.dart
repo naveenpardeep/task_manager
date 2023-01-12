@@ -792,10 +792,13 @@ class _HomepageState extends State<Homepage> {
                                       //   color: Colors.red,
                                       //   size: 12,
                                       // ),
-                                      Text(
-                                        tasks.name,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                      Expanded(
+                                        child: Text(
+                                          tasks.name,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ],
                                   ),
