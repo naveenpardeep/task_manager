@@ -36,19 +36,17 @@ class TasksController extends NsgDataController<TaskDoc> {
     var element = await super.doCreateNewItem() as TaskDoc;
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
+    element.date = DateTime.now();
+    element.dateDeadline = DateTime(2023, 01, 01);
+    element.dateRemind = DateTime(2023, 01, 01);
 
     return element;
   }
 
   @override
-  Future<TaskDoc> createNewItemAsync() async {
-    var dataitem = await super.createNewItemAsync();
-
-    dataitem.date = DateTime.now();
-    dataitem.dateDeadline = DateTime(2023, 01, 01);
-    dataitem.dateRemind = DateTime(2023, 01, 01);
+  Future createAndSetSelectedItem() async {
+    await super.createAndSetSelectedItem();
     await Get.find<TaskImageController>().refreshData();
-    return dataitem;
   }
 
   @override
