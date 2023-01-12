@@ -10,6 +10,8 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
+import '../task_status/task_status_controller.dart';
+
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
   @override
@@ -85,6 +87,21 @@ class _ProjectpageState extends State<ProjectPage> {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
+                            NsgTable(
+                              controller: Get.find<TaskStatusController>(),
+                              elementEditPageName: Routes.taskStatusPage,
+                              availableButtons: const [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement,
+                                NsgTableMenuButtonType.removeElement
+                              ],
+                              columns: [
+                                NsgTableColumn(
+                                    name: TaskStatusGenerated.nameName,
+                                    expanded: true,
+                                    presentation: 'Статусы'),
+                              ],
+                            ),
                             if (isHidden == true &&
                                 controller.currentItem.name.isEmpty)
                               NsgButton(
@@ -110,7 +127,8 @@ class _ProjectpageState extends State<ProjectPage> {
                                 elementEditPageName: Routes.taskBoard,
                                 availableButtons: const [
                                   NsgTableMenuButtonType.createNewElement,
-                                  NsgTableMenuButtonType.editElement
+                                  NsgTableMenuButtonType.editElement,
+                                  NsgTableMenuButtonType.removeElement
                                 ],
                                 columns: [
                                   NsgTableColumn(

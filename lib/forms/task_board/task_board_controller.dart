@@ -12,11 +12,12 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     masterController = Get.find<ProjectController>();
   }
+  
   @override
   Future afterRequestItems(List<NsgDataItem> newItemsList) async {
-    if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
+   if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
       currentItem = newItemsList.first as TaskBoard;
-    }
+   }
     return await super.afterRequestItems(newItemsList);
   }
 
