@@ -45,7 +45,7 @@ class _HomepageState extends State<Homepage> {
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   var userAccountController = Get.find<UserAccountController>();
   var textEditController = TextEditingController();
-  String? screenName;
+  String screenName='';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
   DateFormat searchformat = DateFormat("dd-MM-yyyy");
@@ -60,12 +60,14 @@ class _HomepageState extends State<Homepage> {
     searchDate;
     isDatesearch;
     textEditController;
-    screenName=taskBoardController.currentItem.name;
+    
+    screenName;
   }
 
   @override
   Widget build(BuildContext context) {
     projectName = projectController.currentItem.name;
+   // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -873,15 +875,17 @@ class _HomepageState extends State<Homepage> {
         var row = TaskBoardGenerated();
         setState(() {
           screenName = taskBoardController.currentItem.name;
-        });
-
-        // row.name = item as ProjectItem;
-
-        taskConstroller.refreshData();
+          taskConstroller.refreshData();
 
         taskStatusTableController.sendNotify();
 
         taskBoardController.sendNotify();
+        });
+
+      
+
+        
+        
       },
     );
   }

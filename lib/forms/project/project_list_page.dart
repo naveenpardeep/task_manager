@@ -25,51 +25,94 @@ class ProjectListPage extends GetView<ProjectController> {
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
+          toolbarHeight: width>=600? 70 : 150,
           actions: [
             Image.asset(
               'lib/assets/images/logo.png',
-              height: 70,
+              height:  70 ,
             ),
           ],
-          title: Row(
-            children: [
-              SizedBox(
-                width: width * 0.27,
-              ),
-              Text(
-                _textTitle.toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                  child: TextButton(
-                    child: const Text(
-                      'Все задачи',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                      textScaleFactor: 1.5,
+          title: width >= 600
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _textTitle.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
-                    onPressed: () {
-                      Get.toNamed(Routes.tasksListPage);
-                    },
-                  )),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                  child: TextButton(
-                    child: const Text(
-                      'Добавить пользователя',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                      textScaleFactor: 1.5,
+                    Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                          child: TextButton(
+                            child: const Text(
+                              'Все задачи',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              Get.toNamed(Routes.tasksListPage);
+                            },
+                          )),
                     ),
-                    onPressed: () {
-                      userAccountController.newItemPageOpen(
-                          pageName: Routes.userAccountListPage);
-                      // Get.toNamed(Routes.userAccountListPage);
-                    },
-                  )),
-            ],
-          ),
+                    Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                          child: TextButton(
+                            child: Text(
+                              'Добавить пользователя',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              userAccountController.newItemPageOpen(
+                                  pageName: Routes.userAccountListPage);
+                              // Get.toNamed(Routes.userAccountListPage);
+                            },
+                          )),
+                    ),
+                  ],
+                )
+              : SingleChildScrollView(
+                child: Column(
+                    children: [
+                      Text(
+                        _textTitle.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                          child: TextButton(
+                            child: const Text(
+                              'Все задачи',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              Get.toNamed(Routes.tasksListPage);
+                            },
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
+                          child: TextButton(
+                            child: Text(
+                              'Добавить пользователя',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                              textScaleFactor: 1.5,
+                            ),
+                            onPressed: () {
+                              userAccountController.newItemPageOpen(
+                                  pageName: Routes.userAccountListPage);
+                              // Get.toNamed(Routes.userAccountListPage);
+                            },
+                          )),
+                    ],
+                  ),
+              ),
           backgroundColor: const Color(0xff7876D9),
         ),
         body: Tooltip(
@@ -87,7 +130,7 @@ class ProjectListPage extends GetView<ProjectController> {
               elementEditPage: _elementPage,
               onElementTap: (element) {
                 var taskConstroller = Get.find<TasksController>();
-
+                Get.find<TaskBoardController>().sendNotify();
                 taskConstroller.refreshData();
 
                 element as ProjectItem;
