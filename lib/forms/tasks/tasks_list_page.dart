@@ -22,7 +22,14 @@ class TasksListPage extends GetView<TasksController> {
         title: _textTitle,
         textNoItems: _textNoItems,
         elementEditPage: _elementPage,
-        availableButtons: const [NsgTableMenuButtonType.editElement,NsgTableMenuButtonType.filterPeriod,NsgTableMenuButtonType.filterPeriod,NsgTableMenuButtonType.filterText,NsgTableMenuButtonType.refreshTable],
+        availableButtons: const [
+          NsgTableMenuButtonType.editElement,
+          NsgTableMenuButtonType.filterPeriod,
+          NsgTableMenuButtonType.filterPeriod,
+          NsgTableMenuButtonType.filterText,
+          NsgTableMenuButtonType.refreshTable,
+          NsgTableMenuButtonType.removeElement
+        ],
         columns: [
           NsgTableColumn(
               name: TaskDocGenerated.nameProjectId,
@@ -41,7 +48,7 @@ class TasksListPage extends GetView<TasksController> {
               name: TaskDocGenerated.nameDescription,
               width: 100,
               presentation: 'Описание',
-              expanded: true),   
+              expanded: true),
           NsgTableColumn(
               name: TaskDocGenerated.nameAssigneeId,
               width: 100,
