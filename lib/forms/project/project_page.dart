@@ -127,7 +127,8 @@ class _ProjectpageState extends State<ProjectPage> {
                                 elementEditPageName: Routes.taskBoard,
                                 availableButtons: const [
                                   NsgTableMenuButtonType.createNewElement,
-                                  NsgTableMenuButtonType.editElement
+                                  NsgTableMenuButtonType.editElement,
+                                  NsgTableMenuButtonType.removeElement
                                 ],
                                 columns: [
                                   NsgTableColumn(
