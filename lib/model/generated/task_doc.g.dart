@@ -33,7 +33,7 @@ class TaskDocGenerated extends NsgDataItem {
     nameDateRemind: 'Дата напоминания',
     nameDateDeadline: 'Срок выполнения',
     nameDescription: 'Описание задачи',
-    nameName: 'Текст задачи',
+    nameName: 'Наименование',
     nameComment: 'Комментарий',
   };
 
@@ -66,7 +66,7 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
     fieldList.fields[nameDateDeadline]?.presentation = 'Срок выполнения';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
-    fieldList.fields[nameName]?.presentation = 'Текст задачи';
+    fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameComment]?.presentation = 'Комментарий';
   }
 
@@ -113,7 +113,7 @@ class TaskDocGenerated extends NsgDataItem {
 
   set description(String value) => setFieldValue(nameDescription, value);
 
-  /// ТекстЗадачи
+  /// Наименование
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
