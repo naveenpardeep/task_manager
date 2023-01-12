@@ -36,7 +36,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String projectName = '';
   bool isDatesearch = false;
- 
+
   final ScrollController horizontalScroll = ScrollController();
   final ScrollController verticalScroll = ScrollController();
   var taskConstroller = Get.find<TasksController>();
@@ -45,7 +45,7 @@ class _HomepageState extends State<Homepage> {
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   var userAccountController = Get.find<UserAccountController>();
   var textEditController = TextEditingController();
-  String screenName='';
+  String screenName = '';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
   DateFormat searchformat = DateFormat("dd-MM-yyyy");
@@ -60,14 +60,14 @@ class _HomepageState extends State<Homepage> {
     searchDate;
     isDatesearch;
     textEditController;
-    
+
     screenName;
   }
 
   @override
   Widget build(BuildContext context) {
     projectName = projectController.currentItem.name;
-   // screenName=taskBoardController.currentItem.name;
+    // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -611,24 +611,29 @@ class _HomepageState extends State<Homepage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.priority_high_rounded,
-                                        color: Colors.red,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        tasks.name,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                  Flexible(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.priority_high_rounded,
+                                          color: Colors.red,
+                                          size: 12,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            tasks.name,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    tasks.description,
-                                    maxLines: 2,
-                                  ),
+                                  // Text(
+                                  //   tasks.description,
+                                  //   maxLines: 2,
+                                  // ),
                                   Row(
                                     children: [
                                       const Icon(
@@ -744,10 +749,10 @@ class _HomepageState extends State<Homepage> {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  tasks.description,
-                                  maxLines: 2,
-                                ),
+                                // Text(
+                                //   tasks.description,
+                                //   maxLines: 2,
+                                // ),
                                 Row(
                                   children: [
                                     const Icon(
@@ -795,17 +800,17 @@ class _HomepageState extends State<Homepage> {
                                       Expanded(
                                         child: Text(
                                           tasks.name,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    tasks.description,
-                                    maxLines: 2,
-                                  ),
+                                  // Text(
+                                  //   tasks.description,
+                                  //   maxLines: 2,
+                                  // ),
                                   Row(
                                     children: [
                                       const Icon(
@@ -880,15 +885,10 @@ class _HomepageState extends State<Homepage> {
           screenName = taskBoardController.currentItem.name;
           taskConstroller.refreshData();
 
-        taskStatusTableController.sendNotify();
+          taskStatusTableController.sendNotify();
 
-        taskBoardController.sendNotify();
+          taskBoardController.sendNotify();
         });
-
-      
-
-        
-        
       },
     );
   }
