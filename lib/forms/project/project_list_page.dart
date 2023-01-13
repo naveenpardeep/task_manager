@@ -25,6 +25,7 @@ class ProjectListPage extends GetView<ProjectController> {
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: width >= 600 ? 70 : 150,
           actions: [
             Image.asset(
