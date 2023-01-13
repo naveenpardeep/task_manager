@@ -795,10 +795,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
                 ],
               ),
               Text(
-                'Обновлено: ${{
-              NsgDateFormat.dateFormat(tasks.dateUpdated,
-                  format: 'dd.MM.yy HH:mm')
-                }}',
+                //   'Обновлено: ${{
+                // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                //     format: 'dd.MM.yy HH:mm')
+                //   }}',
+                getupdateDay(tasks),
                 maxLines: 1,
                 textScaleFactor: 0.8,
                 style: const TextStyle(color: Color(0xff10051C)),
@@ -807,4 +808,29 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
           ),
         )),
   );
+}
+
+String getupdateDay(TaskDoc tasks) {
+  var todayDate = DateTime.now();
+  final lastDate = tasks.dateUpdated;
+  var daysleft = todayDate.difference(lastDate).inDays;
+  if (daysleft > 7) {
+    return 'Обновлено: ${{
+      NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')
+    }}';
+  }
+  var minutes = todayDate.difference(lastDate).inMinutes;
+  if (minutes <= 60) {
+    return 'Обновлено: $minutes мин. назад';
+  }
+  var hours = todayDate.difference(lastDate).inHours;
+  if (hours <= 24) {
+    return 'Обновлено: $hours Час. назад';
+  }
+
+  if (daysleft <= 7) {
+    return 'Обновлено: $daysleft дн. назад';
+  }
+
+  return '$daysleft дн. назад';
 }
