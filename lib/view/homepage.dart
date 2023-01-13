@@ -60,7 +60,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         leading: IconButton(onPressed: (){
           Get.toNamed(Routes.projectListPage);
-        }, icon: Icon(Icons.arrow_back)),
+        }, icon: const Icon(Icons.arrow_back)),
           toolbarHeight: width >= 700 ? 70 : 150,
           actions: [
             if (width >= 300)
@@ -623,9 +623,9 @@ class _HomepageState extends State<Homepage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
-                    '$tasks.docNumber',
+                    tasks.docNumber,
                     maxLines: 1,
                   ),
                 ),
