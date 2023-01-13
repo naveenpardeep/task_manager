@@ -46,7 +46,7 @@ class TaskDocGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataDateField(nameDate), primaryKey: false);
-    addField(NsgDataDateField(nameDocNumber), primaryKey: false);
+    addField(NsgDataStringField(nameDocNumber), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
     addField(NsgDataDateField(nameDateRemind), primaryKey: false);
@@ -93,9 +93,9 @@ class TaskDocGenerated extends NsgDataItem {
   set date(DateTime value) => setFieldValue(nameDate, value);
 
   /// НомерДокумента
-  DateTime get docNumber => getFieldValue(nameDocNumber) as DateTime;
+  String get docNumber => getFieldValue(nameDocNumber).toString();
 
-  set docNumber(DateTime value) => setFieldValue(nameDocNumber, value);
+  set docNumber(String value) => setFieldValue(nameDocNumber, value);
 
   /// ДатаЗакрытия
   DateTime get dateClosed => getFieldValue(nameDateClosed) as DateTime;
