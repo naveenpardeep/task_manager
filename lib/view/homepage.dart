@@ -659,7 +659,7 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
       data: widget.tasks,
       onDragUpdate: (details) {
         angle = details.delta.dx / 50;
-        if ((angle).abs() < .1) {
+        if ((angle).abs() < .03) {
           angle = 0;
         }
         if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
@@ -692,6 +692,7 @@ class RotatingCardState extends State<RotatingCard> {
   Widget build(BuildContext context) {
     return AnimatedRotation(
       duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
       turns: curAngle,
       child: Container(
           decoration: BoxDecoration(
