@@ -28,11 +28,15 @@ class ProjectListPage extends GetView<ProjectController> {
           automaticallyImplyLeading: false,
           toolbarHeight: width >= 600 ? 70 : 100,
           actions: [
-            if(width>=400)
-            Image.asset(
-              'lib/assets/images/logo.png',
-              height: 70,
-            ),
+            if (width >= 400)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.network(
+                    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+                    fit: BoxFit.cover,
+                    height: 50,
+                    width: 50),
+              ),
           ],
           title: width >= 600
               ? Row(
@@ -67,43 +71,41 @@ class ProjectListPage extends GetView<ProjectController> {
                             textScaleFactor: width >= 800 ? 1.5 : 1,
                           ),
                           onPressed: () {
-                            userAccountController.newItemPageOpen(
-                                pageName: Routes.userAccountListPage);
+                            userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
                             // Get.toNamed(Routes.userAccountListPage);
                           },
                         )),
                   ],
                 )
               : Column(
-                children: [
-                  Text(
-                    _textTitle.toString(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  TextButton(
-                    child: const Text(
-                      'Все задачи',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
+                  children: [
+                    Text(
+                      _textTitle.toString(),
+                      style: const TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {
-                      Get.toNamed(Routes.tasksListPage);
-                    },
-                  ),
-                  TextButton(
-                    child: const Text(
-                      'Добавить пользователя',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
+                    TextButton(
+                      child: const Text(
+                        'Все задачи',
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        Get.toNamed(Routes.tasksListPage);
+                      },
                     ),
-                    onPressed: () {
-                      userAccountController.newItemPageOpen(
-                          pageName: Routes.userAccountListPage);
-                      // Get.toNamed(Routes.userAccountListPage);
-                    },
-                  ),
-                ],
-              ),
+                    TextButton(
+                      child: const Text(
+                        'Добавить пользователя',
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
+                        // Get.toNamed(Routes.userAccountListPage);
+                      },
+                    ),
+                  ],
+                ),
           backgroundColor: const Color(0xff7876D9),
         ),
         body: Tooltip(
@@ -136,22 +138,11 @@ class ProjectListPage extends GetView<ProjectController> {
                 NsgTableMenuButtonType.removeElement
               ],
               columns: [
+                NsgTableColumn(name: ProjectItemGenerated.nameName, expanded: true, presentation: 'Название проекта'),
                 NsgTableColumn(
-                    name: ProjectItemGenerated.nameName,
-                    expanded: true,
-                    presentation: 'Название проекта'),
-                NsgTableColumn(
-                    name: ProjectItemGenerated.nameLeaderId,
-                    expanded: true,
-                    presentation: 'Руководитель проекта'),
-                NsgTableColumn(
-                    name: ProjectItemGenerated.nameDate,
-                    expanded: true,
-                    presentation: 'Дата создания'),
-                NsgTableColumn(
-                    name: ProjectItemGenerated.nameContractor,
-                    expanded: true,
-                    presentation: 'Заказчик'),
+                    name: ProjectItemGenerated.nameLeaderId, expanded: true, presentation: 'Руководитель проекта'),
+                NsgTableColumn(name: ProjectItemGenerated.nameDate, expanded: true, presentation: 'Дата создания'),
+                NsgTableColumn(name: ProjectItemGenerated.nameContractor, expanded: true, presentation: 'Заказчик'),
               ]),
         ));
   }
