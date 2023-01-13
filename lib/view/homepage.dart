@@ -684,11 +684,14 @@ class _HomepageState extends State<Homepage> {
       onWillAccept: (data) {
         return true;
       },
-      onAccept: (data) {
+      onAccept: (data) async {
         data.taskStatus = status.status;
         taskConstroller.currentItem = data;
         //taskConstroller.itemPagePost(goBack: false);
-        taskConstroller.postItems([taskConstroller.currentItem]);
+        NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
+        progress.show();
+        await taskConstroller.postItems([taskConstroller.currentItem]);
+        progress.hide();
         taskConstroller.sendNotify();
       },
     );
