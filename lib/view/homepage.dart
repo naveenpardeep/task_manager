@@ -440,8 +440,6 @@ class _HomepageState extends State<Homepage> {
                     ),
               //  if (taskBoardController.currentItem.isNotEmpty)
               taskStatusTableController.obx((state) => SingleChildScrollView(child: getStatusList()))
-
-           
             ],
           ),
         ),
@@ -689,7 +687,9 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) {
         data.taskStatus = status.status;
         taskConstroller.currentItem = data;
-        taskConstroller.itemPagePost(goBack: false);
+        //taskConstroller.itemPagePost(goBack: false);
+        taskConstroller.postItems([taskConstroller.currentItem]);
+        taskConstroller.sendNotify();
       },
     );
   }
