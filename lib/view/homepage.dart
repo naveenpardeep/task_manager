@@ -1,17 +1,10 @@
-import 'dart:math';
-
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/formfields/nsg_period_filter.dart';
-
 import 'package:nsg_controls/nsg_controls.dart';
-
 import 'package:nsg_controls/nsg_text.dart';
-import 'package:nsg_data/helpers/nsg_period.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -19,12 +12,6 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import 'package:task_manager_app/model/enums.dart';
-
-import 'package:task_manager_app/model/task_status.dart';
-
-import '../model/generated/project_item.g.dart';
-import '../model/generated/task_board.g.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

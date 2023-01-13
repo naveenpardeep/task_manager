@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -48,6 +49,7 @@ class TasksPage extends GetView<TasksController> {
                   icon2: Icons.check,
                   onPressed2: () {
                     controller.itemPagePost();
+                    Get.toNamed(Routes.homePage);
                   },
                 ),
                 Expanded(
