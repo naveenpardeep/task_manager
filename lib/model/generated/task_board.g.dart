@@ -3,12 +3,14 @@ import 'package:nsg_data/nsg_data.dart';
 // ignore: unused_import
 import 'dart:typed_data';
 import '../data_controller_model.dart';
+import '../enums.dart';
 
 /// Доски
 class TaskBoardGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameProjectId = 'projectId';
+  static const nameSortBy = 'sortBy';
   static const nameStatusTable = 'statusTable';
 
   static final Map<String, String> fieldNameDict = {
@@ -23,6 +25,7 @@ class TaskBoardGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
+    addField(NsgDataEnumReferenceField<ESorting>(nameSortBy), primaryKey: false);
     addField(NsgDataReferenceListField<TaskBoardStatusTable>(nameStatusTable), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
   }
@@ -55,6 +58,11 @@ class TaskBoardGenerated extends NsgDataItem {
   set projectId(String value) => setFieldValue(nameProjectId, value);
   set project(ProjectItem value) =>
     setFieldValue(nameProjectId, value.id);
+
+  /// Сортировка
+  ESorting get sortBy => NsgEnum.fromValue(ESorting, getFieldValue(nameSortBy)) as ESorting;
+
+  set sortBy(ESorting value) => setFieldValue(nameSortBy, value);
 
   /// Статусы
   NsgDataTable<TaskBoardStatusTable> get statusTable => NsgDataTable<TaskBoardStatusTable>(owner: this, fieldName: nameStatusTable);
