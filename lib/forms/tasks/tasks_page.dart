@@ -107,6 +107,11 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameAssigneeId,
                               label: 'Исполнитель',
                             ),
+                              NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameDocNumber,
+                              label: 'номер задачи',
+                            ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
