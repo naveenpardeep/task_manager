@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       textDirection: TextDirection.ltr,
       defaultTransition: Transition.rightToLeftWithFade,
-      title: 'Титан Контроль',
+      title: 'Task Manager',
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
