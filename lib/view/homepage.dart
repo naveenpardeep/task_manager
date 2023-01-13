@@ -73,11 +73,11 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
           toolbarHeight: width >= 700 ? 70 : 150,
           actions: [
-           if(width>=300)
-            Image.asset(
-              'lib/assets/images/logo.png',
-              height: 70,
-            ),
+            if (width >= 300)
+              Image.asset(
+                'lib/assets/images/logo.png',
+                height: 70,
+              ),
           ],
           backgroundColor: const Color(0xff7876D9),
           flexibleSpace: width >= 700
@@ -730,147 +730,147 @@ class _HomepageState extends State<Homepage> {
 
     // var taskstart = tasksList.where((
     //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
-   
-      for (var tasks in tasksList) {
-        if (tasks.taskStatus != status) continue;
 
-        if (tasks.name
-                .toString()
-                .toLowerCase()
-                .contains(searchvalue.toLowerCase()) ||
-            tasks.description
-                .toString()
-                .toLowerCase()
-                .contains(searchvalue.toLowerCase()) ||
-            tasks.assignee
-                .toString()
-                .toLowerCase()
-                .contains(searchvalue.toLowerCase())) {
-          list.add(GestureDetector(
-            onTap: () {
-              // taskConstroller.currentItem = tasks;
-              // taskConstroller.currentItem.taskStatus = status;
-              // Get.toNamed(Routes.tasksPage);
-              tasks.taskStatus = status;
-              taskConstroller.itemPageOpen(tasks, Routes.tasksPage,
-                  needRefreshSelectedItem: true);
-            },
-            child: Row(
-              children: [
-                Expanded(
-                  child: Draggable(
-                    data: tasks,
-                    feedback: SizedBox(
+    for (var tasks in tasksList) {
+      if (tasks.taskStatus != status) continue;
+
+      if (tasks.name
+              .toString()
+              .toLowerCase()
+              .contains(searchvalue.toLowerCase()) ||
+          tasks.description
+              .toString()
+              .toLowerCase()
+              .contains(searchvalue.toLowerCase()) ||
+          tasks.assignee
+              .toString()
+              .toLowerCase()
+              .contains(searchvalue.toLowerCase())) {
+        list.add(GestureDetector(
+          onTap: () {
+            // taskConstroller.currentItem = tasks;
+            // taskConstroller.currentItem.taskStatus = status;
+            // Get.toNamed(Routes.tasksPage);
+            tasks.taskStatus = status;
+            taskConstroller.itemPageOpen(tasks, Routes.tasksPage,
+                needRefreshSelectedItem: true);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: Draggable(
+                  data: tasks,
+                  feedback: SizedBox(
+                      height: 98,
+                      width: 300,
+                      child: Card(
+                          color: const Color.fromRGBO(120, 118, 217, 0.12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.priority_high_rounded,
+                                      color: Colors.red,
+                                      size: 12,
+                                    ),
+                                    Text(projectController
+                                        .currentItem.projectPrefix),
+                                    Text(
+                                      tasks.name,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                // Text(
+                                //   tasks.description,
+                                //   maxLines: 2,
+                                // ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.access_time,
+                                      size: 12,
+                                    ),
+                                    Text(
+                                      'создано: ${formateddate.format(tasks.date)}',
+                                      textScaleFactor: 0.8,
+                                      style: const TextStyle(
+                                          color: Color(0xff10051C)),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ))),
+                  childWhenDragging: Container(
+                    height: 100.0,
+                    width: 100.0,
+                    color: Colors.pinkAccent,
+                    child: const Center(
+                      child: Text('Dragging'),
+                    ),
+                  ),
+                  child: Tooltip(
+                    message: 'Drag and drop измените статус задачи',
+                    child: SizedBox(
                         height: 98,
-                        width: 300,
                         child: Card(
-                            color: const Color.fromRGBO(120, 118, 217, 0.12),
+                            color: const Color.fromARGB(239, 248, 250, 252),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Text(
+                                    '${projectController.currentItem.projectPrefix}-${tasks.docNumber}',
+                                    maxLines: 1,
+                                  ),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.priority_high_rounded,
-                                        color: Colors.red,
-                                        size: 12,
-                                      ),
-                                      Text(projectController.currentItem.projectPrefix),
-                                      Text(
-                                        tasks.name,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                      Expanded(
+                                        child: Text(
+                                          tasks.name,
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  // Text(
-                                  //   tasks.description,
-                                  //   maxLines: 2,
-                                  // ),
+                                
                                   Row(
                                     children: [
                                       const Icon(
                                         Icons.access_time,
                                         size: 12,
                                       ),
-                                      Text(
+                                      Expanded(
+                                          child: Text(
                                         'создано: ${formateddate.format(tasks.date)}',
+                                        maxLines: 1,
                                         textScaleFactor: 0.8,
                                         style: const TextStyle(
                                             color: Color(0xff10051C)),
-                                      ),
+                                      )),
                                     ],
                                   )
                                 ],
                               ),
                             ))),
-                    childWhenDragging: Container(
-                      height: 100.0,
-                      width: 100.0,
-                      color: Colors.pinkAccent,
-                      child: const Center(
-                        child: Text('Dragging'),
-                      ),
-                    ),
-                    child: Tooltip(
-                      message: 'Drag and drop измените статус задачи',
-                      child: SizedBox(
-                          height: 98,
-                          child: Card(
-                              color: const Color.fromARGB(239, 248, 250, 252),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${projectController
-                                        .currentItem.projectPrefix}-${tasks.docNumber}'),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            tasks.name,
-                                            maxLines: 2,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // Text(
-                                    //   tasks.description,
-                                    //   maxLines: 2,
-                                    // ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.access_time,
-                                          size: 12,
-                                        ),
-                                        Expanded(
-                                            child: Text(
-                                          'создано: ${formateddate.format(tasks.date)}',
-                                          textScaleFactor: 0.8,
-                                          style: const TextStyle(
-                                              color: Color(0xff10051C)),
-                                        )),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ))),
-                    ),
                   ),
                 ),
-              ],
-            ),
-          ));
-        }
-        
+              ),
+            ],
+          ),
+        ));
       }
-    
+    }
+
     return SingleChildScrollView(
         child: Padding(
       padding: const EdgeInsets.only(right: 10),
