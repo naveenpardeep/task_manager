@@ -56,6 +56,8 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(EPriority(0, ''), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(ENotificationType(0, ''), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(ESorting(0, ''), remoteProvider: provider);
     await NsgLocalDb.instance.init(provider!.applicationName);
     provider!.useNsgAuthorization = true;
     var db = NsgLocalDb.instance;
