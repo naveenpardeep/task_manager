@@ -663,22 +663,22 @@ class _HomepageState extends State<Homepage> {
                                         searchvalue.isEmpty
                                             ? getTasklength(status.status)
                                             : const Text('')))),
-                            TextButton(
-                                child: Row(
-                                  children: const [
-                                    Text(
-                                      'по дате',
-                                      style:
-                                          TextStyle(color: Color(0xff6D6BD6)),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Color(0xff6D6BD6),
-                                    )
-                                  ],
-                                ),
-                                onPressed: () {})
+                            // TextButton(
+                            //     child: Row(
+                            //       children: const [
+                            //         Text(
+                            //           'по дате',
+                            //           style:
+                            //               TextStyle(color: Color(0xff6D6BD6)),
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Icon(
+                            //           Icons.arrow_drop_down,
+                            //           color: Color(0xff6D6BD6),
+                            //         )
+                            //       ],
+                            //     ),
+                            //     onPressed: () {})
                           ],
                         ),
                         const Divider(),
