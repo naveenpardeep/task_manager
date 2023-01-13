@@ -26,7 +26,7 @@ class ProjectListPage extends GetView<ProjectController> {
         key: scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: width >= 600 ? 70 : 150,
+          toolbarHeight: width >= 600 ? 70 : 100,
           actions: [
             if(width>=400)
             Image.asset(
@@ -74,42 +74,36 @@ class ProjectListPage extends GetView<ProjectController> {
                         )),
                   ],
                 )
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        _textTitle.toString(),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                          child: TextButton(
-                            child: const Text(
-                              'Все задачи',
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                            onPressed: () {
-                              Get.toNamed(Routes.tasksListPage);
-                            },
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 15, 15),
-                          child: TextButton(
-                            child: const Text(
-                              'Добавить пользователя',
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                            onPressed: () {
-                              userAccountController.newItemPageOpen(
-                                  pageName: Routes.userAccountListPage);
-                              // Get.toNamed(Routes.userAccountListPage);
-                            },
-                          )),
-                    ],
+              : Column(
+                children: [
+                  Text(
+                    _textTitle.toString(),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                ),
+                  TextButton(
+                    child: const Text(
+                      'Все задачи',
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.tasksListPage);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'Добавить пользователя',
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
+                      userAccountController.newItemPageOpen(
+                          pageName: Routes.userAccountListPage);
+                      // Get.toNamed(Routes.userAccountListPage);
+                    },
+                  ),
+                ],
+              ),
           backgroundColor: const Color(0xff7876D9),
         ),
         body: Tooltip(
