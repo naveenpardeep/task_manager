@@ -9,6 +9,7 @@ import '../enums.dart';
 class TaskDocGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameDate = 'date';
+  static const nameDocNumber = 'docNumber';
   static const nameDateClosed = 'dateClosed';
   static const nameDateUpdated = 'dateUpdated';
   static const nameDateRemind = 'dateRemind';
@@ -28,6 +29,7 @@ class TaskDocGenerated extends NsgDataItem {
 
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
+    nameDocNumber: 'Номер документа',
     nameDateClosed: 'Дата закрытия',
     nameDateUpdated: 'Дата обновления',
     nameDateRemind: 'Дата напоминания',
@@ -44,6 +46,7 @@ class TaskDocGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataDateField(nameDate), primaryKey: false);
+    addField(NsgDataDateField(nameDocNumber), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
     addField(NsgDataDateField(nameDateRemind), primaryKey: false);
@@ -61,6 +64,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
+    fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
     fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
@@ -87,6 +91,11 @@ class TaskDocGenerated extends NsgDataItem {
   DateTime get date => getFieldValue(nameDate) as DateTime;
 
   set date(DateTime value) => setFieldValue(nameDate, value);
+
+  /// НомерДокумента
+  DateTime get docNumber => getFieldValue(nameDocNumber) as DateTime;
+
+  set docNumber(DateTime value) => setFieldValue(nameDocNumber, value);
 
   /// ДатаЗакрытия
   DateTime get dateClosed => getFieldValue(nameDateClosed) as DateTime;
