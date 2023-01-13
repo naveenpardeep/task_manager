@@ -544,7 +544,11 @@ class _HomepageState extends State<Homepage> {
                 child: LayoutBuilder(builder: (context, constraints) {
                   return Draggable(
                     data: tasks,
-                    feedback: taskCard(tasks, constraints),
+                    feedback: Container(
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(blurRadius: 10, color: ControlOptions.instance.colorGrey.withOpacity(0.7))
+                        ]),
+                        child: taskCard(tasks, constraints)),
                     // SizedBox(
                     //     height: 98,
                     //     width: 300,
