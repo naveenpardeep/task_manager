@@ -34,7 +34,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameProjectPrefix), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
-    addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameTableUsers), primaryKey: false);
+    addField(NsgDataReferenceListField<ProjectItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
   }
@@ -109,7 +109,7 @@ class ProjectItemGenerated extends NsgDataItem {
   set contractor(String value) => setFieldValue(nameContractor, value);
 
   /// ТаблицаПользователи
-  NsgDataTable<TaskDocCommentsTable> get tableUsers => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableUsers);
+  NsgDataTable<ProjectItemUserTable> get tableUsers => NsgDataTable<ProjectItemUserTable>(owner: this, fieldName: nameTableUsers);
 
 
   @override

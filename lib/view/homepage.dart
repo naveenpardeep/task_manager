@@ -64,7 +64,7 @@ class _HomepageState extends State<Homepage> {
                 Get.toNamed(Routes.projectListPage);
               },
               icon: const Icon(Icons.arrow_back)),
-          toolbarHeight: width >= 700 ? 70 : 150,
+          toolbarHeight: width >= 700 ? 70 : 80,
           actions: [
             if (width >= 300)
               Image.asset(
@@ -140,7 +140,7 @@ class _HomepageState extends State<Homepage> {
                 ])
               : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 10, 15, 15),
+                      padding: const EdgeInsets.fromLTRB(50, 10, 15, 0),
                       child: TextButton(
                         child: Row(
                           children: const [
@@ -175,7 +175,7 @@ class _HomepageState extends State<Homepage> {
                         },
                       )),
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 10, 15, 15),
+                      padding: const EdgeInsets.fromLTRB(50, 0, 15, 0),
                       child: InkWell(
                         onTap: () {
                           setState(() {
@@ -195,7 +195,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       )),
                   const Padding(
-                      padding: EdgeInsets.fromLTRB(50, 10, 15, 15),
+                      padding: EdgeInsets.fromLTRB(50, 0, 15, 0),
                       child: Text(
                         "Мои задачи",
                         style: TextStyle(color: Colors.white),
