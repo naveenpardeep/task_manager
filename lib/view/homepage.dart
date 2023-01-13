@@ -619,7 +619,7 @@ class _HomepageState extends State<Homepage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${projectController.currentItem.projectPrefix}-${tasks.docNumber}',
+                                    tasks.docNumber,
                                     maxLines: 1,
                                   ),
                                   Row(
