@@ -52,7 +52,9 @@ class TaskImageController extends NsgDataController<Picture> {
       }
       //Удаляем "лишние" картинки
       var itemsToDelete = items.where((e) => !ids.contains(e.id)).toList();
-      deleteItems(itemsToDelete);
+      if (itemsToDelete.isNotEmpty) {
+        deleteItems(itemsToDelete);
+      }
       progress.hide();
       Get.back();
     } on Exception catch (ex) {
