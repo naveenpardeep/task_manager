@@ -553,106 +553,58 @@ class _HomepageState extends State<Homepage> {
           child: Row(
             children: [
               Expanded(
-                child: Draggable(
-                  data: tasks,
-                  feedback: SizedBox(
-                      height: 98,
-                      width: 300,
-                      child: Card(
-                          color: const Color.fromRGBO(120, 118, 217, 0.12),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.priority_high_rounded,
-                                      color: Colors.red,
-                                      size: 12,
-                                    ),
-                                    Text(projectController.currentItem.projectPrefix),
-                                    Text(
-                                      tasks.name,
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                // Text(
-                                //   tasks.description,
-                                //   maxLines: 2,
-                                // ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.access_time,
-                                      size: 12,
-                                    ),
-                                    Text(
-                                      'создано: ${formateddate.format(tasks.date)}',
-                                      textScaleFactor: 0.8,
-                                      style: const TextStyle(color: Color(0xff10051C)),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ))),
-                  childWhenDragging: Container(
-                    height: 100.0,
-                    width: 100.0,
-                    color: Colors.pinkAccent,
-                    child: const Center(
-                      child: Text('Dragging'),
-                    ),
-                  ),
-                  child: Tooltip(
-                    message: 'Drag and drop измените статус задачи',
-                    child: SizedBox(
-                        height: 98,
-                        child: Card(
-                            color: const Color.fromARGB(239, 248, 250, 252),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${projectController.currentItem.projectPrefix}-${tasks.docNumber}',
-                                    maxLines: 1,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          tasks.name,
-                                          maxLines: 2,
-                                          style: const TextStyle(fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.access_time,
-                                        size: 12,
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        'создано: ${formateddate.format(tasks.date)}',
-                                        maxLines: 1,
-                                        textScaleFactor: 0.8,
-                                        style: const TextStyle(color: Color(0xff10051C)),
-                                      )),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ))),
-                  ),
-                ),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  return Draggable(
+                    data: tasks,
+                    feedback: taskCard(tasks, constraints),
+                    // SizedBox(
+                    //     height: 98,
+                    //     width: 300,
+                    //     child: Card(
+                    //         color: const Color.fromRGBO(120, 118, 217, 0.12),
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.all(10),
+                    //           child: Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             children: [
+                    //               Row(
+                    //                 children: [
+                    //                   const Icon(
+                    //                     Icons.priority_high_rounded,
+                    //                     color: Colors.red,
+                    //                     size: 12,
+                    //                   ),
+                    //                   Text(projectController.currentItem.projectPrefix),
+                    //                   Text(
+                    //                     tasks.name,
+                    //                     style: const TextStyle(fontWeight: FontWeight.bold),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //               // Text(
+                    //               //   tasks.description,
+                    //               //   maxLines: 2,
+                    //               // ),
+                    //               Row(
+                    //                 children: [
+                    //                   const Icon(
+                    //                     Icons.access_time,
+                    //                     size: 12,
+                    //                   ),
+                    //                   Text(
+                    //                     'создано: ${formateddate.format(tasks.date)}',
+                    //                     textScaleFactor: 0.8,
+                    //                     style: const TextStyle(color: Color(0xff10051C)),
+                    //                   ),
+                    //                 ],
+                    //               )
+                    //             ],
+                    //           ),
+                    //         ))),
+                    childWhenDragging: taskCard(tasks, constraints),
+                    child: taskCard(tasks, constraints),
+                  );
+                }),
               ),
             ],
           ),
@@ -667,6 +619,61 @@ class _HomepageState extends State<Homepage> {
         children: list,
       ),
     ));
+  }
+
+  Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
+    return SizedBox(
+      width: constraints.maxWidth,
+      child: Card(
+          color: const Color.fromARGB(239, 248, 250, 252),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    '${projectController.currentItem.projectPrefix}-${tasks.docNumber}',
+                    maxLines: 1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          tasks.name,
+                          maxLines: 2,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: Icon(
+                        Icons.access_time,
+                        size: 12,
+                      ),
+                    ),
+                    Expanded(
+                        child: Text(
+                      'создано: ${formateddate.format(tasks.date)}',
+                      maxLines: 1,
+                      textScaleFactor: 0.8,
+                      style: const TextStyle(color: Color(0xff10051C)),
+                    )),
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   Widget wrapdragTarget({required TaskBoardStatusTable status, required Column child}) {
