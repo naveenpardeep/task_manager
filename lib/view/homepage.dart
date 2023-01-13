@@ -625,7 +625,7 @@ class _HomepageState extends State<Homepage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                    '${projectController.currentItem.projectPrefix}-${tasks.docNumber}',
+                    '$tasks.docNumber',
                     maxLines: 1,
                   ),
                 ),
