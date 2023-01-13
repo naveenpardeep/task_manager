@@ -45,6 +45,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(Invitation(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(NotificationDoc(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(Picture(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(UserAccount(), remoteProvider: provider);
@@ -52,6 +54,8 @@ class DataControllerGenerated extends NsgBaseController {
         .registerDataItem(UserSettings(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(EPriority(0, ''), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(ENotificationType(0, ''), remoteProvider: provider);
     await NsgLocalDb.instance.init(provider!.applicationName);
     provider!.useNsgAuthorization = true;
     var db = NsgLocalDb.instance;
