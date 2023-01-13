@@ -73,6 +73,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
           toolbarHeight: width >= 700 ? 70 : 150,
           actions: [
+           if(width>=300)
             Image.asset(
               'lib/assets/images/logo.png',
               height: 70,
