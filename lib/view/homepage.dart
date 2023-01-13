@@ -820,7 +820,7 @@ String getupdateDay(TaskDoc tasks) {
     }}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
-  if (minutes <= 60) {
+  if (minutes < 60) {
     return 'Обновлено: $minutes мин. назад';
   }
   var hours = todayDate.difference(lastDate).inHours;
