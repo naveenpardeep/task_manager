@@ -30,6 +30,7 @@ class TaskImageController extends NsgDataController<Picture> {
   Future<bool> saveImages() async {
     var progress = NsgProgressDialog(textDialog: 'Сохранение фото');
     progress.show();
+    var ids = <String>[];
     try {
       for (var img in images) {
         if (img.image == null) continue;
@@ -47,7 +48,11 @@ class TaskImageController extends NsgDataController<Picture> {
           }
           await pic.post();
         }
+        ids.add(img.id);
       }
+      //Удаляем "лишние" картинки
+      var itemsToDelete = items.where((e) => !ids.contains(e.id)).toList();
+      deleteItems(itemsToDelete);
       progress.hide();
       Get.back();
     } on Exception catch (ex) {
