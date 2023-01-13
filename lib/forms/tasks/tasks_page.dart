@@ -47,9 +47,10 @@ class TasksPage extends GetView<TasksController> {
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
-                  onPressed2: () {
-                    controller.itemPagePost();
+                  onPressed2: () async {
+                  await  controller.itemPagePost();
                     Get.toNamed(Routes.homePage);
+                       
                   },
                 ),
                 Expanded(
