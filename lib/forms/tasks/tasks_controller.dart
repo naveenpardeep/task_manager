@@ -37,6 +37,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
     element.date = DateTime.now();
+    element.dateUpdated = DateTime.now();
     element.dateDeadline = DateTime(2023, 01, 01);
     element.dateRemind = DateTime(2023, 01, 01);
 

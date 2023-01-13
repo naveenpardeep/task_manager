@@ -18,9 +18,11 @@ class TasksPage extends GetView<TasksController> {
   @override
   Widget build(BuildContext context) {
     var todaydate = controller.currentItem.date;
+    var updatedate = controller.currentItem.dateUpdated;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     String formatted = formateddate.format(todaydate);
+    String formatupdate = formateddate.format(updatedate);
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -48,9 +50,10 @@ class TasksPage extends GetView<TasksController> {
                   },
                   icon2: Icons.check,
                   onPressed2: () async {
-                  await  controller.itemPagePost();
+                    controller.currentItem.dateUpdated = DateTime.now();
+                    await controller.itemPagePost();
+
                     Get.toNamed(Routes.homePage);
-                       
                   },
                 ),
                 Expanded(
@@ -96,6 +99,8 @@ class TasksPage extends GetView<TasksController> {
                             //   ],
                             // ),
                             NsgText('Создано :$formatted'),
+                            if (controller.currentItem.name.isNotEmpty)
+                              NsgText('Обновлено :$formatupdate'),
                             NsgInput(
                               selectionController:
                                   Get.find<TaskStatusController>(),
@@ -110,7 +115,7 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameAssigneeId,
                               label: 'Исполнитель',
                             ),
-                            
+
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
