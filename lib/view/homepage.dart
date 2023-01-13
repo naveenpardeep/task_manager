@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/formfields/nsg_period_filter.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -58,9 +59,11 @@ class _HomepageState extends State<Homepage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Get.toNamed(Routes.projectListPage);
-        }, icon: const Icon(Icons.arrow_back)),
+          leading: IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.projectListPage);
+              },
+              icon: const Icon(Icons.arrow_back)),
           toolbarHeight: width >= 700 ? 70 : 150,
           actions: [
             if (width >= 300)
@@ -545,59 +548,9 @@ class _HomepageState extends State<Homepage> {
             children: [
               Expanded(
                 child: LayoutBuilder(builder: (context, constraints) {
-                  return Draggable(
-                    data: tasks,
-                    feedback: Container(
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(blurRadius: 10, color: ControlOptions.instance.colorGrey.withOpacity(0.7))
-                        ]),
-                        child: taskCard(tasks, constraints)),
-                    // SizedBox(
-                    //     height: 98,
-                    //     width: 300,
-                    //     child: Card(
-                    //         color: const Color.fromRGBO(120, 118, 217, 0.12),
-                    //         child: Padding(
-                    //           padding: const EdgeInsets.all(10),
-                    //           child: Column(
-                    //             crossAxisAlignment: CrossAxisAlignment.start,
-                    //             children: [
-                    //               Row(
-                    //                 children: [
-                    //                   const Icon(
-                    //                     Icons.priority_high_rounded,
-                    //                     color: Colors.red,
-                    //                     size: 12,
-                    //                   ),
-                    //                   Text(projectController.currentItem.projectPrefix),
-                    //                   Text(
-                    //                     tasks.name,
-                    //                     style: const TextStyle(fontWeight: FontWeight.bold),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               // Text(
-                    //               //   tasks.description,
-                    //               //   maxLines: 2,
-                    //               // ),
-                    //               Row(
-                    //                 children: [
-                    //                   const Icon(
-                    //                     Icons.access_time,
-                    //                     size: 12,
-                    //                   ),
-                    //                   Text(
-                    //                     'создано: ${formateddate.format(tasks.date)}',
-                    //                     textScaleFactor: 0.8,
-                    //                     style: const TextStyle(color: Color(0xff10051C)),
-                    //                   ),
-                    //                 ],
-                    //               )
-                    //             ],
-                    //           ),
-                    //         ))),
-                    childWhenDragging: Opacity(opacity: 0.2, child: taskCard(tasks, constraints)),
-                    child: taskCard(tasks, constraints),
+                  return DraggableRotatingCard(
+                    tasks: tasks,
+                    constraints: constraints,
                   );
                 }),
               ),
@@ -614,61 +567,6 @@ class _HomepageState extends State<Homepage> {
         children: list,
       ),
     ));
-  }
-
-  Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
-    return SizedBox(
-      width: constraints.maxWidth,
-      child: Card(
-          color: const Color.fromARGB(239, 248, 250, 252),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    tasks.docNumber,
-                    maxLines: 1,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          tasks.name,
-                          maxLines: 2,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 4),
-                      child: Icon(
-                        Icons.access_time,
-                        size: 12,
-                      ),
-                    ),
-                    Expanded(
-                        child: Text(
-                      'создано: ${formateddate.format(tasks.date)}',
-                      maxLines: 1,
-                      textScaleFactor: 0.8,
-                      style: const TextStyle(color: Color(0xff10051C)),
-                    )),
-                  ],
-                )
-              ],
-            ),
-          )),
-    );
   }
 
   Widget wrapdragTarget({required TaskBoardStatusTable status, required Column child}) {
@@ -741,4 +639,119 @@ class _HomepageState extends State<Homepage> {
       },
     );
   }
+}
+
+class DraggableRotatingCard extends StatefulWidget {
+  final TaskDoc tasks;
+  final BoxConstraints constraints;
+  const DraggableRotatingCard({super.key, required this.tasks, required this.constraints});
+
+  @override
+  State<DraggableRotatingCard> createState() => DraggableRotatingCardState();
+}
+
+class DraggableRotatingCardState extends State<DraggableRotatingCard> {
+  final dataKey = GlobalKey<RotatingCardState>();
+  double angle = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Draggable(
+      data: widget.tasks,
+      onDragUpdate: (details) {
+        angle = details.delta.dx / 50;
+        if ((angle).abs() < .1) {
+          angle = 0;
+        }
+        if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
+      },
+      feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
+      childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
+      child: taskCard(widget.tasks, widget.constraints),
+    );
+  }
+}
+
+class RotatingCard extends StatefulWidget {
+  final TaskDoc tasks;
+  final BoxConstraints constraints;
+
+  const RotatingCard({Key? key, required this.tasks, required this.constraints}) : super(key: key);
+
+  @override
+  State<RotatingCard> createState() => RotatingCardState();
+}
+
+class RotatingCardState extends State<RotatingCard> {
+  double curAngle = 0;
+  void setAngle(double angle) {
+    curAngle = angle;
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedRotation(
+      duration: const Duration(milliseconds: 500),
+      turns: curAngle,
+      child: Container(
+          decoration: BoxDecoration(
+              boxShadow: [BoxShadow(blurRadius: 10, color: ControlOptions.instance.colorGrey.withOpacity(0.7))]),
+          child: taskCard(widget.tasks, widget.constraints)),
+    );
+  }
+}
+
+Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
+  return SizedBox(
+    width: constraints.maxWidth,
+    child: Card(
+        color: const Color.fromARGB(239, 248, 250, 252),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Text(
+                  tasks.docNumber,
+                  maxLines: 1,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        tasks.name,
+                        maxLines: 2,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 4),
+                    child: Icon(
+                      Icons.access_time,
+                      size: 12,
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(
+                    'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                    maxLines: 1,
+                    textScaleFactor: 0.8,
+                    style: const TextStyle(color: Color(0xff10051C)),
+                  )),
+                ],
+              )
+            ],
+          ),
+        )),
+  );
 }
