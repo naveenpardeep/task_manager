@@ -499,6 +499,7 @@ class _HomepageState extends State<Homepage> {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: list,
       ),
     );
@@ -588,7 +589,7 @@ class _HomepageState extends State<Homepage> {
                     //             ],
                     //           ),
                     //         ))),
-                    childWhenDragging: taskCard(tasks, constraints),
+                    childWhenDragging: Opacity(opacity: 0.2, child: taskCard(tasks, constraints)),
                     child: taskCard(tasks, constraints),
                   );
                 }),
@@ -669,10 +670,10 @@ class _HomepageState extends State<Homepage> {
         return AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-                color: ControlOptions.instance.colorText.withOpacity(0.1),
-                border: Border.all(
-                    width: accepted.isNotEmpty ? 10 : 1,
-                    color: accepted.isNotEmpty ? Colors.red : const Color.fromRGBO(120, 118, 217, 0.12))),
+              color: accepted.isNotEmpty
+                  ? ControlOptions.instance.colorMain.withOpacity(0.4)
+                  : ControlOptions.instance.colorMain.withOpacity(0.1),
+            ),
             child: child);
       },
       onWillAccept: (data) {
