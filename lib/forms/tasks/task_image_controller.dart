@@ -56,7 +56,7 @@ class TaskImageController extends NsgDataController<Picture> {
         deleteItems(itemsToDelete);
       }
       progress.hide();
-      Get.back();
+     // Get.back();
     } on Exception catch (ex) {
       progress.hide();
       NsgErrorWidget.showError(ex);
