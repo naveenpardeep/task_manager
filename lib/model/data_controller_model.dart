@@ -26,6 +26,8 @@ export 'sprint_doc_task_table.dart';
 export 'generated/sprint_doc_task_table.g.dart';
 export 'invitation.dart';
 export 'generated/invitation.g.dart';
+export 'notification_doc.dart';
+export 'generated/notification_doc.g.dart';
 export 'picture.dart';
 export 'generated/picture.g.dart';
 export 'user_account.dart';
