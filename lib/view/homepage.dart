@@ -58,6 +58,9 @@ class _HomepageState extends State<Homepage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          Get.toNamed(Routes.projectListPage);
+        }, icon: Icon(Icons.arrow_back)),
           toolbarHeight: width >= 700 ? 70 : 150,
           actions: [
             if (width >= 300)
