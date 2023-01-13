@@ -662,7 +662,7 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
         if ((angle).abs() < .1) {
           angle = 0;
         }
-        if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
+        if (dataKey.currentState != null) dataKey.currentState!.setAngle(-angle);
       },
       feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
       childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
