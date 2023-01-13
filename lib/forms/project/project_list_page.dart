@@ -28,6 +28,7 @@ class ProjectListPage extends GetView<ProjectController> {
           automaticallyImplyLeading: false,
           toolbarHeight: width >= 600 ? 70 : 150,
           actions: [
+            if(width>=400)
             Image.asset(
               'lib/assets/images/logo.png',
               height: 70,
