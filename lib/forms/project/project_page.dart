@@ -77,6 +77,11 @@ class _ProjectpageState extends State<ProjectPage> {
                               fieldName: ProjectItemGenerated.nameLeaderId,
                               label: 'Руководитель проекта',
                             ),
+                             NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: ProjectItemGenerated.nameProjectPrefix,
+                              label: 'Project Prefix',
+                            ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameName,
