@@ -26,7 +26,7 @@ class ProjectListPage extends GetView<ProjectController> {
         key: scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: width >= 600 ? 70 : 100,
+          toolbarHeight: width >= 600 ? 40 : 100,
           actions: [
             if (width >= 400)
               ClipRRect(
@@ -34,8 +34,8 @@ class ProjectListPage extends GetView<ProjectController> {
                 child: Image.network(
                     'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
                     fit: BoxFit.cover,
-                    height: 50,
-                    width: 50),
+                    height: 40,
+                    width: 40),
               ),
           ],
           title: width >= 600
