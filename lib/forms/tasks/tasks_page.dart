@@ -50,10 +50,19 @@ class TasksPage extends GetView<TasksController> {
                   },
                   icon2: Icons.check,
                   onPressed2: () async {
-                    controller.currentItem.dateUpdated = DateTime.now();
-                    await controller.itemPagePost();
-                    Get.find<TasksController>().refreshData();
-                    Get.toNamed(Routes.homePage);
+                    if (controller.currentItem.taskStatus.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Пожалуйста, выберите статус задачи')));
+                    } else if (controller.currentItem.name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('пожалуйста, введите название задачи')));
+                    } else {
+                      controller.currentItem.dateUpdated = DateTime.now();
+                      await controller.itemPagePost();
+                      Get.find<TasksController>().refreshData();
+                      Get.toNamed(Routes.homePage);
+                    }
                   },
                 ),
                 Expanded(
