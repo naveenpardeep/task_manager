@@ -266,7 +266,7 @@ class _HomepageState extends State<Homepage> {
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(
                 child:
-                    taskStatusTableController.obx((state) => getStatusList())),
+                    taskConstroller.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
           ],
         ),
