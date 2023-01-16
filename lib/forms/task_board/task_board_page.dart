@@ -51,7 +51,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskBoardGenerated.nameName,
-                              label: 'Название экрана ',
+                              label: 'Название экрана',
                             ),
                             NsgTable(
                               controller: Get.find<TaskStatusTableController>(),
@@ -62,10 +62,8 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                                 NsgTableMenuButtonType.removeElement
                               ],
                               columns: [
-                                
                                 NsgTableColumn(
-                                    name: TaskBoardStatusTableGenerated
-                                        .nameStatusId,
+                                    name: TaskBoardStatusTableGenerated.nameStatusId,
                                     expanded: true,
                                     presentation: 'Статусы'),
                               ],

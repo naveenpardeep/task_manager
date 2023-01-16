@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
+import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/top_menu.dart';
 
 class Homepage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomepageState extends State<Homepage> {
   final ScrollController horizontalScroll = ScrollController();
   final ScrollController verticalScroll = ScrollController();
   final ScrollController controller = ScrollController();
-  var taskConstroller = Get.find<TasksController>();
+  var taskController = Get.find<TasksController>();
   var projectController = Get.find<ProjectController>();
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
@@ -85,7 +86,7 @@ class _HomepageState extends State<Homepage> {
                       padding: const EdgeInsets.only(left: 5),
                       child: Text(
                         projectName,
-                        textScaleFactor: 1.4,
+                        style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                     NsgIconButton(
@@ -102,6 +103,7 @@ class _HomepageState extends State<Homepage> {
             width > 991
                 ? Row(
                     children: [
+                      ...filters(),
                       Expanded(
                           child: Padding(
                               padding: const EdgeInsets.all(15),
@@ -216,8 +218,7 @@ class _HomepageState extends State<Homepage> {
                         color: Colors.white,
                         backColor: const Color(0xff7876D9),
                         onPressed: () {
-                          Get.find<TasksController>()
-                              .newItemPageOpen(pageName: Routes.tasksPage);
+                          Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
                           // Get.toNamed(Routes.tasksPage);
                         },
                       ))
@@ -237,8 +238,7 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: const Color(0xff7876D9),
                             onPressed: () {
-                              Get.find<TasksController>()
-                                  .newItemPageOpen(pageName: Routes.tasksPage);
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
                               // Get.toNamed(Routes.tasksPage);
                             },
                           ),
@@ -261,7 +261,9 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
             //  if (taskBoardController.currentItem.isNotEmpty)
-            Expanded(child: taskConstroller.obx((state) => getStatusList())),
+            Expanded(
+                child:
+                    taskConstroller.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
           ],
         ),
@@ -275,26 +277,42 @@ class _HomepageState extends State<Homepage> {
       width: width * 0.8,
       child: ListView(
         children: [
-          DrawerHeader(
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration:
-                      BoxDecoration(color: ControlOptions.instance.colorMain),
-                  child: Center(
-                    child: Text(
-                      'Фильтры',
-                      style: TextStyle(
-                          color: ControlOptions.instance.colorMainText,
-                          fontSize: ControlOptions.instance.sizeH4),
+          Stack(
+            children: [
+              DrawerHeader(
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain),
+                      child: Center(
+                        child: Text(
+                          'Фильтры',
+                          style: TextStyle(
+                              color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeH4),
+                        ),
+                      ),
                     ),
+                  )),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8, top: 6),
+                  child: NsgIconButton(
+                    icon: Icons.close,
+                    size: 20,
+                    color: ControlOptions.instance.colorMainText,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
-              )),
+              )
+            ],
+          ),
           ...filters()
         ],
       ),
@@ -303,8 +321,8 @@ class _HomepageState extends State<Homepage> {
 
   List<Widget> filters() {
     return [
-      Column(children: [
-        Padding(
+      Expanded(
+        child: Padding(
             padding: const EdgeInsets.all(15),
             child: Tooltip(
               message: 'Поиск по тексту задачи, Описание задачи',
@@ -327,56 +345,92 @@ class _HomepageState extends State<Homepage> {
                     taskStatusTableController.sendNotify();
                   }),
             )),
-        Padding(
+      ),
+      Expanded(
+        child: Padding(
             padding: const EdgeInsets.all(0),
             child: Tooltip(
               message: 'Поиск задач по дате создания',
               child: NsgPeriodFilter(
-                controller: taskConstroller,
+                textAlign: TextAlign.left,
+                controller: taskController,
                 label: 'Поиск по дате',
-
                 // initialTime: DateTime.now(),
               ),
             )),
-        Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                TextButton(
-                  child: const Text('Поиск по исполнителю',
-                      style: TextStyle(color: Colors.black)),
-                  onPressed: () {
-                    selectCreator();
-                  },
-                ),
-                const Divider(
-                  color: Color(0xff7876D9),
-                )
-              ],
-            )),
-        Padding(
-            padding: const EdgeInsets.all(1),
-            child: Column(
-              children: [
-                Tooltip(
-                  message:
-                      'Выберите экран, на котором вы хотите отобразить статус',
-                  child: TextButton(
-                    child: Text(
-                      'Доска с задачами   $screenName',
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    onPressed: () {
-                      selectTaskScreen();
-                    },
-                  ),
-                ),
-                const Divider(
-                  color: Color(0xff7876D9),
-                )
-              ],
-            )),
-        Padding(
+      ),
+      Expanded(
+          child: NsgInput(
+        label: 'Поиск по исполнителю',
+        selectionController: Get.find<UserAccountController>(),
+        dataItem: taskController.currentItem,
+        fieldName: TaskDocGenerated.nameAssigneeId,
+        onEditingComplete: (p0, p1) {
+          setState(() {
+            searchvalue = userAccountController.currentItem.name;
+          });
+          taskController.refreshData();
+          taskStatusTableController.sendNotify();
+          taskBoardController.sendNotify();
+        },
+      )),
+      // Expanded(
+      //   child: Padding(
+      //       padding: const EdgeInsets.all(15),
+      //       child: Column(
+      //         children: [
+      //           TextButton(
+      //             child: const Text('Поиск по исполнителю', style: TextStyle(color: Colors.black)),
+      //             onPressed: () {
+      //               selectCreator();
+      //             },
+      //           ),
+      //           const Divider(
+      //             color: Color(0xff7876D9),
+      //           )
+      //         ],
+      //       )),
+      // ),
+      // Expanded(
+      //     child: NsgInput(
+      //   label: 'Доска с задачами',
+      //   selectionController: Get.find<ServiceObjectController>(),
+      //   dataItem: taskController.currentItem,
+      //   fieldName: ServiceObjectGenerated.nameBoardId,
+      //   onEditingComplete: (p0, p1) {
+      //     setState(() {
+      //       screenName = taskBoardController.currentItem.name;
+      //       taskController.refreshData();
+      //       taskStatusTableController.sendNotify();
+      //       taskBoardController.sendNotify();
+      //     });
+      //   },
+      // )),
+      // Expanded(
+      //   child: Padding(
+      //       padding: const EdgeInsets.all(1),
+      //       child: Column(
+      //         children: [
+      //           Tooltip(
+      //             message: 'Выберите экран, на котором вы хотите отобразить статус',
+      //             child: TextButton(
+      //               child: Text(
+      //                 'Доска с задачами   $screenName',
+      //                 style: const TextStyle(color: Colors.black),
+      //               ),
+      //               onPressed: () {
+      //                 selectTaskScreen();
+      //               },
+      //             ),
+      //           ),
+      //           const Divider(
+      //             color: Color(0xff7876D9),
+      //           )
+      //         ],
+      //       )),
+      // ),
+      Expanded(
+        child: Padding(
             padding: const EdgeInsets.all(1),
             child: taskBoardController.obx((state) => NsgInput(
                   label: 'Сортировка',
@@ -384,10 +438,12 @@ class _HomepageState extends State<Homepage> {
                   fieldName: TaskBoardGenerated.nameSortBy,
                   onEditingComplete: (task, name) {
                     taskBoardController.sendNotify();
-                    taskConstroller.refreshData();
+                    taskController.refreshData();
                   },
                 ))),
-        Padding(
+      ),
+      Expanded(
+        child: Padding(
             padding: const EdgeInsets.all(15),
             child: TextButton(
                 onPressed: () {
@@ -399,7 +455,7 @@ class _HomepageState extends State<Homepage> {
                   });
                 },
                 child: const Text('очистить фильтры'))),
-      ])
+      ),
     ];
   }
 
@@ -506,6 +562,10 @@ class _HomepageState extends State<Homepage> {
       }
     }
 
+    if (list.isEmpty) {
+      return SizedBox();
+    }
+
     if (width > 768) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -539,24 +599,22 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget getTasklength(TaskStatus status) {
-    var tasksList = taskConstroller.items;
+    var tasksList = taskController.items;
     String length = '';
-    var taskLength =
-        tasksList.where(((element) => element.taskStatus == status));
+    var taskLength = tasksList.where(((element) => element.taskStatus == status));
 
     length = taskLength.length.toString();
 
     return Text(
       length,
-      style: TextStyle(
-          fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
     );
   }
 
   Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
 
-    var tasksList = taskConstroller.items;
+    var tasksList = taskController.items;
 
     // var taskstart = tasksList.where((
     //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
@@ -564,26 +622,16 @@ class _HomepageState extends State<Homepage> {
     for (var tasks in tasksList) {
       if (tasks.taskStatus != status) continue;
 
-      if (tasks.name
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase()) ||
-          tasks.description
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase()) ||
-          tasks.assignee
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase())) {
+      if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
             // taskConstroller.currentItem = tasks;
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
             tasks.taskStatus = status;
-            taskConstroller.itemPageOpen(tasks, Routes.tasksPage,
-                needRefreshSelectedItem: true);
+            taskController.itemPageOpen(tasks, Routes.tasksPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
@@ -610,8 +658,7 @@ class _HomepageState extends State<Homepage> {
     ));
   }
 
-  Widget wrapdragTarget(
-      {required TaskBoardStatusTable status, required Widget child}) {
+  Widget wrapdragTarget({required TaskBoardStatusTable status, required Widget child}) {
     return DragTarget<TaskDoc>(
       builder: (context, accepted, rejected) {
         return AnimatedContainer(
@@ -628,14 +675,13 @@ class _HomepageState extends State<Homepage> {
       },
       onAccept: (data) async {
         data.taskStatus = status.status;
-        taskConstroller.currentItem = data;
+        taskController.currentItem = data;
         //taskConstroller.itemPagePost(goBack: false);
-        NsgProgressDialog progress = NsgProgressDialog(
-            textDialog: 'Сохранение данных на сервере', canStopped: false);
+        NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         progress.show();
-        await taskConstroller.postItems([taskConstroller.currentItem]);
+        await taskController.postItems([taskController.currentItem]);
         progress.hide();
-        taskConstroller.sendNotify();
+        taskController.sendNotify();
       },
     );
   }
@@ -650,10 +696,8 @@ class _HomepageState extends State<Homepage> {
       (item) {
         setState(() {
           screenName = taskBoardController.currentItem.name;
-          taskConstroller.refreshData();
-
+          taskController.refreshData();
           taskStatusTableController.sendNotify();
-
           taskBoardController.sendNotify();
         });
       },
@@ -671,11 +715,8 @@ class _HomepageState extends State<Homepage> {
         setState(() {
           searchvalue = userAccountController.currentItem.name;
         });
-
-        taskConstroller.refreshData();
-
+        taskController.refreshData();
         taskStatusTableController.sendNotify();
-
         taskBoardController.sendNotify();
       },
     );
@@ -691,7 +732,7 @@ class _HomepageState extends State<Homepage> {
       (item) {
         setState(() {});
 
-        taskConstroller.refreshData();
+        taskController.refreshData();
 
         taskStatusTableController.sendNotify();
 
@@ -704,8 +745,7 @@ class _HomepageState extends State<Homepage> {
 class DraggableRotatingCard extends StatefulWidget {
   final TaskDoc tasks;
   final BoxConstraints constraints;
-  const DraggableRotatingCard(
-      {super.key, required this.tasks, required this.constraints});
+  const DraggableRotatingCard({super.key, required this.tasks, required this.constraints});
 
   @override
   State<DraggableRotatingCard> createState() => DraggableRotatingCardState();
@@ -725,10 +765,8 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
         }
         if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
       },
-      feedback: RotatingCard(
-          key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
-      childWhenDragging: Opacity(
-          opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
+      feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
+      childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
       child: taskCard(widget.tasks, widget.constraints),
     );
   }
@@ -738,8 +776,7 @@ class RotatingCard extends StatefulWidget {
   final TaskDoc tasks;
   final BoxConstraints constraints;
 
-  const RotatingCard({Key? key, required this.tasks, required this.constraints})
-      : super(key: key);
+  const RotatingCard({Key? key, required this.tasks, required this.constraints}) : super(key: key);
 
   @override
   State<RotatingCard> createState() => RotatingCardState();
@@ -759,11 +796,8 @@ class RotatingCardState extends State<RotatingCard> {
       curve: Curves.fastLinearToSlowEaseIn,
       turns: curAngle,
       child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                blurRadius: 10,
-                color: ControlOptions.instance.colorGrey.withOpacity(0.7))
-          ]),
+          decoration: BoxDecoration(
+              boxShadow: [BoxShadow(blurRadius: 10, color: ControlOptions.instance.colorGrey.withOpacity(0.7))]),
           child: taskCard(widget.tasks, widget.constraints)),
     );
   }
@@ -805,16 +839,12 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
                   Padding(
                     padding: const EdgeInsets.only(right: 4),
                     child: Icon(Icons.access_time,
-                        size: ControlOptions.instance.sizeS,
-                        color: ControlOptions.instance.colorGreyDark),
+                        size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 4),
                     child: Text(
-                      'создано: ${{
-                        NsgDateFormat.dateFormat(tasks.date,
-                            format: 'dd.MM.yy HH:mm')
-                      }}',
+                      'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                       maxLines: 1,
                       textScaleFactor: 0.8,
                       style: TextStyle(
@@ -849,9 +879,7 @@ String getupdateDay(TaskDoc tasks) {
   final lastDate = tasks.dateUpdated;
   var daysleft = todayDate.difference(lastDate).inDays;
   if (daysleft > 7) {
-    return 'Обновлено: ${{
-      NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')
-    }}';
+    return 'Обновлено: ${{NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
   if (minutes < 60) {
