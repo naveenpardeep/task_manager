@@ -15,6 +15,9 @@ class TasksListPage extends GetView<TasksController> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
