@@ -10,6 +10,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameDate = 'date';
   static const nameDocNumber = 'docNumber';
+  static const nameTaskNumber = 'taskNumber';
   static const nameDateClosed = 'dateClosed';
   static const nameDateUpdated = 'dateUpdated';
   static const nameDateRemind = 'dateRemind';
@@ -30,6 +31,7 @@ class TaskDocGenerated extends NsgDataItem {
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
     nameDocNumber: 'Номер документа',
+    nameTaskNumber: 'Номер задачи',
     nameDateClosed: 'Дата закрытия',
     nameDateUpdated: 'Дата обновления',
     nameDateRemind: 'Дата напоминания',
@@ -47,6 +49,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataStringField(nameDocNumber), primaryKey: false);
+    addField(NsgDataIntField(nameTaskNumber), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
     addField(NsgDataDateField(nameDateRemind), primaryKey: false);
@@ -65,6 +68,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
+    fieldList.fields[nameTaskNumber]?.presentation = 'Номер задачи';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
     fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
@@ -96,6 +100,11 @@ class TaskDocGenerated extends NsgDataItem {
   String get docNumber => getFieldValue(nameDocNumber).toString();
 
   set docNumber(String value) => setFieldValue(nameDocNumber, value);
+
+  /// Номер задачи
+  int get taskNumber => getFieldValue(nameTaskNumber) as int;
+
+  set taskNumber(int value) => setFieldValue(nameTaskNumber, value);
 
   /// ДатаЗакрытия
   DateTime get dateClosed => getFieldValue(nameDateClosed) as DateTime;
