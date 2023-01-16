@@ -4,8 +4,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-import '../../app_pages.dart';
-
 class UserAccountPage extends GetView<UserAccountController> {
   const UserAccountPage({Key? key}) : super(key: key);
 
