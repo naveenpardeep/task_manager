@@ -376,6 +376,17 @@ class _HomepageState extends State<Homepage> {
                 )
               : Column(
                   children: [
+                     NsgButton(
+                      icon: Icons.add,
+                      text: 'создать заявку',
+                      color: Colors.white,
+                      backColor: const Color(0xff7876D9),
+                      onPressed: () {
+                        Get.find<TasksController>()
+                            .newItemPageOpen(pageName: Routes.tasksPage);
+                        // Get.toNamed(Routes.tasksPage);
+                      },
+                    ),
                     NsgExpansionPanel(
                         widgetTop: const Text('Фильтры'),
                         widgetBottom: SizedBox(
@@ -459,6 +470,17 @@ class _HomepageState extends State<Homepage> {
                                       )
                                     ],
                                   )),
+                                   Padding(
+                                       padding: const EdgeInsets.all(1),
+                                       child: taskBoardController.obx((state) => NsgInput(
+                                             label: 'Сортировка',
+                                             dataItem: taskBoardController.currentItem,
+                                             fieldName: TaskBoardGenerated.nameSortBy,
+                                             onEditingComplete: (task, name) {
+                                               taskBoardController.sendNotify();
+                                               taskConstroller.refreshData();
+                                             },
+                                           ))),
                               Padding(
                                   padding: const EdgeInsets.all(15),
                                   child: TextButton(
@@ -474,17 +496,7 @@ class _HomepageState extends State<Homepage> {
                             ]),
                           ),
                         )),
-                    NsgButton(
-                      icon: Icons.add,
-                      text: 'создать заявку',
-                      color: Colors.white,
-                      backColor: const Color(0xff7876D9),
-                      onPressed: () {
-                        Get.find<TasksController>()
-                            .newItemPageOpen(pageName: Routes.tasksPage);
-                        // Get.toNamed(Routes.tasksPage);
-                      },
-                    )
+                   
                   ],
                 ),
           //  if (taskBoardController.currentItem.isNotEmpty)
