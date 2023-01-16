@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums.dart';
 
 import 'task_image_controller.dart';
 
@@ -18,6 +20,68 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameAssigneeId
     ];
   }
+
+  @override
+  NsgDataRequestParams get getRequestFilter {
+      var filter = super.getRequestFilter;
+      var sort;
+   // var cmp = NsgCompare();
+    var tasksController = Get.find<TasksController>();
+    var taskBoardController=Get.find<TaskBoardController>();
+    var projectController = Get.find<ProjectController>();
+    
+
+    if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) 
+    {
+     filter.compare.add(
+        name: TaskDocGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+         filter.sorting = "${TaskDocGenerated.nameDate}-";
+      //  sort = NsgSortingParam(
+      //     parameterName: TaskDocGenerated.nameDate,
+      //     direction: NsgSortingDirection.ascending);
+     // return NsgDataRequestParams(compare: filter.compare, sorting: sort.toString());
+    }
+    if (taskBoardController.currentItem.sortBy == ESorting.dateDesc) {
+      filter.compare.add(
+        name: TaskDocGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+        filter.sorting = "${TaskDocGenerated.nameDate}+";
+      //  sort = NsgSortingParam(
+      //     parameterName: TaskDocGenerated.nameDate,
+      //     direction: NsgSortingDirection.descending);
+    //  return NsgDataRequestParams(compare: filter.compare, sorting: sort.toString());
+    }
+    if (taskBoardController.currentItem.sortBy == ESorting.priorityAsc) {
+      filter.compare.add(
+        name: TaskDocGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+        filter.sorting = "${TaskDocGenerated.namePriority}-";
+      //  sort = NsgSortingParam(
+      //     parameterName: TaskDocGenerated.namePriority,
+      //     direction: NsgSortingDirection.ascending);
+    //  return NsgDataRequestParams(compare: filter.compare, sorting: sort.toString());
+    }
+    if (taskBoardController.currentItem.sortBy == ESorting.priorityDesc) {
+      filter.compare.add(
+        name: TaskDocGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+        filter.sorting = "${TaskDocGenerated.namePriority}+";
+     //filter.sorting=NsgSortingParam(
+     //     parameterName: TaskDocGenerated.namePriority,
+       //   direction: NsgSortingDirection.descending);
+   //  return NsgDataRequestParams(compare: filter.compare, sorting: sort.toString());
+    }
+    filter.compare.add(
+        name: TaskDocGenerated.nameProjectId,
+        value: projectController.currentItem.id);
+        
+        return filter;
+       // return NsgDataRequestParams(compare: filter.compare, sorting: sort.toString());
+   // return NsgDataRequestParams(compare: filter.compare);
+    
+  }
+
   @override
   Future itemRemove({bool goBack = true}) {
     return super.itemRemove();
