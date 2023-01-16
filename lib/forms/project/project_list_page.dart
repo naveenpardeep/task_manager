@@ -58,6 +58,7 @@ class ProjectListPage extends GetView<ProjectController> {
                             textScaleFactor: width >= 800 ? 1.5 : 1,
                           ),
                           onPressed: () {
+                            Get.find<TasksController>().refreshData();
                             Get.toNamed(Routes.tasksListPage);
                           },
                         )),
@@ -71,7 +72,8 @@ class ProjectListPage extends GetView<ProjectController> {
                             textScaleFactor: width >= 800 ? 1.5 : 1,
                           ),
                           onPressed: () {
-                            userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
+                            userAccountController.newItemPageOpen(
+                                pageName: Routes.userAccountListPage);
                             // Get.toNamed(Routes.userAccountListPage);
                           },
                         )),
@@ -90,6 +92,7 @@ class ProjectListPage extends GetView<ProjectController> {
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
+                        Get.find<TasksController>().refreshData();
                         Get.toNamed(Routes.tasksListPage);
                       },
                     ),
@@ -100,7 +103,8 @@ class ProjectListPage extends GetView<ProjectController> {
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
-                        userAccountController.newItemPageOpen(pageName: Routes.userAccountListPage);
+                        userAccountController.newItemPageOpen(
+                            pageName: Routes.userAccountListPage);
                         // Get.toNamed(Routes.userAccountListPage);
                       },
                     ),
@@ -129,7 +133,7 @@ class ProjectListPage extends GetView<ProjectController> {
                 element as ProjectItem;
 
                 controller.currentItem = element;
-
+                Get.find<TasksController>().refreshData();
                 Get.toNamed(Routes.homePage);
               },
               availableButtons: const [
@@ -138,11 +142,22 @@ class ProjectListPage extends GetView<ProjectController> {
                 NsgTableMenuButtonType.removeElement
               ],
               columns: [
-                NsgTableColumn(name: ProjectItemGenerated.nameName, expanded: true, presentation: 'Название проекта'),
                 NsgTableColumn(
-                    name: ProjectItemGenerated.nameLeaderId, expanded: true, presentation: 'Руководитель проекта'),
-                NsgTableColumn(name: ProjectItemGenerated.nameDate, expanded: true, presentation: 'Дата создания'),
-                NsgTableColumn(name: ProjectItemGenerated.nameContractor, expanded: true, presentation: 'Заказчик'),
+                    name: ProjectItemGenerated.nameName,
+                    expanded: true,
+                    presentation: 'Название проекта'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameLeaderId,
+                    expanded: true,
+                    presentation: 'Руководитель проекта'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameDate,
+                    expanded: true,
+                    presentation: 'Дата создания'),
+                NsgTableColumn(
+                    name: ProjectItemGenerated.nameContractor,
+                    expanded: true,
+                    presentation: 'Заказчик'),
               ]),
         ));
   }

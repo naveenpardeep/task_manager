@@ -52,7 +52,7 @@ class TasksPage extends GetView<TasksController> {
                   onPressed2: () async {
                     controller.currentItem.dateUpdated = DateTime.now();
                     await controller.itemPagePost();
-
+                    Get.find<TasksController>().refreshData();
                     Get.toNamed(Routes.homePage);
                   },
                 ),

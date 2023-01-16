@@ -335,15 +335,15 @@ class _HomepageState extends State<Homepage> {
                     Expanded(
                         child: Padding(
                             padding: const EdgeInsets.all(1),
-                            child: taskBoardController.obx((state) =>  NsgInput(
-                              label: 'Сортировка',
-                              dataItem: taskBoardController.currentItem,
-                              fieldName: TaskBoardGenerated.nameSortBy,
-                              onEditingComplete: (task, name) {
-                                taskBoardController.sendNotify();
-                                taskConstroller.refreshData();
-                              },
-                            )))),
+                            child: taskBoardController.obx((state) => NsgInput(
+                                  label: 'Сортировка',
+                                  dataItem: taskBoardController.currentItem,
+                                  fieldName: TaskBoardGenerated.nameSortBy,
+                                  onEditingComplete: (task, name) {
+                                    taskBoardController.sendNotify();
+                                    taskConstroller.refreshData();
+                                  },
+                                )))),
                     Padding(
                         padding: const EdgeInsets.all(15),
                         child: TextButton(
@@ -547,7 +547,8 @@ class _HomepageState extends State<Homepage> {
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
                             controller: scrollController,
-                            child: getTaskList(status.status)),
+                            child: Get.find<TasksController>()
+                                .obx((state) => getTaskList(status.status))),
                       ),
                     ),
                   ),
