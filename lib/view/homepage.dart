@@ -440,23 +440,26 @@ class _HomepageState extends State<Homepage> {
                 ),
                 const Divider(thickness: 2, height: 20),
                 Expanded(
-                  child: wrapdragTarget(
-                    status: status,
-                    child: taskConstroller.obx(
-                      (state) => RawScrollbar(
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        controller: scrollController,
-                        thickness: 8,
-                        trackBorderColor:
-                            ControlOptions.instance.colorGreyLight,
-                        trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor:
-                            ControlOptions.instance.colorMain.withOpacity(0.5),
-                        radius: const Radius.circular(0),
-                        child: SingleChildScrollView(
-                            controller: scrollController,
-                            child: getTaskList(status.status)),
+                  child: SizedBox(
+                    width: width,
+                    child: wrapdragTarget(
+                      status: status,
+                      child: taskConstroller.obx(
+                        (state) => RawScrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollController,
+                          thickness: 8,
+                          trackBorderColor:
+                              ControlOptions.instance.colorGreyLight,
+                          trackColor: ControlOptions.instance.colorGreyLight,
+                          thumbColor:
+                              ControlOptions.instance.colorMain.withOpacity(0.5),
+                          radius: const Radius.circular(0),
+                          child: SingleChildScrollView(
+                              controller: scrollController,
+                              child: getTaskList(status.status)),
+                        ),
                       ),
                     ),
                   ),
