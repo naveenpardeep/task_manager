@@ -19,7 +19,7 @@ class TasksListPage extends GetView<TasksController> {
     return Scaffold(
       body: Column(
         children: [
-          if (width > 992) const TmTopMenu(),
+          if (width > 991) const TmTopMenu(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -46,15 +46,19 @@ class TasksListPage extends GetView<TasksController> {
                     NsgTableMenuButtonType.removeElement
                   ],
                   columns: [
-                    NsgTableColumn(name: TaskDocGenerated.nameProjectId, width: 100, presentation: 'Проект'),
-                    NsgTableColumn(name: TaskDocGenerated.nameDate, width: 100, presentation: 'Дата'),
+                    NsgTableColumn(name: TaskDocGenerated.nameProjectId, expanded: true, presentation: 'Проект'),
+                    NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
 
-                    NsgTableColumn(name: TaskDocGenerated.nameName, width: 100, presentation: 'Название задачи'),
-                    NsgTableColumn(
-                        name: TaskDocGenerated.nameDescription, width: 100, presentation: 'Описание', expanded: true),
-                    NsgTableColumn(
-                        name: TaskDocGenerated.nameAssigneeId, width: 100, presentation: 'Исполнитель', expanded: true),
-                    NsgTableColumn(name: TaskDocGenerated.nameTaskStatusId, width: 100, presentation: 'Статус'),
+                    NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
+                    if (width > 991)
+                      NsgTableColumn(name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
+                    if (width > 991)
+                      NsgTableColumn(
+                          name: TaskDocGenerated.nameAssigneeId,
+                          width: 100,
+                          presentation: 'Исполнитель',
+                          expanded: true),
+                    NsgTableColumn(name: TaskDocGenerated.nameTaskStatusId, expanded: true, presentation: 'Статус'),
 
                     // NsgTableColumn(
                     //     name: TaskDocGenerated.nameSprintId,
@@ -63,6 +67,7 @@ class TasksListPage extends GetView<TasksController> {
                   ]),
             ),
           ),
+          if (width < 992) const TmTopMenu(),
         ],
       ),
     );

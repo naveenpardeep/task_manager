@@ -27,7 +27,7 @@ class ProjectListPage extends GetView<ProjectController> {
         key: scaffoldKey,
         body: Column(
           children: [
-            if (width > 992) const TmTopMenu(),
+            if (width > 991) const TmTopMenu(),
             Expanded(
               child: Tooltip(
                 message: 'Click on the project for more details',
