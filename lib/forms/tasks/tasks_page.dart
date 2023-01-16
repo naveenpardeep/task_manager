@@ -123,6 +123,11 @@ class TasksPage extends GetView<TasksController> {
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameTaskNumber,
+                              label: 'Номер задачи',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDescription,
                               label: 'Описание задачи',
                               minLines: 3,
