@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/formfields/nsg_period_filter.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_icon_button.dart';
 import 'package:nsg_controls/widgets/nsg_expansion_panel.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:scroll_navigation/scroll_navigation.dart';
@@ -68,22 +69,35 @@ class _HomepageState extends State<Homepage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (width > 991) const TmTopMenu(),
-
             Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(
                   children: [
-                    Text(
-                      projectName,
-                      textScaleFactor: 1.4,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.edit_rounded),
+                    NsgIconButton(
+                      padding: const EdgeInsets.all(8),
+                      icon: Icons.arrow_back_ios_new,
+                      backColor: ControlOptions.instance.colorMain,
+                      color: ControlOptions.instance.colorMainText,
                       onPressed: () {
-                        projectController.currentItem.name = projectName;
-                        Get.toNamed(Routes.projectPage);
+                        Get.toNamed(Routes.projectListPage);
                       },
-                    )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        projectName,
+                        textScaleFactor: 1.4,
+                      ),
+                    ),
+                    NsgIconButton(
+                      padding: const EdgeInsets.all(8),
+                      color: ControlOptions.instance.colorMain,
+                      size: 22,
+                      icon: Icons.edit,
+                      onPressed: () {
+                        Get.toNamed(Routes.projectListPage);
+                      },
+                    ),
                   ],
                 )),
             width > 991
@@ -205,8 +219,10 @@ class _HomepageState extends State<Homepage> {
                     ],
                   )
                 : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       NsgButton(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
                         height: 40,
                         width: 150,
                         icon: Icons.add,
