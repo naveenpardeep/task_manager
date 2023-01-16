@@ -95,7 +95,7 @@ class _HomepageState extends State<Homepage> {
                       size: 22,
                       icon: Icons.edit,
                       onPressed: () {
-                        Get.toNamed(Routes.projectListPage);
+                        Get.toNamed(Routes.projectPage);
                       },
                     ),
                   ],
