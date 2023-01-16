@@ -85,7 +85,7 @@ class _HomepageState extends State<Homepage> {
                   )
                 ],
               )),
-          width >= 700
+          width > 991
               ? Row(
                   children: [
                     Expanded(
