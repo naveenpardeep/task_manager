@@ -126,7 +126,7 @@ class _HomepageState extends State<Homepage> {
                                         hintText: 'Поиск по тексту'),
                                     onChanged: (val) {
                                       searchvalue = val;
-
+                                       taskConstroller.sendNotify();
                                       taskStatusTableController.sendNotify();
                                     }),
                               ))),
@@ -331,7 +331,7 @@ class _HomepageState extends State<Homepage> {
                       hintText: 'Поиск по тексту'),
                   onChanged: (val) {
                     searchvalue = val;
-
+                     taskConstroller.sendNotify();
                     taskStatusTableController.sendNotify();
                   }),
             )),
