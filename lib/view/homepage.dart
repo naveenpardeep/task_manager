@@ -103,7 +103,7 @@ class _HomepageState extends State<Homepage> {
             width > 991
                 ? Row(
                     children: [
-                      ...filters(),
+                  
                       Expanded(
                           child: Padding(
                               padding: const EdgeInsets.all(15),
