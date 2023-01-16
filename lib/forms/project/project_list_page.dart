@@ -23,67 +23,69 @@ class ProjectListPage extends GetView<ProjectController> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-        key: scaffoldKey,
-        body: Column(
-          children: [
-            if (width > 991) const TmTopMenu(),
-            Expanded(
-              child: Tooltip(
-                message: 'Click on the project for more details',
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: NsgListPage(
-                      appBar: Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Все проекты',
-                          style: TextStyle(
-                              color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
+    return BodyWrap(
+      child: Scaffold(
+          key: scaffoldKey,
+          body: Column(
+            children: [
+              if (width > 991) const TmTopMenu(),
+              Expanded(
+                child: Tooltip(
+                  message: 'Click on the project for more details',
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: NsgListPage(
+                        appBar: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            'Все проекты',
+                            style: TextStyle(
+                                color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
+                          ),
                         ),
-                      ),
-                      appBarIcon: null,
-                      appBarIcon2: null,
-                      appBarBackColor: const Color(0xff7876D9),
-                      appBarColor: Colors.white,
-                      type: NsgListPageMode.table,
-                      controller: controller,
-                      title: _textTitle,
-                      textNoItems: _textNoItems,
-                      elementEditPage: _elementPage,
-                      onElementTap: (element) {
-                        var taskConstroller = Get.find<TasksController>();
-                        Get.find<TaskBoardController>().sendNotify();
+                        appBarIcon: null,
+                        appBarIcon2: null,
+                        appBarBackColor: const Color(0xff7876D9),
+                        appBarColor: Colors.white,
+                        type: NsgListPageMode.table,
+                        controller: controller,
+                        title: _textTitle,
+                        textNoItems: _textNoItems,
+                        elementEditPage: _elementPage,
+                        onElementTap: (element) {
+                          var taskConstroller = Get.find<TasksController>();
+                          Get.find<TaskBoardController>().sendNotify();
 
-                        element as ProjectItem;
+                          element as ProjectItem;
 
-                        controller.currentItem = element;
-                        taskConstroller.refreshData();
+                          controller.currentItem = element;
+                          taskConstroller.refreshData();
 
-                        Get.toNamed(Routes.homePage);
-                      },
-                      availableButtons: const [
-                        NsgTableMenuButtonType.createNewElement,
-                        NsgTableMenuButtonType.editElement,
-                        NsgTableMenuButtonType.removeElement
-                      ],
-                      columns: [
-                        NsgTableColumn(
-                            name: ProjectItemGenerated.nameName, expanded: true, presentation: 'Название проекта'),
-                        NsgTableColumn(
-                            name: ProjectItemGenerated.nameLeaderId,
-                            expanded: true,
-                            presentation: 'Руководитель проекта'),
-                        NsgTableColumn(
-                            name: ProjectItemGenerated.nameDate, expanded: true, presentation: 'Дата создания'),
-                        NsgTableColumn(
-                            name: ProjectItemGenerated.nameContractor, expanded: true, presentation: 'Заказчик'),
-                      ]),
+                          Get.toNamed(Routes.homePage);
+                        },
+                        availableButtons: const [
+                          NsgTableMenuButtonType.createNewElement,
+                          NsgTableMenuButtonType.editElement,
+                          NsgTableMenuButtonType.removeElement
+                        ],
+                        columns: [
+                          NsgTableColumn(
+                              name: ProjectItemGenerated.nameName, expanded: true, presentation: 'Название проекта'),
+                          NsgTableColumn(
+                              name: ProjectItemGenerated.nameLeaderId,
+                              expanded: true,
+                              presentation: 'Руководитель проекта'),
+                          NsgTableColumn(
+                              name: ProjectItemGenerated.nameDate, expanded: true, presentation: 'Дата создания'),
+                          NsgTableColumn(
+                              name: ProjectItemGenerated.nameContractor, expanded: true, presentation: 'Заказчик'),
+                        ]),
+                  ),
                 ),
               ),
-            ),
-            if (width < 992) const TmTopMenu(),
-          ],
-        ));
+              if (width < 992) const TmTopMenu(),
+            ],
+          )),
+    );
   }
 }
