@@ -4,7 +4,6 @@ import 'package:task_manager_app/model/task_board.dart';
 
 import '../../model/generated/task_board.g.dart';
 
-import '../../model/generated/task_status.g.dart';
 import '../project/project_controller.dart';
 
 class TaskBoardController extends NsgDataController<TaskBoard> {

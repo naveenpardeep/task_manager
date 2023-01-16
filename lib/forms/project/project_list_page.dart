@@ -3,11 +3,9 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
-import '../user_account/user_account_controller.dart';
 import '../widgets/top_menu.dart';
 
 class ProjectListPage extends GetView<ProjectController> {
@@ -17,7 +15,7 @@ class ProjectListPage extends GetView<ProjectController> {
   final _textNoItems = 'Проекты ещё не добавлены';
   final _elementPage = Routes.projectPage;
   // var controller = Get.find<ProjectController>();
-  var userAccountController = Get.find<UserAccountController>();
+  //var userAccountController = Get.find<UserAccountController>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

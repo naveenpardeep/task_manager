@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -23,9 +22,7 @@ class TasksController extends NsgDataController<TaskDoc> {
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
-    var sort;
     // var cmp = NsgCompare();
-    var tasksController = Get.find<TasksController>();
     var taskBoardController = Get.find<TaskBoardController>();
     var projectController = Get.find<ProjectController>();
 

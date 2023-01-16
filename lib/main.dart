@@ -11,7 +11,7 @@ void main() {
       borderRadius: 3,
       appMaxWidth: 1600,
       appMinWidth: 375,
-      tableHeaderColor: Color.fromARGB(255, 93, 91, 170),
+      tableHeaderColor: const Color.fromARGB(255, 93, 91, 170),
       tableHeaderLinesColor: const Color(0xff7876D9),
       colorMain: const Color(0xff7876D9),
       colorMainDark: const Color.fromARGB(255, 61, 60, 107),

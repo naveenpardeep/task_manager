@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/formfields/nsg_period_filter.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
-import 'package:nsg_controls/widgets/nsg_expansion_panel.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:scroll_navigation/scroll_navigation.dart';
 import 'package:task_manager_app/app_pages.dart';
@@ -14,7 +13,6 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import 'package:task_manager_app/model/enums.dart';
 
 import '../forms/widgets/top_menu.dart';
 
@@ -62,7 +60,6 @@ class _HomepageState extends State<Homepage> {
     projectName = projectController.currentItem.name;
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
         key: scaffoldKey,
@@ -276,7 +273,6 @@ class _HomepageState extends State<Homepage> {
 
   Widget drawer() {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Drawer(
       width: width * 0.8,
       child: ListView(
@@ -308,8 +304,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<Widget> filters() {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return [
       Column(children: [
         Padding(
@@ -412,7 +406,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget getStatusList() {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     List<Widget> list = [];
@@ -500,7 +493,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget getTasklength(TaskStatus status) {
     var tasksList = taskConstroller.items;
-    var length;
+    String length = '';
     var taskLength =
         tasksList.where(((element) => element.taskStatus == status));
 
@@ -517,7 +510,6 @@ class _HomepageState extends State<Homepage> {
     List<Widget> list = [];
 
     var tasksList = taskConstroller.items;
-    var projectPrefix = projectController.items;
 
     // var taskstart = tasksList.where((
     //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
@@ -609,7 +601,6 @@ class _HomepageState extends State<Homepage> {
     form.selectFromArray(
       'Доски с задачами',
       (item) {
-        var row = TaskBoardGenerated();
         setState(() {
           screenName = taskBoardController.currentItem.name;
           taskConstroller.refreshData();
@@ -630,7 +621,6 @@ class _HomepageState extends State<Homepage> {
     form.selectFromArray(
       'Поиск по исполнителю',
       (item) {
-        var row = UserAccountGenerated();
         setState(() {
           searchvalue = userAccountController.currentItem.name;
         });
@@ -652,7 +642,6 @@ class _HomepageState extends State<Homepage> {
     form.selectFromArray(
       'Сортировка',
       (item) {
-        var row = ESorting;
         setState(() {});
 
         taskConstroller.refreshData();
