@@ -125,7 +125,7 @@ class _HomepageState extends State<Homepage> {
                                         hintText: 'Поиск по тексту'),
                                     onChanged: (val) {
                                       searchvalue = val;
-                                      taskConstroller.sendNotify();
+                                      taskController.sendNotify();
                                       taskStatusTableController.sendNotify();
                                     }),
                               ))),
@@ -135,7 +135,7 @@ class _HomepageState extends State<Homepage> {
                               child: Tooltip(
                                 message: 'Поиск задач по дате создания',
                                 child: NsgPeriodFilter(
-                                  controller: taskConstroller,
+                                  controller: taskController,
                                   label: 'Поиск по дате',
 
                                   // initialTime: DateTime.now(),
@@ -192,7 +192,7 @@ class _HomepageState extends State<Homepage> {
                                     fieldName: TaskBoardGenerated.nameSortBy,
                                     onEditingComplete: (task, name) {
                                       taskBoardController.sendNotify();
-                                      taskConstroller.refreshData();
+                                      taskController.refreshData();
                                     },
                                   )))),
                       Padding(
@@ -204,7 +204,7 @@ class _HomepageState extends State<Homepage> {
                                   searchDate = DateTime.now();
                                   searchvalue = '';
                                   textEditController.clear();
-                                  taskConstroller.sendNotify();
+                                  taskController.sendNotify();
                                   taskBoardController.sendNotify();
                                 });
                               },
@@ -263,7 +263,7 @@ class _HomepageState extends State<Homepage> {
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(
                 child:
-                    taskConstroller.obx((state) => getStatusList())),
+                    taskController.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
           ],
         ),
@@ -341,7 +341,7 @@ class _HomepageState extends State<Homepage> {
                       hintText: 'Поиск по тексту'),
                   onChanged: (val) {
                     searchvalue = val;
-                    taskConstroller.sendNotify();
+                    taskController.sendNotify();
                     taskStatusTableController.sendNotify();
                   }),
             )),
@@ -489,7 +489,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: taskConstroller.obx((state) =>
+                          child: taskController.obx((state) =>
                               searchvalue.isEmpty
                                   ? getTasklength(status.status)
                                   : const Text(''))),
@@ -501,7 +501,7 @@ class _HomepageState extends State<Homepage> {
                       width: width,
                       child: wrapdragTarget(
                         status: status,
-                        child: taskConstroller.obx(
+                        child: taskController.obx(
                           (state) => RawScrollbar(
                             thumbVisibility: true,
                             trackVisibility: true,
@@ -539,7 +539,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: taskConstroller.obx((state) =>
+                          child: taskController.obx((state) =>
                               searchvalue.isEmpty
                                   ? getTasklength(status.status)
                                   : const Text(''))),
@@ -551,7 +551,7 @@ class _HomepageState extends State<Homepage> {
                     height: height * 0.62,
                     child: wrapdragTarget(
                       status: status,
-                      child: taskConstroller.obx(
+                      child: taskController.obx(
                         (state) => getTaskList(status.status),
                       ),
                     ),
@@ -562,9 +562,6 @@ class _HomepageState extends State<Homepage> {
       }
     }
 
-    if (list.isEmpty) {
-      return SizedBox();
-    }
 
     if (width > 768) {
       return Padding(
