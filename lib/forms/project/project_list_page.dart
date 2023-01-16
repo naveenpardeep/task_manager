@@ -54,11 +54,11 @@ class ProjectListPage extends GetView<ProjectController> {
                       onElementTap: (element) {
                         var taskConstroller = Get.find<TasksController>();
                         Get.find<TaskBoardController>().sendNotify();
-                        taskConstroller.refreshData();
 
                         element as ProjectItem;
 
                         controller.currentItem = element;
+                        taskConstroller.refreshData();
 
                         Get.toNamed(Routes.homePage);
                       },
