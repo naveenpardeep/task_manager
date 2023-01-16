@@ -427,7 +427,7 @@ class _HomepageState extends State<Homepage> {
       statuses.add(status.status.toString());
       list.add(Expanded(
         child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -475,9 +475,9 @@ class _HomepageState extends State<Homepage> {
       ));
     }
 
-    if (width > 700) {
+    if (width > 768) {
       return Padding(
-        padding: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: list,
