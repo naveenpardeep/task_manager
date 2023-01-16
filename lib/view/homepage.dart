@@ -311,105 +311,103 @@ class _HomepageState extends State<Homepage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return [
-      SingleChildScrollView(
-        child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.all(15),
-              child: Tooltip(
-                message: 'Поиск по тексту задачи, Описание задачи',
-                child: TextField(
-                    controller: textEditController,
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                            onPressed: (() {
-                              setState(() {
-                                textEditController.clear();
-                                searchvalue = '';
-                              });
-                            }),
-                            icon: const Icon(Icons.cancel)),
-                        // prefixIcon: Icon(Icons.search),
-                        hintText: 'Поиск по тексту'),
-                    onChanged: (val) {
-                      searchvalue = val;
+      Column(children: [
+        Padding(
+            padding: const EdgeInsets.all(15),
+            child: Tooltip(
+              message: 'Поиск по тексту задачи, Описание задачи',
+              child: TextField(
+                  controller: textEditController,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: (() {
+                            setState(() {
+                              textEditController.clear();
+                              searchvalue = '';
+                            });
+                          }),
+                          icon: const Icon(Icons.cancel)),
+                      // prefixIcon: Icon(Icons.search),
+                      hintText: 'Поиск по тексту'),
+                  onChanged: (val) {
+                    searchvalue = val;
 
-                      taskStatusTableController.sendNotify();
-                    }),
-              )),
-          Padding(
-              padding: const EdgeInsets.all(0),
-              child: Tooltip(
-                message: 'Поиск задач по дате создания',
-                child: NsgPeriodFilter(
-                  controller: taskConstroller,
-                  label: 'Поиск по дате',
+                    taskStatusTableController.sendNotify();
+                  }),
+            )),
+        Padding(
+            padding: const EdgeInsets.all(0),
+            child: Tooltip(
+              message: 'Поиск задач по дате создания',
+              child: NsgPeriodFilter(
+                controller: taskConstroller,
+                label: 'Поиск по дате',
 
-                  // initialTime: DateTime.now(),
-                ),
-              )),
-          Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  TextButton(
-                    child: const Text('Поиск по исполнителю',
-                        style: TextStyle(color: Colors.black)),
-                    onPressed: () {
-                      selectCreator();
-                    },
-                  ),
-                  const Divider(
-                    color: Color(0xff7876D9),
-                  )
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.all(1),
-              child: Column(
-                children: [
-                  Tooltip(
-                    message:
-                        'Выберите экран, на котором вы хотите отобразить статус',
-                    child: TextButton(
-                      child: Text(
-                        'Доска с задачами   $screenName',
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                      onPressed: () {
-                        selectTaskScreen();
-                      },
-                    ),
-                  ),
-                  const Divider(
-                    color: Color(0xff7876D9),
-                  )
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.all(1),
-              child: taskBoardController.obx((state) => NsgInput(
-                    label: 'Сортировка',
-                    dataItem: taskBoardController.currentItem,
-                    fieldName: TaskBoardGenerated.nameSortBy,
-                    onEditingComplete: (task, name) {
-                      taskBoardController.sendNotify();
-                      taskConstroller.refreshData();
-                    },
-                  ))),
-          Padding(
-              padding: const EdgeInsets.all(15),
-              child: TextButton(
+                // initialTime: DateTime.now(),
+              ),
+            )),
+        Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                TextButton(
+                  child: const Text('Поиск по исполнителю',
+                      style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    setState(() {
-                      isDatesearch = false;
-                      searchDate = DateTime.now();
-                      searchvalue = '';
-                      textEditController.clear();
-                    });
+                    selectCreator();
                   },
-                  child: const Text('очистить фильтры'))),
-        ]),
-      )
+                ),
+                const Divider(
+                  color: Color(0xff7876D9),
+                )
+              ],
+            )),
+        Padding(
+            padding: const EdgeInsets.all(1),
+            child: Column(
+              children: [
+                Tooltip(
+                  message:
+                      'Выберите экран, на котором вы хотите отобразить статус',
+                  child: TextButton(
+                    child: Text(
+                      'Доска с задачами   $screenName',
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () {
+                      selectTaskScreen();
+                    },
+                  ),
+                ),
+                const Divider(
+                  color: Color(0xff7876D9),
+                )
+              ],
+            )),
+        Padding(
+            padding: const EdgeInsets.all(1),
+            child: taskBoardController.obx((state) => NsgInput(
+                  label: 'Сортировка',
+                  dataItem: taskBoardController.currentItem,
+                  fieldName: TaskBoardGenerated.nameSortBy,
+                  onEditingComplete: (task, name) {
+                    taskBoardController.sendNotify();
+                    taskConstroller.refreshData();
+                  },
+                ))),
+        Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    isDatesearch = false;
+                    searchDate = DateTime.now();
+                    searchvalue = '';
+                    textEditController.clear();
+                  });
+                },
+                child: const Text('очистить фильтры'))),
+      ])
     ];
   }
 
