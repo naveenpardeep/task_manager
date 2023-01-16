@@ -335,7 +335,7 @@ class _HomepageState extends State<Homepage> {
                     Expanded(
                         child: Padding(
                             padding: const EdgeInsets.all(1),
-                            child: NsgInput(
+                            child: taskBoardController.obx((state) =>  NsgInput(
                               label: 'Сортировка',
                               dataItem: taskBoardController.currentItem,
                               fieldName: TaskBoardGenerated.nameSortBy,
@@ -343,7 +343,7 @@ class _HomepageState extends State<Homepage> {
                                 taskBoardController.sendNotify();
                                 taskConstroller.refreshData();
                               },
-                            ))),
+                            )))),
                     Padding(
                         padding: const EdgeInsets.all(15),
                         child: TextButton(
