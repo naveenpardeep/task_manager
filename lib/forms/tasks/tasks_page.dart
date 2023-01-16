@@ -52,7 +52,7 @@ class TasksPage extends GetView<TasksController> {
                   onPressed2: () async {
                     controller.currentItem.dateUpdated = DateTime.now();
                     await controller.itemPagePost();
-
+                    Get.find<TasksController>().refreshData();
                     Get.toNamed(Routes.homePage);
                   },
                 ),
@@ -120,6 +120,11 @@ class TasksPage extends GetView<TasksController> {
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
                               label: 'Название задачи',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameTaskNumber,
+                              label: 'Номер задачи',
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,

@@ -21,7 +21,6 @@ class TaskBoardListPage extends GetView<TaskBoardController> {
         title: _textTitle,
         textNoItems: _textNoItems,
         elementEditPage: _elementPage,
-       
         availableButtons: const [
           NsgTableMenuButtonType.createNewElement,
           NsgTableMenuButtonType.editElement
@@ -31,7 +30,6 @@ class TaskBoardListPage extends GetView<TaskBoardController> {
               name: TaskBoardGenerated.nameName,
               expanded: true,
               presentation: 'Название доски'),
-       
         ]);
   }
 }
