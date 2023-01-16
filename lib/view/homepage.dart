@@ -449,7 +449,7 @@ class _HomepageState extends State<Homepage> {
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
-                          thickness: 8,
+                          thickness: 10,
                           trackBorderColor:
                               ControlOptions.instance.colorGreyLight,
                           trackColor: ControlOptions.instance.colorGreyLight,
