@@ -338,16 +338,6 @@ class _HomepageState extends State<Homepage> {
                             ]),
                           ),
                         )),
-                    NsgButton(
-                      icon: Icons.add,
-                      text: 'создать заявку',
-                      color: Colors.white,
-                      backColor: const Color(0xff7876D9),
-                      onPressed: () {
-                        Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
-                        // Get.toNamed(Routes.tasksPage);
-                      },
-                    )
                   ],
                 ),
           //  if (taskBoardController.currentItem.isNotEmpty)
