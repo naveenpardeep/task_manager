@@ -123,7 +123,7 @@ class _HomepageState extends State<Homepage> {
                                         hintText: 'Поиск по тексту'),
                                     onChanged: (val) {
                                       searchvalue = val;
-                                       taskConstroller.sendNotify();
+                                      taskConstroller.sendNotify();
                                       taskStatusTableController.sendNotify();
                                     }),
                               ))),
@@ -261,9 +261,7 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
             //  if (taskBoardController.currentItem.isNotEmpty)
-            Expanded(
-                child:
-                    taskConstroller.obx((state) => getStatusList())),
+            Expanded(child: taskConstroller.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
           ],
         ),
@@ -325,7 +323,7 @@ class _HomepageState extends State<Homepage> {
                       hintText: 'Поиск по тексту'),
                   onChanged: (val) {
                     searchvalue = val;
-                     taskConstroller.sendNotify();
+                    taskConstroller.sendNotify();
                     taskStatusTableController.sendNotify();
                   }),
             )),
@@ -407,6 +405,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget getStatusList() {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     List<Widget> list = [];
     List<String> statuses = [];
@@ -416,57 +415,95 @@ class _HomepageState extends State<Homepage> {
     for (var status in statusList) {
       var scrollController = ScrollController();
       statuses.add(status.status.toString());
-      list.add(Expanded(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      status.status.toString(),
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: taskConstroller.obx((state) =>
-                            searchvalue.isEmpty
-                                ? getTasklength(status.status)
-                                : const Text(''))),
-                  ],
-                ),
-                const Divider(thickness: 2, height: 20),
-                Expanded(
-                  child: SizedBox(
-                    width: width,
-                    child: wrapdragTarget(
-                      status: status,
-                      child: taskConstroller.obx(
-                        (state) => RawScrollbar(
-                          thumbVisibility: true,
-                          trackVisibility: true,
-                          controller: scrollController,
-                          thickness: 10,
-                          trackBorderColor:
-                              ControlOptions.instance.colorGreyLight,
-                          trackColor: ControlOptions.instance.colorGreyLight,
-                          thumbColor:
-                              ControlOptions.instance.colorMain.withOpacity(0.5),
-                          radius: const Radius.circular(0),
-                          child: SingleChildScrollView(
-                              controller: scrollController,
-                              child: getTaskList(status.status)),
+      if (width > 768) {
+        list.add(Expanded(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        status.status.toString(),
+                        style:
+                            TextStyle(fontSize: ControlOptions.instance.sizeL),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: taskConstroller.obx((state) =>
+                              searchvalue.isEmpty
+                                  ? getTasklength(status.status)
+                                  : const Text(''))),
+                    ],
+                  ),
+                  const Divider(thickness: 2, height: 20),
+                  Expanded(
+                    child: SizedBox(
+                      width: width,
+                      child: wrapdragTarget(
+                        status: status,
+                        child: taskConstroller.obx(
+                          (state) => RawScrollbar(
+                            thumbVisibility: true,
+                            trackVisibility: true,
+                            controller: scrollController,
+                            thickness: 10,
+                            trackBorderColor:
+                                ControlOptions.instance.colorGreyLight,
+                            trackColor: ControlOptions.instance.colorGreyLight,
+                            thumbColor: ControlOptions.instance.colorMain
+                                .withOpacity(0.5),
+                            radius: const Radius.circular(0),
+                            child: SingleChildScrollView(
+                                controller: scrollController,
+                                child: getTaskList(status.status)),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            )),
-      ));
+                ],
+              )),
+        ));
+      } else {
+        list.add(SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        status.status.toString(),
+                        style:
+                            TextStyle(fontSize: ControlOptions.instance.sizeL),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: taskConstroller.obx((state) =>
+                              searchvalue.isEmpty
+                                  ? getTasklength(status.status)
+                                  : const Text(''))),
+                    ],
+                  ),
+                  const Divider(thickness: 2, height: 20),
+                  SizedBox(
+                    width: width * 0.5,
+                    height: height * 0.62,
+                    child: wrapdragTarget(
+                      status: status,
+                      child: taskConstroller.obx(
+                        (state) => getTaskList(status.status),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        ));
+      }
     }
 
     if (width > 768) {
@@ -478,20 +515,27 @@ class _HomepageState extends State<Homepage> {
         ),
       );
     } else {
-      return TitleScrollNavigation(
-        identiferStyle: NavigationIdentiferStyle(
-            color: ControlOptions.instance.colorMain, width: 2),
-        barStyle: TitleNavigationBarStyle(
-          activeColor: ControlOptions.instance.colorMain,
-          deactiveColor: ControlOptions.instance.colorGrey,
-          style: TextStyle(fontSize: ControlOptions.instance.sizeL),
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          spaceBetween: 20,
-        ),
-        titles: statuses,
-        pages: list,
+      return ListView(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        children: list,
       );
     }
+    // else {
+    //   return TitleScrollNavigation(
+    //     identiferStyle: NavigationIdentiferStyle(
+    //         color: ControlOptions.instance.colorMain, width: 2),
+    //     barStyle: TitleNavigationBarStyle(
+    //       activeColor: ControlOptions.instance.colorMain,
+    //       deactiveColor: ControlOptions.instance.colorGrey,
+    //       style: TextStyle(fontSize: ControlOptions.instance.sizeL),
+    //       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+    //       spaceBetween: 20,
+    //     ),
+    //     titles: statuses,
+    //     pages: list,
+    //   );
+    // }
   }
 
   Widget getTasklength(TaskStatus status) {
