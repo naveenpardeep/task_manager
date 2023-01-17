@@ -651,7 +651,7 @@ class _HomepageState extends State<Homepage> {
           radius: const Radius.circular(0),
           child: ListView(
             controller: scrollController,
-            shrinkWrap: true,
+          //  shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             children: list,
           ));
