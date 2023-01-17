@@ -48,6 +48,11 @@ class TaskStatusPage extends GetView<TaskStatusController> {
                               fieldName: TaskStatusGenerated.nameName,
                               label: 'Наименование',
                             ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskStatusGenerated.nameIsDone,
+                              label: 'Финальный',
+                            ),
                           ],
                         ),
                       )),

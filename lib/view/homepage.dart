@@ -97,6 +97,26 @@ class _HomepageState extends State<Homepage> {
                         Get.toNamed(Routes.projectPage);
                       },
                     ),
+                    if (width > 991)
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: NsgButton(
+                            width: 150,
+                            margin: EdgeInsets.zero,
+                            padding: EdgeInsets.zero,
+                            height: 40,
+                            icon: Icons.add,
+                            text: 'Новая Задача',
+                            color: Colors.white,
+                            backColor: const Color(0xff7876D9),
+                            onPressed: () {
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
+                              // Get.toNamed(Routes.tasksPage);
+                            },
+                          ),
+                        ),
+                      ),
                   ],
                 )),
             width > 991
@@ -130,7 +150,7 @@ class _HomepageState extends State<Homepage> {
                             margin: EdgeInsets.zero,
                             height: 40,
                             icon: Icons.add,
-                            text: 'Новая Заявка',
+                            text: 'Новая Задача',
                             color: Colors.white,
                             backColor: const Color(0xff7876D9),
                             onPressed: () {
@@ -376,11 +396,13 @@ class _HomepageState extends State<Homepage> {
       ),
       SizedBox(
         width: 100,
-        height: 48,
+        height: 40,
         child: NsgButton(
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
-          text: 'Очистить',
+          text: 'Очистить\nФильтры',
+          backColor: Colors.transparent,
+          color: ControlOptions.instance.colorMain,
           onPressed: () {
             setState(() {
               isDatesearch = false;
