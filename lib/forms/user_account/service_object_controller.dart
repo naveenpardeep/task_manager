@@ -7,4 +7,9 @@ class ServiceObjectController extends NsgDataController<ServiceObject> {
           requestOnInit: false,
           autoRepeate: true,
         );
+  @override
+  ServiceObject get currentItem {
+    selectedItem ??= ServiceObject();
+    return super.currentItem;
+  }
 }
