@@ -141,7 +141,7 @@ class _HomepageState extends State<Homepage> {
                   ),
 
             //  if (taskBoardController.currentItem.isNotEmpty)
-            Expanded(child: taskController.obx((state) => getStatusList())),
+            Expanded(child: taskStatusTableController.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
           ],
         ),
@@ -213,46 +213,42 @@ class _HomepageState extends State<Homepage> {
   List<Widget> filters() {
     double height = MediaQuery.of(context).size.height;
     return [
-      Expanded(
-        child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Tooltip(
-              message: 'Поиск по тексту задачи, Описание задачи',
-              child: TextField(
-                  controller: textEditController,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                          onPressed: (() {
-                            setState(() {
-                              textEditController.clear();
-                              searchvalue = '';
-                            });
-                          }),
-                          icon: const Icon(Icons.cancel)),
-                      // prefixIcon: Icon(Icons.search),
-                      hintText: 'Поиск по тексту'),
-                  onChanged: (val) {
-                    searchvalue = val;
-                    taskController.sendNotify();
-                    taskStatusTableController.sendNotify();
-                  }),
-            )),
+      Flexible(
+        child: Tooltip(
+          message: 'Поиск по тексту задачи, Описание задачи',
+          child: TextField(
+              controller: textEditController,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                      onPressed: (() {
+                        setState(() {
+                          textEditController.clear();
+                          searchvalue = '';
+                        });
+                      }),
+                      icon: const Icon(Icons.cancel)),
+                  // prefixIcon: Icon(Icons.search),
+                  hintText: 'Поиск по тексту'),
+              onChanged: (val) {
+                searchvalue = val;
+                taskController.sendNotify();
+                taskStatusTableController.sendNotify();
+              }),
+        ),
       ),
-      Expanded(
-        child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Tooltip(
-              message: 'Поиск задач по дате создания',
-              child: NsgPeriodFilter(
-                textAlign: TextAlign.left,
-                controller: taskController,
-                label: 'Поиск по дате',
-                // initialTime: DateTime.now(),
-              ),
-            )),
+      Flexible(
+        child: Tooltip(
+          message: 'Поиск задач по дате создания',
+          child: NsgPeriodFilter(
+            textAlign: TextAlign.left,
+            controller: taskController,
+            label: 'Поиск по дате',
+            // initialTime: DateTime.now(),
+          ),
+        ),
       ),
 
-      Expanded(
+      Flexible(
         child: NsgInput(
           label: 'Исполнитель',
           selectionController: userAccountController,
@@ -268,7 +264,7 @@ class _HomepageState extends State<Homepage> {
           },
         ),
       ),
-      Expanded(
+      Flexible(
         child: NsgInput(
             label: 'Выбор доски',
             selectionController: taskBoardController,
@@ -361,7 +357,7 @@ class _HomepageState extends State<Homepage> {
       //             )
       //           ],
       //         ))),
-      Expanded(
+      Flexible(
         child: Padding(
             padding: const EdgeInsets.all(0),
             child: taskBoardController.obx((state) => NsgInput(
@@ -374,24 +370,26 @@ class _HomepageState extends State<Homepage> {
                   },
                 ))),
       ),
-      Expanded(
-        child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    isDatesearch = false;
-                    searchDate = DateTime.now();
-                    searchvalue = '';
-                    textEditController.clear();
-                  });
-                },
-                child: const Text('очистить фильтры'))),
+      SizedBox(
+        width: 100,
+        height: 48,
+        child: NsgButton(
+          padding: EdgeInsets.zero,
+          text: 'Очистить',
+          onPressed: () {
+            setState(() {
+              isDatesearch = false;
+              searchDate = DateTime.now();
+              searchvalue = '';
+              textEditController.clear();
+            });
+          },
+        ),
       ),
     ];
   }
 
-/* ------------------------------------------------------- Вывод колонок с карточками задач ------------------------------------------------------- */
+/* ------------------------------------------------------- Вывод колонок ------------------------------------------------------- */
   Widget getStatusList() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -441,8 +439,9 @@ class _HomepageState extends State<Homepage> {
                             trackColor: ControlOptions.instance.colorGreyLight,
                             thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
                             radius: const Radius.circular(0),
-                            child:
-                                SingleChildScrollView(controller: scrollController, child: getTaskList(status.status)),
+                            child: SingleChildScrollView(
+                                controller: scrollController,
+                                child: taskController.obx((state) => getTaskList(status.status))),
                           ),
                         ),
                       ),
@@ -486,7 +485,7 @@ class _HomepageState extends State<Homepage> {
                               radius: const Radius.circular(0),
                               child: SingleChildScrollView(
                                 controller: scrollController,
-                                child: getTaskList(status.status),
+                                child: taskController.obx((state) => getTaskList(status.status)),
                               ),
                             ))),
                   ),
@@ -552,6 +551,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+/* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
   Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
 
