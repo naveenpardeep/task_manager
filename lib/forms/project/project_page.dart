@@ -59,7 +59,13 @@ class _ProjectpageState extends State<ProjectPage> {
                   },
                   icon2: Icons.check,
                   onPressed2: () {
-                    controller.itemPagePost();
+                    if (controller.currentItem.name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('Пожалуйста, введите название проекта ')));
+                    } else {
+                      controller.itemPagePost();
+                    }
                   },
                 ),
                 Expanded(
@@ -68,9 +74,11 @@ class _ProjectpageState extends State<ProjectPage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgText('Создано :${formateddate.format(controller.currentItem.date)}'),
+                            NsgText(
+                                'Создано :${formateddate.format(controller.currentItem.date)}'),
                             NsgInput(
-                              selectionController: Get.find<UserAccountController>(),
+                              selectionController:
+                                  Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameLeaderId,
                               label: 'Руководитель проекта',
@@ -101,19 +109,26 @@ class _ProjectpageState extends State<ProjectPage> {
                               ],
                               columns: [
                                 NsgTableColumn(
-                                    name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
+                                    name: TaskStatusGenerated.nameName,
+                                    expanded: true,
+                                    presentation: 'Статусы'),
                                 NsgTableColumn(
-                                    name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
+                                    name: TaskStatusGenerated.nameIsDone,
+                                    width: 100,
+                                    presentation: 'Финальный'),
                               ],
                             ),
-                            if (isHidden == true && controller.currentItem.name.isEmpty)
+                            if (isHidden == true &&
+                                controller.currentItem.name.isEmpty)
                               NsgButton(
                                 text: 'Сохранить и далее',
                                 color: Colors.white,
                                 onPressed: () {
                                   if (controller.currentItem.name.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
+                                        const SnackBar(
+                                            content: Text(
+                                                'Пожалуйста, введите название проекта ')));
                                   } else {
                                     setState(() {
                                       isHidden = false;
