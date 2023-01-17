@@ -262,6 +262,36 @@ class _HomepageState extends State<Homepage> {
                       ],
                     ),
                   ),
+            if (width < 992)
+              SizedBox(
+                height: 60,
+                child: Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Tooltip(
+                        message: 'Поиск по тексту задачи, Описание задачи',
+                        child: TextField(
+                            controller: textEditController,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: (() {
+                                      setState(() {
+                                        textEditController.clear();
+                                        searchvalue = '';
+                                      });
+                                    }),
+                                    icon: const Icon(Icons.cancel)),
+                                // prefixIcon: Icon(Icons.search),
+                                hintText: 'Поиск по тексту'),
+                            onChanged: (val) {
+                              searchvalue = val;
+
+                              taskController.sendNotify();
+                              taskStatusTableController.sendNotify();
+                            }),
+                      )),
+                ),
+              ),
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(child: taskController.obx((state) => getStatusList())),
             if (width < 992) const TmTopMenu(),
@@ -323,31 +353,31 @@ class _HomepageState extends State<Homepage> {
 
   List<Widget> filters() {
     return [
-      Expanded(
-        child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Tooltip(
-              message: 'Поиск по тексту задачи, Описание задачи',
-              child: TextField(
-                  controller: textEditController,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                          onPressed: (() {
-                            setState(() {
-                              textEditController.clear();
-                              searchvalue = '';
-                            });
-                          }),
-                          icon: const Icon(Icons.cancel)),
-                      // prefixIcon: Icon(Icons.search),
-                      hintText: 'Поиск по тексту'),
-                  onChanged: (val) {
-                    searchvalue = val;
-                    taskController.sendNotify();
-                    taskStatusTableController.sendNotify();
-                  }),
-            )),
-      ),
+      // Expanded(
+      //   child: Padding(
+      //       padding: const EdgeInsets.all(15),
+      //       child: Tooltip(
+      //         message: 'Поиск по тексту задачи, Описание задачи',
+      //         child: TextField(
+      //             controller: textEditController,
+      //             decoration: InputDecoration(
+      //                 suffixIcon: IconButton(
+      //                     onPressed: (() {
+      //                       setState(() {
+      //                         textEditController.clear();
+      //                         searchvalue = '';
+      //                       });
+      //                     }),
+      //                     icon: const Icon(Icons.cancel)),
+      //                 // prefixIcon: Icon(Icons.search),
+      //                 hintText: 'Поиск по тексту'),
+      //             onChanged: (val) {
+      //               searchvalue = val;
+      //               taskController.sendNotify();
+      //               taskStatusTableController.sendNotify();
+      //             }),
+      //       )),
+      // ),
       Expanded(
         child: Padding(
             padding: const EdgeInsets.all(0),
