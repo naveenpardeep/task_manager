@@ -267,46 +267,44 @@ class _HomepageState extends State<Homepage> {
 
   Widget drawer() {
     double width = MediaQuery.of(context).size.width;
+
     return Drawer(
       width: width * 0.8,
-      child: ListView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Stack(
-            children: [
-              DrawerHeader(
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain),
-                      child: Center(
-                        child: Text(
-                          'Фильтры',
-                          style: TextStyle(
-                              color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeH4),
-                        ),
-                      ),
+          DrawerHeader(
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain),
+                  child: Center(
+                    child: Text(
+                      'Фильтры',
+                      style: TextStyle(
+                          color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeH4),
                     ),
-                  )),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8, top: 6),
-                  child: NsgIconButton(
-                    icon: Icons.close,
-                    size: 20,
-                    color: ControlOptions.instance.colorMainText,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
-              )
-            ],
-          ),
+              )),
+          // Align(
+          //   alignment: Alignment.topRight,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(right: 8, top: 6),
+          //     child: NsgIconButton(
+          //       icon: Icons.close,
+          //       size: 20,
+          //       color: ControlOptions.instance.colorMainText,
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //     ),
+          //   ),
+          // ),
           ...filters()
         ],
       ),
@@ -314,10 +312,11 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<Widget> filters() {
+    double height = MediaQuery.of(context).size.height;
     return [
       Expanded(
         child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(0),
             child: Tooltip(
               message: 'Поиск по тексту задачи, Описание задачи',
               child: TextField(
@@ -355,42 +354,36 @@ class _HomepageState extends State<Homepage> {
       ),
       // Expanded(
       //     child: NsgInput(
+      //   label: 'Поиск по исполнителю',
       //   selectionController: Get.find<UserAccountController>(),
-      //   dataItem: null,
-      //   fieldName: '',
+      //   dataItem: taskController.currentItem,
+      //   fieldName: TaskDocGenerated.nameAssigneeId,
+      //   onEditingComplete: (p0, p1) {
+      //     setState(() {
+      //       searchvalue = userAccountController.currentItem.name;
+      //     });
+      //     taskController.refreshData();
+      //     taskStatusTableController.sendNotify();
+      //     taskBoardController.sendNotify();
+      //   },
       // )),
       Expanded(
-          child: NsgInput(
-        label: 'Поиск по исполнителю',
-        selectionController: Get.find<UserAccountController>(),
-        dataItem: taskController.currentItem,
-        fieldName: TaskDocGenerated.nameAssigneeId,
-        onEditingComplete: (p0, p1) {
-          setState(() {
-            searchvalue = userAccountController.currentItem.name;
-          });
-          taskController.refreshData();
-          taskStatusTableController.sendNotify();
-          taskBoardController.sendNotify();
-        },
-      )),
-      // Expanded(
-      //   child: Padding(
-      //       padding: const EdgeInsets.all(15),
-      //       child: Column(
-      //         children: [
-      //           TextButton(
-      //             child: const Text('Поиск по исполнителю', style: TextStyle(color: Colors.black)),
-      //             onPressed: () {
-      //               selectCreator();
-      //             },
-      //           ),
-      //           const Divider(
-      //             color: Color(0xff7876D9),
-      //           )
-      //         ],
-      //       )),
-      // ),
+        child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: Column(
+              children: [
+                TextButton(
+                  child: const Text('Поиск по исполнителю', style: TextStyle(color: Colors.black)),
+                  onPressed: () {
+                    selectCreator();
+                  },
+                ),
+                const Divider(
+                  color: Color(0xff7876D9),
+                )
+              ],
+            )),
+      ),
       // Expanded(
       //     child: NsgInput(
       //   label: 'Доска с задачами',
@@ -431,7 +424,7 @@ class _HomepageState extends State<Homepage> {
       // ),
       Expanded(
           child: Padding(
-              padding: const EdgeInsets.all(1),
+              padding: const EdgeInsets.all(0),
               child: Column(
                 children: [
                   Tooltip(
@@ -453,7 +446,7 @@ class _HomepageState extends State<Homepage> {
               ))),
       Expanded(
         child: Padding(
-            padding: const EdgeInsets.all(1),
+            padding: const EdgeInsets.all(0),
             child: taskBoardController.obx((state) => NsgInput(
                   label: 'Сортировка',
                   dataItem: taskBoardController.currentItem,
@@ -466,7 +459,7 @@ class _HomepageState extends State<Homepage> {
       ),
       Expanded(
         child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(5),
             child: TextButton(
                 onPressed: () {
                   setState(() {
