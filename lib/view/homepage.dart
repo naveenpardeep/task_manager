@@ -69,7 +69,7 @@ class _HomepageState extends State<Homepage> {
           children: [
             if (width > 991) const TmTopMenu(),
             Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: Row(
                   children: [
                     NsgIconButton(
@@ -100,8 +100,11 @@ class _HomepageState extends State<Homepage> {
                   ],
                 )),
             width > 991
-                ? Row(
-                    children: filters(),
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: filters(),
+                    ),
                   )
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -254,6 +257,7 @@ class _HomepageState extends State<Homepage> {
           selectionController: userAccountController,
           dataItem: serviceC.currentItem,
           fieldName: ServiceObjectGenerated.nameUserAccountId,
+          selectionForm: Routes.userAccountListPage,
           onEditingComplete: (item, field) {
             // setState(() {
             //   searchvalue = serviceC.currentItem.userAccountId;
@@ -374,6 +378,7 @@ class _HomepageState extends State<Homepage> {
         width: 100,
         height: 48,
         child: NsgButton(
+          margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
           text: 'Очистить',
           onPressed: () {
