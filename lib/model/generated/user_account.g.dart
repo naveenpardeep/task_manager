@@ -11,13 +11,16 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameFirstName = 'firstName';
   static const nameLastName = 'lastName';
   static const namePhoneNumber = 'phoneNumber';
+  static const nameEmail = 'email';
   static const nameLastChange = 'lastChange';
+  static const namePictureId = 'pictureId';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
     nameFirstName: 'Имя',
     nameLastName: 'Фамилия',
     namePhoneNumber: 'Номер телефона',
+    nameEmail: 'Email',
   };
 
   @override
@@ -30,11 +33,14 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameFirstName), primaryKey: false);
     addField(NsgDataStringField(nameLastName), primaryKey: false);
     addField(NsgDataStringField(namePhoneNumber), primaryKey: false);
+    addField(NsgDataStringField(nameEmail), primaryKey: false);
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
+    addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameFirstName]?.presentation = 'Имя';
     fieldList.fields[nameLastName]?.presentation = 'Фамилия';
     fieldList.fields[namePhoneNumber]?.presentation = 'Номер телефона';
+    fieldList.fields[nameEmail]?.presentation = 'Email';
   }
 
   @override
@@ -70,10 +76,26 @@ class UserAccountGenerated extends NsgDataItem {
 
   set phoneNumber(String value) => setFieldValue(namePhoneNumber, value);
 
+  /// Email
+  String get email => getFieldValue(nameEmail).toString();
+
+  set email(String value) => setFieldValue(nameEmail, value);
+
   /// ПоследнееИзменение
   DateTime get lastChange => getFieldValue(nameLastChange) as DateTime;
 
   set lastChange(DateTime value) => setFieldValue(nameLastChange, value);
+
+  /// Картинка
+  String get pictureId => getFieldValue(namePictureId).toString();
+  Picture get picture => getReferent<Picture>(namePictureId);
+  Future<Picture> pictureAsync() async {
+   return await getReferentAsync<Picture>(namePictureId);
+  }
+
+  set pictureId(String value) => setFieldValue(namePictureId, value);
+  set picture(Picture value) =>
+    setFieldValue(namePictureId, value.id);
 
   @override
   String get apiRequestItems {
