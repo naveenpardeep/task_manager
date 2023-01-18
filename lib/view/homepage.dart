@@ -502,8 +502,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                   const Divider(thickness: 2, height: 20),
                   SizedBox(
-                    width: width * 0.6,
-                    height: height * 0.62,
+                    width: width * 0.7,
+                    height: height * 0.7,
                     child: wrapdragTarget(
                         status: status,
                         child: taskController.obx((state) => RawScrollbar(
@@ -649,7 +649,7 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) async {
         data.taskStatus = status.status;
         taskController.currentItem = data;
-        //taskConstroller.itemPagePost(goBack: false);
+      //  taskController.itemPagePost(goBack: false);
         NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         progress.show();
         await taskController.postItems([taskController.currentItem]);
