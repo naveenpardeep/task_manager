@@ -405,10 +405,12 @@ class _HomepageState extends State<Homepage> {
           color: ControlOptions.instance.colorMain,
           onPressed: () {
             setState(() {
+              serviceC.currentItem.userAccountId='';
               isDatesearch = false;
               searchDate = DateTime.now();
               searchvalue = '';
               textEditController.clear();
+              taskController.refreshData();
             });
           },
         ),
