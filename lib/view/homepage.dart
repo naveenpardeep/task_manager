@@ -75,10 +75,11 @@ class _HomepageState extends State<Homepage> {
                 child: Row(
                   children: [
                     NsgIconButton(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.zero,
                       icon: Icons.arrow_back_ios_new,
-                      backColor: ControlOptions.instance.colorMain,
-                      color: ControlOptions.instance.colorMainText,
+                      backColor: Colors.transparent,
+                      color: ControlOptions.instance.colorMain,
+                      size: 24,
                       onPressed: () {
                         Get.toNamed(Routes.projectListPage);
                       },
@@ -111,7 +112,7 @@ class _HomepageState extends State<Homepage> {
                             icon: Icons.add,
                             text: 'Новая Задача',
                             color: Colors.white,
-                            backColor: const Color(0xff7876D9),
+                            backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
                               // Get.toNamed(Routes.tasksPage);
@@ -139,8 +140,8 @@ class _HomepageState extends State<Homepage> {
                             height: 40,
                             icon: Icons.filter_alt,
                             text: 'Фильтры',
-                            color: Colors.white,
-                            backColor: const Color(0xff7876D9),
+                            color: ControlOptions.instance.colorMain,
+                            backColor: ControlOptions.instance.colorGreyLight,
                             onPressed: () {
                               scaffoldKey.currentState!.openDrawer();
                             },
@@ -154,7 +155,7 @@ class _HomepageState extends State<Homepage> {
                             icon: Icons.add,
                             text: 'Новая Задача',
                             color: Colors.white,
-                            backColor: const Color(0xff7876D9),
+                            backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
                               // Get.toNamed(Routes.tasksPage);
@@ -475,22 +476,6 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  sortTask() {
-    var form = NsgSelection(
-      inputType: NsgInputType.reference,
-      controller: Get.find<TasksController>(),
-    );
-    form.selectFromArray(
-      'Сортировка',
-      (item) {
-        /*   setState(() {});
-        taskController.refreshData();
-        taskStatusTableController.sendNotify();
-        taskBoardController.sendNotify();*/
-      },
-    );
-  }
-
 /* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
   Widget getTaskList(TaskStatus status) {
     List<Widget> list = [];
@@ -638,75 +623,131 @@ class RotatingCardState extends State<RotatingCard> {
   }
 }
 
+changeTaskStatus(TaskDoc tasks) {
+  var form = NsgSelection(
+    selectedElement: tasks.taskStatus,
+    inputType: NsgInputType.reference,
+    controller: Get.find<TaskStatusController>(),
+  );
+  form.selectFromArray(
+    'Смена статуса заявки',
+    (item) async {
+      tasks.taskStatus = item as TaskStatus;
+      await Get.find<TasksController>().postItems([tasks]);
+      Get.find<TasksController>().sendNotify();
+      //Get.find<TaskStatusTableController>().sendNotify();
+      //taskBoardController.sendNotify();*/
+    },
+  );
+}
+
 /* -------------------------------------------------------------- Карточка с задачей -------------------------------------------------------------- */
 Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
-  return SizedBox(
-    width: constraints.maxWidth,
-    child: Card(
-        color: const Color.fromARGB(239, 248, 250, 252),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  return GestureDetector(
+    onLongPress: () {
+      changeTaskStatus(tasks);
+    },
+    child: SizedBox(
+      width: constraints.maxWidth,
+      child: Card(
+          color: const Color.fromARGB(239, 248, 250, 252),
+          child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  tasks.docNumber,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: Text(
-                        tasks.name,
-                        maxLines: 2,
+                        tasks.docNumber,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 1,
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              tasks.name,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Wrap(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: Icon(Icons.access_time,
+                                    size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: Text(
+                                  'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                  maxLines: 1,
+                                  textScaleFactor: 0.8,
+                                  style: TextStyle(
+                                    color: ControlOptions.instance.colorGreyDark,
+                                    fontSize: ControlOptions.instance.sizeS,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                //   'Обновлено: ${{
+                                // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                                //     format: 'dd.MM.yy HH:mm')
+                                //   }}',
+                                "(${getupdateDay(tasks)})",
+                                maxLines: 1,
+                                textScaleFactor: 0.8,
+                                style: TextStyle(
+                                  color: ControlOptions.instance.colorGreyDark,
+                                  fontSize: ControlOptions.instance.sizeS,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ClipOval(
+                          child: Image.network(
+                              width: 32,
+                              height: 32,
+                              'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              Wrap(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4),
-                    child: Icon(Icons.access_time,
-                        size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4),
-                    child: Text(
-                      'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
-                      maxLines: 1,
-                      textScaleFactor: 0.8,
-                      style: TextStyle(
-                        color: ControlOptions.instance.colorGreyDark,
-                        fontSize: ControlOptions.instance.sizeS,
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Icon(
+                          Icons.more_horiz,
+                          color: ControlOptions.instance.colorGrey,
+                          size: 24,
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    //   'Обновлено: ${{
-                    // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                    //     format: 'dd.MM.yy HH:mm')
-                    //   }}',
-                    "(${getupdateDay(tasks)})",
-                    maxLines: 1,
-                    textScaleFactor: 0.8,
-                    style: TextStyle(
-                      color: ControlOptions.instance.colorGreyDark,
-                      fontSize: ControlOptions.instance.sizeS,
-                    ),
-                  ),
-                ],
-              ),
+                  ))
             ],
-          ),
-        )),
+          )),
+    ),
   );
 }
 
