@@ -14,6 +14,7 @@ class ProjectBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(ProjectController());
+    Get.put(ProjectItemUserTableController());
     Get.put(TasksController());
     Get.put(UserAccountController());
     Get.put(TaskStatusController());

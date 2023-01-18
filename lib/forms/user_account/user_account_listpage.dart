@@ -41,6 +41,10 @@ class UserAccountListPage extends GetView<UserAccountController> {
                     controller: controller,
                     title: _textTitle,
                     textNoItems: _textNoItems,
+                    appBarIcon: Icons.arrow_back,
+                    appBarOnPressed: () {
+                      Get.back();
+                    },
                     appBarIcon2: Icons.check,
                     appBarOnPressed2: () {
                       controller.itemPagePost();

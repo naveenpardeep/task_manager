@@ -1,6 +1,9 @@
+import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/model/generated/project_item.g.dart';
 
 import '../../model/project_item.dart';
+import '../../model/project_item_user_table.dart';
 
 class ProjectController extends NsgDataController<ProjectItem> {
   ProjectController()
@@ -35,3 +38,13 @@ class ProjectController extends NsgDataController<ProjectItem> {
     return element;
   }
 }
+
+
+class ProjectItemUserTableController
+    extends NsgDataTableController<ProjectItemUserTable> {
+  ProjectItemUserTableController()
+      : super(
+          masterController: Get.find<ProjectController>(),
+          tableFieldName: ProjectItemGenerated.nameTableUsers,
+        );
+        }

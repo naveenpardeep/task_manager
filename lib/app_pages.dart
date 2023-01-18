@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
@@ -94,6 +95,11 @@ class AppPages {
       page: () => const TaskStatusRowPage(),
       binding: ProjectBinding(), 
     ),
+    GetPage(
+      name: Routes.projectuserRowpage,
+      page: () => const ProjectUserRowPage(),
+      binding: ProjectBinding(), 
+    ),
     
   ];
 }
@@ -113,4 +119,5 @@ abstract class Routes {
   static const userAccountListPage='/userAccountListPage';
   static const taskBoard='/taskBoard';
   static const taskrow='/taskrowpage';
+  static const projectuserRowpage='/projectUserRowPage';
 }

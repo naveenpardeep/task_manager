@@ -76,6 +76,28 @@ class _ProjectpageState extends State<ProjectPage> {
                           children: [
                             NsgText(
                                 'Создано :${formateddate.format(controller.currentItem.date)}'),
+                           
+                           NsgTable(
+                              showIconFalse: false,
+                              controller: Get.find<ProjectItemUserTableController>(),
+                              elementEditPageName: Routes.projectuserRowpage,
+                              availableButtons: const [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement,
+                                NsgTableMenuButtonType.removeElement
+                              ],
+                              columns: [
+                                NsgTableColumn(
+                                    name: ProjectItemUserTableGenerated.nameUserAccountId,
+                                    expanded: true,
+                                    presentation: 'User'),
+                                NsgTableColumn(
+                                    name: ProjectItemUserTableGenerated.nameIsAdmin,
+                                    width: 100,
+                                    presentation: 'Admin'),
+                              ],
+                            ),
+                           
                             NsgInput(
                               selectionController:
                                   Get.find<UserAccountController>(),
