@@ -35,8 +35,7 @@ class UserAccountListPage extends GetView<UserAccountController> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: NsgListPage(
-                   appBar: Get.find<UserAccountController>().regime != NsgControllerRegime.selection
-                ? const SizedBox() :  null,
+                   appBar: SizedBox(),
                     appBarColor: Colors.white,
                     type: NsgListPageMode.table,
                     controller: controller,

@@ -588,7 +588,7 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) async {
         data.taskStatus = status.status;
         taskController.currentItem = data;
-        //taskConstroller.itemPagePost(goBack: false);
+      //  taskController.itemPagePost(goBack: false);
         NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         progress.show();
         await taskController.postItems([taskController.currentItem]);
