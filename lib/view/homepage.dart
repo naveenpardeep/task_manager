@@ -272,7 +272,6 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-
       Flexible(
         child: NsgInput(
           label: 'Исполнитель',
@@ -306,95 +305,16 @@ class _HomepageState extends State<Homepage> {
               });
             }),
       ),
-      // Expanded(
-      //   child: Padding(
-      //       padding: const EdgeInsets.all(0),
-      //       child: Column(
-      //         children: [
-      //           TextButton(
-      //             child: const Text('Поиск по исполнителю', style: TextStyle(color: Colors.black)),
-      //             onPressed: () {
-      //               selectCreator();
-      //             },
-      //           ),
-      //           const Divider(
-      //             color: Color(0xff7876D9),
-      //           )
-      //         ],
-      //       )),
-      // ),
-      // Expanded(
-      //     child: NsgInput(
-      //   label: 'Доска с задачами',
-      //   selectionController: Get.find<ServiceObjectController>(),
-      //   dataItem: taskController.currentItem,
-      //   fieldName: ServiceObjectGenerated.nameBoardId,
-      //   onEditingComplete: (p0, p1) {
-      //     setState(() {
-      //       screenName = taskBoardController.currentItem.name;
-      //       taskController.refreshData();
-      //       taskStatusTableController.sendNotify();
-      //       taskBoardController.sendNotify();
-      //     });
-      //   },
-      // )),
-      // Expanded(
-      //   child: Padding(
-      //       padding: const EdgeInsets.all(1),
-      //       child: Column(
-      //         children: [
-      //           Tooltip(
-      //             message: 'Выберите экран, на котором вы хотите отобразить статус',
-      //             child: TextButton(
-      //               child: Text(
-      //                 'Доска с задачами   $screenName',
-      //                 style: const TextStyle(color: Colors.black),
-      //               ),
-      //               onPressed: () {
-      //                 selectTaskScreen();
-      //               },
-      //             ),
-      //           ),
-      //           const Divider(
-      //             color: Color(0xff7876D9),
-      //           )
-      //         ],
-      //       )),
-      // ),
-      // Expanded(
-      //     child: Padding(
-      //         padding: const EdgeInsets.all(0),
-      //         child: Column(
-      //           children: [
-      //             Tooltip(
-      //               message: 'Выберите экран, на котором вы хотите отобразить статус',
-      //               child: TextButton(
-      //                 child: Text(
-      //                   'Доска с задачами   $screenName',
-      //                   style: const TextStyle(color: Colors.black),
-      //                 ),
-      //                 onPressed: () {
-      //                   selectTaskScreen();
-      //                 },
-      //               ),
-      //             ),
-      //             const Divider(
-      //               color: Color(0xff7876D9),
-      //             )
-      //           ],
-      //         ))),
       Flexible(
-        child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: taskBoardController.obx((state) => NsgInput(
-                  label: 'Сортировка',
-                  dataItem: taskBoardController.currentItem,
-                  fieldName: TaskBoardGenerated.nameSortBy,
-                  onEditingComplete: (task, name) {
-                    taskBoardController.sendNotify();
-                    taskController.refreshData();
-                  },
-                ))),
+        child: taskBoardController.obx((state) => NsgInput(
+              label: 'Сортировка',
+              dataItem: taskBoardController.currentItem,
+              fieldName: TaskBoardGenerated.nameSortBy,
+              onEditingComplete: (task, name) {
+                taskBoardController.sendNotify();
+                taskController.refreshData();
+              },
+            )),
       ),
       SizedBox(
         width: 100,
@@ -486,7 +406,43 @@ class _HomepageState extends State<Homepage> {
         ));
       } else {
         tabsList.add(NsgTabsTab(
-            name: status.status.name,
+            tab: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(3),
+                  color: Colors.transparent),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklength(status.status),
+                  ),
+                ],
+              ),
+            ),
+            tabSelected: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: ControlOptions.instance.colorMain),
+                  borderRadius: BorderRadius.circular(3)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklength(status.status),
+                  ),
+                ],
+              ),
+            ),
             child: Column(
               children: [taskController.obx((state) => getTaskList(status.status))],
             )));
@@ -502,10 +458,7 @@ class _HomepageState extends State<Homepage> {
         ),
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.only(left: 0, right: 0),
-        child: NsgTabs(tabs: tabsList),
-      );
+      return NsgTabs(tabs: tabsList);
     }
   }
 
@@ -519,6 +472,22 @@ class _HomepageState extends State<Homepage> {
     return Text(
       length,
       style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+    );
+  }
+
+  sortTask() {
+    var form = NsgSelection(
+      inputType: NsgInputType.reference,
+      controller: Get.find<TasksController>(),
+    );
+    form.selectFromArray(
+      'Сортировка',
+      (item) {
+        /*   setState(() {});
+        taskController.refreshData();
+        taskStatusTableController.sendNotify();
+        taskBoardController.sendNotify();*/
+      },
     );
   }
 
@@ -588,7 +557,7 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) async {
         data.taskStatus = status.status;
         taskController.currentItem = data;
-      //  taskController.itemPagePost(goBack: false);
+        //  taskController.itemPagePost(goBack: false);
         NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         progress.show();
         await taskController.postItems([taskController.currentItem]);
@@ -597,61 +566,6 @@ class _HomepageState extends State<Homepage> {
       },
     );
   }
-
-  // selectTaskScreen() {
-  //   var form = NsgSelection(
-  //     inputType: NsgInputType.reference,
-  //     controller: Get.find<TaskBoardController>(),
-  //   );
-  //   form.selectFromArray(
-  //     'Доски с задачами',
-  //     (item) {
-  //       setState(() {
-  //         screenName = taskBoardController.currentItem.name;
-  //         taskController.refreshData();
-  //         taskStatusTableController.sendNotify();
-  //         taskBoardController.sendNotify();
-  //       });
-  //     },
-  //   );
-  // }
-
-  // selectCreator() {
-  //   var form = NsgSelection(
-  //     inputType: NsgInputType.reference,
-  //     controller: Get.find<UserAccountController>(),
-  //   );
-  //   form.selectFromArray(
-  //     'Поиск по исполнителю',
-  //     (item) {
-  //       setState(() {
-  //         searchvalue = userAccountController.currentItem.name;
-  //       });
-  //       taskController.refreshData();
-  //       taskStatusTableController.sendNotify();
-  //       taskBoardController.sendNotify();
-  //     },
-  //   );
-  // }
-
-  // sortTask() {
-  //   var form = NsgSelection(
-  //     inputType: NsgInputType.reference,
-  //     controller: Get.find<TasksController>(),
-  //   );
-  //   form.selectFromArray(
-  //     'Сортировка',
-  //     (item) {
-  //       setState(() {});
-
-  //       taskController.refreshData();
-
-  //       taskStatusTableController.sendNotify();
-
-  //       taskBoardController.sendNotify();
-  //     },
-  //   );
-  // }
 }
 
 /* ------------------------------------------------------- Главный виджет карточки с задачей ------------------------------------------------------ */
@@ -684,7 +598,10 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
         child: taskCard(widget.tasks, widget.constraints),
       );
     } else {
-      return taskCard(widget.tasks, widget.constraints);
+      return Padding(
+        padding: const EdgeInsets.only(left: 5, right: 5),
+        child: taskCard(widget.tasks, widget.constraints),
+      );
     }
   }
 }

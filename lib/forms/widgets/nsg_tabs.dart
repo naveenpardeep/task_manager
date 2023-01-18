@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_control_options.dart';
 
 class NsgTabsTab {
-  String name;
+  Widget tab;
+  Widget tabSelected;
   Widget child;
-  NsgTabsTab({required this.name, required this.child});
+  NsgTabsTab({required this.tab, required this.tabSelected, required this.child});
 }
 
 class NsgTabs extends StatefulWidget {
@@ -45,53 +45,56 @@ class _NsgTabsState extends State<NsgTabs> {
 
   @override
   Widget build(BuildContext context) {
-    width = Get.width;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: SingleChildScrollView(
-            controller: tabNamesC,
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: tabNames(),
-            ),
-          ),
-        ),
-        Expanded(
-          child: NotificationListener(
-            onNotification: (scrollNotification) {
-              if (scrollNotification is ScrollUpdateNotification) {
-                currentTab = (tabWidgetsC.offset + width / 2) ~/ width;
-                setNamePos(key: currentTab, topOnly: true);
-                setState(() {});
-                return true;
-              } else if (scrollNotification is ScrollEndNotification && !isScrolling) {
-                //  _onEndScroll(scrollNotification.metrics);
-                currentTab = (tabWidgetsC.offset + width / 2) ~/ width;
-                setNamePos(key: currentTab);
-
-                //scrollTo();
-                return true;
-              } else {
-                return true;
-              }
-            },
+    return LayoutBuilder(builder: (context, constraints) {
+      width = constraints.maxWidth;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: SingleChildScrollView(
-              controller: tabWidgetsC,
-              physics: const PageScrollPhysics(),
+              //  physics: const PageScrollPhysics(),
+              controller: tabNamesC,
               scrollDirection: Axis.horizontal,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: tabWidgets(),
+                children: tabNames(),
               ),
             ),
           ),
-        ),
-      ],
-    );
+          Expanded(
+/* ------------------------------------------ Listener для отслеживания горизонтального скролла и свайпа ------------------------------------------ */
+            child: NotificationListener(
+              onNotification: (scrollNotification) {
+                if (scrollNotification is ScrollUpdateNotification) {
+                  currentTab = (tabWidgetsC.offset + width / 2) ~/ width;
+                  setNamePos(key: currentTab, topOnly: true);
+                  setState(() {});
+                  return true;
+                } else if (scrollNotification is ScrollEndNotification && !isScrolling) {
+                  //  _onEndScroll(scrollNotification.metrics);
+                  currentTab = (tabWidgetsC.offset + width / 2) ~/ width;
+                  setNamePos(key: currentTab);
+
+                  //scrollTo();
+                  return true;
+                } else {
+                  return true;
+                }
+              },
+              child: SingleChildScrollView(
+                controller: tabWidgetsC,
+                physics: const PageScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: tabWidgets(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 
 /* -------------------------------------------------------------- Верхняя часть табов ------------------------------------------------------------- */
@@ -106,17 +109,7 @@ class _NsgTabsState extends State<NsgTabs> {
             currentTab = key;
             setNamePos(key: key);
           },
-          child: Container(
-            decoration:
-                BoxDecoration(color: currentTab == key ? ControlOptions.instance.colorMain : Colors.transparent),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              tab.name,
-              style: TextStyle(
-                  fontSize: ControlOptions.instance.sizeL,
-                  color: currentTab == key ? ControlOptions.instance.colorMainText : ControlOptions.instance.colorText),
-            ),
-          )));
+          child: currentTab == key ? tab.tabSelected : tab.tab));
     });
     return list;
   }
@@ -127,7 +120,7 @@ class _NsgTabsState extends State<NsgTabs> {
     //setState(() {});
     RenderBox box = gKeys[key].currentContext!.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero); //this is global position
-    double x = position.dx + tabNamesC.offset - width / 2;
+    double x = position.dx + tabNamesC.offset - width / 3;
     Future.wait([
       tabNamesC.animateTo(x, duration: const Duration(milliseconds: 300), curve: Curves.easeOut),
       if (!topOnly)
@@ -143,19 +136,29 @@ class _NsgTabsState extends State<NsgTabs> {
       scrollControllers.add(ScrollController());
       list.add(SizedBox(
           width: width,
-          child: RawScrollbar(
-              thumbVisibility: true,
-              trackVisibility: true,
-              controller: scrollControllers[key],
-              thickness: 10,
-              trackBorderColor: ControlOptions.instance.colorGreyLight,
-              trackColor: ControlOptions.instance.colorGreyLight,
-              thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
-              radius: const Radius.circular(0),
-              child: SingleChildScrollView(
-                controller: scrollControllers[key],
-                child: Center(child: tab.child),
-              ))));
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.1)),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  child: RawScrollbar(
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      controller: scrollControllers[key],
+                      thickness: 10,
+                      trackBorderColor: ControlOptions.instance.colorGreyLight,
+                      trackColor: ControlOptions.instance.colorGreyLight,
+                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
+                      radius: const Radius.circular(0),
+                      child: SingleChildScrollView(
+                        controller: scrollControllers[key],
+                        child: tab.child,
+                      )),
+                ),
+              ),
+            ],
+          )));
     });
     return list;
   }
