@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/top_menu.dart';
 
@@ -405,6 +406,8 @@ class _HomepageState extends State<Homepage> {
           color: ControlOptions.instance.colorMain,
           onPressed: () {
             setState(() {
+           taskBoardController.currentItem.sortBy=ESorting.dateDesc;
+              taskBoardController.refreshData();
               serviceC.currentItem.userAccountId='';
               isDatesearch = false;
               searchDate = DateTime.now();
