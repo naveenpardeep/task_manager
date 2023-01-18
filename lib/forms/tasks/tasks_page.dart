@@ -158,8 +158,8 @@ class TasksPage extends GetView<TasksController> {
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameComment,
-                              label: 'Комментарий',
+                              fieldName: TaskDocGenerated.nameFootnote,
+                              label: 'Примечание',
                               minLines: 1,
                               maxLines: 5,
                             ),
