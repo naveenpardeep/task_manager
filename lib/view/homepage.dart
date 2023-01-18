@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import '../forms/user_account/service_object_controller.dart';
+import '../forms/widgets/nsg_tabs.dart';
 import '../forms/widgets/top_menu.dart';
 
 class Homepage extends StatefulWidget {
@@ -406,9 +407,9 @@ class _HomepageState extends State<Homepage> {
           color: ControlOptions.instance.colorMain,
           onPressed: () {
             setState(() {
-           taskBoardController.currentItem.sortBy=ESorting.dateDesc;
+              taskBoardController.currentItem.sortBy = ESorting.dateDesc;
               taskBoardController.sendNotify();
-              serviceC.currentItem.userAccountId='';
+              serviceC.currentItem.userAccountId = '';
               isDatesearch = false;
               searchDate = DateTime.now();
               searchvalue = '';
@@ -421,12 +422,13 @@ class _HomepageState extends State<Homepage> {
     ];
   }
 
-/* ------------------------------------------------------- Вывод колонок ------------------------------------------------------- */
+/* ------------------------------------------------------- Вывод колонок по статусу ------------------------------------------------------- */
   Widget getStatusList() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     List<Widget> list = [];
+    List<NsgTabsTab> tabsList = [];
     List<String> statuses = [];
 
     var statusList = taskStatusTableController.items;
@@ -483,47 +485,11 @@ class _HomepageState extends State<Homepage> {
               )),
         ));
       } else {
-        list.add(SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        status.status.toString(),
-                        style: TextStyle(fontSize: ControlOptions.instance.sizeL),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: taskController
-                              .obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text(''))),
-                    ],
-                  ),
-                  const Divider(thickness: 2, height: 20),
-                  SizedBox(
-                    width: width * 0.6,
-                    height: height * 0.62,
-                    child: wrapdragTarget(
-                        status: status,
-                        child: taskController.obx((state) => RawScrollbar(
-                              thumbVisibility: true,
-                              trackVisibility: true,
-                              controller: scrollController,
-                              thickness: 10,
-                              trackBorderColor: ControlOptions.instance.colorGreyLight,
-                              trackColor: ControlOptions.instance.colorGreyLight,
-                              thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
-                              radius: const Radius.circular(0),
-                              child: SingleChildScrollView(
-                                controller: scrollController,
-                                child: taskController.obx((state) => getTaskList(status.status)),
-                              ),
-                            ))),
-                  ),
-                ],
-              )),
-        ));
+        tabsList.add(NsgTabsTab(
+            name: status.status.name,
+            child: Column(
+              children: [taskController.obx((state) => getTaskList(status.status))],
+            )));
       }
     }
 
@@ -536,38 +502,11 @@ class _HomepageState extends State<Homepage> {
         ),
       );
     } else {
-      var scrollController = ScrollController();
-      return RawScrollbar(
-          thumbVisibility: true,
-          trackVisibility: true,
-          controller: scrollController,
-          thickness: 15,
-          trackBorderColor: ControlOptions.instance.colorGreyLight,
-          trackColor: ControlOptions.instance.colorGreyLight,
-          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
-          radius: const Radius.circular(0),
-          child: ListView(
-            controller: scrollController,
-            //  shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            children: list,
-          ));
+      return Padding(
+        padding: const EdgeInsets.only(left: 0, right: 0),
+        child: NsgTabs(tabs: tabsList),
+      );
     }
-    // else {
-    //   return TitleScrollNavigation(
-    //     identiferStyle: NavigationIdentiferStyle(
-    //         color: ControlOptions.instance.colorMain, width: 2),
-    //     barStyle: TitleNavigationBarStyle(
-    //       activeColor: ControlOptions.instance.colorMain,
-    //       deactiveColor: ControlOptions.instance.colorGrey,
-    //       style: TextStyle(fontSize: ControlOptions.instance.sizeL),
-    //       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-    //       spaceBetween: 20,
-    //     ),
-    //     titles: statuses,
-    //     pages: list,
-    //   );
-    // }
   }
 
   Widget getTasklength(TaskStatus status) {
@@ -730,19 +669,23 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
   double angle = 0;
   @override
   Widget build(BuildContext context) {
-    return Draggable(
-      data: widget.tasks,
-      onDragUpdate: (details) {
-        angle = details.delta.dx / 200;
-        if ((angle).abs() < .03) {
-          angle = 0;
-        }
-        if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
-      },
-      feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
-      childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
-      child: taskCard(widget.tasks, widget.constraints),
-    );
+    if (Get.width > 991) {
+      return Draggable(
+        data: widget.tasks,
+        onDragUpdate: (details) {
+          angle = details.delta.dx / 200;
+          if ((angle).abs() < .03) {
+            angle = 0;
+          }
+          if (dataKey.currentState != null) dataKey.currentState!.setAngle(angle);
+        },
+        feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
+        childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
+        child: taskCard(widget.tasks, widget.constraints),
+      );
+    } else {
+      return taskCard(widget.tasks, widget.constraints);
+    }
   }
 }
 
