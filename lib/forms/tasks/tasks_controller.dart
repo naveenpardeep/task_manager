@@ -36,7 +36,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     if (projectController.currentItem.id != "") {
       if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) {
         filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
-        filter.sorting = "${TaskDocGenerated.nameDate}-";
+        filter.sorting = "${TaskDocGenerated.nameDate}+";
         //  sort = NsgSortingParam(
         //     parameterName: TaskDocGenerated.nameDate,
         //     direction: NsgSortingDirection.ascending);
@@ -44,7 +44,7 @@ class TasksController extends NsgDataController<TaskDoc> {
       }
       if (taskBoardController.currentItem.sortBy == ESorting.dateDesc) {
         filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
-        filter.sorting = "${TaskDocGenerated.nameDate}+";
+        filter.sorting = "${TaskDocGenerated.nameDate}-";
         //  sort = NsgSortingParam(
         //     parameterName: TaskDocGenerated.nameDate,
         //     direction: NsgSortingDirection.descending);
