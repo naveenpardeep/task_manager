@@ -2,8 +2,8 @@ import 'package:nsg_data/nsg_data.dart';
 
 /// Сортировка
 class ESorting extends NsgEnum {
-  static ESorting dateDesc = ESorting(0, 'По дате от самой старой');
-  static ESorting dateAsc = ESorting(1, 'По дате от самой новой');
+  static ESorting dateDesc = ESorting(0, 'По дате от самой новой');
+  static ESorting dateAsc = ESorting(1, 'По дате от самой старой');
   static ESorting priorityDesc = ESorting(2, 'По приоритету от самого важного');
   static ESorting priorityAsc = ESorting(3, 'По приоритету от менее важного');
 

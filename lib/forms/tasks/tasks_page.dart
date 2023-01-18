@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -19,9 +20,8 @@ class TasksPage extends GetView<TasksController> {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
 
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    String formatted = formateddate.format(todaydate);
-    String formatupdate = formateddate.format(updatedate);
+    String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
+    String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -50,12 +50,11 @@ class TasksPage extends GetView<TasksController> {
                   icon2: Icons.check,
                   onPressed2: () async {
                     if (controller.currentItem.taskStatus.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Пожалуйста, выберите статус задачи')));
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                     } else if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('пожалуйста, введите название задачи')));
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
                       await controller.itemPagePost();
@@ -69,6 +68,7 @@ class TasksPage extends GetView<TasksController> {
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // NsgInput(
@@ -106,29 +106,39 @@ class TasksPage extends GetView<TasksController> {
                             //     ),
                             //   ],
                             // ),
-                            NsgText('Создано :$formatted'),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Создана $formatted',
+                                    style: TextStyle(color: ControlOptions.instance.colorGrey),
+                                  )),
+                            ),
                             if (controller.currentItem.name.isNotEmpty)
-                              NsgText('Обновлено :$formatupdate'),
-                            NsgInput(
-                              selectionController:
-                                  Get.find<TaskStatusController>(),
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameTaskStatusId,
-                              label: 'Статус',
-                            ),
-                            NsgInput(
-                              selectionController:
-                                  Get.find<UserAccountController>(),
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameAssigneeId,
-                              label: 'Исполнитель',
-                            ),
-
+                              Text(
+                                'Обновлена $formatupdate',
+                                style: TextStyle(color: ControlOptions.instance.colorGrey),
+                              ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameName,
                               label: 'Название задачи',
                             ),
+                            NsgInput(
+                              selectionController: Get.find<TaskStatusController>(),
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameTaskStatusId,
+                              label: 'Статус',
+                            ),
+
+                            NsgInput(
+                              selectionController: Get.find<UserAccountController>(),
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameAssigneeId,
+                              label: 'Исполнитель',
+                            ),
+
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskNumber,
@@ -138,8 +148,8 @@ class TasksPage extends GetView<TasksController> {
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDescription,
                               label: 'Описание задачи',
-                              minLines: 3,
-                              maxLines: 20,
+                              minLines: 1,
+                              maxLines: 5,
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,
@@ -150,8 +160,8 @@ class TasksPage extends GetView<TasksController> {
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameComment,
                               label: 'Комментарий',
-                              minLines: 3,
-                              maxLines: 20,
+                              minLines: 1,
+                              maxLines: 5,
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,
