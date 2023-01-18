@@ -153,7 +153,14 @@ class _NsgTabsState extends State<NsgTabs> {
                       radius: const Radius.circular(0),
                       child: SingleChildScrollView(
                         controller: scrollControllers[key],
-                        child: tab.child,
+                        child: Container(
+                          width: width,
+                          child: Row(
+                            children: [
+                              Expanded(child: tab.child),
+                            ],
+                          ),
+                        ),
                       )),
                 ),
               ),

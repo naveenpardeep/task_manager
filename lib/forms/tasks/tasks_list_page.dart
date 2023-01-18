@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
+import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 import 'tasks_controller.dart';
 
@@ -70,7 +71,7 @@ class TasksListPage extends GetView<TasksController> {
                   ]),
             ),
           ),
-          if (width < 992) const TmTopMenu(),
+          if (width < 992) const TmMobileMenu(),
         ],
       ),
     );

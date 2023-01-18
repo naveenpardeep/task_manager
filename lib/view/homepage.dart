@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import '../forms/user_account/service_object_controller.dart';
+import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
 import '../forms/widgets/top_menu.dart';
 
@@ -126,7 +127,7 @@ class _HomepageState extends State<Homepage> {
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
-                      children: filters(),
+                      children: filters(width: width),
                     ),
                   )
                 : Padding(
@@ -168,7 +169,7 @@ class _HomepageState extends State<Homepage> {
 
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(child: taskStatusTableController.obx((state) => getStatusList())),
-            if (width < 992) const TmTopMenu(),
+            if (width < 992) const TmMobileMenu(),
           ],
         ),
       ),
@@ -226,7 +227,7 @@ class _HomepageState extends State<Homepage> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
-                children: filters(),
+                children: filters(width: width),
               ),
             ),
           )
@@ -236,10 +237,18 @@ class _HomepageState extends State<Homepage> {
   }
 
 /* ----------------------------------------------------------------- Поля фильтров ---------------------------------------------------------------- */
-  List<Widget> filters() {
+  List<Widget> filters({required double width}) {
     double height = MediaQuery.of(context).size.height;
+    Widget wrapFlexible({required Widget child}) {
+      if (width > 991) {
+        return Flexible(child: child);
+      } else {
+        return child;
+      }
+    }
+
     return [
-      Flexible(
+      wrapFlexible(
         child: Tooltip(
           message: 'Поиск по тексту задачи, Описание задачи',
           child: TextField(
@@ -262,7 +271,7 @@ class _HomepageState extends State<Homepage> {
               }),
         ),
       ),
-      Flexible(
+      wrapFlexible(
         child: Tooltip(
           message: 'Поиск задач по дате создания',
           child: NsgPeriodFilter(
@@ -273,7 +282,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      Flexible(
+      wrapFlexible(
         child: NsgInput(
           label: 'Исполнитель',
           selectionController: userAccountController,
@@ -290,7 +299,7 @@ class _HomepageState extends State<Homepage> {
           },
         ),
       ),
-      Flexible(
+      wrapFlexible(
         child: NsgInput(
             label: 'Выбор доски',
             selectionController: taskBoardController,
@@ -306,7 +315,7 @@ class _HomepageState extends State<Homepage> {
               });
             }),
       ),
-      Flexible(
+      wrapFlexible(
         child: taskBoardController.obx((state) => NsgInput(
               label: 'Сортировка',
               dataItem: taskBoardController.currentItem,
@@ -318,12 +327,12 @@ class _HomepageState extends State<Homepage> {
             )),
       ),
       SizedBox(
-        width: 100,
         height: 40,
+        width: 150,
         child: NsgButton(
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
-          text: 'Очистить\nФильтры',
+          text: 'Очистить Фильтры',
           backColor: Colors.transparent,
           color: ControlOptions.instance.colorMain,
           onPressed: () {
@@ -635,6 +644,8 @@ changeTaskStatus(TaskDoc tasks) {
       tasks.taskStatus = item as TaskStatus;
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().sendNotify();
+      Get.find<TaskStatusTableController>().sendNotify();
+
       //Get.find<TaskStatusTableController>().sendNotify();
       //taskBoardController.sendNotify();*/
     },

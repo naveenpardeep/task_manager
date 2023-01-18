@@ -6,6 +6,7 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
+import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
 class ProjectListPage extends GetView<ProjectController> {
@@ -81,7 +82,7 @@ class ProjectListPage extends GetView<ProjectController> {
                   ),
                 ),
               ),
-              if (width < 992) const TmTopMenu(),
+              if (width < 992) const TmMobileMenu(),
             ],
           )),
     );
