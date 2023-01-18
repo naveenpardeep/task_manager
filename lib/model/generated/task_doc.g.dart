@@ -17,7 +17,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameDateDeadline = 'dateDeadline';
   static const nameDescription = 'description';
   static const nameName = 'name';
-  static const nameComment = 'comment';
+  static const nameFootnote = 'footnote';
   static const nameProjectId = 'projectId';
   static const nameSprintId = 'sprintId';
   static const nameTaskStatusId = 'taskStatusId';
@@ -38,7 +38,7 @@ class TaskDocGenerated extends NsgDataItem {
     nameDateDeadline: 'Срок выполнения',
     nameDescription: 'Описание задачи',
     nameName: 'Наименование',
-    nameComment: 'Комментарий',
+    nameFootnote: 'Комментарий',
   };
 
   @override
@@ -56,7 +56,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDateDeadline), primaryKey: false);
     addField(NsgDataStringField(nameDescription), primaryKey: false);
     addField(NsgDataStringField(nameName), primaryKey: false);
-    addField(NsgDataStringField(nameComment), primaryKey: false);
+    addField(NsgDataStringField(nameFootnote), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
@@ -75,7 +75,7 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDateDeadline]?.presentation = 'Срок выполнения';
     fieldList.fields[nameDescription]?.presentation = 'Описание задачи';
     fieldList.fields[nameName]?.presentation = 'Наименование';
-    fieldList.fields[nameComment]?.presentation = 'Комментарий';
+    fieldList.fields[nameFootnote]?.presentation = 'Комментарий';
   }
 
   @override
@@ -137,9 +137,9 @@ class TaskDocGenerated extends NsgDataItem {
   set name(String value) => setFieldValue(nameName, value);
 
   /// Комментарий
-  String get comment => getFieldValue(nameComment).toString();
+  String get footnote => getFieldValue(nameFootnote).toString();
 
-  set comment(String value) => setFieldValue(nameComment, value);
+  set footnote(String value) => setFieldValue(nameFootnote, value);
 
   /// Проект
   String get projectId => getFieldValue(nameProjectId).toString();
