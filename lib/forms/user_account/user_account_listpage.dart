@@ -35,26 +35,37 @@ class UserAccountListPage extends GetView<UserAccountController> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: NsgListPage(
-                    appBar: SizedBox(),
+                   appBar: Get.find<UserAccountController>().regime != NsgControllerRegime.selection
+                ? const SizedBox() :  null,
                     appBarColor: Colors.white,
                     type: NsgListPageMode.table,
                     controller: controller,
-                    title: _textTitle,
-                    textNoItems: _textNoItems,
-                    appBarIcon: Icons.arrow_back,
+                   title: '',
+                    textNoItems: '',
+                    appBarIcon:  Icons.arrow_back_ios_new,
                     appBarOnPressed: () {
                       Get.back();
                     },
-                    appBarIcon2: Icons.check,
-                    appBarOnPressed2: () {
-                      controller.itemPagePost();
-                    },
+                     appBarIcon2: null,
+                    // appBarOnPressed2: () {
+                    //   controller.itemPagePost();
+                    // },
                     elementEditPage: _elementPage,
-                    availableButtons: const [
+                  
+                    availableButtons:  [
+                      if(Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                  
                       NsgTableMenuButtonType.createNewElement,
+                      if(Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                  
                       NsgTableMenuButtonType.editElement,
+                      if(Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                  
                       NsgTableMenuButtonType.removeElement
-                    ],
+                    ]
+                   
+                
+                    ,
                     columns: [
                       NsgTableColumn(name: UserAccountGenerated.nameName, expanded: true, presentation: 'Наименование'),
                     ]),
