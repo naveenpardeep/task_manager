@@ -51,6 +51,7 @@ class DataController extends DataControllerGenerated {
    // Get.offAndToNamed(Routes.taskStatusListPage);
    Get.offAndToNamed(Routes.projectListPage);
    //Get.offAndToNamed(Routes.userAccountListPage);
+   //Get.offAndToNamed(Routes.invitationPage);
     }
   }
 }

@@ -54,6 +54,15 @@ class TmTopMenu extends StatelessWidget {
               ),
             ),
           ),
+           Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.invitationPage);
+              },
+              child: Icon(Icons.insert_invitation_sharp,color: ControlOptions.instance.colorMainText,),
+            ),
+          ),
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,

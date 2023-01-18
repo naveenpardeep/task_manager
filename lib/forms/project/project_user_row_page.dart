@@ -30,7 +30,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                 NsgAppBar(
                   text: controller.currentItem.isEmpty
                       ? 'User '.toUpperCase()
-                      : controller.currentItem.userAccountId,
+                      : controller.currentItem.owner.name,
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,

@@ -43,8 +43,11 @@ class UserAccountListPage extends GetView<UserAccountController> {
                    title: '',
                     textNoItems: '',
                     appBarIcon:  Icons.arrow_back_ios_new,
-                    appBarOnPressed: () {
-                      Get.back();
+                    appBarOnPressed: ()  {
+                   controller.currentItem.isEmpty;
+                   Get.back();
+            
+                      
                     },
                      appBarIcon2: null,
                     // appBarOnPressed2: () {

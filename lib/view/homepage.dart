@@ -407,7 +407,7 @@ class _HomepageState extends State<Homepage> {
           onPressed: () {
             setState(() {
            taskBoardController.currentItem.sortBy=ESorting.dateDesc;
-              taskBoardController.refreshData();
+              taskBoardController.sendNotify();
               serviceC.currentItem.userAccountId='';
               isDatesearch = false;
               searchDate = DateTime.now();
