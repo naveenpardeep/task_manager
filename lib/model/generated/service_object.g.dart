@@ -18,7 +18,8 @@ class ServiceObjectGenerated extends NsgDataItem {
   static const nameBoardId = 'boardId';
   static const nameUserAccountId = 'userAccountId';
 
-  static final Map<String, String> fieldNameDict = {};
+  static final Map<String, String> fieldNameDict = {
+  };
 
   @override
   String get typeName => 'ServiceObject';
@@ -51,42 +52,46 @@ class ServiceObjectGenerated extends NsgDataItem {
   String get projectId => getFieldValue(nameProjectId).toString();
   ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
   Future<ProjectItem> projectAsync() async {
-    return await getReferentAsync<ProjectItem>(nameProjectId);
+   return await getReferentAsync<ProjectItem>(nameProjectId);
   }
 
   set projectId(String value) => setFieldValue(nameProjectId, value);
-  set project(ProjectItem value) => setFieldValue(nameProjectId, value.id);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
 
   /// Спринт
   String get sprintId => getFieldValue(nameSprintId).toString();
   SprintDoc get sprint => getReferent<SprintDoc>(nameSprintId);
   Future<SprintDoc> sprintAsync() async {
-    return await getReferentAsync<SprintDoc>(nameSprintId);
+   return await getReferentAsync<SprintDoc>(nameSprintId);
   }
 
   set sprintId(String value) => setFieldValue(nameSprintId, value);
-  set sprint(SprintDoc value) => setFieldValue(nameSprintId, value.id);
+  set sprint(SprintDoc value) =>
+    setFieldValue(nameSprintId, value.id);
 
   /// СтатусЗадачи
   String get taskStatusId => getFieldValue(nameTaskStatusId).toString();
   TaskStatus get taskStatus => getReferent<TaskStatus>(nameTaskStatusId);
   Future<TaskStatus> taskStatusAsync() async {
-    return await getReferentAsync<TaskStatus>(nameTaskStatusId);
+   return await getReferentAsync<TaskStatus>(nameTaskStatusId);
   }
 
   set taskStatusId(String value) => setFieldValue(nameTaskStatusId, value);
-  set taskStatus(TaskStatus value) => setFieldValue(nameTaskStatusId, value.id);
+  set taskStatus(TaskStatus value) =>
+    setFieldValue(nameTaskStatusId, value.id);
 
   /// ТаблицаКомментарии
-  NsgDataTable<TaskDocCommentsTable> get tableComments =>
-      NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableComments);
+  NsgDataTable<TaskDocCommentsTable> get tableComments => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableComments);
+
 
   /// ЧекЛист
-  NsgDataTable<TaskDocCheckListTable> get checkList =>
-      NsgDataTable<TaskDocCheckListTable>(owner: this, fieldName: nameCheckList);
+  NsgDataTable<TaskDocCheckListTable> get checkList => NsgDataTable<TaskDocCheckListTable>(owner: this, fieldName: nameCheckList);
+
 
   /// ТаблицаФайлы
   NsgDataTable<TaskDocFilesTable> get files => NsgDataTable<TaskDocFilesTable>(owner: this, fieldName: nameFiles);
+
 
   /// Приоритет
   EPriority get priority => NsgEnum.fromValue(EPriority, getFieldValue(namePriority)) as EPriority;
@@ -97,21 +102,23 @@ class ServiceObjectGenerated extends NsgDataItem {
   String get boardId => getFieldValue(nameBoardId).toString();
   TaskBoard get board => getReferent<TaskBoard>(nameBoardId);
   Future<TaskBoard> boardAsync() async {
-    return await getReferentAsync<TaskBoard>(nameBoardId);
+   return await getReferentAsync<TaskBoard>(nameBoardId);
   }
 
   set boardId(String value) => setFieldValue(nameBoardId, value);
-  set board(TaskBoard value) => setFieldValue(nameBoardId, value.id);
+  set board(TaskBoard value) =>
+    setFieldValue(nameBoardId, value.id);
 
   /// АккаунтПользователя
   String get userAccountId => getFieldValue(nameUserAccountId).toString();
   UserAccount get userAccount => getReferent<UserAccount>(nameUserAccountId);
   Future<UserAccount> userAccountAsync() async {
-    return await getReferentAsync<UserAccount>(nameUserAccountId);
+   return await getReferentAsync<UserAccount>(nameUserAccountId);
   }
 
   set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
-  set userAccount(UserAccount value) => setFieldValue(nameUserAccountId, value.id);
+  set userAccount(UserAccount value) =>
+    setFieldValue(nameUserAccountId, value.id);
 
   @override
   String get apiRequestItems {

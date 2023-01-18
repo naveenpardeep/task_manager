@@ -4,46 +4,47 @@ import 'package:nsg_data/nsg_data.dart';
 import 'dart:typed_data';
 import '../data_controller_model.dart';
 
-/// Спринт
-class SprintDocGenerated extends NsgDataItem {
+/// Таблица сотрудников организации
+class OrganizationItemUserTableGenerated extends NsgDataItem {
   static const nameId = 'id';
-  static const nameName = 'name';
+  static const nameOwnerId = 'ownerId';
   static const nameOrganizationId = 'organizationId';
-  static const nameTaskTable = 'taskTable';
 
   static final Map<String, String> fieldNameDict = {
-    nameName: 'Комментарий',
   };
 
   @override
-  String get typeName => 'SprintDoc';
+  String get typeName => 'OrganizationItemUserTable';
 
   @override
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
-    addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataReferenceField<OrganizationItem>(nameOwnerId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
-    addField(NsgDataReferenceListField<SprintDocTaskTable>(nameTaskTable), primaryKey: false);
-    fieldList.fields[nameName]?.presentation = 'Комментарий';
   }
 
   @override
-  String toString() => name;
+  NsgDataItem getNewObject() => OrganizationItemUserTable();
 
-  @override
-  NsgDataItem getNewObject() => SprintDoc();
-
-  /// Идентификатор
+  /// Guid - идентификатор объета
   @override
   String get id => getFieldValue(nameId).toString();
 
   @override
   set id(String value) => setFieldValue(nameId, value);
 
-  /// Комментарий
-  String get name => getFieldValue(nameName).toString();
+  /// Guid - идентификатор владельца
+  @override
+  String get ownerId => getFieldValue(nameOwnerId).toString();
+  OrganizationItem get owner => getReferent<OrganizationItem>(nameOwnerId);
+  Future<OrganizationItem> ownerAsync() async {
+   return await getReferentAsync<OrganizationItem>(nameOwnerId);
+  }
 
-  set name(String value) => setFieldValue(nameName, value);
+  @override
+  set ownerId(String value) => setFieldValue(nameOwnerId, value);
+  set owner(OrganizationItem value) =>
+    setFieldValue(nameOwnerId, value.id);
 
   /// Организация
   String get organizationId => getFieldValue(nameOrganizationId).toString();
@@ -56,12 +57,8 @@ class SprintDocGenerated extends NsgDataItem {
   set organization(OrganizationItem value) =>
     setFieldValue(nameOrganizationId, value.id);
 
-  /// ТаблицаЗадач
-  NsgDataTable<SprintDocTaskTable> get taskTable => NsgDataTable<SprintDocTaskTable>(owner: this, fieldName: nameTaskTable);
-
-
   @override
   String get apiRequestItems {
-    return '/Data/SprintDoc';
+    return '/Data/OrganizationItemUserTable';
   }
 }

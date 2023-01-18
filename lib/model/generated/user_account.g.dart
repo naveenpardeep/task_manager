@@ -8,10 +8,16 @@ import '../data_controller_model.dart';
 class UserAccountGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
+  static const nameFirstName = 'firstName';
+  static const nameLastName = 'lastName';
+  static const namePhoneNumber = 'phoneNumber';
   static const nameLastChange = 'lastChange';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
+    nameFirstName: 'Имя',
+    nameLastName: 'Фамилия',
+    namePhoneNumber: 'Номер телефона',
   };
 
   @override
@@ -21,8 +27,14 @@ class UserAccountGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataStringField(nameFirstName), primaryKey: false);
+    addField(NsgDataStringField(nameLastName), primaryKey: false);
+    addField(NsgDataStringField(namePhoneNumber), primaryKey: false);
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
+    fieldList.fields[nameFirstName]?.presentation = 'Имя';
+    fieldList.fields[nameLastName]?.presentation = 'Фамилия';
+    fieldList.fields[namePhoneNumber]?.presentation = 'Номер телефона';
   }
 
   @override
@@ -42,6 +54,21 @@ class UserAccountGenerated extends NsgDataItem {
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
+
+  /// Имя
+  String get firstName => getFieldValue(nameFirstName).toString();
+
+  set firstName(String value) => setFieldValue(nameFirstName, value);
+
+  /// Фамилия
+  String get lastName => getFieldValue(nameLastName).toString();
+
+  set lastName(String value) => setFieldValue(nameLastName, value);
+
+  /// НомерТелефона
+  String get phoneNumber => getFieldValue(namePhoneNumber).toString();
+
+  set phoneNumber(String value) => setFieldValue(namePhoneNumber, value);
 
   /// ПоследнееИзменение
   DateTime get lastChange => getFieldValue(nameLastChange) as DateTime;

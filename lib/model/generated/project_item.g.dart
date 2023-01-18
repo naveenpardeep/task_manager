@@ -11,6 +11,7 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameDate = 'date';
   static const nameStatusDoneId = 'statusDoneId';
   static const nameStatusCancelledId = 'statusCancelledId';
+  static const nameOrganizationId = 'organizationId';
   static const nameProjectPrefix = 'projectPrefix';
   static const nameLeaderId = 'leaderId';
   static const nameContractor = 'contractor';
@@ -31,6 +32,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
+    addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     addField(NsgDataStringField(nameProjectPrefix), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
@@ -86,6 +88,17 @@ class ProjectItemGenerated extends NsgDataItem {
   set statusCancelledId(String value) => setFieldValue(nameStatusCancelledId, value);
   set statusCancelled(TaskStatus value) =>
     setFieldValue(nameStatusCancelledId, value.id);
+
+  /// Организация
+  String get organizationId => getFieldValue(nameOrganizationId).toString();
+  OrganizationItem get organization => getReferent<OrganizationItem>(nameOrganizationId);
+  Future<OrganizationItem> organizationAsync() async {
+   return await getReferentAsync<OrganizationItem>(nameOrganizationId);
+  }
+
+  set organizationId(String value) => setFieldValue(nameOrganizationId, value);
+  set organization(OrganizationItem value) =>
+    setFieldValue(nameOrganizationId, value.id);
 
   /// ПрефиксПроекта
   String get projectPrefix => getFieldValue(nameProjectPrefix).toString();
