@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
+import 'package:task_manager_app/forms/organization/organization_page.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
@@ -108,6 +109,11 @@ class AppPages {
       page: () =>  InvitationPage(),
       binding: InvitationBinding(), 
     ),
+     GetPage(
+      name: Routes.organizationPage,
+      page: () =>  OrganizationPage(),
+      binding:ProjectBinding(), 
+    ),
     
   ];
 }
@@ -129,4 +135,5 @@ abstract class Routes {
   static const taskrow='/taskrowpage';
   static const projectuserRowpage='/projectUserRowPage';
   static const invitationPage='/invitationPage';
+  static const organizationPage='/organizationPage';
 }
