@@ -48,7 +48,27 @@ class UserAccountPage extends GetView<UserAccountController> {
                               fieldName: UserAccountGenerated.nameName,
                               label: 'Наименование',
                             ),
-                           
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameFirstName,
+                              label: 'Имя',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameLastName,
+                              label: 'Фамилия',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.namePhoneNumber,
+                              label: 'Номер телефона',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameEmail,
+                              label: 'Email',
+                            ),
+
                             // NsgButton(
                             //   text: 'Список пользователей',
                             //   color: Colors.white,
