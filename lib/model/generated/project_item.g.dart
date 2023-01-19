@@ -15,6 +15,9 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameProjectPrefix = 'projectPrefix';
   static const nameLeaderId = 'leaderId';
   static const nameContractor = 'contractor';
+  static const nameNumberOfTasksOpen = 'numberOfTasksOpen';
+  static const nameNumberOfTasksUpdatedIn24Hours = 'numberOfTasksUpdatedIn24Hours';
+  static const nameNumberOfTasksOverdue = 'numberOfTasksOverdue';
   static const nameTableUsers = 'tableUsers';
 
   static final Map<String, String> fieldNameDict = {
@@ -36,6 +39,9 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameProjectPrefix), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfTasksOpen), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfTasksUpdatedIn24Hours), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfTasksOverdue), primaryKey: false);
     addField(NsgDataReferenceListField<ProjectItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
@@ -120,6 +126,21 @@ class ProjectItemGenerated extends NsgDataItem {
   String get contractor => getFieldValue(nameContractor).toString();
 
   set contractor(String value) => setFieldValue(nameContractor, value);
+
+  /// Количество открытых задач пользователя
+  int get numberOfTasksOpen => getFieldValue(nameNumberOfTasksOpen) as int;
+
+  set numberOfTasksOpen(int value) => setFieldValue(nameNumberOfTasksOpen, value);
+
+  /// Количество задач пользователя, обновленных за последные сутки
+  int get numberOfTasksUpdatedIn24Hours => getFieldValue(nameNumberOfTasksUpdatedIn24Hours) as int;
+
+  set numberOfTasksUpdatedIn24Hours(int value) => setFieldValue(nameNumberOfTasksUpdatedIn24Hours, value);
+
+  /// Количество просроченных задач пользователя
+  int get numberOfTasksOverdue => getFieldValue(nameNumberOfTasksOverdue) as int;
+
+  set numberOfTasksOverdue(int value) => setFieldValue(nameNumberOfTasksOverdue, value);
 
   /// ТаблицаПользователи
   NsgDataTable<ProjectItemUserTable> get tableUsers => NsgDataTable<ProjectItemUserTable>(owner: this, fieldName: nameTableUsers);
