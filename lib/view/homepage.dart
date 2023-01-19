@@ -401,7 +401,7 @@ class _HomepageState extends State<Homepage> {
                             thickness: 10,
                             trackBorderColor: ControlOptions.instance.colorGreyLight,
                             trackColor: ControlOptions.instance.colorGreyLight,
-                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.5),
+                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                             radius: const Radius.circular(0),
                             child: SingleChildScrollView(
                                 controller: scrollController,
@@ -661,6 +661,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
     child: SizedBox(
       width: constraints.maxWidth,
       child: Card(
+          elevation: 3,
           color: const Color.fromARGB(239, 248, 250, 252),
           child: Stack(
             children: [
