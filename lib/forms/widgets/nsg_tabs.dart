@@ -84,7 +84,7 @@ class _NsgTabsState extends State<NsgTabs> {
               },
               child: SingleChildScrollView(
                 controller: tabWidgetsC,
-                physics: const ClampingScrollPhysics(),
+                physics: const PageScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +174,7 @@ class _NsgTabsState extends State<NsgTabs> {
   Future scrollTo() async {
     isScrolling = true;
     Future.delayed(Duration.zero, () {
-      tabWidgetsC.animateTo(width * currentTab, curve: Curves.linear, duration: const Duration(milliseconds: 100));
+      //tabWidgetsC.animateTo(width * currentTab, curve: Curves.linear, duration: const Duration(milliseconds: 100));
     });
     isScrolling = false;
   }
