@@ -54,6 +54,7 @@ class _NsgTabsState extends State<NsgTabs> {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: SingleChildScrollView(
               //  physics: const PageScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               controller: tabNamesC,
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -83,7 +84,7 @@ class _NsgTabsState extends State<NsgTabs> {
               },
               child: SingleChildScrollView(
                 controller: tabWidgetsC,
-                physics: const PageScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
