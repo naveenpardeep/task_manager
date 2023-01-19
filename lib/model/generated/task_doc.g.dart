@@ -79,7 +79,7 @@ class TaskDocGenerated extends NsgDataItem {
   }
 
   @override
-  String toString() => '$taskNumber. $name';
+  String toString() => '$docNumber. $name';
 
   @override
   NsgDataItem getNewObject() => TaskDoc();
