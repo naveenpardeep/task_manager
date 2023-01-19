@@ -20,8 +20,10 @@ class TasksPage extends GetView<TasksController> {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
 
-    String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
-    String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
+    String formatted =
+        NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
+    String formatupdate =
+        NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -50,11 +52,12 @@ class TasksPage extends GetView<TasksController> {
                   icon2: Icons.check,
                   onPressed2: () async {
                     if (controller.currentItem.taskStatus.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Пожалуйста, выберите статус задачи')));
                     } else if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
                       await controller.itemPagePost();
@@ -112,13 +115,16 @@ class TasksPage extends GetView<TasksController> {
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     'Создана $formatted',
-                                    style: TextStyle(color: ControlOptions.instance.colorGrey),
+                                    style: TextStyle(
+                                        color:
+                                            ControlOptions.instance.colorGrey),
                                   )),
                             ),
                             if (controller.currentItem.name.isNotEmpty)
                               Text(
                                 'Обновлена $formatupdate',
-                                style: TextStyle(color: ControlOptions.instance.colorGrey),
+                                style: TextStyle(
+                                    color: ControlOptions.instance.colorGrey),
                               ),
                             NsgInput(
                               dataItem: controller.currentItem,
@@ -126,17 +132,27 @@ class TasksPage extends GetView<TasksController> {
                               label: 'Название задачи',
                             ),
                             NsgInput(
-                              selectionController: Get.find<TaskStatusController>(),
+                              selectionController:
+                                  Get.find<TaskStatusController>(),
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameTaskStatusId,
                               label: 'Статус',
                             ),
 
+                            // NsgInput(
+                            //   selectionController:
+                            //       Get.find<UserAccountController>(),
+                            //   dataItem: controller.currentItem,
+                            //   fieldName: TaskDocGenerated.nameAssigneeId,
+                            //   label: 'Исполнитель',
+                            // ),
                             NsgInput(
+                              label: 'Исполнитель',
                               selectionController: Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameAssigneeId,
-                              label: 'Исполнитель',
+                              selectionForm: Routes.userAccountListPage,
+                            
                             ),
 
                             NsgInput(

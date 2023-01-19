@@ -48,6 +48,17 @@ class TmMobileMenu extends StatelessWidget {
               size: 32,
             ),
           )),
+           Expanded(
+              child: InkWell(
+            onTap: () {
+              Get.toNamed(Routes.invitationPage);
+            },
+            child: Icon(
+              Icons.insert_invitation,
+              color: ControlOptions.instance.colorMain,
+              size: 32,
+            ),
+          )),
           Expanded(
             child: Center(
               child: Row(

@@ -29,6 +29,7 @@ class _ProjectpageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
@@ -76,10 +77,10 @@ class _ProjectpageState extends State<ProjectPage> {
                           children: [
                             NsgText(
                                 'Создано :${formateddate.format(controller.currentItem.date)}'),
-                           
-                           NsgTable(
+                            NsgTable(
                               showIconFalse: false,
-                              controller: Get.find<ProjectItemUserTableController>(),
+                              controller:
+                                  Get.find<ProjectItemUserTableController>(),
                               elementEditPageName: Routes.projectuserRowpage,
                               availableButtons: const [
                                 NsgTableMenuButtonType.createNewElement,
@@ -88,16 +89,17 @@ class _ProjectpageState extends State<ProjectPage> {
                               ],
                               columns: [
                                 NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated.nameUserAccountId,
+                                    name: ProjectItemUserTableGenerated
+                                        .nameUserAccountId,
                                     expanded: true,
                                     presentation: 'User'),
                                 NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated.nameIsAdmin,
+                                    name: ProjectItemUserTableGenerated
+                                        .nameIsAdmin,
                                     width: 100,
                                     presentation: 'Admin'),
                               ],
                             ),
-                           
                             NsgInput(
                               selectionController:
                                   Get.find<UserAccountController>(),
@@ -120,25 +122,29 @@ class _ProjectpageState extends State<ProjectPage> {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
-                            NsgTable(
-                              showIconFalse: false,
-                              controller: Get.find<TaskStatusController>(),
-                              elementEditPageName: Routes.taskStatusPage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name: TaskStatusGenerated.nameName,
-                                    expanded: true,
-                                    presentation: 'Статусы'),
-                                NsgTableColumn(
-                                    name: TaskStatusGenerated.nameIsDone,
-                                    width: 100,
-                                    presentation: 'Финальный'),
-                              ],
+                            SizedBox(
+                              height: height * 0.3,
+                              child: SingleChildScrollView(
+                                  child: NsgTable(
+                                showIconFalse: false,
+                                controller: Get.find<TaskStatusController>(),
+                                elementEditPageName: Routes.taskStatusPage,
+                                availableButtons: const [
+                                  NsgTableMenuButtonType.createNewElement,
+                                  NsgTableMenuButtonType.editElement,
+                                  NsgTableMenuButtonType.removeElement
+                                ],
+                                columns: [
+                                  NsgTableColumn(
+                                      name: TaskStatusGenerated.nameName,
+                                      expanded: true,
+                                      presentation: 'Статусы'),
+                                  NsgTableColumn(
+                                      name: TaskStatusGenerated.nameIsDone,
+                                      width: 100,
+                                      presentation: 'Финальный'),
+                                ],
+                              )),
                             ),
                             if (isHidden == true &&
                                 controller.currentItem.name.isEmpty)
