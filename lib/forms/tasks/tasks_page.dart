@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -148,11 +146,11 @@ class TasksPage extends GetView<TasksController> {
                             // ),
                             NsgInput(
                               label: 'Исполнитель',
-                              selectionController: Get.find<UserAccountController>(),
+                              selectionController:
+                                  Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameAssigneeId,
                               selectionForm: Routes.userAccountListPage,
-                            
                             ),
 
                             NsgInput(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_icon_button.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
 
 class TmTopMenu extends StatelessWidget {
@@ -29,7 +27,8 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Проекты',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText,
+                            fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -42,7 +41,8 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Задачи',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText,
+                            fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -55,7 +55,8 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Пользователи',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText,
+                            fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -78,7 +79,9 @@ class TmTopMenu extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
+                shape: BoxShape.circle,
+                border: Border.all(
+                    width: 2, color: ControlOptions.instance.colorMainText)),
             child: ClipOval(
               child: Image.network(
                   width: 32,

@@ -5,7 +5,8 @@ class NsgTabsTab {
   Widget tab;
   Widget tabSelected;
   Widget child;
-  NsgTabsTab({required this.tab, required this.tabSelected, required this.child});
+  NsgTabsTab(
+      {required this.tab, required this.tabSelected, required this.child});
 }
 
 class NsgTabs extends StatefulWidget {
@@ -71,7 +72,8 @@ class _NsgTabsState extends State<NsgTabs> {
                   setNamePos(key: currentTab, topOnly: true);
                   setState(() {});
                   return true;
-                } else if (scrollNotification is ScrollEndNotification && !isScrolling) {
+                } else if (scrollNotification is ScrollEndNotification &&
+                    !isScrolling) {
                   //  _onEndScroll(scrollNotification.metrics);
                   currentTab = (tabWidgetsC.offset + width / 2) ~/ width;
                   setNamePos(key: currentTab);
@@ -123,9 +125,11 @@ class _NsgTabsState extends State<NsgTabs> {
     Offset position = box.localToGlobal(Offset.zero); //this is global position
     double x = position.dx + tabNamesC.offset - width / 3;
     Future.wait([
-      tabNamesC.animateTo(x, duration: const Duration(milliseconds: 300), curve: Curves.easeOut),
+      tabNamesC.animateTo(x,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeOut),
       if (!topOnly)
-        tabWidgetsC.animateTo(width * currentTab, curve: Curves.easeOut, duration: const Duration(milliseconds: 300))
+        tabWidgetsC.animateTo(width * currentTab,
+            curve: Curves.easeOut, duration: const Duration(milliseconds: 300))
     ]);
     isScrolling = false;
   }
@@ -141,7 +145,9 @@ class _NsgTabsState extends State<NsgTabs> {
             children: [
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.1)),
+                  decoration: BoxDecoration(
+                      color:
+                          ControlOptions.instance.colorMain.withOpacity(0.1)),
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: RawScrollbar(
                       thumbVisibility: true,
@@ -150,11 +156,12 @@ class _NsgTabsState extends State<NsgTabs> {
                       thickness: 10,
                       trackBorderColor: ControlOptions.instance.colorGreyLight,
                       trackColor: ControlOptions.instance.colorGreyLight,
-                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                      thumbColor:
+                          ControlOptions.instance.colorMain.withOpacity(0.2),
                       radius: const Radius.circular(0),
                       child: SingleChildScrollView(
                         controller: scrollControllers[key],
-                        child: Container(
+                        child: SizedBox(
                           width: width,
                           child: Row(
                             children: [

@@ -6,8 +6,6 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
-import 'package:task_manager_app/model/invitation.dart';
-
 import 'package:task_manager_app/view/homepage.dart';
 
 import 'forms/invitation/invitaion_bindings.dart';
@@ -46,7 +44,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.tasksPage,
-      page: () =>  const TasksPage(),
+      page: () => const TasksPage(),
       binding: TasksListBinding(),
     ),
     GetPage(
@@ -66,7 +64,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.taskStatusPage,
-      page: () =>  const TaskStatusPage(),
+      page: () => const TaskStatusPage(),
       binding: TaskStatusBinding(),
     ),
     GetPage(
@@ -77,44 +75,43 @@ class AppPages {
     GetPage(
       name: Routes.homePage,
       page: () => const Homepage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.userAccount,
       page: () => const UserAccountPage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.userAccountListPage,
       page: () => UserAccountListPage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
-       GetPage(
+    GetPage(
       name: Routes.taskBoard,
       page: () => const TaskBoardPage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskrow,
       page: () => const TaskStatusRowPage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
     GetPage(
       name: Routes.projectuserRowpage,
       page: () => const ProjectUserRowPage(),
-      binding: ProjectBinding(), 
+      binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.invitationPage,
-      page: () =>  InvitationPage(),
-      binding: InvitationBinding(), 
+      page: () => const InvitationPage(),
+      binding: InvitationBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.organizationPage,
-      page: () =>  OrganizationPage(),
-      binding:ProjectBinding(), 
+      page: () => const OrganizationPage(),
+      binding: ProjectBinding(),
     ),
-    
   ];
 }
 
@@ -128,12 +125,12 @@ abstract class Routes {
   static const commentRowPage = '/commentRowPage';
   static const taskStatusListPage = '/taskStatusListPage';
   static const taskStatusPage = '/taskStatusPage';
-  static const homePage='/homePage';
-  static const userAccount='/userAccount';
-  static const userAccountListPage='/userAccountListPage';
-  static const taskBoard='/taskBoard';
-  static const taskrow='/taskrowpage';
-  static const projectuserRowpage='/projectUserRowPage';
-  static const invitationPage='/invitationPage';
-  static const organizationPage='/organizationPage';
+  static const homePage = '/homePage';
+  static const userAccount = '/userAccount';
+  static const userAccountListPage = '/userAccountListPage';
+  static const taskBoard = '/taskBoard';
+  static const taskrow = '/taskrowpage';
+  static const projectuserRowpage = '/projectUserRowPage';
+  static const invitationPage = '/invitationPage';
+  static const organizationPage = '/organizationPage';
 }

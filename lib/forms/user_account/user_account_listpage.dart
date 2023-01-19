@@ -9,10 +9,8 @@ import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
 
 class UserAccountListPage extends GetView<UserAccountController> {
-  UserAccountListPage({Key? key}) : super(key: key);
+  const UserAccountListPage({Key? key}) : super(key: key);
 
-  final _textTitle = 'Список пользователей'.toUpperCase();
-  final _textNoItems = 'Нет пользователя';
   final _elementPage = Routes.userAccount;
 
   @override
@@ -24,11 +22,15 @@ class UserAccountListPage extends GetView<UserAccountController> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (Get.find<UserAccountController>().regime != NsgControllerRegime.selection && width > 991) TmTopMenu(),
+              if (Get.find<UserAccountController>().regime !=
+                      NsgControllerRegime.selection &&
+                  width > 991)
+                const TmTopMenu(),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Text(
-                  Get.find<UserAccountController>().regime != NsgControllerRegime.selection
+                  Get.find<UserAccountController>().regime !=
+                          NsgControllerRegime.selection
                       ? 'Все пользователи'
                       : 'Выберите пользователя',
                   style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
@@ -38,7 +40,7 @@ class UserAccountListPage extends GetView<UserAccountController> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: NsgListPage(
-                      appBar: SizedBox(),
+                      appBar: const SizedBox(),
                       appBarColor: Colors.white,
                       type: NsgListPageMode.table,
                       controller: controller,
@@ -55,16 +57,21 @@ class UserAccountListPage extends GetView<UserAccountController> {
                       // },
                       elementEditPage: _elementPage,
                       availableButtons: [
-                        if (Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                        if (Get.find<UserAccountController>().regime !=
+                            NsgControllerRegime.selection)
                           NsgTableMenuButtonType.createNewElement,
-                        if (Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                        if (Get.find<UserAccountController>().regime !=
+                            NsgControllerRegime.selection)
                           NsgTableMenuButtonType.editElement,
-                        if (Get.find<UserAccountController>().regime != NsgControllerRegime.selection)
+                        if (Get.find<UserAccountController>().regime !=
+                            NsgControllerRegime.selection)
                           NsgTableMenuButtonType.removeElement
                       ],
                       columns: [
                         NsgTableColumn(
-                            name: UserAccountGenerated.nameName, expanded: true, presentation: 'Наименование'),
+                            name: UserAccountGenerated.nameName,
+                            expanded: true,
+                            presentation: 'Наименование'),
                       ]),
                 ),
               ),

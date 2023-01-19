@@ -31,14 +31,16 @@ class ProjectListPage extends GetView<ProjectController> {
             children: [
               if (width > 991) const TmTopMenu(),
               Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 10, right: 10, bottom: 10),
                   child: Row(
                     children: [
                       Expanded(
                         child: Text(
                           'Все проекты',
                           style: TextStyle(
-                              color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
+                              color: ControlOptions.instance.colorText,
+                              fontSize: ControlOptions.instance.sizeXL),
                         ),
                       ),
                       NsgButton(
@@ -51,7 +53,8 @@ class ProjectListPage extends GetView<ProjectController> {
                         color: Colors.white,
                         backColor: ControlOptions.instance.colorMain,
                         onPressed: () {
-                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectPage);
+                          Get.find<ProjectController>()
+                              .newItemPageOpen(pageName: Routes.projectPage);
                         },
                       ),
                     ],
@@ -95,39 +98,43 @@ class ProjectListPage extends GetView<ProjectController> {
                                 child: Text(
                                   project.name,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: ControlOptions.instance.sizeL,
+                                      height: 1),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
                                   text: '55',
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
-                                  shadow: BoxShadow(),
+                                  shadow: const BoxShadow(),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
                                   text: '2',
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
-                                  borderColor: ControlOptions.instance.colorWarning,
-                                  shadow: BoxShadow(),
+                                  borderColor:
+                                      ControlOptions.instance.colorWarning,
+                                  shadow: const BoxShadow(),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
                                   text: '1',
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
-                                  borderColor: ControlOptions.instance.colorError,
-                                  shadow: BoxShadow(),
+                                  borderColor:
+                                      ControlOptions.instance.colorError,
+                                  shadow: const BoxShadow(),
                                 ),
                               )
                             ],
@@ -143,11 +150,13 @@ class ProjectListPage extends GetView<ProjectController> {
                                 Text('Рук.: ${project.leader.name}',
                                     style: TextStyle(
                                         fontSize: ControlOptions.instance.sizeS,
-                                        color: ControlOptions.instance.colorGreyDark)),
+                                        color: ControlOptions
+                                            .instance.colorGreyDark)),
                                 Text('Заказчик: ${project.contractor}',
                                     style: TextStyle(
                                         fontSize: ControlOptions.instance.sizeS,
-                                        color: ControlOptions.instance.colorGreyDark)),
+                                        color: ControlOptions
+                                            .instance.colorGreyDark)),
                               ],
                             )),
                             ClipOval(
@@ -179,7 +188,8 @@ class ProjectListPage extends GetView<ProjectController> {
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
             controller: scrollController,
-            child:
-                width > 991 ? NsgGrid(crossAxisCount: (width / 400).toInt(), children: list) : Column(children: list)));
+            child: width > 991
+                ? NsgGrid(crossAxisCount: width ~/ 400, children: list)
+                : Column(children: list)));
   }
 }
