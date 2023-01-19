@@ -48,7 +48,7 @@ class _ProjectpageState extends State<ProjectPage> {
               children: <Widget>[
                 NsgAppBar(
                   color: Colors.white,
-                  text: controller.currentItem.isEmpty
+                  text: controller.currentItem.name.isEmpty
                       ? 'Новый проект'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,

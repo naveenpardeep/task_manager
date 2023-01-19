@@ -51,8 +51,7 @@ class ProjectListPage extends GetView<ProjectController> {
                         color: Colors.white,
                         backColor: ControlOptions.instance.colorMain,
                         onPressed: () {
-                          Get.find<TasksController>().newItemPageOpen(pageName: Routes.tasksPage);
-                          // Get.toNamed(Routes.tasksPage);
+                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectPage);
                         },
                       ),
                     ],
