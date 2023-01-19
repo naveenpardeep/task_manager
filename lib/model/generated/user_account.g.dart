@@ -15,6 +15,7 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameLastChange = 'lastChange';
   static const namePictureId = 'pictureId';
   static const nameOrganizationId = 'organizationId';
+  static const nameMainUserAccountId = 'mainUserAccountId';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
@@ -38,6 +39,7 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
     addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
+    addField(NsgDataReferenceField<UserAccount>(nameMainUserAccountId), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameFirstName]?.presentation = 'Имя';
     fieldList.fields[nameLastName]?.presentation = 'Фамилия';
@@ -109,6 +111,17 @@ class UserAccountGenerated extends NsgDataItem {
   set organizationId(String value) => setFieldValue(nameOrganizationId, value);
   set organization(OrganizationItem value) =>
     setFieldValue(nameOrganizationId, value.id);
+
+  /// ОсновнойАккаунт
+  String get mainUserAccountId => getFieldValue(nameMainUserAccountId).toString();
+  UserAccount get mainUserAccount => getReferent<UserAccount>(nameMainUserAccountId);
+  Future<UserAccount> mainUserAccountAsync() async {
+   return await getReferentAsync<UserAccount>(nameMainUserAccountId);
+  }
+
+  set mainUserAccountId(String value) => setFieldValue(nameMainUserAccountId, value);
+  set mainUserAccount(UserAccount value) =>
+    setFieldValue(nameMainUserAccountId, value.id);
 
   @override
   String get apiRequestItems {
