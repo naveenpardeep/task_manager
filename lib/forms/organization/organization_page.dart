@@ -18,6 +18,9 @@ class _OrganizationPageState extends State<OrganizationPage> {
   @override
   void initState() {
     super.initState();
+     if (controller.lateInit) {
+      controller.requestItems();
+    }
   }
 
   @override
@@ -28,7 +31,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
             key: scaffoldKey,
             backgroundColor: Colors.white,
             body:
-                //controller.obx((state) =>
+                controller.obx((state) =>
 
                 Container(
                     key: GlobalKey(),
@@ -69,7 +72,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                             ),
                           ),
                         ]))
-            //)
+            )
             ));
   }
 }
