@@ -104,8 +104,16 @@ class _UserProfileState extends State<UserProfile> {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Должность  : ${userAccountController.currentItem.position}'),
+                              padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                              child: Text(
+                                  'Должность  : ${userAccountController.currentItem.position}'),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                              child: Divider(
+                                color: ControlOptions.instance.colorBlue,
+                              ),
                             )
                           ],
                         ),
@@ -118,7 +126,7 @@ class _UserProfileState extends State<UserProfile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
                               child: Text(
                                   'Имя пользователя  : ${userAccountController.currentItem.name}'),
                             ),
@@ -126,7 +134,14 @@ class _UserProfileState extends State<UserProfile> {
                               height: 10,
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                              child: Divider(
+                                color: ControlOptions.instance.colorBlue,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
                               child: Text(
                                   'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
                             ),
@@ -134,9 +149,23 @@ class _UserProfileState extends State<UserProfile> {
                               height: 10,
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                              child: Divider(
+                                color: ControlOptions.instance.colorBlue,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
                               child: Text(
                                   'Почта   : ${userAccountController.currentItem.email}'),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                              child: Divider(
+                                color: ControlOptions.instance.colorBlue,
+                              ),
                             )
                           ],
                         ),
