@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
+
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../../app_pages.dart';
+import '../../model/generated/user_account.g.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -17,13 +18,16 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  var organizationName = '';
   var userAccountController = Get.find<UserAccountController>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-     if (userAccountController.lateInit) {
-     userAccountController.requestItems();
+    organizationName;
+    if (userAccountController.lateInit) {
+      userAccountController.requestItems();
     }
   }
 
@@ -34,9 +38,10 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return userAccountController.obx((state) => (BodyWrap(
           child: Scaffold(
+              key: scaffoldKey,
               appBar: AppBar(
                 title: Center(
                   child: Text(
@@ -75,14 +80,27 @@ class _UserProfileState extends State<UserProfile> {
                       child: Card(
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                              child: ClipOval(
-                            child: Image.network(
-                                width: 70,
-                                height: 70,
-                                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-                              ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                  child: ClipOval(
+                                    child: Image.network(
+                                        width: 70,
+                                        height: 70,
+                                        'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                                  ),
+                                ),
+                                Row(children: [
+                                  TextButton(
+                                      onPressed: (() {
+                                        selectOrganization();
+                                      }),
+                                      child:
+                                          Text('Организация $organizationName'))
+                                ]),
+                              ],
                             ),
                             Text(userAccountController.currentItem.position)
                           ],
@@ -93,5 +111,21 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               )),
         )));
+  }
+
+  selectOrganization() {
+    var form = NsgSelection(
+      inputType: NsgInputType.reference,
+      controller: Get.find<OrganizationController>(),
+    );
+    form.selectFromArray(
+      'Организация',
+      (item) {
+        setState(() {
+          organizationName =
+              userAccountController.currentItem.organization.toString();
+        });
+      },
+    );
   }
 }
