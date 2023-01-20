@@ -102,7 +102,10 @@ class _UserProfileState extends State<UserProfile> {
                                 ]),
                               ],
                             ),
-                            Text(userAccountController.currentItem.position)
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Должность  : ${userAccountController.currentItem.position}'),
+                            )
                           ],
                         ),
                       ),
