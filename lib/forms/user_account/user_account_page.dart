@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -43,6 +44,17 @@ class UserAccountPage extends GetView<UserAccountController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                             NsgInput(
+                              selectionController: Get.find<OrganizationController>(),
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameOrganizationId,
+                              label: 'Организация',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.namePosition,
+                              label: 'Должность',
+                            ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: UserAccountGenerated.nameName,
@@ -68,7 +80,16 @@ class UserAccountPage extends GetView<UserAccountController> {
                               fieldName: UserAccountGenerated.nameEmail,
                               label: 'Email',
                             ),
-
+                             NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameSettingNotifyByPush,
+                              label: 'Показывать push-уведомления',
+                            ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
+                              label: 'Отправлять уведомления на почту',
+                            ),
                             // NsgButton(
                             //   text: 'Список пользователей',
                             //   color: Colors.white,
