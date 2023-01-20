@@ -43,10 +43,11 @@ class _UserProfileState extends State<UserProfile> {
           child: Scaffold(
               key: scaffoldKey,
               appBar: AppBar(
+                // ignore: prefer_const_constructors
                 title: Center(
-                  child: Text(
-                    '${userAccountController.currentItem.name} ',
-                    style: const TextStyle(color: Colors.black),
+                  child: const Text(
+                    'Аккаунт ',
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
                 actions: [
