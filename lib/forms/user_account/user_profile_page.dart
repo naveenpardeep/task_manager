@@ -175,6 +175,49 @@ class _UserProfileState extends State<UserProfile> {
                             ],
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: width,
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                child: Text(
+                                  'Уведомления',
+                                  textScaleFactor: 2,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              NsgInput(
+                                dataItem: userAccountController.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyByPush,
+                                label: 'Показывать push-уведомления',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              NsgInput(
+                                dataItem: userAccountController.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyByEmail,
+                                label: 'Отправлять уведомления на почту',
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
