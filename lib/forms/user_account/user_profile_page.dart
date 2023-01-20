@@ -74,104 +74,110 @@ class _UserProfileState extends State<UserProfile> {
                 //  toolbarHeight: 200, // Set this height
               ),
               body: SafeArea(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: width,
-                      child: Card(
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                  child: ClipOval(
-                                    child: Image.network(
-                                        width: 70,
-                                        height: 70,
-                                        'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: width,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                          width: 70,
+                                          height: 70,
+                                          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                                    ),
                                   ),
+                                  Row(children: [
+                                    TextButton(
+                                        onPressed: (() {
+                                          selectOrganization();
+                                        }),
+                                        child: Text(
+                                            'Организация $organizationName'))
+                                  ]),
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Text(
+                                    'Должность  : ${userAccountController.currentItem.position}'),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
                                 ),
-                                Row(children: [
-                                  TextButton(
-                                      onPressed: (() {
-                                        selectOrganization();
-                                      }),
-                                      child:
-                                          Text('Организация $organizationName'))
-                                ]),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                              child: Text(
-                                  'Должность  : ${userAccountController.currentItem.position}'),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                              child: Divider(
-                                color: ControlOptions.instance.colorBlue,
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: width,
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                              child: Text(
-                                  'Имя пользователя  : ${userAccountController.currentItem.name}'),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                              child: Divider(
-                                color: ControlOptions.instance.colorBlue,
+                      SizedBox(
+                        width: width,
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                child: Text(
+                                    'Имя пользователя  : ${userAccountController.currentItem.name}'),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                              child: Text(
-                                  'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                              child: Divider(
-                                color: ControlOptions.instance.colorBlue,
+                              const SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                              child: Text(
-                                  'Почта   : ${userAccountController.currentItem.email}'),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                              child: Divider(
-                                color: ControlOptions.instance.colorBlue,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
+                                ),
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                child: Text(
+                                    'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                child: Text(
+                                    'Почта   : ${userAccountController.currentItem.email}'),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               )),
         )));
