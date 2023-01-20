@@ -8,7 +8,7 @@ import '../data_controller_model.dart';
 class OrganizationItemUserTableGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
-  static const nameOrganizationId = 'organizationId';
+  static const nameUserAccountId = 'userAccountId';
 
   static final Map<String, String> fieldNameDict = {
   };
@@ -20,7 +20,7 @@ class OrganizationItemUserTableGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<OrganizationItem>(nameOwnerId), primaryKey: false);
-    addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
+    addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
   }
 
   @override
@@ -46,16 +46,16 @@ class OrganizationItemUserTableGenerated extends NsgDataItem {
   set owner(OrganizationItem value) =>
     setFieldValue(nameOwnerId, value.id);
 
-  /// Организация
-  String get organizationId => getFieldValue(nameOrganizationId).toString();
-  OrganizationItem get organization => getReferent<OrganizationItem>(nameOrganizationId);
-  Future<OrganizationItem> organizationAsync() async {
-   return await getReferentAsync<OrganizationItem>(nameOrganizationId);
+  /// АккаунтПользователя
+  String get userAccountId => getFieldValue(nameUserAccountId).toString();
+  UserAccount get userAccount => getReferent<UserAccount>(nameUserAccountId);
+  Future<UserAccount> userAccountAsync() async {
+   return await getReferentAsync<UserAccount>(nameUserAccountId);
   }
 
-  set organizationId(String value) => setFieldValue(nameOrganizationId, value);
-  set organization(OrganizationItem value) =>
-    setFieldValue(nameOrganizationId, value.id);
+  set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
+  set userAccount(UserAccount value) =>
+    setFieldValue(nameUserAccountId, value.id);
 
   @override
   String get apiRequestItems {
