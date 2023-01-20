@@ -34,6 +34,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
     return userAccountController.obx((state) => (BodyWrap(
           child: Scaffold(
               appBar: AppBar(
@@ -67,14 +68,28 @@ class _UserProfileState extends State<UserProfile> {
                 //  toolbarHeight: 200, // Set this height
               ),
               body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: ClipOval(
-                child: Image.network(
-                    width: 70,
-                    height: 70,
-                    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: width,
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                              child: ClipOval(
+                            child: Image.network(
+                                width: 70,
+                                height: 70,
+                                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                              ),
+                            ),
+                            Text(userAccountController.currentItem.position)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )),
         )));
