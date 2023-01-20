@@ -428,46 +428,52 @@ class _HomepageState extends State<Homepage> {
         ));
       } else {
         tabsList.add(NsgTabsTab(
-            tab: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(3),
-                  color: Colors.transparent),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  Text(
-                    status.status.name,
-                    style: TextStyle(
-                        fontSize: ControlOptions.instance.sizeL,
-                        color: ControlOptions.instance.colorText),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: getTasklength(status.status),
-                  ),
-                ],
+            tab: taskController.obx(
+              (state) => Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.transparent),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      status.status.name,
+                      style: TextStyle(
+                          fontSize: ControlOptions.instance.sizeL,
+                          color: ControlOptions.instance.colorText),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: getTasklength(status.status),
+                    ),
+                  ],
+                ),
               ),
             ),
-            tabSelected: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 2, color: ControlOptions.instance.colorMain),
-                  borderRadius: BorderRadius.circular(3)),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  Text(
-                    status.status.name,
-                    style: TextStyle(
-                        fontSize: ControlOptions.instance.sizeL,
-                        color: ControlOptions.instance.colorText),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: getTasklength(status.status),
-                  ),
-                ],
+            tabSelected: taskController.obx(
+              (state) => Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2, color: ControlOptions.instance.colorMain),
+                    borderRadius: BorderRadius.circular(3)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      status.status.name,
+                      style: TextStyle(
+                          fontSize: ControlOptions.instance.sizeL,
+                          color: ControlOptions.instance.colorText),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: getTasklength(status.status),
+                    ),
+                  ],
+                ),
               ),
             ),
             child: Column(
