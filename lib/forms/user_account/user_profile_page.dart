@@ -22,6 +22,9 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();
+     if (userAccountController.lateInit) {
+     userAccountController.requestItems();
+    }
   }
 
   @override
