@@ -107,6 +107,37 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      width: width,
+                      child: Card(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                  'Имя пользователя  : ${userAccountController.currentItem.name}'),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                  'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                  'Почта   : ${userAccountController.currentItem.email}'),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               )),
