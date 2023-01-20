@@ -12,6 +12,9 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameLastName = 'lastName';
   static const namePhoneNumber = 'phoneNumber';
   static const nameEmail = 'email';
+  static const namePosition = 'position';
+  static const nameSettingNotifyByEmail = 'settingNotifyByEmail';
+  static const nameSettingNotifyByPush = 'settingNotifyByPush';
   static const nameLastChange = 'lastChange';
   static const namePictureId = 'pictureId';
   static const nameOrganizationId = 'organizationId';
@@ -23,6 +26,9 @@ class UserAccountGenerated extends NsgDataItem {
     nameLastName: 'Фамилия',
     namePhoneNumber: 'Номер телефона',
     nameEmail: 'Email',
+    namePosition: 'Должность',
+    nameSettingNotifyByEmail: 'Включены уведомления email',
+    nameSettingNotifyByPush: 'Включены уведомления push',
   };
 
   @override
@@ -36,6 +42,9 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameLastName), primaryKey: false);
     addField(NsgDataStringField(namePhoneNumber), primaryKey: false);
     addField(NsgDataStringField(nameEmail), primaryKey: false);
+    addField(NsgDataStringField(namePosition), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyByEmail), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyByPush), primaryKey: false);
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
     addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
@@ -45,6 +54,9 @@ class UserAccountGenerated extends NsgDataItem {
     fieldList.fields[nameLastName]?.presentation = 'Фамилия';
     fieldList.fields[namePhoneNumber]?.presentation = 'Номер телефона';
     fieldList.fields[nameEmail]?.presentation = 'Email';
+    fieldList.fields[namePosition]?.presentation = 'Должность';
+    fieldList.fields[nameSettingNotifyByEmail]?.presentation = 'Включены уведомления email';
+    fieldList.fields[nameSettingNotifyByPush]?.presentation = 'Включены уведомления push';
   }
 
   @override
@@ -84,6 +96,21 @@ class UserAccountGenerated extends NsgDataItem {
   String get email => getFieldValue(nameEmail).toString();
 
   set email(String value) => setFieldValue(nameEmail, value);
+
+  /// Должность
+  String get position => getFieldValue(namePosition).toString();
+
+  set position(String value) => setFieldValue(namePosition, value);
+
+  /// ВключеныУведомленияEmail
+  bool get settingNotifyByEmail => getFieldValue(nameSettingNotifyByEmail) as bool;
+
+  set settingNotifyByEmail(bool value) => setFieldValue(nameSettingNotifyByEmail, value);
+
+  /// ВключеныУведомленияPush
+  bool get settingNotifyByPush => getFieldValue(nameSettingNotifyByPush) as bool;
+
+  set settingNotifyByPush(bool value) => setFieldValue(nameSettingNotifyByPush, value);
 
   /// ПоследнееИзменение
   DateTime get lastChange => getFieldValue(nameLastChange) as DateTime;
