@@ -1,0 +1,4 @@
+import 'generated/user_notification_settings_status_table.g.dart';
+
+class UserNotificationSettingsStatusTable extends UserNotificationSettingsStatusTableGenerated {
+}

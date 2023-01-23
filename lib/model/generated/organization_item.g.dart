@@ -52,6 +52,6 @@ class OrganizationItemGenerated extends NsgDataItem {
 
   @override
   String get apiRequestItems {
-    return '/Data/OrganizationItem';
+    return '/Data/Organization';
   }
 }
