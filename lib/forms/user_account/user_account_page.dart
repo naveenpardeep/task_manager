@@ -12,98 +12,100 @@ class UserAccountPage extends GetView<UserAccountController> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    return BodyWrap(
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        body: controller.obx(
-          (state) => Container(
-            key: GlobalKey(),
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                NsgAppBar(
-                  color: Colors.white,
-                  text: controller.currentItem.isEmpty
-                      ? 'Новый пользователь'.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  icon2: Icons.check,
-                  onPressed2: () {
-                    controller.itemPagePost();
-                  },
-                ),
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                             NsgInput(
-                              selectionController: Get.find<OrganizationController>(),
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameOrganizationId,
-                              label: 'Организация',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.namePosition,
-                              label: 'Должность',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameName,
-                              label: 'Наименование',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameFirstName,
-                              label: 'Имя',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameLastName,
-                              label: 'Фамилия',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.namePhoneNumber,
-                              label: 'Номер телефона',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameEmail,
-                              label: 'Email',
-                            ),
-                             NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameSettingNotifyByPush,
-                              label: 'Показывать push-уведомления',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
-                              label: 'Отправлять уведомления на почту',
-                            ),
-                            Center( child: userImage()),
-                            // NsgButton(
-                            //   text: 'Список пользователей',
-                            //   color: Colors.white,
-                            //   onPressed: () {
-                            //     Get.toNamed(Routes.userAccountListPage);
-                            //   },
-                            // )
-                          ],
-                        ),
-                      )),
-                ),
-              ],
+    return SafeArea(
+      child: BodyWrap(
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Colors.white,
+          body: controller.obx(
+            (state) => Container(
+              key: GlobalKey(),
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  NsgAppBar(
+                    color: Colors.white,
+                    text: controller.currentItem.isEmpty
+                        ? 'Новый пользователь'.toUpperCase()
+                        : controller.currentItem.name.toUpperCase(),
+                    icon: Icons.arrow_back_ios_new,
+                    colorsInverted: true,
+                    bottomCircular: true,
+                    onPressed: () {
+                      controller.itemPageCancel();
+                    },
+                    icon2: Icons.check,
+                    onPressed2: () {
+                      controller.itemPagePost();
+                    },
+                  ),
+                  Expanded(
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                               NsgInput(
+                                selectionController: Get.find<OrganizationController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameOrganizationId,
+                                label: 'Организация',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.namePosition,
+                                label: 'Должность',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameName,
+                                label: 'Наименование',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameFirstName,
+                                label: 'Имя',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameLastName,
+                                label: 'Фамилия',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.namePhoneNumber,
+                                label: 'Номер телефона',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameEmail,
+                                label: 'Email',
+                              ),
+                               NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameSettingNotifyByPush,
+                                label: 'Показывать push-уведомления',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
+                                label: 'Отправлять уведомления на почту',
+                              ),
+                              Center( child: userImage()),
+                              // NsgButton(
+                              //   text: 'Список пользователей',
+                              //   color: Colors.white,
+                              //   onPressed: () {
+                              //     Get.toNamed(Routes.userAccountListPage);
+                              //   },
+                              // )
+                            ],
+                          ),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

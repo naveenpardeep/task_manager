@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../../app_pages.dart';
@@ -21,6 +22,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   var organizationName = '';
   var userAccountController = Get.find<UserAccountController>();
+  var userImageController = Get.find<UserImageController>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
@@ -30,6 +32,9 @@ class _UserProfileState extends State<UserProfile> {
         userAccountController.currentItem.organization.toString();
     if (userAccountController.lateInit) {
       userAccountController.requestItems();
+    }
+    if (userImageController.lateInit) {
+      userImageController.requestItems();
     }
   }
 
