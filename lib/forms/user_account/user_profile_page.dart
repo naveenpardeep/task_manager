@@ -25,7 +25,8 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();
-    organizationName;
+    organizationName =
+        userAccountController.currentItem.organization.toString();
     if (userAccountController.lateInit) {
       userAccountController.requestItems();
     }
@@ -207,6 +208,9 @@ class _UserProfileState extends State<UserProfile> {
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
+                                // onChanged: (p0) async {
+                                //  await userAccountController.itemPagePost(goBack: false);
+                                // },
                               ),
                               Padding(
                                 padding:
