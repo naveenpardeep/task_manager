@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -183,9 +184,8 @@ class _UserProfileState extends State<UserProfile> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(20.0, 10, 20, 0),
                                 child: Text(
                                   'Уведомления',
                                   textScaleFactor: 2,
@@ -218,7 +218,92 @@ class _UserProfileState extends State<UserProfile> {
                                 child: Divider(
                                   color: ControlOptions.instance.colorBlue,
                                 ),
-                              )
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: NsgText(
+                                  'МОИ ЗАДАЧИ',
+                                  color: ControlOptions.instance.colorGrey,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Row(
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    const Expanded(
+                                        child: Text(
+                                            'Новая задача с моим участием')),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_forward_ios),
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Row(
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    const Expanded(
+                                        child: Text('Все изменения в задаче')),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_forward_ios),
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Divider(
+                                  color: ControlOptions.instance.colorBlue,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: NsgText(
+                                  'ЗАДАЧИ ПРОЕКТОВ',
+                                  color: ControlOptions.instance.colorGrey,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Row(
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    const Expanded(
+                                        child: Text('Новая задача в проекте')),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_forward_ios),
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                child: Row(
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    const Expanded(
+                                        child: Text(
+                                            'Все изменения в задачах проектов')),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_forward_ios),
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
