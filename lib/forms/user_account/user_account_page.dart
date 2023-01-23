@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class UserAccountPage extends GetView<UserAccountController> {
@@ -90,6 +91,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                               fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
                               label: 'Отправлять уведомления на почту',
                             ),
+                            Center( child: userImage()),
                             // NsgButton(
                             //   text: 'Список пользователей',
                             //   color: Colors.white,
@@ -109,3 +111,15 @@ class UserAccountPage extends GetView<UserAccountController> {
     );
   }
 }
+
+ Widget userImage() {
+    return Get.find<UserImageController>().obx(
+      (state) => NsgFilePicker(
+        showAsWidget: true,
+        callback: (value) {},
+        objectsList: Get.find<UserImageController>().images,
+        allowedFileFormats: const [],
+      ),
+    );
+  }
+
