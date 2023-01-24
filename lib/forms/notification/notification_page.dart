@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
-import 'package:task_manager_app/forms/organization/organization_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
-import 'package:task_manager_app/model/generated/notification_doc.g.dart';
-import 'package:task_manager_app/model/notification_doc.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -15,6 +13,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   var controller = Get.find<NotificationController>();
+  DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
 
   @override
   void initState() {
@@ -40,38 +39,100 @@ class _NotificationPageState extends State<NotificationPage> {
                       NsgAppBar(
                         color: Colors.white,
                         backColor: const Color(0xff7876D9),
-                        text: controller.currentItem.isEmpty
-                            ? 'Уведомления'.toUpperCase()
-                            : controller.currentItem.task.name,
+                        text: 'Уведомления'.toUpperCase(),
                         icon: Icons.arrow_back_ios_new,
                         colorsInverted: true,
                         bottomCircular: true,
                         onPressed: () {
                           controller.itemPageCancel();
                         },
-                        icon2: Icons.check,
-                        onPressed2: () {
-                          controller.itemPagePost();
-                        },
                       ),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                           child: SingleChildScrollView(
-                            child: Column(children: [
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: NotificationDocGenerated.nameTaskId,
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: NotificationDocGenerated.nameDate,
-                                label: 'Date',
-                              ),
-                            ]),
-                          ),
+                              child:
+                                  SizedBox(child: getNotificationTaskList())),
                         ),
                       ),
                     ])))));
+  }
+
+  Widget getNotificationTaskList() {
+    List<Widget> list = [];
+
+    var tasksList = controller.items;
+
+    for (var tasks in tasksList) {
+      {
+        list.add(GestureDetector(
+          onTap: () {
+           
+            // Get.toNamed(Routes.tasksPage);
+
+            controller.itemPageOpen(tasks, Routes.tasksPage,
+                needRefreshSelectedItem: true);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                    height: 98,
+                    child: Card(
+                        color: const Color.fromARGB(239, 248, 250, 252),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                tasks.task.docNumber,
+                                maxLines: 1,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      tasks.task.toString(),
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.access_time,
+                                    size: 12,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    'создано: ${formateddate.format(tasks.date)}',
+                                    maxLines: 1,
+                                    textScaleFactor: 0.8,
+                                    style: const TextStyle(
+                                        color: Color(0xff10051C)),
+                                  )),
+                                ],
+                              )
+                            ],
+                          ),
+                        ))),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
   }
 }

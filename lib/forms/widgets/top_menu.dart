@@ -60,6 +60,16 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.notificationPage);
+                    },
+                    child: Icon(
+                      Icons.notifications,
+                      color: ControlOptions.instance.colorWhite,
+                      size: 32,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
@@ -82,17 +92,17 @@ class TmTopMenu extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(
                     width: 2, color: ControlOptions.instance.colorMainText)),
-            child:   InkWell(
-                    onTap: () {
-                     Get.toNamed(Routes.userProfilePage);
-                    },
-                    child: ClipOval(
-                      child: Image.network(
-                          width: 32,
-                          height: 32,
-                          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-                    ),
-                  ),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.userProfilePage);
+              },
+              child: ClipOval(
+                child: Image.network(
+                    width: 32,
+                    height: 32,
+                    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+              ),
+            ),
           ),
         ],
       ),

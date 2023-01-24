@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
+import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -29,6 +30,7 @@ class ProjectBinding extends Bindings {
     Get.put(ServiceObjectController());
     Get.put(InvitationController());
     Get.put(OrganizationController());
+    Get.put(NotificationController());
     Get.put(OrganizationItemUserTableController());
     Get.put(UserImageController());
     Get.put(UserNotificationController());

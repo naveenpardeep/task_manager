@@ -122,7 +122,7 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
-      name: Routes.invitationPage,
+      name: Routes.notificationPage,
       page: () => const NotificationPage(),
       binding: ProjectBinding(),
     ),
