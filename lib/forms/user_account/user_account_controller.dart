@@ -7,8 +7,4 @@ class UserAccountController extends NsgDataController<UserAccount> {
           requestOnInit: false,
           autoRepeate: true,
         );
-  @override
-  Future itemsRemove(List<NsgDataItem> itemsToRemove) {
-    return super.itemsRemove(itemsToRemove);
-  }
 }

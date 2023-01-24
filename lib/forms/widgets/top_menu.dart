@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
 class TmTopMenu extends StatelessWidget {
@@ -63,6 +64,21 @@ class TmTopMenu extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
+                      onTap: () async {
+                        await Get.find<DataController>().provider!.logout();
+                        await Get.find<DataController>().onInit();
+                      },
+                      child: Text(
+                        'logout',
+                        style: TextStyle(
+                            color: ControlOptions.instance.colorMainText,
+                            fontSize: ControlOptions.instance.sizeXL),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: InkWell(
                       onTap: () {
                         Get.toNamed(Routes.invitationPage);
                       },
@@ -82,17 +98,17 @@ class TmTopMenu extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(
                     width: 2, color: ControlOptions.instance.colorMainText)),
-            child:   InkWell(
-                    onTap: () {
-                     Get.toNamed(Routes.userProfilePage);
-                    },
-                    child: ClipOval(
-                      child: Image.network(
-                          width: 32,
-                          height: 32,
-                          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-                    ),
-                  ),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.userProfilePage);
+              },
+              child: ClipOval(
+                child: Image.network(
+                    width: 32,
+                    height: 32,
+                    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+              ),
+            ),
           ),
         ],
       ),
