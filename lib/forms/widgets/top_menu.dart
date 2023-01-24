@@ -61,6 +61,16 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.notificationPage);
+                    },
+                    child: Icon(
+                      Icons.notifications,
+                      color: ControlOptions.instance.colorWhite,
+                      size: 32,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(

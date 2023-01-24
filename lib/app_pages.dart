@@ -2,13 +2,16 @@ import 'package:get/get.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
+import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
+import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 import 'forms/invitation/invitaion_bindings.dart';
@@ -87,7 +90,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.userAccountListPage,
-      page: () => UserAccountListPage(),
+      page: () => const UserAccountListPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -121,9 +124,23 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
-      name: Routes.firstStartPage,
-      page: () => FirstStartPage(),
-      binding: FirstStartBinding(),
+        name: Routes.firstStartPage,
+        page: () => FirstStartPage(),
+        binding: FirstStartBinding()),
+    GetPage(
+      name: Routes.notificationPage,
+      page: () => const NotificationPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.userNotificationNewTaskPage,
+      page: () => const UserNotifictionNewTaskPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.userProjectListPage,
+      page: () => UserProjectListPage(),
+      binding: ProjectBinding(),
     ),
   ];
 }
@@ -148,4 +165,7 @@ abstract class Routes {
   static const organizationPage = '/organizationPage';
   static const userProfilePage = '/userProfilePage';
   static const firstStartPage = '/firstStartPage';
+  static const notificationPage = '/notificationPage';
+  static const userNotificationNewTaskPage = '/userNotificationNewTaskPage';
+  static const userProjectListPage = '/userProjectListPage';
 }

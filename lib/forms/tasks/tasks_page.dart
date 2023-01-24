@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -17,6 +18,10 @@ class TasksPage extends GetView<TasksController> {
   Widget build(BuildContext context) {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
+    var notificationController=Get.find<NotificationController>();
+    if (notificationController.lateInit) {
+      notificationController.requestItems();
+    }
 
     String formatted =
         NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
@@ -58,6 +63,10 @@ class TasksPage extends GetView<TasksController> {
                               Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
+                      notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
+                      notificationController.currentItem.task.name=controller.currentItem.name;
+                      notificationController.currentItem.task.date=todaydate;
+                      notificationController.itemPagePost();
                       await controller.itemPagePost();
                       Get.find<TasksController>().refreshData();
                       Get.toNamed(Routes.homePage);

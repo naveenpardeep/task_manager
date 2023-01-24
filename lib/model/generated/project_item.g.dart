@@ -148,6 +148,6 @@ class ProjectItemGenerated extends NsgDataItem {
 
   @override
   String get apiRequestItems {
-    return '/Data/ProjectItem';
+    return '/Data/Project';
   }
 }

@@ -9,6 +9,8 @@ class OrganizationItemUserTableGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
   static const nameUserAccountId = 'userAccountId';
+  static const nameIsAdmin = 'isAdmin';
+  static const nameIsBlocked = 'isBlocked';
 
   static final Map<String, String> fieldNameDict = {
   };
@@ -21,6 +23,8 @@ class OrganizationItemUserTableGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<OrganizationItem>(nameOwnerId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
+    addField(NsgDataBoolField(nameIsAdmin), primaryKey: false);
+    addField(NsgDataBoolField(nameIsBlocked), primaryKey: false);
   }
 
   @override
@@ -56,6 +60,16 @@ class OrganizationItemUserTableGenerated extends NsgDataItem {
   set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
   set userAccount(UserAccount value) =>
     setFieldValue(nameUserAccountId, value.id);
+
+  /// ЭтоАдминистратор
+  bool get isAdmin => getFieldValue(nameIsAdmin) as bool;
+
+  set isAdmin(bool value) => setFieldValue(nameIsAdmin, value);
+
+  /// Заблокирован
+  bool get isBlocked => getFieldValue(nameIsBlocked) as bool;
+
+  set isBlocked(bool value) => setFieldValue(nameIsBlocked, value);
 
   @override
   String get apiRequestItems {

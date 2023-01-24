@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
 
 class TmMobileMenu extends StatelessWidget {
@@ -59,13 +58,26 @@ class TmMobileMenu extends StatelessWidget {
             ),
           )),
           Expanded(
+              child: InkWell(
+            onTap: () {
+              Get.toNamed(Routes.notificationPage);
+              //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
+              // );
+            },
+            child: Icon(
+              Icons.notifications,
+              color: ControlOptions.instance.colorMain,
+              size: 32,
+            ),
+          )),
+          Expanded(
             child: Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   InkWell(
                     onTap: () {
-                     Get.toNamed(Routes.userProfilePage);
+                      Get.toNamed(Routes.userProfilePage);
                     },
                     child: ClipOval(
                       child: Image.network(

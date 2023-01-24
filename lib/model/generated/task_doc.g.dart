@@ -215,6 +215,6 @@ class TaskDocGenerated extends NsgDataItem {
 
   @override
   String get apiRequestItems {
-    return '/Data/TaskDoc';
+    return '/Data/Task';
   }
 }
