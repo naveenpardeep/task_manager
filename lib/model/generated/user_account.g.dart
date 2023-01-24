@@ -15,6 +15,10 @@ class UserAccountGenerated extends NsgDataItem {
   static const namePosition = 'position';
   static const nameSettingNotifyByEmail = 'settingNotifyByEmail';
   static const nameSettingNotifyByPush = 'settingNotifyByPush';
+  static const nameSettingNotifyNewTasks = 'settingNotifyNewTasks';
+  static const nameSettingNotifyEditedTasks = 'settingNotifyEditedTasks';
+  static const nameSettingNotifyNewTasksInProjects = 'settingNotifyNewTasksInProjects';
+  static const nameSettingNotifyEditedTasksInProjects = 'settingNotifyEditedTasksInProjects';
   static const nameLastChange = 'lastChange';
   static const namePictureId = 'pictureId';
   static const nameOrganizationId = 'organizationId';
@@ -45,6 +49,10 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataStringField(namePosition), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyByEmail), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyByPush), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyNewTasks), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyEditedTasks), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyNewTasksInProjects), primaryKey: false);
+    addField(NsgDataBoolField(nameSettingNotifyEditedTasksInProjects), primaryKey: false);
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
     addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
@@ -111,6 +119,26 @@ class UserAccountGenerated extends NsgDataItem {
   bool get settingNotifyByPush => getFieldValue(nameSettingNotifyByPush) as bool;
 
   set settingNotifyByPush(bool value) => setFieldValue(nameSettingNotifyByPush, value);
+
+  /// ВключеныУведомленияОНовыхЗадачах
+  bool get settingNotifyNewTasks => getFieldValue(nameSettingNotifyNewTasks) as bool;
+
+  set settingNotifyNewTasks(bool value) => setFieldValue(nameSettingNotifyNewTasks, value);
+
+  /// ВключеныУведомленияОбИзмененияхЗадач
+  bool get settingNotifyEditedTasks => getFieldValue(nameSettingNotifyEditedTasks) as bool;
+
+  set settingNotifyEditedTasks(bool value) => setFieldValue(nameSettingNotifyEditedTasks, value);
+
+  /// ВключеныУведомленияОНовыхЗадачахВПроектах
+  bool get settingNotifyNewTasksInProjects => getFieldValue(nameSettingNotifyNewTasksInProjects) as bool;
+
+  set settingNotifyNewTasksInProjects(bool value) => setFieldValue(nameSettingNotifyNewTasksInProjects, value);
+
+  /// ВключеныУведомленияОбИзмененияхЗадачВПроектах
+  bool get settingNotifyEditedTasksInProjects => getFieldValue(nameSettingNotifyEditedTasksInProjects) as bool;
+
+  set settingNotifyEditedTasksInProjects(bool value) => setFieldValue(nameSettingNotifyEditedTasksInProjects, value);
 
   /// ПоследнееИзменение
   DateTime get lastChange => getFieldValue(nameLastChange) as DateTime;
