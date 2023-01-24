@@ -3,8 +3,8 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 
-class UserNotificationNewTaskController extends NsgDataController<UserNotificationSettings> {
-  UserNotificationNewTaskController()
+class UserNotificationController extends NsgDataController<UserNotificationSettings> {
+  UserNotificationController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100);
 
   
@@ -28,7 +28,7 @@ class UserNotificationSettingStatusTableController
     extends NsgDataTableController<UserNotificationSettingsStatusTable> {
   UserNotificationSettingStatusTableController()
       : super(
-          masterController: Get.find<UserNotificationNewTaskController>(),
+          masterController: Get.find<UserNotificationController>(),
           tableFieldName: UserNotificationSettingsGenerated.nameStatusTable,
         );
         }

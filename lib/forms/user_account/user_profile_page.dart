@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_notification_newTask_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../../app_pages.dart';
@@ -201,23 +203,31 @@ class _UserProfileState extends State<UserProfile> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                NsgInput(
-                                  dataItem: userAccountController.currentItem,
-                                  fieldName: UserAccountGenerated
-                                      .nameSettingNotifyByPush,
-                                  label: 'Показывать push-уведомления',
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyByPush,
+                                    label: 'Показывать push-уведомления',
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                NsgInput(
-                                  dataItem: userAccountController.currentItem,
-                                  fieldName: UserAccountGenerated
-                                      .nameSettingNotifyByEmail,
-                                  label: 'Отправлять уведомления на почту',
-                                  // onChanged: (p0) async {
-                                  //  await userAccountController.itemPagePost(goBack: false);
-                                  // },
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyByEmail,
+                                    label: 'Отправлять уведомления на почту',
+                                    // onChanged: (p0) async {
+                                    //  await userAccountController.itemPagePost(goBack: false);
+                                    // },
+                                  ),
                                 ),
                                 Padding(
                                   padding:
@@ -237,38 +247,22 @@ class _UserProfileState extends State<UserProfile> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                  child: Row(
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    children: [
-                                      const Expanded(
-                                          child: Text(
-                                              'Новая задача с моим участием')),
-                                      IconButton(
-                                        icon:
-                                            const Icon(Icons.arrow_forward_ios),
-                                        onPressed: () {
-                                          Get.toNamed(Routes
-                                              .userNotificationNewTaskPage);
-                                        },
-                                      )
-                                    ],
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyNewTasks,
+                                    label: 'Создана задача с моим участием',
                                   ),
                                 ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                  child: Row(
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    children: [
-                                      const Expanded(
-                                          child:
-                                              Text('Все изменения в задаче')),
-                                      IconButton(
-                                        icon:
-                                            const Icon(Icons.arrow_forward_ios),
-                                        onPressed: () {},
-                                      )
-                                    ],
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyEditedTasks,
+                                    label:
+                                        'Все изменения в задачах с моим участием',
                                   ),
                                 ),
                                 Padding(
@@ -289,37 +283,53 @@ class _UserProfileState extends State<UserProfile> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                  child: Row(
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    children: [
-                                      const Expanded(
-                                          child:
-                                              Text('Новая задача в проекте')),
-                                      IconButton(
-                                        icon:
-                                            const Icon(Icons.arrow_forward_ios),
-                                        onPressed: () {},
-                                      )
-                                    ],
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyNewTasksInProjects,
+                                    label: 'Новая задача в проекте',
                                   ),
                                 ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                  child: Row(
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    children: [
-                                      const Expanded(
-                                          child: Text(
-                                              'Все изменения в задачах проектов')),
-                                      IconButton(
-                                        icon:
-                                            const Icon(Icons.arrow_forward_ios),
-                                        onPressed: () {},
-                                      )
-                                    ],
+                                  child: NsgInput(
+                                    dataItem: userAccountController.currentItem,
+                                    fieldName: UserAccountGenerated
+                                        .nameSettingNotifyEditedTasksInProjects,
+                                    label: 'Все изменения в задачах проектов',
                                   ),
                                 ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  child: Divider(
+                                    color: ControlOptions.instance.colorBlue,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  child: NsgText(
+                                    'ПРОЕКТЫ-ИСКЛЮЧЕНИЯ',
+                                    color: ControlOptions.instance.colorGrey,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: NsgTable(
+                                    controller: Get.find<ProjectController>(),
+                                    elementEditPageName:
+                                        Routes.userNotificationNewTaskPage,
+                                    availableButtons: const [],
+                                    columns: [
+                                      NsgTableColumn(
+                                          name: ProjectItemGenerated.nameName,
+                                          expanded: true,
+                                          presentation: 'Проекты'),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),

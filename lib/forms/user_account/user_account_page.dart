@@ -92,6 +92,34 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
                               ),
+                              NsgInput(
+                                      dataItem:
+                                          controller.currentItem,
+                                      fieldName: UserAccountGenerated
+                                          .nameSettingNotifyNewTasks,
+                                      label: 'Создана задача с моим участием',
+                                    ),
+                                    NsgInput(
+                                      dataItem:
+                                          controller.currentItem,
+                                      fieldName: UserAccountGenerated
+                                          .nameSettingNotifyEditedTasks,
+                                      label: 'Все изменения в задачах с моим участием',
+                                    ),
+                                    NsgInput(
+                                      dataItem:
+                                          controller.currentItem,
+                                      fieldName: UserAccountGenerated
+                                          .nameSettingNotifyNewTasksInProjects,
+                                      label: 'Новая задача в проекте',
+                                    ),
+                                    NsgInput(
+                                      dataItem:
+                                          controller.currentItem,
+                                      fieldName: UserAccountGenerated
+                                          .nameSettingNotifyEditedTasksInProjects,
+                                      label: 'Все изменения в задачах проектов',
+                                    ),
                               Center( child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',

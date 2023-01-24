@@ -7,8 +7,9 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
-import 'package:task_manager_app/forms/user_account/user_notification_newTask_page.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
+import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 import 'forms/invitation/invitaion_bindings.dart';
@@ -130,6 +131,11 @@ class AppPages {
       page: () => const UserNotifictionNewTaskPage(),
       binding: ProjectBinding(),
     ),
+     GetPage(
+      name: Routes.userProjectListPage,
+      page: () =>  UserProjectListPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -154,4 +160,5 @@ abstract class Routes {
   static const userProfilePage='/userProfilePage';
   static const notificationPage='/notificationPage';
   static const userNotificationNewTaskPage='/userNotificationNewTaskPage';
+  static const userProjectListPage='/userProjectListPage';
 }
