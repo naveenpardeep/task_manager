@@ -47,13 +47,10 @@ class _NotificationPageState extends State<NotificationPage> {
                           controller.itemPageCancel();
                         },
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                          child: SingleChildScrollView(
-                              child:
-                                  SizedBox(child: getNotificationTaskList())),
-                        ),
+                   
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                        child: getNotificationTaskList(),
                       ),
                     ])))));
   }
