@@ -7,6 +7,7 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_newTask_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../../app_pages.dart';
@@ -136,8 +137,8 @@ class _UserProfileState extends State<UserProfile> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10, 20, 0),
                                   child: Text(
                                       'Имя пользователя  : ${userAccountController.currentItem.name}'),
                                 ),
@@ -152,8 +153,8 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10, 20, 0),
                                   child: Text(
                                       'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
                                 ),
@@ -168,8 +169,8 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10, 20, 0),
                                   child: Text(
                                       'Почта   : ${userAccountController.currentItem.email}'),
                                 ),
@@ -243,8 +244,12 @@ class _UserProfileState extends State<UserProfile> {
                                           child: Text(
                                               'Новая задача с моим участием')),
                                       IconButton(
-                                        icon: const Icon(Icons.arrow_forward_ios),
-                                        onPressed: () {},
+                                        icon:
+                                            const Icon(Icons.arrow_forward_ios),
+                                        onPressed: () {
+                                          Get.toNamed(Routes
+                                              .userNotificationNewTaskPage);
+                                        },
                                       )
                                     ],
                                   ),
@@ -256,9 +261,11 @@ class _UserProfileState extends State<UserProfile> {
                                     // ignore: prefer_const_literals_to_create_immutables
                                     children: [
                                       const Expanded(
-                                          child: Text('Все изменения в задаче')),
+                                          child:
+                                              Text('Все изменения в задаче')),
                                       IconButton(
-                                        icon: const Icon(Icons.arrow_forward_ios),
+                                        icon:
+                                            const Icon(Icons.arrow_forward_ios),
                                         onPressed: () {},
                                       )
                                     ],
@@ -286,9 +293,11 @@ class _UserProfileState extends State<UserProfile> {
                                     // ignore: prefer_const_literals_to_create_immutables
                                     children: [
                                       const Expanded(
-                                          child: Text('Новая задача в проекте')),
+                                          child:
+                                              Text('Новая задача в проекте')),
                                       IconButton(
-                                        icon: const Icon(Icons.arrow_forward_ios),
+                                        icon:
+                                            const Icon(Icons.arrow_forward_ios),
                                         onPressed: () {},
                                       )
                                     ],
@@ -304,7 +313,8 @@ class _UserProfileState extends State<UserProfile> {
                                           child: Text(
                                               'Все изменения в задачах проектов')),
                                       IconButton(
-                                        icon: const Icon(Icons.arrow_forward_ios),
+                                        icon:
+                                            const Icon(Icons.arrow_forward_ios),
                                         onPressed: () {},
                                       )
                                     ],

@@ -9,6 +9,7 @@ import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_newTask_controller.dart';
 
 import '../task_status/project_status_controller.dart';
 import '../user_account/service_object_controller.dart';
@@ -30,5 +31,7 @@ class ProjectBinding extends Bindings {
     Get.put(OrganizationController());
     Get.put(OrganizationItemUserTableController());
     Get.put(UserImageController());
+    Get.put(UserNotificationNewTaskController());
+    Get.put(UserNotificationSettingStatusTableController());
   }
 }
