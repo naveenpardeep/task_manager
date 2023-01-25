@@ -75,7 +75,10 @@ class UserNotifictionNewTaskPage extends GetView<UserNotificationController> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              Get.find<ProjectController>().currentItem.name,
+                              Get.find<UserNotificationController>()
+                                  .currentItem
+                                  .project
+                                  .toString(),
                               textScaleFactor: 2,
                             ),
                           ),
