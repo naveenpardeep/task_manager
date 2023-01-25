@@ -19,11 +19,13 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectpageState extends State<ProjectPage> {
+  //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
   bool isHidden = true;
   @override
   void initState() {
     super.initState();
+    // scaffoldKey;
     isHidden;
   }
 
@@ -34,14 +36,15 @@ class _ProjectpageState extends State<ProjectPage> {
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     // String formatted = formateddate.format(controller.currentItem.date);
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    return BodyWrap(
+
+    return SafeArea(
       child: Scaffold(
-        key: scaffoldKey,
+        resizeToAvoidBottomInset: true,
+        // key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            key: GlobalKey(),
+            //   key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,8 +63,9 @@ class _ProjectpageState extends State<ProjectPage> {
                   icon2: Icons.check,
                   onPressed2: () {
                     if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('Пожалуйста, введите название проекта ')));
                     } else {
                       controller.itemPagePost();
                     }
@@ -73,10 +77,12 @@ class _ProjectpageState extends State<ProjectPage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgText('Создано :${formateddate.format(controller.currentItem.date)}'),
+                            NsgText(
+                                'Создано :${formateddate.format(controller.currentItem.date)}'),
                             NsgTable(
                               showIconFalse: false,
-                              controller: Get.find<ProjectItemUserTableController>(),
+                              controller:
+                                  Get.find<ProjectItemUserTableController>(),
                               elementEditPageName: Routes.projectuserRowpage,
                               availableButtons: const [
                                 NsgTableMenuButtonType.createNewElement,
@@ -85,15 +91,20 @@ class _ProjectpageState extends State<ProjectPage> {
                               ],
                               columns: [
                                 NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated.nameUserAccountId,
+                                    name: ProjectItemUserTableGenerated
+                                        .nameUserAccountId,
                                     expanded: true,
                                     presentation: 'User'),
                                 NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated.nameIsAdmin, width: 100, presentation: 'Admin'),
+                                    name: ProjectItemUserTableGenerated
+                                        .nameIsAdmin,
+                                    width: 100,
+                                    presentation: 'Admin'),
                               ],
                             ),
                             NsgInput(
-                              selectionController: Get.find<UserAccountController>(),
+                              selectionController:
+                                  Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemGenerated.nameLeaderId,
                               label: 'Руководитель проекта',
@@ -127,20 +138,27 @@ class _ProjectpageState extends State<ProjectPage> {
                                 ],
                                 columns: [
                                   NsgTableColumn(
-                                      name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
+                                      name: TaskStatusGenerated.nameName,
+                                      expanded: true,
+                                      presentation: 'Статусы'),
                                   NsgTableColumn(
-                                      name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
+                                      name: TaskStatusGenerated.nameIsDone,
+                                      width: 100,
+                                      presentation: 'Финальный'),
                                 ],
                               )),
                             ),
-                            if (isHidden == true && controller.currentItem.name.isEmpty)
+                            if (isHidden == true &&
+                                controller.currentItem.name.isEmpty)
                               NsgButton(
                                 text: 'Сохранить и далее',
                                 color: Colors.white,
                                 onPressed: () {
                                   if (controller.currentItem.name.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
+                                        const SnackBar(
+                                            content: Text(
+                                                'Пожалуйста, введите название проекта ')));
                                   } else {
                                     setState(() {
                                       isHidden = false;
