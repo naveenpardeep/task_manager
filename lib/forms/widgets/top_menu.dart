@@ -60,16 +60,6 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.notificationPage);
-                    },
-                    child: Icon(
-                      Icons.notifications,
-                      color: ControlOptions.instance.colorWhite,
-                      size: 32,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
@@ -81,6 +71,45 @@ class TmTopMenu extends StatelessWidget {
                         color: ControlOptions.instance.colorMainText,
                       ),
                     ),
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.notificationPage);
+                          //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
+                          // );
+                        },
+                        child: Icon(
+                          Icons.notifications,
+                          color: ControlOptions.instance.colorWhite,
+                          size: 32,
+                        ),
+                      ),
+                      Positioned(
+                        right: 1,
+                        top: 1,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          constraints: const BoxConstraints(
+                            minWidth: 14,
+                            minHeight: 14,
+                          ),
+                          child: const Text(
+                            '0',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 7,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),

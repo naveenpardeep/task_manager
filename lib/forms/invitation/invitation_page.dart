@@ -97,6 +97,7 @@ class _InvitationPageState extends State<InvitationPage> {
                                 fieldName: InvitationGenerated.nameIsAccepted,
                                 label: 'Accept',
                               ),
+                           
                             ]),
                           ),
                         ),

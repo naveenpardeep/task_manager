@@ -59,8 +59,11 @@ class TmMobileMenu extends StatelessWidget {
               size: 32,
             ),
           )),
-           Expanded(
-              child: InkWell(
+          
+
+          Stack(
+            children: <Widget>[
+               InkWell(
             onTap: () {
              Get.toNamed(Routes.notificationPage);
             //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
@@ -71,7 +74,32 @@ class TmMobileMenu extends StatelessWidget {
               color: ControlOptions.instance.colorMain,
               size: 32,
             ),
-          )),
+          ),
+              Positioned(
+                right: 1,
+                top: 1,
+                child:  Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration:  BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: const Text(
+                    '0',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 7,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ) 
+            ],
+          ),
           Expanded(
             child: Center(
               child: Row(
