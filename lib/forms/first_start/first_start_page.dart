@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
-class FirstStartPage extends GetView<UserAccountController> {
+class FirstStartPage extends GetView<OrganizationController> {
   FirstStartPage({Key? key}) : super(key: key);
 
   final scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  late double width;
+  double? width;
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+    width = MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
           body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (width > 991) const TmTopMenu(),
+          if (width! > 991) const TmTopMenu(),
           Padding(
               padding: const EdgeInsets.only(
                   top: 10, left: 10, right: 10, bottom: 10),
@@ -47,14 +47,14 @@ class FirstStartPage extends GetView<UserAccountController> {
                     color: Colors.white,
                     backColor: ControlOptions.instance.colorMain,
                     onPressed: () {
-                      Get.find<ProjectController>()
-                          .newItemPageOpen(pageName: Routes.projectPage);
+                      Get.find<OrganizationController>()
+                          .newItemPageOpen(pageName: Routes.organizationPage);
                     },
                   ),
                 ],
               )),
           Expanded(child: controller.obx((state) => showOrganization())),
-          if (width < 992) const TmMobileMenu(),
+          if (width! < 992) const TmMobileMenu(),
         ],
       )),
     );
@@ -185,8 +185,8 @@ class FirstStartPage extends GetView<UserAccountController> {
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
             controller: scrollController,
-            child: width > 991
-                ? NsgGrid(crossAxisCount: width ~/ 400, children: list)
+            child: width! > 991
+                ? NsgGrid(crossAxisCount: width! ~/ 400, children: list)
                 : Column(children: list)));
   }
 }
