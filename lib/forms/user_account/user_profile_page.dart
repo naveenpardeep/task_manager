@@ -8,12 +8,9 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../../app_pages.dart';
-import '../../model/generated/user_account.g.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});

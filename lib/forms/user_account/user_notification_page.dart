@@ -71,7 +71,7 @@ class UserNotifictionNewTaskPage extends GetView<UserNotificationController> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                          padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(

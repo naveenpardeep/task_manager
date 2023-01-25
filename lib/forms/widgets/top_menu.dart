@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
 class TmTopMenu extends StatelessWidget {
@@ -54,6 +55,21 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Пользователи',
+                        style: TextStyle(
+                            color: ControlOptions.instance.colorMainText,
+                            fontSize: ControlOptions.instance.sizeXL),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      onTap: () async {
+                        await Get.find<DataController>().provider!.logout();
+                        await Get.find<DataController>().onInit();
+                      },
+                      child: Text(
+                        'logout',
                         style: TextStyle(
                             color: ControlOptions.instance.colorMainText,
                             fontSize: ControlOptions.instance.sizeXL),

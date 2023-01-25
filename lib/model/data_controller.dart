@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
 import '../app_pages.dart';
 import '../login/login_page.dart';
@@ -33,6 +34,8 @@ class DataController extends DataControllerGenerated {
   @override
   Future loadProviderData() async {
     await super.loadProviderData();
+    await Get.find<UserAccountController>().refreshData();
+    isLoadFinished = true;
     _gotoMainPage();
   }
 
@@ -42,16 +45,27 @@ class DataController extends DataControllerGenerated {
     _gotoMainPage();
   }
 
+  bool isLoadFinished = false;
   bool gotoDone = false;
   void _gotoMainPage() {
-    if (_animationFinished && status.isSuccess && !gotoDone) {
+    if (_animationFinished && isLoadFinished && status.isSuccess && !gotoDone) {
       gotoDone = true;
-     // Get.offAndToNamed(Routes.tasksListPage);
-     //Get.offAndToNamed(Routes.homePage);
-   // Get.offAndToNamed(Routes.taskStatusListPage);
-   Get.offAndToNamed(Routes.projectListPage);
-   //Get.offAndToNamed(Routes.userAccountListPage);
-   //Get.offAndToNamed(Routes.invitationPage);
+      var accController = Get.find<UserAccountController>();
+      assert(accController.items.isNotEmpty);
+      if (accController.items
+          .firstWhere((e) => e.organization.isEmpty,
+              orElse: () => accController.firstItem)
+          .firstName
+          .isEmpty) {
+        Get.offAndToNamed(Routes.firstStartPage);
+      } else {
+        // Get.offAndToNamed(Routes.tasksListPage);
+        //Get.offAndToNamed(Routes.homePage);
+        // Get.offAndToNamed(Routes.taskStatusListPage);
+        Get.offAndToNamed(Routes.projectListPage);
+        //Get.offAndToNamed(Routes.userAccountListPage);
+        //Get.offAndToNamed(Routes.invitationPage);
+      }
     }
   }
 }

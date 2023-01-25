@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
+import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
 import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
@@ -122,6 +124,10 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
+        name: Routes.firstStartPage,
+        page: () => FirstStartPage(),
+        binding: FirstStartBinding()),
+    GetPage(
       name: Routes.notificationPage,
       page: () => const NotificationPage(),
       binding: ProjectBinding(),
@@ -131,9 +137,9 @@ class AppPages {
       page: () => const UserNotifictionNewTaskPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.userProjectListPage,
-      page: () =>  UserProjectListPage(),
+      page: () => UserProjectListPage(),
       binding: ProjectBinding(),
     ),
   ];
@@ -157,8 +163,9 @@ abstract class Routes {
   static const projectuserRowpage = '/projectUserRowPage';
   static const invitationPage = '/invitationPage';
   static const organizationPage = '/organizationPage';
-  static const userProfilePage='/userProfilePage';
-  static const notificationPage='/notificationPage';
-  static const userNotificationNewTaskPage='/userNotificationNewTaskPage';
-  static const userProjectListPage='/userProjectListPage';
+  static const userProfilePage = '/userProfilePage';
+  static const firstStartPage = '/firstStartPage';
+  static const notificationPage = '/notificationPage';
+  static const userNotificationNewTaskPage = '/userNotificationNewTaskPage';
+  static const userProjectListPage = '/userProjectListPage';
 }
