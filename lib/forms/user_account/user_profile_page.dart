@@ -8,6 +8,8 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
@@ -312,21 +314,63 @@ class _UserProfileState extends State<UserProfile> {
                                     color: ControlOptions.instance.colorGrey,
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: NsgTable(
+                                //     controller: Get.find<UserNotificationController>(),
+                                //     elementEditPageName:
+                                //         Routes.userProjectListPage,
+                                //     availableButtons: const [NsgTableMenuButtonType.createNewElement],
+                                //     columns: [
+                                //       NsgTableColumn(
+                                //           name: UserNotificationSettingsGenerated.nameProjectId,
+                                //           expanded: true,
+                                //           presentation: 'Проекты'),
+                                //     ],
+                                //   ),
+                                // ),
+
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: NsgTable(
-                                    controller: Get.find<ProjectController>(),
-                                    elementEditPageName:
-                                        Routes.userNotificationNewTaskPage,
-                                    availableButtons: const [],
-                                    columns: [
-                                      NsgTableColumn(
-                                          name: ProjectItemGenerated.nameName,
-                                          expanded: true,
-                                          presentation: 'Проекты'),
-                                    ],
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: SizedBox(
+                                    width: width,
+                                    height: 200,
+                                    child: NsgListPage(
+                                        appBar: const SizedBox(),
+                                        appBarIcon: null,
+                                        appBarIcon2: null,
+                                        appBarBackColor: const Color(0xff7876D9),
+                                        appBarColor: Colors.white,
+                                        type: NsgListPageMode.table,
+                                        controller: Get.find<
+                                            UserNotificationController>(),
+                                        title: '',
+                                        textNoItems: '',
+                                        elementEditPage:
+                                            Routes.userProjectListPage,
+                                        onElementTap: (element) {
+                                          element as UserNotificationSettings;
+                                
+                                          Get.find<UserNotificationController>()
+                                              .currentItem = element;
+                                          Get.toNamed(
+                                              Routes.userNotificationNewTaskPage);
+                                        },
+                                        availableButtons: const [
+                                          NsgTableMenuButtonType.createNewElement,
+                                          NsgTableMenuButtonType.editElement,
+                                          NsgTableMenuButtonType.removeElement
+                                        ],
+                                        columns: [
+                                          NsgTableColumn(
+                                              name:
+                                                  UserNotificationSettingsGenerated
+                                                      .nameProjectId,
+                                              expanded: true,
+                                              presentation: 'Название проекта'),
+                                        ]),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
