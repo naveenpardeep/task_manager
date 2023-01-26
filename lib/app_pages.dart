@@ -36,7 +36,7 @@ class AppPages {
     GetPage(
       name: Routes.splashPage,
       page: () => const SplashPage(),
-      binding: SplashBinding(),
+      binding: ProjectBinding(),
     ),
     GetPage(
       name: Routes.mainPage,

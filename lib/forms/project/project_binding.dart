@@ -11,6 +11,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import '../task_status/project_status_controller.dart';
 import '../user_account/service_object_controller.dart';
@@ -18,6 +19,7 @@ import '../user_account/service_object_controller.dart';
 class ProjectBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put(DataController(),permanent: true);
     Get.put(ProjectController());
     Get.put(ProjectItemUserTableController());
     Get.put(TasksController());
@@ -35,5 +37,6 @@ class ProjectBinding extends Bindings {
     Get.put(UserImageController());
     Get.put(UserNotificationController());
     Get.put(UserNotificationSettingStatusTableController());
+    
   }
 }

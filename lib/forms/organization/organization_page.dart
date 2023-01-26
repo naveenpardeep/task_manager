@@ -2,32 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
-class OrganizationPage extends StatefulWidget {
+class OrganizationPage extends GetView<OrganizationController> {
   const OrganizationPage({Key? key}) : super(key: key);
+  
   @override
-  State<OrganizationPage> createState() => _OrganizationPageState();
-}
-
-class _OrganizationPageState extends State<OrganizationPage> {
-  var controller = Get.find<OrganizationController>();
-
-  @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
         child: Scaffold(
-            key: scaffoldKey,
             backgroundColor: Colors.white,
             body: controller.obx((state) => Container(
                 key: GlobalKey(),
@@ -38,9 +27,8 @@ class _OrganizationPageState extends State<OrganizationPage> {
                       NsgAppBar(
                         color: Colors.white,
                         backColor: const Color(0xff7876D9),
-                        text: controller.currentItem.isEmpty
-                            ? 'Organization'.toUpperCase()
-                            : controller.currentItem.name,
+                        text: 'Welcome To Task Manager'.toUpperCase()
+                            ,
                         icon: Icons.arrow_back_ios_new,
                         colorsInverted: true,
                         bottomCircular: true,
@@ -48,8 +36,10 @@ class _OrganizationPageState extends State<OrganizationPage> {
                           controller.itemPageCancel();
                         },
                         icon2: Icons.check,
-                        onPressed2: () {
-                          controller.itemPagePost();
+                        onPressed2: () async {
+                          await controller.itemPagePost();
+                          Get.find<UserAccountController>()
+                              .itemNewPageOpen(Routes.userAccount);
                         },
                       ),
                       Expanded(
@@ -60,7 +50,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: OrganizationItemGenerated.nameName,
-                                label: 'Organization Name',
+                                label: 'Create Organization',
                               ),
                             ]),
                           ),
