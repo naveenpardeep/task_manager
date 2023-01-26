@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
 
 class TmMobileMenu extends StatelessWidget {
@@ -106,7 +107,8 @@ class TmMobileMenu extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.userProfilePage);
+                     // Get.toNamed(Routes.userProfilePage);
+                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
                     },
                     child: ClipOval(
                       child: Image.network(

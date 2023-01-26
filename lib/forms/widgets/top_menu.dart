@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
@@ -117,7 +118,10 @@ class TmTopMenu extends StatelessWidget {
                             minHeight: 15,
                           ),
                           child: Text(
-                            Get.find<NotificationController>().items.length.toString(),
+                            Get.find<NotificationController>()
+                                .items
+                                .length
+                                .toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 10,
@@ -140,7 +144,9 @@ class TmTopMenu extends StatelessWidget {
                     width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
               onTap: () {
-                Get.toNamed(Routes.userProfilePage);
+                Get.find<UserAccountController>().itemPageOpen(
+                    Get.find<UserAccountController>().currentItem,
+                    Routes.userProfilePage);
               },
               child: ClipOval(
                 child: Image.network(
