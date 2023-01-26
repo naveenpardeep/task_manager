@@ -36,8 +36,9 @@ class UserAccountPage extends GetView<UserAccountController> {
                       controller.itemPageCancel();
                     },
                     icon2: Icons.check,
-                    onPressed2: () {
-                      controller.itemPagePost();
+                    onPressed2: () async {
+                      await controller.itemPagePost();
+                      Get.back();
                     },
                   ),
                   Expanded(
@@ -46,10 +47,12 @@ class UserAccountPage extends GetView<UserAccountController> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                               NsgInput(
-                                selectionController: Get.find<OrganizationController>(),
+                              NsgInput(
+                                selectionController:
+                                    Get.find<OrganizationController>(),
                                 dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameOrganizationId,
+                                fieldName:
+                                    UserAccountGenerated.nameOrganizationId,
                                 label: 'Организация',
                               ),
                               NsgInput(
@@ -82,45 +85,44 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
-                               NsgInput(
+                              NsgInput(
                                 dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameSettingNotifyByPush,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyByPush,
                                 label: 'Показывать push-уведомления',
                               ),
                               NsgInput(
                                 dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
                               ),
                               NsgInput(
-                                      dataItem:
-                                          controller.currentItem,
-                                      fieldName: UserAccountGenerated
-                                          .nameSettingNotifyNewTasks,
-                                      label: 'Создана задача с моим участием',
-                                    ),
-                                    NsgInput(
-                                      dataItem:
-                                          controller.currentItem,
-                                      fieldName: UserAccountGenerated
-                                          .nameSettingNotifyEditedTasks,
-                                      label: 'Все изменения в задачах с моим участием',
-                                    ),
-                                    NsgInput(
-                                      dataItem:
-                                          controller.currentItem,
-                                      fieldName: UserAccountGenerated
-                                          .nameSettingNotifyNewTasksInProjects,
-                                      label: 'Новая задача в проекте',
-                                    ),
-                                    NsgInput(
-                                      dataItem:
-                                          controller.currentItem,
-                                      fieldName: UserAccountGenerated
-                                          .nameSettingNotifyEditedTasksInProjects,
-                                      label: 'Все изменения в задачах проектов',
-                                    ),
-                              Center( child: userImage()),
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyNewTasks,
+                                label: 'Создана задача с моим участием',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyEditedTasks,
+                                label:
+                                    'Все изменения в задачах с моим участием',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyNewTasksInProjects,
+                                label: 'Новая задача в проекте',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated
+                                    .nameSettingNotifyEditedTasksInProjects,
+                                label: 'Все изменения в задачах проектов',
+                              ),
+                              Center(child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',
                               //   color: Colors.white,
@@ -142,14 +144,13 @@ class UserAccountPage extends GetView<UserAccountController> {
   }
 }
 
- Widget userImage() {
-    return Get.find<UserImageController>().obx(
-      (state) => NsgFilePicker(
-        showAsWidget: true,
-        callback: (value) {},
-        objectsList: Get.find<UserImageController>().images,
-        allowedFileFormats: const [],
-      ),
-    );
-  }
-
+Widget userImage() {
+  return Get.find<UserImageController>().obx(
+    (state) => NsgFilePicker(
+      showAsWidget: true,
+      callback: (value) {},
+      objectsList: Get.find<UserImageController>().images,
+      allowedFileFormats: const [],
+    ),
+  );
+}
