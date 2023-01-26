@@ -443,10 +443,11 @@ class _UserProfileState extends State<UserProfile> {
                       children: [
                         IconButton(
                             onPressed: () async {
-                              controller.currentItem = project;
-                              await controller
-                                  .deleteItems([controller.currentItem]);
-                              controller.sendNotify();
+                              // controller.currentItem = project;
+                              // await controller
+                              //     .deleteItems([controller.currentItem]);
+                              // controller.sendNotify();
+                              showAlertDialog(context, project);
                             },
                             icon: const Icon(Icons.delete)),
                         Expanded(
@@ -470,5 +471,40 @@ class _UserProfileState extends State<UserProfile> {
       ));
     }
     return SingleChildScrollView(child: Column(children: list));
+  }
+
+  showAlertDialog(BuildContext context, UserNotificationSettings project) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        Get.find<UserNotificationController>().currentItem = project;
+        await Get.find<UserNotificationController>()
+            .deleteItems([Get.find<UserNotificationController>().currentItem]);
+        Get.find<UserNotificationController>().sendNotify();
+        Get.back();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+   
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
