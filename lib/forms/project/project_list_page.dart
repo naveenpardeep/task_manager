@@ -106,16 +106,8 @@ class ProjectListPage extends GetView<ProjectController> {
                                       height: 1),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: NsgCircle(
-                                  text: project.numberOfTasksOpen.toString(),
-                                  fontSize: 14,
-                                  borderWidth: 1.3,
-                                  color: ControlOptions.instance.colorText,
-                                  shadow: const BoxShadow(),
-                                ),
-                              ),
+                               
+                              if(project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
@@ -128,6 +120,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                   shadow: const BoxShadow(),
                                 ),
                               ),
+                               if(project.numberOfTasksOverdue.isGreaterThan(0))
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
@@ -139,7 +132,18 @@ class ProjectListPage extends GetView<ProjectController> {
                                       ControlOptions.instance.colorError,
                                   shadow: const BoxShadow(),
                                 ),
-                              )
+                              ),
+                              if(project.numberOfTasksOpen.isGreaterThan(0))
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: NsgCircle(
+                                  text: project.numberOfTasksOpen.toString(),
+                                  fontSize: 14,
+                                  borderWidth: 1.3,
+                                  color: ControlOptions.instance.colorText,
+                                  shadow: const BoxShadow(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
