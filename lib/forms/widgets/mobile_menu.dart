@@ -83,14 +83,14 @@ class TmMobileMenu extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   constraints: const BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
+                    minWidth: 15,
+                    minHeight: 15,
                   ),
                   child: const Text(
                     '0',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 7,
+                      fontSize: 10,
                     ),
                     textAlign: TextAlign.center,
                   ),
