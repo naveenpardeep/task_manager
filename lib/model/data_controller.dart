@@ -55,20 +55,19 @@ class DataController extends DataControllerGenerated {
       gotoDone = true;
       var accController = Get.find<UserAccountController>();
       assert(accController.items.isNotEmpty);
-      if (accController.items
-          .firstWhere((element) => element.firstName.isEmpty)
-          .firstName
-          .isEmpty) {
-        Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccount);
-      }
-      // else if (accController.items
-      //     .firstWhere((e) => e.organization.isEmpty,
-      //         orElse: () => accController.firstItem)
+      // if (accController.items
+      //     .firstWhere((element) => element.firstName.isEmpty)
       //     .firstName
       //     .isEmpty) {
-      //   Get.offAndToNamed(Routes.firstStartPage);
+      //   Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccount);
       // }
-      else {
+      var userAccount = accController.items.firstWhere(
+          (e) => e.organization.isEmpty,
+          orElse: () => accController.firstItem);
+      if (userAccount.firstName.isEmpty) {
+        Get.find<UserAccountController>()
+            .itemPageOpen(userAccount, Routes.userAccount);
+      } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);
         // Get.offAndToNamed(Routes.taskStatusListPage);
