@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
@@ -38,8 +39,8 @@ class OrganizationPage extends GetView<OrganizationController> {
                         icon2: Icons.check,
                         onPressed2: () async {
                           await controller.itemPagePost();
-                          Get.find<UserAccountController>()
-                              .itemNewPageOpen(Routes.userAccount);
+                          Get.find<ProjectController>()
+                              .itemNewPageOpen(Routes.projectListPage);
                         },
                       ),
                       Expanded(

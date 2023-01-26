@@ -36,7 +36,7 @@ class DataController extends DataControllerGenerated {
   @override
   Future loadProviderData() async {
     await super.loadProviderData();
-     await Get.find<OrganizationController>().refreshData();
+    await Get.find<OrganizationController>().refreshData();
     await Get.find<UserAccountController>().refreshData();
     isLoadFinished = true;
     _gotoMainPage();
@@ -59,7 +59,7 @@ class DataController extends DataControllerGenerated {
           .firstWhere((element) => element.firstName.isEmpty)
           .firstName
           .isEmpty) {
-       Get.find<OrganizationController>().itemNewPageOpen(Routes.organizationPage);
+        Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccount);
       }
       // else if (accController.items
       //     .firstWhere((e) => e.organization.isEmpty,

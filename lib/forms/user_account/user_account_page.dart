@@ -50,7 +50,8 @@ class UserAccountPage extends GetView<UserAccountController> {
                     icon2: Icons.check,
                     onPressed2: () async {
                       await controller.itemPagePost();
-                      Get.find<ProjectController>().itemNewPageOpen(Routes.projectListPage);
+                      Get.find<OrganizationController>()
+                          .itemNewPageOpen(Routes.organizationPage);
 
                       // Get.back();
                     },
@@ -61,14 +62,14 @@ class UserAccountPage extends GetView<UserAccountController> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              NsgInput(
-                                selectionController:
-                                    Get.find<OrganizationController>(),
-                                dataItem: controller.currentItem,
-                                fieldName:
-                                    UserAccountGenerated.nameOrganizationId,
-                                label: 'Организация',
-                              ),
+                              // NsgInput(
+                              //   selectionController:
+                              //       Get.find<OrganizationController>(),
+                              //   dataItem: controller.currentItem,
+                              //   fieldName:
+                              //       UserAccountGenerated.nameOrganizationId,
+                              //   label: 'Организация',
+                              // ),
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePosition,
