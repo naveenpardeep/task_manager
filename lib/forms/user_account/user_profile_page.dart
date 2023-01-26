@@ -26,6 +26,8 @@ class _UserProfileState extends State<UserProfile> {
   var userAccountController = Get.find<UserAccountController>();
   var userImageController = Get.find<UserImageController>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final scrollController = ScrollController();
+  double? width;
 
   @override
   void initState() {
@@ -37,6 +39,9 @@ class _UserProfileState extends State<UserProfile> {
     }
     if (userImageController.lateInit) {
       userImageController.requestItems();
+    }
+    if (Get.find<UserNotificationController>().lateInit) {
+      Get.find<UserNotificationController>().requestItems();
     }
   }
 
@@ -329,48 +334,66 @@ class _UserProfileState extends State<UserProfile> {
                                 //     ],
                                 //   ),
                                 // ),
+                                Get.find<UserNotificationController>().obx(
+                                  (state) => (projectList()),
+                                ),
 
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: SizedBox(
-                                    width: width,
-                                    height: 200,
-                                    child: NsgListPage(
-                                        appBar: const SizedBox(),
-                                        appBarIcon: null,
-                                        appBarIcon2: null,
-                                        appBarBackColor: const Color(0xff7876D9),
-                                        appBarColor: Colors.white,
-                                        type: NsgListPageMode.table,
-                                        controller: Get.find<
-                                            UserNotificationController>(),
-                                        title: '',
-                                        textNoItems: '',
-                                        elementEditPage:
-                                            Routes.userProjectListPage,
-                                        onElementTap: (element) {
-                                          element as UserNotificationSettings;
-                                
-                                          Get.find<UserNotificationController>()
-                                              .currentItem = element;
-                                          Get.toNamed(
-                                              Routes.userNotificationNewTaskPage);
-                                        },
-                                        availableButtons: const [
-                                          NsgTableMenuButtonType.createNewElement,
-                                          NsgTableMenuButtonType.editElement,
-                                          NsgTableMenuButtonType.removeElement
-                                        ],
-                                        columns: [
-                                          NsgTableColumn(
-                                              name:
-                                                  UserNotificationSettingsGenerated
-                                                      .nameProjectId,
-                                              expanded: true,
-                                              presentation: 'Название проекта'),
-                                        ]),
+                                Center(
+                                  child: NsgButton(
+                                    text: '+ добавить проект для уведомлений',
+                                    borderRadius: 10,
+                                    onPressed: () {
+                                      Get.find<UserNotificationController>()
+                                          .newItemPageOpen(
+                                              pageName:
+                                                  Routes.userProjectListPage);
+                                    },
                                   ),
                                 ),
+
+                                // Padding(
+                                //   padding: const EdgeInsets.all(10.0),
+                                //   child: SizedBox(
+                                //     width: width,
+                                //     height: 200,
+                                //     child: NsgListPage(
+                                //         appBar: const SizedBox(),
+                                //         appBarIcon: null,
+                                //         appBarIcon2: null,
+                                //         appBarBackColor:
+                                //             const Color(0xff7876D9),
+                                //         appBarColor: Colors.white,
+                                //         type: NsgListPageMode.table,
+                                //         controller: Get.find<
+                                //             UserNotificationController>(),
+                                //         title: '',
+                                //         textNoItems: '',
+                                //         elementEditPage:
+                                //             Routes.userProjectListPage,
+                                //         onElementTap: (element) {
+                                //           element as UserNotificationSettings;
+
+                                //           Get.find<UserNotificationController>()
+                                //               .currentItem = element;
+                                //           Get.toNamed(Routes
+                                //               .userNotificationNewTaskPage);
+                                //         },
+                                //         availableButtons: const [
+                                //           NsgTableMenuButtonType
+                                //               .createNewElement,
+                                //           NsgTableMenuButtonType.editElement,
+                                //           NsgTableMenuButtonType.removeElement
+                                //         ],
+                                //         columns: [
+                                //           NsgTableColumn(
+                                //               name:
+                                //                   UserNotificationSettingsGenerated
+                                //                       .nameProjectId,
+                                //               expanded: true,
+                                //               presentation: 'Название проекта'),
+                                //         ]),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -397,5 +420,61 @@ class _UserProfileState extends State<UserProfile> {
         });
       },
     );
+  }
+
+  Widget projectList() {
+    var controller = Get.find<UserNotificationController>();
+    List<Widget> list = [];
+    for (var project in controller.items) {
+      list.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: InkWell(
+          onTap: () {
+            controller.currentItem = project;
+            Get.toNamed(Routes.userNotificationNewTaskPage);
+          },
+          onLongPress: () {
+            // controller.itemPageOpen(project, Routes.projectPage);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: Card(
+                  // elevation: 3,
+                  margin: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () async {
+                              controller.currentItem = project;
+                              await controller
+                                  .deleteItems([controller.currentItem]);
+                              controller.sendNotify();
+                            },
+                            icon: const Icon(Icons.delete)),
+                        Expanded(
+                          child: Text(
+                            project.project.name,
+                            style: TextStyle(
+                                color: ControlOptions.instance.colorMainDark,
+                                fontWeight: FontWeight.bold,
+                                fontSize: ControlOptions.instance.sizeL,
+                                height: 1),
+                          ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ));
+    }
+    return SingleChildScrollView(child: Column(children: list));
   }
 }
