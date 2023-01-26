@@ -5,13 +5,10 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-
 class UserProjectListPage extends GetView<UserNotificationController> {
   UserProjectListPage({Key? key}) : super(key: key);
 
-
-
- @override
+  @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
@@ -19,19 +16,15 @@ class UserProjectListPage extends GetView<UserNotificationController> {
 
     return BodyWrap(
       child: Scaffold(
-        
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-          
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  text: controller.currentItem.isEmpty
-                      ? 'Project '.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
+                  text: 'проект '.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -50,11 +43,12 @@ class UserProjectListPage extends GetView<UserNotificationController> {
                         child: Column(
                           children: [
                             NsgInput(
-                              selectionController: Get.find<ProjectController>(),
+                              selectionController:
+                                  Get.find<ProjectController>(),
                               dataItem: controller.currentItem,
-                              fieldName:
-                                  UserNotificationSettingsGenerated.nameProjectId,
-                              label: 'Projects',
+                              fieldName: UserNotificationSettingsGenerated
+                                  .nameProjectId,
+                              label: 'Выберите проект',
                             ),
                           ],
                         ),
