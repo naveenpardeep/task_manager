@@ -458,10 +458,9 @@ class _UserProfileState extends State<UserProfile> {
                           child: Text(
                             project.project.name,
                             style: TextStyle(
-                                color: ControlOptions.instance.colorMainDark,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ControlOptions.instance.sizeL,
-                                height: 1),
+                              color: ControlOptions.instance.colorMainDark,
+                              fontSize: ControlOptions.instance.sizeL,
+                            ),
                           ),
                         ),
                         const Icon(Icons.arrow_forward_ios)
