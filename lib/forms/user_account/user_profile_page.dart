@@ -66,19 +66,14 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                   ),
                   actions: [
-                    TextButton(
-                        onPressed: () {
-                          userAccountController.itemPageOpen(
-                              userAccountController.currentItem,
-                              Routes.userAccount);
-                        },
-                        child: Row(
-                          // ignore: prefer_const_literals_to_create_immutables
-                          children: [
-                            const Text('Edit Profile'),
-                            const Icon(Icons.arrow_forward_ios),
-                          ],
-                        ))
+                    IconButton(
+                      onPressed: () {
+                        userAccountController.itemPageOpen(
+                            userAccountController.currentItem,
+                            Routes.userAccount);
+                      },
+                      icon: const Icon(Icons.edit),
+                    )
                   ],
                   leading: InkWell(
                       onTap: () {
