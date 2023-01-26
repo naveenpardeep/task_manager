@@ -36,7 +36,7 @@ class DataController extends DataControllerGenerated {
   @override
   Future loadProviderData() async {
     await super.loadProviderData();
-      await Get.find<OrganizationController>().refreshData();
+     await Get.find<OrganizationController>().refreshData();
     await Get.find<UserAccountController>().refreshData();
     isLoadFinished = true;
     _gotoMainPage();

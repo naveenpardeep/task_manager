@@ -63,10 +63,10 @@ class TasksPage extends GetView<TasksController> {
                               Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
-                      notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
-                      notificationController.currentItem.task.name=controller.currentItem.name;
-                      notificationController.currentItem.task.date=todaydate;
-                      notificationController.itemPagePost();
+                      // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
+                      // notificationController.currentItem.task.name=controller.currentItem.name;
+                      // notificationController.currentItem.task.date=todaydate;
+                      // notificationController.itemPagePost();
                       await controller.itemPagePost();
                       Get.find<TasksController>().refreshData();
                       Get.toNamed(Routes.homePage);
