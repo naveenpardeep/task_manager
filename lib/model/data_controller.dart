@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
 import '../app_pages.dart';
@@ -36,7 +37,7 @@ class DataController extends DataControllerGenerated {
   @override
   Future loadProviderData() async {
     await super.loadProviderData();
-    await Get.find<OrganizationController>().refreshData();
+    //  await Get.find<OrganizationController>().refreshData();
     await Get.find<UserAccountController>().refreshData();
     isLoadFinished = true;
     _gotoMainPage();
@@ -71,9 +72,11 @@ class DataController extends DataControllerGenerated {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);
         // Get.offAndToNamed(Routes.taskStatusListPage);
-        Get.offAndToNamed(Routes.projectListPage);
+        //   Get.offAndToNamed(Routes.projectListPage);
         //Get.offAndToNamed(Routes.userAccountListPage);
         //Get.offAndToNamed(Routes.invitationPage);
+        Get.find<ProjectController>().itemPageOpen(
+            Get.find<ProjectController>().currentItem, Routes.projectListPage);
       }
     }
   }

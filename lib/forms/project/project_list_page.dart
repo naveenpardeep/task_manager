@@ -73,10 +73,10 @@ class ProjectListPage extends GetView<ProjectController> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            var taskConstroller = Get.find<TasksController>();
-            Get.find<TaskBoardController>().sendNotify();
             controller.currentItem = project;
+            var taskConstroller = Get.find<TasksController>();
             taskConstroller.refreshData();
+            Get.find<TaskBoardController>().refreshData();
             Get.toNamed(Routes.homePage);
           },
           onLongPress: () {
@@ -106,44 +106,46 @@ class ProjectListPage extends GetView<ProjectController> {
                                       height: 1),
                                 ),
                               ),
-                               
-                              if(project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: NsgCircle(
-                                  text: project.numberOfTasksUpdatedIn24Hours.toString(),
-                                  fontSize: 14,
-                                  borderWidth: 1.3,
-                                  color: ControlOptions.instance.colorText,
-                                  borderColor:
-                                      ControlOptions.instance.colorWarning,
-                                  shadow: const BoxShadow(),
+                              if (project.numberOfTasksUpdatedIn24Hours
+                                  .isGreaterThan(0))
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: NsgCircle(
+                                    text: project.numberOfTasksUpdatedIn24Hours
+                                        .toString(),
+                                    fontSize: 14,
+                                    borderWidth: 1.3,
+                                    color: ControlOptions.instance.colorText,
+                                    borderColor:
+                                        ControlOptions.instance.colorWarning,
+                                    shadow: const BoxShadow(),
+                                  ),
                                 ),
-                              ),
-                               if(project.numberOfTasksOverdue.isGreaterThan(0))
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: NsgCircle(
-                                  text: project.numberOfTasksOverdue.toString(),
-                                  fontSize: 14,
-                                  borderWidth: 1.3,
-                                  color: ControlOptions.instance.colorText,
-                                  borderColor:
-                                      ControlOptions.instance.colorError,
-                                  shadow: const BoxShadow(),
+                              if (project.numberOfTasksOverdue.isGreaterThan(0))
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: NsgCircle(
+                                    text:
+                                        project.numberOfTasksOverdue.toString(),
+                                    fontSize: 14,
+                                    borderWidth: 1.3,
+                                    color: ControlOptions.instance.colorText,
+                                    borderColor:
+                                        ControlOptions.instance.colorError,
+                                    shadow: const BoxShadow(),
+                                  ),
                                 ),
-                              ),
-                              if(project.numberOfTasksOpen.isGreaterThan(0))
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: NsgCircle(
-                                  text: project.numberOfTasksOpen.toString(),
-                                  fontSize: 14,
-                                  borderWidth: 1.3,
-                                  color: ControlOptions.instance.colorText,
-                                  shadow: const BoxShadow(),
+                              if (project.numberOfTasksOpen.isGreaterThan(0))
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: NsgCircle(
+                                    text: project.numberOfTasksOpen.toString(),
+                                    fontSize: 14,
+                                    borderWidth: 1.3,
+                                    color: ControlOptions.instance.colorText,
+                                    shadow: const BoxShadow(),
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
