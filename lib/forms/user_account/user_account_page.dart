@@ -50,8 +50,8 @@ class UserAccountPage extends GetView<UserAccountController> {
                     icon2: Icons.check,
                     onPressed2: () async {
                       await controller.itemPagePost();
-                      Get.find<OrganizationController>()
-                          .itemNewPageOpen(Routes.organizationPage);
+                      Get.find<ProjectController>()
+                          .itemNewPageOpen(Routes.projectListPage);
 
                       // Get.back();
                     },
