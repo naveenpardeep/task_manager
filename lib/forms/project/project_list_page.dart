@@ -109,7 +109,7 @@ class ProjectListPage extends GetView<ProjectController> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
-                                  text: '55',
+                                  text: project.numberOfTasksOpen.toString(),
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
@@ -119,7 +119,7 @@ class ProjectListPage extends GetView<ProjectController> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
-                                  text: '2',
+                                  text: project.numberOfTasksUpdatedIn24Hours.toString(),
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
@@ -131,7 +131,7 @@ class ProjectListPage extends GetView<ProjectController> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: NsgCircle(
-                                  text: '1',
+                                  text: project.numberOfTasksOverdue.toString(),
                                   fontSize: 14,
                                   borderWidth: 1.3,
                                   color: ControlOptions.instance.colorText,
