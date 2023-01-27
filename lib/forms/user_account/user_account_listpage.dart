@@ -11,7 +11,7 @@ import '../widgets/mobile_menu.dart';
 class UserAccountListPage extends GetView<UserAccountController> {
   const UserAccountListPage({Key? key}) : super(key: key);
 
-  final _elementPage = Routes.userProfilePage;
+  final _elementPage = Routes.createInvitationUser;
 
   @override
   Widget build(BuildContext context) {
