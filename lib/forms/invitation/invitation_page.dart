@@ -51,8 +51,18 @@ class _InvitationPageState extends State<InvitationPage> {
                           controller.itemPageCancel();
                         },
                         icon2: Icons.check,
-                        onPressed2: () {
-                          controller.itemPagePost();
+                        onPressed2: () async {
+                          if (controller
+                              .currentItem.invitedPhoneNumber.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Пожалуйста, введите номер мобильного телефона ')));
+                          } else {
+                            await controller.itemPagePost();
+
+                            Get.back();
+                          }
                         },
                       ),
                       Expanded(
@@ -68,9 +78,9 @@ class _InvitationPageState extends State<InvitationPage> {
                                     InvitationGenerated.nameInvitedUserId,
                                 label: 'Select User',
                               ),
-                               NsgInput(
+                              NsgInput(
                                 selectionController:
-                                   Get.find<OrganizationController>(),
+                                    Get.find<OrganizationController>(),
                                 dataItem: controller.currentItem,
                                 fieldName:
                                     InvitationGenerated.nameOrganizationId,
@@ -82,22 +92,21 @@ class _InvitationPageState extends State<InvitationPage> {
                                     InvitationGenerated.nameInvitedPhoneNumber,
                                 label: 'Mobile Number',
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: InvitationGenerated.nameAuthorId,
-                                label: 'Author',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: InvitationGenerated.nameComment,
-                                label: 'Comment',
-                              ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: InvitationGenerated.nameAuthorId,
+                              //   label: 'Author',
+                              // ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: InvitationGenerated.nameComment,
+                              //   label: 'Comment',
+                              // ),
                               // NsgInput(
                               //   dataItem: controller.currentItem,
                               //   fieldName: InvitationGenerated.nameIsAccepted,
                               //   label: 'Accept',
                               // ),
-                           
                             ]),
                           ),
                         ),

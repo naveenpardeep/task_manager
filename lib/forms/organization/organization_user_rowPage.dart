@@ -46,10 +46,15 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                     },
                     icon2: Icons.check,
                     onPressed2: () async {
-                      await controller.itemPagePost();
-                    
+                      if (controller.currentItem.phoneNumber.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'Пожалуйста, введите номер мобильного телефона ')));
+                      } else {
+                        await controller.itemPagePost();
 
-                      Get.back();
+                        Get.back();
+                      }
                     },
                   ),
                   Expanded(
@@ -65,16 +70,6 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 fieldName:
                                     UserAccountGenerated.nameOrganizationId,
                                 label: 'Организация',
-                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.namePosition,
-                                label: 'Должность',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameName,
-                                label: 'Наименование',
                               ),
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -91,12 +86,6 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameEmail,
-                                label: 'Email',
-                              ),
-                           
                             ],
                           ),
                         )),
