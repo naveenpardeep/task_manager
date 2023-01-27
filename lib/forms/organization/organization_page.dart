@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -48,10 +49,9 @@ class OrganizationPage extends GetView<OrganizationController> {
                           padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                           child: SingleChildScrollView(
                             child: Column(children: [
-                            
-                                NsgTable(
-                                
-                                  controller: Get.find<OrganizationController>(),
+                              NsgTable(
+                                  controller:
+                                      Get.find<OrganizationController>(),
                                   elementEditPageName:
                                       Routes.createOrganizationPage,
                                   availableButtons: const [
@@ -61,10 +61,10 @@ class OrganizationPage extends GetView<OrganizationController> {
                                   ],
                                   columns: [
                                     NsgTableColumn(
-                                        name: OrganizationItemGenerated.nameName,
+                                        name:
+                                            OrganizationItemGenerated.nameName,
                                         expanded: true,
                                         presentation: 'Organization'),
-                                        
                                   ]),
                               NsgTable(
                                   showIconFalse: false,
@@ -81,20 +81,32 @@ class OrganizationPage extends GetView<OrganizationController> {
                                         name: UserAccountGenerated.nameName,
                                         expanded: true,
                                         presentation: 'User'),
-                                        NsgTableColumn(
-                                        name: UserAccountGenerated.nameFirstName,
+                                    NsgTableColumn(
+                                        name:
+                                            UserAccountGenerated.nameFirstName,
                                         expanded: true,
                                         presentation: 'Имя'),
-                                       
-                                         NsgTableColumn(
-                                        name: UserAccountGenerated.namePhoneNumber,
+                                    NsgTableColumn(
+                                        name: UserAccountGenerated
+                                            .namePhoneNumber,
                                         expanded: true,
                                         presentation: 'Phone Number'),
-                                         NsgTableColumn(
+                                    NsgTableColumn(
                                         name: UserAccountGenerated.nameEmail,
                                         expanded: true,
                                         presentation: 'EMail'),
-                                  ])
+                                  ]),
+                              Center(
+                                child: NsgButton(
+                                  borderRadius: 20,
+                                  text: 'Invite User',
+                                  onPressed: () {
+                                    Get.find<InvitationController>()
+                                        .newItemPageOpen(
+                                            pageName: Routes.invitationPage);
+                                  },
+                                ),
+                              )
                             ]),
                           ),
                         ),

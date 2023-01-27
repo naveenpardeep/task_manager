@@ -16,6 +16,19 @@ class ProjectController extends NsgDataController<ProjectItem> {
         ];
       }
 
+  //       @override
+  // NsgDataRequestParams get getRequestFilter {
+  //   var cmp = NsgCompare();
+  //   var projectController = Get.find<ProjectController>();
+
+  //   cmp.add(
+  //       name: ProjectItemGenerated.nameName,
+  //       value: projectController.currentItem.ownerId);
+
+  //   return NsgDataRequestParams(compare: cmp);
+  // }
+
+
   @override
   Future itemRemove({bool goBack = true}) {
     return super.itemRemove();
