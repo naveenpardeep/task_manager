@@ -4,6 +4,7 @@ import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
 import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
+import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
@@ -142,6 +143,11 @@ class AppPages {
       page: () => UserProjectListPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.createInvitationUser,
+      page: () => CreateInvitationUserPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -168,4 +174,5 @@ abstract class Routes {
   static const notificationPage = '/notificationPage';
   static const userNotificationNewTaskPage = '/userNotificationNewTaskPage';
   static const userProjectListPage = '/userProjectListPage';
+  static const createInvitationUser='/createInvitationUser';
 }

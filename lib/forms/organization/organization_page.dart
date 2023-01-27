@@ -6,11 +6,14 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_listpage.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
+import 'package:task_manager_app/model/generated/organization_item_user_table.g.dart';
+import 'package:task_manager_app/model/generated/user_account.g.dart';
 
 class OrganizationPage extends GetView<OrganizationController> {
   const OrganizationPage({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     // if (controller.lateInit) {
@@ -28,8 +31,7 @@ class OrganizationPage extends GetView<OrganizationController> {
                       NsgAppBar(
                         color: Colors.white,
                         backColor: const Color(0xff7876D9),
-                        text: 'Welcome To Task Manager'.toUpperCase()
-                            ,
+                        text: 'Welcome To Task Manager'.toUpperCase(),
                         icon: Icons.arrow_back_ios_new,
                         colorsInverted: true,
                         bottomCircular: true,
@@ -39,7 +41,6 @@ class OrganizationPage extends GetView<OrganizationController> {
                         icon2: Icons.check,
                         onPressed2: () async {
                           await controller.itemPagePost();
-                        
                         },
                       ),
                       Expanded(
@@ -52,6 +53,35 @@ class OrganizationPage extends GetView<OrganizationController> {
                                 fieldName: OrganizationItemGenerated.nameName,
                                 label: 'Create Organization',
                               ),
+                              NsgTable(
+                                  showIconFalse: false,
+                                  controller: Get.find<UserAccountController>(),
+                                  elementEditPageName:
+                                      Routes.createInvitationUser,
+                                  availableButtons: const [
+                                    NsgTableMenuButtonType.createNewElement,
+                                    NsgTableMenuButtonType.editElement,
+                                    NsgTableMenuButtonType.removeElement
+                                  ],
+                                  columns: [
+                                    NsgTableColumn(
+                                        name: UserAccountGenerated.nameName,
+                                        expanded: true,
+                                        presentation: 'User'),
+                                        NsgTableColumn(
+                                        name: UserAccountGenerated.nameFirstName,
+                                        expanded: true,
+                                        presentation: 'Имя'),
+                                       
+                                         NsgTableColumn(
+                                        name: UserAccountGenerated.namePhoneNumber,
+                                        expanded: true,
+                                        presentation: 'Phone Number'),
+                                         NsgTableColumn(
+                                        name: UserAccountGenerated.nameEmail,
+                                        expanded: true,
+                                        presentation: 'EMail'),
+                                  ])
                             ]),
                           ),
                         ),
