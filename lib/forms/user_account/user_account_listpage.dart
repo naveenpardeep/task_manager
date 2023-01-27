@@ -40,7 +40,10 @@ class UserAccountListPage extends GetView<UserAccountController> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: NsgListPage(
-                    // appBar:   const SizedBox(),
+                      appBar: Get.find<UserAccountController>().regime !=
+                              NsgControllerRegime.selection
+                          ? const SizedBox()
+                          : null,
                       appBarColor: Colors.white,
                       type: NsgListPageMode.table,
                       controller: controller,
@@ -48,8 +51,7 @@ class UserAccountListPage extends GetView<UserAccountController> {
                       textNoItems: '',
                       appBarIcon: Icons.arrow_back_ios_new,
                       appBarOnPressed: () {
-                   
-                        controller.currentItem.isEmpty;
+                        controller.regime = NsgControllerRegime.view;
                         Get.back();
                       },
                       appBarIcon2: null,
