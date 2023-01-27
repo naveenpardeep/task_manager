@@ -29,7 +29,7 @@ class ProjectListPage extends GetView<ProjectController> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (width > 991) const TmTopMenu(),
+              if (width > 700) const TmTopMenu(),
               Padding(
                   padding: const EdgeInsets.only(
                       top: 10, left: 10, right: 10, bottom: 10),
@@ -60,7 +60,7 @@ class ProjectListPage extends GetView<ProjectController> {
                     ],
                   )),
               Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 992) const TmMobileMenu(),
+              if (width < 700) const TmMobileMenu(),
             ],
           )),
     );
@@ -197,7 +197,7 @@ class ProjectListPage extends GetView<ProjectController> {
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
             controller: scrollController,
-            child: width > 991
+            child: width > 700
                 ? NsgGrid(crossAxisCount: width ~/ 400, children: list)
                 : Column(children: list)));
   }

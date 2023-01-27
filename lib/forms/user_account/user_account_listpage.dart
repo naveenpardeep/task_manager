@@ -24,7 +24,7 @@ class UserAccountListPage extends GetView<UserAccountController> {
             children: [
               if (Get.find<UserAccountController>().regime !=
                       NsgControllerRegime.selection &&
-                  width > 991)
+                  width > 700)
                 const TmTopMenu(),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -75,7 +75,7 @@ class UserAccountListPage extends GetView<UserAccountController> {
                       ]),
                 ),
               ),
-              if (width < 992) const TmMobileMenu(),
+              if (width < 700) const TmMobileMenu(),
             ],
           );
         }),

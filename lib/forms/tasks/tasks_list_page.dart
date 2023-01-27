@@ -24,7 +24,7 @@ class TasksListPage extends GetView<TasksController> {
       child: Scaffold(
         body: Column(
           children: [
-            if (width > 991) const TmTopMenu(),
+            if (width > 700) const TmTopMenu(),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -55,10 +55,10 @@ class TasksListPage extends GetView<TasksController> {
                       NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
 
                       NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
-                      if (width > 991)
+                      if (width > 700)
                         NsgTableColumn(
                             name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
-                      if (width > 991)
+                      if (width > 700)
                         NsgTableColumn(
                             name: TaskDocGenerated.nameAssigneeId,
                             width: 100,
@@ -73,7 +73,7 @@ class TasksListPage extends GetView<TasksController> {
                     ]),
               ),
             ),
-            if (width < 992) const TmMobileMenu(),
+            if (width < 700) const TmMobileMenu(),
           ],
         ),
       ),

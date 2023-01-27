@@ -54,7 +54,7 @@ class FirstStartPage extends GetView<OrganizationController> {
                 ],
               )),
           Expanded(child: controller.obx((state) => showOrganization())),
-          if (width! < 992) const TmMobileMenu(),
+          if (width! < 700) const TmMobileMenu(),
         ],
       )),
     );

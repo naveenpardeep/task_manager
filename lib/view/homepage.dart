@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (width > 991) const TmTopMenu(),
+            if (width > 700) const TmTopMenu(),
             Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: Row(
@@ -104,7 +104,7 @@ class _HomepageState extends State<Homepage> {
                             projectController.currentItem, Routes.projectPage);
                       },
                     ),
-                    if (width > 991)
+                    if (width >700)
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -127,7 +127,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                   ],
                 )),
-            width > 991
+            width > 700
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -177,7 +177,7 @@ class _HomepageState extends State<Homepage> {
             Expanded(
                 child:
                     taskStatusTableController.obx((state) => getStatusList())),
-            if (width < 992) const TmMobileMenu(),
+            if (width < 700) const TmMobileMenu(),
           ],
         ),
       ),
@@ -249,7 +249,7 @@ class _HomepageState extends State<Homepage> {
 /* ----------------------------------------------------------------- Поля фильтров ---------------------------------------------------------------- */
   List<Widget> filters({required double width}) {
     Widget wrapFlexible({required Widget child}) {
-      if (width > 991) {
+      if (width > 700) {
         return Flexible(child: child);
       } else {
         return child;
@@ -619,7 +619,7 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
   double angle = 0;
   @override
   Widget build(BuildContext context) {
-    if (Get.width > 991) {
+    if (Get.width > 700) {
       return Draggable(
         data: widget.tasks,
         onDragUpdate: (details) {
