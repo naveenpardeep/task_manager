@@ -66,36 +66,36 @@ class OrganizationPage extends GetView<OrganizationController> {
                                         expanded: true,
                                         presentation: 'Organization'),
                                   ]),
-                              // NsgTable(
-                              //     showIconFalse: false,
-                              //     controller: Get.find<UserAccountController>(),
-                              //     elementEditPageName:
-                              //         Routes.createInvitationUser,
-                              //     availableButtons: const [
-                              //       NsgTableMenuButtonType.createNewElement,
-                              //       NsgTableMenuButtonType.editElement,
-                              //       NsgTableMenuButtonType.removeElement
-                              //     ],
-                              //     columns: [
-                              //       NsgTableColumn(
-                              //           name: UserAccountGenerated.nameName,
-                              //           expanded: true,
-                              //           presentation: 'User'),
-                              //       NsgTableColumn(
-                              //           name:
-                              //               UserAccountGenerated.nameFirstName,
-                              //           expanded: true,
-                              //           presentation: 'Имя'),
-                              //       NsgTableColumn(
-                              //           name: UserAccountGenerated
-                              //               .namePhoneNumber,
-                              //           expanded: true,
-                              //           presentation: 'Phone Number'),
-                              //       NsgTableColumn(
-                              //           name: UserAccountGenerated.nameEmail,
-                              //           expanded: true,
-                              //           presentation: 'EMail'),
-                              //     ]),
+                              NsgTable(
+                                  showIconFalse: false,
+                                  controller: Get.find<UserAccountController>(),
+                                  elementEditPageName:
+                                      Routes.createInvitationUser,
+                                  availableButtons: const [
+                                    NsgTableMenuButtonType.createNewElement,
+                                    NsgTableMenuButtonType.editElement,
+                                    NsgTableMenuButtonType.removeElement
+                                  ],
+                                  columns: [
+                                    NsgTableColumn(
+                                        name: UserAccountGenerated.nameName,
+                                        expanded: true,
+                                        presentation: 'User'),
+                                    NsgTableColumn(
+                                        name:
+                                            UserAccountGenerated.nameFirstName,
+                                        expanded: true,
+                                        presentation: 'Имя'),
+                                    NsgTableColumn(
+                                        name: UserAccountGenerated
+                                            .namePhoneNumber,
+                                        expanded: true,
+                                        presentation: 'Phone Number'),
+                                    NsgTableColumn(
+                                        name: UserAccountGenerated.nameEmail,
+                                        expanded: true,
+                                        presentation: 'EMail'),
+                                  ]),
                               // Center(
                               //   child: NsgButton(
                               //     borderRadius: 20,
