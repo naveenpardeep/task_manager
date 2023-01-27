@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 // ignore: depend_on_referenced_packages
 import 'package:package_info_plus/package_info_plus.dart';
@@ -81,5 +82,29 @@ class DataControllerGenerated extends NsgBaseController {
   Future loadProviderData() async {
     currentStatus = RxStatus.success();
     sendNotify();
+  }
+
+/// Ответить на приглашение
+  Future<List<String>> respondToInvitation(String invitationId, bool accept, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['invitationId'] = invitationId;
+      params['accept'] = accept.toString();
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<String>().requestItems(
+          provider: provider!,
+          function: '/Data/RespondToInvitation',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
   }
 }
