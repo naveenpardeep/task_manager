@@ -16,9 +16,9 @@ class OrganizationPage extends GetView<OrganizationController> {
 
   @override
   Widget build(BuildContext context) {
-    // if (controller.lateInit) {
-    //   controller.requestItems();
-    // }
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,
@@ -38,10 +38,10 @@ class OrganizationPage extends GetView<OrganizationController> {
                         onPressed: () {
                           controller.itemPageCancel();
                         },
-                        icon2: Icons.check,
-                        onPressed2: () async {
-                          await controller.itemPagePost();
-                        },
+                        // icon2: Icons.check,
+                        // onPressed2: () async {
+                        //   await controller.itemPagePost();
+                        // },
                       ),
                       Expanded(
                         child: Container(
