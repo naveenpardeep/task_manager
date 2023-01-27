@@ -4,17 +4,15 @@ import 'package:task_manager_app/model/generated/organization_item.g.dart';
 import 'package:task_manager_app/model/organization_item.dart';
 import 'package:task_manager_app/model/organization_item_user_table.dart';
 
-
-
 class OrganizationController extends NsgDataController<OrganizationItem> {
   OrganizationController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100){
-        referenceList=[
-          OrganizationItemGenerated.nameId,
-          OrganizationItemGenerated.nameName
-        ];
-      
-      }
+      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+    referenceList = [
+      OrganizationItemGenerated.nameId,
+      OrganizationItemGenerated.nameName,
+      OrganizationItemGenerated.nameTableUsers
+    ];
+  }
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
@@ -27,7 +25,7 @@ class OrganizationController extends NsgDataController<OrganizationItem> {
 
   @override
   Future<OrganizationItem> createNewItemAsync() async {
-      var element = await super.createNewItemAsync();
+    var element = await super.createNewItemAsync();
     return element;
   }
 }
