@@ -20,9 +20,9 @@ class _InvitationPageState extends State<InvitationPage> {
   @override
   void initState() {
     super.initState();
-    if (controller.lateInit) {
-      controller.requestItems();
-    }
+    // if (controller.lateInit) {
+    //   controller.requestItems();
+    // }
   }
 
   @override
@@ -92,11 +92,11 @@ class _InvitationPageState extends State<InvitationPage> {
                                 fieldName: InvitationGenerated.nameComment,
                                 label: 'Comment',
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: InvitationGenerated.nameIsAccepted,
-                                label: 'Accept',
-                              ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: InvitationGenerated.nameIsAccepted,
+                              //   label: 'Accept',
+                              // ),
                            
                             ]),
                           ),

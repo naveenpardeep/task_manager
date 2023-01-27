@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
@@ -51,7 +52,7 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
               child: InkWell(
             onTap: () {
-              Get.toNamed(Routes.invitationPage);
+               Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationPage );
             },
             child: Icon(
               Icons.insert_invitation,
