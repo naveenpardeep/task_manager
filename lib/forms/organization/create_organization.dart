@@ -53,7 +53,23 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                                 fieldName: OrganizationItemGenerated.nameName,
                                 label: 'Create Organization',
                               ),
-                               
+                               NsgTable(
+                                  controller:
+                                      Get.find<OrganizationItemUserTableController>(),
+                                  elementEditPageName:
+                                      Routes.organizationUserRowPage,
+                                  availableButtons: const [
+                                    NsgTableMenuButtonType.createNewElement,
+                                    NsgTableMenuButtonType.editElement,
+                                    NsgTableMenuButtonType.removeElement
+                                  ],
+                                  columns: [
+                                    NsgTableColumn(
+                                        name:
+                                            OrganizationItemUserTableGenerated.nameUserAccountId,
+                                        expanded: true,
+                                        presentation: 'Users'),
+                                  ]),
                                  
                             ]),
                           ),
