@@ -28,8 +28,8 @@ class TasksController extends NsgDataController<TaskDoc> {
     var taskBoardController = Get.find<TaskBoardController>();
     // var cmp = NsgCompare();
     var finalTasks = NsgCompare();
-    var notfinalTask=NsgCompare();
-    List<String> notfinalStatusId=[];
+    var notfinalTask = NsgCompare();
+    List<String> notfinalStatusId = [];
     List<String> statusId = [];
     var selectFinalStatus = taskBoardController.currentItem.statusTable.rows
         .where((element) => element.status.isDone)
@@ -38,7 +38,7 @@ class TasksController extends NsgDataController<TaskDoc> {
       statusId.add(element.statusId);
     });
 
-     var notfinalStatus = taskBoardController.currentItem.statusTable.rows
+    var notfinalStatus = taskBoardController.currentItem.statusTable.rows
         .where((element) => !element.status.isDone)
         .toList()
         .forEach((element) {
@@ -57,11 +57,11 @@ class TasksController extends NsgDataController<TaskDoc> {
         value: statusId,
         comparisonOperator: NsgComparisonOperator.inList);
 
-    var taskCondtion=NsgCompare();   
-    taskCondtion.logicalOperator=NsgLogicalOperator.or;
-    taskCondtion.add(name: 'one', value: notfinalTask) ;
+    var taskCondtion = NsgCompare();
+    taskCondtion.logicalOperator = NsgLogicalOperator.or;
+    taskCondtion.add(name: 'one', value: notfinalTask);
 
-    taskCondtion.add(name: 'two', value: finalTasks) ;
+    taskCondtion.add(name: 'two', value: finalTasks);
 
     filter.compare.add(name: 'three', value: taskCondtion);
 
@@ -146,7 +146,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     element.dateUpdated = DateTime.now();
     element.dateDeadline = DateTime(2023, 01, 01);
     element.dateRemind = DateTime(2023, 01, 01);
-  
+
     return element;
   }
 
@@ -190,6 +190,23 @@ class CommentTableTasksController
     var item = await super.doCreateNewItem();
     item.date = DateTime.now();
 
+    return item;
+  }
+}
+
+class FilesTableTasksController
+    extends NsgDataTableController<TaskDocFilesTable> {
+  FilesTableTasksController()
+      : super(
+            masterController: Get.find<TasksController>(),
+            tableFieldName: TaskDocGenerated.nameFiles) {
+    readOnly = false;
+    editModeAllowed = true;
+    requestOnInit = true;
+  }
+  @override
+  Future<TaskDocFilesTable> doCreateNewItem() async {
+    var item = await super.doCreateNewItem();
     return item;
   }
 }

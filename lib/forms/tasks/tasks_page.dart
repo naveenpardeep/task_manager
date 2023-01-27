@@ -18,7 +18,7 @@ class TasksPage extends GetView<TasksController> {
   Widget build(BuildContext context) {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
-    var notificationController=Get.find<NotificationController>();
+    var notificationController = Get.find<NotificationController>();
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }
@@ -198,10 +198,18 @@ class TasksPage extends GetView<TasksController> {
                             ),
 
                             Flexible(child: imageGallery()),
-                            //   NsgInput(
+                            // NsgTable(
+                            //     controller:
+                            //         Get.find<FilesTableTasksController>(),
+                            //     columns: [
+                            //       NsgTableColumn(
+                            //           name: TaskDocFilesTableGenerated.nameFile,
+                            //           expanded: true,
+                            //           presentation: 'Files'),
+                            //     ]),
+                            // NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName: TaskDocGenerated.nameFiles,
-
                             // ),
                             // NsgInput(
                             //     selectionController:
