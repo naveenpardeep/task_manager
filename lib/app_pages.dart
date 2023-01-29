@@ -30,7 +30,6 @@ import 'forms/tasks/tasks_binding.dart';
 import 'forms/tasks/tasks_list_page.dart';
 import 'forms/tasks/tasks_page.dart';
 import 'forms/user_account/user_account_listpage.dart';
-import 'splash/splash_binding.dart';
 import 'splash/splash_page.dart';
 import 'start_page.dart';
 
@@ -149,27 +148,27 @@ class AppPages {
     ),
     GetPage(
       name: Routes.createInvitationUser,
-      page: () =>  const CreateInvitationUserPage(),
+      page: () => const CreateInvitationUserPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.organizationListPage,
       page: () => const OrganizationListPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.createOrganizationPage,
-      page: () =>const  CreateOrganizationPage(),
+      page: () => const CreateOrganizationPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
       name: Routes.acceptInvitationPage,
-      page: () =>const  AcceptInvitationPage(),
+      page: () => const AcceptInvitationPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
       name: Routes.organizationUserRowPage,
-      page: () =>const  OrganizationUserRowPage(),
+      page: () => const OrganizationUserRowPage(),
       binding: ProjectBinding(),
     ),
   ];
@@ -198,9 +197,9 @@ abstract class Routes {
   static const notificationPage = '/notificationPage';
   static const userNotificationNewTaskPage = '/userNotificationNewTaskPage';
   static const userProjectListPage = '/userProjectListPage';
-  static const createInvitationUser='/createInvitationUser';
-  static const organizationListPage='/organizationListPage';
-  static const createOrganizationPage='/createOrganizationPage';
-  static const acceptInvitationPage='/acceptInvitationPage';
-  static const organizationUserRowPage='/organizationUserRowPage';
+  static const createInvitationUser = '/createInvitationUser';
+  static const organizationListPage = '/organizationListPage';
+  static const createOrganizationPage = '/createOrganizationPage';
+  static const acceptInvitationPage = '/acceptInvitationPage';
+  static const organizationUserRowPage = '/organizationUserRowPage';
 }
