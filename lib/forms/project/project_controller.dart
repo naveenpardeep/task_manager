@@ -7,14 +7,13 @@ import '../../model/project_item_user_table.dart';
 
 class ProjectController extends NsgDataController<ProjectItem> {
   ProjectController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100){
-        referenceList=[
-          ProjectItemGenerated.nameNumberOfTasksOpen,
-          ProjectItemGenerated.nameOrganizationId,
-          ProjectItemGenerated.nameLeaderId,
-          
-        ];
-      }
+      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+    referenceList = [
+      ProjectItemGenerated.nameNumberOfTasksOpen,
+      ProjectItemGenerated.nameOrganizationId,
+      ProjectItemGenerated.nameLeaderId,
+    ];
+  }
 
   //       @override
   // NsgDataRequestParams get getRequestFilter {
@@ -28,15 +27,9 @@ class ProjectController extends NsgDataController<ProjectItem> {
   //   return NsgDataRequestParams(compare: cmp);
   // }
 
-
   @override
   Future itemRemove({bool goBack = true}) {
     return super.itemRemove();
-  }
-
-  @override
-  Future itemsRemove(List<NsgDataItem> itemsToRemove) {
-    return super.itemsRemove(itemsToRemove);
   }
 
   @override
@@ -59,7 +52,6 @@ class ProjectController extends NsgDataController<ProjectItem> {
   }
 }
 
-
 class ProjectItemUserTableController
     extends NsgDataTableController<ProjectItemUserTable> {
   ProjectItemUserTableController()
@@ -67,4 +59,4 @@ class ProjectItemUserTableController
           masterController: Get.find<ProjectController>(),
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
-        }
+}

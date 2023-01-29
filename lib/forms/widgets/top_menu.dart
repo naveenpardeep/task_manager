@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
-import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
@@ -65,12 +64,12 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
                         Get.toNamed(Routes.organizationPage);
-                      //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
+                        //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                       },
                       child: Text(
                         'Создание организации',
@@ -99,9 +98,9 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                       // Get.toNamed(Routes.invitationPage);
-                        Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationPage );
-                     
+                        // Get.toNamed(Routes.invitationPage);
+                        Get.find<InvitationController>()
+                            .newItemPageOpen(pageName: Routes.invitationPage);
                       },
                       child: Icon(
                         Icons.insert_invitation_sharp,

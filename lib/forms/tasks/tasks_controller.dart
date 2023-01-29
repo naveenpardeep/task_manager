@@ -31,14 +31,14 @@ class TasksController extends NsgDataController<TaskDoc> {
     var notfinalTask = NsgCompare();
     List<String> notfinalStatusId = [];
     List<String> statusId = [];
-    var selectFinalStatus = taskBoardController.currentItem.statusTable.rows
+    taskBoardController.currentItem.statusTable.rows
         .where((element) => element.status.isDone)
         .toList()
         .forEach((element) {
       statusId.add(element.statusId);
     });
 
-    var notfinalStatus = taskBoardController.currentItem.statusTable.rows
+    taskBoardController.currentItem.statusTable.rows
         .where((element) => !element.status.isDone)
         .toList()
         .forEach((element) {
@@ -50,7 +50,7 @@ class TasksController extends NsgDataController<TaskDoc> {
         comparisonOperator: NsgComparisonOperator.inList);
     finalTasks.add(
         name: TaskDocGenerated.nameDate,
-        value: DateTime.now().add(Duration(days: -31)),
+        value: DateTime.now().add(const Duration(days: -31)),
         comparisonOperator: NsgComparisonOperator.greater);
     finalTasks.add(
         name: TaskDocGenerated.nameTaskStatusId,

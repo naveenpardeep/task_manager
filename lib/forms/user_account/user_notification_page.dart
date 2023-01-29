@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 
-import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/model/generated/user_notification_settings.g.dart';
 

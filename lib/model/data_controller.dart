@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
@@ -56,18 +55,17 @@ class DataController extends DataControllerGenerated {
       gotoDone = true;
       var accController = Get.find<UserAccountController>();
       assert(accController.items.isNotEmpty);
-      // if (accController.items
-      //     .firstWhere((element) => element.firstName.isEmpty)
-      //     .firstName
-      //     .isEmpty) {
-      //   Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccount);
-      // }
-      var userAccount = accController.items.firstWhere(
-          (e) => e.organization.isEmpty,
-          orElse: () => accController.firstItem);
-      if (userAccount.firstName.isEmpty) {
+
+      //Считаем, что у любого пользователя должен существовать как минимум один аккаунт
+      //он создается на сервере автоматически при регистрации пользователя
+      //отличается от всех остальных тем, что не задано поле "организация"
+      assert(accController.items.isNotEmpty);
+      if (accController.items.length == 1) {
+        //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
+        //ни одной организации и не принял ни одного приглашения.
+        //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
         Get.find<UserAccountController>()
-            .itemPageOpen(userAccount, Routes.userAccount);
+            .itemPageOpen(accController.items.first, Routes.userAccount);
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);

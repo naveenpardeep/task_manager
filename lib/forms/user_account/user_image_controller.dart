@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/widgets/nsg_error_widget.dart';
+import 'package:nsg_data/controllers/nsgImageController.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
 import '../../model/data_controller_model.dart';
 
-class UserImageController extends NsgDataController<Picture> {
+class UserImageController extends NsgImageController<Picture> {
   UserImageController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 3);
 
@@ -56,7 +57,7 @@ class UserImageController extends NsgDataController<Picture> {
         deleteItems(itemsToDelete);
       }
       progress.hide();
-     // Get.back();
+      // Get.back();
     } on Exception catch (ex) {
       progress.hide();
       NsgErrorWidget.showError(ex);

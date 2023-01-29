@@ -70,15 +70,11 @@ class UserAccountPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.namePosition,
-                                label: 'Должность',
-                              ),
+
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
-                                label: 'Наименование',
+                                label: 'nick',
                               ),
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -100,7 +96,14 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
-                              NsgInput(
+                              //Должность тоже нужна только внутри организации
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: UserAccountGenerated.namePosition,
+                              //   label: 'Должность',
+                              // ),
+                              //Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
+                              /*NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByPush,
@@ -136,7 +139,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
-                              ),
+                              ),*/
                               Center(child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',
@@ -157,15 +160,21 @@ class UserAccountPage extends GetView<UserAccountController> {
       ),
     );
   }
-}
 
-Widget userImage() {
-  return Get.find<UserImageController>().obx(
-    (state) => NsgFilePicker(
-      showAsWidget: true,
-      callback: (value) {},
-      objectsList: Get.find<UserImageController>().images,
-      allowedFileFormats: const [],
-    ),
-  );
+  Widget userImage() {
+    var uac = Get.find<UserImageController>();
+    return NsgImage(
+      controller: uac,
+      fieldName: '',
+      item: uac.currentItem,
+    );
+    // NsgFilePicker(
+    //   showAsWidget: true,
+    //   callback: (value) {},
+    //   objectsList: Get.find<UserImageController>().images,
+    //   allowedFileFormats: const [],
+    //   maxFilesCount: 1,
+    // ),
+    //);
+  }
 }

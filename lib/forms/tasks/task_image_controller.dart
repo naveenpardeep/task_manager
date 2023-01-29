@@ -56,7 +56,7 @@ class TaskImageController extends NsgDataController<Picture> {
         deleteItems(itemsToDelete);
       }
       progress.hide();
-     // Get.back();
+      // Get.back();
     } on Exception catch (ex) {
       progress.hide();
       NsgErrorWidget.showError(ex);
@@ -73,7 +73,7 @@ class TaskImageController extends NsgDataController<Picture> {
       images.add(NsgFilePickerObject(
           image: Image.memory(Uint8List.fromList(element.image)),
           description: element.name,
-          fileType: 'jpg',
+          fileType: 'jpg, mp4',
           id: element.id));
     }
     return;
