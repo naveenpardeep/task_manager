@@ -71,6 +71,11 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                     UserAccountGenerated.nameOrganizationId,
                                 label: 'Организация',
                               ),
+                               NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameName,
+                                label: 'UserName',
+                              ),
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
