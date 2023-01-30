@@ -65,7 +65,7 @@ class DataController extends DataControllerGenerated {
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
         Get.find<UserAccountController>()
-            .itemPageOpen(accController.items.first, Routes.userAccount);
+            .itemPageOpen(accController.items.first, Routes.firstTimeUserAccountPage);
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);

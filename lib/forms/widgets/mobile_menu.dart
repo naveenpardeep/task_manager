@@ -52,7 +52,7 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
               child: InkWell(
             onTap: () {
-               Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationPage );
+               Get.find<InvitationController>().newItemPageOpen(pageName: Routes.acceptInvitationPage );
             },
             child: Icon(
               Icons.insert_invitation,

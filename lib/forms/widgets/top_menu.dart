@@ -98,9 +98,9 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        // Get.toNamed(Routes.invitationPage);
-                        Get.find<InvitationController>()
-                            .newItemPageOpen(pageName: Routes.invitationPage);
+                      //   Get.toNamed(Routes.acceptInvitationPage);
+                       Get.find<InvitationController>()
+                            .newItemPageOpen(pageName: Routes.acceptInvitationPage);
                       },
                       child: Icon(
                         Icons.insert_invitation_sharp,

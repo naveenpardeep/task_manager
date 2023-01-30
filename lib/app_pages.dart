@@ -13,6 +13,7 @@ import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
+import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
@@ -172,6 +173,11 @@ class AppPages {
       page: () => const OrganizationUserRowPage(),
       binding: ProjectBinding(),
     ),
+     GetPage(
+      name: Routes.firstTimeUserAccountPage,
+      page: () => const FirstTimeUserAccountPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -203,4 +209,5 @@ abstract class Routes {
   static const createOrganizationPage = '/createOrganizationPage';
   static const acceptInvitationPage = '/acceptInvitationPage';
   static const organizationUserRowPage = '/organizationUserRowPage';
+  static const firstTimeUserAccountPage='/firstTimeUserAccountPage';
 }
