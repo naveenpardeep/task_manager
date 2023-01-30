@@ -80,6 +80,22 @@ class _AcceptInvitationPageState extends State<AcceptInvitationPage> {
                                       pageName: Routes.projectListPage);
                                 },
                               ),
+                               NsgButton(
+                                text: 'Decline Invitation',
+                                onPressed: () async {
+                                  var dataController =
+                                      Get.find<DataController>();
+                                  var invitationController =
+                                      Get.find<InvitationController>();
+                                  var DecInvitation =
+                                      await dataController.respondToInvitation(
+                                    invitationController.currentItem.id,
+                                    false,
+                                  );
+                                  Get.find<ProjectController>().newItemPageOpen(
+                                      pageName: Routes.projectListPage);
+                                },
+                              ),
                               // NsgInput(
                               //   dataItem: controller.currentItem,
                               //   fieldName: InvitationGenerated.nameIsAccepted,
