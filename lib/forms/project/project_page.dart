@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
@@ -101,6 +102,14 @@ class _ProjectpageState extends State<ProjectPage> {
                                     width: 100,
                                     presentation: 'Admin'),
                               ],
+                            ),
+                            NsgInput(
+                              selectionController:
+                                  Get.find<OrganizationController>(),
+                              dataItem: controller.currentItem,
+                              fieldName:
+                                  ProjectItemGenerated.nameOrganizationId,
+                              label: 'Select Organization',
                             ),
                             NsgInput(
                               selectionController:

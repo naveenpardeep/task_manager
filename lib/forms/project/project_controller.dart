@@ -12,6 +12,8 @@ class ProjectController extends NsgDataController<ProjectItem> {
       ProjectItemGenerated.nameNumberOfTasksOpen,
       ProjectItemGenerated.nameOrganizationId,
       ProjectItemGenerated.nameLeaderId,
+      ProjectItemGenerated.nameTableUsers,
+   
     ];
   }
 
