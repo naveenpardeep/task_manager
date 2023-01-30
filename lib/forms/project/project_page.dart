@@ -80,6 +80,9 @@ class _ProjectpageState extends State<ProjectPage> {
                           children: [
                             NsgText(
                                 'Создано :${formateddate.format(controller.currentItem.date)}'),
+                           const Align(
+                            alignment: Alignment.centerLeft,
+                            child: NsgText('Добавление пользователей в проект')),
                             NsgTable(
                               showIconFalse: false,
                               controller:
@@ -133,6 +136,9 @@ class _ProjectpageState extends State<ProjectPage> {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
+                             const Align(
+                            alignment: Alignment.centerLeft,
+                            child: NsgText('Добавление Статусы проекта')),
                             SizedBox(
                               height: height * 0.3,
                               child: SingleChildScrollView(

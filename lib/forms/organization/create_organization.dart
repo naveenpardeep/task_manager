@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
@@ -27,7 +28,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       NsgAppBar(
                         color: Colors.white,
                         backColor: const Color(0xff7876D9),
-                        text: 'Welcome To Task Manager'.toUpperCase(),
+                        text: 'Организация'.toUpperCase(),
                         icon: Icons.arrow_back_ios_new,
                         colorsInverted: true,
                         bottomCircular: true,
@@ -49,6 +50,9 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                                 fieldName: OrganizationItemGenerated.nameName,
                                 label: 'Create Organization',
                               ),
+                              const Align(
+                            alignment: Alignment.centerLeft,
+                            child: NsgText('Добавление пользователей в эту организацию')),
                               NsgTable(
                                   controller: Get.find<
                                       OrganizationItemUserTableController>(),
