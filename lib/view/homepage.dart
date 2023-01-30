@@ -280,17 +280,17 @@ class _HomepageState extends State<Homepage> {
               }),
         ),
       ),
-      wrapFlexible(
-        child: Tooltip(
-          message: 'Поиск задач по дате создания',
-          child: NsgPeriodFilter(
-            textAlign: TextAlign.left,
-            controller: taskController,
-            label: 'Поиск по дате',
-            // initialTime: DateTime.now(),
-          ),
-        ),
-      ),
+      // wrapFlexible(
+      //   child: Tooltip(
+      //     message: 'Поиск задач по дате создания',
+      //     child: NsgPeriodFilter(
+      //       textAlign: TextAlign.left,
+      //       controller: taskController,
+      //       label: 'Поиск по дате',
+      //       // initialTime: DateTime.now(),
+      //     ),
+      //   ),
+      // ),
       wrapFlexible(
         child: NsgInput(
           label: 'Исполнитель',
