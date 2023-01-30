@@ -19,7 +19,6 @@ import '../user_account/service_object_controller.dart';
 class ProjectBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(DataController(),permanent: true);
     Get.put(ProjectController());
     Get.put(ProjectItemUserTableController());
     Get.put(TasksController());
@@ -38,6 +37,5 @@ class ProjectBinding extends Bindings {
     Get.put(UserNotificationController());
     Get.put(UserNotificationSettingStatusTableController());
     Get.put(OrganizationItemUserTableController());
-    
   }
 }

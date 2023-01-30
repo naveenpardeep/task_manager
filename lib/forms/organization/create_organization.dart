@@ -4,12 +4,8 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_listpage.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 import 'package:task_manager_app/model/generated/organization_item_user_table.g.dart';
-import 'package:task_manager_app/model/generated/user_account.g.dart';
 
 class CreateOrganizationPage extends GetView<OrganizationController> {
   const CreateOrganizationPage({Key? key}) : super(key: key);
@@ -53,9 +49,9 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                                 fieldName: OrganizationItemGenerated.nameName,
                                 label: 'Create Organization',
                               ),
-                               NsgTable(
-                                  controller:
-                                      Get.find<OrganizationItemUserTableController>(),
+                              NsgTable(
+                                  controller: Get.find<
+                                      OrganizationItemUserTableController>(),
                                   elementEditPageName:
                                       Routes.organizationUserRowPage,
                                   availableButtons: const [
@@ -65,12 +61,11 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                                   ],
                                   columns: [
                                     NsgTableColumn(
-                                        name:
-                                            OrganizationItemUserTableGenerated.nameUserAccountId,
+                                        name: OrganizationItemUserTableGenerated
+                                            .nameUserAccountId,
                                         expanded: true,
                                         presentation: 'Users'),
                                   ]),
-                                 
                             ]),
                           ),
                         ),

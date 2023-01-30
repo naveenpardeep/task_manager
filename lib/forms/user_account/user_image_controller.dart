@@ -77,6 +77,9 @@ class UserImageController extends NsgImageController<Picture> {
           fileType: 'jpg',
           id: element.id));
     }
+    if (items.isNotEmpty) {
+      currentItem = items.first;
+    }
     return;
   }
 }

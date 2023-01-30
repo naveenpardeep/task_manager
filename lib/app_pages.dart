@@ -17,6 +17,7 @@ import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
+import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 import 'forms/invitation/invitaion_bindings.dart';
@@ -40,7 +41,7 @@ class AppPages {
     GetPage(
       name: Routes.splashPage,
       page: () => const SplashPage(),
-      binding: ProjectBinding(),
+      binding: SplashBinding(),
     ),
     GetPage(
       name: Routes.mainPage,

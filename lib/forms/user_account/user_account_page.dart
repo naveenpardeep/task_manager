@@ -165,8 +165,9 @@ class UserAccountPage extends GetView<UserAccountController> {
     var uac = Get.find<UserImageController>();
     return NsgImage(
       controller: uac,
-      fieldName: '',
+      fieldName: PictureGenerated.nameImage,
       item: uac.currentItem,
+      noImage: _noImageWidget(),
     );
     // NsgFilePicker(
     //   showAsWidget: true,
@@ -176,5 +177,19 @@ class UserAccountPage extends GetView<UserAccountController> {
     //   maxFilesCount: 1,
     // ),
     //);
+  }
+
+  //TODO: show image "no image"
+  _noImageWidget() {
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+            color: Colors.green, width: 5.0, style: BorderStyle.solid),
+      ),
+      child: const Center(child: Text('no image')),
+    );
   }
 }
