@@ -5,6 +5,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import '../../model/generated/invitation.g.dart';
 
@@ -50,29 +51,45 @@ class _AcceptInvitationPageState extends State<AcceptInvitationPage> {
                         onPressed: () {
                           controller.itemPageCancel();
                         },
-                        icon2: Icons.check,
-                        onPressed2: () async {
-                          await controller.itemPagePost();
+                        // icon2: Icons.check,
+                        // onPressed2: () async {
+                        //   await controller.itemPagePost();
 
-                          Get.find<ProjectController>().newItemPageOpen(
-                              pageName: Routes.projectListPage);
-                        },
+                        //   Get.find<ProjectController>().newItemPageOpen(
+                        //       pageName: Routes.projectListPage);
+                        // },
                       ),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                           child: SingleChildScrollView(
                             child: Column(children: [
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: InvitationGenerated.nameIsAccepted,
-                                label: 'Accept',
+                              NsgButton(
+                                text: 'Accept Invitation',
+                                onPressed: () async {
+                                  var dataController =
+                                      Get.find<DataController>();
+                                  var invitationController =
+                                      Get.find<InvitationController>();
+                                  var acceptInvitation =
+                                      await dataController.respondToInvitation(
+                                    invitationController.currentItem.id,
+                                    true,
+                                  );
+                                  Get.find<ProjectController>().newItemPageOpen(
+                                      pageName: Routes.projectListPage);
+                                },
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: InvitationGenerated.nameIsRejected,
-                                label: 'Reject',
-                              ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: InvitationGenerated.nameIsAccepted,
+                              //   label: 'Accept',
+                              // ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: InvitationGenerated.nameIsRejected,
+                              //   label: 'Reject',
+                              // ),
                             ]),
                           ),
                         ),
