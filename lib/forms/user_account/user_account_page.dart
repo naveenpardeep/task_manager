@@ -50,10 +50,10 @@ class UserAccountPage extends GetView<UserAccountController> {
                     icon2: Icons.check,
                     onPressed2: () async {
                       await controller.itemPagePost();
-                      Get.find<ProjectController>()
-                          .itemNewPageOpen(Routes.projectListPage);
+                      // Get.find<ProjectController>()
+                      //     .itemNewPageOpen(Routes.projectListPage);
 
-                      // Get.back();
+                       Get.back();
                     },
                   ),
                   Expanded(
@@ -96,14 +96,14 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
-                              //Должность тоже нужна только внутри организации
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: UserAccountGenerated.namePosition,
-                              //   label: 'Должность',
-                              // ),
-                              //Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
-                              /*NsgInput(
+                            //  Должность тоже нужна только внутри организации
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.namePosition,
+                                label: 'Должность',
+                              ),
+                            //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
+                              NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByPush,
@@ -139,7 +139,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
-                              ),*/
+                              ),
                               Center(child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',
