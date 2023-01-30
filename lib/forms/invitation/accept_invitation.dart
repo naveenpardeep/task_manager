@@ -7,7 +7,6 @@ import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
-import '../../model/generated/invitation.g.dart';
 
 class AcceptInvitationPage extends StatefulWidget {
   const AcceptInvitationPage({Key? key}) : super(key: key);

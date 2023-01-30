@@ -145,7 +145,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.userProjectListPage,
-      page: () => UserProjectListPage(),
+      page: () => const UserProjectListPage(),
       binding: ProjectBinding(),
     ),
     GetPage(

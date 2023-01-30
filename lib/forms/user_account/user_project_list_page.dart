@@ -6,7 +6,7 @@ import 'package:task_manager_app/forms/user_account/user_notification_controller
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class UserProjectListPage extends GetView<UserNotificationController> {
-  UserProjectListPage({Key? key}) : super(key: key);
+  const UserProjectListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
