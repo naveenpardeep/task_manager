@@ -9,6 +9,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -163,6 +164,7 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
+                             //   var images = <NsgFilePickerObject>[].clear();
                              Get.find<TasksController>()
                                   .newItemPageOpen(pageName: Routes.tasksPage);
                              //  Get.toNamed(Routes.tasksPage);
