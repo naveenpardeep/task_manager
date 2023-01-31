@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -9,32 +10,28 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
-        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  text: controller.currentItem.isEmpty
-                      ? 'Новый комментарий'.toUpperCase()
-                      : controller.currentItem.date.toString().toUpperCase(),
+                  backColor: ControlOptions.instance.colorWhite,
+                  text: 'комментарий',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
                   onPressed: () {
                     controller.itemPageCancel();
                   },
-                  icon2: Icons.check,
-                  onPressed2: () {
-                    controller.itemPagePost();
-                  },
+                  // icon2: Icons.check,
+                  // onPressed2: () {
+                  //   controller.itemPagePost();
+                  // },
                 ),
                 Expanded(
                   child: Container(
@@ -42,10 +39,28 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocCommentsTableGenerated.nameText,
-                              label: 'Комментарий',
+                            NsgText(controller.currentItem.text),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Stack(
+                                children: [
+                                  NsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName:
+                                        TaskDocCommentsTableGenerated.nameText,
+                                    label: 'Комментарий',
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Get.find<TasksController>()
+                                              .itemPagePost(goBack: false);
+                                        },
+                                        icon: const Icon(Icons.send)),
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         ),

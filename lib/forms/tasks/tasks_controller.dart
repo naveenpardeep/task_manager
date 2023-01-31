@@ -21,6 +21,8 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
+  TasksDuration tasksDuration=TasksDuration.none;
+
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = NsgDataRequestParams();
@@ -209,4 +211,14 @@ class FilesTableTasksController
     var item = await super.doCreateNewItem();
     return item;
   }
+}
+
+enum TasksDuration {
+  none,
+  today,
+  yesterday,
+  week,
+  month,
+  sixmonths,
+  year
 }
