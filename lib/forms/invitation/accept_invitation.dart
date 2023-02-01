@@ -69,7 +69,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
       {
         list.add(GestureDetector(
           child: Container(
-            color: ControlOptions.instance.colorGreyLighter,
+            color: ControlOptions.instance.colorGreyLight,
             child: Row(
               children: [
                 Expanded(
@@ -78,44 +78,27 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Text(
-                           'Author Name:  ${comment.author}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                         'Author Name:  ${comment.author}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2,
                         ),
-                        Center(child: Text('Organization Name:  ${comment.organization}')),
-                        Center(
-                          child: Text(
-                            'создано: ${formateddate.format(comment.date)}',
-                            maxLines: 1,
-                            textScaleFactor: 0.8,
-                            style: const TextStyle(color: Color(0xff10051C)),
-                          ),
+                        Text('Organization Name:  ${comment.organization}'),
+                        Text(
+                          'создано: ${formateddate.format(comment.date)}',
+                          maxLines: 1,
+                          textScaleFactor: 0.8,
+                          style: const TextStyle(color: Color(0xff10051C)),
                         ),
                         Row(
                           children: [
-                            Expanded(
+                                 Expanded(
                               child: NsgButton(
-                                text: 'Accept Invitation',
-                                onPressed: () async {
-                                  var dataController =
-                                      Get.find<DataController>();
-                                  var invitationController =
-                                      Get.find<InvitationController>();
-                                  var acceptInvitation =
-                                      await dataController.respondToInvitation(
-                                    invitationController.currentItem.id,
-                                    true,
-                                  );
-                                  Get.find<ProjectController>().newItemPageOpen(
-                                      pageName: Routes.projectListPage);
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: NsgButton(
-                                text: 'Decline Invitation',
+                                borderRadius: 20,
+                                borderColor: ControlOptions.instance.colorBlue,
+                                backColor: Colors.transparent,
+                                color: Colors.black,
+                                text: 'Отклонить приглашение',
                                 onPressed: () async {
                                   var dataController =
                                       Get.find<DataController>();
@@ -131,6 +114,26 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                 },
                               ),
                             ),
+                            Expanded(
+                              child: NsgButton(
+                                borderRadius: 20,
+                                text: 'Принять приглашение',
+                                onPressed: () async {
+                                  var dataController =
+                                      Get.find<DataController>();
+                                  var invitationController =
+                                      Get.find<InvitationController>();
+                                  var acceptInvitation =
+                                      await dataController.respondToInvitation(
+                                    invitationController.currentItem.id,
+                                    true,
+                                  );
+                                  Get.find<ProjectController>().newItemPageOpen(
+                                      pageName: Routes.projectListPage);
+                                },
+                              ),
+                            ),
+                       
                           ],
                         ),
 
