@@ -14,6 +14,7 @@ class InvitationGenerated extends NsgDataItem {
   static const nameIsRejected = 'isRejected';
   static const nameInvitedPhoneNumber = 'invitedPhoneNumber';
   static const nameOrganizationId = 'organizationId';
+  static const nameProjectId = 'projectId';
   static const nameAuthorId = 'authorId';
   static const nameInvitedUserId = 'invitedUserId';
 
@@ -39,6 +40,7 @@ class InvitationGenerated extends NsgDataItem {
     addField(NsgDataBoolField(nameIsRejected), primaryKey: false);
     addField(NsgDataStringField(nameInvitedPhoneNumber), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameInvitedUserId), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
@@ -99,6 +101,17 @@ class InvitationGenerated extends NsgDataItem {
   set organizationId(String value) => setFieldValue(nameOrganizationId, value);
   set organization(OrganizationItem value) =>
     setFieldValue(nameOrganizationId, value.id);
+
+  /// Проект
+  String get projectId => getFieldValue(nameProjectId).toString();
+  ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
+  Future<ProjectItem> projectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameProjectId);
+  }
+
+  set projectId(String value) => setFieldValue(nameProjectId, value);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
 
   /// Автор
   String get authorId => getFieldValue(nameAuthorId).toString();
