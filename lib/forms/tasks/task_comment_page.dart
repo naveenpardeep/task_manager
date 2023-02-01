@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -10,6 +11,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
+    double height=MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -39,7 +44,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgText(controller.currentItem.text),
+                             
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: SizedBox(
+                                
+                                height: height*0.7,
+                                child: commentList()),
+                            ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Stack(
@@ -53,9 +65,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                   Positioned(
                                     right: 0,
                                     child: IconButton(
-                                        onPressed: () {
-                                          Get.find<TasksController>()
+                                        onPressed: () async {
+                                       
+                                        controller .itemPagePost(goBack: false);
+                                            Get.find<TasksController>()
                                               .itemPagePost(goBack: false);
+                                              //   Get.find<TasksController>().sendNotify();
+                                                 controller.sendNotify();
                                         },
                                         icon: const Icon(Icons.send)),
                                   )
@@ -72,5 +88,61 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         ),
       ),
     );
+  }
+
+  Widget commentList() {
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    List<Widget> list = [];
+ 
+    var comments = controller.items;
+
+    for (var comment in comments)
+     {
+      {
+        list.add(GestureDetector(
+          child: Container(
+            color: ControlOptions.instance.colorGreyLighter,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        
+                       
+                        Text(
+                          comment.text,
+                          maxLines: 2,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold),
+                        ),
+                      
+                        Text(
+                          'создано: ${formateddate.format(comment.date)}',
+                          maxLines: 1,
+                          textScaleFactor: 0.8,
+                          style: const TextStyle(
+                          color: Color(0xff10051C)),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    }
+
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
   }
 }

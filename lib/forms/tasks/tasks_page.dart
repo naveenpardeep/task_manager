@@ -19,11 +19,11 @@ class TasksPage extends GetView<TasksController> {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
     var notificationController = Get.find<NotificationController>();
-     var imageCont= Get.find<TaskImageController>();
+    var imageCont = Get.find<TaskImageController>();
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }
-   if (imageCont.lateInit) {
+    if (imageCont.lateInit) {
       imageCont.requestItems();
     }
     String formatted =
@@ -200,18 +200,20 @@ class TasksPage extends GetView<TasksController> {
                               label: 'Срок выполнения',
                             ),
 
-                            // NsgButton(
-                            //   text: 'Open Comments',
-                            //   onPressed: () {
-                            //     Get.find<CommentTableTasksController>()
-                            //         .itemPageOpen(
-                            //             Get.find<CommentTableTasksController>()
-                            //                 .currentItem,
-                            //             Routes.commentRowPage);
-                            //     // Get.toNamed(Routes.commentRowPage);
-                            //     //Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                            //   },
-                            // ),
+                            NsgButton(
+                              text: 'Open Comments',
+                              onPressed: () {
+                                // Get.find<CommentTableTasksController>()
+                                //     .itemPageOpen(
+                                //        Get.find<CommentTableTasksController>()
+                                //          .currentItem,
+                                //       Routes.commentRowPage);
+                                // Get.toNamed(Routes.commentRowPage);
+                                Get.find<CommentTableTasksController>()
+                                    .newItemPageOpen(
+                                        pageName: Routes.commentRowPage);
+                              },
+                            ),
 
                             Flexible(child: imageGallery()),
                             // NsgTable(

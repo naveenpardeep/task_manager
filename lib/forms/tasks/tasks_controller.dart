@@ -17,7 +17,8 @@ class TasksController extends NsgDataController<TaskDoc> {
       // TaskDocGenerated.nameSprintId,
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
-      TaskDocGenerated.nameAssigneeId
+      TaskDocGenerated.nameAssigneeId,
+      TaskDocGenerated.nameTableComments
     ];
   }
 
