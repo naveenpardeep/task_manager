@@ -109,9 +109,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          comment.text,
+                          comment.author.toString(),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
+                        Text(comment.text),
                         Text(
                           'создано: ${formateddate.format(comment.date)}',
                           maxLines: 1,
