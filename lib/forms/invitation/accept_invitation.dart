@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
@@ -7,80 +8,106 @@ import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
-
-class AcceptInvitationPage extends StatefulWidget {
+class AcceptInvitationPage extends GetView<InvitationController> {
   const AcceptInvitationPage({Key? key}) : super(key: key);
-  @override
-  State<AcceptInvitationPage> createState() => _AcceptInvitationPageState();
-}
-
-class _AcceptInvitationPageState extends State<AcceptInvitationPage> {
-  var controller = Get.find<InvitationController>();
-
-  @override
-  void initState() {
-    super.initState();
-    // if (controller.lateInit) {
-    //   controller.requestItems();
-    // }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
+    double height = MediaQuery.of(context).size.height;
     return BodyWrap(
-        child: Scaffold(
-            key: scaffoldKey,
-            backgroundColor: Colors.white,
-            body: controller.obx((state) => Container(
-                key: GlobalKey(),
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      NsgAppBar(
-                        color: Colors.white,
-                        backColor: const Color(0xff7876D9),
-                        text: controller.currentItem.isEmpty
-                            ? 'Invitation'.toUpperCase()
-                            : controller.currentItem.invitedUser.name,
-                        icon: Icons.arrow_back_ios_new,
-                        colorsInverted: true,
-                        bottomCircular: true,
-                        onPressed: () {
-                          controller.itemPageCancel();
-                        },
-                        // icon2: Icons.check,
-                        // onPressed2: () async {
-                        //   await controller.itemPagePost();
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: controller.obx(
+          (state) => Container(
+            decoration: const BoxDecoration(color: Colors.white),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                NsgAppBar(
+                  backColor: ControlOptions.instance.colorWhite,
+                  text: 'Invitations List',
+                  icon: Icons.arrow_back_ios_new,
+                  colorsInverted: true,
+                  bottomCircular: true,
+                  onPressed: () {
+                    controller.itemPageCancel();
+                  },
+                  // icon2: Icons.check,
+                  // onPressed2: () {
+                  //   controller.itemPagePost();
+                  // },
+                ),
+                Expanded(
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            invitationList(),
+                          ],
+                        ),
+                      )),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
-                        //   Get.find<ProjectController>().newItemPageOpen(
-                        //       pageName: Routes.projectListPage);
-                        // },
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                          child: SingleChildScrollView(
-                            child: Column(children: [
-                              NsgButton(
-                                text: 'Accept Invitation',
-                                onPressed: () async {
-                                  var dataController =
-                                      Get.find<DataController>();
-                                  var invitationController =
-                                      Get.find<InvitationController>();
-                                  var acceptInvitation =
-                                      await dataController.respondToInvitation(
-                                    invitationController.currentItem.id,
-                                    true,
-                                  );
-                                  Get.find<ProjectController>().newItemPageOpen(
-                                      pageName: Routes.projectListPage);
-                                },
-                              ),
-                               NsgButton(
-                                text: 'Decline Invitation',
+  Widget invitationList() {
+    var dataController =  Get.find<DataController>();
+   var invitationController = Get.find<InvitationController>();
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    List<Widget> list = [];
+
+    var invitations = controller.items;
+//if(dataController.respondToInvitation.isBlank==false) 
+{
+  for (var invitation in invitations) {
+      
+      {
+        list.add(GestureDetector(
+          child: Container(
+            color: ControlOptions.instance.colorGreyLight,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                         Text(
+                         'Project Name:  ${invitation.project}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2,
+                        ),
+                        Text(
+                         'Author Name:  ${invitation.author}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2,
+                        ),
+                        Text('Organization Name:  ${invitation.organization}'),
+                        Text(
+                          'создано: ${formateddate.format(invitation.date)}',
+                          maxLines: 1,
+                          textScaleFactor: 0.8,
+                          style: const TextStyle(color: Color(0xff10051C)),
+                        ),
+                        Row(
+                          children: [
+                                 Expanded(
+                              child: NsgButton(
+                                borderRadius: 20,
+                                borderColor: ControlOptions.instance.colorBlue,
+                                backColor: Colors.transparent,
+                                color: Colors.black,
+                                text: 'Отклонить приглашение',
                                 onPressed: () async {
                                   var dataController =
                                       Get.find<DataController>();
@@ -95,20 +122,49 @@ class _AcceptInvitationPageState extends State<AcceptInvitationPage> {
                                       pageName: Routes.projectListPage);
                                 },
                               ),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: InvitationGenerated.nameIsAccepted,
-                              //   label: 'Accept',
-                              // ),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: InvitationGenerated.nameIsRejected,
-                              //   label: 'Reject',
-                              // ),
-                            ]),
-                          ),
+                            ),
+                            Expanded(
+                              child: NsgButton(
+                                borderRadius: 20,
+                                text: 'Принять приглашение',
+                                onPressed: () async {
+                                  var dataController =
+                                      Get.find<DataController>();
+                                  var invitationController =
+                                      Get.find<InvitationController>();
+                                  var acceptInvitation =
+                                      await dataController.respondToInvitation(
+                                    invitationController.currentItem.id,
+                                    true,
+                                  );
+                                  Get.find<ProjectController>().newItemPageOpen(
+                                      pageName: Routes.projectListPage);
+                                },
+                              ),
+                            ),
+                       
+                          ],
                         ),
-                      ),
-                    ])))));
+
+                      const  Divider(height: 10,)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    }
+}
+
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
   }
 }

@@ -69,6 +69,7 @@ class TaskImageController extends NsgDataController<Picture> {
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
     images.clear();
+  
     for (var element in items) {
       images.add(NsgFilePickerObject(
           image: Image.memory(Uint8List.fromList(element.image)),

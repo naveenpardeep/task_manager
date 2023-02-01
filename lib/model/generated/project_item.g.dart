@@ -36,7 +36,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
-    addField(NsgDataStringField(nameProjectPrefix), primaryKey: false);
+    addField(NsgDataStringField(nameProjectPrefix, maxLength: 15), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksOpen), primaryKey: false);

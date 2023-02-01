@@ -7,7 +7,9 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -162,9 +164,10 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
-                              Get.find<TasksController>()
+                             //   var images = <NsgFilePickerObject>[].clear();
+                             Get.find<TasksController>()
                                   .newItemPageOpen(pageName: Routes.tasksPage);
-                              // Get.toNamed(Routes.tasksPage);
+                             //  Get.toNamed(Routes.tasksPage);
                             },
                           ),
                         ),
@@ -368,8 +371,8 @@ class _HomepageState extends State<Homepage> {
     List<NsgTabsTab> tabsList = [];
     List<String> statuses = [];
 
+   // var statusList = taskStatusTableController.items.reversed;
     var statusList = taskStatusTableController.items;
-
     for (var status in statusList) {
       var scrollController = ScrollController();
       statuses.add(status.status.toString());
@@ -384,10 +387,17 @@ class _HomepageState extends State<Homepage> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        status.status.toString(),
-                        style:
-                            TextStyle(fontSize: ControlOptions.instance.sizeL),
+                      InkWell(
+                        onTap: () {
+                         // changeStatus(status);
+                         // Get.toNamed(Routes.taskrow);
+                         // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
+                        },
+                        child: Text(
+                          status.status.toString(),
+                          style:
+                              TextStyle(fontSize: ControlOptions.instance.sizeL),
+                        ),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(left: 5),
@@ -701,6 +711,29 @@ changeTaskStatus(TaskDoc tasks) {
   );
 }
 
+changeStatus(status) {
+  var form = NsgSelection(
+    selectedElement: status ,
+    inputType: NsgInputType.reference,
+    controller: Get.find<TaskStatusController>(),
+  );
+  // Get.find<TaskBoardController>().postItems([status]);
+  form.selectFromArray(
+    'Смена статуса ',
+    (item) async {
+      
+      status = item ;
+      await Get.find<TaskBoardController>().postItems([status]);
+      
+      Get.find<TasksController>().sendNotify();
+      Get.find<TaskStatusTableController>().sendNotify();
+      Get.find<TasksController>().refreshData();
+      Get.find<TaskStatusTableController>().refreshData();
+      Get.find<TaskBoardController>().refreshData();
+
+    },
+  );
+}
 /* -------------------------------------------------------------- Карточка с задачей -------------------------------------------------------------- */
 Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
   return GestureDetector(
