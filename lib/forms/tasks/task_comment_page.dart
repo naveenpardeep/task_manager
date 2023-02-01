@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class TasksCommentRowPage extends GetView<CommentTableTasksController> {
@@ -14,7 +15,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-    double height=MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -44,13 +45,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                             
                             Align(
                               alignment: Alignment.topRight,
                               child: SizedBox(
-                                
-                                height: height*0.7,
-                                child: commentList()),
+                                  height: height * 0.7, child: commentList()),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
@@ -66,12 +64,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                     right: 0,
                                     child: IconButton(
                                         onPressed: () async {
-                                       
-                                        controller .itemPagePost(goBack: false);
-                                            Get.find<TasksController>()
+                                          controller.itemPagePost(
+                                              goBack: false);
+                                          Get.find<TasksController>()
                                               .itemPagePost(goBack: false);
-                                              //   Get.find<TasksController>().sendNotify();
-                                                 controller.sendNotify();
+                                          //   Get.find<TasksController>().sendNotify();
+                                          controller.sendNotify();
                                         },
                                         icon: const Icon(Icons.send)),
                                   )
@@ -93,11 +91,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   Widget commentList() {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
- 
+    var taskConstroller = Get.find<TasksController>();
+    var userCon = Get.find<UserAccountController>();
     var comments = controller.items;
 
-    for (var comment in comments)
-     {
+    for (var comment in comments) {
       {
         list.add(GestureDetector(
           child: Container(
@@ -110,21 +108,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
-                       
                         Text(
                           comment.text,
-                          maxLines: 2,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      
                         Text(
                           'создано: ${formateddate.format(comment.date)}',
                           maxLines: 1,
                           textScaleFactor: 0.8,
-                          style: const TextStyle(
-                          color: Color(0xff10051C)),
+                          style: const TextStyle(color: Color(0xff10051C)),
                         )
                       ],
                     ),
