@@ -46,7 +46,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            commentList(),
+                            invitationList(),
                           ],
                         ),
                       )),
@@ -59,13 +59,17 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     );
   }
 
-  Widget commentList() {
+  Widget invitationList() {
+    var dataController =  Get.find<DataController>();
+   var invitationController = Get.find<InvitationController>();
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
-    var comments = controller.items;
-
-    for (var comment in comments) {
+    var invitations = controller.items;
+//if(dataController.respondToInvitation.isBlank==false) 
+{
+  for (var invitation in invitations) {
+      
       {
         list.add(GestureDetector(
           child: Container(
@@ -78,14 +82,19 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                         'Author Name:  ${comment.author}',
+                         Text(
+                         'Project Name:  ${invitation.project}',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                           textScaleFactor: 1.2,
                         ),
-                        Text('Organization Name:  ${comment.organization}'),
                         Text(
-                          'создано: ${formateddate.format(comment.date)}',
+                         'Author Name:  ${invitation.author}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2,
+                        ),
+                        Text('Organization Name:  ${invitation.organization}'),
+                        Text(
+                          'создано: ${formateddate.format(invitation.date)}',
                           maxLines: 1,
                           textScaleFactor: 0.8,
                           style: const TextStyle(color: Color(0xff10051C)),
@@ -137,7 +146,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                           ],
                         ),
 
-                        Divider()
+                      const  Divider(height: 10,)
                       ],
                     ),
                   ),
@@ -148,6 +157,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
         ));
       }
     }
+}
 
     return SingleChildScrollView(
         child: Padding(
