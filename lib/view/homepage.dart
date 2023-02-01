@@ -873,8 +873,8 @@ openTaskDialog(tasks, context) {
   Widget closeButton = ElevatedButton(
     child: const Icon(Icons.close),
     onPressed: () {
-     // Navigator.of(context).pop();
-      Get.back();
+      Navigator.of(context).pop();
+     // Get.back();
     },
   );
 
