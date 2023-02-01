@@ -105,7 +105,7 @@ class _HomepageState extends State<Homepage> {
                             projectController.currentItem, Routes.projectPage);
                       },
                     ),
-                    if (width >700)
+                    if (width > 700)
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -164,10 +164,10 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
-                             //   var images = <NsgFilePickerObject>[].clear();
-                             Get.find<TasksController>()
+                              //   var images = <NsgFilePickerObject>[].clear();
+                              Get.find<TasksController>()
                                   .newItemPageOpen(pageName: Routes.tasksPage);
-                             //  Get.toNamed(Routes.tasksPage);
+                              //  Get.toNamed(Routes.tasksPage);
                             },
                           ),
                         ),
@@ -371,7 +371,7 @@ class _HomepageState extends State<Homepage> {
     List<NsgTabsTab> tabsList = [];
     List<String> statuses = [];
 
-   // var statusList = taskStatusTableController.items.reversed;
+    // var statusList = taskStatusTableController.items.reversed;
     var statusList = taskStatusTableController.items;
     for (var status in statusList) {
       var scrollController = ScrollController();
@@ -389,14 +389,14 @@ class _HomepageState extends State<Homepage> {
                     children: [
                       InkWell(
                         onTap: () {
-                         // changeStatus(status);
-                         // Get.toNamed(Routes.taskrow);
-                         // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
+                          // changeStatus(status);
+                          // Get.toNamed(Routes.taskrow);
+                          // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
                         },
                         child: Text(
                           status.status.toString(),
-                          style:
-                              TextStyle(fontSize: ControlOptions.instance.sizeL),
+                          style: TextStyle(
+                              fontSize: ControlOptions.instance.sizeL),
                         ),
                       ),
                       Padding(
@@ -643,13 +643,14 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
         feedback: RotatingCard(
             key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
         childWhenDragging: Opacity(
-            opacity: 0.2, child: taskCard(widget.tasks, widget.constraints)),
-        child: taskCard(widget.tasks, widget.constraints),
+            opacity: 0.2,
+            child: taskCard(widget.tasks, widget.constraints, context)),
+        child: taskCard(widget.tasks, widget.constraints, context),
       );
     } else {
       return Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),
-        child: taskCard(widget.tasks, widget.constraints),
+        child: taskCard(widget.tasks, widget.constraints, context),
       );
     }
   }
@@ -686,7 +687,7 @@ class RotatingCardState extends State<RotatingCard> {
                 blurRadius: 10,
                 color: ControlOptions.instance.colorGrey.withOpacity(0.7))
           ]),
-          child: taskCard(widget.tasks, widget.constraints)),
+          child: taskCard(widget.tasks, widget.constraints, context)),
     );
   }
 }
@@ -713,7 +714,7 @@ changeTaskStatus(TaskDoc tasks) {
 
 changeStatus(status) {
   var form = NsgSelection(
-    selectedElement: status ,
+    selectedElement: status,
     inputType: NsgInputType.reference,
     controller: Get.find<TaskStatusController>(),
   );
@@ -721,21 +722,20 @@ changeStatus(status) {
   form.selectFromArray(
     'Смена статуса ',
     (item) async {
-      
-      status = item ;
+      status = item;
       await Get.find<TaskBoardController>().postItems([status]);
-      
+
       Get.find<TasksController>().sendNotify();
       Get.find<TaskStatusTableController>().sendNotify();
       Get.find<TasksController>().refreshData();
       Get.find<TaskStatusTableController>().refreshData();
       Get.find<TaskBoardController>().refreshData();
-
     },
   );
 }
+
 /* -------------------------------------------------------------- Карточка с задачей -------------------------------------------------------------- */
-Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
+Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   return GestureDetector(
     onLongPress: () {
       changeTaskStatus(tasks);
@@ -834,7 +834,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        openTaskDialog(tasks, context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Icon(
@@ -848,6 +850,55 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints) {
             ],
           )),
     ),
+  );
+}
+
+openTaskDialog(tasks, context) {
+  double width = MediaQuery.of(context).size.width;
+  // set up the button
+  Widget commentButton = ElevatedButton(
+    child: const Text("Open Comments"),
+    onPressed: () {
+      Get.find<TasksController>().currentItem=tasks;
+      Get.find<CommentTableTasksController>()
+          .newItemPageOpen(pageName: Routes.commentRowPage);
+    },
+  );
+  Widget statusButton = ElevatedButton(
+    child: const Text("Change Status"),
+    onPressed: () {
+      changeTaskStatus(tasks);
+    },
+  );
+  Widget closeButton = ElevatedButton(
+    child: const Icon(Icons.close),
+    onPressed: () {
+     // Navigator.of(context).pop();
+      Get.back();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    
+    content: SizedBox(
+      height: 60,
+      child: Column(
+        children: [
+          Expanded(child: SizedBox(width: width, child: commentButton)),
+          Expanded(child: SizedBox(width: width, child: statusButton))
+        ],
+      ),
+    ),
+    actions: [closeButton],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
   );
 }
 

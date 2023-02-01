@@ -36,5 +36,6 @@ class ProjectBinding extends Bindings {
     Get.put(UserNotificationController());
     Get.put(UserNotificationSettingStatusTableController());
     Get.put(OrganizationItemUserTableController());
+    Get.put(CommentTableTasksController());
   }
 }
