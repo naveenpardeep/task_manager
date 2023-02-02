@@ -50,31 +50,34 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               child: SizedBox(
                                   height: height * 0.7, child: commentList()),
                             ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Stack(
-                                children: [
-                                  NsgInput(
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: NsgInput(
                                     dataItem: controller.currentItem,
                                     fieldName:
                                         TaskDocCommentsTableGenerated.nameText,
                                     label: 'Комментарий',
                                   ),
-                                  Positioned(
-                                    right: 0,
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
                                     child: IconButton(
-                                        onPressed: () async {
+                                        onPressed: () {
                                           controller.itemPagePost(
                                               goBack: false);
                                           Get.find<TasksController>()
                                               .itemPagePost(goBack: false);
                                           //   Get.find<TasksController>().sendNotify();
-                                          controller.sendNotify();
+                                         // controller.sendNotify();
                                         },
                                         icon: const Icon(Icons.send)),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
                           ],
                         ),

@@ -860,7 +860,7 @@ openTaskDialog(tasks, context) {
   Widget commentButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
-      elevation: 3,
+     // elevation: 3,
       minimumSize: Size(width, height * 0.08),
     ),
     child: const Text("Open Comments"),
@@ -873,7 +873,7 @@ openTaskDialog(tasks, context) {
   Widget statusButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
-      elevation: 3,
+     // elevation: 3,
       minimumSize: Size(width, height * 0.08),
     ),
     child: const Text("Change Status"),
