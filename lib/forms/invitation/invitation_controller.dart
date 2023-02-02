@@ -8,22 +8,12 @@ class InvitationController extends NsgDataController<Invitation> {
   InvitationController()
       : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100);
 
-  // @override
-  // NsgDataRequestParams get getRequestFilter {
-  //   var cmp = NsgCompare();
-  //   var invitationController = Get.find<InvitationController>();
+  @override
+  NsgDataRequestParams get getRequestFilter {
+    var cmp = NsgCompare();
 
-  //   List acceptedInvitaions = [];
-
-  //   invitationController.items
-  //       .where((element) => element.isAccepted)
-  //       .toList()
-  //       .forEach((element) {
-  //     acceptedInvitaions.add(element.isAccepted);
-  //   });
-
-  //   cmp.add(name: InvitationGenerated.nameAuthorId, value: acceptedInvitaions);
-
-  //   return NsgDataRequestParams(compare: cmp);
-  // }
+    cmp.add(name: InvitationGenerated.nameIsAccepted, value: false);
+    cmp.add(name: InvitationGenerated.nameIsRejected,value: false);
+    return NsgDataRequestParams(compare: cmp);
+  }
 }

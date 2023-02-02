@@ -92,6 +92,11 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                           textScaleFactor: 1.2,
                         ),
+                        Text(
+                         'Invited User:  ${invitation.invitedUser}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2,
+                        ),
                         Text('Organization Name:  ${invitation.organization}'),
                         Text(
                           'создано: ${formateddate.format(invitation.date)}',
@@ -109,6 +114,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                 color: Colors.black,
                                 text: 'Отклонить приглашение',
                                 onPressed: () async {
+                                  Get.find<InvitationController>().currentItem=invitation;
                                   var dataController =
                                       Get.find<DataController>();
                                   var invitationController =
@@ -128,6 +134,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                 borderRadius: 20,
                                 text: 'Принять приглашение',
                                 onPressed: () async {
+                                  Get.find<InvitationController>().currentItem=invitation;
                                   var dataController =
                                       Get.find<DataController>();
                                   var invitationController =
