@@ -855,42 +855,48 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
 
 openTaskDialog(tasks, context) {
   double width = MediaQuery.of(context).size.width;
+  double height = MediaQuery.of(context).size.height;
   // set up the button
   Widget commentButton = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      elevation: 3,
+      minimumSize: Size(width, height * 0.08),
+    ),
     child: const Text("Open Comments"),
     onPressed: () {
-      Get.find<TasksController>().currentItem=tasks;
+      Get.find<TasksController>().currentItem = tasks;
       Get.find<CommentTableTasksController>()
           .newItemPageOpen(pageName: Routes.commentRowPage);
     },
   );
   Widget statusButton = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      elevation: 3,
+      minimumSize: Size(width, height * 0.08),
+    ),
     child: const Text("Change Status"),
     onPressed: () {
       changeTaskStatus(tasks);
     },
   );
   Widget closeButton = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      elevation: 3,
+      minimumSize: Size(width, height * 0.08),
+    ),
     child: const Icon(Icons.close),
     onPressed: () {
       Navigator.of(context).pop();
-     // Get.back();
+      // Get.back();
     },
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    
-    content: SizedBox(
-      height: 60,
-      child: Column(
-        children: [
-          Expanded(child: SizedBox(width: width, child: commentButton)),
-          Expanded(child: SizedBox(width: width, child: statusButton))
-        ],
-      ),
-    ),
-    actions: [closeButton],
+    actions: [commentButton, statusButton],
   );
 
   // show the dialog
