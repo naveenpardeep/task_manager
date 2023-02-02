@@ -15,6 +15,9 @@ class NotificationDocGenerated extends NsgDataItem {
   static const nameTaskOldStatusId = 'taskOldStatusId';
   static const nameTaskNewStatusId = 'taskNewStatusId';
   static const nameAssigneeId = 'assigneeId';
+  static const nameProjectId = 'projectId';
+  static const nameOrganizationId = 'organizationId';
+  static const nameInvitationId = 'invitationId';
   static const nameNotificationType = 'notificationType';
   static const nameUserAccountId = 'userAccountId';
 
@@ -37,6 +40,9 @@ class NotificationDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskStatus>(nameTaskOldStatusId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskNewStatusId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
+    addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
+    addField(NsgDataReferenceField<Invitation>(nameInvitationId), primaryKey: false);
     addField(NsgDataEnumReferenceField<ENotificationType>(nameNotificationType), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
@@ -112,6 +118,39 @@ class NotificationDocGenerated extends NsgDataItem {
   set assigneeId(String value) => setFieldValue(nameAssigneeId, value);
   set assignee(UserAccount value) =>
     setFieldValue(nameAssigneeId, value.id);
+
+  /// Проект
+  String get projectId => getFieldValue(nameProjectId).toString();
+  ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
+  Future<ProjectItem> projectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameProjectId);
+  }
+
+  set projectId(String value) => setFieldValue(nameProjectId, value);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
+
+  /// Организация
+  String get organizationId => getFieldValue(nameOrganizationId).toString();
+  OrganizationItem get organization => getReferent<OrganizationItem>(nameOrganizationId);
+  Future<OrganizationItem> organizationAsync() async {
+   return await getReferentAsync<OrganizationItem>(nameOrganizationId);
+  }
+
+  set organizationId(String value) => setFieldValue(nameOrganizationId, value);
+  set organization(OrganizationItem value) =>
+    setFieldValue(nameOrganizationId, value.id);
+
+  /// Приглашение
+  String get invitationId => getFieldValue(nameInvitationId).toString();
+  Invitation get invitation => getReferent<Invitation>(nameInvitationId);
+  Future<Invitation> invitationAsync() async {
+   return await getReferentAsync<Invitation>(nameInvitationId);
+  }
+
+  set invitationId(String value) => setFieldValue(nameInvitationId, value);
+  set invitation(Invitation value) =>
+    setFieldValue(nameInvitationId, value.id);
 
   /// ТипУведомления
   ENotificationType get notificationType => NsgEnum.fromValue(ENotificationType, getFieldValue(nameNotificationType)) as ENotificationType;
