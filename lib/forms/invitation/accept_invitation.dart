@@ -98,6 +98,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                           textScaleFactor: 1.2,
                         ),
                         Text('Organization Name:  ${invitation.organization}'),
+                        
                         Text(
                           'создано: ${formateddate.format(invitation.date)}',
                           maxLines: 1,

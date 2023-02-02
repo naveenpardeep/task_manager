@@ -108,6 +108,20 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
+                   Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      onTap: () {
+                      
+                       Get.find<InvitationController>()
+                            .newItemPageOpen(pageName: Routes.acceptRejectListPage);
+                      },
+                      child: Icon(
+                        Icons.list_alt,
+                        color: ControlOptions.instance.colorMainText,
+                      ),
+                    ),
+                  ),
                   Stack(
                     children: <Widget>[
                       InkWell(

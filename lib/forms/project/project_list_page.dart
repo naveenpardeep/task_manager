@@ -77,7 +77,8 @@ class ProjectListPage extends GetView<ProjectController> {
             var taskConstroller = Get.find<TasksController>();
             taskConstroller.refreshData();
             Get.find<TaskBoardController>().refreshData();
-            Get.toNamed(Routes.homePage);
+           // Get.toNamed(Routes.homePage);
+              controller.itemPageOpen(project, Routes.homePage);
           },
           onLongPress: () {
             controller.itemPageOpen(project, Routes.projectPage);

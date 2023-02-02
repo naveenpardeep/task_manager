@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
+import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
 import 'package:task_manager_app/forms/invitation/accept_invitation.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
 import 'package:task_manager_app/forms/notification/notification_page.dart';
@@ -178,6 +179,11 @@ class AppPages {
       page: () => const FirstTimeUserAccountPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.acceptRejectListPage,
+      page: () => const AcceptRejectListPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -210,4 +216,5 @@ abstract class Routes {
   static const acceptInvitationPage = '/acceptInvitationPage';
   static const organizationUserRowPage = '/organizationUserRowPage';
   static const firstTimeUserAccountPage='/firstTimeUserAccountPage';
+  static const acceptRejectListPage='/acceptRejectListPage';
 }
