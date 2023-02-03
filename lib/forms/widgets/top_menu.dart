@@ -27,7 +27,7 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.find<ProjectController>().selectedItem = null;
+                        Get.find<ProjectController>().refreshData();
                        // Get.find<ProjectController>()
                        //     .newItemPageOpen(pageName: Routes.projectListPage);
                         Get.find<ProjectController>().itemPageOpen(
