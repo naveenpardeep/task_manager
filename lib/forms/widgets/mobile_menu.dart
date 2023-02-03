@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import '../../app_pages.dart';
 
@@ -19,6 +22,7 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
               child: InkWell(
             onTap: () {
+              Get.find<ProjectController>().refreshData();
               Get.toNamed(Routes.projectListPage);
             },
             child: Icon(
@@ -30,6 +34,7 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
               child: InkWell(
             onTap: () {
+              Get.find<TasksController>().refreshData();
               Get.toNamed(Routes.tasksListPage);
             },
             child: Icon(
@@ -52,7 +57,8 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
               child: InkWell(
             onTap: () {
-               Get.find<InvitationController>().newItemPageOpen(pageName: Routes.acceptInvitationPage );
+              Get.find<InvitationController>()
+                  .newItemPageOpen(pageName: Routes.acceptInvitationPage);
             },
             child: Icon(
               Icons.insert_invitation,
@@ -60,28 +66,40 @@ class TmMobileMenu extends StatelessWidget {
               size: 32,
             ),
           )),
-          
-
-          Stack(
-            children: <Widget>[
-               InkWell(
-            onTap: () {
-              Get.toNamed(Routes.notificationPage);
-              //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
-              // );
-            },
-            child: Icon(
-              Icons.notifications,
-              color: ControlOptions.instance.colorMain,
-              size: 32,
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () {
+                Get.find<AccpetController>().refreshData();
+                Get.find<AccpetController>()
+                    .newItemPageOpen(pageName: Routes.acceptRejectListPage);
+              },
+              child: Icon(
+                Icons.list_alt,
+                color: ControlOptions.instance.colorMain,
+              ),
             ),
           ),
+          Stack(
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.notificationPage);
+                  //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
+                  // );
+                },
+                child: Icon(
+                  Icons.notifications,
+                  color: ControlOptions.instance.colorMain,
+                  size: 32,
+                ),
+              ),
               Positioned(
                 right: 1,
                 top: 1,
-                child:  Container(
+                child: Container(
                   padding: const EdgeInsets.all(2),
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -89,7 +107,7 @@ class TmMobileMenu extends StatelessWidget {
                     minWidth: 15,
                     minHeight: 15,
                   ),
-                  child:  Text(
+                  child: Text(
                     Get.find<NotificationController>().items.length.toString(),
                     style: const TextStyle(
                       color: Colors.white,
@@ -98,7 +116,7 @@ class TmMobileMenu extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ) 
+              )
             ],
           ),
           Expanded(
@@ -108,8 +126,10 @@ class TmMobileMenu extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                     // Get.toNamed(Routes.userProfilePage);
-                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
+                      // Get.toNamed(Routes.userProfilePage);
+                      Get.find<UserAccountController>().itemPageOpen(
+                          Get.find<UserAccountController>().currentItem,
+                          Routes.userProfilePage);
                     },
                     child: ClipOval(
                       child: Image.network(
