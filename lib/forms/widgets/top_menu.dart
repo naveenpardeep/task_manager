@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
@@ -26,7 +27,13 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.projectListPage);
+                        Get.find<ProjectController>().selectedItem = null;
+                       // Get.find<ProjectController>()
+                       //     .newItemPageOpen(pageName: Routes.projectListPage);
+                        Get.find<ProjectController>().itemPageOpen(
+                            Get.find<ProjectController>().currentItem,
+                            Routes.projectListPage);
+                        //  Get.toNamed(Routes.projectListPage);
                       },
                       child: Text(
                         'Проекты',
@@ -98,9 +105,9 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                      //   Get.toNamed(Routes.acceptInvitationPage);
-                       Get.find<InvitationController>()
-                            .newItemPageOpen(pageName: Routes.acceptInvitationPage);
+                        //   Get.toNamed(Routes.acceptInvitationPage);
+                        Get.find<InvitationController>().newItemPageOpen(
+                            pageName: Routes.acceptInvitationPage);
                       },
                       child: Icon(
                         Icons.insert_invitation_sharp,
@@ -108,13 +115,12 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                      
-                       Get.find<InvitationController>()
-                            .newItemPageOpen(pageName: Routes.acceptRejectListPage);
+                        Get.find<InvitationController>().newItemPageOpen(
+                            pageName: Routes.acceptRejectListPage);
                       },
                       child: Icon(
                         Icons.list_alt,

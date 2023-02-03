@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/app_pages.dart';
+
+import 'package:task_manager_app/forms/invitation/acceptController.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
+
 import 'package:task_manager_app/model/data_controller.dart';
 
-class AcceptRejectListPage extends GetView<InvitationController> {
+class AcceptRejectListPage extends GetView<AccpetController> {
   const AcceptRejectListPage({Key? key}) : super(key: key);
 
   @override

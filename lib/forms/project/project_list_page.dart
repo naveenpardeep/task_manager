@@ -71,21 +71,18 @@ class ProjectListPage extends GetView<ProjectController> {
     for (var project in controller.items) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: InkWell(
-          onTap: () {
-            controller.currentItem = project;
-            var taskConstroller = Get.find<TasksController>();
-            taskConstroller.refreshData();
-            Get.find<TaskBoardController>().refreshData();
-           // Get.toNamed(Routes.homePage);
-              controller.itemPageOpen(project, Routes.homePage);
-          },
-          onLongPress: () {
-            controller.itemPageOpen(project, Routes.projectPage);
-          },
-          child: Row(
-            children: [
-              Expanded(
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                   controller.currentItem = project;
+          var taskConstroller = Get.find<TasksController>();
+          taskConstroller.refreshData();
+          Get.find<TaskBoardController>().refreshData();
+         // Get.toNamed(Routes.homePage);
+            controller.itemPageOpen(project, Routes.homePage);
+                },
                 child: Card(
                   elevation: 3,
                   margin: EdgeInsets.zero,
@@ -182,8 +179,8 @@ class ProjectListPage extends GetView<ProjectController> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ));
     }

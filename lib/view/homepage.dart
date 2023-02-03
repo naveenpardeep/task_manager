@@ -86,12 +86,14 @@ class _HomepageState extends State<Homepage> {
                         Get.toNamed(Routes.projectListPage);
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: Text(
-                        projectName,
-                        style:
-                            TextStyle(fontSize: ControlOptions.instance.sizeXL),
+                    projectController.obx((state) =>
+                       Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          projectController.currentItem.name,
+                          style:
+                              TextStyle(fontSize: ControlOptions.instance.sizeXL),
+                        ),
                       ),
                     ),
                     NsgIconButton(

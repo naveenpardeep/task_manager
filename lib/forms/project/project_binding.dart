@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
@@ -37,5 +38,6 @@ class ProjectBinding extends Bindings {
     Get.put(UserNotificationSettingStatusTableController());
     Get.put(OrganizationItemUserTableController());
     Get.put(CommentTableTasksController());
+    Get.put(AccpetController());
   }
 }
