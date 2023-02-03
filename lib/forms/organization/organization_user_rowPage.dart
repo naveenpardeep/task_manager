@@ -64,14 +64,14 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              NsgInput(
-                                selectionController:
-                                    Get.find<OrganizationController>(),
-                                dataItem: controller.currentItem,
-                                fieldName:
-                                    UserAccountGenerated.nameOrganizationId,
-                                label: 'Организация',
-                              ),
+                              // NsgInput(
+                              //   selectionController:
+                              //       Get.find<OrganizationController>(),
+                              //   dataItem: controller.currentItem,
+                              //   fieldName:
+                              //       UserAccountGenerated.nameOrganizationId,
+                              //   label: 'Организация',
+                              // ),
                               NsgInput(
                                 selectionController:
                                     Get.find<ProjectController>(),
@@ -83,7 +83,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
-                                label: 'Instant add user to Project',
+                                label: 'добавить пользователя без приглашения',
                               ),
                                NsgInput(
                                 dataItem: controller.currentItem,
