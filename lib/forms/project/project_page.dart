@@ -83,29 +83,33 @@ class _ProjectpageState extends State<ProjectPage> {
                            const Align(
                             alignment: Alignment.centerLeft,
                             child: NsgText('Добавление пользователей в проект')),
-                            NsgTable(
-                              showIconFalse: false,
-                              controller:
-                                  Get.find<ProjectItemUserTableController>(),
-                              elementEditPageName: Routes.projectuserRowpage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated
-                                        .nameUserAccountId,
-                                    expanded: true,
-                                    presentation: 'User'),
-                                NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated
-                                        .nameIsAdmin,
-                                    width: 100,
-                                    presentation: 'Admin'),
-                              ],
-                            ),
+                            // NsgTable(
+                            //   showIconFalse: false,
+                            //   controller:
+                            //       Get.find<ProjectItemUserTableController>(),
+                            //   elementEditPageName: Routes.projectuserRowpage,
+                            //   availableButtons: const [
+                            //     NsgTableMenuButtonType.createNewElement,
+                            //     NsgTableMenuButtonType.editElement,
+                            //     NsgTableMenuButtonType.removeElement
+                            //   ],
+                            //   columns: [
+                            //     NsgTableColumn(
+                            //         name: ProjectItemUserTableGenerated
+                            //             .nameUserAccountId,
+                            //         expanded: true,
+                            //         presentation: 'User'),
+                            //     NsgTableColumn(
+                            //         name: ProjectItemUserTableGenerated
+                            //             .nameIsAdmin,
+                            //         width: 100,
+                            //         presentation: 'Admin'),
+                            //   ],
+                            // ),
+                            NsgButton(text: ' добавить пользователей в проект',onPressed: () {
+                              Get.find<UserAccountController>().currentItem.inviteProject=controller.currentItem;
+                              Get.find<UserAccountController>().itemNewPageOpen(Routes.createInvitationUser);
+                            },),
                             NsgInput(
                               selectionController:
                                   Get.find<OrganizationController>(),
