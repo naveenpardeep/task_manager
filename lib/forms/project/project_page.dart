@@ -108,7 +108,7 @@ class _ProjectpageState extends State<ProjectPage> {
                             // ),
                             NsgButton(text: ' добавить пользователей в проект',onPressed: () {
                               Get.find<UserAccountController>().currentItem.inviteProject=controller.currentItem;
-                              Get.find<UserAccountController>().itemNewPageOpen(Routes.createInvitationUser);
+                              Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccountListPage);
                             },),
                             NsgInput(
                               selectionController:
