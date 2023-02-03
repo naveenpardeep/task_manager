@@ -22,6 +22,8 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameLastChange = 'lastChange';
   static const namePictureId = 'pictureId';
   static const nameOrganizationId = 'organizationId';
+  static const nameInviteProjectId = 'inviteProjectId';
+  static const nameInviteInstantAdd = 'inviteInstantAdd';
   static const nameMainUserAccountId = 'mainUserAccountId';
 
   static final Map<String, String> fieldNameDict = {
@@ -56,6 +58,8 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
     addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameInviteProjectId), primaryKey: false);
+    addField(NsgDataBoolField(nameInviteInstantAdd), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameMainUserAccountId), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameFirstName]?.presentation = 'Имя';
@@ -166,6 +170,22 @@ class UserAccountGenerated extends NsgDataItem {
   set organizationId(String value) => setFieldValue(nameOrganizationId, value);
   set organization(OrganizationItem value) =>
     setFieldValue(nameOrganizationId, value.id);
+
+  /// Проект (для добавления)
+  String get inviteProjectId => getFieldValue(nameInviteProjectId).toString();
+  ProjectItem get inviteProject => getReferent<ProjectItem>(nameInviteProjectId);
+  Future<ProjectItem> inviteProjectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameInviteProjectId);
+  }
+
+  set inviteProjectId(String value) => setFieldValue(nameInviteProjectId, value);
+  set inviteProject(ProjectItem value) =>
+    setFieldValue(nameInviteProjectId, value.id);
+
+  /// Добавить сразу (без приглашений)
+  bool get inviteInstantAdd => getFieldValue(nameInviteInstantAdd) as bool;
+
+  set inviteInstantAdd(bool value) => setFieldValue(nameInviteInstantAdd, value);
 
   /// ОсновнойАккаунт
   String get mainUserAccountId => getFieldValue(nameMainUserAccountId).toString();
