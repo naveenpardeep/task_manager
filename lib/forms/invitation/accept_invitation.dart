@@ -65,8 +65,8 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
-    var invitations = controller.items;
-//if(dataController.respondToInvitation.isBlank==false) 
+    var invitations = controller.items.reversed;
+
 {
   for (var invitation in invitations) {
       

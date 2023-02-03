@@ -66,7 +66,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
-    var invitations = controller.items;
+    var invitations = controller.items.reversed;
 //if(dataController.respondToInvitation.isBlank==false)
     {
       for (var invitation in invitations) {
