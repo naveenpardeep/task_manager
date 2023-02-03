@@ -83,7 +83,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
-                                label: 'Instant add',
+                                label: 'Instant add user to Project',
                               ),
                                NsgInput(
                                 dataItem: controller.currentItem,
