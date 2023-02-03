@@ -36,6 +36,8 @@ class _ProjectpageState extends State<ProjectPage> {
     // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    var isNewProject = controller.currentItem.name.isEmpty;
+
     // String formatted = formateddate.format(controller.currentItem.date);
 
     return SafeArea(
@@ -52,7 +54,7 @@ class _ProjectpageState extends State<ProjectPage> {
               children: <Widget>[
                 NsgAppBar(
                   color: Colors.white,
-                  text: controller.currentItem.name.isEmpty
+                  text: isNewProject
                       ? 'Новый проект'.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
@@ -78,11 +80,14 @@ class _ProjectpageState extends State<ProjectPage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgText(
-                                'Создано :${formateddate.format(controller.currentItem.date)}'),
-                           const Align(
-                            alignment: Alignment.centerLeft,
-                            child: NsgText('Добавление пользователей в проект')),
+                            if (!isNewProject)
+                              NsgText(
+                                  'Создано :${formateddate.format(controller.currentItem.date)}'),
+                            if (!isNewProject)
+                              const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: NsgText(
+                                      'Добавление пользователей в проект')),
                             // NsgTable(
                             //   showIconFalse: false,
                             //   controller:
@@ -106,17 +111,30 @@ class _ProjectpageState extends State<ProjectPage> {
                             //         presentation: 'Admin'),
                             //   ],
                             // ),
-                            NsgButton(text: ' добавить пользователей в проект',onPressed: () {
-                              Get.find<UserAccountController>().currentItem.inviteProject=controller.currentItem;
-                              Get.find<UserAccountController>().itemNewPageOpen(Routes.userAccountListPage);
-                            },),
+                            if (!isNewProject)
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: NsgButton(
+                                    borderRadius: 20,
+                                    width: 300,
+                                    text: ' добавить пользователей в проект',
+                                    onPressed: () {
+                                      Get.find<UserAccountController>()
+                                              .currentItem
+                                              .inviteProject =
+                                          controller.currentItem;
+                                      Get.find<UserAccountController>()
+                                          .itemNewPageOpen(
+                                              Routes.userAccountListPage);
+                                    },
+                                  )),
                             NsgInput(
                               selectionController:
                                   Get.find<OrganizationController>(),
                               dataItem: controller.currentItem,
                               fieldName:
                                   ProjectItemGenerated.nameOrganizationId,
-                              label: 'Select Organization',
+                              label: 'Группа проектов (организация)',
                             ),
                             NsgInput(
                               selectionController:
@@ -140,33 +158,35 @@ class _ProjectpageState extends State<ProjectPage> {
                               fieldName: ProjectItemGenerated.nameContractor,
                               label: 'Заказчик',
                             ),
-                             const Align(
-                            alignment: Alignment.centerLeft,
-                            child: NsgText('Добавление Статусы проекта')),
-                            SizedBox(
-                              height: height * 0.3,
-                              child: SingleChildScrollView(
-                                  child: NsgTable(
-                                showIconFalse: false,
-                                controller: Get.find<TaskStatusController>(),
-                                elementEditPageName: Routes.taskStatusPage,
-                                availableButtons: const [
-                                  NsgTableMenuButtonType.createNewElement,
-                                  NsgTableMenuButtonType.editElement,
-                                  NsgTableMenuButtonType.removeElement
-                                ],
-                                columns: [
-                                  NsgTableColumn(
-                                      name: TaskStatusGenerated.nameName,
-                                      expanded: true,
-                                      presentation: 'Статусы'),
-                                  NsgTableColumn(
-                                      name: TaskStatusGenerated.nameIsDone,
-                                      width: 100,
-                                      presentation: 'Финальный'),
-                                ],
-                              )),
-                            ),
+                            if (!isNewProject)
+                              const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: NsgText('Добавление Статусы проекта')),
+                            if (!isNewProject)
+                              SizedBox(
+                                height: height * 0.3,
+                                child: SingleChildScrollView(
+                                    child: NsgTable(
+                                  showIconFalse: false,
+                                  controller: Get.find<TaskStatusController>(),
+                                  elementEditPageName: Routes.taskStatusPage,
+                                  availableButtons: const [
+                                    NsgTableMenuButtonType.createNewElement,
+                                    NsgTableMenuButtonType.editElement,
+                                    NsgTableMenuButtonType.removeElement
+                                  ],
+                                  columns: [
+                                    NsgTableColumn(
+                                        name: TaskStatusGenerated.nameName,
+                                        expanded: true,
+                                        presentation: 'Статусы'),
+                                    NsgTableColumn(
+                                        name: TaskStatusGenerated.nameIsDone,
+                                        width: 100,
+                                        presentation: 'Финальный'),
+                                  ],
+                                )),
+                              ),
                             if (isHidden == true &&
                                 controller.currentItem.name.isEmpty)
                               NsgButton(
