@@ -14,7 +14,7 @@ class InvitationController extends NsgDataController<Invitation> {
    var userC=Get.find<UserAccountController>();
     cmp.add(name: InvitationGenerated.nameIsAccepted, value: false);
     cmp.add(name: InvitationGenerated.nameIsRejected, value: false);
-    cmp.add(name: InvitationGenerated.nameInvitedUserId, value: userC.currentItem.id);
+    cmp.add(name: InvitationGenerated.nameInvitedUserId, value: userC.currentItem.id,comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
   }
 }
