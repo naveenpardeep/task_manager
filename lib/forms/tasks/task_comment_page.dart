@@ -66,13 +66,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: IconButton(
-                                        onPressed: () {
-                                          controller.itemPagePost(
+                                        onPressed: () async {
+                                          await controller.itemPagePost(
                                               goBack: false);
-                                          Get.find<TasksController>()
+                                          await Get.find<TasksController>()
                                               .itemPagePost(goBack: false);
+                                          await controller.createNewItemAsync();
                                           //   Get.find<TasksController>().sendNotify();
-                                         // controller.sendNotify();
+                                          // controller.sendNotify();
                                         },
                                         icon: const Icon(Icons.send)),
                                   ),

@@ -11,10 +11,13 @@ class InvitationController extends NsgDataController<Invitation> {
   @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
-   var userC=Get.find<UserAccountController>();
+    var userC = Get.find<UserAccountController>();
     cmp.add(name: InvitationGenerated.nameIsAccepted, value: false);
     cmp.add(name: InvitationGenerated.nameIsRejected, value: false);
-    cmp.add(name: InvitationGenerated.nameInvitedUserId, value: userC.currentItem.id,comparisonOperator: NsgComparisonOperator.inList);
+    cmp.add(
+        name: InvitationGenerated.nameInvitedUserId,
+        value: userC.items,
+        comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
   }
 }
