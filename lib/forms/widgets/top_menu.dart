@@ -105,32 +105,38 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: InkWell(
-                      onTap: () {
-                        Get.find<InvitationController>().refreshData();
-                        //   Get.toNamed(Routes.acceptInvitationPage);
-                        Get.find<InvitationController>().newItemPageOpen(
-                            pageName: Routes.acceptInvitationPage);
-                      },
-                      child: Icon(
-                        Icons.insert_invitation_sharp,
-                        color: ControlOptions.instance.colorMainText,
+                  Tooltip(
+                    message: 'Invitations',
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+                        onTap: () {
+                          Get.find<InvitationController>().refreshData();
+                          //   Get.toNamed(Routes.acceptInvitationPage);
+                          Get.find<InvitationController>().newItemPageOpen(
+                              pageName: Routes.acceptInvitationPage);
+                        },
+                        child: Icon(
+                          Icons.insert_invitation_sharp,
+                          color: ControlOptions.instance.colorMainText,
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: InkWell(
-                      onTap: () {
-                        Get.find<AccpetController>().refreshData();
-                        Get.find<AccpetController>().newItemPageOpen(
-                            pageName: Routes.acceptRejectListPage);
-                      },
-                      child: Icon(
-                        Icons.list_alt,
-                        color: ControlOptions.instance.colorMainText,
+                  Tooltip(
+                    message: 'Invitated Users List',
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+                        onTap: () {
+                          Get.find<AccpetController>().refreshData();
+                          Get.find<AccpetController>().newItemPageOpen(
+                              pageName: Routes.acceptRejectListPage);
+                        },
+                        child: Icon(
+                          Icons.list_alt,
+                          color: ControlOptions.instance.colorMainText,
+                        ),
                       ),
                     ),
                   ),

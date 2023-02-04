@@ -13,7 +13,7 @@ class AccpetController extends NsgDataController<Invitation> {
     var cmp = NsgCompare();
   var userC=Get.find<UserAccountController>();
     cmp.add(
-        name: InvitationGenerated.nameAuthorId, value: userC.currentItem.id,comparisonOperator: NsgComparisonOperator.inList);
+        name: InvitationGenerated.nameAuthorId, value: userC.items,comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
   }
 }
