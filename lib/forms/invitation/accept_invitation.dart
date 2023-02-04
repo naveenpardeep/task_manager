@@ -70,6 +70,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     List<Widget> list = [];
 
     var invitations = controller.items.reversed;
+        
 
     {
       for (var invitation in invitations) {
