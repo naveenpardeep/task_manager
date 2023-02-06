@@ -22,6 +22,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   var organizationName = '';
   var userAccountController = Get.find<UserAccountController>();
+  var orgController= Get.find<OrganizationController>();
   var userImageController = Get.find<UserImageController>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final scrollController = ScrollController();
@@ -108,7 +109,7 @@ class _UserProfileState extends State<UserProfile> {
                                             selectOrganization();
                                           }),
                                           child: Text(
-                                              'Организация $organizationName')),
+                                              'Организация ${orgController.currentItem.name}')),
                                     ),
                                   ],
                                 ),
