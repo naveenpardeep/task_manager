@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/generated/project_item.g.dart';
 
 import '../../model/project_item.dart';
@@ -13,7 +15,6 @@ class ProjectController extends NsgDataController<ProjectItem> {
       ProjectItemGenerated.nameOrganizationId,
       ProjectItemGenerated.nameLeaderId,
       ProjectItemGenerated.nameTableUsers,
-   
     ];
   }
 
@@ -36,11 +37,18 @@ class ProjectController extends NsgDataController<ProjectItem> {
 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
-    var element = await super.doCreateNewItem();
+    var element = await super.doCreateNewItem() as ProjectItem;
 
     // element.id = Guid.newGuid();
 
     element.id = Guid.newGuid();
+    var orgController = Get.find<OrganizationController>();
+    if (orgController.items.length == 1) {
+      element.organization = orgController.firstItem;
+      element.leader = Get.find<UserAccountController>()
+          .items
+          .firstWhere((e) => e.organization == element.organization);
+    }
 
     return element;
   }

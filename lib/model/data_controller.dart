@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
@@ -38,6 +39,7 @@ class DataController extends DataControllerGenerated {
     await super.loadProviderData();
     //  await Get.find<OrganizationController>().refreshData();
     await Get.find<UserAccountController>().refreshData();
+    await Get.find<OrganizationController>().refreshData();
     isLoadFinished = true;
     _gotoMainPage();
   }
@@ -54,7 +56,6 @@ class DataController extends DataControllerGenerated {
     if (_animationFinished && isLoadFinished && status.isSuccess && !gotoDone) {
       gotoDone = true;
       var accController = Get.find<UserAccountController>();
-      assert(accController.items.isNotEmpty);
 
       //Считаем, что у любого пользователя должен существовать как минимум один аккаунт
       //он создается на сервере автоматически при регистрации пользователя
@@ -64,8 +65,8 @@ class DataController extends DataControllerGenerated {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
-        Get.find<UserAccountController>()
-            .itemPageOpen(accController.items.first, Routes.firstTimeUserAccountPage);
+        Get.find<UserAccountController>().itemPageOpen(
+            accController.items.first, Routes.firstTimeUserAccountPage);
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);

@@ -5,11 +5,11 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../task_status/task_status_controller.dart';
 import 'task_image_controller.dart';
+import 'task_user_account_controler.dart';
 
 class TasksPage extends GetView<TasksController> {
   const TasksPage({Key? key}) : super(key: key);
@@ -159,10 +159,10 @@ class TasksPage extends GetView<TasksController> {
                             NsgInput(
                               label: 'Исполнитель',
                               selectionController:
-                                  Get.find<UserAccountController>(),
+                                  Get.find<TaskUserAccountController>(),
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameAssigneeId,
-                              selectionForm: Routes.userAccountListPage,
+                              //selectionForm: Routes.userAccountListPage,
                             ),
 
                             NsgInput(
