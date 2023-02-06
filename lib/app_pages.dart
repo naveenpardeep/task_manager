@@ -10,6 +10,7 @@ import 'package:task_manager_app/forms/organization/oraganization_userTable.dart
 import 'package:task_manager_app/forms/organization/organization_listPage.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
 import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
+import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
@@ -184,6 +185,11 @@ class AppPages {
       page: () => const AcceptRejectListPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.addUserToProjectPage,
+      page: () => const AddUserToProjectPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -217,4 +223,5 @@ abstract class Routes {
   static const organizationUserRowPage = '/organizationUserRowPage';
   static const firstTimeUserAccountPage='/firstTimeUserAccountPage';
   static const acceptRejectListPage='/acceptRejectListPage';
+  static const addUserToProjectPage='/addUserToProjectPage';
 }

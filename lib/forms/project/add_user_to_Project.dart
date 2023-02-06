@@ -6,13 +6,13 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-import '../user_account/user_account_controller.dart';
 
 
 
 
-class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
-  const ProjectUserRowPage({Key? key}) : super(key: key);
+
+class AddUserToProjectPage extends GetView<ProjectItemUserTableController> {
+  const AddUserToProjectPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +39,9 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
-                  onPressed2: () async {
-                  await  controller.itemPagePost();
-                     await  Get.find<ProjectController>().itemPagePost();
+                  onPressed2: () async{
+                 await   controller.itemPagePost();
+                  await  Get.find<ProjectController>().itemPagePost();
                   },
                 ),
                 Expanded(
@@ -50,20 +50,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgInput(
-                              selectionController: Get.find<UserAccountController>(),
-                              dataItem: controller.currentItem,
-                              fieldName:
-                                 ProjectItemUserTableGenerated.nameUserAccountId,
-                              label: 'User ',
-                            ),
-                            NsgInput(
-                              
-                              dataItem: controller.currentItem,
-                              fieldName:
-                                 ProjectItemUserTableGenerated.nameIsAdmin,
-                              label: 'Admin',
-                            ),
+                          
                           
                              NsgTable(
                               showIconFalse: false,

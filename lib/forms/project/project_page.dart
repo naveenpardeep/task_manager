@@ -110,7 +110,7 @@ class _ProjectpageState extends State<ProjectPage> {
                             //         width: 100,
                             //         presentation: 'Admin'),
                             //   ],
-                            // ),
+                            //  ),
                             if (!isNewProject)
                               Align(
                                   alignment: Alignment.centerLeft,
@@ -119,13 +119,9 @@ class _ProjectpageState extends State<ProjectPage> {
                                     width: 300,
                                     text: ' добавить пользователей в проект',
                                     onPressed: () {
-                                      Get.find<UserAccountController>()
-                                              .currentItem
-                                              .inviteProject =
-                                          controller.currentItem;
-                                      Get.find<UserAccountController>()
+                                      Get.find<ProjectItemUserTableController>()
                                           .itemNewPageOpen(
-                                              Routes.userAccountListPage);
+                                              Routes.addUserToProjectPage);
                                     },
                                   )),
                             NsgInput(
