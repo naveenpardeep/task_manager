@@ -879,6 +879,7 @@ openTaskDialog(tasks, context) {
       Get.find<TasksController>().currentItem = tasks;
       Get.find<CommentTableTasksController>()
           .newItemPageOpen(pageName: Routes.commentRowPage);
+          Navigator.of(context).pop();
     },
   );
   Widget statusButton = ElevatedButton(
@@ -890,6 +891,7 @@ openTaskDialog(tasks, context) {
     child: const Text("Change Status"),
     onPressed: () {
       changeTaskStatus(tasks);
+     
     },
   );
   Widget closeButton = ElevatedButton(
