@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 
@@ -29,6 +30,7 @@ class AddUserToProjectPage extends GetView<ProjectItemUserTableController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  backColor: Colors.white,
                   text: controller.currentItem.isEmpty
                       ? 'User '.toUpperCase()
                       : controller.currentItem.owner.name,
@@ -50,7 +52,7 @@ class AddUserToProjectPage extends GetView<ProjectItemUserTableController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                          
+                           const  NsgText('Добавление пользователей в проект'),
                           
                              NsgTable(
                               showIconFalse: false,

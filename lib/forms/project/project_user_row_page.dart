@@ -8,9 +8,6 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../user_account/user_account_controller.dart';
 
-
-
-
 class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
   const ProjectUserRowPage({Key? key}) : super(key: key);
 
@@ -29,6 +26,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  backColor: Colors.white,
                   text: controller.currentItem.isEmpty
                       ? 'User '.toUpperCase()
                       : controller.currentItem.owner.name,
@@ -40,8 +38,8 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                   },
                   icon2: Icons.check,
                   onPressed2: () async {
-                  await  controller.itemPagePost();
-                     await  Get.find<ProjectController>().itemPagePost();
+                    await controller.itemPagePost();
+                    await Get.find<ProjectController>().itemPagePost();
                   },
                 ),
                 Expanded(
@@ -51,44 +49,19 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                         child: Column(
                           children: [
                             NsgInput(
-                              selectionController: Get.find<UserAccountController>(),
+                              selectionController:
+                                  Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
-                              fieldName:
-                                 ProjectItemUserTableGenerated.nameUserAccountId,
+                              fieldName: ProjectItemUserTableGenerated
+                                  .nameUserAccountId,
                               label: 'User ',
                             ),
                             NsgInput(
-                              
                               dataItem: controller.currentItem,
                               fieldName:
-                                 ProjectItemUserTableGenerated.nameIsAdmin,
+                                  ProjectItemUserTableGenerated.nameIsAdmin,
                               label: 'Admin',
                             ),
-                          
-                             NsgTable(
-                              showIconFalse: false,
-                              controller:
-                                  Get.find<ProjectItemUserTableController>(),
-                              elementEditPageName: Routes.projectuserRowpage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated
-                                        .nameUserAccountId,
-                                    expanded: true,
-                                    presentation: 'User'),
-                                NsgTableColumn(
-                                    name: ProjectItemUserTableGenerated
-                                        .nameIsAdmin,
-                                    width: 100,
-                                    presentation: 'Admin'),
-                              ],
-                             ),
-                            
                           ],
                         ),
                       )),
