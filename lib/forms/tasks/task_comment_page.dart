@@ -15,6 +15,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
+
     double height = MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
@@ -95,6 +96,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   Widget commentList() {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
+    var scrollController = ScrollController();
     var taskConstroller = Get.find<TasksController>();
     var userCon = Get.find<UserAccountController>();
     var comments = controller.items;
@@ -118,7 +120,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         ),
                         Text(comment.text),
                         Text(
-                          'создано: ${formateddate.format(comment.date)}',
+                          formateddate.format(comment.date),
                           maxLines: 1,
                           textScaleFactor: 0.8,
                           style: const TextStyle(color: Color(0xff10051C)),
@@ -134,12 +136,22 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       }
     }
 
-    return SingleChildScrollView(
-        child: Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Column(
-        children: list,
-      ),
-    ));
+    return RawScrollbar(
+        thumbVisibility: true,
+        trackVisibility: true,
+        controller: scrollController,
+        thickness: 10,
+        trackBorderColor: ControlOptions.instance.colorGreyLight,
+        trackColor: ControlOptions.instance.colorGreyLight,
+        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+        radius: const Radius.circular(0),
+        child: SingleChildScrollView(
+            controller: scrollController,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                children: list,
+              ),
+            )));
   }
 }
