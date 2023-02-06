@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
+import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
@@ -24,8 +25,6 @@ class Homepage extends StatefulWidget {
 
   @override
   State<Homepage> createState() => _HomepageState();
-
- 
 }
 
 class _HomepageState extends State<Homepage> {
@@ -51,7 +50,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-   reset();
+    reset();
     projectName;
     searchvalue;
     searchDate;
@@ -63,7 +62,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-   
     projectName = projectController.currentItem.name;
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
@@ -352,9 +350,7 @@ class _HomepageState extends State<Homepage> {
           backColor: Colors.transparent,
           color: ControlOptions.instance.colorMain,
           onPressed: () {
-         
-              reset();
-          
+            reset();
           },
         ),
       )
@@ -829,11 +825,22 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                             ],
                           ),
                         ),
-                        ClipOval(
-                          child: Image.network(
-                              width: 32,
-                              height: 32,
-                              'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                        Row(
+                          children: [
+                            if (tasks.tableComments.length.isGreaterThan(0))
+                              Tooltip(
+                                message: 'Comments',
+                                child: NsgCircle(
+                                    text:
+                                        tasks.tableComments.length.toString()),
+                              ),
+                            ClipOval(
+                              child: Image.network(
+                                  width: 32,
+                                  height: 32,
+                                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -879,7 +886,7 @@ openTaskDialog(tasks, context) {
       Get.find<TasksController>().currentItem = tasks;
       Get.find<CommentTableTasksController>()
           .newItemPageOpen(pageName: Routes.commentRowPage);
-          Navigator.of(context).pop();
+      Navigator.of(context).pop();
     },
   );
   Widget statusButton = ElevatedButton(
@@ -891,7 +898,6 @@ openTaskDialog(tasks, context) {
     child: const Text("Change Status"),
     onPressed: () {
       changeTaskStatus(tasks);
-     
     },
   );
   Widget closeButton = ElevatedButton(
