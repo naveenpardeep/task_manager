@@ -70,7 +70,6 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     List<Widget> list = [];
 
     var invitations = controller.items.reversed;
-        
 
     {
       for (var invitation in invitations) {
@@ -139,6 +138,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                     Get.find<ProjectController>()
                                         .newItemPageOpen(
                                             pageName: Routes.projectListPage);
+                                    Get.find<ProjectController>().refreshData();
                                   },
                                 ),
                               ),
@@ -163,6 +163,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                     Get.find<ProjectController>()
                                         .newItemPageOpen(
                                             pageName: Routes.projectListPage);
+                                    Get.find<ProjectController>().refreshData();
                                   },
                                 ),
                               ),

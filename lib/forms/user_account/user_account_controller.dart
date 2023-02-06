@@ -11,6 +11,26 @@ class UserAccountController extends NsgDataController<UserAccount> {
           requestOnInit: false,
           autoRepeate: true,
         );
+  @override
+  Future<UserAccount> createNewItemAsync() async {
+    var element = await super.createNewItemAsync();
+    var proController = Get.find<ProjectController>();
+
+    element.inviteProject=proController.currentItem;
+    return element;
+  }
+
+  @override
+  Future<NsgDataItem> doCreateNewItem() async {
+    var element = await super.doCreateNewItem() as UserAccount;
+
+    element.id = Guid.newGuid();
+    var proController = Get.find<ProjectController>();
+
+    element.inviteProject = proController.currentItem;
+
+    return element;
+  }
 
   @override
   Future createAndSetSelectedItem() async {

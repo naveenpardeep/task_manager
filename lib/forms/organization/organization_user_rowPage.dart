@@ -11,9 +11,9 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
 
   @override
   Widget build(BuildContext context) {
-    // if (controller.lateInit) {
-    //   controller.requestItems();
-    // }
+    if (controller.lateInit) {
+      controller.requestItems();
+     }
     // if (Get.find<UserImageController>().lateInit) {
     //   Get.find<UserImageController>().requestItems();
     // }
