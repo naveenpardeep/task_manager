@@ -84,7 +84,7 @@ class DataControllerGenerated extends NsgBaseController {
     sendNotify();
   }
 
-/// Ответить на приглашение
+  /// Ответить на приглашение
   Future<List<String>> respondToInvitation(String invitationId, bool accept, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
     var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
     try {

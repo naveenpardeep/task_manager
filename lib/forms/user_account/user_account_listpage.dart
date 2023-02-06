@@ -75,6 +75,10 @@ class UserAccountListPage extends GetView<UserAccountController> {
                             name: UserAccountGenerated.nameName,
                             expanded: true,
                             presentation: 'Наименование'),
+                        NsgTableColumn(
+                            name: UserAccountGenerated.nameOrganizationId,
+                            expanded: true,
+                            presentation: 'Организация'),
                       ]),
                 ),
               ),
