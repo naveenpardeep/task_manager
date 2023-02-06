@@ -828,11 +828,20 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                         Row(
                           children: [
                             if (tasks.tableComments.length.isGreaterThan(0))
-                              Tooltip(
-                                message: 'Comments',
-                                child: NsgCircle(
-                                    text:
-                                        tasks.tableComments.length.toString()),
+                              InkWell(
+                                onTap: () {
+                                  Get.find<TasksController>().currentItem =
+                                      tasks;
+                                  Get.find<CommentTableTasksController>()
+                                      .newItemPageOpen(
+                                          pageName: Routes.commentRowPage);
+                                },
+                                child: Tooltip(
+                                  message: 'Comments',
+                                  child: NsgCircle(
+                                      text: tasks.tableComments.length
+                                          .toString()),
+                                ),
                               ),
                             ClipOval(
                               child: Image.network(
