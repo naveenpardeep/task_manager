@@ -24,6 +24,8 @@ class Homepage extends StatefulWidget {
 
   @override
   State<Homepage> createState() => _HomepageState();
+
+ 
 }
 
 class _HomepageState extends State<Homepage> {
@@ -49,7 +51,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-
+   reset();
     projectName;
     searchvalue;
     searchDate;
@@ -61,6 +63,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+   
     projectName = projectController.currentItem.name;
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
@@ -86,13 +89,13 @@ class _HomepageState extends State<Homepage> {
                         Get.toNamed(Routes.projectListPage);
                       },
                     ),
-                    projectController.obx((state) =>
-                       Padding(
+                    projectController.obx(
+                      (state) => Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           projectController.currentItem.name,
-                          style:
-                              TextStyle(fontSize: ControlOptions.instance.sizeXL),
+                          style: TextStyle(
+                              fontSize: ControlOptions.instance.sizeXL),
                         ),
                       ),
                     ),
@@ -349,19 +352,12 @@ class _HomepageState extends State<Homepage> {
           backColor: Colors.transparent,
           color: ControlOptions.instance.colorMain,
           onPressed: () {
-            setState(() {
-              taskBoardController.currentItem.sortBy = ESorting.dateDesc;
-              taskBoardController.sendNotify();
-              serviceC.currentItem.userAccountId = '';
-              isDatesearch = false;
-              searchDate = DateTime.now();
-              searchvalue = '';
-              textEditController.clear();
-              taskController.refreshData();
-            });
+         
+              reset();
+          
           },
         ),
-      ),
+      )
     ];
   }
 
@@ -611,6 +607,19 @@ class _HomepageState extends State<Homepage> {
         taskController.sendNotify();
       },
     );
+  }
+
+  reset() {
+    setState(() {
+      taskBoardController.currentItem.sortBy = ESorting.dateDesc;
+      taskBoardController.sendNotify();
+      serviceC.currentItem.userAccountId = '';
+      isDatesearch = false;
+      searchDate = DateTime.now();
+      searchvalue = '';
+      textEditController.clear();
+      taskController.refreshData();
+    });
   }
 }
 
@@ -862,7 +871,7 @@ openTaskDialog(tasks, context) {
   Widget commentButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
-     // elevation: 3,
+      // elevation: 3,
       minimumSize: Size(width, height * 0.08),
     ),
     child: const Text("Open Comments"),
@@ -875,7 +884,7 @@ openTaskDialog(tasks, context) {
   Widget statusButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
-     // elevation: 3,
+      // elevation: 3,
       minimumSize: Size(width, height * 0.08),
     ),
     child: const Text("Change Status"),
