@@ -481,7 +481,7 @@ class _UserProfileState extends State<UserProfile> {
         await Get.find<UserNotificationController>()
             .deleteItems([Get.find<UserNotificationController>().currentItem]);
         Get.find<UserNotificationController>().sendNotify();
-        Get.back();
+        Navigator.of(context).pop();
       },
     );
     Widget noButton = ElevatedButton(
