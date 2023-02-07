@@ -50,7 +50,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             Align(
                               alignment: Alignment.topRight,
                               child: SizedBox(
-                                  height: height * 0.7, child: commentList()),
+                                  height: height * 0.7,
+                                  child: commentList(context)),
                             ),
                             Stack(
                               children: [
@@ -94,11 +95,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     );
   }
 
-  Widget commentList() {
+  Widget commentList(context) {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
     var scrollController = ScrollController();
-    var userC=Get.find<UserAccountController>();
+    var userC = Get.find<UserAccountController>();
     var comments = controller.items;
 
     for (var comment in comments) {
@@ -106,13 +107,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
-              controller.currentItem.text = comment.text;
-              controller.sendNotify();
-            
-            //  if (controller.currentItem.authorId==userC.currentItem.id)
-              {
-             controller.itemPageOpen(comment, Routes.commentRowPage);
-              }  
+              showAlertDialog(context, comment);
+              //   controller.currentItem.text = comment.text;
+              //   controller.sendNotify();
+
+              // //  if (controller.currentItem.authorId==userC.currentItem.id)
+              //   {
+              //  controller.itemPageOpen(comment, Routes.commentRowPage);
+              //   }
             },
             child: Container(
               color: ControlOptions.instance.colorGreyLighter,
@@ -164,5 +166,43 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                 children: list,
               ),
             )));
+  }
+
+  showAlertDialog(BuildContext context, comment) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        controller.currentItem.text = comment.text;
+        
+
+        //  if (controller.currentItem.authorId==userC.currentItem.id)
+        {
+          controller.itemPageOpen(comment, Routes.commentRowPage);
+          controller.sendNotify();
+        }
+        Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Edit?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
