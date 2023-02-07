@@ -11,19 +11,25 @@ class ProjectUserController extends NsgDataController<UserAccount> {
           autoRepeate: true,
         );
 
- @override
+  @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
     var userC = Get.find<UserAccountController>();
     var proItemuserCon = Get.find<ProjectItemUserTableController>();
-    var ids = userC.items.removeWhere(
-        (element) => element.id == proItemuserCon.currentItem.userAccountId);
+    var projCon = Get.find<ProjectController>();
+    var ids = <UserAccount>[];
+    var proIds = <UserAccount>[];
+    for (var element in proItemuserCon.items) {
+      proIds.add(element.userAccount);
+    }
+    ids.addAll(userC.items.where(
+        (element) => element.organization == projCon.currentItem.organization));
+    ids.removeWhere((element) => proIds.contains(element));
 
     cmp.add(
-        name: ProjectItemUserTableGenerated.nameUserAccountId,
-        value: ids as ProjectItemUserTable,
+        name: UserAccountGenerated.nameId,
+        value: ids,
         comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
   }
-  
 }
