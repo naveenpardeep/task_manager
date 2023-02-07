@@ -4,6 +4,7 @@ import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
@@ -39,5 +40,6 @@ class ProjectBinding extends Bindings {
     Get.put(OrganizationItemUserTableController());
     Get.put(CommentTableTasksController());
     Get.put(AccpetController());
+    Get.put(ProjectUserController());
   }
 }

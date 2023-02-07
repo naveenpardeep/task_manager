@@ -71,18 +71,5 @@ class ProjectItemUserTableController
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
 
-  @override
-  NsgDataRequestParams get getRequestFilter {
-    var cmp = NsgCompare();
-    var userC = Get.find<UserAccountController>();
-    var proItemuserCon = Get.find<ProjectItemUserTableController>();
-    var ids = userC.items.removeWhere(
-        (element) => element.id == proItemuserCon.currentItem.userAccountId);
-
-    cmp.add(
-        name: ProjectItemUserTableGenerated.nameUserAccountId,
-        value: ids as ProjectItemUserTable,
-        comparisonOperator: NsgComparisonOperator.inList);
-    return NsgDataRequestParams(compare: cmp);
-  }
+  
 }

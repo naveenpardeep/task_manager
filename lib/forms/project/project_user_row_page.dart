@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -50,7 +51,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                           children: [
                             NsgInput(
                               selectionController:
-                                  Get.find<UserAccountController>(),
+                                  Get.find<ProjectUserController>(),
                               dataItem: controller.currentItem,
                               fieldName: ProjectItemUserTableGenerated
                                   .nameUserAccountId,
