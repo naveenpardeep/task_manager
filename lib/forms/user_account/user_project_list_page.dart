@@ -24,6 +24,7 @@ class UserProjectListPage extends GetView<UserNotificationController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  backColor: Colors.white,
                   text: 'проект '.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
