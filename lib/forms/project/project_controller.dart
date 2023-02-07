@@ -71,24 +71,18 @@ class ProjectItemUserTableController
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
 
-  // @override
-  // NsgDataRequestParams get getRequestFilter {
-  //   var cmp = NsgCompare();
-  //   var projectController = Get.find<ProjectController>();
-  //   var proUserTableCon = Get.find<ProjectItemUserTableController>();
+  @override
+  NsgDataRequestParams get getRequestFilter {
+    var cmp = NsgCompare();
+    var userC = Get.find<UserAccountController>();
+    var proItemuserCon = Get.find<ProjectItemUserTableController>();
+    var ids = userC.items.removeWhere(
+        (element) => element.id == proItemuserCon.currentItem.userAccountId);
 
-  //   List<String> userAddedToProject = [];
-  //   // proUserTableCon.items
-  //   //     .where((element) => projectController.currentItem.tableUsers)
-  //   //     .toList()
-  //   //     .forEach((element) {
-  //   //   userAddedToProject.add(element.userAccountId);
-  //   // });
-
-  //   cmp.add(
-  //       name: ProjectItemUserTableGenerated.nameUserAccountId,
-  //       value: projectController.currentItem.leaderId);
-
-  //   return NsgDataRequestParams(compare: cmp);
-  // }
+    cmp.add(
+        name: ProjectItemUserTableGenerated.nameUserAccountId,
+        value: ids as ProjectItemUserTable,
+        comparisonOperator: NsgComparisonOperator.inList);
+    return NsgDataRequestParams(compare: cmp);
+  }
 }
