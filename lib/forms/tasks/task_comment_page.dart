@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -97,39 +98,48 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
     var scrollController = ScrollController();
-    var taskConstroller = Get.find<TasksController>();
-    var userCon = Get.find<UserAccountController>();
+    var userC=Get.find<UserAccountController>();
     var comments = controller.items;
 
     for (var comment in comments) {
       {
         list.add(GestureDetector(
-          child: Container(
-            color: ControlOptions.instance.colorGreyLighter,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          comment.author.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(comment.text),
-                        Text(
-                          formateddate.format(comment.date),
-                          maxLines: 1,
-                          textScaleFactor: 0.8,
-                          style: const TextStyle(color: Color(0xff10051C)),
-                        )
-                      ],
+          child: InkWell(
+            onTap: () {
+              controller.currentItem = comment;
+            
+            //  if (controller.currentItem.authorId==userC.currentItem.id)
+              {
+              controller.itemPageOpen(comment, Routes.editCommentPage);
+              }  
+            },
+            child: Container(
+              color: ControlOptions.instance.colorGreyLighter,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            comment.author.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(comment.text),
+                          Text(
+                            formateddate.format(comment.date),
+                            maxLines: 1,
+                            textScaleFactor: 0.8,
+                            style: const TextStyle(color: Color(0xff10051C)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));
