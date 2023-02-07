@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_project_notificationController.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class UserProjectListPage extends GetView<UserNotificationController> {
@@ -44,7 +44,7 @@ class UserProjectListPage extends GetView<UserNotificationController> {
                           children: [
                             NsgInput(
                               selectionController:
-                                  Get.find<ProjectController>(),
+                                  Get.find<UserProjectNotificationController>(),
                               dataItem: controller.currentItem,
                               fieldName: UserNotificationSettingsGenerated
                                   .nameProjectId,

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -11,12 +12,13 @@ class UserNotificationController
   @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
+
     var userController = Get.find<UserAccountController>();
 
     cmp.add(
         name: UserNotificationSettingsGenerated.nameUserAccountId,
         value: userController.currentItem.id);
-
+  
     return NsgDataRequestParams(compare: cmp);
   }
 

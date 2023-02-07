@@ -16,6 +16,7 @@ import 'package:task_manager_app/forms/user_account/user_notification_controller
 
 import '../task_status/project_status_controller.dart';
 import '../user_account/service_object_controller.dart';
+import '../user_account/user_project_notificationController.dart';
 
 class ProjectBinding extends Bindings {
   @override
@@ -41,5 +42,6 @@ class ProjectBinding extends Bindings {
     Get.put(CommentTableTasksController());
     Get.put(AccpetController());
     Get.put(ProjectUserController());
+    Get.put(UserProjectNotificationController());
   }
 }
