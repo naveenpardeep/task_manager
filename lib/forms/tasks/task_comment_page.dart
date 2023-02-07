@@ -106,11 +106,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
-              controller.currentItem = comment;
+              controller.currentItem.text = comment.text;
+              controller.sendNotify();
             
             //  if (controller.currentItem.authorId==userC.currentItem.id)
               {
-              controller.itemPageOpen(comment, Routes.editCommentPage);
+             controller.itemPageOpen(comment, Routes.commentRowPage);
               }  
             },
             child: Container(
