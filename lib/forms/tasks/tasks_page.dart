@@ -214,8 +214,22 @@ class TasksPage extends GetView<TasksController> {
                                         pageName: Routes.commentRowPage);
                               },
                             ),
-
-                            Flexible(child: imageGallery()),
+                            if (controller.currentItem.name.isEmpty)
+                              NsgButton(
+                                  text: 'Add Photos',
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    if (controller.currentItem.name.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Пожалуйста, введите название задачи ')));
+                                    } else {
+                                      controller.itemPagePost(goBack: false);
+                                    }
+                                  }),
+                            if (controller.currentItem.name.isNotEmpty)
+                              Flexible(child: imageGallery()),
                             // NsgTable(
                             //     controller:
                             //         Get.find<FilesTableTasksController>(),
