@@ -120,10 +120,18 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                 Flexible(
                   child: Container(
                     width: width<=700? width*0.6: 300,
-                    color: ControlOptions.instance.colorGreyLighter,
+                    color: Get.find<DataController>().currentUser ==
+                      comment.author.mainUserAccount? 
+                      ControlOptions.instance.colorGreyLighter:
+                      ControlOptions.instance.colorMainLighter,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
+                        crossAxisAlignment: 
+                        Get.find<DataController>().currentUser ==
+                      comment.author.mainUserAccount? 
+                        CrossAxisAlignment.end:
+                        CrossAxisAlignment.start,
                         children: [
                           Text(
                             comment.author.toString(),
