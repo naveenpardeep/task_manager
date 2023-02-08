@@ -26,57 +26,55 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         body: controller.obx(
           (state) => Container(
             decoration: const BoxDecoration(color: Colors.white),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                NsgAppBar(
-                  backColor: ControlOptions.instance.colorWhite,
-                  text: 'комментарий',
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  // icon2: Icons.check,
-                  // onPressed2: () {
-                  //   controller.itemPagePost();
-                  // },
-                ),
-                SizedBox(
-                    height: height * 0.75,
-                    child: commentList(context)),
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: NsgInput(
-                        dataItem: controller.currentItem,
-                        fieldName:
-                            TaskDocCommentsTableGenerated.nameText,
-                        label: 'Комментарий',
-                      ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      child: Padding(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  NsgAppBar(
+                    backColor: ControlOptions.instance.colorWhite,
+                    text: 'комментарий',
+                    icon: Icons.arrow_back_ios_new,
+                    colorsInverted: true,
+                    bottomCircular: true,
+                    onPressed: () {
+                      controller.itemPageCancel();
+                    },
+                    // icon2: Icons.check,
+                    // onPressed2: () {
+                    //   controller.itemPagePost();
+                    // },
+                  ),
+                  SizedBox(height: height * 0.75, child: commentList(context)),
+                  Stack(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: IconButton(
-                            onPressed: () async {
-                              await controller.itemPagePost(
-                                  goBack: false);
-                              await Get.find<TasksController>()
-                                  .itemPagePost(goBack: false);
-                              await controller.createNewItemAsync();
-                              //   Get.find<TasksController>().sendNotify();
-                              // controller.sendNotify();
-                            },
-                            icon: const Icon(Icons.send)),
+                        child: NsgInput(
+                          dataItem: controller.currentItem,
+                          fieldName: TaskDocCommentsTableGenerated.nameText,
+                          label: 'Комментарий',
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      Positioned(
+                        right: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: IconButton(
+                              onPressed: () async {
+                                await controller.itemPagePost(goBack: false);
+                                await Get.find<TasksController>()
+                                    .itemPagePost(goBack: false);
+                                await controller.createNewItemAsync();
+                                //   Get.find<TasksController>().sendNotify();
+                                // controller.sendNotify();
+                              },
+                              icon: const Icon(Icons.send)),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -101,8 +99,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
-              if(Get.find<DataController>().currentUser==comment.author.mainUserAccount)
-              {
+              if (Get.find<DataController>().currentUser ==
+                  comment.author.mainUserAccount) {
                 showAlertDialog(context, comment);
               }
               //   controller.currentItem.text = comment.text;
@@ -113,34 +111,34 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               //  controller.itemPageOpen(comment, Routes.commentRowPage);
               //   }
             },
-            child: Container(
-              color: ControlOptions.instance.colorGreyLighter,
-              child: Row(
-                mainAxisAlignment: Get.find<DataController>().currentUser==comment.author.mainUserAccount? MainAxisAlignment.end: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            comment.author.toString(),
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(comment.text),
-                          Text(
-                            formateddate.format(comment.date),
-                            maxLines: 1,
-                            textScaleFactor: 0.8,
-                            style: const TextStyle(color: Color(0xff10051C)),
-                          )
-                        ],
-                      ),
+            child: Row(
+              mainAxisAlignment: Get.find<DataController>().currentUser ==
+                      comment.author.mainUserAccount
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: [
+                Container(
+                  color: ControlOptions.instance.colorGreyLighter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          comment.author.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(comment.text),
+                        Text(
+                          formateddate.format(comment.date),
+                          maxLines: 1,
+                          textScaleFactor: 0.8,
+                          style: const TextStyle(color: Color(0xff10051C)),
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));
