@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class TasksCommentRowPage extends GetView<CommentTableTasksController> {
@@ -42,51 +43,38 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   //   controller.itemPagePost();
                   // },
                 ),
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: SizedBox(
-                                  height: height * 0.75,
-                                  child: commentList(context)),
-                            ),
-                            Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: NsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName:
-                                        TaskDocCommentsTableGenerated.nameText,
-                                    label: 'Комментарий',
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: IconButton(
-                                        onPressed: () async {
-                                          await controller.itemPagePost(
-                                              goBack: false);
-                                          await Get.find<TasksController>()
-                                              .itemPagePost(goBack: false);
-                                          await controller.createNewItemAsync();
-                                          //   Get.find<TasksController>().sendNotify();
-                                          // controller.sendNotify();
-                                        },
-                                        icon: const Icon(Icons.send)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      )),
+                SizedBox(
+                    height: height * 0.75,
+                    child: commentList(context)),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: NsgInput(
+                        dataItem: controller.currentItem,
+                        fieldName:
+                            TaskDocCommentsTableGenerated.nameText,
+                        label: 'Комментарий',
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: IconButton(
+                            onPressed: () async {
+                              await controller.itemPagePost(
+                                  goBack: false);
+                              await Get.find<TasksController>()
+                                  .itemPagePost(goBack: false);
+                              await controller.createNewItemAsync();
+                              //   Get.find<TasksController>().sendNotify();
+                              // controller.sendNotify();
+                            },
+                            icon: const Icon(Icons.send)),
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
@@ -113,6 +101,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
+              if(Get.find<DataController>().currentUser==comment.author.mainUserAccount)
               {
                 showAlertDialog(context, comment);
               }
@@ -127,6 +116,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             child: Container(
               color: ControlOptions.instance.colorGreyLighter,
               child: Row(
+                mainAxisAlignment: Get.find<DataController>().currentUser==comment.author.mainUserAccount? MainAxisAlignment.end: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Padding(
