@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-import '../user_account/user_account_controller.dart';
 
 class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
   const ProjectUserRowPage({Key? key}) : super(key: key);

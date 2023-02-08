@@ -36,6 +36,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   key: GlobalKey(),
                   decoration: const BoxDecoration(color: Colors.white),
                   child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -138,6 +139,7 @@ class _NotificationPageState extends State<NotificationPage> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           controller: scrollController,
             child: Padding(
           padding: const EdgeInsets.only(right: 10),

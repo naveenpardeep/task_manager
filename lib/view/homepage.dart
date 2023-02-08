@@ -8,9 +8,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -420,6 +418,7 @@ class _HomepageState extends State<Homepage> {
                                 .withOpacity(0.2),
                             radius: const Radius.circular(0),
                             child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
                                 controller: scrollController,
                                 child: taskController.obx(
                                     (state) => getTaskList(status.status))),
@@ -567,6 +566,7 @@ class _HomepageState extends State<Homepage> {
     }
 
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
         child: Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Column(

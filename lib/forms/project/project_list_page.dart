@@ -4,7 +4,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/view/homepage.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
 import '../tasks/tasks_controller.dart';
@@ -197,6 +196,7 @@ class ProjectListPage extends GetView<ProjectController> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
             controller: scrollController,
             child: width > 700
                 ? NsgGrid(crossAxisCount: width ~/ 400, children: list)

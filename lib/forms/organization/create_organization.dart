@@ -54,6 +54,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                           child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
                             child: Column(children: [
                               NsgInput(
                                 dataItem: controller.currentItem,

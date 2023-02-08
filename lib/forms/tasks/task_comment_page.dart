@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -83,6 +82,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   }
 
   Widget commentList(context) {
+    double width = MediaQuery.of(context).size.width;
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
     var scrollController = ScrollController();
@@ -117,24 +117,30 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   ? MainAxisAlignment.end
                   : MainAxisAlignment.start,
               children: [
-                Container(
-                  color: ControlOptions.instance.colorGreyLighter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        Text(
-                          comment.author.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(comment.text),
-                        Text(
-                          formateddate.format(comment.date),
-                          maxLines: 1,
-                          textScaleFactor: 0.8,
-                          style: const TextStyle(color: Color(0xff10051C)),
-                        )
-                      ],
+                Flexible(
+                  child: Container(
+                    width: width<=700? width*0.6: 300,
+                    color: ControlOptions.instance.colorGreyLighter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Text(
+                            comment.author.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            comment.text,
+                            softWrap: true,
+                          ),
+                          Text(
+                            formateddate.format(comment.date),
+                            maxLines: 1,
+                            textScaleFactor: 0.8,
+                            style: const TextStyle(color: Color(0xff10051C)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -155,6 +161,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             controller: scrollController,
             child: Padding(
               padding: const EdgeInsets.only(right: 10),

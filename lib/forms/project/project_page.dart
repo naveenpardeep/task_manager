@@ -78,6 +78,7 @@ class _ProjectpageState extends State<ProjectPage> {
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
                             if (!isNewProject)

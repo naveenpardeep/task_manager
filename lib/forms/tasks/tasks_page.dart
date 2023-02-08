@@ -80,6 +80,7 @@ class TasksPage extends GetView<TasksController> {
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,

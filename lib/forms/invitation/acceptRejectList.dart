@@ -53,6 +53,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
                             controller: scrollController,
                             child: Column(
                               children: [
