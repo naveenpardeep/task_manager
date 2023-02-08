@@ -16,8 +16,16 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var element = await super.createNewItemAsync();
     var proController = Get.find<ProjectController>();
 
-    element.inviteProject=proController.currentItem;
+    element.inviteProject = proController.currentItem;
     return element;
+  }
+
+  @override
+  Future refreshData({List<NsgUpdateKey>? keys}) async {
+    await super.refreshData(keys: keys);
+    if (items.isNotEmpty) {
+      currentItem = items.firstWhere((account) => account.organizationId.isEmpty);
+    }
   }
 
   @override
@@ -39,19 +47,16 @@ class UserAccountController extends NsgDataController<UserAccount> {
   }
 
   @override
-  Future<bool> itemPagePost(
-      {bool goBack = false, bool useValidation = false}) async {
+  Future<bool> itemPagePost({bool goBack = false, bool useValidation = false}) async {
     var imageController = Get.find<UserImageController>();
     //if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
     await imageController.saveImages();
     //}
-    return await super
-        .itemPagePost(goBack: false, useValidation: useValidation);
+    return await super.itemPagePost(goBack: false, useValidation: useValidation);
   }
 
   @override
-  Future setAndRefreshSelectedItem(
-      NsgDataItem item, List<String>? referenceList) async {
+  Future setAndRefreshSelectedItem(NsgDataItem item, List<String>? referenceList) async {
     await super.setAndRefreshSelectedItem(item, referenceList);
     await Get.find<UserImageController>().refreshData();
   }
@@ -62,11 +67,9 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var projectController = Get.find<ProjectController>();
     var ids = <String>[];
     if (projectController.currentItem.isNotEmpty) {
-      filter.compare.add(
-          name: UserAccountGenerated.nameOrganizationId,
-          value: projectController.currentItem.organizationId);
-      for (var row
-          in projectController.currentItem.organization.tableUsers.rows) {
+      filter.compare
+          .add(name: UserAccountGenerated.nameOrganizationId, value: projectController.currentItem.organizationId);
+      for (var row in projectController.currentItem.organization.tableUsers.rows) {
         ids.add(row.userAccountId);
       }
 
