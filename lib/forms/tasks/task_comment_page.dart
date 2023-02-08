@@ -119,19 +119,19 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               children: [
                 Flexible(
                   child: Container(
-                    width: width<=700? width*0.6: 300,
+                    width: width <= 700 ? width * 0.75 : 300,
                     color: Get.find<DataController>().currentUser ==
-                      comment.author.mainUserAccount? 
-                      ControlOptions.instance.colorGreyLighter:
-                      ControlOptions.instance.colorMainLighter,
+                            comment.author.mainUserAccount
+                        ? ControlOptions.instance.colorGreyLighter
+                        : ControlOptions.instance.colorMainLighter,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
-                        crossAxisAlignment: 
-                        Get.find<DataController>().currentUser ==
-                      comment.author.mainUserAccount? 
-                        CrossAxisAlignment.end:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            Get.find<DataController>().currentUser ==
+                                    comment.author.mainUserAccount
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.start,
                         children: [
                           Text(
                             comment.author.toString(),
@@ -146,12 +146,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             maxLines: 1,
                             textScaleFactor: 0.8,
                             style: const TextStyle(color: Color(0xff10051C)),
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 70,
+                )
               ],
             ),
           ),
