@@ -5,6 +5,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
+
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
   @override
@@ -64,7 +65,7 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget getNotificationTaskList() {
     List<Widget> list = [];
     var scrollController = ScrollController();
-    var tasksList = controller.items;
+    var tasksList = controller.items.reversed;
 
     for (var tasks in tasksList) {
       {
@@ -72,7 +73,7 @@ class _NotificationPageState extends State<NotificationPage> {
           onTap: () {
             // Get.toNamed(Routes.tasksPage);
 
-            controller.itemPageOpen(tasks, Routes.tasksPage,
+            controller.itemPageOpen(tasks, Routes.acceptInvitationPage,
                 needRefreshSelectedItem: true);
           },
           child: Row(
@@ -88,14 +89,14 @@ class _NotificationPageState extends State<NotificationPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                tasks.task.docNumber,
+                                'Project Name:  ${tasks.project.name}',
                                 maxLines: 1,
                               ),
                               Row(
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      tasks.task.toString(),
+                                      'Invitation Sent by: ${tasks.invitation.author.name}',
                                       maxLines: 2,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold),
@@ -139,13 +140,13 @@ class _NotificationPageState extends State<NotificationPage> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            controller: scrollController,
             child: Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Column(
-            children: list,
-          ),
-        )));
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                children: list,
+              ),
+            )));
   }
 }
