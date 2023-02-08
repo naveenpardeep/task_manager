@@ -8,6 +8,7 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
@@ -68,7 +69,7 @@ class _UserProfileState extends State<UserProfile> {
                     IconButton(
                       onPressed: () {
                         userAccountController.itemPageOpen(
-                            userAccountController.currentItem,
+                            Get.find<DataController>().currentUser,
                             Routes.userAccount);
                       },
                       icon: const Icon(Icons.edit),
@@ -117,7 +118,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Text(
-                                      'Должность  : ${userAccountController.currentItem.position}'),
+                                      'Должность  : ${Get.find<DataController>().currentUser.position}'),
                                 ),
                                 Padding(
                                   padding:
@@ -140,7 +141,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding: const EdgeInsets.fromLTRB(
                                       20.0, 10, 20, 0),
                                   child: Text(
-                                      'Имя пользователя  : ${userAccountController.currentItem.name}'),
+                                      'Имя пользователя  : ${Get.find<DataController>().currentUser.name}'),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -156,7 +157,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding: const EdgeInsets.fromLTRB(
                                       20.0, 10, 20, 0),
                                   child: Text(
-                                      'Телефон   : ${userAccountController.currentItem.phoneNumber}'),
+                                      'Телефон   : ${Get.find<DataController>().currentUser.phoneNumber}'),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -172,7 +173,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding: const EdgeInsets.fromLTRB(
                                       20.0, 10, 20, 0),
                                   child: Text(
-                                      'Почта   : ${userAccountController.currentItem.email}'),
+                                      'Почта   : ${Get.find<DataController>().currentUser.email}'),
                                 ),
                                 Padding(
                                   padding:
@@ -205,7 +206,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyByPush,
                                     label: 'Показывать push-уведомления',
@@ -218,7 +219,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyByEmail,
                                     label: 'Отправлять уведомления на почту',
@@ -246,7 +247,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyNewTasks,
                                     label: 'Создана задача с моим участием',
@@ -256,7 +257,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyEditedTasks,
                                     label:
@@ -282,7 +283,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyNewTasksInProjects,
                                     label: 'Новая задача в проекте',
@@ -292,7 +293,7 @@ class _UserProfileState extends State<UserProfile> {
                                   padding:
                                       const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem: userAccountController.currentItem,
+                                    dataItem: Get.find<DataController>().currentUser,
                                     fieldName: UserAccountGenerated
                                         .nameSettingNotifyEditedTasksInProjects,
                                     label: 'Все изменения в задачах проектов',

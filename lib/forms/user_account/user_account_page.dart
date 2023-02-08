@@ -4,6 +4,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class UserAccountPage extends GetView<UserAccountController> {
@@ -47,6 +48,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                     },
                     icon2: Icons.check,
                     onPressed2: () async {
+                  //  await  Get.find<DataController>().itemPagePost();
                       await controller.itemPagePost();
                       // Get.find<ProjectController>()
                       //     .itemNewPageOpen(Routes.projectListPage);
@@ -70,70 +72,70 @@ class UserAccountPage extends GetView<UserAccountController> {
                               // ),
 
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameName,
                                 label: 'nick',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
                             //  Должность тоже нужна только внутри организации
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePosition,
                                 label: 'Должность',
                               ),
                             //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByPush,
                                 label: 'Показывать push-уведомления',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyNewTasks,
                                 label: 'Создана задача с моим участием',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasks,
                                 label:
                                     'Все изменения в задачах с моим участием',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyNewTasksInProjects,
                                 label: 'Новая задача в проекте',
                               ),
                               NsgInput(
-                                dataItem: controller.currentItem,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
