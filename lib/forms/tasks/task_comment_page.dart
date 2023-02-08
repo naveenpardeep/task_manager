@@ -20,6 +20,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     double height = MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
@@ -50,7 +51,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             Align(
                               alignment: Alignment.topRight,
                               child: SizedBox(
-                                  height: height * 0.7,
+                                  height: height * 0.75,
                                   child: commentList(context)),
                             ),
                             Stack(
@@ -102,12 +103,19 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     var userC = Get.find<UserAccountController>();
     var comments = controller.items;
 
+    var author = <UserAccount>[];
+    for (var element in comments) {
+      author.add(element.author);
+    }
+
     for (var comment in comments) {
       {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
-              showAlertDialog(context, comment);
+              {
+                showAlertDialog(context, comment);
+              }
               //   controller.currentItem.text = comment.text;
               //   controller.sendNotify();
 
@@ -174,7 +182,6 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       child: const Text("Yes"),
       onPressed: () async {
         controller.currentItem.text = comment.text;
-        
 
         //  if (controller.currentItem.authorId==userC.currentItem.id)
         {
