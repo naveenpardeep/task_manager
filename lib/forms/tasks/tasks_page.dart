@@ -199,7 +199,7 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameDateDeadline,
                               label: 'Срок выполнения',
                             ),
-
+                           if (controller.currentItem.name.isNotEmpty)
                             NsgButton(
                               text: 'Open Comments',
                               onPressed: () {
