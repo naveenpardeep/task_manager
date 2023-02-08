@@ -5,10 +5,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 
-import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
-
-import 'package:task_manager_app/model/data_controller.dart';
-
 class AcceptRejectListPage extends GetView<AccpetController> {
   const AcceptRejectListPage({Key? key}) : super(key: key);
 
@@ -17,6 +13,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
+    var scrollController = ScrollController();
     double height = MediaQuery.of(context).size.height;
     return BodyWrap(
       child: Scaffold(
@@ -44,12 +41,24 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            acceptRejectList(),
-                          ],
-                        ),
+                      child: RawScrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        controller: scrollController,
+                        thickness: 15,
+                        trackBorderColor:
+                            ControlOptions.instance.colorGreyLight,
+                        trackColor: ControlOptions.instance.colorGreyLight,
+                        thumbColor:
+                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        radius: const Radius.circular(0),
+                        child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: Column(
+                              children: [
+                                acceptRejectList(),
+                              ],
+                            )),
                       )),
                 ),
               ],
@@ -61,8 +70,6 @@ class AcceptRejectListPage extends GetView<AccpetController> {
   }
 
   Widget acceptRejectList() {
-    var dataController = Get.find<DataController>();
-    var invitationController = Get.find<InvitationController>();
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
@@ -97,7 +104,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             textScaleFactor: 1.2,
                           ),
-                           Text(
+                          Text(
                             'Mobile: ${invitation.invitedPhoneNumber}',
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             textScaleFactor: 1.2,
