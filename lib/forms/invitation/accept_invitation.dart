@@ -79,6 +79,8 @@ class AcceptInvitationPage extends GetView<InvitationController> {
               color: ControlOptions.instance.colorGreyLight,
               child: Row(
                 children: [
+                   if (Get.find<DataController>().currentUser ==
+                                  invitation.invitedUser.mainUserAccount)
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -142,31 +144,34 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                   },
                                 ),
                               ),
-                              Flexible(
-                                child: NsgButton(
-                                  borderRadius: 20,
-                                  height: 40,
-                                  width: 100,
-                                  text: 'Принять приглашение',
-                                  onPressed: () async {
-                                    Get.find<InvitationController>()
-                                        .currentItem = invitation;
-                                    var dataController =
-                                        Get.find<DataController>();
-                                    var invitationController =
-                                        Get.find<InvitationController>();
-                                    var acceptInvitation = await dataController
-                                        .respondToInvitation(
-                                      invitationController.currentItem.id,
-                                      true,
-                                    );
-                                    Get.find<ProjectController>()
-                                        .newItemPageOpen(
-                                            pageName: Routes.projectListPage);
-                                    Get.find<ProjectController>().refreshData();
-                                  },
+                              
+                                Flexible(
+                                  child: NsgButton(
+                                    borderRadius: 20,
+                                    height: 40,
+                                    width: 100,
+                                    text: 'Принять приглашение',
+                                    onPressed: () async {
+                                      Get.find<InvitationController>()
+                                          .currentItem = invitation;
+                                      var dataController =
+                                          Get.find<DataController>();
+                                      var invitationController =
+                                          Get.find<InvitationController>();
+                                      var acceptInvitation =
+                                          await dataController
+                                              .respondToInvitation(
+                                        invitationController.currentItem.id,
+                                        true,
+                                      );
+                                      Get.find<ProjectController>()
+                                          .newItemPageOpen(
+                                              pageName: Routes.projectListPage);
+                                      Get.find<ProjectController>()
+                                          .refreshData();
+                                    },
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                           const Divider(

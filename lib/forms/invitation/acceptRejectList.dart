@@ -29,7 +29,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
               children: <Widget>[
                 NsgAppBar(
                   backColor: ControlOptions.instance.colorWhite,
-                  text: 'Accept Reject Users List',
+                  text: 'Invited Users List',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
