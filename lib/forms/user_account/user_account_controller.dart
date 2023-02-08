@@ -3,6 +3,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
+import '../../model/data_controller.dart';
 import '../project/project_controller.dart';
 
 class UserAccountController extends NsgDataController<UserAccount> {
@@ -24,7 +25,7 @@ class UserAccountController extends NsgDataController<UserAccount> {
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
     if (items.isNotEmpty) {
-      currentItem = items.firstWhere((account) => account.organizationId.isEmpty);
+     Get.find<DataController>().currentUser = items.firstWhere((account) => account.organizationId.isEmpty);
     }
   }
 

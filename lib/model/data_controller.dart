@@ -8,6 +8,7 @@ import '../app_pages.dart';
 import '../login/login_page.dart';
 import '../login/verification_page.dart';
 import 'generated/data_controller.g.dart';
+import 'user_account.dart';
 
 class DataController extends DataControllerGenerated {
   //NsgPushNotificationService? nsgFirebase;
@@ -18,17 +19,15 @@ class DataController extends DataControllerGenerated {
     autoRepeateCount = 1000;
   }
 
+  UserAccount currentUser = UserAccount();
+
   @override
   Future onInit() async {
     if (provider == null) {
-      provider = NsgDataProvider(
-          applicationName: 'nsg_task_manager',
-          firebaseToken: '',
-          applicationVersion: '');
+      provider = NsgDataProvider(applicationName: 'nsg_task_manager', firebaseToken: '', applicationVersion: '');
       //firebaseToken: nsgFirebase == null ? '' : nsgFirebase!.firebasetoken);
       provider!.getLoginWidget = (provider) => LoginPage(provider);
-      provider!.getVerificationWidget =
-          (provider) => VerificationPage(provider);
+      provider!.getVerificationWidget = (provider) => VerificationPage(provider);
     }
 
     await super.onInit();
@@ -65,8 +64,7 @@ class DataController extends DataControllerGenerated {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
-        Get.find<UserAccountController>().itemPageOpen(
-            accController.items.first, Routes.firstTimeUserAccountPage);
+        Get.find<UserAccountController>().itemPageOpen(accController.items.first, Routes.firstTimeUserAccountPage);
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);
@@ -74,8 +72,7 @@ class DataController extends DataControllerGenerated {
         //   Get.offAndToNamed(Routes.projectListPage);
         //Get.offAndToNamed(Routes.userAccountListPage);
         //Get.offAndToNamed(Routes.invitationPage);
-        Get.find<ProjectController>().itemPageOpen(
-            Get.find<ProjectController>().currentItem, Routes.projectListPage);
+        Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage);
       }
     }
   }
