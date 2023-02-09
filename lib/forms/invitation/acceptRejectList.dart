@@ -53,7 +53,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             controller: scrollController,
                             child: Column(
                               children: [
@@ -128,6 +128,17 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             textScaleFactor: 0.8,
                             style: const TextStyle(color: Color(0xff10051C)),
                           ),
+                          if (invitation.isAccepted == false &&
+                              invitation.isRejected == false)
+                            NsgButton(
+                              text: 'Cancel',
+                              onPressed: () async {
+                                controller.currentItem = invitation;
+                                await controller
+                                    .deleteItems([controller.currentItem]);
+                                controller.sendNotify();
+                              },
+                            ),
                           const Divider(
                             height: 10,
                           )
