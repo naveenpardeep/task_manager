@@ -6,7 +6,6 @@ import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-
 class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
   const ProjectUserRowPage({Key? key}) : super(key: key);
 
@@ -48,6 +47,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
                         child: Column(
                           children: [
                             NsgInput(
+                              controller: controller,
                               selectionController:
                                   Get.find<ProjectUserController>(),
                               dataItem: controller.currentItem,
