@@ -18,7 +18,8 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId,
-      TaskDocGenerated.nameTableComments
+      TaskDocGenerated.nameTableComments,
+      TaskDocGenerated.nameCheckList
     ];
   }
 
@@ -207,12 +208,7 @@ class TaskCheckListController
     editModeAllowed = true;
     requestOnInit = true;
   }
-  @override
-  Future<TaskDocCheckListTable> doCreateNewItem() async {
-    var item = await super.doCreateNewItem();
-
-    return item;
-  }
+ 
 }
 
 class FilesTableTasksController

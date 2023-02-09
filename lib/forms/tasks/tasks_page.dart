@@ -204,7 +204,7 @@ class TasksPage extends GetView<TasksController> {
 
                             const NsgText('Create CheckList for this Task'),
                             NsgTable(
-                              showIconFalse: false,
+                            
                               controller: Get.find<TaskCheckListController>(),
                               elementEditPageName: Routes.taskChecklistPage,
                               availableButtons: const [
