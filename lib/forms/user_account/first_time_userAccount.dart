@@ -50,6 +50,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                     icon2: Icons.check,
                     onPressed2: () async {
                       await controller.itemPagePost();
+                      await Get.find<InvitationController>().requestItems();
                       Get.find<InvitationController>()
                           .itemNewPageOpen(Routes.acceptInvitationPage);
 

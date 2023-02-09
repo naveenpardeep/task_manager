@@ -87,6 +87,7 @@ class _InvitationPageState extends State<InvitationPage> {
                                 label: 'Select Organization',
                               ),
                               NsgInput(
+                                maskType: NsgInputMaskType.phone,
                                 dataItem: controller.currentItem,
                                 fieldName:
                                     InvitationGenerated.nameInvitedPhoneNumber,
