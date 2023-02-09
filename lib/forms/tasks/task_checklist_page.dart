@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:nsg_controls/nsg_controls.dart';
-
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class EditCommentPage extends GetView<CommentTableTasksController> {
-  const EditCommentPage({Key? key}) : super(key: key);
+class TaskChecklistPage extends GetView<TaskCheckListController> {
+  const TaskChecklistPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (controller.lateInit) {
-      controller.requestItems();
-    }
-
-   
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
+        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
+            key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  backColor: ControlOptions.instance.colorWhite,
-                  text: 'комментарий',
+                  backColor: Colors.white,
+                  text: 'Task CheckList '.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -36,11 +32,9 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
-                  onPressed2: () async{
-                  await  controller.itemPagePost();
-                  await Get.find<TasksController>()
-                                              .itemPagePost(goBack: false);
-                     await controller.createNewItemAsync();
+                  onPressed2: () async {
+                    await controller.itemPagePost();
+                    await Get.find<TasksController>().itemPagePost();
                   },
                 ),
                 Expanded(
@@ -49,18 +43,16 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: NsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName:
-                                        TaskDocCommentsTableGenerated.nameText,
-                                    label: 'Комментарий',
-                                  ),
-                                ),
-                              ],
+                            NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName:
+                                    TaskDocCheckListTableGenerated.nameText,
+                                label: 'Task CheckList Name'),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName:
+                                  TaskDocCheckListTableGenerated.nameIsDone,
+                              label: 'Done',
                             ),
                           ],
                         ),

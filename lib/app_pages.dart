@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
+import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
@@ -196,6 +197,11 @@ class AppPages {
       page: () => const EditCommentPage(),
       binding: ProjectBinding(),
     ),
+     GetPage(
+      name: Routes.taskChecklistPage,
+      page: () => const TaskChecklistPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -231,4 +237,5 @@ abstract class Routes {
   static const acceptRejectListPage='/acceptRejectListPage';
   static const addUserToProjectPage='/addUserToProjectPage';
   static const editCommentPage='/editCommentPage';
+  static const taskChecklistPage='/TaskChecklistPage'; 
 }

@@ -43,5 +43,6 @@ class ProjectBinding extends Bindings {
     Get.put(AccpetController());
     Get.put(ProjectUserController());
     Get.put(UserProjectNotificationController());
+    Get.put(TaskCheckListController());
   }
 }

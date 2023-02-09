@@ -18,7 +18,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-    double height = MediaQuery.of(context).size.height;
+
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -65,8 +65,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
   }
 
   Widget invitationList() {
-    var dataController = Get.find<DataController>();
-    var invitationController = Get.find<InvitationController>();
+  
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
@@ -133,7 +132,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                         Get.find<DataController>();
                                     var invitationController =
                                         Get.find<InvitationController>();
-                                    var DecInvitation = await dataController
+                                     await dataController
                                         .respondToInvitation(
                                       invitationController.currentItem.id,
                                       false,
@@ -159,7 +158,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                           Get.find<DataController>();
                                       var invitationController =
                                           Get.find<InvitationController>();
-                                      var acceptInvitation =
+                                     
                                           await dataController
                                               .respondToInvitation(
                                         invitationController.currentItem.id,

@@ -17,5 +17,6 @@ class TasksListBinding extends Bindings {
     Get.put(TaskUserAccountController());
     Get.put(TaskImageController());
     Get.put(FilesTableTasksController());
+    Get.put(TaskCheckListController());
   }
 }
