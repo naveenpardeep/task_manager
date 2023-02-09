@@ -100,6 +100,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 label: 'Фамилия',
                               ),
                               NsgInput(
+                                maskType: NsgInputMaskType.phone,
                                 keyboard: TextInputType.phone,
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
