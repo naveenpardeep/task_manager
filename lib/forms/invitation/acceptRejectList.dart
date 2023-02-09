@@ -131,6 +131,8 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                           if (invitation.isAccepted == false &&
                               invitation.isRejected == false)
                             NsgButton(
+                              backColor: ControlOptions.instance.colorWhite,
+                              color: ControlOptions.instance.colorMainDark,
                               text: 'Cancel',
                               onPressed: () async {
                                 controller.currentItem = invitation;
