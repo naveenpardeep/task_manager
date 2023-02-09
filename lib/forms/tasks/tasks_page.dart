@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
@@ -200,21 +201,45 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameDateDeadline,
                               label: 'Срок выполнения',
                             ),
-                           if (controller.currentItem.name.isNotEmpty)
-                            NsgButton(
-                              text: 'Open Comments',
-                              onPressed: () {
-                                // Get.find<CommentTableTasksController>()
-                                //     .itemPageOpen(
-                                //        Get.find<CommentTableTasksController>()
-                                //          .currentItem,
-                                //       Routes.commentRowPage);
-                                // Get.toNamed(Routes.commentRowPage);
-                                Get.find<CommentTableTasksController>()
-                                    .newItemPageOpen(
-                                        pageName: Routes.commentRowPage);
-                              },
+
+                            const NsgText('Create CheckList for this Task'),
+                            NsgTable(
+                              showIconFalse: false,
+                              controller: Get.find<TaskCheckListController>(),
+                              elementEditPageName: Routes.taskChecklistPage,
+                              availableButtons: const [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement,
+                                NsgTableMenuButtonType.removeElement
+                              ],
+                              columns: [
+                                NsgTableColumn(
+                                    name:
+                                        TaskDocCheckListTableGenerated.nameText,
+                                    expanded: true,
+                                    presentation: 'CheckList Name'),
+                                NsgTableColumn(
+                                    name: TaskDocCheckListTableGenerated
+                                        .nameIsDone,
+                                    width: 100,
+                                    presentation: 'Done'),
+                              ],
                             ),
+                            if (controller.currentItem.name.isNotEmpty)
+                              NsgButton(
+                                text: 'Open Comments',
+                                onPressed: () {
+                                  // Get.find<CommentTableTasksController>()
+                                  //     .itemPageOpen(
+                                  //        Get.find<CommentTableTasksController>()
+                                  //          .currentItem,
+                                  //       Routes.commentRowPage);
+                                  // Get.toNamed(Routes.commentRowPage);
+                                  Get.find<CommentTableTasksController>()
+                                      .newItemPageOpen(
+                                          pageName: Routes.commentRowPage);
+                                },
+                              ),
                             if (controller.currentItem.name.isEmpty)
                               NsgButton(
                                   text: 'Add Photos',
