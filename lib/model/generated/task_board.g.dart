@@ -11,6 +11,7 @@ class TaskBoardGenerated extends NsgDataItem {
   static const nameName = 'name';
   static const nameProjectId = 'projectId';
   static const nameSortBy = 'sortBy';
+  static const namePeriodOfFinishedTasks = 'periodOfFinishedTasks';
   static const nameStatusTable = 'statusTable';
 
   static final Map<String, String> fieldNameDict = {
@@ -26,6 +27,7 @@ class TaskBoardGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataEnumReferenceField<ESorting>(nameSortBy), primaryKey: false);
+    addField(NsgDataEnumReferenceField<EPeriod>(namePeriodOfFinishedTasks), primaryKey: false);
     addField(NsgDataReferenceListField<TaskBoardStatusTable>(nameStatusTable), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
   }
@@ -63,6 +65,11 @@ class TaskBoardGenerated extends NsgDataItem {
   ESorting get sortBy => NsgEnum.fromValue(ESorting, getFieldValue(nameSortBy)) as ESorting;
 
   set sortBy(ESorting value) => setFieldValue(nameSortBy, value);
+
+  /// ПериодВидимостиЗавершенныхЗадач
+  EPeriod get periodOfFinishedTasks => NsgEnum.fromValue(EPeriod, getFieldValue(namePeriodOfFinishedTasks)) as EPeriod;
+
+  set periodOfFinishedTasks(EPeriod value) => setFieldValue(namePeriodOfFinishedTasks, value);
 
   /// Статусы
   NsgDataTable<TaskBoardStatusTable> get statusTable => NsgDataTable<TaskBoardStatusTable>(owner: this, fieldName: nameStatusTable);
