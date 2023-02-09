@@ -130,16 +130,18 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                           ),
                           if (invitation.isAccepted == false &&
                               invitation.isRejected == false)
-                            NsgButton(
-                              backColor: ControlOptions.instance.colorWhite,
-                              color: ControlOptions.instance.colorMainDark,
-                              text: 'Cancel',
-                              onPressed: () async {
-                                controller.currentItem = invitation;
-                                await controller
-                                    .deleteItems([controller.currentItem]);
-                                controller.sendNotify();
-                              },
+                            Center(
+                              child: NsgButton(
+                                backColor: ControlOptions.instance.colorWhite,
+                                color: ControlOptions.instance.colorMainDark,
+                                text: 'Cancel',
+                                onPressed: () async {
+                                  controller.currentItem = invitation;
+                                  await controller
+                                      .deleteItems([controller.currentItem]);
+                                  controller.sendNotify();
+                                },
+                              ),
                             ),
                           const Divider(
                             height: 10,
