@@ -22,7 +22,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
-  TasksDuration tasksDuration=TasksDuration.none;
+  TasksDuration tasksDuration = TasksDuration.none;
 
   @override
   NsgDataRequestParams get getRequestFilter {
@@ -197,6 +197,24 @@ class CommentTableTasksController
   }
 }
 
+class TaskCheckListController
+    extends NsgDataTableController<TaskDocCheckListTable> {
+  TaskCheckListController()
+      : super(
+            masterController: Get.find<TasksController>(),
+            tableFieldName: TaskDocGenerated.nameCheckList) {
+    readOnly = false;
+    editModeAllowed = true;
+    requestOnInit = true;
+  }
+  @override
+  Future<TaskDocCheckListTable> doCreateNewItem() async {
+    var item = await super.doCreateNewItem();
+
+    return item;
+  }
+}
+
 class FilesTableTasksController
     extends NsgDataTableController<TaskDocFilesTable> {
   FilesTableTasksController()
@@ -214,12 +232,4 @@ class FilesTableTasksController
   }
 }
 
-enum TasksDuration {
-  none,
-  today,
-  yesterday,
-  week,
-  month,
-  sixmonths,
-  year
-}
+enum TasksDuration { none, today, yesterday, week, month, sixmonths, year }
