@@ -86,7 +86,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
     var scrollController = ScrollController();
-    var userC = Get.find<UserAccountController>();
+    Get.find<UserAccountController>();
     var comments = controller.items;
 
     var author = <UserAccount>[];

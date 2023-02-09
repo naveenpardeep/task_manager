@@ -14,7 +14,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-    double height = MediaQuery.of(context).size.height;
+  
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,

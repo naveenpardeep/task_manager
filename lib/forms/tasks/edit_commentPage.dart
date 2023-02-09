@@ -16,7 +16,7 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
       controller.requestItems();
     }
 
-    double height = MediaQuery.of(context).size.height;
+   
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
