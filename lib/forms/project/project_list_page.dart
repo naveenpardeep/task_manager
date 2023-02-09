@@ -76,14 +76,12 @@ class ProjectListPage extends GetView<ProjectController> {
             Expanded(
               child: InkWell(
                 onTap: () {
-                   controller.currentItem = project;
-          var taskConstroller = Get.find<TasksController>();
-          taskConstroller.refreshData();
-          Get.find<TaskBoardController>().refreshData();
-         // Get.toNamed(Routes.homePage);
-            controller.itemPageOpen(project, Routes.homePage);
-             
-           
+                  controller.currentItem = project;
+                  var taskConstroller = Get.find<TasksController>();
+                  taskConstroller.refreshData();
+                  Get.find<TaskBoardController>().refreshData();
+                  // Get.toNamed(Routes.homePage);
+                  controller.itemPageOpen(project, Routes.homePage);
                 },
                 child: Card(
                   elevation: 3,
@@ -146,6 +144,26 @@ class ProjectListPage extends GetView<ProjectController> {
                                     shadow: const BoxShadow(),
                                   ),
                                 ),
+                              Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.itemPageOpen(
+                                            project, Routes.projectPage);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color:
+                                              ControlOptions.instance.colorGrey,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ))
                             ],
                           ),
                         ),
@@ -196,7 +214,7 @@ class ProjectListPage extends GetView<ProjectController> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             controller: scrollController,
             child: width > 700
                 ? NsgGrid(crossAxisCount: width ~/ 400, children: list)
