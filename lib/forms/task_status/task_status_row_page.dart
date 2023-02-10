@@ -45,9 +45,9 @@ class TaskStatusRowPage extends GetView<TaskStatusTableController> {
                         child: Column(
                           children: [
                             NsgInput(
-                              controller: controller,
                               selectionController:
                                   Get.find<ProjectStatusController>(),
+                              controller: controller,
                               dataItem: controller.currentItem,
                               fieldName:
                                   TaskBoardStatusTableGenerated.nameStatusId,
