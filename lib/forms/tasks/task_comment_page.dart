@@ -143,32 +143,43 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                   ? CrossAxisAlignment.end
                                   : CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              comment.author.toString(),
-                              style: Get.find<DataController>().currentUser ==
-                                      comment.author.mainUserAccount
-                                  ? const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)
-                                  : const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                comment.author.toString(),
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)
+                                    : const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Text(
-                              comment.text,
-                              softWrap: true,
-                              style: Get.find<DataController>().currentUser ==
-                                      comment.author.mainUserAccount
-                                  ? const TextStyle(color: Colors.white)
-                                  : const TextStyle(),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                comment.text,
+                                softWrap: true,
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(color: Colors.white)
+                                    : const TextStyle(),
+                              ),
                             ),
-                            Text(
-                              formateddate.format(comment.date),
-                              maxLines: 1,
-                              textScaleFactor: 0.8,
-                              style: Get.find<DataController>().currentUser ==
+                            Align(
+                              alignment: Get.find<DataController>().currentUser ==
                                       comment.author.mainUserAccount
-                                  ? const TextStyle(color: Colors.white)
-                                  : const TextStyle(color: Color(0xff10051C)),
+                                  ? Alignment.topRight: Alignment.topRight,
+                              child: Text(
+                                formateddate.format(comment.date),
+                                maxLines: 1,
+                                textScaleFactor: 0.8,
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(color: Colors.white)
+                                    : const TextStyle(color: Color(0xff10051C)),
+                              ),
                             ),
                           ],
                         ),
