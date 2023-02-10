@@ -198,6 +198,7 @@ class _ProjectpageState extends State<ProjectPage> {
                                           .withOpacity(0.2),
                                       radius: const Radius.circular(0),
                                       child: SingleChildScrollView(
+                                        physics:const BouncingScrollPhysics(),
                                           controller: newscrollController,
                                           child: NsgTable(
                                             showIconFalse: false,
