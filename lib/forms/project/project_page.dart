@@ -250,6 +250,11 @@ class _ProjectpageState extends State<ProjectPage> {
                                   },
                                 ),
                               if (controller.currentItem.name.isNotEmpty)
+                              const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child:
+                                        NsgText('Создать экран для этого проекта')),
+                              if (controller.currentItem.name.isNotEmpty)
                                 NsgTable(
                                   controller: Get.find<TaskBoardController>(),
                                   elementEditPageName: Routes.taskBoard,
