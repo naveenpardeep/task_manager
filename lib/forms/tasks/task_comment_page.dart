@@ -125,7 +125,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       color: Get.find<DataController>().currentUser ==
                               comment.author.mainUserAccount
                           ? const Color(0xfff0859ff)
-                          : ControlOptions.instance.colorMainLighter,
+                          : const Color.fromARGB(239, 248, 250, 252),
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               Get.find<DataController>().currentUser ==

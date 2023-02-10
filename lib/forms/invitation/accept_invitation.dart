@@ -76,7 +76,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
         {
           list.add(GestureDetector(
             child: Container(
-              color: ControlOptions.instance.colorGreyLight,
+              color: const Color.fromARGB(239, 248, 250, 252),
               child: Row(
                 children: [
                    if (Get.find<DataController>().currentUser ==
