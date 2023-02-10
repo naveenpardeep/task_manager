@@ -119,11 +119,24 @@ class _UserProfileState extends State<UserProfile> {
                                             onTap: () {
                                               Get.dialog(picker, barrierDismissible: true);
                                             },
-                                            child: Image.memory(
-                                              Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
-                                              width: 70,
-                                              height: 70,
-                                            ),
+                                            child: Get.find<DataController>().currentUser.photoFile.isEmpty
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                        color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                    width: 70,
+                                                    height: 70,
+                                                    child: Icon(
+                                                      Icons.add_a_photo,
+                                                      size: 32,
+                                                      color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                    ),
+                                                  )
+                                                : Image.memory(
+                                                    Uint8List.fromList(
+                                                        Get.find<DataController>().currentUser.photoFile),
+                                                    width: 70,
+                                                    height: 70,
+                                                  ),
                                           ),
                                         ),
                                       ),

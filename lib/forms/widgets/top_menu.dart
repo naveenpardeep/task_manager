@@ -185,11 +185,13 @@ class TmTopMenu extends StatelessWidget {
                     .itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
               },
               child: ClipOval(
-                child: Image.memory(
-                  Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
-                  width: 32,
-                  height: 32,
-                ),
+                child: Get.find<DataController>().currentUser.photoFile.isEmpty
+                    ? SizedBox(width: 32, height: 32)
+                    : Image.memory(
+                        Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                        width: 32,
+                        height: 32,
+                      ),
               ),
             ),
           ),
