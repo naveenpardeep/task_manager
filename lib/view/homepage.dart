@@ -338,6 +338,17 @@ class _HomepageState extends State<Homepage> {
               },
             )),
       ),
+      wrapFlexible(
+        child: taskBoardController.obx((state) => NsgInput(
+              label: 'Finished Tasks Period',
+              dataItem: taskBoardController.currentItem,
+              fieldName: TaskBoardGenerated.namePeriodOfFinishedTasks,
+              onEditingComplete: (task, name) {
+                taskBoardController.sendNotify();
+                taskController.refreshData();
+              },
+            )),
+      ),
       SizedBox(
         height: 40,
         width: 150,
