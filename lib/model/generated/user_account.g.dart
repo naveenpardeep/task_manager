@@ -20,7 +20,8 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameSettingNotifyNewTasksInProjects = 'settingNotifyNewTasksInProjects';
   static const nameSettingNotifyEditedTasksInProjects = 'settingNotifyEditedTasksInProjects';
   static const nameLastChange = 'lastChange';
-  static const namePictureId = 'pictureId';
+  static const namePhotoName = 'photoName';
+  static const namePhotoFile = 'photoFile';
   static const nameOrganizationId = 'organizationId';
   static const nameInviteProjectId = 'inviteProjectId';
   static const nameInviteInstantAdd = 'inviteInstantAdd';
@@ -35,6 +36,7 @@ class UserAccountGenerated extends NsgDataItem {
     namePosition: 'Должность',
     nameSettingNotifyByEmail: 'Включены уведомления email',
     nameSettingNotifyByPush: 'Включены уведомления push',
+    namePhotoName: 'Наименование картинки',
   };
 
   @override
@@ -56,7 +58,8 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataBoolField(nameSettingNotifyNewTasksInProjects), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyEditedTasksInProjects), primaryKey: false);
     addField(NsgDataDateField(nameLastChange), primaryKey: false);
-    addField(NsgDataReferenceField<Picture>(namePictureId), primaryKey: false);
+    addField(NsgDataStringField(namePhotoName), primaryKey: false);
+    addField(NsgDataBinaryField(namePhotoFile), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameInviteProjectId), primaryKey: false);
     addField(NsgDataBoolField(nameInviteInstantAdd), primaryKey: false);
@@ -69,6 +72,7 @@ class UserAccountGenerated extends NsgDataItem {
     fieldList.fields[namePosition]?.presentation = 'Должность';
     fieldList.fields[nameSettingNotifyByEmail]?.presentation = 'Включены уведомления email';
     fieldList.fields[nameSettingNotifyByPush]?.presentation = 'Включены уведомления push';
+    fieldList.fields[namePhotoName]?.presentation = 'Наименование картинки';
   }
 
   @override
@@ -149,16 +153,17 @@ class UserAccountGenerated extends NsgDataItem {
 
   set lastChange(DateTime value) => setFieldValue(nameLastChange, value);
 
+  /// НаименованиеКартинки
+  String get photoName => getFieldValue(namePhotoName).toString();
+
+  set photoName(String value) => setFieldValue(namePhotoName, value);
+
   /// Картинка
-  String get pictureId => getFieldValue(namePictureId).toString();
-  Picture get picture => getReferent<Picture>(namePictureId);
-  Future<Picture> pictureAsync() async {
-   return await getReferentAsync<Picture>(namePictureId);
+  List<int> get photoFile {
+    return getFieldValue(namePhotoFile) as List<int>;
   }
 
-  set pictureId(String value) => setFieldValue(namePictureId, value);
-  set picture(Picture value) =>
-    setFieldValue(namePictureId, value.id);
+  set photoFile(List<int> value) => setFieldValue(namePhotoFile, value);
 
   /// Организация
   String get organizationId => getFieldValue(nameOrganizationId).toString();
