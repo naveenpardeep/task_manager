@@ -23,7 +23,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
-  TasksDuration tasksDuration = TasksDuration.none;
+
 
   @override
   NsgDataRequestParams get getRequestFilter {
@@ -164,10 +164,10 @@ class TasksController extends NsgDataController<TaskDoc> {
           name: TaskDocGenerated.nameTaskStatusId,
           value: notfinalStatusId,
           comparisonOperator: NsgComparisonOperator.inList);
-      finalTasks.add(
-          name: TaskDocGenerated.nameDate,
-          value: DateTime.now().add(const Duration(days: -9999)),
-          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      // finalTasks.add(
+      //     name: TaskDocGenerated.nameDate,
+      //     value: DateTime.now().add(const Duration(days: -9999)),
+      //     comparisonOperator: NsgComparisonOperator.greaterOrEqual);
       finalTasks.add(
           name: TaskDocGenerated.nameTaskStatusId,
           value: statusId,
@@ -340,4 +340,4 @@ class FilesTableTasksController
   }
 }
 
-enum TasksDuration { none, today, yesterday, week, month, sixmonths, year }
+
