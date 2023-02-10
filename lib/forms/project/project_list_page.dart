@@ -183,14 +183,25 @@ class ProjectListPage extends GetView<ProjectController> {
                                   ),
                                 ),
                               ),
-                            if (project.leader.photoFile.isNotEmpty)
-                              ClipOval(
-                                child: Image.memory(
-                                  Uint8List.fromList(project.leader.photoFile),
-                                  width: 32,
-                                  height: 32,
-                                ),
-                              ),
+                            ClipOval(
+                              child: project.leader.photoFile.isEmpty
+                                  ? Container(
+                                      decoration:
+                                          BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                      width: 32,
+                                      height: 32,
+                                      child: Icon(
+                                        Icons.account_circle,
+                                        size: 20,
+                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                      ),
+                                    )
+                                  : Image.memory(
+                                      Uint8List.fromList(project.leader.photoFile),
+                                      width: 32,
+                                      height: 32,
+                                    ),
+                            ),
                           ],
                         ),
                       ],
