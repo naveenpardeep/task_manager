@@ -379,7 +379,7 @@ class _HomepageState extends State<Homepage> {
     for (var status in statusList) {
       var scrollController = ScrollController();
       statuses.add(status.status.toString());
-      if (width > 768) {
+      if (width >1050) {
         list.add(Expanded(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -499,7 +499,7 @@ class _HomepageState extends State<Homepage> {
       }
     }
 
-    if (width > 768) {
+    if (width > 1050) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
