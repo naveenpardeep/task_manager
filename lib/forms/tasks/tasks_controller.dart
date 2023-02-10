@@ -48,26 +48,139 @@ class TasksController extends NsgDataController<TaskDoc> {
         .forEach((element) {
       notfinalStatusId.add(element.statusId);
     });
-    notfinalTask.add(
-        name: TaskDocGenerated.nameTaskStatusId,
-        value: notfinalStatusId,
-        comparisonOperator: NsgComparisonOperator.inList);
-    finalTasks.add(
-        name: TaskDocGenerated.nameDate,
-        value: DateTime.now().add(const Duration(days: -31)),
-        comparisonOperator: NsgComparisonOperator.greater);
-    finalTasks.add(
-        name: TaskDocGenerated.nameTaskStatusId,
-        value: statusId,
-        comparisonOperator: NsgComparisonOperator.inList);
+    // notfinalTask.add(
+    //     name: TaskDocGenerated.nameTaskStatusId,
+    //     value: notfinalStatusId,
+    //     comparisonOperator: NsgComparisonOperator.inList);
+    // finalTasks.add(
+    //     name: TaskDocGenerated.nameDate,
+    //     value: DateTime.now().add(const Duration(days: -31)),
+    //     comparisonOperator: NsgComparisonOperator.greater);
+    // finalTasks.add(
+    //     name: TaskDocGenerated.nameTaskStatusId,
+    //     value: statusId,
+    //     comparisonOperator: NsgComparisonOperator.inList);
 
-    var taskCondtion = NsgCompare();
-    taskCondtion.logicalOperator = NsgLogicalOperator.or;
-    taskCondtion.add(name: 'one', value: notfinalTask);
+    // var taskCondtion = NsgCompare();
+    // taskCondtion.logicalOperator = NsgLogicalOperator.or;
+    // taskCondtion.add(name: 'one', value: notfinalTask);
 
-    taskCondtion.add(name: 'two', value: finalTasks);
+    // taskCondtion.add(name: 'two', value: finalTasks);
 
-    filter.compare.add(name: 'three', value: taskCondtion);
+    // filter.compare.add(name: 'three', value: taskCondtion);
+
+    //finished tasks filter
+    if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.day) {
+      notfinalTask.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: notfinalStatusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(
+          name: TaskDocGenerated.nameDate,
+          value: DateTime.now().add(const Duration(days: -1)),
+          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: statusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+
+      var taskCondtion = NsgCompare();
+      taskCondtion.logicalOperator = NsgLogicalOperator.or;
+      taskCondtion.add(name: 'one', value: notfinalTask);
+
+      taskCondtion.add(name: 'two', value: finalTasks);
+
+      filter.compare.add(name: 'three', value: taskCondtion);
+    }
+    if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.week) {
+      notfinalTask.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: notfinalStatusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(
+          name: TaskDocGenerated.nameDate,
+          value: DateTime.now().add(const Duration(days: -7)),
+          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: statusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+
+      var taskCondtion = NsgCompare();
+      taskCondtion.logicalOperator = NsgLogicalOperator.or;
+      taskCondtion.add(name: 'one', value: notfinalTask);
+
+      taskCondtion.add(name: 'two', value: finalTasks);
+
+      filter.compare.add(name: 'three', value: taskCondtion);
+    }
+    if (taskBoardController.currentItem.periodOfFinishedTasks ==
+        EPeriod.month) {
+      notfinalTask.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: notfinalStatusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(
+          name: TaskDocGenerated.nameDate,
+          value: DateTime.now().add(const Duration(days: -31)),
+          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: statusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+
+      var taskCondtion = NsgCompare();
+      taskCondtion.logicalOperator = NsgLogicalOperator.or;
+      taskCondtion.add(name: 'one', value: notfinalTask);
+
+      taskCondtion.add(name: 'two', value: finalTasks);
+
+      filter.compare.add(name: 'three', value: taskCondtion);
+    }
+    if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.year) {
+      notfinalTask.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: notfinalStatusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(
+          name: TaskDocGenerated.nameDate,
+          value: DateTime.now().add(const Duration(days: -365)),
+          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: statusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+
+      var taskCondtion = NsgCompare();
+      taskCondtion.logicalOperator = NsgLogicalOperator.or;
+      taskCondtion.add(name: 'one', value: notfinalTask);
+
+      taskCondtion.add(name: 'two', value: finalTasks);
+
+      filter.compare.add(name: 'three', value: taskCondtion);
+    }
+    if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.all) {
+      notfinalTask.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: notfinalStatusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(
+          name: TaskDocGenerated.nameDate,
+          value: DateTime.now().add(const Duration(days: -9999)),
+          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(
+          name: TaskDocGenerated.nameTaskStatusId,
+          value: statusId,
+          comparisonOperator: NsgComparisonOperator.inList);
+
+      var taskCondtion = NsgCompare();
+      taskCondtion.logicalOperator = NsgLogicalOperator.or;
+      taskCondtion.add(name: 'one', value: notfinalTask);
+
+      taskCondtion.add(name: 'two', value: finalTasks);
+
+      filter.compare.add(name: 'three', value: taskCondtion);
+    }
 
     var serviceC = Get.find<ServiceObjectController>();
 
@@ -208,7 +321,6 @@ class TaskCheckListController
     editModeAllowed = true;
     requestOnInit = true;
   }
- 
 }
 
 class FilesTableTasksController
