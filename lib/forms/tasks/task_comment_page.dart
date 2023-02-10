@@ -184,8 +184,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
 
   Widget currentUser(context, comment, width) {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    return Column(
-      children: [
+    return
         Row(
           mainAxisAlignment: Get.find<DataController>().currentUser ==
                   comment.author.mainUserAccount
@@ -260,14 +259,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                 ),
               ),
             ),
-            ClipOval(
-              child: Image.network(
-                  width: 32,
-                  height: 32,
-                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-            ),
-          ],
-        ),
+            // ClipOval(
+            //   child: Image.network(
+            //       width: 32,
+            //       height: 32,
+            //       'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+            // ),
+          
+        
         const SizedBox(
           height: 70,
         )
@@ -283,12 +282,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        ClipOval(
-          child: Image.network(
-              width: 32,
-              height: 32,
-              'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-        ),
+        // ClipOval(
+        //   child: Image.network(
+        //       width: 32,
+        //       height: 32,
+        //       'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+        // ),
         Flexible(
           child: SizedBox(
             width: width <= 700 ? width * 0.75 : 300,
