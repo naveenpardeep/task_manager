@@ -49,6 +49,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: NsgInput(
+                          borderRadius: 10,
                           dataItem: controller.currentItem,
                           fieldName: TaskDocCommentsTableGenerated.nameText,
                           label: 'Комментарий',
@@ -120,22 +121,19 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                 Flexible(
                   child: SizedBox(
                     width: width <= 700 ? width * 0.75 : 300,
-                  
                     child: Card(
-                        color: Get.find<DataController>().currentUser ==
-                            comment.author.mainUserAccount
-                        ? ControlOptions.instance.colorGrey
-                        : ControlOptions.instance.colorMainLighter,
-                      shape:  RoundedRectangleBorder(
+                      color: Get.find<DataController>().currentUser ==
+                              comment.author.mainUserAccount
+                          ? const Color(0xfff0859ff)
+                          : const Color.fromARGB(239, 248, 250, 252),
+                      shape: RoundedRectangleBorder(
                           borderRadius:
-                          Get.find<DataController>().currentUser ==
-                            comment.author.mainUserAccount
-                        ? const BorderRadiusDirectional.only(
-                              topEnd: Radius.circular(40))
-                              : 
-                              const BorderRadiusDirectional.only(
-                              topStart: Radius.circular(40)
-                              )),
+                              Get.find<DataController>().currentUser ==
+                                      comment.author.mainUserAccount
+                                  ? const BorderRadiusDirectional.only(
+                                      topEnd: Radius.circular(40))
+                                  : const BorderRadiusDirectional.only(
+                                      topStart: Radius.circular(40))),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
@@ -145,20 +143,43 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                   ? CrossAxisAlignment.end
                                   : CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              comment.author.toString(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                comment.author.toString(),
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)
+                                    : const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Text(
-                              comment.text,
-                              softWrap: true,
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                comment.text,
+                                softWrap: true,
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(color: Colors.white)
+                                    : const TextStyle(),
+                              ),
                             ),
-                            Text(
-                              formateddate.format(comment.date),
-                              maxLines: 1,
-                              textScaleFactor: 0.8,
-                              style: const TextStyle(color: Color(0xff10051C)),
+                            Align(
+                              alignment: Get.find<DataController>().currentUser ==
+                                      comment.author.mainUserAccount
+                                  ? Alignment.topRight: Alignment.topRight,
+                              child: Text(
+                                formateddate.format(comment.date),
+                                maxLines: 1,
+                                textScaleFactor: 0.8,
+                                style: Get.find<DataController>().currentUser ==
+                                        comment.author.mainUserAccount
+                                    ? const TextStyle(color: Colors.white)
+                                    : const TextStyle(color: Color(0xff10051C)),
+                              ),
                             ),
                           ],
                         ),

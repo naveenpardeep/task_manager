@@ -81,7 +81,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
         {
           list.add(GestureDetector(
             child: Container(
-              color: ControlOptions.instance.colorGreyLight,
+              color: const Color.fromARGB(239, 248, 250, 252),
               child: Row(
                 children: [
                   Expanded(
@@ -132,8 +132,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                               invitation.isRejected == false)
                             Center(
                               child: NsgButton(
-                                backColor: ControlOptions.instance.colorWhite,
-                                color: ControlOptions.instance.colorMainDark,
+                        
                                 text: 'Cancel',
                                 onPressed: () async {
                                   controller.currentItem = invitation;
