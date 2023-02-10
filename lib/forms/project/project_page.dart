@@ -7,6 +7,7 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -165,7 +166,7 @@ class _ProjectpageState extends State<ProjectPage> {
                                 child: SingleChildScrollView(
                                     child: NsgTable(
                                   showIconFalse: false,
-                                  controller: Get.find<TaskStatusController>(),
+                                  controller: Get.find<ProjectStatusController>(),
                                   elementEditPageName: Routes.taskStatusPage,
                                   availableButtons: const [
                                     NsgTableMenuButtonType.createNewElement,
