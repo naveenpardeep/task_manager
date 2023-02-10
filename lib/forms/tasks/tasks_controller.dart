@@ -30,7 +30,6 @@ class TasksController extends NsgDataController<TaskDoc> {
     var filter = NsgDataRequestParams();
     var projectController = Get.find<ProjectController>();
     var taskBoardController = Get.find<TaskBoardController>();
-    // var cmp = NsgCompare();
     var finalTasks = NsgCompare();
     var notfinalTask = NsgCompare();
     List<String> notfinalStatusId = [];
