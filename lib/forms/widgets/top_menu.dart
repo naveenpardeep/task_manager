@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -29,18 +31,16 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                       
                         Get.find<ProjectController>().refreshData();
-                      
-                           Get.find<ProjectController>().itemPageOpen(
-                            Get.find<ProjectController>().currentItem, Routes.projectListPage);
-                      //  Get.toNamed(Routes.projectListPage);
+
+                        Get.find<ProjectController>()
+                            .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage);
+                        //  Get.toNamed(Routes.projectListPage);
                       },
                       child: Text(
                         'Проекты',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText,
-                            fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -54,8 +54,7 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Задачи',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText,
-                            fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -68,8 +67,7 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Пользователи',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText,
-                            fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -83,8 +81,7 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'Создание организации',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText,
-                            fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -98,8 +95,7 @@ class TmTopMenu extends StatelessWidget {
                       child: Text(
                         'logout',
                         style: TextStyle(
-                            color: ControlOptions.instance.colorMainText,
-                            fontSize: ControlOptions.instance.sizeXL),
+                            color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -111,8 +107,7 @@ class TmTopMenu extends StatelessWidget {
                         onTap: () {
                           Get.find<InvitationController>().refreshData();
                           //   Get.toNamed(Routes.acceptInvitationPage);
-                          Get.find<InvitationController>().newItemPageOpen(
-                              pageName: Routes.acceptInvitationPage);
+                          Get.find<InvitationController>().newItemPageOpen(pageName: Routes.acceptInvitationPage);
                         },
                         child: Icon(
                           Icons.insert_invitation_sharp,
@@ -128,8 +123,7 @@ class TmTopMenu extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           Get.find<AccpetController>().refreshData();
-                          Get.find<AccpetController>().newItemPageOpen(
-                              pageName: Routes.acceptRejectListPage);
+                          Get.find<AccpetController>().newItemPageOpen(pageName: Routes.acceptRejectListPage);
                         },
                         child: Icon(
                           Icons.list_alt,
@@ -166,10 +160,7 @@ class TmTopMenu extends StatelessWidget {
                             minHeight: 15,
                           ),
                           child: Text(
-                            Get.find<NotificationController>()
-                                .items
-                                .length
-                                .toString(),
+                            Get.find<NotificationController>().items.length.toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 10,
@@ -187,20 +178,18 @@ class TmTopMenu extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                    width: 2, color: ControlOptions.instance.colorMainText)),
+                shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
               onTap: () {
-                Get.find<UserAccountController>().itemPageOpen(
-                    Get.find<UserAccountController>().currentItem,
-                    Routes.userProfilePage);
+                Get.find<UserAccountController>()
+                    .itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
               },
               child: ClipOval(
-                child: Image.network(
-                    width: 32,
-                    height: 32,
-                    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+                child: Image.memory(
+                  Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                  width: 32,
+                  height: 32,
+                ),
               ),
             ),
           ),
