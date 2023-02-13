@@ -220,9 +220,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(
-                                fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                                fontWeight: FontWeight.normal,
                                 color: Colors.white)
-                            : const TextStyle(fontWeight: FontWeight.bold),
+                            : const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
                     const SizedBox(
@@ -235,7 +236,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(color: Colors.white)
+                            ? const TextStyle( fontSize: 14,color: Colors.white)
                             : const TextStyle(),
                       ),
                     ),const SizedBox(
@@ -327,9 +328,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(
-                                fontWeight: FontWeight.bold,
+                              
+                              fontSize: 16,
+                                fontWeight: FontWeight.normal,
                                 color: Colors.white)
-                            : const TextStyle(fontWeight: FontWeight.bold),
+                            : const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
                     const SizedBox(
@@ -338,11 +341,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
+                        
                         comment.text,
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(color: Colors.white)
+                            ? const TextStyle(fontSize: 14, color: Colors.white)
                             : const TextStyle(),
                       ),
                     ),
