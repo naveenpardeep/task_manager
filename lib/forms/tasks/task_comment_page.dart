@@ -218,13 +218,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                 comment.author.mainUserAccount
                             ? const TextStyle(
                                 fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf',
+                                    'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
                             : const TextStyle(
                                 fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf',
+                                    'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal),
                       ),
@@ -260,10 +260,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             ? const TextStyle( 
                               fontSize: 10,
                               fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf', color: Colors.white70)
+                                    'Inter', color: Colors.white70)
                             : const TextStyle( fontSize: 10,
                               fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf',color: Color(0xfff3EA8AB)),
+                                    'Inter',color: Color(0xfff3EA8AB)),
                       ),
                     ),
                   ),
@@ -335,13 +335,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                   comment.author.mainUserAccount
                               ? const TextStyle(
                                   fontFamily:
-                                      'lib/assets/fonts/Inter-Regular.ttf',
+                                      'Inter',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white)
                               : const TextStyle(
                                   fontFamily:
-                                      'lib/assets/fonts/Inter-Regular.ttf',
+                                      'Inter',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal),
                         ),
@@ -378,10 +378,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               ?  const TextStyle( 
                               fontSize: 10,
                               fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf', color: Colors.white70)
+                                    'Inter', color: Colors.white70)
                             : const TextStyle( fontSize: 10,
                               fontFamily:
-                                    'lib/assets/fonts/Inter-Regular.ttf',color: Color(0xfff3EA8AB)),
+                                    'Inter',color: Color(0xfff3EA8AB)),
                         ),
                       ),
                     ),
