@@ -239,8 +239,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(fontSize: 16, color: Colors.white)
-                            : const TextStyle(fontSize: 16),
+                            ?  const TextStyle(
+                                fontFamily: 'NotoSans',
+                                  fontSize: 14, color: Colors.white)
+                              : const TextStyle(fontFamily: 'NotoSans',fontSize: 14),
                       ),
                     ),
                   ),
@@ -357,8 +359,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
                               ? const TextStyle(
-                                  fontSize: 16, color: Colors.white)
-                              : const TextStyle(fontSize: 16),
+                                fontFamily: 'NotoSans',
+                                  fontSize: 14, color: Colors.white)
+                              : const TextStyle(fontFamily: 'NotoSans',fontSize: 14),
                         ),
                       ),
                     ),

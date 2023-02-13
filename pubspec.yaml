@@ -72,3 +72,7 @@ flutter:
     - family: Inter
       fonts:
         - asset: lib/assets/fonts/Inter-Regular.ttf
+
+    - family: NotoSans
+      fonts:
+        - asset: lib/assets/fonts/NotoSans-Regular.ttf
