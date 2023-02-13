@@ -254,11 +254,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Text(
                         formateddate.format(comment.date),
                         maxLines: 1,
-                        textScaleFactor: 0.8,
+                      // textScaleFactor: 0.8,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(color: Colors.white70)
-                            : const TextStyle(color: Color(0xfff3EA8AB)),
+                            ? const TextStyle( 
+                              fontSize: 10,
+                              fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf', color: Colors.white70)
+                            : const TextStyle( fontSize: 10,
+                              fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf',color: Color(0xfff3EA8AB)),
                       ),
                     ),
                   ),
@@ -367,12 +372,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         child: Text(
                           formateddate.format(comment.date),
                           maxLines: 1,
-                          textScaleFactor: 0.8,
+                        //  textScaleFactor: 0.8,
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
-                              ? const TextStyle(color: Colors.white70)
-                              : const TextStyle(
-                                  color: const Color(0xfff3EA8AB)),
+                              ?  const TextStyle( 
+                              fontSize: 10,
+                              fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf', color: Colors.white70)
+                            : const TextStyle( fontSize: 10,
+                              fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf',color: Color(0xfff3EA8AB)),
                         ),
                       ),
                     ),
