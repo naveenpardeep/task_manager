@@ -195,10 +195,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
-              color: Get.find<DataController>().currentUser ==
-                      comment.author.mainUserAccount
-                  ? const Color(0xfff0859ff)
-                  : const Color(0xfffDBEAEA),
+              decoration: BoxDecoration(
+                   color: Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
+                    ? const Color(0xfff0859ff)
+                    : const Color(0xfffDBEAEA),
+                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
                 crossAxisAlignment: Get.find<DataController>().currentUser ==
@@ -300,10 +302,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Container(
-                color: Get.find<DataController>().currentUser ==
+                decoration: BoxDecoration(
+                   color: Get.find<DataController>().currentUser ==
                         comment.author.mainUserAccount
                     ? const Color(0xfff0859ff)
                     : const Color(0xfffDBEAEA),
+                   borderRadius: const BorderRadius.all(Radius.circular(4))),
+               
                 width: width <= 700 ? width * 0.65 : 300,
                 child: Column(
                   crossAxisAlignment: Get.find<DataController>().currentUser ==
