@@ -176,39 +176,40 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.nameTaskNumber,
                               label: 'Номер задачи',
                             ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameDescription,
-                              label: 'Описание задачи',
-                              minLines: 1,
-                              maxLines: 5,
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.namePriority,
-                              label: 'Приоритет',
-                            ),
-                            HtmlEditor(
+                             HtmlEditor(
                               callbacks:
                                   Callbacks(onChangeContent: (String? comment) {
-                                controller.currentItem.footnote = comment!;
+                                controller.currentItem.description = comment!;
                                 // controller.postItems([controller.currentItem]);
                               }),
                               controller: htmlcontroller, //required
                               htmlEditorOptions: HtmlEditorOptions(
-                                  hint: "Comments...",
-                                  initialText: controller.currentItem.footnote),
+                                  hint: "Описание задачи...",
+                                  initialText: controller.currentItem.description),
                               otherOptions: OtherOptions(
                                 height: 200,
                               ),
                             ),
                             // NsgInput(
                             //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameFootnote,
-                            //   label: 'Примечание',
+                            //   fieldName: TaskDocGenerated.nameDescription,
+                            //   label: 'Описание задачи',
                             //   minLines: 1,
                             //   maxLines: 5,
                             // ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.namePriority,
+                              label: 'Приоритет',
+                            ),
+                           
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocGenerated.nameFootnote,
+                              label: 'Примечание',
+                              minLines: 1,
+                              maxLines: 5,
+                            ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDateRemind,
