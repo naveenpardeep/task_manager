@@ -195,10 +195,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           padding: const EdgeInsets.all(4.0),
           child: Flexible(
             child: Container(
-               color: Get.find<DataController>().currentUser ==
-                        comment.author.mainUserAccount
-                    ? const Color(0xfff0859ff)
-                    :  const Color(0xfffDBEAEA),
+              color: Get.find<DataController>().currentUser ==
+                      comment.author.mainUserAccount
+                  ? const Color(0xfff0859ff)
+                  : const Color(0xfffDBEAEA),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
                 crossAxisAlignment: Get.find<DataController>().currentUser ==
@@ -215,14 +215,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(
-                              fontSize: 16,
+                                fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
-                            : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
+                            : const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal),
                       ),
                     ),
                   ),
-                
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
@@ -232,7 +232,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle( fontSize: 14,color: Colors.white)
+                            ? const TextStyle(fontSize: 14, color: Colors.white)
                             : const TextStyle(),
                       ),
                     ),
@@ -251,7 +251,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(color: Colors.white70)
-                            : const TextStyle(color: Colors.black87),
+                            : const TextStyle(color: Color(0xfff3EA8AB)),
                       ),
                     ),
                   ),
@@ -263,7 +263,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: ClipRRect(
-             borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(4.0),
             child: Image.network(
                 width: 32,
                 height: 32,
@@ -280,98 +280,96 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   Widget anotherUsers(context, comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: Get.find<DataController>().currentUser ==
-              comment.author.mainUserAccount
-          ? MainAxisAlignment.end
-          : MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: Image.network(
-                width: 32,
-                height: 32,
-                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: Get.find<DataController>().currentUser ==
+                comment.author.mainUserAccount
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.network(
+                  width: 32,
+                  height: 32,
+                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+            ),
           ),
-        ),
-        
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Flexible(
-            child: Container(
-              color: Get.find<DataController>().currentUser ==
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Flexible(
+              child: Container(
+                color: Get.find<DataController>().currentUser ==
                         comment.author.mainUserAccount
                     ? const Color(0xfff0859ff)
                     : const Color(0xfffDBEAEA),
-              width: width <= 700 ? width * 0.65 : 300,
-              child: Column(
-                crossAxisAlignment: Get.find<DataController>().currentUser ==
-                        comment.author.mainUserAccount
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        comment.author.toString(),
-                        style: Get.find<DataController>().currentUser ==
-                                comment.author.mainUserAccount
-                            ? const TextStyle(
-                              
-                              fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white)
-                            : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
+                width: width <= 700 ? width * 0.65 : 300,
+                child: Column(
+                  crossAxisAlignment: Get.find<DataController>().currentUser ==
+                          comment.author.mainUserAccount
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          comment.author.toString(),
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
+                              ? const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white)
+                              : const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
+                        ),
                       ),
                     ),
-                  ),
-                 
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        
-                        comment.text,
-                        softWrap: true,
-                        style: Get.find<DataController>().currentUser ==
-                                comment.author.mainUserAccount
-                            ? const TextStyle(fontSize: 14, color: Colors.white)
-                            : const TextStyle(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          comment.text,
+                          softWrap: true,
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
+                              ? const TextStyle(
+                                  fontSize: 14, color: Colors.white)
+                              : const TextStyle(),
+                        ),
                       ),
                     ),
-                  ),
-              
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Get.find<DataController>().currentUser ==
-                              comment.author.mainUserAccount
-                          ? Alignment.topRight
-                          : Alignment.topRight,
-                      child: Text(
-                        formateddate.format(comment.date),
-                        maxLines: 1,
-                        textScaleFactor: 0.8,
-                        style: Get.find<DataController>().currentUser ==
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ?  const TextStyle(color: Colors.white70)
-                            : const TextStyle(color: Colors.black87),
+                            ? Alignment.topRight
+                            : Alignment.topRight,
+                        child: Text(
+                          formateddate.format(comment.date),
+                          maxLines: 1,
+                          textScaleFactor: 0.8,
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
+                              ? const TextStyle(color: Colors.white70)
+                              : const TextStyle(
+                                  color: const Color(0xfff3EA8AB)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-        height: 70,
-        )]
-    );
+          const SizedBox(
+            height: 70,
+          )
+        ]);
   }
 }
