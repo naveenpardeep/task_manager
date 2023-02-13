@@ -202,7 +202,7 @@ class TasksPage extends GetView<TasksController> {
                                     hint: "Описание задачи...",
                                     initialText:
                                         controller.currentItem.description),
-                                otherOptions: OtherOptions(
+                                otherOptions: const OtherOptions(
                                   height: 400,
                                 ),
                               ),
