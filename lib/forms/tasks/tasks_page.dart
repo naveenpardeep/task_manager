@@ -28,6 +28,7 @@ class TasksPage extends GetView<TasksController> {
     if (imageCont.lateInit) {
       imageCont.requestItems();
     }
+    String comment;
     HtmlEditorController htmlcontroller = HtmlEditorController();
 
     String formatted =
@@ -187,26 +188,27 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.namePriority,
                               label: 'Приоритет',
                             ),
-                            // HtmlEditor(
-                            //   callbacks: postData(controller),
-                            //   controller: htmlcontroller, //required
-                            //   htmlEditorOptions: HtmlEditorOptions(
-                            //     hint: "Your text here...",
-                                
-                            //     initialText: controller.currentItem.footnote
-                            //     //initalText: "text content initial, if any",
-                            //   ),
-                            //   otherOptions: OtherOptions(
-                            //     height: 200,
-                            //   ),
-                            // ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameFootnote,
-                              label: 'Примечание',
-                              minLines: 1,
-                              maxLines: 5,
+                            HtmlEditor(
+                              callbacks:
+                                  Callbacks(onChangeContent: (String? comment) {
+                                controller.currentItem.footnote = comment!;
+                                // controller.postItems([controller.currentItem]);
+                              }),
+                              controller: htmlcontroller, //required
+                              htmlEditorOptions: HtmlEditorOptions(
+                                  hint: "Comments...",
+                                  initialText: controller.currentItem.footnote),
+                              otherOptions: OtherOptions(
+                                height: 200,
+                              ),
                             ),
+                            // NsgInput(
+                            //   dataItem: controller.currentItem,
+                            //   fieldName: TaskDocGenerated.nameFootnote,
+                            //   label: 'Примечание',
+                            //   minLines: 1,
+                            //   maxLines: 5,
+                            // ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameDateRemind,
@@ -358,9 +360,5 @@ class TasksPage extends GetView<TasksController> {
         allowedFileFormats: const [],
       ),
     );
-  }
-  
-  postData(TasksController controller) {
-   return controller.itemPagePost();
   }
 }
