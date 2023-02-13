@@ -184,110 +184,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
 
   Widget currentUser(context, comment, width) {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    return
-        Row(
-          mainAxisAlignment: Get.find<DataController>().currentUser ==
-                  comment.author.mainUserAccount
-              ? MainAxisAlignment.end
-              : MainAxisAlignment.start,
-          children: [
-            Flexible(
-              child: SizedBox(
-                width: width <= 700 ? width * 0.75 : 300,
-                child: Card(
-                  color: Get.find<DataController>().currentUser ==
-                          comment.author.mainUserAccount
-                      ? const Color(0xfff0859ff)
-                      : const Color.fromARGB(239, 248, 250, 252),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: Get.find<DataController>().currentUser ==
-                              comment.author.mainUserAccount
-                          ? const BorderRadiusDirectional.only(
-                              topEnd: Radius.circular(40))
-                          : const BorderRadiusDirectional.only(
-                              topStart: Radius.circular(40))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment:
-                          Get.find<DataController>().currentUser ==
-                                  comment.author.mainUserAccount
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            comment.author.toString(),
-                            style: Get.find<DataController>().currentUser ==
-                                    comment.author.mainUserAccount
-                                ? const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)
-                                : const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            comment.text,
-                            softWrap: true,
-                            style: Get.find<DataController>().currentUser ==
-                                    comment.author.mainUserAccount
-                                ? const TextStyle(color: Colors.white)
-                                : const TextStyle(),
-                          ),
-                        ),
-                        Align(
-                          alignment: Get.find<DataController>().currentUser ==
-                                  comment.author.mainUserAccount
-                              ? Alignment.topRight
-                              : Alignment.topRight,
-                          child: Text(
-                            formateddate.format(comment.date),
-                            maxLines: 1,
-                            textScaleFactor: 0.8,
-                            style: Get.find<DataController>().currentUser ==
-                                    comment.author.mainUserAccount
-                                ? const TextStyle(color: Colors.white)
-                                : const TextStyle(color: Color(0xff10051C)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            ClipOval(
-              child: Image.network(
-                  width: 32,
-                  height: 32,
-                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-            ),
-          
-        
-        const SizedBox(
-          height: 70,
-        )
-      ],
-    );
-  }
-
-  Widget anotherUsers(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     return Row(
       mainAxisAlignment: Get.find<DataController>().currentUser ==
               comment.author.mainUserAccount
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        ClipOval(
-          child: Image.network(
-              width: 32,
-              height: 32,
-              'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-        ),
         Flexible(
           child: SizedBox(
             width: width <= 700 ? width * 0.75 : 300,
@@ -295,14 +197,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               color: Get.find<DataController>().currentUser ==
                       comment.author.mainUserAccount
                   ? const Color(0xfff0859ff)
-                  : const Color.fromARGB(239, 248, 250, 252),
-              shape: RoundedRectangleBorder(
-                  borderRadius: Get.find<DataController>().currentUser ==
-                          comment.author.mainUserAccount
-                      ? const BorderRadiusDirectional.only(
-                          topEnd: Radius.circular(40))
-                      : const BorderRadiusDirectional.only(
-                          topStart: Radius.circular(40))),
+                  :  const Color(0xfffDBEAEA),
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: Get.find<DataController>().currentUser ==
+              //             comment.author.mainUserAccount
+              //         ? const BorderRadiusDirectional.only(
+              //             topEnd: Radius.circular(40))
+              //         : const BorderRadiusDirectional.only(
+              //             topStart: Radius.circular(40))),
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -323,6 +225,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             : const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -333,6 +238,116 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             ? const TextStyle(color: Colors.white)
                             : const TextStyle(),
                       ),
+                    ),const SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Get.find<DataController>().currentUser ==
+                              comment.author.mainUserAccount
+                          ? Alignment.topRight
+                          : Alignment.topRight,
+                      child: Text(
+                        formateddate.format(comment.date),
+                        maxLines: 1,
+                        textScaleFactor: 0.8,
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
+                            ? const TextStyle(color: Colors.white)
+                            : const TextStyle(color: Color(0xff10051C)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRect(
+            child: Image.network(
+                width: 32,
+                height: 32,
+                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+          ),
+        ),
+        const SizedBox(
+          height: 70,
+        )
+      ],
+    );
+  }
+
+  Widget anotherUsers(context, comment, width) {
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    return Row(
+      mainAxisAlignment: Get.find<DataController>().currentUser ==
+              comment.author.mainUserAccount
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRect(
+            child: Image.network(
+                width: 32,
+                height: 32,
+                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
+          ),
+        ),
+        
+        Flexible(
+          child: SizedBox(
+            width: width <= 700 ? width * 0.75 : 300,
+            child: Card(
+              color: Get.find<DataController>().currentUser ==
+                      comment.author.mainUserAccount
+                  ? const Color(0xfff0859ff)
+                  : const Color(0xfffDBEAEA),
+        
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: Get.find<DataController>().currentUser ==
+              //             comment.author.mainUserAccount
+              //         ? const BorderRadiusDirectional.only(
+              //             topEnd: Radius.circular(40))
+              //         : const BorderRadiusDirectional.only(
+              //             topStart: Radius.circular(40))),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: Get.find<DataController>().currentUser ==
+                          comment.author.mainUserAccount
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        comment.author.toString(),
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
+                            ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)
+                            : const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        comment.text,
+                        softWrap: true,
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
+                            ? const TextStyle(color: Colors.white)
+                            : const TextStyle(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Align(
                       alignment: Get.find<DataController>().currentUser ==
@@ -356,9 +371,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ),
         ),
         const SizedBox(
-          height: 70,
-        )
-      ],
+        height: 70,
+        )]
     );
   }
 }
