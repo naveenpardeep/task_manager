@@ -28,6 +28,8 @@ class TasksPage extends GetView<TasksController> {
     if (imageCont.lateInit) {
       imageCont.requestItems();
     }
+
+    final scrollController = ScrollController();
     String comment;
     HtmlEditorController htmlcontroller = HtmlEditorController();
 
@@ -84,262 +86,277 @@ class TasksPage extends GetView<TasksController> {
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // NsgInput(
-                            //       dataItem: controller.currentItem,
-                            //       fieldName: TaskDocGenerated.nameDate,
-                            //       //disabled: true,
-                            //       label: 'Создана',
-                            //     ),
-                            // Row(
-                            //   mainAxisSize: MainAxisSize.min,
-                            //   children: [
-                            //     Flexible(
-                            //       child: NsgInput(
-                            //         dataItem: controller.currentItem,
-                            //         fieldName: TaskDocGenerated.nameDate,
-                            //         disabled: true,
-                            //         label: 'Создана',
-                            //       ),
-                            //     ),
-                            //     Flexible(
-                            //       child: NsgInput(
-                            //         dataItem: controller.currentItem,
-                            //         fieldName: TaskDocGenerated.nameDateUpdated,
-                            //         disabled: true,
-                            //         label: 'Обновлена',
-                            //       ),
-                            //     ),
-                            //     Flexible(
-                            //       child: NsgInput(
-                            //         dataItem: controller.currentItem,
-                            //         fieldName: TaskDocGenerated.nameDateClosed,
-                            //         disabled: true,
-                            //         label: 'Закрыта',
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
-                              child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Создана $formatted',
-                                    style: TextStyle(
-                                        color:
-                                            ControlOptions.instance.colorGrey),
-                                  )),
-                            ),
-                            if (controller.currentItem.name.isNotEmpty)
-                              Text(
-                                'Обновлена $formatupdate',
-                                style: TextStyle(
-                                    color: ControlOptions.instance.colorGrey),
+                      child: RawScrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        controller: scrollController,
+                        thickness: 15,
+                        trackBorderColor:
+                            ControlOptions.instance.colorGreyLight,
+                        trackColor: ControlOptions.instance.colorGreyLight,
+                        thumbColor:
+                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        radius: const Radius.circular(0),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          controller: scrollController,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // NsgInput(
+                              //       dataItem: controller.currentItem,
+                              //       fieldName: TaskDocGenerated.nameDate,
+                              //       //disabled: true,
+                              //       label: 'Создана',
+                              //     ),
+                              // Row(
+                              //   mainAxisSize: MainAxisSize.min,
+                              //   children: [
+                              //     Flexible(
+                              //       child: NsgInput(
+                              //         dataItem: controller.currentItem,
+                              //         fieldName: TaskDocGenerated.nameDate,
+                              //         disabled: true,
+                              //         label: 'Создана',
+                              //       ),
+                              //     ),
+                              //     Flexible(
+                              //       child: NsgInput(
+                              //         dataItem: controller.currentItem,
+                              //         fieldName: TaskDocGenerated.nameDateUpdated,
+                              //         disabled: true,
+                              //         label: 'Обновлена',
+                              //       ),
+                              //     ),
+                              //     Flexible(
+                              //       child: NsgInput(
+                              //         dataItem: controller.currentItem,
+                              //         fieldName: TaskDocGenerated.nameDateClosed,
+                              //         disabled: true,
+                              //         label: 'Закрыта',
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 5, right: 5),
+                                child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'Создана $formatted',
+                                      style: TextStyle(
+                                          color: ControlOptions
+                                              .instance.colorGrey),
+                                    )),
                               ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameName,
-                              label: 'Название задачи',
-                            ),
-                            NsgInput(
-                              selectionController:
-                                  Get.find<TaskStatusController>(),
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameTaskStatusId,
-                              label: 'Статус',
-                            ),
-
-                            // NsgInput(
-                            //   selectionController:
-                            //       Get.find<UserAccountController>(),
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameAssigneeId,
-                            //   label: 'Исполнитель',
-                            // ),
-                            NsgInput(
-                              label: 'Исполнитель',
-                              selectionController:
-                                  Get.find<TaskUserAccountController>(),
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameAssigneeId,
-                              //selectionForm: Routes.userAccountListPage,
-                            ),
-
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameTaskNumber,
-                              label: 'Номер задачи',
-                            ),
-                             HtmlEditor(
-                              callbacks:
-                                  Callbacks(onChangeContent: (String? comment) {
-                                controller.currentItem.description = comment!;
-                                // controller.postItems([controller.currentItem]);
-                              }),
-                              controller: htmlcontroller, //required
-                              htmlEditorOptions: HtmlEditorOptions(
-                                  hint: "Описание задачи...",
-                                  initialText: controller.currentItem.description),
-                              otherOptions: OtherOptions(
-                                height: 200,
+                              if (controller.currentItem.name.isNotEmpty)
+                                Text(
+                                  'Обновлена $formatupdate',
+                                  style: TextStyle(
+                                      color: ControlOptions.instance.colorGrey),
+                                ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameName,
+                                label: 'Название задачи',
                               ),
-                            ),
-                            // NsgInput(
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameDescription,
-                            //   label: 'Описание задачи',
-                            //   minLines: 1,
-                            //   maxLines: 5,
-                            // ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.namePriority,
-                              label: 'Приоритет',
-                            ),
-                           
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameFootnote,
-                              label: 'Примечание',
-                              minLines: 1,
-                              maxLines: 5,
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameDateRemind,
-                              label: 'Напонинание о задаче',
-                            ),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName: TaskDocGenerated.nameDateDeadline,
-                              label: 'Срок выполнения',
-                            ),
-
-                            const NsgText('Create CheckList for this Task'),
-                            NsgTable(
-                              controller: Get.find<TaskCheckListController>(),
-                              elementEditPageName: Routes.taskChecklistPage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name:
-                                        TaskDocCheckListTableGenerated.nameText,
-                                    expanded: true,
-                                    presentation: 'CheckList Name'),
-                                NsgTableColumn(
-                                    name: TaskDocCheckListTableGenerated
-                                        .nameIsDone,
-                                    width: 100,
-                                    presentation: 'Done'),
-                              ],
-                            ),
-                            if (controller.currentItem.name.isNotEmpty)
-                              NsgButton(
-                                text: 'Open Comments',
-                                onPressed: () {
-                                  // Get.find<CommentTableTasksController>()
-                                  //     .itemPageOpen(
-                                  //        Get.find<CommentTableTasksController>()
-                                  //          .currentItem,
-                                  //       Routes.commentRowPage);
-                                  // Get.toNamed(Routes.commentRowPage);
-                                  Get.find<CommentTableTasksController>()
-                                      .newItemPageOpen(
-                                          pageName: Routes.commentRowPage);
-                                },
+                              NsgInput(
+                                selectionController:
+                                    Get.find<TaskStatusController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameTaskStatusId,
+                                label: 'Статус',
                               ),
-                            if (controller.currentItem.name.isEmpty)
-                              NsgButton(
-                                  text: 'Add Photos',
-                                  color: Colors.white,
+
+                              // NsgInput(
+                              //   selectionController:
+                              //       Get.find<UserAccountController>(),
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameAssigneeId,
+                              //   label: 'Исполнитель',
+                              // ),
+                              NsgInput(
+                                label: 'Исполнитель',
+                                selectionController:
+                                    Get.find<TaskUserAccountController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameAssigneeId,
+                                //selectionForm: Routes.userAccountListPage,
+                              ),
+
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameTaskNumber,
+                                label: 'Номер задачи',
+                              ),
+                              HtmlEditor(
+                                callbacks: Callbacks(
+                                    onChangeContent: (String? comment) {
+                                  controller.currentItem.description = comment!;
+                                  // controller.postItems([controller.currentItem]);
+                                }),
+                                controller: htmlcontroller, //required
+                                htmlEditorOptions: HtmlEditorOptions(
+                                    hint: "Описание задачи...",
+                                    initialText:
+                                        controller.currentItem.description),
+                                otherOptions: OtherOptions(
+                                  height: 400,
+                                ),
+                              ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameDescription,
+                              //   label: 'Описание задачи',
+                              //   minLines: 1,
+                              //   maxLines: 5,
+                              // ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.namePriority,
+                                label: 'Приоритет',
+                              ),
+
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameFootnote,
+                                label: 'Примечание',
+                                minLines: 1,
+                                maxLines: 5,
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameDateRemind,
+                                label: 'Напонинание о задаче',
+                              ),
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameDateDeadline,
+                                label: 'Срок выполнения',
+                              ),
+
+                              const NsgText('Create CheckList for this Task'),
+                              NsgTable(
+                                controller: Get.find<TaskCheckListController>(),
+                                elementEditPageName: Routes.taskChecklistPage,
+                                availableButtons: const [
+                                  NsgTableMenuButtonType.createNewElement,
+                                  NsgTableMenuButtonType.editElement,
+                                  NsgTableMenuButtonType.removeElement
+                                ],
+                                columns: [
+                                  NsgTableColumn(
+                                      name: TaskDocCheckListTableGenerated
+                                          .nameText,
+                                      expanded: true,
+                                      presentation: 'CheckList Name'),
+                                  NsgTableColumn(
+                                      name: TaskDocCheckListTableGenerated
+                                          .nameIsDone,
+                                      width: 100,
+                                      presentation: 'Done'),
+                                ],
+                              ),
+                              if (controller.currentItem.name.isNotEmpty)
+                                NsgButton(
+                                  text: 'Open Comments',
                                   onPressed: () {
-                                    if (controller.currentItem.name.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Пожалуйста, введите название задачи ')));
-                                    } else {
-                                      controller.itemPagePost(goBack: false);
-                                    }
-                                  }),
-                            if (controller.currentItem.name.isNotEmpty)
-                              Flexible(child: imageGallery()),
-                            // NsgTable(
-                            //     controller:
-                            //         Get.find<FilesTableTasksController>(),
-                            //     columns: [
-                            //       NsgTableColumn(
-                            //           name: TaskDocFilesTableGenerated.nameFile,
-                            //           expanded: true,
-                            //           presentation: 'Files'),
-                            //     ]),
-                            // NsgInput(
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameFiles,
-                            // ),
-                            // NsgInput(
-                            //     selectionController:
-                            //         Get.find<ProjectController>(),
-                            //     dataItem: controller.currentItem,
-                            //     fieldName: TaskDocGenerated.nameProjectId,
-                            //     label: 'Проект',
-                            //     //selectionForm: Routes.projectListPage
-                            //     ),
-                            // NsgInput(
-                            //     selectionController:
-                            //         Get.find<ProjectController>(),
-                            //     dataItem: controller.currentItem,
-                            //     fieldName: TaskDocGenerated.nameSprintId,
-                            //     label: 'Спринт',
-                            //     selectionForm: Routes.projectListPage),
-                            // NsgInput(
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameName,
-                            //   label: 'Заголовок',
-                            // ),
-                            // NsgInput(
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: TaskDocGenerated.nameDescription,
-                            //   label: 'Описание',
-                            //   minLines: 3,
-                            //   maxLines: 20,
-                            // ),
+                                    // Get.find<CommentTableTasksController>()
+                                    //     .itemPageOpen(
+                                    //        Get.find<CommentTableTasksController>()
+                                    //          .currentItem,
+                                    //       Routes.commentRowPage);
+                                    // Get.toNamed(Routes.commentRowPage);
+                                    Get.find<CommentTableTasksController>()
+                                        .newItemPageOpen(
+                                            pageName: Routes.commentRowPage);
+                                  },
+                                ),
+                              if (controller.currentItem.name.isEmpty)
+                                NsgButton(
+                                    text: 'Add Photos',
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      if (controller.currentItem.name.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Пожалуйста, введите название задачи ')));
+                                      } else {
+                                        controller.itemPagePost(goBack: false);
+                                      }
+                                    }),
+                              if (controller.currentItem.name.isNotEmpty)
+                                Flexible(child: imageGallery()),
+                              // NsgTable(
+                              //     controller:
+                              //         Get.find<FilesTableTasksController>(),
+                              //     columns: [
+                              //       NsgTableColumn(
+                              //           name: TaskDocFilesTableGenerated.nameFile,
+                              //           expanded: true,
+                              //           presentation: 'Files'),
+                              //     ]),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameFiles,
+                              // ),
+                              // NsgInput(
+                              //     selectionController:
+                              //         Get.find<ProjectController>(),
+                              //     dataItem: controller.currentItem,
+                              //     fieldName: TaskDocGenerated.nameProjectId,
+                              //     label: 'Проект',
+                              //     //selectionForm: Routes.projectListPage
+                              //     ),
+                              // NsgInput(
+                              //     selectionController:
+                              //         Get.find<ProjectController>(),
+                              //     dataItem: controller.currentItem,
+                              //     fieldName: TaskDocGenerated.nameSprintId,
+                              //     label: 'Спринт',
+                              //     selectionForm: Routes.projectListPage),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameName,
+                              //   label: 'Заголовок',
+                              // ),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameDescription,
+                              //   label: 'Описание',
+                              //   minLines: 3,
+                              //   maxLines: 20,
+                              // ),
 
-                            // NsgTable(
-                            //   controller:
-                            //       Get.find<CommentTableTasksController>(),
-                            //   columns: [
-                            //     NsgTableColumn(
-                            //         name:
-                            //             TaskDocCommentsTableGenerated.nameDate,
-                            //         width: 80,
-                            //         //expanded: true,
-                            //         presentation: 'Дата'),
-                            //     NsgTableColumn(
-                            //         name: TaskDocCommentsTableGenerated
-                            //             .nameAuthorId,
-                            //         width: 80,
-                            //         //expanded: true,
-                            //         presentation: 'Автор'),
-                            //     NsgTableColumn(
-                            //         name:
-                            //             TaskDocCommentsTableGenerated.nameText,
-                            //         expanded: true,
-                            //         presentation: 'Комментарий')
-                            //   ],
-                            //   elementEditPageName: Routes.commentRowPage,
-                            // ),
-                          ],
+                              // NsgTable(
+                              //   controller:
+                              //       Get.find<CommentTableTasksController>(),
+                              //   columns: [
+                              //     NsgTableColumn(
+                              //         name:
+                              //             TaskDocCommentsTableGenerated.nameDate,
+                              //         width: 80,
+                              //         //expanded: true,
+                              //         presentation: 'Дата'),
+                              //     NsgTableColumn(
+                              //         name: TaskDocCommentsTableGenerated
+                              //             .nameAuthorId,
+                              //         width: 80,
+                              //         //expanded: true,
+                              //         presentation: 'Автор'),
+                              //     NsgTableColumn(
+                              //         name:
+                              //             TaskDocCommentsTableGenerated.nameText,
+                              //         expanded: true,
+                              //         presentation: 'Комментарий')
+                              //   ],
+                              //   elementEditPageName: Routes.commentRowPage,
+                              // ),
+                            ],
+                          ),
                         ),
                       )),
                 ),
