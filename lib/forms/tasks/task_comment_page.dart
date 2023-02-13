@@ -192,7 +192,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       children: [
         Flexible(
           child: SizedBox(
-            width: width <= 700 ? width * 0.75 : 300,
+            width: width <= 700 ? width * 0.65 : 300,
             child: Card(
               color: Get.find<DataController>().currentUser ==
                       comment.author.mainUserAccount
@@ -298,7 +298,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         
         Flexible(
           child: SizedBox(
-            width: width <= 700 ? width * 0.75 : 300,
+            width: width <= 700 ? width * 0.65 : 300,
             child: Card(
               color: Get.find<DataController>().currentUser ==
                       comment.author.mainUserAccount
