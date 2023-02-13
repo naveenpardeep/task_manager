@@ -157,14 +157,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: TextButton(
-                                          onPressed: (() {
-                                            selectOrganization();
-                                          }),
-                                          child: Text(
-                                              'Организация ${orgController.currentItem.name}')),
-                                    ),
+                                    Expanded(child: organizationList()),
                                   ],
                                 ),
                                 Padding(
@@ -190,6 +183,12 @@ class _UserProfileState extends State<UserProfile> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10, 20, 0),
+                                  child: Text(
+                                      'Организация  : ${Get.find<DataController>().currentUser.organization.name}'),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(
                                       20.0, 10, 20, 0),
@@ -563,6 +562,22 @@ class _UserProfileState extends State<UserProfile> {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  Widget organizationList() {
+    var list = <Widget>[];
+    for (var org in orgController.items) {
+      list.add(TextButton(
+          onPressed: (() {
+            Get.find<DataController>().currentUser =
+                Get.find<UserAccountController>().getUserByOrganization(org);
+            setState(() {});
+          }),
+          child: Text(org.name)));
+    }
+    return Row(
+      children: list,
     );
   }
 }
