@@ -191,9 +191,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Flexible(
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
             child: Container(
               color: Get.find<DataController>().currentUser ==
                       comment.author.mainUserAccount
@@ -296,9 +296,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Flexible(
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
               child: Container(
                 color: Get.find<DataController>().currentUser ==
                         comment.author.mainUserAccount
