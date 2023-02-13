@@ -183,7 +183,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   }
 
   Widget currentUser(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm");
+    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: Get.find<DataController>().currentUser ==
@@ -191,30 +191,24 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        Flexible(
-          child: SizedBox(
-            width: width <= 700 ? width * 0.65 : 300,
-            child: Card(
-              color: Get.find<DataController>().currentUser ==
-                      comment.author.mainUserAccount
-                  ? const Color(0xfff0859ff)
-                  :  const Color(0xfffDBEAEA),
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: Get.find<DataController>().currentUser ==
-              //             comment.author.mainUserAccount
-              //         ? const BorderRadiusDirectional.only(
-              //             topEnd: Radius.circular(40))
-              //         : const BorderRadiusDirectional.only(
-              //             topStart: Radius.circular(40))),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: Get.find<DataController>().currentUser ==
-                          comment.author.mainUserAccount
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
-                  children: [
-                    Align(
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Flexible(
+            child: Container(
+               color: Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
+                    ? const Color(0xfff0859ff)
+                    :  const Color(0xfffDBEAEA),
+              width: width <= 700 ? width * 0.65 : 300,
+              child: Column(
+                crossAxisAlignment: Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         comment.author.toString(),
@@ -227,10 +221,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Align(
+                  ),
+                
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         comment.text,
@@ -240,10 +235,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             ? const TextStyle( fontSize: 14,color: Colors.white)
                             : const TextStyle(),
                       ),
-                    ),const SizedBox(
-                      height: 10,
                     ),
-                    Align(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Get.find<DataController>().currentUser ==
                               comment.author.mainUserAccount
                           ? Alignment.topRight
@@ -254,12 +250,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         textScaleFactor: 0.8,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(color: Colors.white)
-                            : const TextStyle(color: Color(0xff10051C)),
+                            ? const TextStyle(color: Colors.white70)
+                            : const TextStyle(color: Colors.black87),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -282,7 +278,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   }
 
   Widget anotherUsers(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm");
+    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: Get.find<DataController>().currentUser ==
@@ -301,31 +297,24 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ),
         ),
         
-        Flexible(
-          child: SizedBox(
-            width: width <= 700 ? width * 0.65 : 300,
-            child: Card(
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Flexible(
+            child: Container(
               color: Get.find<DataController>().currentUser ==
-                      comment.author.mainUserAccount
-                  ? const Color(0xfff0859ff)
-                  : const Color(0xfffDBEAEA),
-        
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: Get.find<DataController>().currentUser ==
-              //             comment.author.mainUserAccount
-              //         ? const BorderRadiusDirectional.only(
-              //             topEnd: Radius.circular(40))
-              //         : const BorderRadiusDirectional.only(
-              //             topStart: Radius.circular(40))),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: Get.find<DataController>().currentUser ==
-                          comment.author.mainUserAccount
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
-                  children: [
-                    Align(
+                        comment.author.mainUserAccount
+                    ? const Color(0xfff0859ff)
+                    : const Color(0xfffDBEAEA),
+              width: width <= 700 ? width * 0.65 : 300,
+              child: Column(
+                crossAxisAlignment: Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         comment.author.toString(),
@@ -339,10 +328,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Align(
+                  ),
+                 
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         
@@ -354,10 +344,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                             : const TextStyle(),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Align(
+                  ),
+              
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
                       alignment: Get.find<DataController>().currentUser ==
                               comment.author.mainUserAccount
                           ? Alignment.topRight
@@ -368,12 +359,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         textScaleFactor: 0.8,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(color: Colors.white)
-                            : const TextStyle(color: Color(0xff10051C)),
+                            ?  const TextStyle(color: Colors.white70)
+                            : const TextStyle(color: Colors.black87),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
