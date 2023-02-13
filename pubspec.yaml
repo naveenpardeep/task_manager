@@ -68,3 +68,8 @@ flutter:
   assets:
     - lib/assets/
     - lib/assets/images/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: lib/assets/fonts/Inter-Black.ttf
+        - asset: lib/assets/fonts/Inter-Regular.ttf

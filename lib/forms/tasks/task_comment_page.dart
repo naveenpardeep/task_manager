@@ -196,11 +196,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             padding: const EdgeInsets.all(4.0),
             child: Container(
               decoration: BoxDecoration(
-                   color: Get.find<DataController>().currentUser ==
-                        comment.author.mainUserAccount
-                    ? const Color(0xfff0859ff)
-                    : const Color(0xfffDBEAEA),
-                   borderRadius: const BorderRadius.all(Radius.circular(4))),
+                  color: Get.find<DataController>().currentUser ==
+                          comment.author.mainUserAccount
+                      ? const Color(0xfff0859ff)
+                      : const Color(0xfffDBEAEA),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
                 crossAxisAlignment: Get.find<DataController>().currentUser ==
@@ -217,11 +217,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(
+                                fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
                             : const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
+                                fontFamily:
+                                    'lib/assets/fonts/Inter-Regular.ttf',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal),
                       ),
                     ),
                   ),
@@ -234,8 +239,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle(fontSize: 14, color: Colors.white)
-                            : const TextStyle(),
+                            ? const TextStyle(fontSize: 16, color: Colors.white)
+                            : const TextStyle(fontSize: 16),
                       ),
                     ),
                   ),
@@ -303,12 +308,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
-                   color: Get.find<DataController>().currentUser ==
-                        comment.author.mainUserAccount
-                    ? const Color(0xfff0859ff)
-                    : const Color(0xfffDBEAEA),
-                   borderRadius: const BorderRadius.all(Radius.circular(4))),
-               
+                    color: Get.find<DataController>().currentUser ==
+                            comment.author.mainUserAccount
+                        ? const Color(0xfff0859ff)
+                        : const Color(0xfffDBEAEA),
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
                 width: width <= 700 ? width * 0.65 : 300,
                 child: Column(
                   crossAxisAlignment: Get.find<DataController>().currentUser ==
@@ -325,11 +329,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
                               ? const TextStyle(
+                                  fontFamily:
+                                      'lib/assets/fonts/Inter-Regular.ttf',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white)
                               : const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.normal),
+                                  fontFamily:
+                                      'lib/assets/fonts/Inter-Regular.ttf',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal),
                         ),
                       ),
                     ),
@@ -343,8 +352,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
                               ? const TextStyle(
-                                  fontSize: 14, color: Colors.white)
-                              : const TextStyle(),
+                                  fontSize: 16, color: Colors.white)
+                              : const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
