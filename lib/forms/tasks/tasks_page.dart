@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
@@ -27,6 +28,8 @@ class TasksPage extends GetView<TasksController> {
     if (imageCont.lateInit) {
       imageCont.requestItems();
     }
+    HtmlEditorController htmlcontroller = HtmlEditorController();
+
     String formatted =
         NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
     String formatupdate =
@@ -184,6 +187,19 @@ class TasksPage extends GetView<TasksController> {
                               fieldName: TaskDocGenerated.namePriority,
                               label: 'Приоритет',
                             ),
+                            // HtmlEditor(
+                            //   callbacks: postData(controller),
+                            //   controller: htmlcontroller, //required
+                            //   htmlEditorOptions: HtmlEditorOptions(
+                            //     hint: "Your text here...",
+                                
+                            //     initialText: controller.currentItem.footnote
+                            //     //initalText: "text content initial, if any",
+                            //   ),
+                            //   otherOptions: OtherOptions(
+                            //     height: 200,
+                            //   ),
+                            // ),
                             NsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskDocGenerated.nameFootnote,
@@ -204,7 +220,6 @@ class TasksPage extends GetView<TasksController> {
 
                             const NsgText('Create CheckList for this Task'),
                             NsgTable(
-                            
                               controller: Get.find<TaskCheckListController>(),
                               elementEditPageName: Routes.taskChecklistPage,
                               availableButtons: const [
@@ -343,5 +358,9 @@ class TasksPage extends GetView<TasksController> {
         allowedFileFormats: const [],
       ),
     );
+  }
+  
+  postData(TasksController controller) {
+   return controller.itemPagePost();
   }
 }

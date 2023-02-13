@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -22,6 +25,24 @@ class UserAccountPage extends GetView<UserAccountController> {
     if (Get.find<OrganizationController>().lateInit) {
       Get.find<OrganizationController>().requestItems();
     }
+    NsgFilePicker picker = NsgFilePicker(
+        showAsWidget: true,
+        skipInterface: true,
+        oneFile: true,
+        
+        callback: (value) async {
+          if (value.isNotEmpty) {
+            File imageFile = File(value[0].filePath);
+            List<int> imagebytes = await imageFile.readAsBytes();
+            Get.find<DataController>().currentUser.photoFile = imagebytes;
+            await controller
+                .postItems([Get.find<DataController>().currentUser]);
+            await controller.refreshData();
+          }
+          //userAccountController.sendNotify();
+          Navigator.of(Get.context!).pop();
+        },
+        objectsList: []);
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: BodyWrap(
@@ -48,12 +69,12 @@ class UserAccountPage extends GetView<UserAccountController> {
                     },
                     icon2: Icons.check,
                     onPressed2: () async {
-                  //  await  Get.find<DataController>().itemPagePost();
+                      //  await  Get.find<DataController>().itemPagePost();
                       await controller.itemPagePost();
                       // Get.find<ProjectController>()
                       //     .itemNewPageOpen(Routes.projectListPage);
 
-                       Get.back();
+                      Get.back();
                     },
                   ),
                   Expanded(
@@ -71,72 +92,125 @@ class UserAccountPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
-
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                child: ClipOval(
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.dialog(picker,
+                                            barrierDismissible: true);
+                                      },
+                                      child: Get.find<DataController>()
+                                              .currentUser
+                                              .photoFile
+                                              .isEmpty
+                                          ? Container(
+                                              decoration: BoxDecoration(
+                                                  color: ControlOptions
+                                                      .instance.colorMain
+                                                      .withOpacity(0.2)),
+                                              width: 70,
+                                              height: 70,
+                                              child: Icon(
+                                                Icons.add_a_photo,
+                                                size: 32,
+                                                color: ControlOptions
+                                                    .instance.colorMain
+                                                    .withOpacity(0.4),
+                                              ),
+                                            )
+                                          : Image.memory(
+                                              Uint8List.fromList(
+                                                  Get.find<DataController>()
+                                                      .currentUser
+                                                      .photoFile),
+                                              width: 70,
+                                              height: 70,
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameName,
                                 label: 'nick',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
-                            //  Должность тоже нужна только внутри организации
+                              //  Должность тоже нужна только внутри организации
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePosition,
                                 label: 'Должность',
                               ),
-                            //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
+                              //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByPush,
                                 label: 'Показывать push-уведомления',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyNewTasks,
                                 label: 'Создана задача с моим участием',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasks,
                                 label:
                                     'Все изменения в задачах с моим участием',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyNewTasksInProjects,
                                 label: 'Новая задача в проекте',
                               ),
                               NsgInput(
-                                dataItem: Get.find<DataController>().currentUser,
+                                dataItem:
+                                    Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated
                                     .nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',

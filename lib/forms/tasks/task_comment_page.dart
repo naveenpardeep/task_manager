@@ -183,8 +183,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   }
 
   Widget currentUser(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm");
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: Get.find<DataController>().currentUser ==
               comment.author.mainUserAccount
           ? MainAxisAlignment.end
@@ -206,7 +207,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               //         : const BorderRadiusDirectional.only(
               //             topStart: Radius.circular(40))),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: Get.find<DataController>().currentUser ==
                           comment.author.mainUserAccount
@@ -264,8 +265,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRect(
+          padding: const EdgeInsets.all(4.0),
+          child: ClipRRect(
+             borderRadius: BorderRadius.circular(4.0),
             child: Image.network(
                 width: 32,
                 height: 32,
@@ -280,16 +282,18 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   }
 
   Widget anotherUsers(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm");
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: Get.find<DataController>().currentUser ==
               comment.author.mainUserAccount
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRect(
+          padding: const EdgeInsets.all(4.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
             child: Image.network(
                 width: 32,
                 height: 32,
@@ -314,7 +318,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               //         : const BorderRadiusDirectional.only(
               //             topStart: Radius.circular(40))),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: Get.find<DataController>().currentUser ==
                           comment.author.mainUserAccount
