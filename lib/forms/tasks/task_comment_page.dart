@@ -223,7 +223,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
-                            : const TextStyle(fontWeight: FontWeight.normal),
+                            : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
                       ),
                     ),
                     const SizedBox(
@@ -332,7 +332,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
-                            : const TextStyle(fontWeight: FontWeight.normal),
+                            : const TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
                       ),
                     ),
                     const SizedBox(
