@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
+import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:get/get.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:markdown_editable_textinput/format_markdown.dart';
+import 'package:markdown_editable_textinput/markdown_text_input.dart';
+
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
@@ -28,8 +36,17 @@ class TasksPage extends GetView<TasksController> {
     if (imageCont.lateInit) {
       imageCont.requestItems();
     }
+    TextEditingController textontroller = TextEditingController();
 
+    quil.QuillController quillcontroller = quil.QuillController.basic();
+    // var json = jsonEncode(quillcontroller.document.toDelta().toJson());
+    // json = controller.currentItem.description;
+    // var myJSON = jsonDecode(json);
+    // quil.QuillController(
+    //     document: quil.Document.fromJson(myJSON),
+    //     selection: TextSelection.collapsed(offset: 0));
     final scrollController = ScrollController();
+    final markscrollController = ScrollController();
     String comment;
     HtmlEditorController htmlcontroller = HtmlEditorController();
 
@@ -191,27 +208,87 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.nameTaskNumber,
                                 label: 'Номер задачи',
                               ),
-                              HtmlEditor(
-                                callbacks: Callbacks(
-                                    onChangeContent: (String? comment) {
-                                  controller.currentItem.description = comment!;
-                                  // controller.postItems([controller.currentItem]);
-                                }),
-                                controller: htmlcontroller, //required
-                                htmlEditorOptions: HtmlEditorOptions(
-                                    hint: "Описание задачи...",
-                                    initialText:
-                                        controller.currentItem.description),
-                                otherOptions: const OtherOptions(
-                                  height: 400,
-                                ),
+                              // HtmlEditor(
+                              //   key: GlobalKey(),
+                              //   callbacks: Callbacks(
+                              //       onChangeContent: (String? comment) {
+                              //     controller.currentItem.description = comment!;
+                              //     // controller.postItems([controller.currentItem]);
+                              //   }),
+                              //   controller: htmlcontroller, //required
+                              //   htmlEditorOptions: HtmlEditorOptions(
+                              //       hint: "Описание задачи...",
+                              //       initialText:
+                              //           controller.currentItem.description),
+                              //   otherOptions: const OtherOptions(
+                              //     height: 400,
+                              //   ),
+                              // ),
+
+                              // MarkdownTextInput(
+                              //   (String value) =>
+                              //       controller.currentItem.description = value,
+                              //   controller.currentItem.description,
+                              //   label: 'Description',
+                              //   maxLines: 10,
+                              //   actions: const [
+                              //     MarkdownType.bold,
+                              //     MarkdownType.italic,
+                              //     MarkdownType.title,
+                              //     MarkdownType.link,
+                              //     MarkdownType.list
+                              //   ],
+                              //   controller: textontroller,
+                              //   textStyle: TextStyle(fontSize: 16),
+                              // ),
+                              // TextButton(
+                              //   onPressed: () {
+                              //     textontroller.clear();
+                              //   },
+                              //   child: Text('Clear'),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(top: 10),
+                              //   child: MarkdownBody(
+                              //     data: controller.currentItem.description,
+                              //     shrinkWrap: true,
+                              //     selectable: true,
+                              //   ),
+                              // ),
+
+                              NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.nameDescription,
+                                label: 'Описание задачи',
+                                minLines: 1,
+                                maxLines: 5,
                               ),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameDescription,
-                              //   label: 'Описание задачи',
-                              //   minLines: 1,
-                              //   maxLines: 5,
+                              //                             Container(
+                              //                               height: 300,
+                              //                               child: Markdown(
+
+                              //                                 styleSheet: MarkdownStyleSheet(
+                              //   h1: const TextStyle(color: Colors.blue, fontSize: 40),
+                              // ),
+
+                              //                                   selectable: true,
+                              //                                   data: controller.currentItem.description,
+                              //                               )
+                              //                             ),
+                              // quil.QuillToolbar.basic(
+                              //   controller: quillcontroller,
+                              //   afterButtonPressed: () {
+                              //     controller.currentItem.description;
+                              //   },
+                              // ),
+
+                              // Container(
+                              //   height: 500,
+                              //   child: quil.QuillEditor.basic(
+                              //     controller: quillcontroller,
+                              //     readOnly:
+                              //         false, // true for view only mode
+                              //   ),
                               // ),
                               NsgInput(
                                 dataItem: controller.currentItem,
