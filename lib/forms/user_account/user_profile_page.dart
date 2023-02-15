@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,9 +43,16 @@ class _UserProfileState extends State<UserProfile> {
         oneFile: true,
         callback: (value) async {
           if (value.isNotEmpty) {
-            File imageFile = File(value[0].filePath);
-            List<int> imagebytes = await imageFile.readAsBytes();
-            Get.find<DataController>().currentUser.photoFile = imagebytes;
+            List<int> imagefile;
+            if (kIsWeb) {
+              imagefile = await File.fromUri(Uri(path: value[0].filePath))
+                  .readAsBytes();
+            } else {
+              imagefile = await File(value[0].filePath).readAsBytes();
+            }
+            // File imageFile = File(value[0].filePath);
+            //  List<int> imagebytes = await imageFile.readAsBytes();
+            Get.find<DataController>().currentUser.photoFile = imagefile;
             await userAccountController
                 .postItems([Get.find<DataController>().currentUser]);
             await userAccountController.refreshData();

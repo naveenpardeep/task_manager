@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -7,6 +9,7 @@ import 'package:task_manager_app/forms/notification/notification_controller.dart
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
 class TmMobileMenu extends StatelessWidget {
@@ -131,12 +134,25 @@ class TmMobileMenu extends StatelessWidget {
                           Get.find<UserAccountController>().currentItem,
                           Routes.userProfilePage);
                     },
-                    child: ClipOval(
-                      child: Image.network(
-                          width: 32,
-                          height: 32,
-                          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-                    ),
+                    child:  ClipOval(
+                              child: Get.find<DataController>().currentUser.photoFile.isEmpty
+                                  ? Container(
+                                      decoration:
+                                          BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                      width: 32,
+                                      height: 32,
+                                      child: Icon(
+                                        Icons.account_circle,
+                                        size: 20,
+                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                      ),
+                                    )
+                                  : Image.memory(
+                                      Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                                      width: 32,
+                                      height: 32,
+                                    ),
+                            ),
                   ),
                 ],
               ),
