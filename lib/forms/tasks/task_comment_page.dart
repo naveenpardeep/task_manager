@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -277,15 +279,29 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: Image.network(
-                width: 32,
-                height: 32,
-                'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-          ),
-        ),
+            padding: const EdgeInsets.all(4.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: comment.author.photoFile.isEmpty
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: ControlOptions.instance.colorMain
+                              .withOpacity(0.2)),
+                      width: 32,
+                      height: 32,
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 20,
+                        color:
+                            ControlOptions.instance.colorMain.withOpacity(0.4),
+                      ),
+                    )
+                  : Image.memory(
+                      Uint8List.fromList(comment.author.photoFile),
+                      width: 32,
+                      height: 32,
+                    ),
+            )),
         const SizedBox(
           height: 70,
         )
@@ -303,15 +319,29 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             : MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
-              child: Image.network(
-                  width: 32,
-                  height: 32,
-                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'),
-            ),
-          ),
+              padding: const EdgeInsets.all(4.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: comment.author.photoFile.isEmpty
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: ControlOptions.instance.colorMain
+                                .withOpacity(0.2)),
+                        width: 32,
+                        height: 32,
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 20,
+                          color: ControlOptions.instance.colorMain
+                              .withOpacity(0.4),
+                        ),
+                      )
+                    : Image.memory(
+                        Uint8List.fromList(comment.author.photoFile),
+                        width: 32,
+                        height: 32,
+                      ),
+              )),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.all(4.0),
