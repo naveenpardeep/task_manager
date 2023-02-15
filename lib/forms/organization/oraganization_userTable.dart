@@ -54,6 +54,12 @@ class OrganizationUserRowPage
                                   .nameUserAccountId,
                               label: 'User ',
                             ),
+                            NsgInput(
+                              dataItem: controller.currentItem,
+                              fieldName: OrganizationItemUserTableGenerated
+                                  .nameIsAdmin,
+                              label: 'Admin',
+                            ),
                           ],
                         ),
                       )),

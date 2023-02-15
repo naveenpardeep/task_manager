@@ -81,6 +81,11 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                                             .nameUserAccountId,
                                         expanded: true,
                                         presentation: 'Users'),
+                                         NsgTableColumn(
+                                        name: OrganizationItemUserTableGenerated
+                                            .nameIsAdmin,
+                                        width: 100,
+                                        presentation: 'Admin'),
                                   ]),
                             ]),
                           ),
