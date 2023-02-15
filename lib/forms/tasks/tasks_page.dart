@@ -5,9 +5,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:get/get.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
-import 'package:markdown_editable_textinput/format_markdown.dart';
-import 'package:markdown_editable_textinput/markdown_text_input.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
@@ -18,6 +15,7 @@ import 'package:task_manager_app/forms/notification/notification_controller.dart
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
+import '../../1/nsg_rich_text.dart';
 import '../task_status/task_status_controller.dart';
 import 'task_image_controller.dart';
 import 'task_user_account_controler.dart';
@@ -41,19 +39,8 @@ class TasksPage extends GetView<TasksController> {
     if (fileController.lateInit) {
       fileController.requestItems();
     }
-    TextEditingController textontroller = TextEditingController();
 
-    quil.QuillController quillcontroller = quil.QuillController.basic();
-    // var json = jsonEncode(quillcontroller.document.toDelta().toJson());
-    // json = controller.currentItem.description;
-    // var myJSON = jsonDecode(json);
-    // quil.QuillController(
-    //     document: quil.Document.fromJson(myJSON),
-    //     selection: TextSelection.collapsed(offset: 0));
     final scrollController = ScrollController();
-    final markscrollController = ScrollController();
-    String comment;
-    HtmlEditorController htmlcontroller = HtmlEditorController();
 
     String formatted =
         NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
@@ -261,25 +248,27 @@ class TasksPage extends GetView<TasksController> {
                               //   ),
                               // ),
 
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameDescription,
-                                label: 'Описание задачи',
-                                minLines: 1,
-                                maxLines: 5,
-                              ),
-                              //                             Container(
-                              //                               height: 300,
-                              //                               child: Markdown(
-
-                              //                                 styleSheet: MarkdownStyleSheet(
-                              //   h1: const TextStyle(color: Colors.blue, fontSize: 40),
+                              // NsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: TaskDocGenerated.nameDescription,
+                              //   label: 'Описание задачи',
+                              //   minLines: 1,
+                              //   maxLines: 5,
                               // ),
 
-                              //                                   selectable: true,
-                              //                                   data: controller.currentItem.description,
-                              //                               )
-                              //                             ),
+                              NsgRichText(
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.nameDescription),
+                              // Container(
+                              //     height: 300,
+                              //     child: Markdown(
+                              //       styleSheet: MarkdownStyleSheet(
+                              //         h1: const TextStyle(
+                              //             color: Colors.blue, fontSize: 40),
+                              //       ),
+                              //       selectable: true,
+                              //       data: controller.currentItem.description,
+                              //     )),
                               // quil.QuillToolbar.basic(
                               //   controller: quillcontroller,
                               //   afterButtonPressed: () {
@@ -291,10 +280,9 @@ class TasksPage extends GetView<TasksController> {
                               //   height: 500,
                               //   child: quil.QuillEditor.basic(
                               //     controller: quillcontroller,
-                              //     readOnly:
-                              //         false, // true for view only mode
+                              //     readOnly: false, // true for view only mode
                               //   ),
-                              // ),
+                              //),
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.namePriority,
@@ -467,17 +455,21 @@ class TasksPage extends GetView<TasksController> {
   }
 
   Widget filesUpload() {
-   return Get.find<TaskFilesController>().obx(
-      (state) => 
-      NsgFilePicker(
-        textChooseFile: 'Add Files',
-        useFilePicker: true,
-       showAsWidget: true,
-        callback: (value) {},
-        objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats:  const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
-    )
-    );
-    
+    return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
+          textChooseFile: 'Add Files',
+          useFilePicker: true,
+          showAsWidget: true,
+          callback: (value) {},
+          objectsList: Get.find<TaskFilesController>().files,
+          allowedFileFormats: const [
+            'doc',
+            'docx',
+            'rtf',
+            'xls',
+            'xlsx',
+            'pdf',
+            'rtf'
+          ],
+        ));
   }
 }

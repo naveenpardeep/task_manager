@@ -69,6 +69,7 @@ class DataController extends DataControllerGenerated {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
+
         Get.find<UserAccountController>().itemPageOpen(
             accController.items.first, Routes.firstTimeUserAccountPage);
       } else {
