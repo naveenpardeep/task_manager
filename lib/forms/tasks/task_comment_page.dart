@@ -26,6 +26,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           (state) => Container(
             decoration: const BoxDecoration(color: Colors.white),
             child: SingleChildScrollView(
+              reverse: true,
               child: Column(
                 children: <Widget>[
                   NsgAppBar(
