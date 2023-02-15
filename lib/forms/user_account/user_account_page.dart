@@ -25,24 +25,7 @@ class UserAccountPage extends GetView<UserAccountController> {
     if (Get.find<OrganizationController>().lateInit) {
       Get.find<OrganizationController>().requestItems();
     }
-    NsgFilePicker picker = NsgFilePicker(
-        showAsWidget: true,
-        skipInterface: true,
-        oneFile: true,
-        
-        callback: (value) async {
-          if (value.isNotEmpty) {
-            File imageFile = File(value[0].filePath);
-            List<int> imagebytes = await imageFile.readAsBytes();
-            Get.find<DataController>().currentUser.photoFile = imagebytes;
-            await controller
-                .postItems([Get.find<DataController>().currentUser]);
-            await controller.refreshData();
-          }
-          //userAccountController.sendNotify();
-          Navigator.of(Get.context!).pop();
-        },
-        objectsList: []);
+   
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: BodyWrap(
@@ -92,48 +75,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                child: ClipOval(
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.dialog(picker,
-                                            barrierDismissible: true);
-                                      },
-                                      child: Get.find<DataController>()
-                                              .currentUser
-                                              .photoFile
-                                              .isEmpty
-                                          ? Container(
-                                              decoration: BoxDecoration(
-                                                  color: ControlOptions
-                                                      .instance.colorMain
-                                                      .withOpacity(0.2)),
-                                              width: 70,
-                                              height: 70,
-                                              child: Icon(
-                                                Icons.add_a_photo,
-                                                size: 32,
-                                                color: ControlOptions
-                                                    .instance.colorMain
-                                                    .withOpacity(0.4),
-                                              ),
-                                            )
-                                          : Image.memory(
-                                              Uint8List.fromList(
-                                                  Get.find<DataController>()
-                                                      .currentUser
-                                                      .photoFile),
-                                              width: 70,
-                                              height: 70,
-                                            ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                             
                               NsgInput(
                                 dataItem:
                                     Get.find<DataController>().currentUser,
