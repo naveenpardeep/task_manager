@@ -18,7 +18,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     }
 
     double height = MediaQuery.of(context).size.height;
-    return BodyWrap(
+    return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
@@ -27,7 +27,6 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             decoration: const BoxDecoration(color: Colors.white),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   NsgAppBar(
                     backColor: ControlOptions.instance.colorWhite,
@@ -135,6 +134,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
+            reverse: true,
             physics: const BouncingScrollPhysics(),
             controller: scrollController,
             child: Padding(
@@ -217,14 +217,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
                             ? const TextStyle(
-                                fontFamily:
-                                    'Inter',
+                                fontFamily: 'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white)
                             : const TextStyle(
-                                fontFamily:
-                                    'Inter',
+                                fontFamily: 'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal),
                       ),
@@ -239,10 +237,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         softWrap: true,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ?  const TextStyle(
+                            ? const TextStyle(
                                 fontFamily: 'NotoSans',
-                                  fontSize: 14, color: Colors.white)
-                              : const TextStyle(fontFamily: 'NotoSans',fontSize: 14),
+                                fontSize: 14,
+                                color: Colors.white)
+                            : const TextStyle(
+                                fontFamily: 'NotoSans', fontSize: 14),
                       ),
                     ),
                   ),
@@ -256,16 +256,17 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Text(
                         formateddate.format(comment.date),
                         maxLines: 1,
-                      // textScaleFactor: 0.8,
+                        // textScaleFactor: 0.8,
                         style: Get.find<DataController>().currentUser ==
                                 comment.author.mainUserAccount
-                            ? const TextStyle( 
-                              fontSize: 10,
-                              fontFamily:
-                                    'Inter', color: Colors.white70)
-                            : const TextStyle( fontSize: 10,
-                              fontFamily:
-                                    'Inter',color: Color(0xfff3EA8AB)),
+                            ? const TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'Inter',
+                                color: Colors.white70)
+                            : const TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'Inter',
+                                color: Color(0xfff3EA8AB)),
                       ),
                     ),
                   ),
@@ -336,14 +337,12 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
                               ? const TextStyle(
-                                  fontFamily:
-                                      'Inter',
+                                  fontFamily: 'Inter',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white)
                               : const TextStyle(
-                                  fontFamily:
-                                      'Inter',
+                                  fontFamily: 'Inter',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal),
                         ),
@@ -359,9 +358,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
                               ? const TextStyle(
-                                fontFamily: 'NotoSans',
-                                  fontSize: 14, color: Colors.white)
-                              : const TextStyle(fontFamily: 'NotoSans',fontSize: 14),
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 14,
+                                  color: Colors.white)
+                              : const TextStyle(
+                                  fontFamily: 'NotoSans', fontSize: 14),
                         ),
                       ),
                     ),
@@ -375,16 +376,17 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         child: Text(
                           formateddate.format(comment.date),
                           maxLines: 1,
-                        //  textScaleFactor: 0.8,
+                          //  textScaleFactor: 0.8,
                           style: Get.find<DataController>().currentUser ==
                                   comment.author.mainUserAccount
-                              ?  const TextStyle( 
-                              fontSize: 10,
-                              fontFamily:
-                                    'Inter', color: Colors.white70)
-                            : const TextStyle( fontSize: 10,
-                              fontFamily:
-                                    'Inter',color: Color(0xfff3EA8AB)),
+                              ? const TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Inter',
+                                  color: Colors.white70)
+                              : const TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Inter',
+                                  color: Color(0xfff3EA8AB)),
                         ),
                       ),
                     ),
