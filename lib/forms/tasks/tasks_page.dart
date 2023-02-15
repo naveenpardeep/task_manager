@@ -14,6 +14,7 @@ import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -30,11 +31,15 @@ class TasksPage extends GetView<TasksController> {
     var updatedate = controller.currentItem.dateUpdated;
     var notificationController = Get.find<NotificationController>();
     var imageCont = Get.find<TaskImageController>();
+    var fileController = Get.find<TaskFilesController>();
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }
     if (imageCont.lateInit) {
       imageCont.requestItems();
+    }
+    if (fileController.lateInit) {
+      fileController.requestItems();
     }
     TextEditingController textontroller = TextEditingController();
 
@@ -367,6 +372,9 @@ class TasksPage extends GetView<TasksController> {
                                     }),
                               if (controller.currentItem.name.isNotEmpty)
                                 Flexible(child: imageGallery()),
+
+                              if (controller.currentItem.name.isNotEmpty)
+                                Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
                               //         Get.find<FilesTableTasksController>(),
@@ -449,11 +457,27 @@ class TasksPage extends GetView<TasksController> {
     // return Get.find<TaskImageController>().obx((state) =>
     return Get.find<TaskImageController>().obx(
       (state) => NsgFilePicker(
+        useFilePicker: true,
         showAsWidget: true,
         callback: (value) {},
         objectsList: Get.find<TaskImageController>().images,
         allowedFileFormats: const [],
       ),
     );
+  }
+
+  Widget filesUpload() {
+   return Get.find<TaskFilesController>().obx(
+      (state) => 
+      NsgFilePicker(
+        textChooseFile: 'Add Files',
+        useFilePicker: true,
+       showAsWidget: true,
+        callback: (value) {},
+        objectsList: Get.find<TaskFilesController>().files,
+        allowedFileFormats:  const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
+    )
+    );
+    
   }
 }

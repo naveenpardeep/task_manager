@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
@@ -16,7 +17,9 @@ class TasksListBinding extends Bindings {
     Get.put(TaskStatusController());
     Get.put(TaskUserAccountController());
     Get.put(TaskImageController());
-    Get.put(FilesTableTasksController());
+   
     Get.put(TaskCheckListController());
+   
+    Get.put(TaskFilesController());
   }
 }

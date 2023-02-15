@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
+import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_error_widget.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -19,7 +25,8 @@ class TasksController extends NsgDataController<TaskDoc> {
       // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId,
       TaskDocGenerated.nameTableComments,
-      TaskDocGenerated.nameCheckList
+      TaskDocGenerated.nameCheckList,
+      TaskDocGenerated.nameFiles
     ];
   }
 
@@ -322,9 +329,9 @@ class TaskCheckListController
   }
 }
 
-class FilesTableTasksController
+class TaskFilesController
     extends NsgDataTableController<TaskDocFilesTable> {
-  FilesTableTasksController()
+  TaskFilesController()
       : super(
             masterController: Get.find<TasksController>(),
             tableFieldName: TaskDocGenerated.nameFiles) {
@@ -332,11 +339,74 @@ class FilesTableTasksController
     editModeAllowed = true;
     requestOnInit = true;
   }
+   var files = <NsgFilePickerObject>[];
+
   @override
-  Future<TaskDocFilesTable> doCreateNewItem() async {
-    var item = await super.doCreateNewItem();
-    return item;
+  NsgDataRequestParams get getRequestFilter {
+    var cmp = NsgCompare();
+    var taskController = Get.find<TasksController>();
+
+    cmp.add(
+        name: TaskDocFilesTableGenerated.nameOwnerId,
+        value: taskController.currentItem.id);
+    return NsgDataRequestParams(compare: cmp);
+  }
+
+  Future<bool> saveFiles() async {
+    var progress = NsgProgressDialog(textDialog: 'Сохранение File');
+    progress.show();
+    var ids = <String>[];
+    try {
+      for (var file in files) {
+        if (file.file == null) continue;
+        if (file.id == '') {
+          var filename = TaskDocFilesTable();
+          filename.name = filename.name;
+          filename.ownerId = Get.find<TasksController>().currentItem.id;
+
+          if (kIsWeb) {
+            File filesupload = File.fromUri(Uri(path: file.filePath));
+            filename.file = await filesupload.readAsBytes();
+          } else {
+            File filesUpload = File(file.filePath);
+            filename.file = await filesUpload.readAsBytes();
+          }
+          await filename.post();
+        }
+        ids.add(file.id);
+      }
+
+      var itemsToDelete = items.where((e) => !ids.contains(e.id)).toList();
+      if (itemsToDelete.isNotEmpty) {
+        deleteItems(itemsToDelete);
+      }
+      progress.hide();
+    } on Exception catch (ex) {
+      progress.hide();
+      NsgErrorWidget.showError(ex);
+      rethrow;
+    }
+    return true;
+  }
+
+  @override
+  Future refreshData({List<NsgUpdateKey>? keys}) async {
+    await super.refreshData(keys: keys);
+    //files.clear();
+
+    for (var element in items) {
+      files.add(NsgFilePickerObject(
+          file: File.fromRawPath(Uint8List.fromList(element.file)),
+          description: element.name,
+          fileType: extension(
+                  File.fromRawPath(Uint8List.fromList(element.file)) as String)
+              .replaceAll('.', ''),
+          id: element.id));
+    }
+    return;
   }
 }
+
+ 
 
 

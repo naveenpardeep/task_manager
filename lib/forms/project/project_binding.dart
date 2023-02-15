@@ -7,6 +7,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+
 import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -44,5 +45,7 @@ class ProjectBinding extends Bindings {
     Get.put(ProjectUserController());
     Get.put(UserProjectNotificationController());
     Get.put(TaskCheckListController());
+    
+    Get.put(TaskFilesController());
   }
 }
