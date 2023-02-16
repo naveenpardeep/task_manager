@@ -44,10 +44,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     onPressed: () {
                       controller.itemPageCancel();
                     },
-                  icon2: Icons.check,
-                  onPressed2: () {
-                    controller.itemPagePost();
-                  },
+                  // icon2: Icons.check,
+                  // onPressed2: () {
+                  //   controller.itemPagePost();
+                  // },
                     ),
                   SizedBox(height: height * 0.75, child: commentList(context)),
                   Stack(
