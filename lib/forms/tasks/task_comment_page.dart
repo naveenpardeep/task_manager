@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -44,21 +45,36 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     onPressed: () {
                       controller.itemPageCancel();
                     },
-                  // icon2: Icons.check,
-                  // onPressed2: () {
-                  //   controller.itemPagePost();
-                  // },
-                    ),
+                    // icon2: Icons.check,
+                    // onPressed2: () {
+                    //   controller.itemPagePost();
+                    // },
+                  ),
                   SizedBox(height: height * 0.75, child: commentList(context)),
                   Stack(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: NsgInput(
-                          borderRadius: 10,
-                          dataItem: controller.currentItem,
-                          fieldName: TaskDocCommentsTableGenerated.nameText,
-                          label: 'Комментарий',
+                        child: RawKeyboardListener(
+                          focusNode: FocusNode(),
+                          onKey: (event) async {
+                            if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+                              Get.find<TasksController>()
+                                  .currentItem
+                                  .tableComments
+                                  .addRow(controller.currentItem);
+
+                              await Get.find<TasksController>()
+                                  .itemPagePost(goBack: false);
+                              await controller.createNewItemAsync();
+                            }
+                          },
+                          child: NsgInput(
+                            borderRadius: 10,
+                            dataItem: controller.currentItem,
+                            fieldName: TaskDocCommentsTableGenerated.nameText,
+                            label: 'Комментарий',
+                          ),
                         ),
                       ),
                       Positioned(
@@ -67,10 +83,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
                               onPressed: () async {
-                                Get.find<TasksController>().currentItem.tableComments.addRow(controller.currentItem);
+                                Get.find<TasksController>()
+                                    .currentItem
+                                    .tableComments
+                                    .addRow(controller.currentItem);
                                 //await controller.itemPagePost(goBack: false);
-                                await Get.find<TasksController>().itemPagePost(goBack: false);
+                                await Get.find<TasksController>()
+                                    .itemPagePost(goBack: false);
                                 await controller.createNewItemAsync();
+
                                 //   Get.find<TasksController>().sendNotify();
                                 // controller.sendNotify();
                               },
@@ -106,7 +127,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         list.add(GestureDetector(
           child: InkWell(
             onTap: () {
-              if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
+              if (Get.find<DataController>().currentUser ==
+                  comment.author.mainUserAccount) {
                 showAlertDialog(context, comment);
               }
               //   controller.currentItem.text = comment.text;
@@ -119,7 +141,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             },
             child: Stack(
               children: [
-                Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
                     ? currentUser(context, comment, width)
                     : anotherUsers(context, comment, width)
               ],
@@ -191,7 +214,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+      mainAxisAlignment: Get.find<DataController>().currentUser ==
+              comment.author.mainUserAccount
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
@@ -200,13 +224,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             padding: const EdgeInsets.all(4.0),
             child: Container(
               decoration: BoxDecoration(
-                  color: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                  color: Get.find<DataController>().currentUser ==
+                          comment.author.mainUserAccount
                       ? const Color(0xfff0859ff)
                       : const Color(0xfffDBEAEA),
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
-                crossAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                crossAxisAlignment: Get.find<DataController>().currentUser ==
+                        comment.author.mainUserAccount
                     ? CrossAxisAlignment.end
                     : CrossAxisAlignment.start,
                 children: [
@@ -216,10 +242,17 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         comment.author.toString(),
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
                             ? const TextStyle(
-                                fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)
-                            : const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white)
+                            : const TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal),
                       ),
                     ),
                   ),
@@ -230,25 +263,38 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Text(
                         comment.text,
                         softWrap: true,
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                            : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
+                            ? const TextStyle(
+                                fontFamily: 'NotoSans',
+                                fontSize: 14,
+                                color: Colors.white)
+                            : const TextStyle(
+                                fontFamily: 'NotoSans', fontSize: 14),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
-                      alignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                      alignment: Get.find<DataController>().currentUser ==
+                              comment.author.mainUserAccount
                           ? Alignment.topRight
                           : Alignment.topRight,
                       child: Text(
                         formateddate.format(comment.date),
                         maxLines: 1,
                         // textScaleFactor: 0.8,
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)
-                            : const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3EA8AB)),
+                        style: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
+                            ? const TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'Inter',
+                                color: Colors.white70)
+                            : const TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'Inter',
+                                color: Color(0xfff3EA8AB)),
                       ),
                     ),
                   ),
@@ -263,13 +309,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               borderRadius: BorderRadius.circular(4.0),
               child: comment.author.photoFile.isEmpty
                   ? Container(
-                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                      decoration: BoxDecoration(
+                          color: ControlOptions.instance.colorMain
+                              .withOpacity(0.2)),
                       width: 32,
                       height: 32,
                       child: Icon(
                         Icons.account_circle,
                         size: 20,
-                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                        color:
+                            ControlOptions.instance.colorMain.withOpacity(0.4),
                       ),
                     )
                   : Image.memory(
@@ -289,7 +338,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+        mainAxisAlignment: Get.find<DataController>().currentUser ==
+                comment.author.mainUserAccount
             ? MainAxisAlignment.end
             : MainAxisAlignment.start,
         children: [
@@ -299,13 +349,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                 borderRadius: BorderRadius.circular(4.0),
                 child: comment.author.photoFile.isEmpty
                     ? Container(
-                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                        decoration: BoxDecoration(
+                            color: ControlOptions.instance.colorMain
+                                .withOpacity(0.2)),
                         width: 32,
                         height: 32,
                         child: Icon(
                           Icons.account_circle,
                           size: 20,
-                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                          color: ControlOptions.instance.colorMain
+                              .withOpacity(0.4),
                         ),
                       )
                     : Image.memory(
@@ -319,13 +372,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                    color: Get.find<DataController>().currentUser ==
+                            comment.author.mainUserAccount
                         ? const Color(0xfff0859ff)
                         : const Color(0xfffDBEAEA),
                     borderRadius: const BorderRadius.all(Radius.circular(4))),
                 width: width <= 700 ? width * 0.65 : 300,
                 child: Column(
-                  crossAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                  crossAxisAlignment: Get.find<DataController>().currentUser ==
+                          comment.author.mainUserAccount
                       ? CrossAxisAlignment.end
                       : CrossAxisAlignment.start,
                   children: [
@@ -335,10 +390,17 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           comment.author.toString(),
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
                               ? const TextStyle(
-                                  fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)
-                              : const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
+                                  fontFamily: 'Inter',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white)
+                              : const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal),
                         ),
                       ),
                     ),
@@ -349,25 +411,38 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                         child: Text(
                           comment.text,
                           softWrap: true,
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                              : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
+                              ? const TextStyle(
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 14,
+                                  color: Colors.white)
+                              : const TextStyle(
+                                  fontFamily: 'NotoSans', fontSize: 14),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
-                        alignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                        alignment: Get.find<DataController>().currentUser ==
+                                comment.author.mainUserAccount
                             ? Alignment.topRight
                             : Alignment.topRight,
                         child: Text(
                           formateddate.format(comment.date),
                           maxLines: 1,
                           //  textScaleFactor: 0.8,
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)
-                              : const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3EA8AB)),
+                          style: Get.find<DataController>().currentUser ==
+                                  comment.author.mainUserAccount
+                              ? const TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Inter',
+                                  color: Colors.white70)
+                              : const TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Inter',
+                                  color: Color(0xfff3EA8AB)),
                         ),
                       ),
                     ),
