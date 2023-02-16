@@ -18,7 +18,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-
+   
+ if ( Get.find<TasksController>().lateInit) {
+       Get.find<TasksController>().requestItems();
+    }
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
@@ -31,20 +34,20 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               reverse: true,
               child: Column(
                 children: <Widget>[
-                  NsgAppBar(
-                    backColor: ControlOptions.instance.colorWhite,
-                    text: 'комментарий',
-                    icon: Icons.arrow_back_ios_new,
-                    colorsInverted: true,
-                    bottomCircular: true,
-                    onPressed: () {
-                      controller.itemPageCancel();
-                    },
+                  // NsgAppBar(
+                  //   backColor: ControlOptions.instance.colorWhite,
+                  //   text: 'комментарий',
+                  //   icon: Icons.arrow_back_ios_new,
+                  //   colorsInverted: true,
+                  //   bottomCircular: true,
+                  //   onPressed: () {
+                  //     controller.itemPageCancel();
+                  //   },
                     // icon2: Icons.check,
                     // onPressed2: () {
                     //   controller.itemPagePost();
                     // },
-                  ),
+               //   ),
                   SizedBox(height: height * 0.75, child: commentList(context)),
                   Stack(
                     children: [

@@ -14,7 +14,9 @@ import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
+import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
+import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
@@ -202,6 +204,16 @@ class AppPages {
       page: () => const TaskChecklistPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.newTaskPage,
+      page: () => const NewTaskPage(),
+      binding: TasksListBinding(),
+    ),
+    GetPage(
+      name: Routes.checkListPage,
+      page: () => const ChecklistPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -237,5 +249,7 @@ abstract class Routes {
   static const acceptRejectListPage='/acceptRejectListPage';
   static const addUserToProjectPage='/addUserToProjectPage';
   static const editCommentPage='/editCommentPage';
-  static const taskChecklistPage='/TaskChecklistPage'; 
+  static const taskChecklistPage='/TaskChecklistPage';
+  static const newTaskPage='/newTaskPage'; 
+  static const checkListPage='/checkListPage';
 }

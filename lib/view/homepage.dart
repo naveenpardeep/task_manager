@@ -122,8 +122,10 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
-                              Get.find<TasksController>()
-                                  .newItemPageOpen(pageName: Routes.tasksPage);
+                               Get.find<TasksController>()
+                                  .newItemPageOpen(pageName: Routes.newTaskPage);
+                              // Get.find<TasksController>()
+                              //     .newItemPageOpen(pageName: Routes.tasksPage);
                               // Get.toNamed(Routes.tasksPage);
                             },
                           ),
@@ -168,8 +170,10 @@ class _HomepageState extends State<Homepage> {
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
                               //   var images = <NsgFilePickerObject>[].clear();
-                              Get.find<TasksController>()
-                                  .newItemPageOpen(pageName: Routes.tasksPage);
+                             // Get.find<TasksController>()
+                             //     .newItemPageOpen(pageName: Routes.tasksPage);
+                                  Get.find<TasksController>()
+                                  .newItemPageOpen(pageName: Routes.newTaskPage);
                               //  Get.toNamed(Routes.tasksPage);
                             },
                           ),
@@ -555,12 +559,13 @@ class _HomepageState extends State<Homepage> {
               .contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            // taskConstroller.currentItem = tasks;
+            taskController.currentItem = tasks;
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
             tasks.taskStatus = status;
-            taskController.itemPageOpen(tasks, Routes.tasksPage,
+            taskController.itemPageOpen(tasks, Routes.newTaskPage,
                 needRefreshSelectedItem: true);
+           
           },
           child: Row(
             children: [

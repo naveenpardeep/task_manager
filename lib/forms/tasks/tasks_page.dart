@@ -58,40 +58,40 @@ class TasksPage extends GetView<TasksController> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                NsgAppBar(
-                  backColor: const Color(0xff7876D9),
-                  text: controller.currentItem.isEmpty
-                      ? 'Новая задача'.toUpperCase()
-                      : controller.currentItem.name.toString().toUpperCase(),
-                  icon: Icons.arrow_back_ios_new,
-                  color: Colors.white,
+                // NsgAppBar(
+                //   backColor: const Color(0xff7876D9),
+                //   text: controller.currentItem.isEmpty
+                //       ? 'Новая задача'.toUpperCase()
+                //       : controller.currentItem.name.toString().toUpperCase(),
+                //   icon: Icons.arrow_back_ios_new,
+                //   color: Colors.white,
 
-                  colorsInverted: true,
-                  // bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  icon2: Icons.check,
-                  onPressed2: () async {
-                    if (controller.currentItem.taskStatus.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Пожалуйста, выберите статус задачи')));
-                    } else if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('пожалуйста, введите название задачи')));
-                    } else {
-                      controller.currentItem.dateUpdated = DateTime.now();
-                      // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
-                      // notificationController.currentItem.task.name=controller.currentItem.name;
-                      // notificationController.currentItem.task.date=todaydate;
-                      // notificationController.itemPagePost();
-                      await controller.itemPagePost();
-                      Get.find<TasksController>().refreshData();
-                      Get.toNamed(Routes.homePage);
-                    }
-                  },
-                ),
+                //   colorsInverted: true,
+                //   // bottomCircular: true,
+                //   onPressed: () {
+                //     controller.itemPageCancel();
+                //   },
+                //   icon2: Icons.check,
+                //   onPressed2: () async {
+                //     if (controller.currentItem.taskStatus.isEmpty) {
+                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                //           content: Text('Пожалуйста, выберите статус задачи')));
+                //     } else if (controller.currentItem.name.isEmpty) {
+                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                //           content:
+                //               Text('пожалуйста, введите название задачи')));
+                //     } else {
+                //       controller.currentItem.dateUpdated = DateTime.now();
+                //       // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
+                //       // notificationController.currentItem.task.name=controller.currentItem.name;
+                //       // notificationController.currentItem.task.date=todaydate;
+                //       // notificationController.itemPagePost();
+                //       await controller.itemPagePost();
+                //       Get.find<TasksController>().refreshData();
+                //       Get.toNamed(Routes.homePage);
+                //     }
+                //   },
+                // ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -307,43 +307,43 @@ class TasksPage extends GetView<TasksController> {
                                 label: 'Срок выполнения',
                               ),
 
-                              const NsgText('Create CheckList for this Task'),
-                              NsgTable(
-                                controller: Get.find<TaskCheckListController>(),
-                                elementEditPageName: Routes.taskChecklistPage,
-                                availableButtons: const [
-                                  NsgTableMenuButtonType.createNewElement,
-                                  NsgTableMenuButtonType.editElement,
-                                  NsgTableMenuButtonType.removeElement
-                                ],
-                                columns: [
-                                  NsgTableColumn(
-                                      name: TaskDocCheckListTableGenerated
-                                          .nameText,
-                                      expanded: true,
-                                      presentation: 'CheckList Name'),
-                                  NsgTableColumn(
-                                      name: TaskDocCheckListTableGenerated
-                                          .nameIsDone,
-                                      width: 100,
-                                      presentation: 'Done'),
-                                ],
-                              ),
-                              if (controller.currentItem.name.isNotEmpty)
-                                NsgButton(
-                                  text: 'Open Comments',
-                                  onPressed: () {
-                                    // Get.find<CommentTableTasksController>()
-                                    //     .itemPageOpen(
-                                    //        Get.find<CommentTableTasksController>()
-                                    //          .currentItem,
-                                    //       Routes.commentRowPage);
-                                    // Get.toNamed(Routes.commentRowPage);
-                                    Get.find<CommentTableTasksController>()
-                                        .newItemPageOpen(
-                                            pageName: Routes.commentRowPage);
-                                  },
-                                ),
+                              // const NsgText('Create CheckList for this Task'),
+                              // NsgTable(
+                              //   controller: Get.find<TaskCheckListController>(),
+                              //   elementEditPageName: Routes.taskChecklistPage,
+                              //   availableButtons: const [
+                              //     NsgTableMenuButtonType.createNewElement,
+                              //     NsgTableMenuButtonType.editElement,
+                              //     NsgTableMenuButtonType.removeElement
+                              //   ],
+                              //   columns: [
+                              //     NsgTableColumn(
+                              //         name: TaskDocCheckListTableGenerated
+                              //             .nameText,
+                              //         expanded: true,
+                              //         presentation: 'CheckList Name'),
+                              //     NsgTableColumn(
+                              //         name: TaskDocCheckListTableGenerated
+                              //             .nameIsDone,
+                              //         width: 100,
+                              //         presentation: 'Done'),
+                              //   ],
+                              // ),
+                              // if (controller.currentItem.name.isNotEmpty)
+                              //   NsgButton(
+                              //     text: 'Open Comments',
+                              //     onPressed: () {
+                              //       // Get.find<CommentTableTasksController>()
+                              //       //     .itemPageOpen(
+                              //       //        Get.find<CommentTableTasksController>()
+                              //       //          .currentItem,
+                              //       //       Routes.commentRowPage);
+                              //       // Get.toNamed(Routes.commentRowPage);
+                              //       Get.find<CommentTableTasksController>()
+                              //           .newItemPageOpen(
+                              //               pageName: Routes.commentRowPage);
+                              //     },
+                              //   ),
                               if (controller.currentItem.name.isEmpty)
                                 NsgButton(
                                     text: 'Add Photos',
