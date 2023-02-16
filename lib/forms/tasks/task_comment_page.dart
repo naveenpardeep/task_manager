@@ -54,9 +54,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.fromLTRB(10, 10, 35, 5),
                         child: RawKeyboardListener(
                           focusNode: FocusNode(),
+                          autofocus: true,
                           onKey: (event) async {
                             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
                               Get.find<TasksController>()
