@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
+import 'package:task_manager_app/1/nsg_rich_text_image.dart';
 
 class NsgRichText extends StatefulWidget {
   final String label;
@@ -116,6 +118,7 @@ class _NsgRichTextState extends State<NsgRichText> {
           jsonEncode(quillController.document.toDelta().toJson());
     });
     scrollController = ScrollController();
+
     //Проверяем, выбран ли тип инпута пользователем
   }
 
@@ -144,6 +147,9 @@ class _NsgRichTextState extends State<NsgRichText> {
           quil.QuillToolbar.basic(
             controller: quillController,
             afterButtonPressed: () {},
+            customButtons: [
+              quil.QuillCustomButton(icon: Icons.image_sharp, onTap: addImage)
+            ],
           ),
           SizedBox(
             height: 500,
@@ -156,8 +162,24 @@ class _NsgRichTextState extends State<NsgRichText> {
               padding: EdgeInsets.zero,
               autoFocus: true,
               expands: false,
+              embedBuilders: [
+                ...FlutterQuillEmbeds.builders(),
+                NsgRichTextImageBuilder(addEditBlock: addEditBlock)
+              ],
             ),
           )
         ]));
+  }
+
+  Future<void> addEditBlock(BuildContext context,
+      {quil.Document? document}) async {
+    print('image pressed');
+  }
+
+  void addImage() {
+    const block = NsgRichTextImage('test image');
+    final index = quillController.selection.baseOffset;
+    final length = quillController.selection.extentOffset - index;
+    quillController.replaceText(index, length, block, null);
   }
 }
