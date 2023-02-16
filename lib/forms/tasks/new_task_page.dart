@@ -18,8 +18,7 @@ class NewTaskPage extends StatefulWidget {
   State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
-class _NewTaskPageState extends State<NewTaskPage>
-    with TickerProviderStateMixin {
+class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin {
   late TabController _tabController;
   var taskController = Get.find<TasksController>();
   var commnetController = Get.find<CommentTableTasksController>();
@@ -52,11 +51,11 @@ class _NewTaskPageState extends State<NewTaskPage>
           IconButton(
               onPressed: () async {
                 if (taskController.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Пожалуйста, выберите статус задачи')));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                 } else if (taskController.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('пожалуйста, введите название задачи')));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                 } else {
                   taskController.currentItem.dateUpdated = DateTime.now();
 
@@ -81,13 +80,10 @@ class _NewTaskPageState extends State<NewTaskPage>
               setState(() {
                 if (_tabController.index == 0) {
                   _tabController.index = 0;
-            
                 } else if (_tabController.index == 1) {
                   _tabController.index = 1;
-                
                 } else if (_tabController.index == 2) {
                   _tabController.index = 2;
-              
                 }
               });
             },
@@ -116,7 +112,7 @@ class _NewTaskPageState extends State<NewTaskPage>
         (state) => TabBarView(controller: _tabController, children: [
           Expanded(child: TasksPage()),
           Expanded(child: ChecklistPage()),
-          Expanded(child:   TasksCommentRowPage()),
+          Expanded(child: TasksCommentRowPage()),
         ]),
       ),
     ));
