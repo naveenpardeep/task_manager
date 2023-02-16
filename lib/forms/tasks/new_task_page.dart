@@ -18,7 +18,8 @@ class NewTaskPage extends StatefulWidget {
   State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
-class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin {
+class _NewTaskPageState extends State<NewTaskPage>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   var taskController = Get.find<TasksController>();
   var commnetController = Get.find<CommentTableTasksController>();
@@ -44,18 +45,18 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    return BodyWrap(
+    return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
               onPressed: () async {
                 if (taskController.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Пожалуйста, выберите статус задачи')));
                 } else if (taskController.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('пожалуйста, введите название задачи')));
                 } else {
                   taskController.currentItem.dateUpdated = DateTime.now();
 
@@ -92,27 +93,29 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
               Tab(
                 child: Text(
                   'Основное',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Color(0xff3EA8AB)),
                 ),
               ),
               Tab(
                   child: Text(
                 'Чек-лист',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color(0xff3EA8AB)),
               )),
               Tab(
                 child: Text(
                   'Комментарии',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Color(0xff3EA8AB)),
                 ),
               ),
             ]),
       ),
       body: taskController.obx(
+   
+        // ignore: prefer_const_literals_to_create_immutables
         (state) => TabBarView(controller: _tabController, children: [
-          Expanded(child: TasksPage()),
-          Expanded(child: ChecklistPage()),
-          Expanded(child: TasksCommentRowPage()),
+          const  TasksPage(),
+          const ChecklistPage(),
+          const TasksCommentRowPage(),
         ]),
       ),
     ));
