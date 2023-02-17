@@ -200,7 +200,7 @@ class TasksController extends NsgDataController<TaskDoc> {
       }
       if (taskBoardController.currentItem.sortBy == ESorting.priorityAsc) {
         filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
-        filter.sorting = "${TaskDocGenerated.namePriority}-";
+        filter.sorting = "${TaskDocGenerated.namePriority}+";
         //  sort = NsgSortingParam(
         //     parameterName: TaskDocGenerated.namePriority,
         //     direction: NsgSortingDirection.ascending);
@@ -208,7 +208,7 @@ class TasksController extends NsgDataController<TaskDoc> {
       }
       if (taskBoardController.currentItem.sortBy == ESorting.priorityDesc) {
         filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
-        filter.sorting = "${TaskDocGenerated.namePriority}+";
+        filter.sorting = "${TaskDocGenerated.namePriority}-";
         //filter.sorting=NsgSortingParam(
         //     parameterName: TaskDocGenerated.namePriority,
         //   direction: NsgSortingDirection.descending);
