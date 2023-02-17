@@ -342,7 +342,7 @@ class TasksPage extends GetView<TasksController> {
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
 
-                              if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
+                           //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
                               //         Get.find<FilesTableTasksController>(),

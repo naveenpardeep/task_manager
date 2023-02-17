@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -361,13 +362,15 @@ class TaskFilesController extends NsgDataTableController<TaskDocFilesTable> {
   @override
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
-    //files.clear();
+    files.clear();
 
     for (var element in items) {
       files.add(NsgFilePickerObject(
           file: File.fromRawPath(Uint8List.fromList(element.file)),
+           image: Image.memory(Uint8List.fromList(element.file)),
           description: element.name,
-          fileType: extension(File.fromRawPath(Uint8List.fromList(element.file)) as String).replaceAll('.', ''),
+          fileType: 'jpg, mp4',
+        //  fileType: extension(File.fromRawPath(Uint8List.fromList(element.file)) as String).replaceAll('.', ''),
           id: element.id));
     }
     return;
