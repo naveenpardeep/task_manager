@@ -1,4 +1,4 @@
-
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,39 +25,25 @@ class ChecklistPage extends GetView<TaskCheckListController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-              
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                          
-                              NsgTable(
-                                controller: Get.find<TaskCheckListController>(),
-                                elementEditPageName: Routes.taskChecklistPage,
-                                availableButtons: const [
-                                  NsgTableMenuButtonType.createNewElement,
-                                  NsgTableMenuButtonType.editElement,
-                                  NsgTableMenuButtonType.removeElement
-                                ],
-                                columns: [
-                                  NsgTableColumn(
-                                      name: TaskDocCheckListTableGenerated
-                                          .nameText,
-                                      expanded: true,
-                                      presentation: 'CheckList Name'),
-                                  NsgTableColumn(
-                                      name: TaskDocCheckListTableGenerated
-                                          .nameIsDone,
-                                      width: 100,
-                                      presentation: 'Done'),
-                                ],
-
-                                
-                              ),
-
-                             
+                            NsgTable(
+                              controller: Get.find<TaskCheckListController>(),
+                              elementEditPageName: Routes.taskChecklistPage,
+                              availableButtons: const [
+                                NsgTableMenuButtonType.createNewElement,
+                                NsgTableMenuButtonType.editElement,
+                                NsgTableMenuButtonType.removeElement
+                              ],
+                              columns: [
+                                NsgTableColumn(name: TaskDocCheckListTableGenerated.nameText, expanded: true, presentation: 'CheckList Name'),
+                                NsgTableColumn(name: TaskDocCheckListTableGenerated.nameIsDone, width: 100, presentation: 'Done'),
+                              ],
+                            ),
                           ],
                         ),
                       )),
@@ -70,8 +56,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     );
   }
 
-
-  Widget checkList( BuildContext context) {
+  Widget checkList(BuildContext context) {
     var controller = Get.find<TaskCheckListController>();
     List<Widget> list = [];
     for (var checkList in controller.items) {
@@ -82,9 +67,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
             controller.currentItem = checkList;
             Get.toNamed(Routes.taskChecklistPage);
           },
-          onLongPress: () {
-            
-          },
+          onLongPress: () {},
           child: Row(
             children: [
               Expanded(
@@ -101,7 +84,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                               // await controller
                               //     .deleteItems([controller.currentItem]);
                               // controller.sendNotify();
-                              showAlertDialog(context,checkList);
+                              showAlertDialog(context, checkList);
                             },
                             icon: const Icon(Icons.delete)),
                         Expanded(
@@ -113,14 +96,12 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                             ),
                           ),
                         ),
-                         NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName:
-                                  TaskDocCheckListTableGenerated.nameIsDone,
-                              label: 'Done',
-                            ),
-                      //  const Icon(Icons.arrow_forward_ios),
-                       
+                        NsgInput(
+                          dataItem: controller.currentItem,
+                          fieldName: TaskDocCheckListTableGenerated.nameIsDone,
+                          label: 'Done',
+                        ),
+                        //  const Icon(Icons.arrow_forward_ios),
                       ],
                     ),
                   ),
@@ -134,17 +115,15 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     return SingleChildScrollView(child: Column(children: list));
   }
 
-  showAlertDialog(BuildContext context, checkList ) {
+  showAlertDialog(BuildContext context, checkList) {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
       onPressed: () async {
         Get.find<TaskCheckListController>().currentItem = checkList;
-        await Get.find<TaskCheckListController>()
-            .deleteItems([Get.find<TaskCheckListController>().currentItem]);
+        await Get.find<TaskCheckListController>().deleteItems([Get.find<TaskCheckListController>().currentItem]);
         Get.find<TaskCheckListController>().sendNotify();
-        Navigator.of( context).pop();
-        
+        Navigator.of(context).pop();
       },
     );
     Widget noButton = ElevatedButton(

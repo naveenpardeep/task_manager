@@ -12,6 +12,7 @@ import '../tasks/tasks_controller.dart';
 import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
+// ignore: must_be_immutable
 class ProjectListPage extends GetView<ProjectController> {
   ProjectListPage({Key? key}) : super(key: key);
 
@@ -39,8 +40,7 @@ class ProjectListPage extends GetView<ProjectController> {
                       Expanded(
                         child: Text(
                           'Все проекты',
-                          style: TextStyle(
-                              color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
+                          style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
                         ),
                       ),
                       NsgButton(
@@ -97,8 +97,7 @@ class ProjectListPage extends GetView<ProjectController> {
                               Expanded(
                                 child: Text(
                                   project.name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
                                 ),
                               ),
                               Align(
@@ -130,13 +129,9 @@ class ProjectListPage extends GetView<ProjectController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Рук.: ${project.leader.name}',
-                                    style: TextStyle(
-                                        fontSize: ControlOptions.instance.sizeS,
-                                        color: ControlOptions.instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
                                 Text('Заказчик: ${project.contractor}',
-                                    style: TextStyle(
-                                        fontSize: ControlOptions.instance.sizeS,
-                                        color: ControlOptions.instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
                               ],
                             )),
                             if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
@@ -186,8 +181,7 @@ class ProjectListPage extends GetView<ProjectController> {
                             ClipOval(
                               child: project.leader.photoFile.isEmpty
                                   ? Container(
-                                      decoration:
-                                          BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                       width: 32,
                                       height: 32,
                                       child: Icon(

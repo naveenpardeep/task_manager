@@ -19,6 +19,7 @@ import '../task_status/project_status_controller.dart';
 import '../user_account/service_object_controller.dart';
 import '../user_account/user_project_notificationController.dart';
 
+// ignore: deprecated_member_use
 class ProjectBinding extends Bindings {
   @override
   void dependencies() {
@@ -45,7 +46,7 @@ class ProjectBinding extends Bindings {
     Get.put(ProjectUserController());
     Get.put(UserProjectNotificationController());
     Get.put(TaskCheckListController());
-    
+
     Get.put(TaskFilesController());
   }
 }

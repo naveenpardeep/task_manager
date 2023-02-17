@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-
-import 'task_status_controller.dart';
 
 class TaskStatusPage extends GetView<ProjectStatusController> {
   const TaskStatusPage({Key? key}) : super(key: key);
@@ -25,9 +22,7 @@ class TaskStatusPage extends GetView<ProjectStatusController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  text: controller.currentItem.isEmpty
-                      ? 'Новый статус задачи'.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
+                  text: controller.currentItem.isEmpty ? 'Новый статус задачи'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -35,9 +30,8 @@ class TaskStatusPage extends GetView<ProjectStatusController> {
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
-                  onPressed2: () async{
-                   await controller.itemPagePost();
-                   
+                  onPressed2: () async {
+                    await controller.itemPagePost();
                   },
                 ),
                 Expanded(

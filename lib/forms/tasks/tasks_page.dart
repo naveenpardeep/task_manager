@@ -1,15 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
-import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -42,10 +36,8 @@ class TasksPage extends GetView<TasksController> {
 
     final scrollController = ScrollController();
 
-    String formatted =
-        NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
-    String formatupdate =
-        NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
+    String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
+    String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -100,11 +92,9 @@ class TasksPage extends GetView<TasksController> {
                         trackVisibility: true,
                         controller: scrollController,
                         thickness: 15,
-                        trackBorderColor:
-                            ControlOptions.instance.colorGreyLight,
+                        trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor:
-                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
@@ -149,22 +139,18 @@ class TasksPage extends GetView<TasksController> {
                               //   ],
                               // ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 5),
+                                padding: const EdgeInsets.only(left: 5, right: 5),
                                 child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
                                       'Создана $formatted',
-                                      style: TextStyle(
-                                          color: ControlOptions
-                                              .instance.colorGrey),
+                                      style: TextStyle(color: ControlOptions.instance.colorGrey),
                                     )),
                               ),
                               if (controller.currentItem.name.isNotEmpty)
                                 Text(
                                   'Обновлена $formatupdate',
-                                  style: TextStyle(
-                                      color: ControlOptions.instance.colorGrey),
+                                  style: TextStyle(color: ControlOptions.instance.colorGrey),
                                 ),
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -172,8 +158,7 @@ class TasksPage extends GetView<TasksController> {
                                 label: 'Название задачи',
                               ),
                               NsgInput(
-                                selectionController:
-                                    Get.find<TaskStatusController>(),
+                                selectionController: Get.find<TaskStatusController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameTaskStatusId,
                                 label: 'Статус',
@@ -188,8 +173,7 @@ class TasksPage extends GetView<TasksController> {
                               // ),
                               NsgInput(
                                 label: 'Исполнитель',
-                                selectionController:
-                                    Get.find<TaskUserAccountController>(),
+                                selectionController: Get.find<TaskUserAccountController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameAssigneeId,
                                 //selectionForm: Routes.userAccountListPage,
@@ -258,7 +242,8 @@ class TasksPage extends GetView<TasksController> {
 
                               NsgRichText(
                                   dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameDescription),
+                                  fieldName: TaskDocGenerated.nameDescription,
+                                  objectsList: Get.find<TaskImageController>().images),
                               // Container(
                               //     height: 300,
                               //     child: Markdown(
@@ -350,19 +335,14 @@ class TasksPage extends GetView<TasksController> {
                                     color: Colors.white,
                                     onPressed: () {
                                       if (controller.currentItem.name.isEmpty) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    'Пожалуйста, введите название задачи ')));
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи ')));
                                       } else {
                                         controller.itemPagePost(goBack: false);
                                       }
                                     }),
-                              if (controller.currentItem.name.isNotEmpty)
-                                Flexible(child: imageGallery()),
+                              if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
 
-                              if (controller.currentItem.name.isNotEmpty)
-                                Flexible(child: filesUpload()),
+                              if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
                               //         Get.find<FilesTableTasksController>(),
@@ -461,15 +441,7 @@ class TasksPage extends GetView<TasksController> {
           showAsWidget: true,
           callback: (value) {},
           objectsList: Get.find<TaskFilesController>().files,
-          allowedFileFormats: const [
-            'doc',
-            'docx',
-            'rtf',
-            'xls',
-            'xlsx',
-            'pdf',
-            'rtf'
-          ],
+          allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
         ));
   }
 }

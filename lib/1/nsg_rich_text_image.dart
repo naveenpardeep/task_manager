@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 
-class NsgRichTextImage extends quil.CustomBlockEmbed {
-  const NsgRichTextImage(String value) : super(blockType, value);
+class NsgRichTextFile extends quil.CustomBlockEmbed {
+  const NsgRichTextFile(String value) : super(blockType, value);
 
   static const String blockType = 'nsg_image';
 
-  static NsgRichTextImage fromDocument(quil.Document document) =>
-      NsgRichTextImage(jsonEncode(document.toDelta().toJson()));
+  static NsgRichTextFile fromDocument(quil.Document document) => NsgRichTextFile(jsonEncode(document.toDelta().toJson()));
 
   //quil.Document get document => quil.Document.fromJson(jsonDecode(data));
   quil.Document get document => quil.Document();
@@ -18,8 +17,7 @@ class NsgRichTextImage extends quil.CustomBlockEmbed {
 class NsgRichTextImageBuilder implements quil.EmbedBuilder {
   NsgRichTextImageBuilder({required this.addEditBlock});
 
-  Future<void> Function(BuildContext context, {quil.Document? document})
-      addEditBlock;
+  Future<void> Function(BuildContext context, {quil.Document? document}) addEditBlock;
 
   @override
   String get key => 'nsg_image';
@@ -31,7 +29,7 @@ class NsgRichTextImageBuilder implements quil.EmbedBuilder {
     quil.Embed block,
     bool readOnly,
   ) {
-    final notes = NsgRichTextImage(block.value.data).document;
+    final notes = NsgRichTextFile(block.value.data).document;
 
     return Material(
       color: Colors.transparent,

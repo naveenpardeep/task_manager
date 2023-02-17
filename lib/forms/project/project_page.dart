@@ -12,8 +12,6 @@ import 'package:task_manager_app/forms/task_status/project_status_controller.dar
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-import '../task_status/task_status_controller.dart';
-
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
   @override
@@ -34,7 +32,7 @@ class _ProjectpageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     // var todaydate = controller.currentItem.date;
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
@@ -58,9 +56,7 @@ class _ProjectpageState extends State<ProjectPage> {
               children: <Widget>[
                 NsgAppBar(
                   color: Colors.white,
-                  text: isNewProject
-                      ? 'Новый проект'.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
+                  text: isNewProject ? 'Новый проект'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -70,9 +66,7 @@ class _ProjectpageState extends State<ProjectPage> {
                   icon2: Icons.check,
                   onPressed2: () {
                     if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('Пожалуйста, введите название проекта ')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
                     } else {
                       controller.itemPagePost();
                     }
@@ -86,25 +80,17 @@ class _ProjectpageState extends State<ProjectPage> {
                         trackVisibility: true,
                         controller: scrollController,
                         thickness: 15,
-                        trackBorderColor:
-                            ControlOptions.instance.colorGreyLight,
+                        trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor:
-                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
                           controller: scrollController,
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              if (!isNewProject)
-                                NsgText(
-                                    'Создано :${formateddate.format(controller.currentItem.date)}'),
-                              if (!isNewProject)
-                                const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: NsgText(
-                                        'Добавление пользователей в проект')),
+                              if (!isNewProject) NsgText('Создано :${formateddate.format(controller.currentItem.date)}'),
+                              if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в проект')),
                               // NsgTable(
                               //   showIconFalse: false,
                               //   controller:
@@ -136,31 +122,24 @@ class _ProjectpageState extends State<ProjectPage> {
                                       width: 300,
                                       text: ' добавить пользователей в проект',
                                       onPressed: () {
-                                        Get.find<
-                                                ProjectItemUserTableController>()
-                                            .itemNewPageOpen(
-                                                Routes.addUserToProjectPage);
+                                        Get.find<ProjectItemUserTableController>().itemNewPageOpen(Routes.addUserToProjectPage);
                                       },
                                     )),
                               NsgInput(
-                                selectionController:
-                                    Get.find<OrganizationController>(),
+                                selectionController: Get.find<OrganizationController>(),
                                 dataItem: controller.currentItem,
-                                fieldName:
-                                    ProjectItemGenerated.nameOrganizationId,
+                                fieldName: ProjectItemGenerated.nameOrganizationId,
                                 label: 'Группа проектов (организация)',
                               ),
                               NsgInput(
-                                selectionController:
-                                    Get.find<UserAccountController>(),
+                                selectionController: Get.find<UserAccountController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameLeaderId,
                                 label: 'Руководитель проекта',
                               ),
                               NsgInput(
                                 dataItem: controller.currentItem,
-                                fieldName:
-                                    ProjectItemGenerated.nameProjectPrefix,
+                                fieldName: ProjectItemGenerated.nameProjectPrefix,
                                 label: 'Project Prefix',
                               ),
                               NsgInput(
@@ -173,15 +152,10 @@ class _ProjectpageState extends State<ProjectPage> {
                                 fieldName: ProjectItemGenerated.nameContractor,
                                 label: 'Заказчик',
                               ),
-                              if (!isNewProject)
-                                const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child:
-                                        NsgText('Добавление Статусы проекта')),
+                              if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление Статусы проекта')),
                               if (!isNewProject)
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 10, 20, 10),
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
                                   child: SizedBox(
                                     height: height * 0.3,
                                     child: RawScrollbar(
@@ -189,58 +163,37 @@ class _ProjectpageState extends State<ProjectPage> {
                                       trackVisibility: true,
                                       controller: newscrollController,
                                       thickness: 15,
-                                      trackBorderColor: ControlOptions
-                                          .instance.colorGreyLight,
-                                      trackColor: ControlOptions
-                                          .instance.colorGreyLight,
-                                      thumbColor: ControlOptions
-                                          .instance.colorMain
-                                          .withOpacity(0.2),
+                                      trackBorderColor: ControlOptions.instance.colorGreyLight,
+                                      trackColor: ControlOptions.instance.colorGreyLight,
+                                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                                       radius: const Radius.circular(0),
                                       child: SingleChildScrollView(
-                                        physics:const BouncingScrollPhysics(),
+                                          physics: const BouncingScrollPhysics(),
                                           controller: newscrollController,
                                           child: NsgTable(
                                             showIconFalse: false,
-                                            controller: Get.find<
-                                                ProjectStatusController>(),
-                                            elementEditPageName:
-                                                Routes.taskStatusPage,
+                                            controller: Get.find<ProjectStatusController>(),
+                                            elementEditPageName: Routes.taskStatusPage,
                                             availableButtons: const [
-                                              NsgTableMenuButtonType
-                                                  .createNewElement,
-                                              NsgTableMenuButtonType
-                                                  .editElement,
-                                              NsgTableMenuButtonType
-                                                  .removeElement
+                                              NsgTableMenuButtonType.createNewElement,
+                                              NsgTableMenuButtonType.editElement,
+                                              NsgTableMenuButtonType.removeElement
                                             ],
                                             columns: [
-                                              NsgTableColumn(
-                                                  name: TaskStatusGenerated
-                                                      .nameName,
-                                                  expanded: true,
-                                                  presentation: 'Статусы'),
-                                              NsgTableColumn(
-                                                  name: TaskStatusGenerated
-                                                      .nameIsDone,
-                                                  width: 100,
-                                                  presentation: 'Финальный'),
+                                              NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
+                                              NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
                                             ],
                                           )),
                                     ),
                                   ),
                                 ),
-                              if (isHidden == true &&
-                                  controller.currentItem.name.isEmpty)
+                              if (isHidden == true && controller.currentItem.name.isEmpty)
                                 NsgButton(
                                   text: 'Сохранить и далее',
                                   color: Colors.white,
                                   onPressed: () {
                                     if (controller.currentItem.name.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Пожалуйста, введите название проекта ')));
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
                                     } else {
                                       setState(() {
                                         isHidden = false;
@@ -250,10 +203,7 @@ class _ProjectpageState extends State<ProjectPage> {
                                   },
                                 ),
                               if (controller.currentItem.name.isNotEmpty)
-                              const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child:
-                                        NsgText('Создать экран для этого проекта')),
+                                const Align(alignment: Alignment.centerLeft, child: NsgText('Создать экран для этого проекта')),
                               if (controller.currentItem.name.isNotEmpty)
                                 NsgTable(
                                   controller: Get.find<TaskBoardController>(),
@@ -264,10 +214,7 @@ class _ProjectpageState extends State<ProjectPage> {
                                     NsgTableMenuButtonType.removeElement
                                   ],
                                   columns: [
-                                    NsgTableColumn(
-                                        name: TaskBoardGenerated.nameName,
-                                        expanded: true,
-                                        presentation: 'Название доски'),
+                                    NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
                                   ],
                                 )
                             ],

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'package:nsg_controls/nsg_controls.dart';
-
 import 'package:get/get.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
-import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_page.dart';
@@ -18,8 +13,7 @@ class NewTaskPage extends StatefulWidget {
   State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
-class _NewTaskPageState extends State<NewTaskPage>
-    with TickerProviderStateMixin {
+class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin {
   late TabController _tabController;
   var taskController = Get.find<TasksController>();
   var commnetController = Get.find<CommentTableTasksController>();
@@ -52,11 +46,9 @@ class _NewTaskPageState extends State<NewTaskPage>
           IconButton(
               onPressed: () async {
                 if (taskController.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Пожалуйста, выберите статус задачи')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                 } else if (taskController.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('пожалуйста, введите название задачи')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                 } else {
                   taskController.currentItem.dateUpdated = DateTime.now();
 
@@ -71,9 +63,7 @@ class _NewTaskPageState extends State<NewTaskPage>
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          taskController.currentItem.isEmpty
-              ? 'Новая задача'.toUpperCase()
-              : taskController.currentItem.name.toString().toUpperCase(),
+          taskController.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : taskController.currentItem.name.toString().toUpperCase(),
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(
@@ -110,10 +100,9 @@ class _NewTaskPageState extends State<NewTaskPage>
             ]),
       ),
       body: taskController.obx(
-   
         // ignore: prefer_const_literals_to_create_immutables
         (state) => TabBarView(controller: _tabController, children: [
-          const  TasksPage(),
+          const TasksPage(),
           const ChecklistPage(),
           const TasksCommentRowPage(),
         ]),

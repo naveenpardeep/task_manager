@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -7,8 +9,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../user_account/user_account_controller.dart';
 
-class OrganizationUserRowPage
-    extends GetView<OrganizationItemUserTableController> {
+class OrganizationUserRowPage extends GetView<OrganizationItemUserTableController> {
   const OrganizationUserRowPage({Key? key}) : super(key: key);
 
   @override
@@ -26,9 +27,7 @@ class OrganizationUserRowPage
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  text: controller.currentItem.isEmpty
-                      ? 'Oragnization User '.toUpperCase()
-                      : controller.currentItem.owner.name,
+                  text: controller.currentItem.isEmpty ? 'Oragnization User '.toUpperCase() : controller.currentItem.owner.name,
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -47,17 +46,14 @@ class OrganizationUserRowPage
                         child: Column(
                           children: [
                             NsgInput(
-                              selectionController:
-                                  Get.find<UserAccountController>(),
+                              selectionController: Get.find<UserAccountController>(),
                               dataItem: controller.currentItem,
-                              fieldName: OrganizationItemUserTableGenerated
-                                  .nameUserAccountId,
+                              fieldName: OrganizationItemUserTableGenerated.nameUserAccountId,
                               label: 'User ',
                             ),
                             NsgInput(
                               dataItem: controller.currentItem,
-                              fieldName: OrganizationItemUserTableGenerated
-                                  .nameIsAdmin,
+                              fieldName: OrganizationItemUserTableGenerated.nameIsAdmin,
                               label: 'Admin',
                             ),
                           ],

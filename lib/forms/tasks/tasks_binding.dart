@@ -7,6 +7,7 @@ import '../project/project_controller.dart';
 import '../task_status/task_status_controller.dart';
 import 'task_user_account_controler.dart';
 
+// ignore: deprecated_member_use
 class TasksListBinding extends Bindings {
   @override
   void dependencies() {
@@ -17,9 +18,9 @@ class TasksListBinding extends Bindings {
     Get.put(TaskStatusController());
     Get.put(TaskUserAccountController());
     Get.put(TaskImageController());
-   
+
     Get.put(TaskCheckListController());
-   
+
     Get.put(TaskFilesController());
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -38,9 +40,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                 children: <Widget>[
                   NsgAppBar(
                     color: Colors.white,
-                    text: controller.currentItem.isEmpty
-                        ? 'Новый пользователь'.toUpperCase()
-                        : controller.currentItem.name.toUpperCase(),
+                    text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
                     bottomCircular: true,
@@ -51,8 +51,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                     onPressed2: () async {
                       await controller.itemPagePost();
                       await Get.find<InvitationController>().requestItems();
-                      Get.find<InvitationController>()
-                          .itemNewPageOpen(Routes.acceptInvitationPage);
+                      Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
 
                       // Get.back();
                     },
@@ -187,8 +186,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
       height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(
-            color: Colors.green, width: 5.0, style: BorderStyle.solid),
+        border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
       ),
       child: const Center(child: Text('no image')),
     );

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,24 +44,21 @@ class _UserProfileState extends State<UserProfile> {
           if (value.isNotEmpty) {
             List<int> imagefile;
             if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath))
-                  .readAsBytes();
+              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
             } else {
               imagefile = await File(value[0].filePath).readAsBytes();
             }
             // File imageFile = File(value[0].filePath);
             //  List<int> imagebytes = await imageFile.readAsBytes();
             Get.find<DataController>().currentUser.photoFile = imagefile;
-            await userAccountController
-                .postItems([Get.find<DataController>().currentUser]);
+            await userAccountController.postItems([Get.find<DataController>().currentUser]);
             await userAccountController.refreshData();
           }
           //userAccountController.sendNotify();
           Navigator.of(Get.context!).pop();
         },
-        objectsList: []);
-    organizationName =
-        userAccountController.currentItem.organization.toString();
+        objectsList: const []);
+    organizationName = userAccountController.currentItem.organization.toString();
     if (userAccountController.lateInit) {
       userAccountController.requestItems();
     }
@@ -97,9 +93,7 @@ class _UserProfileState extends State<UserProfile> {
                   actions: [
                     IconButton(
                       onPressed: () {
-                        userAccountController.itemPageOpen(
-                            Get.find<DataController>().currentUser,
-                            Routes.userAccount);
+                        userAccountController.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
                       },
                       icon: const Icon(Icons.edit),
                     )
@@ -124,40 +118,27 @@ class _UserProfileState extends State<UserProfile> {
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 20),
+                                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                                       child: ClipOval(
                                         child: Material(
                                           color: Colors.transparent,
                                           child: InkWell(
                                             onTap: () {
-                                              Get.dialog(picker,
-                                                  barrierDismissible: true);
+                                              Get.dialog(picker, barrierDismissible: true);
                                             },
-                                            child: Get.find<DataController>()
-                                                    .currentUser
-                                                    .photoFile
-                                                    .isEmpty
+                                            child: Get.find<DataController>().currentUser.photoFile.isEmpty
                                                 ? Container(
-                                                    decoration: BoxDecoration(
-                                                        color: ControlOptions
-                                                            .instance.colorMain
-                                                            .withOpacity(0.2)),
+                                                    decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                     width: 70,
                                                     height: 70,
                                                     child: Icon(
                                                       Icons.add_a_photo,
                                                       size: 32,
-                                                      color: ControlOptions
-                                                          .instance.colorMain
-                                                          .withOpacity(0.4),
+                                                      color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                     ),
                                                   )
                                                 : Image.memory(
-                                                    Uint8List.fromList(Get.find<
-                                                            DataController>()
-                                                        .currentUser
-                                                        .photoFile),
+                                                    Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
                                                     width: 70,
                                                     height: 70,
                                                   ),
@@ -169,14 +150,11 @@ class _UserProfileState extends State<UserProfile> {
                                   ],
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                  child: Text(
-                                      'Должность  : ${Get.find<DataController>().currentUser.position}'),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  child: Text('Должность  : ${Get.find<DataController>().currentUser.position}'),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
@@ -192,52 +170,41 @@ class _UserProfileState extends State<UserProfile> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 10, 20, 0),
-                                  child: Text(
-                                      'Организация  : ${Get.find<DataController>().currentUser.organization.name}'),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  child: Text('Организация  : ${Get.find<DataController>().currentUser.organization.name}'),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 10, 20, 0),
-                                  child: Text(
-                                      'Имя пользователя  : ${Get.find<DataController>().currentUser.name}'),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  child: Text('Имя пользователя  : ${Get.find<DataController>().currentUser.name}'),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 10, 20, 0),
-                                  child: Text(
-                                      'Телефон   : ${Get.find<DataController>().currentUser.phoneNumber}'),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  child: Text('Телефон   : ${Get.find<DataController>().currentUser.phoneNumber}'),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 10, 20, 0),
-                                  child: Text(
-                                      'Почта   : ${Get.find<DataController>().currentUser.email}'),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+                                  child: Text('Почта   : ${Get.find<DataController>().currentUser.email}'),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
@@ -263,13 +230,10 @@ class _UserProfileState extends State<UserProfile> {
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyByPush,
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyByPush,
                                     label: 'Показывать push-уведомления',
                                   ),
                                 ),
@@ -277,13 +241,10 @@ class _UserProfileState extends State<UserProfile> {
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyByEmail,
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
                                     label: 'Отправлять уведомления на почту',
                                     // onChanged: (p0) async {
                                     //  await userAccountController.itemPagePost(goBack: false);
@@ -291,90 +252,71 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgText(
                                     'МОИ ЗАДАЧИ',
                                     color: ControlOptions.instance.colorGrey,
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyNewTasks,
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyNewTasks,
                                     label: 'Создана задача с моим участием',
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyEditedTasks,
-                                    label:
-                                        'Все изменения в задачах с моим участием',
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyEditedTasks,
+                                    label: 'Все изменения в задачах с моим участием',
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgText(
                                     'ЗАДАЧИ ПРОЕКТОВ',
                                     color: ControlOptions.instance.colorGrey,
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyNewTasksInProjects,
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyNewTasksInProjects,
                                     label: 'Новая задача в проекте',
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgInput(
-                                    dataItem:
-                                        Get.find<DataController>().currentUser,
-                                    fieldName: UserAccountGenerated
-                                        .nameSettingNotifyEditedTasksInProjects,
+                                    dataItem: Get.find<DataController>().currentUser,
+                                    fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
                                     label: 'Все изменения в задачах проектов',
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: Divider(
                                     color: ControlOptions.instance.colorBlue,
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                                   child: NsgText(
                                     'ПРОЕКТЫ-ИСКЛЮЧЕНИЯ',
                                     color: ControlOptions.instance.colorGrey,
@@ -404,10 +346,7 @@ class _UserProfileState extends State<UserProfile> {
                                     text: '+ добавить проект для уведомлений',
                                     borderRadius: 10,
                                     onPressed: () {
-                                      Get.find<UserNotificationController>()
-                                          .newItemPageOpen(
-                                              pageName:
-                                                  Routes.userProjectListPage);
+                                      Get.find<UserNotificationController>().newItemPageOpen(pageName: Routes.userProjectListPage);
                                     },
                                   ),
                                 ),
@@ -476,8 +415,7 @@ class _UserProfileState extends State<UserProfile> {
       'Организация',
       (item) {
         setState(() {
-          organizationName =
-              userAccountController.currentItem.organization.toString();
+          organizationName = userAccountController.currentItem.organization.toString();
         });
       },
     );
@@ -545,8 +483,7 @@ class _UserProfileState extends State<UserProfile> {
       child: const Text("Yes"),
       onPressed: () async {
         Get.find<UserNotificationController>().currentItem = project;
-        await Get.find<UserNotificationController>()
-            .deleteItems([Get.find<UserNotificationController>().currentItem]);
+        await Get.find<UserNotificationController>().deleteItems([Get.find<UserNotificationController>().currentItem]);
         Get.find<UserNotificationController>().sendNotify();
         Navigator.of(context).pop();
       },
@@ -578,8 +515,7 @@ class _UserProfileState extends State<UserProfile> {
     for (var org in orgController.items) {
       list.add(TextButton(
           onPressed: (() {
-            Get.find<DataController>().currentUser =
-                Get.find<UserAccountController>().getUserByOrganization(org);
+            Get.find<DataController>().currentUser = Get.find<UserAccountController>().getUserByOrganization(org);
             setState(() {});
           }),
           child: Text(org.name)));

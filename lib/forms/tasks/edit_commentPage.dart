@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,6 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
       controller.requestItems();
     }
 
-   
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -36,11 +37,10 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
-                  onPressed2: () async{
-                  await  controller.itemPagePost();
-                  await Get.find<TasksController>()
-                                              .itemPagePost(goBack: false);
-                     await controller.createNewItemAsync();
+                  onPressed2: () async {
+                    await controller.itemPagePost();
+                    await Get.find<TasksController>().itemPagePost(goBack: false);
+                    await controller.createNewItemAsync();
                   },
                 ),
                 Expanded(
@@ -55,8 +55,7 @@ class EditCommentPage extends GetView<CommentTableTasksController> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: NsgInput(
                                     dataItem: controller.currentItem,
-                                    fieldName:
-                                        TaskDocCommentsTableGenerated.nameText,
+                                    fieldName: TaskDocCommentsTableGenerated.nameText,
                                     label: 'Комментарий',
                                   ),
                                 ),

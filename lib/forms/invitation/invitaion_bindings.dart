@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import '../task_status/project_status_controller.dart';
 import '../user_account/service_object_controller.dart';
 
+// ignore: deprecated_member_use
 class InvitationBinding extends Bindings {
   @override
   void dependencies() {

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -12,7 +14,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
-     }
+    }
     // if (Get.find<UserImageController>().lateInit) {
     //   Get.find<UserImageController>().requestItems();
     // }
@@ -35,9 +37,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                 children: <Widget>[
                   NsgAppBar(
                     color: Colors.white,
-                    text: controller.currentItem.isEmpty
-                        ? 'Новый пользователь'.toUpperCase()
-                        : controller.currentItem.name.toUpperCase(),
+                    text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
                     bottomCircular: true,
@@ -47,9 +47,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                     icon2: Icons.check,
                     onPressed2: () async {
                       if (controller.currentItem.phoneNumber.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'Пожалуйста, введите номер мобильного телефона ')));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона ')));
                       } else {
                         await controller.itemPagePost();
 
@@ -72,19 +70,17 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               //   label: 'Организация',
                               // ),
                               NsgInput(
-                                selectionController:
-                                    Get.find<ProjectController>(),
+                                selectionController: Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
-                                fieldName:
-                                    UserAccountGenerated.nameInviteProjectId,
+                                fieldName: UserAccountGenerated.nameInviteProjectId,
                                 label: 'Select Project',
                               ),
-                               NsgInput(
+                              NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
                                 label: 'добавить пользователя без приглашения',
                               ),
-                               NsgInput(
+                              NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
                                 label: 'UserName',

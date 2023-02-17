@@ -4,6 +4,7 @@ import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 
 import 'task_status_controller.dart';
 
+// ignore: deprecated_member_use
 class TaskStatusBinding extends Bindings {
   @override
   void dependencies() {

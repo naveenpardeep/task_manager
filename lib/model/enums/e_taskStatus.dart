@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:nsg_data/nsg_data.dart';
 
 /// TaskStatus
@@ -14,14 +16,6 @@ class ETaskstatus extends NsgEnum {
 
   @override
   void initialize() {
-    NsgEnum.listAllValues[runtimeType] = <int, ETaskstatus>{
-      0: newtask,
-      1: suspended,
-      2: forFuture,
-      3: deleted,
-      4: atWork,
-      5: onInspection,
-      6: done
-    };
+    NsgEnum.listAllValues[runtimeType] = <int, ETaskstatus>{0: newtask, 1: suspended, 2: forFuture, 3: deleted, 4: atWork, 5: onInspection, 6: done};
   }
 }

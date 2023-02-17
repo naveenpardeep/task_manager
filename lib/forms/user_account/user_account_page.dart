@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -25,7 +22,7 @@ class UserAccountPage extends GetView<UserAccountController> {
     if (Get.find<OrganizationController>().lateInit) {
       Get.find<OrganizationController>().requestItems();
     }
-   
+
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: BodyWrap(
@@ -41,9 +38,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                 children: <Widget>[
                   NsgAppBar(
                     color: Colors.white,
-                    text: controller.currentItem.isEmpty
-                        ? 'Новый пользователь'.toUpperCase()
-                        : controller.currentItem.name.toUpperCase(),
+                    text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
                     bottomCircular: true,
@@ -75,86 +70,67 @@ class UserAccountPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
-                             
+
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameName,
                                 label: 'nick',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
                               ),
                               //  Должность тоже нужна только внутри организации
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
+                                dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePosition,
                                 label: 'Должность',
                               ),
                               //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByPush,
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyByPush,
                                 label: 'Показывать push-уведомления',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByEmail,
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
                                 label: 'Отправлять уведомления на почту',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasks,
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyNewTasks,
                                 label: 'Создана задача с моим участием',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasks,
-                                label:
-                                    'Все изменения в задачах с моим участием',
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyEditedTasks,
+                                label: 'Все изменения в задачах с моим участием',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasksInProjects,
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyNewTasksInProjects,
                                 label: 'Новая задача в проекте',
                               ),
                               NsgInput(
-                                dataItem:
-                                    Get.find<DataController>().currentUser,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasksInProjects,
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
                               ),
                               Center(child: userImage()),
@@ -203,8 +179,7 @@ class UserAccountPage extends GetView<UserAccountController> {
       height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(
-            color: Colors.green, width: 5.0, style: BorderStyle.solid),
+        border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
       ),
       child: const Center(child: Text('no image')),
     );

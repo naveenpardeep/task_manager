@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +16,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-  
+
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -46,11 +48,9 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                         trackVisibility: true,
                         controller: scrollController,
                         thickness: 15,
-                        trackBorderColor:
-                            ControlOptions.instance.colorGreyLight,
+                        trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor:
-                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
@@ -120,24 +120,20 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             textScaleFactor: 1.2,
                           ),
-                          Text(
-                              'Organization Name:  ${invitation.organization}'),
+                          Text('Organization Name:  ${invitation.organization}'),
                           Text(
                             'создано: ${formateddate.format(invitation.date)}',
                             maxLines: 1,
                             textScaleFactor: 0.8,
                             style: const TextStyle(color: Color(0xff10051C)),
                           ),
-                          if (invitation.isAccepted == false &&
-                              invitation.isRejected == false)
+                          if (invitation.isAccepted == false && invitation.isRejected == false)
                             Center(
                               child: NsgButton(
-                        
                                 text: 'Cancel',
                                 onPressed: () async {
                                   controller.currentItem = invitation;
-                                  await controller
-                                      .deleteItems([controller.currentItem]);
+                                  await controller.deleteItems([controller.currentItem]);
                                   controller.sendNotify();
                                 },
                               ),

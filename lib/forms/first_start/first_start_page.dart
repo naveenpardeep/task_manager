@@ -7,6 +7,7 @@ import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
+// ignore: must_be_immutable
 class FirstStartPage extends GetView<OrganizationController> {
   FirstStartPage({Key? key}) : super(key: key);
 
@@ -24,16 +25,13 @@ class FirstStartPage extends GetView<OrganizationController> {
         children: [
           if (width! > 991) const TmTopMenu(),
           Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, left: 10, right: 10, bottom: 10),
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
               child: Row(
                 children: [
                   Expanded(
                     child: Text(
                       'Зарегистрированные организации',
-                      style: TextStyle(
-                          color: ControlOptions.instance.colorText,
-                          fontSize: ControlOptions.instance.sizeXL),
+                      style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
                     ),
                   ),
                   NsgButton(
@@ -46,8 +44,7 @@ class FirstStartPage extends GetView<OrganizationController> {
                     color: Colors.white,
                     backColor: ControlOptions.instance.colorMain,
                     onPressed: () {
-                      Get.find<OrganizationController>()
-                          .newItemPageOpen(pageName: Routes.organizationPage);
+                      Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage);
                     },
                   ),
                 ],
@@ -93,10 +90,7 @@ class FirstStartPage extends GetView<OrganizationController> {
                               Expanded(
                                 child: Text(
                                   project.name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: ControlOptions.instance.sizeL,
-                                      height: 1),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
                                 ),
                               ),
                               // Padding(
@@ -144,10 +138,7 @@ class FirstStartPage extends GetView<OrganizationController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Рук.: ${project.name}',
-                                    style: TextStyle(
-                                        fontSize: ControlOptions.instance.sizeS,
-                                        color: ControlOptions
-                                            .instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
                                 // Text('Заказчик: ${project.contractor}',
                                 //     style: TextStyle(
                                 //         fontSize: ControlOptions.instance.sizeS,
@@ -183,9 +174,6 @@ class FirstStartPage extends GetView<OrganizationController> {
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
         radius: const Radius.circular(0),
         child: SingleChildScrollView(
-            controller: scrollController,
-            child: width! > 991
-                ? NsgGrid(crossAxisCount: width! ~/ 400, children: list)
-                : Column(children: list)));
+            controller: scrollController, child: width! > 991 ? NsgGrid(crossAxisCount: width! ~/ 400, children: list) : Column(children: list)));
   }
 }
