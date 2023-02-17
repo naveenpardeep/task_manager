@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:path/path.dart';
-import 'package:task_manager_app/1/nsg_rich_text_image.dart';
+import 'package:task_manager_app/1/nsg_rich_text_file.dart';
 import 'package:file_picker/file_picker.dart';
 
 class NsgRichText extends StatefulWidget {
@@ -174,7 +174,7 @@ class _NsgRichTextState extends State<NsgRichText> {
               padding: EdgeInsets.zero,
               autoFocus: true,
               expands: false,
-              embedBuilders: [...quiiex.FlutterQuillEmbeds.builders(), NsgRichTextImageBuilder(addEditBlock: addEditBlock)],
+              embedBuilders: [...quiiex.FlutterQuillEmbeds.builders(), NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
             ),
           )
         ]));
@@ -218,9 +218,9 @@ class _NsgRichTextState extends State<NsgRichText> {
   }
 
   void addImageBlock(String blockId) {
-    var block = NsgRichTextFile(blockId);
-    final index = quillController.selection.baseOffset;
-    final length = quillController.selection.extentOffset - index;
-    quillController.replaceText(index, length, block, null);
+    // var block = NsgRichTextFile(blockId);
+    // final index = quillController.selection.baseOffset;
+    // final length = quillController.selection.extentOffset - index;
+    // quillController.replaceText(index, length, block, null);
   }
 }
