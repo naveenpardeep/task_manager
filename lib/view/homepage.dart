@@ -969,18 +969,8 @@ openTaskDialog(tasks, context) {
       changeTaskStatus(tasks);
     },
   );
-  Widget closeButton = ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.white,
-      elevation: 3,
-      minimumSize: Size(width, height * 0.08),
-    ),
-    child: const Icon(Icons.close),
-    onPressed: () {
-      Navigator.of(context).pop();
-      // Get.back();
-    },
-  );
+
+ 
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
