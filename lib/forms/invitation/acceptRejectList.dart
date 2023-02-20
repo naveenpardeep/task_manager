@@ -81,7 +81,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
         {
           list.add(GestureDetector(
             child: Container(
-              color: const Color.fromARGB(239, 248, 250, 252),
+              color: const  Color(0xfff3ea8ab),
               child: Row(
                 children: [
                   Expanded(
@@ -92,40 +92,36 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                         children: [
                           Text(
                             'Project Name:  ${invitation.project}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                           
+                            
                           ),
                           Text(
-                            'Author Name:  ${invitation.author}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                            'Author Name:  ${invitation.author}'
+                                
                           ),
                           Text(
-                            'Invited User:  ${invitation.invitedUser} ',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                            'Invited User:  ${invitation.invitedUser} '
+                                ,
                           ),
                           Text(
-                            'Mobile: ${invitation.invitedPhoneNumber}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                            'Mobile: ${invitation.invitedPhoneNumber}'
+                               
                           ),
                           Text(
-                            'Accept  : ${invitation.isAccepted}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                            'Accept  : ${invitation.isAccepted}'
+                              
                           ),
                           Text(
-                            'Reject  :  ${invitation.isRejected}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
+                            'Reject  :  ${invitation.isRejected}'
+                               ,
                           ),
-                          Text('Organization Name:  ${invitation.organization}'),
+                          Text('Organization Name:  ${invitation.organization}',
+                             ),
                           Text(
                             'создано: ${formateddate.format(invitation.date)}',
                             maxLines: 1,
                             textScaleFactor: 0.8,
-                            style: const TextStyle(color: Color(0xff10051C)),
+                          
                           ),
                           if (invitation.isAccepted == false && invitation.isRejected == false)
                             Center(
