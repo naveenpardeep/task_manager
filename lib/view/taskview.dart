@@ -11,8 +11,9 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
-
-   const TaskViewPage({Key? key,}) : super(key: key);
+  const TaskViewPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TaskViewPage> createState() => _TaskViewPageState();
@@ -31,7 +32,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-   
+
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -50,7 +51,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
         child: Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-           
+
         actions: [
           // IconButton(
           //     onPressed: () async {
@@ -71,10 +72,12 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
         backgroundColor: Colors.white,
         elevation: 0.0, //Shadow gone
         centerTitle: true,
-        title: Text(
-          controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
-          style: const TextStyle(color: Colors.black),
-        ),
+        title: controller.obx(
+            // ignore: prefer_const_literals_to_create_immutables
+            (state) => Text(
+                  controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
+                  style: const TextStyle(color: Colors.black),
+                )),
         bottom: TabBar(
             onTap: (value) {
               setState(() {
