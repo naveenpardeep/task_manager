@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
@@ -53,10 +55,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   SizedBox(height: height * 0.75, child: commentList(context)),
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(onPressed: (){}, icon: const Icon(Icons.attachment)),
-                      ),
+                    
                       Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: RawKeyboardListener(
@@ -70,12 +69,17 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               await controller.createNewItemAsync();
                             }
                           },
-                          child: NsgInput(
-                            borderRadius: 10,
+                          child: NsgRichText(
+                            height: 50,
                             dataItem: controller.currentItem,
-                            fieldName: TaskDocCommentsTableGenerated.nameText,
-                            label: 'Комментарий',
-                          ),
+                              fieldName: TaskDocCommentsTableGenerated.nameText, 
+                              objectsList: Get.find<TaskImageController>().images)
+                          // NsgInput(
+                          //   borderRadius: 10,
+                          //   dataItem: controller.currentItem,
+                          //   fieldName: TaskDocCommentsTableGenerated.nameText,
+                          //   label: 'Комментарий',
+                          // ),
                         ),
                       ),
                       Positioned(
@@ -239,13 +243,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: Text(
-                        comment.text,
-                        softWrap: true,
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                            : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
-                      ),
+                      child: 
+                     NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                      // Text(
+                      //   comment.text,
+                      //   softWrap: true,
+                      //   style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                      //       ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
+                      //       : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                      // ),
                     ),
                   ),
                   Padding(
@@ -350,13 +356,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          comment.text,
-                          softWrap: true,
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                              : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
-                        ),
+                        child: 
+                         NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                   
+                        // Text(
+                        //   comment.text,
+                        //   softWrap: true,
+                        //   style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                        //       ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
+                        //       : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                        // ),
                       ),
                     ),
                     Padding(

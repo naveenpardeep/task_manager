@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:path/path.dart';
+import 'package:task_manager_app/1/availableButtons.dart';
 import 'package:task_manager_app/1/nsg_rich_text_file.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -56,6 +57,9 @@ class NsgRichText extends StatefulWidget {
   final List<String> allowedImageFormats;
   final List<String> allowedVideoFormats;
   final List<String> allowedFileFormats;
+  
+  
+  final List<AvailableButtons> availableButtons;
 
   const NsgRichText(
       {Key? key,
@@ -83,6 +87,7 @@ class NsgRichText extends StatefulWidget {
       this.allowedImageFormats = const ['jpeg', 'jpg', 'gif', 'png', 'bmp'],
       this.allowedVideoFormats = const ['mp4'],
       this.allowedFileFormats = const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
+      this.availableButtons= AvailableButtons.allValues,
       required this.objectsList})
       : super(key: key);
 
