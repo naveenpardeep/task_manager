@@ -555,6 +555,7 @@ class _HomepageState extends State<Homepage> {
             });
             
             taskController.currentItem = tasks;
+            taskController.sendNotify();
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
          //   tasks.taskStatus = status;

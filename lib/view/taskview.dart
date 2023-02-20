@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
+import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/model/generated/task_doc.g.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
@@ -47,7 +50,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    return SafeArea(
+    return controller.obx(
+       
+        (state) =>  SafeArea(
         child: Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -111,9 +116,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
               ),
             ]),
       ),
-      body: controller.obx(
-        // ignore: prefer_const_literals_to_create_immutables
-        (state) => TabBarView(controller: _tabController, children: [
+      body: TabBarView(controller: _tabController, children: [
           Container(
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
@@ -147,6 +150,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                 Text('Исполнитель : ${controller.currentItem.assignee}'),
                                 Text('Приоритет : ${controller.currentItem.priority}'),
                                 Text('Дедлайн : ${formateddate.format(controller.currentItem.dateDeadline)}'),
+                                  NsgRichText(
+                                    controller: controller,
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.nameDescription,
+                                  objectsList: Get.find<TaskImageController>().images),
                               ],
                             )),
                       )),
