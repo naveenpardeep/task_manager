@@ -7,9 +7,13 @@ import 'package:nsg_controls/nsg_controls.dart';
 class NsgRichTextFile extends quil.CustomBlockEmbed {
   NsgRichTextFile(NsgFilePickerObject filePickerObject) : super(blockType, filePickerObject.id.toString());
 
-  static const String blockType = 'nsg_file';
+  static const String blockType = 'nsg_image';
 
   static NsgRichTextFile fromDocument(quil.Document document) => NsgRichTextFile(
+      //jsonEncode(document.toDelta().toJson())
+      NsgFilePickerObject(description: ''));
+
+  static NsgRichTextFile fromText(String data) => NsgRichTextFile(
       //jsonEncode(document.toDelta().toJson())
       NsgFilePickerObject(description: ''));
 
@@ -37,7 +41,7 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
     quil.Embed block,
     bool readOnly,
   ) {
-    final notes = NsgRichTextFile(block.value.data).document;
+    final notes = NsgRichTextFile.fromText(block.value.data).document;
 
     return Material(
       color: Colors.transparent,
