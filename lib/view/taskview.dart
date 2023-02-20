@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
   const TaskViewPage({Key? key}) : super(key: key);
@@ -45,6 +47,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.homePage);
+            },
+            icon: const Icon(Icons.close)),
         actions: [
           IconButton(
               onPressed: () async {
@@ -110,8 +117,6 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-               
-              
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),

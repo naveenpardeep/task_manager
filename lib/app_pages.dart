@@ -93,7 +93,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.homePage,
-      page: () => const Homepage(),
+      page: () =>  Homepage(),
       binding: ProjectBinding(),
     ),
     GetPage(
