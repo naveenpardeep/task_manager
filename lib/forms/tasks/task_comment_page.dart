@@ -54,7 +54,11 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 35, 5),
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(onPressed: (){}, icon: const Icon(Icons.attachment)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: RawKeyboardListener(
                           focusNode: FocusNode(),
                           autofocus: true,
