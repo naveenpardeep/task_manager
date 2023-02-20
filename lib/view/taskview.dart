@@ -11,7 +11,8 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
-  const TaskViewPage({Key? key}) : super(key: key);
+ late bool taskview;
+   TaskViewPage({Key? key, required this.taskview,}) : super(key: key);
 
   @override
   State<TaskViewPage> createState() => _TaskViewPageState();
@@ -30,6 +31,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
+   
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -49,6 +51,10 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
+             
+              setState(() {
+                 widget.taskview=false;
+              });
               Get.toNamed(Routes.homePage);
             },
             icon: const Icon(Icons.close)),

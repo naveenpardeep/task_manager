@@ -190,7 +190,7 @@ class _HomepageState extends State<Homepage> {
                   Expanded(child: taskStatusTableController.obx((state) => getStatusList())),
                   Container(
                     width: taskView==false?0: 300,
-                    child: TaskViewPage(),
+                    child: TaskViewPage(taskview: taskView,),
                   ),
                 ],
               ),
@@ -537,6 +537,7 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             setState(() {
               taskView=true;
+              
             });
             
             taskController.currentItem = tasks;
