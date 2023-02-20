@@ -66,7 +66,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.name.toString().toUpperCase(),
+          controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(
