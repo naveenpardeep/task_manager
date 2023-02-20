@@ -183,15 +183,29 @@ class _HomepageState extends State<Homepage> {
 
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+              child: Stack(
+             //   crossAxisAlignment: CrossAxisAlignment.start,
+             //   mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(child: taskStatusTableController.obx((state) => getStatusList())),
-                  Container(
-                    width: taskView==false?0: 300,
-                    child: TaskViewPage(taskview: taskView,),
+                  taskStatusTableController.obx((state) => getStatusList()),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: taskView==false?0: 300,
+                      child: const TaskViewPage(),
+                    ),
                   ),
+                  if(taskView)
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(onPressed: (){
+                      setState(() {
+                        taskView=false;
+                  
+                      });
+                    }, icon: Icon(Icons.close)
+                    ),
+                  )
                 ],
               ),
             ),

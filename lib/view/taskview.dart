@@ -11,8 +11,8 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
- late bool taskview;
-   TaskViewPage({Key? key, required this.taskview,}) : super(key: key);
+
+   const TaskViewPage({Key? key,}) : super(key: key);
 
   @override
   State<TaskViewPage> createState() => _TaskViewPageState();
@@ -49,31 +49,24 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-             
-              setState(() {
-                 widget.taskview=false;
-              });
-              Get.toNamed(Routes.homePage);
-            },
-            icon: const Icon(Icons.close)),
+        automaticallyImplyLeading: false,
+           
         actions: [
-          IconButton(
-              onPressed: () async {
-                if (controller.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
-                } else if (controller.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
-                } else {
-                  controller.currentItem.dateUpdated = DateTime.now();
+          // IconButton(
+          //     onPressed: () async {
+          //       if (controller.currentItem.taskStatus.isEmpty) {
+          //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+          //       } else if (controller.currentItem.name.isEmpty) {
+          //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+          //       } else {
+          //         controller.currentItem.dateUpdated = DateTime.now();
 
-                  await controller.itemPagePost();
-                  Get.find<TasksController>().refreshData();
-                  //  Get.toNamed(Routes.homePage);
-                }
-              },
-              icon: const Icon(Icons.check))
+          //         await controller.itemPagePost();
+          //         Get.find<TasksController>().refreshData();
+          //         //  Get.toNamed(Routes.homePage);
+          //       }
+          //     },
+          //     icon: const Icon(Icons.check))
         ],
         backgroundColor: Colors.white,
         elevation: 0.0, //Shadow gone

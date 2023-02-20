@@ -217,7 +217,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.taskViewPage,
-      page: () =>  TaskViewPage(taskview: true,),
+      page: () => const TaskViewPage(),
       binding: ProjectBinding(),
     ),
   ];
