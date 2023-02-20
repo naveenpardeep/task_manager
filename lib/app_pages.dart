@@ -26,6 +26,7 @@ import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
+import 'package:task_manager_app/view/taskview.dart';
 
 import 'forms/invitation/invitaion_bindings.dart';
 import 'forms/project/project_binding.dart';
@@ -214,6 +215,11 @@ class AppPages {
       page: () => const ChecklistPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.taskViewPage,
+      page: () => const TaskViewPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -252,4 +258,5 @@ abstract class Routes {
   static const taskChecklistPage='/TaskChecklistPage';
   static const newTaskPage='/newTaskPage'; 
   static const checkListPage='/checkListPage';
+  static const taskViewPage='/taskViewPage';
 }

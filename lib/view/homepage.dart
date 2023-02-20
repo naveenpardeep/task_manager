@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
+import 'package:task_manager_app/view/taskview.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
@@ -30,6 +31,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String projectName = '';
   bool isDatesearch = false;
+  bool taskView = false;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final ScrollController horizontalScroll = ScrollController();
   final ScrollController verticalScroll = ScrollController();
@@ -51,6 +53,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     reset();
+    taskView;
     projectName;
     searchvalue;
     searchDate;
@@ -70,6 +73,7 @@ class _HomepageState extends State<Homepage> {
         key: scaffoldKey,
         drawer: drawer(),
         body: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (width > 700) const TmTopMenu(),
@@ -92,8 +96,7 @@ class _HomepageState extends State<Homepage> {
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           projectController.currentItem.name,
-                          style: TextStyle(
-                              fontSize: ControlOptions.instance.sizeXL),
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
                         ),
                       ),
                     ),
@@ -104,8 +107,7 @@ class _HomepageState extends State<Homepage> {
                       icon: Icons.edit,
                       onPressed: () {
                         //  Get.toNamed(Routes.projectPage);
-                        Get.find<ProjectController>().itemPageOpen(
-                            projectController.currentItem, Routes.projectPage);
+                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectPage);
                       },
                     ),
                     if (width > 700)
@@ -122,8 +124,7 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white,
                             backColor: ControlOptions.instance.colorMain,
                             onPressed: () {
-                              Get.find<TasksController>().newItemPageOpen(
-                                  pageName: Routes.newTaskPage);
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);
                               // Get.toNamed(Routes.tasksPage);
@@ -141,8 +142,7 @@ class _HomepageState extends State<Homepage> {
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -172,8 +172,7 @@ class _HomepageState extends State<Homepage> {
                               //   var images = <NsgFilePickerObject>[].clear();
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);
-                              Get.find<TasksController>().newItemPageOpen(
-                                  pageName: Routes.newTaskPage);
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
                               //  Get.toNamed(Routes.tasksPage);
                             },
                           ),
@@ -184,8 +183,19 @@ class _HomepageState extends State<Homepage> {
 
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(
-                child:
-                    taskStatusTableController.obx((state) => getStatusList())),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: taskStatusTableController.obx((state) => getStatusList())),
+                  Container(
+                    width: taskView==false?0: 300,
+                    child: TaskViewPage(),
+                  ),
+                ],
+              ),
+            ),
+
             if (width < 700) const TmMobileMenu(),
           ],
         ),
@@ -213,15 +223,12 @@ class _HomepageState extends State<Homepage> {
                       alignment: Alignment.centerLeft,
                       height: 50,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: ControlOptions.instance.colorMain),
+                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           'Фильтры',
-                          style: TextStyle(
-                              color: ControlOptions.instance.colorMainText,
-                              fontSize: ControlOptions.instance.sizeH4),
+                          style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeH4),
                         ),
                       ),
                     ),
@@ -404,16 +411,12 @@ class _HomepageState extends State<Homepage> {
                         },
                         child: Text(
                           status.status.toString(),
-                          style: TextStyle(
-                              fontSize: ControlOptions.instance.sizeL),
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeL),
                         ),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: taskController.obx((state) =>
-                              searchvalue.isEmpty
-                                  ? getTasklength(status.status)
-                                  : const Text(''))),
+                          child: taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text(''))),
                     ],
                   ),
                   const Divider(thickness: 2, height: 20),
@@ -428,17 +431,14 @@ class _HomepageState extends State<Homepage> {
                             trackVisibility: true,
                             controller: scrollController,
                             thickness: 10,
-                            trackBorderColor:
-                                ControlOptions.instance.colorGreyLight,
+                            trackBorderColor: ControlOptions.instance.colorGreyLight,
                             trackColor: ControlOptions.instance.colorGreyLight,
-                            thumbColor: ControlOptions.instance.colorMain
-                                .withOpacity(0.2),
+                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                             radius: const Radius.circular(0),
                             child: SingleChildScrollView(
                                 physics: const BouncingScrollPhysics(),
                                 controller: scrollController,
-                                child: taskController.obx(
-                                    (state) => getTaskList(status.status))),
+                                child: taskController.obx((state) => getTaskList(status.status))),
                           ),
                         ),
                       ),
@@ -451,19 +451,14 @@ class _HomepageState extends State<Homepage> {
         tabsList.add(NsgTabsTab(
             tab: taskController.obx(
               (state) => Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(3),
-                    color: Colors.transparent),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration:
+                    BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(
-                          fontSize: ControlOptions.instance.sizeL,
-                          color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -475,19 +470,13 @@ class _HomepageState extends State<Homepage> {
             ),
             tabSelected: taskController.obx(
               (state) => Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 2, color: ControlOptions.instance.colorMain),
-                    borderRadius: BorderRadius.circular(3)),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(
-                          fontSize: ControlOptions.instance.sizeL,
-                          color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -498,9 +487,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             child: Column(
-              children: [
-                taskController.obx((state) => getTaskList(status.status))
-              ],
+              children: [taskController.obx((state) => getTaskList(status.status))],
             )));
       }
     }
@@ -521,15 +508,13 @@ class _HomepageState extends State<Homepage> {
   Widget getTasklength(TaskStatus status) {
     var tasksList = taskController.items;
     String length = '';
-    var taskLength =
-        tasksList.where(((element) => element.taskStatus == status));
+    var taskLength = tasksList.where(((element) => element.taskStatus == status));
 
     length = taskLength.length.toString();
 
     return Text(
       length,
-      style: TextStyle(
-          fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
     );
   }
 
@@ -545,26 +530,20 @@ class _HomepageState extends State<Homepage> {
     for (var tasks in tasksList) {
       if (tasks.taskStatus != status) continue;
 
-      if (tasks.name
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase()) ||
-          tasks.description
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase()) ||
-          tasks.assignee
-              .toString()
-              .toLowerCase()
-              .contains(searchvalue.toLowerCase())) {
+      if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
+            setState(() {
+              taskView=true;
+            });
+            
             taskController.currentItem = tasks;
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
-            tasks.taskStatus = status;
-            taskController.itemPageOpen(tasks, Routes.newTaskPage,
-                needRefreshSelectedItem: true);
+         //   tasks.taskStatus = status;
+           // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
@@ -592,16 +571,13 @@ class _HomepageState extends State<Homepage> {
         ));
   }
 
-  Widget wrapdragTarget(
-      {required TaskBoardStatusTable status, required Widget child}) {
+  Widget wrapdragTarget({required TaskBoardStatusTable status, required Widget child}) {
     return DragTarget<TaskDoc>(
       builder: (context, accepted, rejected) {
         return AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: accepted.isNotEmpty
-                  ? ControlOptions.instance.colorMain.withOpacity(0.4)
-                  : ControlOptions.instance.colorMain.withOpacity(0.1),
+              color: accepted.isNotEmpty ? ControlOptions.instance.colorMain.withOpacity(0.4) : ControlOptions.instance.colorMain.withOpacity(0.1),
             ),
             child: child);
       },
@@ -612,8 +588,7 @@ class _HomepageState extends State<Homepage> {
         data.taskStatus = status.status;
         taskController.currentItem = data;
         //  taskController.itemPagePost(goBack: false);
-        NsgProgressDialog progress = NsgProgressDialog(
-            textDialog: 'Сохранение данных на сервере', canStopped: false);
+        NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         progress.show();
         await taskController.postItems([taskController.currentItem]);
         progress.hide();
@@ -640,8 +615,7 @@ class _HomepageState extends State<Homepage> {
 class DraggableRotatingCard extends StatefulWidget {
   final TaskDoc tasks;
   final BoxConstraints constraints;
-  const DraggableRotatingCard(
-      {super.key, required this.tasks, required this.constraints});
+  const DraggableRotatingCard({super.key, required this.tasks, required this.constraints});
 
   @override
   State<DraggableRotatingCard> createState() => DraggableRotatingCardState();
@@ -664,11 +638,8 @@ class DraggableRotatingCardState extends State<DraggableRotatingCard> {
             dataKey.currentState!.setAngle(angle);
           }
         },
-        feedback: RotatingCard(
-            key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
-        childWhenDragging: Opacity(
-            opacity: 0.2,
-            child: taskCard(widget.tasks, widget.constraints, context)),
+        feedback: RotatingCard(key: dataKey, tasks: widget.tasks, constraints: widget.constraints),
+        childWhenDragging: Opacity(opacity: 0.2, child: taskCard(widget.tasks, widget.constraints, context)),
         child: taskCard(widget.tasks, widget.constraints, context),
       );
     } else {
@@ -685,8 +656,7 @@ class RotatingCard extends StatefulWidget {
   final TaskDoc tasks;
   final BoxConstraints constraints;
 
-  const RotatingCard({Key? key, required this.tasks, required this.constraints})
-      : super(key: key);
+  const RotatingCard({Key? key, required this.tasks, required this.constraints}) : super(key: key);
 
   @override
   State<RotatingCard> createState() => RotatingCardState();
@@ -706,11 +676,7 @@ class RotatingCardState extends State<RotatingCard> {
       curve: Curves.fastLinearToSlowEaseIn,
       turns: curAngle,
       child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                blurRadius: 10,
-                color: ControlOptions.instance.colorGrey.withOpacity(0.7))
-          ]),
+          decoration: BoxDecoration(boxShadow: [BoxShadow(blurRadius: 10, color: ControlOptions.instance.colorGrey.withOpacity(0.7))]),
           child: taskCard(widget.tasks, widget.constraints, context)),
     );
   }
@@ -807,6 +773,13 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 1,
                           ),
+                          IconButton(
+                              onPressed: () {
+                                Get.find<TasksController>().currentItem = tasks;
+
+                                Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                              },
+                              icon: const Icon(Icons.edit))
                         ],
                       ),
                     ),
@@ -831,23 +804,16 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(right: 4),
-                                child: Icon(Icons.access_time,
-                                    size: ControlOptions.instance.sizeS,
-                                    color:
-                                        ControlOptions.instance.colorGreyDark),
+                                child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 4),
                                 child: Text(
-                                  'создано: ${{
-                                    NsgDateFormat.dateFormat(tasks.date,
-                                        format: 'dd.MM.yy HH:mm')
-                                  }}',
+                                  'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                                   maxLines: 1,
                                   textScaleFactor: 0.8,
                                   style: TextStyle(
-                                    color:
-                                        ControlOptions.instance.colorGreyDark,
+                                    color: ControlOptions.instance.colorGreyDark,
                                     fontSize: ControlOptions.instance.sizeS,
                                   ),
                                 ),
@@ -874,37 +840,27 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                               InkWell(
                                 onTap: () {
                                   taskC.currentItem = tasks;
-                                  Get.find<CommentTableTasksController>()
-                                      .newItemPageOpen(
-                                          pageName: Routes.commentRowPage);
+                                  Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
                                 },
                                 child: Tooltip(
                                   message: 'Comments',
-                                  child: NsgCircle(
-                                      text: tasks.tableComments.length
-                                          .toString()),
+                                  child: NsgCircle(text: tasks.tableComments.length.toString()),
                                 ),
                               ),
                             ClipOval(
-                              child: taskC
-                                      .currentItem.assignee.photoFile.isEmpty
+                              child: taskC.currentItem.assignee.photoFile.isEmpty
                                   ? Container(
-                                      decoration: BoxDecoration(
-                                          color: ControlOptions
-                                              .instance.colorMain
-                                              .withOpacity(0.2)),
+                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                       width: 32,
                                       height: 32,
                                       child: Icon(
                                         Icons.account_circle,
                                         size: 20,
-                                        color: ControlOptions.instance.colorMain
-                                            .withOpacity(0.4),
+                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                       ),
                                     )
                                   : Image.memory(
-                                      Uint8List.fromList(
-                                          taskC.currentItem.assignee.photoFile),
+                                      Uint8List.fromList(taskC.currentItem.assignee.photoFile),
                                       width: 32,
                                       height: 32,
                                     ),
@@ -953,8 +909,7 @@ openTaskDialog(tasks, context) {
     child: const Text("Open Comments"),
     onPressed: () {
       Get.find<TasksController>().currentItem = tasks;
-      Get.find<CommentTableTasksController>()
-          .newItemPageOpen(pageName: Routes.commentRowPage);
+      Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
       Navigator.of(context).pop();
     },
   );
@@ -969,8 +924,6 @@ openTaskDialog(tasks, context) {
       changeTaskStatus(tasks);
     },
   );
-
- 
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
@@ -991,9 +944,7 @@ String getupdateDay(TaskDoc tasks) {
   final lastDate = tasks.dateUpdated;
   var daysleft = todayDate.difference(lastDate).inDays;
   if (daysleft > 7) {
-    return 'Обновлено: ${{
-      NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')
-    }}';
+    return 'Обновлено: ${{NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
   if (minutes < 60) {

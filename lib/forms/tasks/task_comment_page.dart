@@ -69,17 +69,18 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               await controller.createNewItemAsync();
                             }
                           },
-                          child: NsgRichText(
-                            height: 50,
+                          child: 
+                          //NsgRichText(
+                         //   height: 50,
+                          // dataItem: controller.currentItem,
+                           //   fieldName: TaskDocCommentsTableGenerated.nameText, 
+                           //   objectsList: Get.find<TaskImageController>().images)
+                          NsgInput(
+                            borderRadius: 10,
                             dataItem: controller.currentItem,
-                              fieldName: TaskDocCommentsTableGenerated.nameText, 
-                              objectsList: Get.find<TaskImageController>().images)
-                          // NsgInput(
-                          //   borderRadius: 10,
-                          //   dataItem: controller.currentItem,
-                          //   fieldName: TaskDocCommentsTableGenerated.nameText,
-                          //   label: 'Комментарий',
-                          // ),
+                            fieldName: TaskDocCommentsTableGenerated.nameText,
+                            label: 'Комментарий',
+                          ),
                         ),
                       ),
                       Positioned(
@@ -244,14 +245,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: 
-                     NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
-                      // Text(
-                      //   comment.text,
-                      //   softWrap: true,
-                      //   style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                      //       ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                      //       : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
-                      // ),
+                   //  NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                      Text(
+                        comment.text,
+                        softWrap: true,
+                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                            ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
+                            : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                      ),
                     ),
                   ),
                   Padding(
@@ -357,15 +358,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: 
-                         NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                  //   NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
                    
-                        // Text(
-                        //   comment.text,
-                        //   softWrap: true,
-                        //   style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                        //       ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                        //       : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
-                        // ),
+                        Text(
+                          comment.text,
+                          softWrap: true,
+                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                              ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
+                              : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                        ),
                       ),
                     ),
                     Padding(
