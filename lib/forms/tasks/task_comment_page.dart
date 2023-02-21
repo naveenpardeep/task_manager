@@ -22,9 +22,6 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       controller.requestItems();
     }
 
-    // if (Get.find<TasksController>().lateInit) {
-    //   Get.find<TasksController>().requestItems();
-    // }
     double height = MediaQuery.of(context).size.height;
 
     return SafeArea(
@@ -55,7 +52,6 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                   SizedBox(height: height * 0.75, child: commentList(context)),
                   Stack(
                     children: [
-                    
                       Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: RawKeyboardListener(
@@ -69,13 +65,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               await controller.createNewItemAsync();
                             }
                           },
-                          child: 
-                          //NsgRichText(
-                         //   height: 50,
-                          // dataItem: controller.currentItem,
-                           //   fieldName: TaskDocCommentsTableGenerated.nameText, 
-                           //   objectsList: Get.find<TaskImageController>().images)
-                          NsgInput(
+                          child:
+                              //NsgRichText(
+                              //   height: 50,
+                              // dataItem: controller.currentItem,
+                              //   fieldName: TaskDocCommentsTableGenerated.nameText,
+                              //   objectsList: Get.find<TaskImageController>().images)
+                              NsgInput(
                             borderRadius: 10,
                             dataItem: controller.currentItem,
                             fieldName: TaskDocCommentsTableGenerated.nameText,
@@ -213,7 +209,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   Widget currentUser(context, comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
@@ -222,7 +218,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             child: Container(
               decoration: BoxDecoration(
                   color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
-                  borderRadius: const BorderRadius.all(Radius.circular(4))),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10),bottomRight: Radius.circular(0),bottomLeft: Radius.circular(10))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
                 crossAxisAlignment:
@@ -244,9 +240,9 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: 
-                   //  NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
-                      Text(
+                      child:
+                          //  NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                          Text(
                         comment.text,
                         softWrap: true,
                         style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
@@ -305,13 +301,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
   Widget anotherUsers(context, comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Padding(
               padding: const EdgeInsets.all(4.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius:  BorderRadius.circular(4),
                 child: comment.author.photoFile.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
@@ -335,7 +331,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               child: Container(
                 decoration: BoxDecoration(
                     color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
-                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(0))),
                 width: width <= 700 ? width * 0.65 : 300,
                 child: Column(
                   crossAxisAlignment:
@@ -357,10 +353,10 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: 
-                  //   NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
-                   
-                        Text(
+                        child:
+                            //   NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+
+                            Text(
                           comment.text,
                           softWrap: true,
                           style: Get.find<DataController>().currentUser == comment.author.mainUserAccount

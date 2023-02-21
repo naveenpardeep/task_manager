@@ -11,7 +11,6 @@ import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/generated/task_doc.g.dart';
-import 'package:task_manager_app/view/homepage.dart';
 
 class TaskViewPage extends StatefulWidget {
   const TaskViewPage({
@@ -50,123 +49,102 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    return controller.obx(
-       
-        (state) =>  SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
+    return controller.obx((state) => SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
 
-        actions: [
-          // IconButton(
-          //     onPressed: () async {
-          //       if (controller.currentItem.taskStatus.isEmpty) {
-          //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
-          //       } else if (controller.currentItem.name.isEmpty) {
-          //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
-          //       } else {
-          //         controller.currentItem.dateUpdated = DateTime.now();
-
-          //         await controller.itemPagePost();
-          //         Get.find<TasksController>().refreshData();
-          //         //  Get.toNamed(Routes.homePage);
-          //       }
-          //     },
-          //     icon: const Icon(Icons.check))
-        ],
-        backgroundColor: Colors.white,
-        elevation: 0.0, //Shadow gone
-        centerTitle: true,
-        title: controller.obx(
-            // ignore: prefer_const_literals_to_create_immutables
-            (state) => Text(
-                  controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
-                  style: const TextStyle(color: Colors.black),
-                )),
-        bottom: TabBar(
-            onTap: (value) {
-              setState(() {
-                if (_tabController.index == 0) {
-                  _tabController.index = 0;
-                } else if (_tabController.index == 1) {
-                  _tabController.index = 1;
-                } else if (_tabController.index == 2) {
-                  _tabController.index = 2;
-                }
-              });
-            },
-            controller: _tabController,
-            tabs: const <Widget>[
-              Tab(
-                child: Text(
-                  'Основное',
-                  style: TextStyle(color: Color(0xff3EA8AB)),
-                ),
-              ),
-              Tab(
-                  child: Text(
-                'Чек-лист',
-                style: TextStyle(color: Color(0xff3EA8AB)),
-              )),
-              Tab(
-                child: Text(
-                  'Комментарии',
-                  style: TextStyle(color: Color(0xff3EA8AB)),
-                ),
-              ),
-            ]),
-      ),
-      body: TabBarView(controller: _tabController, children: [
-          Container(
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: RawScrollbar(
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        controller: scrollController,
-                        thickness: 15,
-                        trackBorderColor: ControlOptions.instance.colorGreyLight,
-                        trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                        radius: const Radius.circular(0),
-                        child: SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(),
-                            controller: scrollController,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Номер задачи:  ${controller.currentItem.docNumber}',
-                                ),
-                                Text('Дата создания:  ${formateddate.format(controller.currentItem.date)}'),
-                                Text(
-                                  'Автор задачи:  ${controller.currentItem.author} ',
-                                ),
-                                Text('Статус задачи: ${controller.currentItem.taskStatus}'),
-                                Text('Исполнитель : ${controller.currentItem.assignee}'),
-                                Text('Приоритет : ${controller.currentItem.priority}'),
-                                Text('Дедлайн : ${formateddate.format(controller.currentItem.dateDeadline)}'),
-                                  NsgRichText(
-                                    controller: controller,
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameDescription,
-                                  objectsList: Get.find<TaskImageController>().images),
-                              ],
-                            )),
-                      )),
-                ),
-              ],
+              backgroundColor: Colors.white,
+              elevation: 0.0, //Shadow gone
+              centerTitle: true,
+              title: controller.obx((state) => Text(
+                    controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
+                    style: const TextStyle(color: Colors.black),
+                  )),
+              bottom: TabBar(
+                  onTap: (value) {
+                    setState(() {
+                      if (_tabController.index == 0) {
+                        _tabController.index = 0;
+                      } else if (_tabController.index == 1) {
+                        _tabController.index = 1;
+                      } else if (_tabController.index == 2) {
+                        _tabController.index = 2;
+                      }
+                    });
+                  },
+                  controller: _tabController,
+                  tabs: const <Widget>[
+                    Tab(
+                      child: Text(
+                        'Основное',
+                        style: TextStyle(color: Color(0xff3EA8AB)),
+                      ),
+                    ),
+                    Tab(
+                        child: Text(
+                      'Чек-лист',
+                      style: TextStyle(color: Color(0xff3EA8AB)),
+                    )),
+                    Tab(
+                      child: Text(
+                        'Комментарии',
+                        style: TextStyle(color: Color(0xff3EA8AB)),
+                      ),
+                    ),
+                  ]),
             ),
+            body: TabBarView(controller: _tabController, children: [
+              Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                          padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                          child: RawScrollbar(
+                            thumbVisibility: true,
+                            trackVisibility: true,
+                            controller: scrollController,
+                            thickness: 10,
+                            trackBorderColor: ControlOptions.instance.colorGreyLight,
+                            trackColor: ControlOptions.instance.colorGreyLight,
+                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                            radius: const Radius.circular(0),
+                            child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                controller: scrollController,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Номер задачи:  ${controller.currentItem.docNumber}',
+                                    ),
+                                    Text('Дата создания:  ${formateddate.format(controller.currentItem.date)}'),
+                                    Text(
+                                      'Автор задачи:  ${controller.currentItem.author} ',
+                                    ),
+                                    Text('Статус задачи: ${controller.currentItem.taskStatus}'),
+                                    Text('Исполнитель : ${controller.currentItem.assignee}'),
+                                    Text('Приоритет : ${controller.currentItem.priority}'),
+                                    Text('Дедлайн : ${formateddate.format(controller.currentItem.dateDeadline)}'),
+                                    NsgRichText(
+                                        controller: controller,
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.nameDescription,
+                                        objectsList: Get.find<TaskImageController>().images),
+                                  ],
+                                )),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              const ChecklistPage(),
+              const TasksCommentRowPage(),
+            ]),
           ),
-          const ChecklistPage(),
-          const TasksCommentRowPage(),
-        ]),
-      ),
-    ));
+        ));
   }
 }

@@ -207,7 +207,7 @@ class _HomepageState extends State<Homepage> {
                             controller: scrollController,
                             child: Flexible(
                               child: SizedBox(
-                                width: 1500,
+                              width: 1650,
                                 child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
                               ),
                             ))),
@@ -215,7 +215,7 @@ class _HomepageState extends State<Homepage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: SizedBox(
-                      width: taskView == false ? 0 : 300,
+                      width: taskView == false ? 0 : 375,
                       child: taskController.obx((state) => TaskViewPage()),
                     ),
                   ),
@@ -459,7 +459,7 @@ class _HomepageState extends State<Homepage> {
                 const Divider(thickness: 2, height: 20),
                 Expanded(
                   child: SizedBox(
-                    width: 300,
+                    width: status.statusId.length>4?250:350,
                     child: wrapdragTarget(
                       status: status,
                       child: taskController.obx(
@@ -476,7 +476,7 @@ class _HomepageState extends State<Homepage> {
                               scrollDirection: Axis.vertical,
                               physics: const BouncingScrollPhysics(),
                               controller: scrollController,
-                              child: taskController.obx((state) => getTaskList(status.status))),
+                              child: taskController.obx((state) => getTaskListForTaskview(status.status))),
                         ),
                       ),
                     ),
@@ -517,14 +517,14 @@ class _HomepageState extends State<Homepage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
-                      child: getTasklength(status.status),
+                      child: getTasklengthForTaskview(status.status),
                     ),
                   ],
                 ),
               ),
             ),
             child: Column(
-              children: [taskController.obx((state) => getTaskList(status.status))],
+              children: [taskController.obx((state) => getTaskListForTaskview(status.status))],
             )));
       }
     }
@@ -1014,6 +1014,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 1,
                           ),
+                           if (Platform.isWindows || Platform.isLinux)
                           IconButton(
                               onPressed: () {
                                 Get.find<TasksController>().currentItem = tasks;
