@@ -206,11 +206,9 @@ class _HomepageState extends State<Homepage> {
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
                             controller: scrollController,
-                            child: Flexible(
-                              child: SizedBox(
-                              width: 1650,
-                                child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
-                              ),
+                            child: SizedBox(
+                            width: width+450,
+                              child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
                             ))),
                   if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
                   Align(
