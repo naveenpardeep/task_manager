@@ -138,6 +138,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                             physics: const BouncingScrollPhysics(),
                             controller: scrollController,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Номер задачи:  ${controller.currentItem.docNumber}',
