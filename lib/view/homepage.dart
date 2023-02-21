@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     projectName = projectController.currentItem.name;
+    var scrollController = ScrollController();
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     return BodyWrap(
@@ -184,28 +186,50 @@ class _HomepageState extends State<Homepage> {
             //  if (taskBoardController.currentItem.isNotEmpty)
             Expanded(
               child: Stack(
-             //   crossAxisAlignment: CrossAxisAlignment.start,
-             //   mainAxisSize: MainAxisSize.min,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisSize: MainAxisSize.min,
                 children: [
-                  taskStatusTableController.obx((state) => getStatusList()),
+                  if (taskView)
+                    RawScrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        controller: scrollController,
+                        thickness: 15,
+                        trackBorderColor: ControlOptions.instance.colorWhite,
+                        trackColor: ControlOptions.instance.colorWhite,
+                       mainAxisMargin: 5,
+                       crossAxisMargin: 2,
+                        thumbColor: ControlOptions.instance.colorMain,
+                        radius: const Radius.circular(20),
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            controller: scrollController,
+                            child: Flexible(
+                              child: SizedBox(
+                                width: 1500,
+                                child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
+                              ),
+                            ))),
+                  if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Container(
-                      width: taskView==false?0: 300,
+                    child: SizedBox(
+                      width: taskView == false ? 0 : 300,
                       child: const TaskViewPage(),
                     ),
                   ),
-                  if(taskView)
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(onPressed: (){
-                      setState(() {
-                        taskView=false;
-                  
-                      });
-                    }, icon: Icon(Icons.close)
-                    ),
-                  )
+                  if (taskView)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              taskView = false;
+                            });
+                          },
+                          icon: const Icon(Icons.close)),
+                    )
                 ],
               ),
             ),
@@ -392,6 +416,205 @@ class _HomepageState extends State<Homepage> {
       )
     ];
   }
+// for taskView
+
+  Widget getStatusListForTaskView() {
+    double width = MediaQuery.of(context).size.width;
+
+    List<Widget> list = [];
+    List<NsgTabsTab> tabsList = [];
+    List<String> statuses = [];
+
+    // var statusList = taskStatusTableController.items.reversed;
+    var statusList = taskStatusTableController.items;
+    for (var status in statusList) {
+      var scrollController = ScrollController();
+      statuses.add(status.status.toString());
+      if (width > 1050) {
+        list.add(Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        // changeStatus(status);
+                        // Get.toNamed(Routes.taskrow);
+                        // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
+                      },
+                      child: Text(
+                        status.status.toString(),
+                        style: TextStyle(fontSize: ControlOptions.instance.sizeL),
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text(''))),
+                  ],
+                ),
+                const Divider(thickness: 2, height: 20),
+                Expanded(
+                  child: SizedBox(
+                    width: 300,
+                    child: wrapdragTarget(
+                      status: status,
+                      child: taskController.obx(
+                        (state) => RawScrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollController,
+                          thickness: 10,
+                          trackBorderColor: ControlOptions.instance.colorGreyLight,
+                          trackColor: ControlOptions.instance.colorGreyLight,
+                          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                          radius: const Radius.circular(0),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              physics: const BouncingScrollPhysics(),
+                              controller: scrollController,
+                              child: taskController.obx((state) => getTaskList(status.status))),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )));
+      } else {
+        tabsList.add(NsgTabsTab(
+            tab: taskController.obx(
+              (state) => Container(
+                decoration:
+                    BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      status.status.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: getTasklength(status.status),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            tabSelected: taskController.obx(
+              (state) => Container(
+                decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      status.status.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: getTasklength(status.status),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            child: Column(
+              children: [taskController.obx((state) => getTaskList(status.status))],
+            )));
+      }
+    }
+
+    if (width > 1050) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: list,
+        ),
+      );
+    } else {
+      return NsgTabs(tabs: tabsList);
+    }
+  }
+
+  Widget getTasklengthForTaskview(TaskStatus status) {
+    var tasksList = taskController.items;
+    String length = '';
+    var taskLength = tasksList.where(((element) => element.taskStatus == status));
+
+    length = taskLength.length.toString();
+
+    return Text(
+      length,
+      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+    );
+  }
+
+/* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
+  Widget getTaskListForTaskview(TaskStatus status) {
+    List<Widget> list = [];
+
+    var tasksList = taskController.items;
+
+    // var taskstart = tasksList.where((
+    //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
+
+    for (var tasks in tasksList) {
+      if (tasks.taskStatus != status) continue;
+
+      if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+        list.add(GestureDetector(
+          onTap: () {
+            if (Platform.isWindows || Platform.isLinux) {
+              setState(() {
+                taskView = true;
+                taskController.currentItem = tasks;
+                taskController.sendNotify();
+                Get.find<CommentTableTasksController>().sendNotify();
+              });
+            } else {
+              taskController.currentItem = tasks;
+
+              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            }
+
+            // taskConstroller.currentItem.taskStatus = status;
+            // Get.toNamed(Routes.tasksPage);
+            //   tasks.taskStatus = status;
+            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: LayoutBuilder(builder: (context, constraints) {
+                  return DraggableRotatingCard(
+                    tasks: tasks,
+                    constraints: constraints,
+                  );
+                }),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+
+    return SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Column(
+            children: list,
+          ),
+        ));
+  }
 
 /* ------------------------------------------------------- Вывод колонок по статусу ------------------------------------------------------- */
   Widget getStatusList() {
@@ -549,17 +772,23 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            setState(() {
-              taskView=true;
-              
-            });
-            
-            taskController.currentItem = tasks;
-            taskController.sendNotify();
+            if (Platform.isWindows || Platform.isLinux) {
+              setState(() {
+                taskView = true;
+                taskController.currentItem = tasks;
+                taskController.sendNotify();
+                Get.find<CommentTableTasksController>().sendNotify();
+              });
+            } else {
+              taskController.currentItem = tasks;
+
+              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            }
+
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
-         //   tasks.taskStatus = status;
-           // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            //   tasks.taskStatus = status;
+            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
