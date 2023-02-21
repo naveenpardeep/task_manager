@@ -31,19 +31,26 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgTable(
-                              controller: Get.find<TaskCheckListController>(),
-                              elementEditPageName: Routes.taskChecklistPage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(name: TaskDocCheckListTableGenerated.nameText, expanded: true, presentation: 'CheckList Name'),
-                                NsgTableColumn(name: TaskDocCheckListTableGenerated.nameIsDone, width: 100, presentation: 'Done'),
-                              ],
-                            ),
+                            checkList(context),
+                            NsgButton(
+                              text: 'Создать контрольный список',
+                              onPressed: () {
+                                Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
+                              },
+                            )
+                            // NsgTable(
+                            //   controller: G,
+                            //   elementEditPageName: Routes.taskChecklistPage,
+                            //   availableButtons: const [
+                            //     NsgTableMenuButtonType.createNewElement,
+                            //     NsgTableMenuButtonType.editElement,
+                            //     NsgTableMenuButtonType.removeElement
+                            //   ],
+                            //   columns: [
+                            //     NsgTableColumn(name: TaskDocCheckListTableGenerated.nameText, expanded: true, presentation: 'CheckList Name'),
+                            //     NsgTableColumn(name: TaskDocCheckListTableGenerated.nameIsDone, width: 100, presentation: 'Done'),
+                            //   ],
+                            // ),
                           ],
                         ),
                       )),
@@ -68,42 +75,57 @@ class ChecklistPage extends GetView<TaskCheckListController> {
             Get.toNamed(Routes.taskChecklistPage);
           },
           onLongPress: () {},
-          child: Row(
+          child: Column(
             children: [
-              Expanded(
-                child: Card(
-                  // elevation: 3,
-                  margin: EdgeInsets.zero,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () async {
-                              // controller.currentItem = project;
-                              // await controller
-                              //     .deleteItems([controller.currentItem]);
-                              // controller.sendNotify();
-                              showAlertDialog(context, checkList);
-                            },
-                            icon: const Icon(Icons.delete)),
-                        Expanded(
-                          child: Text(
-                            checkList.text,
-                            style: TextStyle(
-                              color: ControlOptions.instance.colorMainDark,
-                              fontSize: ControlOptions.instance.sizeL,
-                            ),
+              Card(
+                // elevation: 3,
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          width: 30,
+                          child: NsgCheckBox(
+                              label: '',
+                              value: controller.currentItem.isDone,
+                              onPressed: (currentValue) {
+                                if (currentValue == false) {
+                                  controller.currentItem.isDone == true;
+                                } else {
+                                  controller.currentItem.isDone == false;
+                                }
+
+                                controller.refreshData();
+                              })),
+
+                      // SizedBox(
+                      //   width: 90,
+                      //   child: NsgInput(
+                      //     dataItem: controller.currentItem,
+                      //     fieldName: TaskDocCheckListTableGenerated.nameIsDone,
+                      //   ),
+                      // ),
+
+                      Expanded(
+                        child: Text(
+                          checkList.text,
+                          style: TextStyle(
+                            color: ControlOptions.instance.colorMainDark,
+                            fontSize: ControlOptions.instance.sizeL,
                           ),
                         ),
-                        NsgInput(
-                          dataItem: controller.currentItem,
-                          fieldName: TaskDocCheckListTableGenerated.nameIsDone,
-                          label: 'Done',
-                        ),
-                        //  const Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            showAlertDialog(context, checkList);
+                          },
+                          icon: const Icon(
+                            Icons.remove_circle_outline,
+                            color: Colors.red,
+                          )),
+                      //  const Icon(Icons.arrow_forward_ios),
+                    ],
                   ),
                 ),
               ),
@@ -121,7 +143,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
       child: const Text("Yes"),
       onPressed: () async {
         Get.find<TaskCheckListController>().currentItem = checkList;
-        await Get.find<TaskCheckListController>().deleteItems([Get.find<TaskCheckListController>().currentItem]);
+        await Get.find<TasksController>().deleteItems([Get.find<TaskCheckListController>().currentItem]);
         Get.find<TaskCheckListController>().sendNotify();
         Navigator.of(context).pop();
       },
