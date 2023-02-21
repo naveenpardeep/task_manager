@@ -197,8 +197,8 @@ class _HomepageState extends State<Homepage> {
                         thickness: 15,
                         trackBorderColor: ControlOptions.instance.colorWhite,
                         trackColor: ControlOptions.instance.colorWhite,
-                       mainAxisMargin: 5,
-                       crossAxisMargin: 2,
+                        mainAxisMargin: 5,
+                        crossAxisMargin: 2,
                         thumbColor: ControlOptions.instance.colorMain,
                         radius: const Radius.circular(20),
                         child: SingleChildScrollView(
@@ -216,7 +216,7 @@ class _HomepageState extends State<Homepage> {
                     alignment: Alignment.centerRight,
                     child: SizedBox(
                       width: taskView == false ? 0 : 300,
-                      child: const TaskViewPage(),
+                      child: taskController.obx((state) => TaskViewPage()),
                     ),
                   ),
                   if (taskView)
@@ -574,10 +574,8 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
+                taskController.setAndRefreshSelectedItem(tasks, null);
                 taskView = true;
-                taskController.currentItem = tasks;
-                taskController.sendNotify();
-                Get.find<CommentTableTasksController>().sendNotify();
               });
             } else {
               taskController.currentItem = tasks;
@@ -774,10 +772,8 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
+                taskController.setAndRefreshSelectedItem(tasks, null);
                 taskView = true;
-                taskController.currentItem = tasks;
-                taskController.sendNotify();
-                Get.find<CommentTableTasksController>().sendNotify();
               });
             } else {
               taskController.currentItem = tasks;
