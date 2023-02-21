@@ -118,18 +118,87 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Номер задачи:  ${controller.currentItem.docNumber}',
+                                    Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Text(
+                                        ' ${controller.currentItem.name}',
+                                      ),
                                     ),
-                                    Text('Дата создания:  ${formateddate.format(controller.currentItem.date)}'),
-                                    Text(
-                                      'Автор задачи:  ${controller.currentItem.author} ',
+                                    const Divider(
+                                      thickness: 2,
                                     ),
-                                    Text('Статус задачи: ${controller.currentItem.taskStatus}'),
-                                    Text('Исполнитель : ${controller.currentItem.assignee}'),
-                                    Text('Приоритет : ${controller.currentItem.priority}'),
-                                    Text('Дедлайн : ${formateddate.format(controller.currentItem.dateDeadline)}'),
+                                    const Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Text(
+                                        'Детали задачи',
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 20),
+                                          child: Column(
+                                                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                            // ignore: prefer_const_literals_to_create_immutables
+                                            children: [
+                                              const Text(
+                                                'Номер задачи:  ',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Дата создания:  ',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Автор задачи:  ',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Статус задачи: ',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Исполнитель : ',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Приоритет :',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                              const Text(
+                                                'Дедлайн :',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(controller.currentItem.docNumber),
+                                            Text(formateddate.format(controller.currentItem.date)),
+                                            Text(controller.currentItem.author.toString()),
+                                            Text('${controller.currentItem.taskStatus}'),
+                                            Text('${controller.currentItem.assignee}'),
+                                            Text('${controller.currentItem.priority}'),
+                                            Text(formateddate.format(controller.currentItem.dateDeadline)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                     const Divider(
+                                      thickness: 2,
+                                    ),
+                                      const Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Text(
+                                        'Описание задачи',
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+                                      ),
+                                    ),
                                     NsgRichText(
+                                         availableButtons: [],
                                         controller: controller,
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
