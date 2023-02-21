@@ -437,29 +437,22 @@ class _HomepageState extends State<Homepage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // changeStatus(status);
-                        // Get.toNamed(Routes.taskrow);
-                        // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
-                      },
-                      child: Text(
-                        status.status.toString(),
-                        style: TextStyle(fontSize: ControlOptions.instance.sizeL),
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text(''))),
-                  ],
+                InkWell(
+                  onTap: () {
+                    // changeStatus(status);
+                    // Get.toNamed(Routes.taskrow);
+                    // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
+                  },
+                  child: Text(
+                    status.status.toString(),
+                    style: TextStyle(fontSize: ControlOptions.instance.sizeL),
+                  ),
                 ),
-                const Divider(thickness: 2, height: 20),
+                taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
+                
                 Expanded(
                   child: SizedBox(
-                    width: status.statusId.length>4?250:350,
+                    width: taskStatusTableController.items.length> 4?250:300,
                     child: wrapdragTarget(
                       status: status,
                       child: taskController.obx(
@@ -1009,19 +1002,23 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Icons.priority_high,
                                   color: Colors.green,
                                 )),
-                          Text(
-                            tasks.docNumber,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            maxLines: 1,
+                          Flexible(
+                            child: Text(
+                              tasks.docNumber,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                            ),
                           ),
                            if (Platform.isWindows || Platform.isLinux)
-                          IconButton(
-                              onPressed: () {
-                                Get.find<TasksController>().currentItem = tasks;
-
-                                Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                              },
-                              icon: const Icon(Icons.edit))
+                          Flexible(
+                            child: IconButton(
+                                onPressed: () {
+                                  Get.find<TasksController>().currentItem = tasks;
+                          
+                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                },
+                                icon: const Icon(Icons.edit)),
+                          )
                         ],
                       ),
                     ),
