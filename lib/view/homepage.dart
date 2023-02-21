@@ -191,16 +191,17 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   if (taskView)
                     RawScrollbar(
+                      
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
                         thickness: 15,
-                        trackBorderColor: ControlOptions.instance.colorWhite,
-                        trackColor: ControlOptions.instance.colorWhite,
+                        trackBorderColor: ControlOptions.instance.colorMain,
+                        trackColor: ControlOptions.instance.colorMain,
                         mainAxisMargin: 5,
                         crossAxisMargin: 2,
-                        thumbColor: ControlOptions.instance.colorMain,
-                        radius: const Radius.circular(20),
+                        thumbColor: ControlOptions.instance.colorGrey,
+                        radius: const Radius.circular(50),
                         child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
