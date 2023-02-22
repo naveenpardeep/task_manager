@@ -191,7 +191,6 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   if (taskView)
                     RawScrollbar(
-                      
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
@@ -207,7 +206,7 @@ class _HomepageState extends State<Homepage> {
                             physics: const BouncingScrollPhysics(),
                             controller: scrollController,
                             child: SizedBox(
-                            width: width+450,
+                              width: width + 450,
                               child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
                             ))),
                   if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
@@ -215,7 +214,7 @@ class _HomepageState extends State<Homepage> {
                     alignment: Alignment.centerRight,
                     child: SizedBox(
                       width: taskView == false ? 0 : 375,
-                      child: taskController.obx((state) => TaskViewPage()),
+                      child: taskController.obx((state) => const TaskViewPage()),
                     ),
                   ),
                   if (taskView)
@@ -448,10 +447,9 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
-                
                 Expanded(
                   child: SizedBox(
-                    width: taskStatusTableController.items.length> 4?250:300,
+                    width: taskStatusTableController.items.length > 4 ? 250 : 300,
                     child: wrapdragTarget(
                       status: status,
                       child: taskController.obx(
@@ -964,172 +962,705 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
     onLongPress: () {
       changeTaskStatus(tasks);
     },
-    child: SizedBox(
-      width: constraints.maxWidth,
-      child: Card(
-          elevation: 3,
-          color: const Color.fromARGB(239, 248, 250, 252),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    child: Stack(
+      children: [
+        if (tasks.priority == EPriority.high)
+          SizedBox(
+            width: constraints.maxWidth,
+            child: Card(
+                elevation: 3,
+                color: const Color.fromARGB(239, 248, 250, 252),
+                child: Stack(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        children: [
-                          if (tasks.priority == EPriority.high)
-                            const Tooltip(
-                                message: 'High Priority',
-                                child: Icon(
-                                  Icons.priority_high,
-                                  color: Colors.red,
-                                )),
-                          if (tasks.priority == EPriority.medium)
-                            const Tooltip(
-                                message: 'Medium Priority',
-                                child: Icon(
-                                  Icons.priority_high,
-                                  color: Colors.orange,
-                                )),
-                          if (tasks.priority == EPriority.low)
-                            const Tooltip(
-                                message: 'Low Priority',
-                                child: Icon(
-                                  Icons.priority_high,
-                                  color: Colors.green,
-                                )),
-                          Flexible(
-                            child: Text(
-                              tasks.docNumber,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                              maxLines: 1,
-                            ),
-                          ),
-                           if (Platform.isWindows || Platform.isLinux)
-                          Flexible(
-                            child: IconButton(
-                                onPressed: () {
-                                  Get.find<TasksController>().currentItem = tasks;
-                          
-                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                },
-                                icon: const Icon(Icons.edit)),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              tasks.name,
-                              maxLines: 2,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: Wrap(
+                    ClipPath(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          left: BorderSide(color: Colors.red, width: 5),
+                        )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    // if (tasks.priority == EPriority.high)
+                                    //   const Tooltip(
+                                    //       message: 'High Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.red,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.medium)
+                                    //   const Tooltip(
+                                    //       message: 'Medium Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.orange,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.low)
+                                    //   const Tooltip(
+                                    //       message: 'Low Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.green,
+                                    //       )),
+                                    Flexible(
+                                      child: Text(
+                                        tasks.docNumber,
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                    if (Platform.isWindows || Platform.isLinux)
+                                      Flexible(
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Get.find<TasksController>().currentItem = tasks;
+
+                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                      )
+                                  ],
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: Text(
-                                  'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
-                                  maxLines: 1,
-                                  textScaleFactor: 0.8,
-                                  style: TextStyle(
-                                    color: ControlOptions.instance.colorGreyDark,
-                                    fontSize: ControlOptions.instance.sizeS,
-                                  ),
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        tasks.name,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                //   'Обновлено: ${{
-                                // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                                //     format: 'dd.MM.yy HH:mm')
-                                //   }}',
-                                "(${getupdateDay(tasks)})",
-                                maxLines: 1,
-                                textScaleFactor: 0.8,
-                                style: TextStyle(
-                                  color: ControlOptions.instance.colorGreyDark,
-                                  fontSize: ControlOptions.instance.sizeS,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Wrap(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Text(
+                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            maxLines: 1,
+                                            textScaleFactor: 0.8,
+                                            style: TextStyle(
+                                              color: ControlOptions.instance.colorGreyDark,
+                                              fontSize: ControlOptions.instance.sizeS,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          //   'Обновлено: ${{
+                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                                          //     format: 'dd.MM.yy HH:mm')
+                                          //   }}',
+                                          "(${getupdateDay(tasks)})",
+                                          maxLines: 1,
+                                          textScaleFactor: 0.8,
+                                          style: TextStyle(
+                                            color: ControlOptions.instance.colorGreyDark,
+                                            fontSize: ControlOptions.instance.sizeS,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                        InkWell(
+                                          onTap: () {
+                                            taskC.currentItem = tasks;
+                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
+                                          },
+                                          child: Tooltip(
+                                            message: 'Comments',
+                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          ),
+                                        ),
+                                      ClipOval(
+                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                            ? Container(
+                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                width: 32,
+                                                height: 32,
+                                                child: Icon(
+                                                  Icons.account_circle,
+                                                  size: 20,
+                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                ),
+                                              )
+                                            : Image.memory(
+                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                width: 32,
+                                                height: 32,
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                        Row(
-                          children: [
-                            if (tasks.tableComments.length.isGreaterThan(0))
-                              InkWell(
-                                onTap: () {
-                                  taskC.currentItem = tasks;
-                                  Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                                },
-                                child: Tooltip(
-                                  message: 'Comments',
-                                  child: NsgCircle(text: tasks.tableComments.length.toString()),
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: InkWell(
+                            onTap: () {
+                              openTaskDialog(tasks, context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: ControlOptions.instance.colorGrey,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                )),
+          ),
+        if (tasks.priority == EPriority.medium)
+          SizedBox(
+            width: constraints.maxWidth,
+            child: Card(
+                elevation: 3,
+                color: const Color.fromARGB(239, 248, 250, 252),
+                child: Stack(
+                  children: [
+                    ClipPath(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          left: BorderSide(color: Colors.yellow, width: 5),
+                        )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    // if (tasks.priority == EPriority.high)
+                                    //   const Tooltip(
+                                    //       message: 'High Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.red,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.medium)
+                                    //   const Tooltip(
+                                    //       message: 'Medium Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.orange,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.low)
+                                    //   const Tooltip(
+                                    //       message: 'Low Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.green,
+                                    //       )),
+                                    Flexible(
+                                      child: Text(
+                                        tasks.docNumber,
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                    if (Platform.isWindows || Platform.isLinux)
+                                      Flexible(
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Get.find<TasksController>().currentItem = tasks;
+
+                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                      )
+                                  ],
                                 ),
                               ),
-                            ClipOval(
-                              child: taskC.currentItem.assignee.photoFile.isEmpty
-                                  ? Container(
-                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                      width: 32,
-                                      height: 32,
-                                      child: Icon(
-                                        Icons.account_circle,
-                                        size: 20,
-                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        tasks.name,
+                                        maxLines: 2,
                                       ),
-                                    )
-                                  : Image.memory(
-                                      Uint8List.fromList(taskC.currentItem.assignee.photoFile),
-                                      width: 32,
-                                      height: 32,
                                     ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: InkWell(
-                      onTap: () {
-                        openTaskDialog(tasks, context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Icon(
-                          Icons.more_horiz,
-                          color: ControlOptions.instance.colorGrey,
-                          size: 24,
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Wrap(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Text(
+                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            maxLines: 1,
+                                            textScaleFactor: 0.8,
+                                            style: TextStyle(
+                                              color: ControlOptions.instance.colorGreyDark,
+                                              fontSize: ControlOptions.instance.sizeS,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          //   'Обновлено: ${{
+                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                                          //     format: 'dd.MM.yy HH:mm')
+                                          //   }}',
+                                          "(${getupdateDay(tasks)})",
+                                          maxLines: 1,
+                                          textScaleFactor: 0.8,
+                                          style: TextStyle(
+                                            color: ControlOptions.instance.colorGreyDark,
+                                            fontSize: ControlOptions.instance.sizeS,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                        InkWell(
+                                          onTap: () {
+                                            taskC.currentItem = tasks;
+                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
+                                          },
+                                          child: Tooltip(
+                                            message: 'Comments',
+                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          ),
+                                        ),
+                                      ClipOval(
+                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                            ? Container(
+                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                width: 32,
+                                                height: 32,
+                                                child: Icon(
+                                                  Icons.account_circle,
+                                                  size: 20,
+                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                ),
+                                              )
+                                            : Image.memory(
+                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                width: 32,
+                                                height: 32,
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ))
-            ],
-          )),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: InkWell(
+                            onTap: () {
+                              openTaskDialog(tasks, context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: ControlOptions.instance.colorGrey,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                )),
+          ),
+        if (tasks.priority == EPriority.low)
+          SizedBox(
+            width: constraints.maxWidth,
+            child: Card(
+                elevation: 3,
+                color: const Color.fromARGB(239, 248, 250, 252),
+                child: Stack(
+                  children: [
+                    ClipPath(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          left: BorderSide(color: Colors.green, width: 5),
+                        )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    // if (tasks.priority == EPriority.high)
+                                    //   const Tooltip(
+                                    //       message: 'High Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.red,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.medium)
+                                    //   const Tooltip(
+                                    //       message: 'Medium Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.orange,
+                                    //       )),
+                                    // if (tasks.priority == EPriority.low)
+                                    //   const Tooltip(
+                                    //       message: 'Low Priority',
+                                    //       child: Icon(
+                                    //         Icons.priority_high,
+                                    //         color: Colors.green,
+                                    //       )),
+                                    Flexible(
+                                      child: Text(
+                                        tasks.docNumber,
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                    if (Platform.isWindows || Platform.isLinux)
+                                      Flexible(
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Get.find<TasksController>().currentItem = tasks;
+
+                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                      )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        tasks.name,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Wrap(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Text(
+                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            maxLines: 1,
+                                            textScaleFactor: 0.8,
+                                            style: TextStyle(
+                                              color: ControlOptions.instance.colorGreyDark,
+                                              fontSize: ControlOptions.instance.sizeS,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          //   'Обновлено: ${{
+                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                                          //     format: 'dd.MM.yy HH:mm')
+                                          //   }}',
+                                          "(${getupdateDay(tasks)})",
+                                          maxLines: 1,
+                                          textScaleFactor: 0.8,
+                                          style: TextStyle(
+                                            color: ControlOptions.instance.colorGreyDark,
+                                            fontSize: ControlOptions.instance.sizeS,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                        InkWell(
+                                          onTap: () {
+                                            taskC.currentItem = tasks;
+                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
+                                          },
+                                          child: Tooltip(
+                                            message: 'Comments',
+                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          ),
+                                        ),
+                                      ClipOval(
+                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                            ? Container(
+                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                width: 32,
+                                                height: 32,
+                                                child: Icon(
+                                                  Icons.account_circle,
+                                                  size: 20,
+                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                ),
+                                              )
+                                            : Image.memory(
+                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                width: 32,
+                                                height: 32,
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: InkWell(
+                            onTap: () {
+                              openTaskDialog(tasks, context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: ControlOptions.instance.colorGrey,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                )),
+          ),
+        if (tasks.priority == EPriority.none)
+          SizedBox(
+            width: constraints.maxWidth,
+            child: Card(
+                elevation: 3,
+                color: const Color.fromARGB(239, 248, 250, 252),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              children: [
+                                // if (tasks.priority == EPriority.high)
+                                //   const Tooltip(
+                                //       message: 'High Priority',
+                                //       child: Icon(
+                                //         Icons.priority_high,
+                                //         color: Colors.red,
+                                //       )),
+                                // if (tasks.priority == EPriority.medium)
+                                //   const Tooltip(
+                                //       message: 'Medium Priority',
+                                //       child: Icon(
+                                //         Icons.priority_high,
+                                //         color: Colors.orange,
+                                //       )),
+                                // if (tasks.priority == EPriority.low)
+                                //   const Tooltip(
+                                //       message: 'Low Priority',
+                                //       child: Icon(
+                                //         Icons.priority_high,
+                                //         color: Colors.green,
+                                //       )),
+                                Flexible(
+                                  child: Text(
+                                    tasks.docNumber,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                  ),
+                                ),
+                                if (Platform.isWindows || Platform.isLinux)
+                                  Flexible(
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Get.find<TasksController>().currentItem = tasks;
+
+                                          Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                        },
+                                        icon: const Icon(Icons.edit)),
+                                  )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    tasks.name,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Wrap(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: Text(
+                                        'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                        maxLines: 1,
+                                        textScaleFactor: 0.8,
+                                        style: TextStyle(
+                                          color: ControlOptions.instance.colorGreyDark,
+                                          fontSize: ControlOptions.instance.sizeS,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      //   'Обновлено: ${{
+                                      // NsgDateFormat.dateFormat(tasks.dateUpdated,
+                                      //     format: 'dd.MM.yy HH:mm')
+                                      //   }}',
+                                      "(${getupdateDay(tasks)})",
+                                      maxLines: 1,
+                                      textScaleFactor: 0.8,
+                                      style: TextStyle(
+                                        color: ControlOptions.instance.colorGreyDark,
+                                        fontSize: ControlOptions.instance.sizeS,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  if (tasks.tableComments.length.isGreaterThan(0))
+                                    InkWell(
+                                      onTap: () {
+                                        taskC.currentItem = tasks;
+                                        Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
+                                      },
+                                      child: Tooltip(
+                                        message: 'Comments',
+                                        child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                      ),
+                                    ),
+                                  ClipOval(
+                                    child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        ? Container(
+                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                            width: 32,
+                                            height: 32,
+                                            child: Icon(
+                                              Icons.account_circle,
+                                              size: 20,
+                                              color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                            ),
+                                          )
+                                        : Image.memory(
+                                            Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                            width: 32,
+                                            height: 32,
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: InkWell(
+                            onTap: () {
+                              openTaskDialog(tasks, context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: ControlOptions.instance.colorGrey,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                )),
+          ),
+      ],
     ),
   );
 }
