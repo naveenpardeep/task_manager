@@ -48,9 +48,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return controller.obx((state) => SafeArea(
           child: Scaffold(
+            key: scaffoldKey,
             appBar: AppBar(
               automaticallyImplyLeading: false,
 
@@ -210,8 +212,12 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                   ],
                 ),
               ),
-              const ChecklistPage(),
-              const TasksCommentRowPage(),
+              Container(
+                key: GlobalKey(),
+                child: const ChecklistPage()),
+              Container(
+                key: GlobalKey(),
+                child: const TasksCommentRowPage()),
             ]),
           ),
         ));

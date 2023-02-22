@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
-
-import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ChecklistPage extends GetView<TaskCheckListController> {
   const ChecklistPage({Key? key}) : super(key: key);
@@ -15,6 +14,20 @@ class ChecklistPage extends GetView<TaskCheckListController> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    var controller = Get.find<TaskCheckListController>();
+    double totalChecklist = controller.items.length.toDouble();
+    double isDone = controller.items.where((element) => element.isDone == true).length.toDouble();
+   
+    late double donePercent;
+    if (isDone != 0) {
+      donePercent = (isDone / totalChecklist);
+   
+    } else {
+   
+      donePercent = 0.0;
+    }
+    
+
     return BodyWrap(
       child: Scaffold(
         key: scaffoldKey,
@@ -32,17 +45,18 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            // LinearPercentIndicator(
-                            //   center: Text(
-                            //     '100%',
-                            //     style: TextStyle(color: Colors.white),
-                            //   ),
-                            //   lineHeight: 20,
-                            //   percent: 0.5,
-                            //   backgroundColor: Colors.grey,
-                            //   progressColor: Colors.green,
-                            // ),
-
+                            if(controller.items.isNotEmpty)
+                            LinearPercentIndicator(
+                              key: GlobalKey(),
+                              center: Text(
+                                ('${(donePercent*100).toStringAsFixed(2)}%'),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              lineHeight: 20,
+                              percent: donePercent,
+                              backgroundColor: Colors.grey,
+                              progressColor: Colors.green,
+                            ),
                             checkList(context),
                             NsgButton(
                               text: 'Создать Чек-лист',
@@ -76,7 +90,6 @@ class ChecklistPage extends GetView<TaskCheckListController> {
   }
 
   Widget checkList(BuildContext context) {
-    var controller = Get.find<TaskCheckListController>();
     List<Widget> list = [];
     for (var checkList in controller.items) {
       list.add(Padding(
@@ -108,7 +121,8 @@ class ChecklistPage extends GetView<TaskCheckListController> {
 
                                 await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
 
-                                Get.find<TasksController>().sendNotify();
+                                
+                               Get.find<TasksController>().sendNotify();
                               })),
 
                       Expanded(
