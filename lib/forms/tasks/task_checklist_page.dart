@@ -48,12 +48,12 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                                 fieldName:
                                     TaskDocCheckListTableGenerated.nameText,
                                 label: 'Task CheckList Name'),
-                            NsgInput(
-                              dataItem: controller.currentItem,
-                              fieldName:
-                                  TaskDocCheckListTableGenerated.nameIsDone,
-                              label: 'Done',
-                            ),
+                            // NsgInput(
+                            //   dataItem: controller.currentItem,
+                            //   fieldName:
+                            //       TaskDocCheckListTableGenerated.nameIsDone,
+                            //   label: 'Done',
+                            // ),
                           ],
                         ),
                       )),
