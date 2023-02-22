@@ -71,8 +71,8 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            //  controller.currentItem = checkList;
-            //  Get.toNamed(Routes.taskChecklistPage);
+              controller.currentItem = checkList;
+              Get.toNamed(Routes.taskChecklistPage);
           },
           onLongPress: () {},
           child: Column(
