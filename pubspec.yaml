@@ -45,6 +45,7 @@ dependencies:
   flutter_markdown: ^0.6.14
   # markdown_editable_textinput: ^2.2.0
   path: ^1.8.1
+  percent_indicator: ^4.0.1
 
 dev_dependencies:
   flutter_test:

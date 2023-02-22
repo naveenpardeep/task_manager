@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
@@ -31,9 +32,20 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            // LinearPercentIndicator(
+                            //   center: Text(
+                            //     '100%',
+                            //     style: TextStyle(color: Colors.white),
+                            //   ),
+                            //   lineHeight: 20,
+                            //   percent: 0.5,
+                            //   backgroundColor: Colors.grey,
+                            //   progressColor: Colors.green,
+                            // ),
+
                             checkList(context),
                             NsgButton(
-                              text: 'Создать контрольный список',
+                              text: 'Создать Чек-лист',
                               onPressed: () {
                                 Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
                               },
@@ -71,8 +83,8 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-              controller.currentItem = checkList;
-              Get.toNamed(Routes.taskChecklistPage);
+            controller.currentItem = checkList;
+            Get.toNamed(Routes.taskChecklistPage);
           },
           onLongPress: () {},
           child: Column(
