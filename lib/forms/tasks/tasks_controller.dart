@@ -302,6 +302,22 @@ class TaskCheckListController extends NsgDataTableController<TaskDocCheckListTab
     editModeAllowed = true;
     requestOnInit = true;
   }
+
+
+   @override
+  Future requestItems({List<NsgUpdateKey>? keys}) async {
+    await super.requestItems(keys: keys);
+
+    if (masterController!.selectedItem != null && currentItem.isEmpty) {
+      createNewItemAsync();
+    }
+  }
+   @override
+  Future<TaskDocCheckListTable> doCreateNewItem() async {
+    var item = await super.doCreateNewItem();
+   
+    return item;
+  }
 }
 
 class TaskFilesController extends NsgDataTableController<TaskDocFilesTable> {

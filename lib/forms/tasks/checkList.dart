@@ -71,8 +71,8 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            controller.currentItem = checkList;
-            Get.toNamed(Routes.taskChecklistPage);
+            //  controller.currentItem = checkList;
+            //  Get.toNamed(Routes.taskChecklistPage);
           },
           onLongPress: () {},
           child: Column(
@@ -87,25 +87,17 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                       SizedBox(
                           width: 30,
                           child: NsgCheckBox(
+                              toggleInside: true,
+                              key: GlobalKey(),
                               label: '',
-                              value: controller.currentItem.isDone,
-                              onPressed: (currentValue) {
-                                if (currentValue == false) {
-                                  controller.currentItem.isDone == true;
-                                } else {
-                                  controller.currentItem.isDone == false;
-                                }
+                              value: checkList.isDone,
+                              onPressed: (currentValue) async {
+                                checkList.isDone = currentValue;
 
-                                controller.refreshData();
+                                await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
+
+                                Get.find<TasksController>().sendNotify();
                               })),
-
-                      // SizedBox(
-                      //   width: 90,
-                      //   child: NsgInput(
-                      //     dataItem: controller.currentItem,
-                      //     fieldName: TaskDocCheckListTableGenerated.nameIsDone,
-                      //   ),
-                      // ),
 
                       Expanded(
                         child: Text(
@@ -141,10 +133,11 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
-      onPressed: () async {
+      onPressed: () {
         Get.find<TaskCheckListController>().currentItem = checkList;
-        await Get.find<TasksController>().deleteItems([Get.find<TaskCheckListController>().currentItem]);
-        Get.find<TaskCheckListController>().sendNotify();
+        Get.find<TasksController>().currentItem.checkList.removeRow(controller.currentItem);
+        Get.find<TasksController>().itemPagePost();
+
         Navigator.of(context).pop();
       },
     );
