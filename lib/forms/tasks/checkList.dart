@@ -17,16 +17,13 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     var controller = Get.find<TaskCheckListController>();
     double totalChecklist = controller.items.length.toDouble();
     double isDone = controller.items.where((element) => element.isDone == true).length.toDouble();
-   
+
     late double donePercent;
     if (isDone != 0) {
       donePercent = (isDone / totalChecklist);
-   
     } else {
-   
       donePercent = 0.0;
     }
-    
 
     return BodyWrap(
       child: Scaffold(
@@ -45,18 +42,18 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            if(controller.items.isNotEmpty)
-                            LinearPercentIndicator(
-                              key: GlobalKey(),
-                              center: Text(
-                                ('${(donePercent*100).toStringAsFixed(2)}%'),
-                                style: const TextStyle(color: Colors.white),
+                            if (controller.items.isNotEmpty)
+                              LinearPercentIndicator(
+                                key: GlobalKey(),
+                                center: Text(
+                                  ('${(donePercent * 100).toStringAsFixed(2)}%'),
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                lineHeight: 20,
+                                percent: donePercent,
+                                backgroundColor: Colors.grey,
+                                progressColor: Colors.green,
                               ),
-                              lineHeight: 20,
-                              percent: donePercent,
-                              backgroundColor: Colors.grey,
-                              progressColor: Colors.green,
-                            ),
                             checkList(context),
                             NsgButton(
                               text: 'Создать Чек-лист',
@@ -118,11 +115,11 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                               value: checkList.isDone,
                               onPressed: (currentValue) async {
                                 checkList.isDone = currentValue;
-                               // await controller.postItems([checkList]);
+
                                 await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
-                               controller.sendNotify();
-                                
-                               Get.find<TasksController>().sendNotify();
+                                controller.sendNotify();
+
+                                Get.find<TasksController>().sendNotify();
                               })),
 
                       Expanded(
