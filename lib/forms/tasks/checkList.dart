@@ -118,9 +118,9 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                               value: checkList.isDone,
                               onPressed: (currentValue) async {
                                 checkList.isDone = currentValue;
-
+                               // await controller.postItems([checkList]);
                                 await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
-
+                               controller.sendNotify();
                                 
                                Get.find<TasksController>().sendNotify();
                               })),
