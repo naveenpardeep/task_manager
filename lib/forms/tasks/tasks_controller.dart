@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/widgets/nsg_error_widget.dart';
 import 'package:nsg_data/nsg_data.dart';
@@ -24,9 +23,9 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameTaskStatusId,
       // TaskDocGenerated.nameAuthorId,
       TaskDocGenerated.nameAssigneeId,
-    //  TaskDocGenerated.nameTableComments,
-    //  TaskDocGenerated.nameCheckList,
-    //  TaskDocGenerated.nameFiles
+      //  TaskDocGenerated.nameTableComments,
+      //  TaskDocGenerated.nameCheckList,
+      //  TaskDocGenerated.nameFiles
     ];
   }
 
@@ -39,17 +38,11 @@ class TasksController extends NsgDataController<TaskDoc> {
     var notfinalTask = NsgCompare();
     List<String> notfinalStatusId = [];
     List<String> statusId = [];
-    taskBoardController.currentItem.statusTable.rows
-        .where((element) => element.status.isDone)
-        .toList()
-        .forEach((element) {
+    taskBoardController.currentItem.statusTable.rows.where((element) => element.status.isDone).toList().forEach((element) {
       statusId.add(element.statusId);
     });
 
-    taskBoardController.currentItem.statusTable.rows
-        .where((element) => !element.status.isDone)
-        .toList()
-        .forEach((element) {
+    taskBoardController.currentItem.statusTable.rows.where((element) => !element.status.isDone).toList().forEach((element) {
       notfinalStatusId.add(element.statusId);
     });
     // notfinalTask.add(
@@ -75,16 +68,10 @@ class TasksController extends NsgDataController<TaskDoc> {
 
     //finished tasks filter
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.day) {
-      notfinalTask.add(
-          name: TaskDocGenerated.nameTaskStatusId,
-          value: notfinalStatusId,
-          comparisonOperator: NsgComparisonOperator.inList);
+      notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       finalTasks.add(
-          name: TaskDocGenerated.nameDate,
-          value: DateTime.now().add(const Duration(days: -1)),
-          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
-      finalTasks.add(
-          name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
+          name: TaskDocGenerated.nameDate, value: DateTime.now().add(const Duration(days: -1)), comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
 
       var taskCondtion = NsgCompare();
       taskCondtion.logicalOperator = NsgLogicalOperator.or;
@@ -95,16 +82,10 @@ class TasksController extends NsgDataController<TaskDoc> {
       filter.compare.add(name: 'three', value: taskCondtion);
     }
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.week) {
-      notfinalTask.add(
-          name: TaskDocGenerated.nameTaskStatusId,
-          value: notfinalStatusId,
-          comparisonOperator: NsgComparisonOperator.inList);
+      notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       finalTasks.add(
-          name: TaskDocGenerated.nameDate,
-          value: DateTime.now().add(const Duration(days: -7)),
-          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
-      finalTasks.add(
-          name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
+          name: TaskDocGenerated.nameDate, value: DateTime.now().add(const Duration(days: -7)), comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
 
       var taskCondtion = NsgCompare();
       taskCondtion.logicalOperator = NsgLogicalOperator.or;
@@ -115,16 +96,10 @@ class TasksController extends NsgDataController<TaskDoc> {
       filter.compare.add(name: 'three', value: taskCondtion);
     }
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.month) {
-      notfinalTask.add(
-          name: TaskDocGenerated.nameTaskStatusId,
-          value: notfinalStatusId,
-          comparisonOperator: NsgComparisonOperator.inList);
+      notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       finalTasks.add(
-          name: TaskDocGenerated.nameDate,
-          value: DateTime.now().add(const Duration(days: -31)),
-          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
-      finalTasks.add(
-          name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
+          name: TaskDocGenerated.nameDate, value: DateTime.now().add(const Duration(days: -31)), comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
 
       var taskCondtion = NsgCompare();
       taskCondtion.logicalOperator = NsgLogicalOperator.or;
@@ -135,16 +110,10 @@ class TasksController extends NsgDataController<TaskDoc> {
       filter.compare.add(name: 'three', value: taskCondtion);
     }
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.year) {
-      notfinalTask.add(
-          name: TaskDocGenerated.nameTaskStatusId,
-          value: notfinalStatusId,
-          comparisonOperator: NsgComparisonOperator.inList);
+      notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       finalTasks.add(
-          name: TaskDocGenerated.nameDate,
-          value: DateTime.now().add(const Duration(days: -365)),
-          comparisonOperator: NsgComparisonOperator.greaterOrEqual);
-      finalTasks.add(
-          name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
+          name: TaskDocGenerated.nameDate, value: DateTime.now().add(const Duration(days: -365)), comparisonOperator: NsgComparisonOperator.greaterOrEqual);
+      finalTasks.add(name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
 
       var taskCondtion = NsgCompare();
       taskCondtion.logicalOperator = NsgLogicalOperator.or;
@@ -155,16 +124,12 @@ class TasksController extends NsgDataController<TaskDoc> {
       filter.compare.add(name: 'three', value: taskCondtion);
     }
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.all) {
-      notfinalTask.add(
-          name: TaskDocGenerated.nameTaskStatusId,
-          value: notfinalStatusId,
-          comparisonOperator: NsgComparisonOperator.inList);
+      notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       // finalTasks.add(
       //     name: TaskDocGenerated.nameDate,
       //     value: DateTime.now().add(const Duration(days: -9999)),
       //     comparisonOperator: NsgComparisonOperator.greaterOrEqual);
-      finalTasks.add(
-          name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
+      finalTasks.add(name: TaskDocGenerated.nameTaskStatusId, value: statusId, comparisonOperator: NsgComparisonOperator.inList);
 
       var taskCondtion = NsgCompare();
       taskCondtion.logicalOperator = NsgLogicalOperator.or;
@@ -271,8 +236,7 @@ class TasksController extends NsgDataController<TaskDoc> {
 }
 
 class CommentTableTasksController extends NsgDataTableController<TaskDocCommentsTable> {
-  CommentTableTasksController()
-      : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameTableComments) {
+  CommentTableTasksController() : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameTableComments) {
     readOnly = false;
     editModeAllowed = true;
     requestOnInit = true;
@@ -296,15 +260,13 @@ class CommentTableTasksController extends NsgDataTableController<TaskDocComments
 }
 
 class TaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
-  TaskCheckListController()
-      : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameCheckList) {
+  TaskCheckListController() : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameCheckList) {
     readOnly = false;
     editModeAllowed = true;
     requestOnInit = true;
   }
 
-
-   @override
+  @override
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
 
@@ -312,17 +274,17 @@ class TaskCheckListController extends NsgDataTableController<TaskDocCheckListTab
       createNewItemAsync();
     }
   }
-   @override
+
+  @override
   Future<TaskDocCheckListTable> doCreateNewItem() async {
     var item = await super.doCreateNewItem();
-   
+
     return item;
   }
 }
 
 class TaskFilesController extends NsgDataTableController<TaskDocFilesTable> {
-  TaskFilesController()
-      : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameFiles) {
+  TaskFilesController() : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameFiles) {
     readOnly = false;
     editModeAllowed = true;
     requestOnInit = true;
@@ -383,10 +345,10 @@ class TaskFilesController extends NsgDataTableController<TaskDocFilesTable> {
     for (var element in items) {
       files.add(NsgFilePickerObject(
           file: File.fromRawPath(Uint8List.fromList(element.file)),
-           image: Image.memory(Uint8List.fromList(element.file)),
+          image: Image.memory(Uint8List.fromList(element.file)),
           description: element.name,
           fileType: 'jpg, mp4',
-        //  fileType: extension(File.fromRawPath(Uint8List.fromList(element.file)) as String).replaceAll('.', ''),
+          //  fileType: extension(File.fromRawPath(Uint8List.fromList(element.file)) as String).replaceAll('.', ''),
           id: element.id));
     }
     return;

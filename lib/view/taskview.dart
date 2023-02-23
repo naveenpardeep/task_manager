@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
-import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
@@ -141,7 +140,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         Padding(
                                           padding: const EdgeInsets.only(right: 20),
                                           child: Column(
-                                                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             // ignore: prefer_const_literals_to_create_immutables
                                             children: [
                                               const Text(
@@ -189,10 +188,10 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         ),
                                       ],
                                     ),
-                                     const Divider(
+                                    const Divider(
                                       thickness: 2,
                                     ),
-                                      const Padding(
+                                    const Padding(
                                       padding: EdgeInsets.all(15),
                                       child: Text(
                                         'Описание задачи',
@@ -200,7 +199,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                       ),
                                     ),
                                     NsgRichText(
-                                         availableButtons: [],
+                                        availableButtons: const [],
                                         controller: controller,
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
@@ -212,12 +211,8 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                   ],
                 ),
               ),
-              Container(
-                key: GlobalKey(),
-                child: const ChecklistPage()),
-              Container(
-                key: GlobalKey(),
-                child: const TasksCommentRowPage()),
+              Container(key: GlobalKey(), child: const ChecklistPage()),
+              Container(key: GlobalKey(), child: const TasksCommentRowPage()),
             ]),
           ),
         ));

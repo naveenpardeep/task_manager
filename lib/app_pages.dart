@@ -93,7 +93,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.homePage,
-      page: () =>  Homepage(),
+      page: () => const Homepage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -136,10 +136,7 @@ class AppPages {
       page: () => const UserProfile(),
       binding: ProjectBinding(),
     ),
-    GetPage(
-        name: Routes.firstStartPage,
-        page: () => FirstStartPage(),
-        binding: FirstStartBinding()),
+    GetPage(name: Routes.firstStartPage, page: () => FirstStartPage(), binding: FirstStartBinding()),
     GetPage(
       name: Routes.notificationPage,
       page: () => const NotificationPage(),
@@ -180,7 +177,7 @@ class AppPages {
       page: () => const OrganizationUserRowPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.firstTimeUserAccountPage,
       page: () => const FirstTimeUserAccountPage(),
       binding: ProjectBinding(),
@@ -195,12 +192,12 @@ class AppPages {
       page: () => const AddUserToProjectPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.editCommentPage,
       page: () => const EditCommentPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskChecklistPage,
       page: () => const TaskChecklistPage(),
       binding: ProjectBinding(),
@@ -251,12 +248,12 @@ abstract class Routes {
   static const createOrganizationPage = '/createOrganizationPage';
   static const acceptInvitationPage = '/acceptInvitationPage';
   static const organizationUserRowPage = '/organizationUserRowPage';
-  static const firstTimeUserAccountPage='/firstTimeUserAccountPage';
-  static const acceptRejectListPage='/acceptRejectListPage';
-  static const addUserToProjectPage='/addUserToProjectPage';
-  static const editCommentPage='/editCommentPage';
-  static const taskChecklistPage='/TaskChecklistPage';
-  static const newTaskPage='/newTaskPage'; 
-  static const checkListPage='/checkListPage';
-  static const taskViewPage='/taskViewPage';
+  static const firstTimeUserAccountPage = '/firstTimeUserAccountPage';
+  static const acceptRejectListPage = '/acceptRejectListPage';
+  static const addUserToProjectPage = '/addUserToProjectPage';
+  static const editCommentPage = '/editCommentPage';
+  static const taskChecklistPage = '/TaskChecklistPage';
+  static const newTaskPage = '/newTaskPage';
+  static const checkListPage = '/checkListPage';
+  static const taskViewPage = '/taskViewPage';
 }

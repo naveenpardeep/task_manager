@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_quill_extensions/flutter_quill_extensions.dart' as quiiex;
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +56,7 @@ class NsgRichText extends StatefulWidget {
   final List<String> allowedImageFormats;
   final List<String> allowedVideoFormats;
   final List<String> allowedFileFormats;
-  
-  
+
   final List<AvailableButtons> availableButtons;
 
   const NsgRichText(
@@ -87,7 +85,7 @@ class NsgRichText extends StatefulWidget {
       this.allowedImageFormats = const ['jpeg', 'jpg', 'gif', 'png', 'bmp'],
       this.allowedVideoFormats = const ['mp4'],
       this.allowedFileFormats = const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
-      this.availableButtons= AvailableButtons.allValues,
+      this.availableButtons = AvailableButtons.allValues,
       required this.objectsList})
       : super(key: key);
 
@@ -179,7 +177,7 @@ class _NsgRichTextState extends State<NsgRichText> {
               padding: EdgeInsets.zero,
               autoFocus: true,
               expands: false,
-              embedBuilders: [...quiiex.FlutterQuillEmbeds.builders(), NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
+              embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
             ),
           )
         ]));

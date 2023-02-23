@@ -50,8 +50,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                         child: Column(
                           children: [
                             invitationList(),
-                            if (controller.items.isEmpty)
-                              createNewOrganizationButton(),
+                            if (controller.items.isEmpty) createNewOrganizationButton(),
                           ],
                         ),
                       )),
@@ -65,7 +64,6 @@ class AcceptInvitationPage extends GetView<InvitationController> {
   }
 
   Widget invitationList() {
-  
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
@@ -76,75 +74,66 @@ class AcceptInvitationPage extends GetView<InvitationController> {
         {
           list.add(GestureDetector(
             child: Container(
-              color: const Color(0xfff3ea8ab),
+              color: const Color(0xff3ea8ab),
               child: Row(
                 children: [
-                   if (Get.find<DataController>().currentUser ==
-                                  invitation.invitedUser.mainUserAccount)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Организация:  ${invitation.organization}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
-                          ),
-                          Text(
-                            'Проект:  ${invitation.project}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            textScaleFactor: 1.2,
-                          ),
-                          Text(
-                            'Author Name:  ${invitation.author}',
-                            // style: const TextStyle(fontWeight: FontWeight.bold),
-                            // textScaleFactor: 1.2,
-                          ),
-                          Text(
-                            'Invited User:  ${invitation.invitedUser}',
-                            // style: const TextStyle(fontWeight: FontWeight.bold),
-                            // textScaleFactor: 1.2,
-                          ),
-                          Text(
-                            'создано: ${formateddate.format(invitation.date)}',
-                            maxLines: 1,
-                            textScaleFactor: 0.8,
-                            style: const TextStyle(color: Color(0xff10051C)),
-                          ),
-                          Row(
-                            children: [
-                              Flexible(
-                                child: NsgButton(
-                                  height: 40,
-                                  width: 100,
-                                  borderRadius: 20,
-                                  borderColor:
-                                      ControlOptions.instance.colorBlue,
-                                  backColor: Colors.transparent,
-                                  color: Colors.black,
-                                  text: 'Отклонить приглашение',
-                                  onPressed: () async {
-                                    Get.find<InvitationController>()
-                                        .currentItem = invitation;
-                                    var dataController =
-                                        Get.find<DataController>();
-                                    var invitationController =
-                                        Get.find<InvitationController>();
-                                     await dataController
-                                        .respondToInvitation(
-                                      invitationController.currentItem.id,
-                                      false,
-                                    );
-                                    Get.find<ProjectController>()
-                                        .newItemPageOpen(
-                                            pageName: Routes.projectListPage);
-                                    Get.find<ProjectController>().refreshData();
-                                  },
+                  if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Организация:  ${invitation.organization}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              textScaleFactor: 1.2,
+                            ),
+                            Text(
+                              'Проект:  ${invitation.project}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              textScaleFactor: 1.2,
+                            ),
+                            Text(
+                              'Author Name:  ${invitation.author}',
+                              // style: const TextStyle(fontWeight: FontWeight.bold),
+                              // textScaleFactor: 1.2,
+                            ),
+                            Text(
+                              'Invited User:  ${invitation.invitedUser}',
+                              // style: const TextStyle(fontWeight: FontWeight.bold),
+                              // textScaleFactor: 1.2,
+                            ),
+                            Text(
+                              'создано: ${formateddate.format(invitation.date)}',
+                              maxLines: 1,
+                              textScaleFactor: 0.8,
+                              style: const TextStyle(color: Color(0xff10051C)),
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: NsgButton(
+                                    height: 40,
+                                    width: 100,
+                                    borderRadius: 20,
+                                    borderColor: ControlOptions.instance.colorBlue,
+                                    backColor: Colors.transparent,
+                                    color: Colors.black,
+                                    text: 'Отклонить приглашение',
+                                    onPressed: () async {
+                                      Get.find<InvitationController>().currentItem = invitation;
+                                      var dataController = Get.find<DataController>();
+                                      var invitationController = Get.find<InvitationController>();
+                                      await dataController.respondToInvitation(
+                                        invitationController.currentItem.id,
+                                        false,
+                                      );
+                                      Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectListPage);
+                                      Get.find<ProjectController>().refreshData();
+                                    },
+                                  ),
                                 ),
-                              ),
-                              
                                 Flexible(
                                   child: NsgButton(
                                     borderRadius: 20,
@@ -152,35 +141,28 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                     width: 100,
                                     text: 'Принять приглашение',
                                     onPressed: () async {
-                                      Get.find<InvitationController>()
-                                          .currentItem = invitation;
-                                      var dataController =
-                                          Get.find<DataController>();
-                                      var invitationController =
-                                          Get.find<InvitationController>();
-                                     
-                                          await dataController
-                                              .respondToInvitation(
+                                      Get.find<InvitationController>().currentItem = invitation;
+                                      var dataController = Get.find<DataController>();
+                                      var invitationController = Get.find<InvitationController>();
+
+                                      await dataController.respondToInvitation(
                                         invitationController.currentItem.id,
                                         true,
                                       );
-                                      Get.find<ProjectController>()
-                                          .newItemPageOpen(
-                                              pageName: Routes.projectListPage);
-                                      Get.find<ProjectController>()
-                                          .refreshData();
+                                      Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectListPage);
+                                      Get.find<ProjectController>().refreshData();
                                     },
                                   ),
                                 ),
-                            ],
-                          ),
-                          const Divider(
-                            height: 10,
-                          )
-                        ],
+                              ],
+                            ),
+                            const Divider(
+                              height: 10,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -205,8 +187,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
       width: 400,
       text: 'Создать свою группу проектов (организацию)',
       onPressed: () async {
-        Get.find<OrganizationController>()
-            .newItemPageOpen(pageName: Routes.createOrganizationPage);
+        Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
       },
     );
   }

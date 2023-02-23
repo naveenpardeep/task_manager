@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/app_pages.dart';
-import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
@@ -218,7 +216,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             child: Container(
               decoration: BoxDecoration(
                   color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10),bottomRight: Radius.circular(0),bottomLeft: Radius.circular(10))),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
                 crossAxisAlignment:
@@ -307,7 +306,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           Padding(
               padding: const EdgeInsets.all(4.0),
               child: ClipRRect(
-                borderRadius:  BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4),
                 child: comment.author.photoFile.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
@@ -331,7 +330,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               child: Container(
                 decoration: BoxDecoration(
                     color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(0))),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
                 width: width <= 700 ? width * 0.65 : 300,
                 child: Column(
                   crossAxisAlignment:
