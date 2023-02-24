@@ -344,10 +344,11 @@ class TaskFilesController extends NsgDataTableController<TaskDocFilesTable> {
 
     for (var element in items) {
       files.add(NsgFilePickerObject(
+          isNew: false,
           file: File.fromRawPath(Uint8List.fromList(element.file)),
           image: Image.memory(Uint8List.fromList(element.file)),
           description: element.name,
-          fileType: 'jpg, mp4',
+          fileType: 'jpg',
           //  fileType: extension(File.fromRawPath(Uint8List.fromList(element.file)) as String).replaceAll('.', ''),
           id: element.id));
     }

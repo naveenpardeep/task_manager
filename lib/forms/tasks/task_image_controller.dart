@@ -11,8 +11,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import '../../model/data_controller_model.dart';
 
 class TaskImageController extends NsgDataController<Picture> {
-  TaskImageController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 3);
+  TaskImageController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 3);
 
   var images = <NsgFilePickerObject>[];
 
@@ -21,9 +20,7 @@ class TaskImageController extends NsgDataController<Picture> {
     var cmp = NsgCompare();
     var taskController = Get.find<TasksController>();
 
-    cmp.add(
-        name: PictureGenerated.nameOwnerId,
-        value: taskController.currentItem.id);
+    cmp.add(name: PictureGenerated.nameOwnerId, value: taskController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
   }
 
@@ -34,7 +31,7 @@ class TaskImageController extends NsgDataController<Picture> {
     try {
       for (var img in images) {
         if (img.image == null) continue;
-        if (img.id == '') {
+        if (img.isNew && img.id.isNotEmpty) {
           var pic = Picture();
           pic.name = img.description;
           pic.ownerId = Get.find<TasksController>().currentItem.id;
@@ -69,13 +66,10 @@ class TaskImageController extends NsgDataController<Picture> {
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
     images.clear();
-  
+
     for (var element in items) {
       images.add(NsgFilePickerObject(
-          image: Image.memory(Uint8List.fromList(element.image)),
-          description: element.name,
-          fileType: 'jpg, mp4',
-          id: element.id));
+          isNew: false, image: Image.memory(Uint8List.fromList(element.image)), description: element.name, fileType: 'jpg, mp4', id: element.id));
     }
     return;
   }

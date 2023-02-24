@@ -206,11 +206,20 @@ class _NsgRichTextState extends State<NsgRichText> {
         }
         if (widget.allowedImageFormats.contains(fileType.toLowerCase())) {
           widget.objectsList.add(NsgFilePickerObject(
-              image: Image.file(File(element.name)), description: basenameWithoutExtension(element.name), fileType: fileType, filePath: element.path ?? ''));
+              isNew: true,
+              image: Image.file(File(element.name)),
+              description: basenameWithoutExtension(element.name),
+              fileType: fileType,
+              filePath: element.path ?? ''));
           addImageBlock(element.path ?? '');
         } else if (widget.allowedFileFormats.contains(fileType.toLowerCase()) || widget.allowedVideoFormats.contains(fileType.toLowerCase())) {
           widget.objectsList.add(NsgFilePickerObject(
-              file: File(element.name), image: null, description: basenameWithoutExtension(element.name), fileType: fileType, filePath: element.path ?? ''));
+              isNew: true,
+              file: File(element.name),
+              image: null,
+              description: basenameWithoutExtension(element.name),
+              fileType: fileType,
+              filePath: element.path ?? ''));
           addImageBlock(element.path ?? '');
         } else {
           error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';

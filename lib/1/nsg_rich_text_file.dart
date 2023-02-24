@@ -11,11 +11,11 @@ class NsgRichTextFile extends quil.CustomBlockEmbed {
 
   static NsgRichTextFile fromDocument(quil.Document document) => NsgRichTextFile(
       //jsonEncode(document.toDelta().toJson())
-      NsgFilePickerObject(description: ''));
+      NsgFilePickerObject(description: '', isNew: false));
 
   static NsgRichTextFile fromText(String data) => NsgRichTextFile(
       //jsonEncode(document.toDelta().toJson())
-      NsgFilePickerObject(description: ''));
+      NsgFilePickerObject(description: '', isNew: false));
 
   @override
   String toJsonString() => jsonEncode(toJson());
@@ -27,7 +27,7 @@ class NsgRichTextFile extends quil.CustomBlockEmbed {
 }
 
 class NsgRichTextFileBuilder implements quil.EmbedBuilder {
-  NsgRichTextFileBuilder({required this.addEditBlock});
+  NsgRichTextFileBuilder({required this.addEditBlock}) : super();
 
   Future<void> Function(BuildContext context, {quil.Document? document}) addEditBlock;
 
