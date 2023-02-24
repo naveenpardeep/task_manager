@@ -27,7 +27,9 @@ class AcceptRejectListPage extends GetView<AccpetController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  backColor: ControlOptions.instance.colorWhite,
+                  backColor: Colors.white,
+                  color: Colors.black,
+                 
                   text: 'Invited Users List',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,

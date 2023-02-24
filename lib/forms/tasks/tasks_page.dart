@@ -241,6 +241,7 @@ class TasksPage extends GetView<TasksController> {
                               // ),
 
                               NsgRichText(
+                                key: GlobalKey(),
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.nameDescription,
                                   objectsList: Get.find<TaskImageController>().images),

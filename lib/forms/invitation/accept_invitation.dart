@@ -29,7 +29,9 @@ class AcceptInvitationPage extends GetView<InvitationController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  backColor: ControlOptions.instance.colorWhite,
+                  backColor: Colors.white,
+                  color: Colors.black,
+                
                   text: 'Список приглашений',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,

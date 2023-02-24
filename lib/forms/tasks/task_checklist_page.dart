@@ -24,6 +24,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
               children: <Widget>[
                 NsgAppBar(
                   backColor: Colors.white,
+                  color: Colors.black,
                   text: 'Task CheckList '.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,

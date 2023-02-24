@@ -564,8 +564,8 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
-               // Get.find<TasksController>().sendNotify();
-               taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList]);
+          taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
+              
                 taskView = true;
               });
             } else {
@@ -763,7 +763,7 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
-                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList]);
+                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
               
                 taskView = true;
                 

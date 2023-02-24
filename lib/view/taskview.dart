@@ -199,6 +199,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                       ),
                                     ),
                                     NsgRichText(
+                                      key: GlobalKey(),
                                         availableButtons: const [],
                                         controller: controller,
                                         dataItem: controller.currentItem,

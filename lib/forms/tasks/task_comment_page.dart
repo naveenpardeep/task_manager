@@ -34,6 +34,8 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               child: Column(
                 children: <Widget>[
                   NsgAppBar(
+                  
+                  color: Colors.black,
                     backColor: ControlOptions.instance.colorWhite,
                     text: 'комментарий',
                     icon: Icons.arrow_back_ios_new,
