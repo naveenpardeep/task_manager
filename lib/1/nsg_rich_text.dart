@@ -8,6 +8,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:path/path.dart';
 import 'package:task_manager_app/1/availableButtons.dart';
+import 'package:task_manager_app/1/nsg_quill_controller.dart';
 import 'package:task_manager_app/1/nsg_rich_text_file.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -50,8 +51,8 @@ class NsgRichText extends StatefulWidget {
   /// Контроллер, которому будет подаваться update при изменении значения в Input
   final NsgDataController? updateController;
 
-  ///Сохраненные объекты (картинки и документы)
-  final List<NsgFilePickerObject> objectsList;
+  ///Контроллер, управляющий картинками
+  final NsgFilePickerController fileController;
 
   final List<String> allowedImageFormats;
   final List<String> allowedVideoFormats;
@@ -86,7 +87,7 @@ class NsgRichText extends StatefulWidget {
       this.allowedVideoFormats = const ['mp4'],
       this.allowedFileFormats = const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
       this.availableButtons = AvailableButtons.allValues,
-      required this.objectsList})
+      required this.fileController})
       : super(key: key);
 
   @override
@@ -99,7 +100,7 @@ class _NsgRichTextState extends State<NsgRichText> {
   late double fontSize;
   FocusNode focus = FocusNode();
   bool isFocused = false;
-  late quil.QuillController quillController;
+  late NsgQuillController quillController;
   late ScrollController scrollController;
   String error = '';
 
@@ -133,7 +134,7 @@ class _NsgRichTextState extends State<NsgRichText> {
       ];
       doc = quil.Document.fromJson(jsonValue);
     }
-    quillController = quil.QuillController(document: doc, selection: const TextSelection.collapsed(offset: 0));
+    quillController = NsgQuillController(document: doc, selection: const TextSelection.collapsed(offset: 0), fileController: widget.fileController);
     quillController.document.changes.listen((event) {
       widget.dataItem[widget.fieldName] = jsonEncode(quillController.document.toDelta().toJson());
     });
@@ -205,22 +206,24 @@ class _NsgRichTextState extends State<NsgRichText> {
           return;
         }
         if (widget.allowedImageFormats.contains(fileType.toLowerCase())) {
-          widget.objectsList.add(NsgFilePickerObject(
+          var obj = NsgFilePickerObject(
               isNew: true,
               image: Image.file(File(element.name)),
               description: basenameWithoutExtension(element.name),
               fileType: fileType,
-              filePath: element.path ?? ''));
-          addImageBlock(element.path ?? '');
+              filePath: element.path ?? '');
+          widget.fileController.images.add(obj);
+          addImageBlock(obj);
         } else if (widget.allowedFileFormats.contains(fileType.toLowerCase()) || widget.allowedVideoFormats.contains(fileType.toLowerCase())) {
-          widget.objectsList.add(NsgFilePickerObject(
+          var obj = NsgFilePickerObject(
               isNew: true,
               file: File(element.name),
               image: null,
               description: basenameWithoutExtension(element.name),
               fileType: fileType,
-              filePath: element.path ?? ''));
-          addImageBlock(element.path ?? '');
+              filePath: element.path ?? '');
+          widget.fileController.images.add(obj);
+          addImageBlock(obj);
         } else {
           error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
           setState(() {});
@@ -229,10 +232,10 @@ class _NsgRichTextState extends State<NsgRichText> {
     }
   }
 
-  void addImageBlock(String blockId) {
-    // var block = NsgRichTextFile(blockId);
-    // final index = quillController.selection.baseOffset;
-    // final length = quillController.selection.extentOffset - index;
-    // quillController.replaceText(index, length, block, null);
+  void addImageBlock(NsgFilePickerObject filePickerObject) {
+    var block = NsgRichTextFile(filePickerObject);
+    final index = quillController.selection.baseOffset;
+    final length = quillController.selection.extentOffset - index;
+    quillController.replaceText(index, length, block, null);
   }
 }

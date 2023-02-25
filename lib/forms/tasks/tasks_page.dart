@@ -241,10 +241,10 @@ class TasksPage extends GetView<TasksController> {
                               // ),
 
                               NsgRichText(
-                                key: GlobalKey(),
+                                  key: GlobalKey(),
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.nameDescription,
-                                  objectsList: Get.find<TaskImageController>().images),
+                                  fileController: Get.find<TaskImageController>()),
                               // Container(
                               //     height: 300,
                               //     child: Markdown(
@@ -343,7 +343,7 @@ class TasksPage extends GetView<TasksController> {
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
 
-                           //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
+                              //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
                               //         Get.find<FilesTableTasksController>(),
