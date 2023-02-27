@@ -564,8 +564,8 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
-          taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
-              
+                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
+
                 taskView = true;
               });
             } else {
@@ -764,9 +764,8 @@ class _HomepageState extends State<Homepage> {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
-              
+
                 taskView = true;
-                
               });
             } else {
               taskController.currentItem = tasks;
@@ -1059,11 +1058,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           child: Text(
                                             'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                         
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1073,11 +1069,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           //   }}',
                                           "(${getupdateDay(tasks)})",
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+                                       
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1235,11 +1228,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           child: Text(
                                             'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                          
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1249,11 +1239,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           //   }}',
                                           "(${getupdateDay(tasks)})",
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+                                         
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1411,11 +1398,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           child: Text(
                                             'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                           
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1425,11 +1409,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           //   }}',
                                           "(${getupdateDay(tasks)})",
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+                                         
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1581,11 +1562,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       child: Text(
                                         'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
                                         maxLines: 1,
-                                        textScaleFactor: 0.8,
-                                        style: TextStyle(
-                                          color: ControlOptions.instance.colorGreyDark,
-                                          fontSize: ControlOptions.instance.sizeS,
-                                        ),
+                                     
+                                        style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                       ),
                                     ),
                                     Text(
@@ -1595,11 +1573,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       //   }}',
                                       "(${getupdateDay(tasks)})",
                                       maxLines: 1,
-                                      textScaleFactor: 0.8,
-                                      style: TextStyle(
-                                        color: ControlOptions.instance.colorGreyDark,
-                                        fontSize: ControlOptions.instance.sizeS,
-                                      ),
+                                     
+                                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                     ),
                                   ],
                                 ),
