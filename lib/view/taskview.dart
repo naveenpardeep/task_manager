@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
@@ -162,13 +163,15 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         ),
                                         Row(
                                           children: [
+                                           
                                             const Text(
                                               'Дата создания:  ',
                                               style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                             ),
-                                            Expanded(
+                                        
+                                             Expanded(
                                               child: Text(
-                                                formateddate.format(controller.currentItem.date),
+                                                getCreatedDay(),
                                                 style: const TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontSize: 14,
@@ -329,4 +332,27 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
           ),
         ));
   }
+  String getCreatedDay() {
+  var todayDate = DateTime.now();
+  final dateCreated = controller.currentItem.date;
+  var daysCreated = todayDate.difference(dateCreated).inDays;
+  if (daysCreated > 30) {
+    return '${NsgDateFormat.dateFormat(controller.currentItem.date, format: 'dd.MM.yy HH:mm')}';
+  }
+  var minutes = todayDate.difference(dateCreated).inMinutes;
+  if (minutes < 60) {
+    return '$minutes мин. назад';
+  }
+  var hours = todayDate.difference(dateCreated).inHours;
+  if (hours <= 24) {
+    return '$hours Час. назад';
+  }
+
+  if (daysCreated <=30) {
+    return '$daysCreated дн. назад';
+  }
+
+  return '$daysCreated дн. назад';
+}
+
 }
