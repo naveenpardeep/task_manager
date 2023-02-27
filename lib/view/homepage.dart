@@ -1089,7 +1089,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1101,7 +1101,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1259,7 +1259,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1271,7 +1271,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1429,7 +1429,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1441,7 +1441,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1593,7 +1593,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                   ClipOval(
-                                    child: taskC.currentItem.assignee.photoFile.isEmpty
+                                    child: tasks.assignee.photoFile.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
@@ -1605,7 +1605,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             ),
                                           )
                                         : Image.memory(
-                                            Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                            Uint8List.fromList(tasks.assignee.photoFile),
                                             width: 32,
                                             height: 32,
                                           ),
