@@ -833,7 +833,7 @@ class _HomepageState extends State<Homepage> {
         return AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: accepted.isNotEmpty ? ControlOptions.instance.colorMain.withOpacity(0.4) : ControlOptions.instance.colorMain.withOpacity(0.1),
+              color: accepted.isNotEmpty ? ControlOptions.instance.colorMain.withOpacity(0.4) : Colors.transparent,
             ),
             child: child);
       },
