@@ -223,6 +223,7 @@ class TasksController extends NsgDataController<TaskDoc> {
   Future<bool> itemPagePost({bool goBack = false, bool useValidation = false}) async {
     var imageController = Get.find<TaskImageController>();
     //if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
+    await imageController.checkImagesInRichText();
     await imageController.saveImages();
     //}
     return await super.itemPagePost(goBack: false, useValidation: useValidation);
