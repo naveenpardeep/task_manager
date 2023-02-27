@@ -81,19 +81,30 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
           .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
     }
 
-    final notes = NsgRichTextFile.fromMap(block.value.data);
+    //final notes = NsgRichTextFile.fromMap(block.value.data);
 
     return Material(
-      color: Colors.transparent,
-      child: GestureDetector(
-        child: (fileObject != null && fileObject.image != null)
-            ? fileObject.image!
-            : const Icon(
-                Icons.picture_in_picture,
-                size: 50,
-              ),
-        //onTap: () => addEditBlock(context, document: notes),
-      ),
-    );
+        color: Colors.transparent,
+        child: GestureDetector(
+          child: (fileObject != null && fileObject.image != null)
+              ? Container(
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  width: 100,
+                  height: 100,
+                  child: Column(children: [
+                    Flexible(child: fileObject.image!),
+                    Text(
+                      fileObject.description,
+                      overflow: TextOverflow.clip,
+                      style: const TextStyle(fontSize: 9),
+                      maxLines: 1,
+                    )
+                  ]))
+              : const Icon(
+                  Icons.picture_in_picture,
+                  size: 50,
+                ),
+          onTap: () => (controller as NsgQuillController).fileController.tapFile(fileObject),
+        ));
   }
 }

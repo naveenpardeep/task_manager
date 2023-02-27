@@ -28,6 +28,7 @@ class TaskImageController extends NsgFilePickerController<Picture> {
   @override
   Future<Picture> fileObjectToDataItem(NsgFilePickerObject fileObject, File imageFile) async {
     var pic = Picture();
+    pic.id = fileObject.id;
     pic.name = fileObject.description;
     pic.ownerId = Get.find<TasksController>().currentItem.id;
     pic.image = await imageFile.readAsBytes();
@@ -51,4 +52,6 @@ class TaskImageController extends NsgFilePickerController<Picture> {
     }
     return;
   }
+
+  Future checkImagesInRichText() async {}
 }
