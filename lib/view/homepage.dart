@@ -235,7 +235,7 @@ class _HomepageState extends State<Homepage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: SizedBox(
-                      width: taskView == false ? 0 : 375,
+                      width: taskView == false ? 0 : 388,
                       child: taskController.obx((state) => const TaskViewPage()),
                     ),
                   ),
