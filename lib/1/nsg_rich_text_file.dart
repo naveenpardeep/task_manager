@@ -3,31 +3,61 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/1/nsg_quill_controller.dart';
 
 class NsgRichTextFile extends quil.CustomBlockEmbed {
-  NsgRichTextFile(NsgFilePickerObject filePickerObject) : super(blockType, filePickerObject.id.toString());
+  late NsgFilePickerObject filePickerObject;
+
+  NsgRichTextFile(NsgFilePickerObject fileObj) : super(blockType, fileObj.id.toString()) {
+    filePickerObject = fileObj;
+  }
 
   static const String blockType = 'nsg_image';
 
-  static NsgRichTextFile fromDocument(quil.Document document) => NsgRichTextFile(
-      //jsonEncode(document.toDelta().toJson())
-      NsgFilePickerObject(description: ''));
+  static NsgRichTextFile fromDocument(quil.Document document) {
+    var json = document.toDelta().toJson();
+    //var id = json.contains('id') ? json['id'].toString() : '';
+    return NsgRichTextFile(
 
-  static NsgRichTextFile fromText(String data) => NsgRichTextFile(
-      //jsonEncode(document.toDelta().toJson())
-      NsgFilePickerObject(description: ''));
+        //jsonEncode(document.toDelta().toJson())
+        NsgFilePickerObject(description: '', isNew: false));
+  }
+
+  static NsgRichTextFile fromMap(Map<String, dynamic> data) {
+    var id = '';
+    if (data.containsKey('id')) {
+      id = data['id'];
+    }
+    return NsgRichTextFile(
+        //jsonEncode(document.toDelta().toJson())
+        NsgFilePickerObject(id: id, description: '', isNew: false));
+  }
+
+  static NsgRichTextFile fromText(String data) {
+    var json = jsonDecode(data);
+    return NsgRichTextFile(
+        //jsonEncode(document.toDelta().toJson())
+        NsgFilePickerObject(description: '', isNew: false));
+  }
 
   @override
   String toJsonString() => jsonEncode(toJson());
 
+  @override
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = filePickerObject.id;
+    map['fileType'] = filePickerObject.fileType;
+
+    return {type: map};
+  }
+
   //quil.Document get document => quil.Document.fromJson(jsonDecode(data));
   quil.Document get document => quil.Document();
-
-  NsgFilePickerObject? filePickerObject;
 }
 
 class NsgRichTextFileBuilder implements quil.EmbedBuilder {
-  NsgRichTextFileBuilder({required this.addEditBlock});
+  NsgRichTextFileBuilder({required this.addEditBlock}) : super();
 
   Future<void> Function(BuildContext context, {quil.Document? document}) addEditBlock;
 
@@ -41,16 +71,28 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
     quil.Embed block,
     bool readOnly,
   ) {
-    final notes = NsgRichTextFile.fromText(block.value.data).document;
+    assert(controller is NsgQuillController);
+    NsgFilePickerObject? fileObject;
+    if (block.value.data is Map && (block.value.data as Map).containsKey('id')) {
+      var id = block.value.data['id'].toString();
+      fileObject = (controller as NsgQuillController)
+          .fileController
+          .images
+          .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
+    }
+
+    final notes = NsgRichTextFile.fromMap(block.value.data);
 
     return Material(
       color: Colors.transparent,
       child: GestureDetector(
-        child: const Icon(
-          Icons.picture_in_picture,
-          size: 50,
-        ),
-        onTap: () => addEditBlock(context, document: notes),
+        child: (fileObject != null && fileObject.image != null)
+            ? fileObject.image!
+            : const Icon(
+                Icons.picture_in_picture,
+                size: 50,
+              ),
+        //onTap: () => addEditBlock(context, document: notes),
       ),
     );
   }

@@ -481,11 +481,12 @@ class _UserProfileState extends State<UserProfile> {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
-      onPressed: () async {
+      onPressed: () {
         Get.find<UserNotificationController>().currentItem = project;
-        await Get.find<UserNotificationController>().deleteItems([Get.find<UserNotificationController>().currentItem]);
-        Get.find<UserNotificationController>().sendNotify();
-        Navigator.of(context).pop();
+        Get.find<UserNotificationController>().deleteItems([Get.find<UserNotificationController>().currentItem]).then((value) {
+          Get.find<UserNotificationController>().sendNotify();
+          Navigator.of(context).pop();
+        });
       },
     );
     Widget noButton = ElevatedButton(

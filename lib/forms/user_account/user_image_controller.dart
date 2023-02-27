@@ -12,8 +12,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import '../../model/data_controller_model.dart';
 
 class UserImageController extends NsgImageController<Picture> {
-  UserImageController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 3);
+  UserImageController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 3);
 
   var images = <NsgFilePickerObject>[];
 
@@ -22,9 +21,7 @@ class UserImageController extends NsgImageController<Picture> {
     var cmp = NsgCompare();
     var userController = Get.find<UserAccountController>();
 
-    cmp.add(
-        name: PictureGenerated.nameOwnerId,
-        value: userController.currentItem.id);
+    cmp.add(name: PictureGenerated.nameOwnerId, value: userController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
   }
 
@@ -35,7 +32,7 @@ class UserImageController extends NsgImageController<Picture> {
     try {
       for (var img in images) {
         if (img.image == null) continue;
-        if (img.id == '') {
+        if (img.isNew && img.id.isNotEmpty) {
           var pic = Picture();
           pic.name = img.description;
           pic.ownerId = Get.find<UserAccountController>().currentItem.id;
@@ -72,10 +69,7 @@ class UserImageController extends NsgImageController<Picture> {
     images.clear();
     for (var element in items) {
       images.add(NsgFilePickerObject(
-          image: Image.memory(Uint8List.fromList(element.image)),
-          description: element.name,
-          fileType: 'jpg',
-          id: element.id));
+          isNew: false, image: Image.memory(Uint8List.fromList(element.image)), description: element.name, fileType: 'jpg', id: element.id));
     }
     if (items.isNotEmpty) {
       currentItem = items.first;
