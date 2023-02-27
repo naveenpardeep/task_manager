@@ -21,7 +21,7 @@ class TaskViewPage extends StatefulWidget {
 }
 
 class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMixin {
-  DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+  DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<TasksController>();
   var commnetController = Get.find<CommentTableTasksController>();
@@ -270,6 +270,26 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                             Expanded(
                                                 child: Text(
                                               formateddate.format(controller.currentItem.dateDeadline),
+                                              style: const TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 14,
+                                              ),
+                                            ))
+                                          ],
+                                        ),
+                                         Row(
+                                          children: [
+                                            // ignore: prefer_const_constructors
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 0),
+                                              child: const Text(
+                                                'Напомнить о задаче:',
+                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                child: Text(
+                                              formateddate.format(controller.currentItem.dateRemind),
                                               style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
