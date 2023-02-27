@@ -1056,7 +1056,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
                                          
                                             style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1067,7 +1067,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
                                        
                                           style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1226,7 +1226,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
                                           
                                             style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1237,7 +1237,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
                                          
                                           style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1396,7 +1396,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
                                            
                                             style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1407,7 +1407,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
                                          
                                           style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1560,7 +1560,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 4),
                                       child: Text(
-                                        'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                        'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                         maxLines: 1,
                                      
                                         style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1571,7 +1571,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                       //     format: 'dd.MM.yy HH:mm')
                                       //   }}',
-                                      "(${getupdateDay(tasks)})",
+                                      getupdateDay(tasks),
                                       maxLines: 1,
                                      
                                       style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
@@ -1691,7 +1691,7 @@ String getupdateDay(TaskDoc tasks) {
   final lastDate = tasks.dateUpdated;
   var daysleft = todayDate.difference(lastDate).inDays;
   if (daysleft > 7) {
-    return 'Обновлено: ${{NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}}';
+    return 'Обновлено: ${NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
   if (minutes < 60) {
