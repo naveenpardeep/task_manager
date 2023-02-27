@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
@@ -21,7 +22,7 @@ class TaskViewPage extends StatefulWidget {
 }
 
 class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMixin {
-  DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+  DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<TasksController>();
   var commnetController = Get.find<CommentTableTasksController>();
@@ -140,142 +141,186 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       // ignore: prefer_const_literals_to_create_immutables
                                       children: [
-                                        Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(right: 5),
-                                              child: Text(
-                                                'Номер задачи:  ',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                controller.currentItem.docNumber,
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Text(
-                                              'Дата создания:  ',
-                                              style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                formateddate.format(controller.currentItem.date),
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(right: 7),
-                                              child: Text(
-                                                'Автор задачи:  ',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                controller.currentItem.author.toString(),
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(right: 5),
-                                              child: Text(
-                                                'Статус задачи: ',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                '${controller.currentItem.taskStatus}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(right: 10),
-                                              child: Text(
-                                                'Исполнитель : ',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                '${controller.currentItem.assignee}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(right: 30),
-                                              child: Text(
-                                                'Приоритет :',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                '${controller.currentItem.priority}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            // ignore: prefer_const_constructors
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 44),
-                                              child: const Text(
-                                                'Дедлайн :',
-                                                style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                              ),
-                                            ),
-                                            Expanded(
+                                        // Row(
+                                        //   children: [
+                                        //     const Padding(
+                                        //       padding: EdgeInsets.only(right: 5),
+                                        //       child: Text(
+                                        //         'Номер задачи:  ',
+                                        //         style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                        //       ),
+                                        //     ),
+                                        //     Expanded(
+                                        //       child: Text(
+                                        //         controller.currentItem.docNumber,
+                                        //         style: const TextStyle(
+                                        //           fontFamily: 'Inter',
+                                        //           fontSize: 14,
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(right: 40),
                                                 child: Text(
-                                              formateddate.format(controller.currentItem.dateDeadline),
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
+                                                  'Дата создания:  ',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
                                               ),
-                                            ))
-                                          ],
+                                              Expanded(
+                                                child: Text(
+                                                  getCreatedDay(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(right: 47),
+                                                child: Text(
+                                                  'Автор задачи:  ',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  controller.currentItem.author.toString(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(right: 44),
+                                                child: Text(
+                                                  'Статус задачи: ',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  '${controller.currentItem.taskStatus}',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(right: 49),
+                                                child: Text(
+                                                  'Исполнитель : ',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  '${controller.currentItem.assignee}',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(right: 69),
+                                                child: Text(
+                                                  'Приоритет :',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  '${controller.currentItem.priority}',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              // ignore: prefer_const_constructors
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 82),
+                                                child: const Text(
+                                                  'Дедлайн :',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                  child: Text(
+                                                formateddate.format(controller.currentItem.dateDeadline),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 14,
+                                                ),
+                                              ))
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              // ignore: prefer_const_constructors
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 5),
+                                                child: const Text(
+                                                  'Напомнить о задаче:',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                  child: Text(
+                                                formateddate.format(controller.currentItem.dateRemind),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 14,
+                                                ),
+                                              ))
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -308,5 +353,28 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
             ]),
           ),
         ));
+  }
+
+  String getCreatedDay() {
+    var todayDate = DateTime.now();
+    final dateCreated = controller.currentItem.date;
+    var daysCreated = todayDate.difference(dateCreated).inDays;
+    if (daysCreated > 30) {
+      return '${NsgDateFormat.dateFormat(controller.currentItem.date, format: 'dd.MM.yy HH:mm')}';
+    }
+    var minutes = todayDate.difference(dateCreated).inMinutes;
+    if (minutes < 60) {
+      return '$minutes мин. назад';
+    }
+    var hours = todayDate.difference(dateCreated).inHours;
+    if (hours <= 24) {
+      return '$hours Час. назад';
+    }
+
+    if (daysCreated <= 30) {
+      return '$daysCreated дн. назад';
+    }
+
+    return '$daysCreated дн. назад';
   }
 }

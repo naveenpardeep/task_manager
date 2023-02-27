@@ -112,28 +112,28 @@ class _HomepageState extends State<Homepage> {
                         Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectPage);
                       },
                     ),
-                    if (width > 700)
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: NsgButton(
-                            width: 150,
-                            margin: EdgeInsets.zero,
-                            padding: EdgeInsets.zero,
-                            height: 40,
-                            icon: Icons.add,
-                            text: 'Новая Задача',
-                            color: Colors.white,
-                            backColor: ControlOptions.instance.colorMain,
-                            onPressed: () {
-                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                              // Get.find<TasksController>()
-                              //     .newItemPageOpen(pageName: Routes.tasksPage);
-                              // Get.toNamed(Routes.tasksPage);
-                            },
-                          ),
+                    //  if (width > 700)
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: NsgButton(
+                          width: width > 700 ? 150 : 35,
+                          margin: EdgeInsets.zero,
+                          padding: EdgeInsets.zero,
+                          height: 40,
+                          icon: Icons.add,
+                          text: width > 700 ? 'Новая Задача' : '',
+                          color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
+                          backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                          onPressed: () {
+                            Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                            // Get.find<TasksController>()
+                            //     .newItemPageOpen(pageName: Routes.tasksPage);
+                            // Get.toNamed(Routes.tasksPage);
+                          },
                         ),
                       ),
+                    ),
                   ],
                 )),
             width > 700
@@ -149,36 +149,58 @@ class _HomepageState extends State<Homepage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: NsgButton(
-                            margin: EdgeInsets.zero,
-                            height: 40,
-                            icon: Icons.filter_alt,
-                            text: 'Фильтры',
-                            color: ControlOptions.instance.colorMain,
-                            backColor: ControlOptions.instance.colorGreyLight,
-                            onPressed: () {
-                              scaffoldKey.currentState!.openDrawer();
-                            },
-                          ),
+                          child: TextField(
+                              controller: textEditController,
+                              decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.search),
+                                  border:
+                                      const OutlineInputBorder(borderSide: BorderSide(color: Colors.teal), borderRadius: BorderRadius.all(Radius.circular(20))),
+                                  suffixIcon: IconButton(
+                                      onPressed: (() {
+                                        setState(() {
+                                          textEditController.clear();
+                                          searchvalue = '';
+                                        });
+                                      }),
+                                      icon: const Icon(Icons.cancel)),
+                                  // prefixIcon: Icon(Icons.search),
+                                  hintText: 'Поиск по тексту'),
+                              onChanged: (val) {
+                                searchvalue = val;
+                                taskController.sendNotify();
+                                taskStatusTableController.sendNotify();
+                              }),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: NsgButton(
-                            margin: EdgeInsets.zero,
-                            height: 40,
-                            icon: Icons.add,
-                            text: 'Новая Задача',
-                            color: Colors.white,
-                            backColor: ControlOptions.instance.colorMain,
-                            onPressed: () {
-                              //   var images = <NsgFilePickerObject>[].clear();
-                              // Get.find<TasksController>()
-                              //     .newItemPageOpen(pageName: Routes.tasksPage);
-                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                              //  Get.toNamed(Routes.tasksPage);
-                            },
-                          ),
+                        NsgButton(
+                          width: 50,
+                          margin: EdgeInsets.zero,
+                          //  height: 30,
+                          icon: Icons.filter_alt_outlined,
+                          // text: 'Фильтры',
+                          color: ControlOptions.instance.colorMain,
+                          backColor: const Color(0xffABF4FF),
+                          onPressed: () {
+                            scaffoldKey.currentState!.openDrawer();
+                          },
                         ),
+                        // const SizedBox(width: 10),
+                        // Expanded(
+                        //   child: NsgButton(
+                        //     margin: EdgeInsets.zero,
+                        //   //  height: 30,
+                        //     icon: Icons.add,
+                        //     text: 'Новая Задача',
+                        //     color: Colors.white,
+                        //     backColor: ControlOptions.instance.colorMain,
+                        //     onPressed: () {
+                        //       //   var images = <NsgFilePickerObject>[].clear();
+                        //       // Get.find<TasksController>()
+                        //       //     .newItemPageOpen(pageName: Routes.tasksPage);
+                        //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                        //       //  Get.toNamed(Routes.tasksPage);
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -213,7 +235,7 @@ class _HomepageState extends State<Homepage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: SizedBox(
-                      width: taskView == false ? 0 : 375,
+                      width: taskView == false ? 0 : 388,
                       child: taskController.obx((state) => const TaskViewPage()),
                     ),
                   ),
@@ -309,29 +331,30 @@ class _HomepageState extends State<Homepage> {
     }
 
     return [
-      wrapFlexible(
-        child: Tooltip(
-          message: 'Поиск по тексту задачи, Описание задачи',
-          child: TextField(
-              controller: textEditController,
-              decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: (() {
-                        setState(() {
-                          textEditController.clear();
-                          searchvalue = '';
-                        });
-                      }),
-                      icon: const Icon(Icons.cancel)),
-                  // prefixIcon: Icon(Icons.search),
-                  hintText: 'Поиск по тексту'),
-              onChanged: (val) {
-                searchvalue = val;
-                taskController.sendNotify();
-                taskStatusTableController.sendNotify();
-              }),
+      if (width > 700)
+        wrapFlexible(
+          child: Tooltip(
+            message: 'Поиск по тексту задачи, Описание задачи',
+            child: TextField(
+                controller: textEditController,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: (() {
+                          setState(() {
+                            textEditController.clear();
+                            searchvalue = '';
+                          });
+                        }),
+                        icon: const Icon(Icons.cancel)),
+                    // prefixIcon: Icon(Icons.search),
+                    hintText: 'Поиск по тексту'),
+                onChanged: (val) {
+                  searchvalue = val;
+                  taskController.sendNotify();
+                  taskStatusTableController.sendNotify();
+                }),
+          ),
         ),
-      ),
       // wrapFlexible(
       //   child: Tooltip(
       //     message: 'Поиск задач по дате создания',
@@ -564,8 +587,8 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
-          taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
-              
+                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
+
                 taskView = true;
               });
             } else {
@@ -764,9 +787,8 @@ class _HomepageState extends State<Homepage> {
             if (Platform.isWindows || Platform.isLinux) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
-              
+
                 taskView = true;
-                
               });
             } else {
               taskController.currentItem = tasks;
@@ -1057,13 +1079,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1071,13 +1089,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1096,7 +1111,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1108,7 +1123,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1233,13 +1248,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1247,13 +1258,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1272,7 +1280,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1284,7 +1292,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1409,13 +1417,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         Padding(
                                           padding: const EdgeInsets.only(right: 4),
                                           child: Text(
-                                            'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                             maxLines: 1,
-                                            textScaleFactor: 0.8,
-                                            style: TextStyle(
-                                              color: ControlOptions.instance.colorGreyDark,
-                                              fontSize: ControlOptions.instance.sizeS,
-                                            ),
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                           ),
                                         ),
                                         Text(
@@ -1423,13 +1427,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                           //     format: 'dd.MM.yy HH:mm')
                                           //   }}',
-                                          "(${getupdateDay(tasks)})",
+                                          getupdateDay(tasks),
                                           maxLines: 1,
-                                          textScaleFactor: 0.8,
-                                          style: TextStyle(
-                                            color: ControlOptions.instance.colorGreyDark,
-                                            fontSize: ControlOptions.instance.sizeS,
-                                          ),
+
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
                                     ),
@@ -1448,7 +1449,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: taskC.currentItem.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoFile.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1460,7 +1461,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 ),
                                               )
                                             : Image.memory(
-                                                Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                                Uint8List.fromList(tasks.assignee.photoFile),
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1579,13 +1580,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 4),
                                       child: Text(
-                                        'создано: ${{NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}}',
+                                        'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
                                         maxLines: 1,
-                                        textScaleFactor: 0.8,
-                                        style: TextStyle(
-                                          color: ControlOptions.instance.colorGreyDark,
-                                          fontSize: ControlOptions.instance.sizeS,
-                                        ),
+                                        style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                       ),
                                     ),
                                     Text(
@@ -1593,13 +1590,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       // NsgDateFormat.dateFormat(tasks.dateUpdated,
                                       //     format: 'dd.MM.yy HH:mm')
                                       //   }}',
-                                      "(${getupdateDay(tasks)})",
+                                      getupdateDay(tasks),
                                       maxLines: 1,
-                                      textScaleFactor: 0.8,
-                                      style: TextStyle(
-                                        color: ControlOptions.instance.colorGreyDark,
-                                        fontSize: ControlOptions.instance.sizeS,
-                                      ),
+
+                                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                     ),
                                   ],
                                 ),
@@ -1618,7 +1612,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                   ClipOval(
-                                    child: taskC.currentItem.assignee.photoFile.isEmpty
+                                    child: tasks.assignee.photoFile.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
@@ -1630,7 +1624,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             ),
                                           )
                                         : Image.memory(
-                                            Uint8List.fromList(taskC.currentItem.assignee.photoFile),
+                                            Uint8List.fromList(tasks.assignee.photoFile),
                                             width: 32,
                                             height: 32,
                                           ),
@@ -1716,7 +1710,7 @@ String getupdateDay(TaskDoc tasks) {
   final lastDate = tasks.dateUpdated;
   var daysleft = todayDate.difference(lastDate).inDays;
   if (daysleft > 7) {
-    return 'Обновлено: ${{NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}}';
+    return 'Обновлено: ${NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
   if (minutes < 60) {

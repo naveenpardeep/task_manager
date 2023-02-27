@@ -57,7 +57,7 @@ class TasksPage extends GetView<TasksController> {
                 //       : controller.currentItem.name.toString().toUpperCase(),
                 //   icon: Icons.arrow_back_ios_new,
                 //   color: Colors.white,
-
+            
                 //   colorsInverted: true,
                 //   // bottomCircular: true,
                 //   onPressed: () {
@@ -91,7 +91,7 @@ class TasksPage extends GetView<TasksController> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: 15,
+                        thickness: 10,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -139,7 +139,7 @@ class TasksPage extends GetView<TasksController> {
                               //   ],
                               // ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 5, right: 5),
+                                padding: const EdgeInsets.only(left: 10, right: 15),
                                 child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
@@ -163,7 +163,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.nameTaskStatusId,
                                 label: 'Статус',
                               ),
-
+            
                               // NsgInput(
                               //   selectionController:
                               //       Get.find<UserAccountController>(),
@@ -178,7 +178,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.nameAssigneeId,
                                 //selectionForm: Routes.userAccountListPage,
                               ),
-
+            
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameTaskNumber,
@@ -200,7 +200,7 @@ class TasksPage extends GetView<TasksController> {
                               //     height: 400,
                               //   ),
                               // ),
-
+            
                               // MarkdownTextInput(
                               //   (String value) =>
                               //       controller.currentItem.description = value,
@@ -231,7 +231,7 @@ class TasksPage extends GetView<TasksController> {
                               //     selectable: true,
                               //   ),
                               // ),
-
+            
                               // NsgInput(
                               //   dataItem: controller.currentItem,
                               //   fieldName: TaskDocGenerated.nameDescription,
@@ -239,7 +239,7 @@ class TasksPage extends GetView<TasksController> {
                               //   minLines: 1,
                               //   maxLines: 5,
                               // ),
-
+            
                               NsgRichText(
                                   key: GlobalKey(),
                                   dataItem: controller.currentItem,
@@ -261,7 +261,7 @@ class TasksPage extends GetView<TasksController> {
                               //     controller.currentItem.description;
                               //   },
                               // ),
-
+            
                               // Container(
                               //   height: 500,
                               //   child: quil.QuillEditor.basic(
@@ -274,7 +274,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.namePriority,
                                 label: 'Приоритет',
                               ),
-
+            
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameFootnote,
@@ -292,7 +292,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.nameDateDeadline,
                                 label: 'Срок выполнения',
                               ),
-
+            
                               // const NsgText('Create CheckList for this Task'),
                               // NsgTable(
                               //   controller: Get.find<TaskCheckListController>(),
@@ -342,7 +342,7 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
-
+            
                               //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
@@ -384,7 +384,7 @@ class TasksPage extends GetView<TasksController> {
                               //   minLines: 3,
                               //   maxLines: 20,
                               // ),
-
+            
                               // NsgTable(
                               //   controller:
                               //       Get.find<CommentTableTasksController>(),
