@@ -35,7 +35,7 @@ class TasksPage extends GetView<TasksController> {
     }
 
     final scrollController = ScrollController();
-
+    double width = MediaQuery.of(context).size.width;
     String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
     String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -57,7 +57,7 @@ class TasksPage extends GetView<TasksController> {
                 //       : controller.currentItem.name.toString().toUpperCase(),
                 //   icon: Icons.arrow_back_ios_new,
                 //   color: Colors.white,
-            
+
                 //   colorsInverted: true,
                 //   // bottomCircular: true,
                 //   onPressed: () {
@@ -138,32 +138,114 @@ class TasksPage extends GetView<TasksController> {
                               //     ),
                               //   ],
                               // ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10, right: 15),
-                                child: Align(
-                                    alignment: Alignment.centerRight,
+                      if(width>700)
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 4, right: 15),
+                                      child: Text(
+                                        'Создана $formatted',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
+                                  ),
+                                  if (controller.currentItem.name.isNotEmpty)
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          'Обновлена $formatupdate',
+                                          style: TextStyle(color: ControlOptions.instance.colorMain),
+                                        ),
+                                      ),
+                                    ),
+                                  if (controller.currentItem.name.isNotEmpty)
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          'Автор  :  ${controller.currentItem.author}',
+                                          style: TextStyle(color: ControlOptions.instance.colorMain),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+
+                              if(width<700)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 4, right: 15),
                                     child: Text(
                                       'Создана $formatted',
-                                      style: TextStyle(color: ControlOptions.instance.colorGrey),
-                                    )),
+                                      style: TextStyle(color: ControlOptions.instance.colorMain),
+                                    ),
+                                  ),
+                                  if (controller.currentItem.name.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        'Обновлена $formatupdate',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
+                                  if (controller.currentItem.name.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        'Автор  :  ${controller.currentItem.author}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
+                                ],
                               ),
-                              if (controller.currentItem.name.isNotEmpty)
-                                Text(
-                                  'Обновлена $formatupdate',
-                                  style: TextStyle(color: ControlOptions.instance.colorGrey),
-                                ),
+
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameName,
                                 label: 'Название задачи',
                               ),
-                              NsgInput(
-                                selectionController: Get.find<TaskStatusController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameTaskStatusId,
-                                label: 'Статус',
-                              ),
-            
+                              if (width > 700)
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: NsgInput(
+                                        controller: controller,
+                                        selectionController: Get.find<TaskStatusController>(),
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.nameTaskStatusId,
+                                        label: 'Статус',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: NsgInput(
+                                        controller: controller,
+                                        label: 'Исполнитель',
+                                        selectionController: Get.find<TaskUserAccountController>(),
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.nameAssigneeId,
+                                        //selectionForm: Routes.userAccountListPage,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: NsgInput(
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.nameTaskNumber,
+                                        label: 'Номер задачи',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              if (width < 700)
+                                NsgInput(
+                                  controller: controller,
+                                  selectionController: Get.find<TaskStatusController>(),
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.nameTaskStatusId,
+                                  label: 'Статус',
+                                ),
                               // NsgInput(
                               //   selectionController:
                               //       Get.find<UserAccountController>(),
@@ -171,19 +253,21 @@ class TasksPage extends GetView<TasksController> {
                               //   fieldName: TaskDocGenerated.nameAssigneeId,
                               //   label: 'Исполнитель',
                               // ),
-                              NsgInput(
-                                label: 'Исполнитель',
-                                selectionController: Get.find<TaskUserAccountController>(),
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameAssigneeId,
-                                //selectionForm: Routes.userAccountListPage,
-                              ),
-            
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameTaskNumber,
-                                label: 'Номер задачи',
-                              ),
+                              if (width < 700)
+                                NsgInput(
+                                  controller: controller,
+                                  label: 'Исполнитель',
+                                  selectionController: Get.find<TaskUserAccountController>(),
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.nameAssigneeId,
+                                  //selectionForm: Routes.userAccountListPage,
+                                ),
+                              if (width < 700)
+                                NsgInput(
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.nameTaskNumber,
+                                  label: 'Номер задачи',
+                                ),
                               // HtmlEditor(
                               //   key: GlobalKey(),
                               //   callbacks: Callbacks(
@@ -200,7 +284,7 @@ class TasksPage extends GetView<TasksController> {
                               //     height: 400,
                               //   ),
                               // ),
-            
+
                               // MarkdownTextInput(
                               //   (String value) =>
                               //       controller.currentItem.description = value,
@@ -231,7 +315,7 @@ class TasksPage extends GetView<TasksController> {
                               //     selectable: true,
                               //   ),
                               // ),
-            
+
                               // NsgInput(
                               //   dataItem: controller.currentItem,
                               //   fieldName: TaskDocGenerated.nameDescription,
@@ -239,8 +323,9 @@ class TasksPage extends GetView<TasksController> {
                               //   minLines: 1,
                               //   maxLines: 5,
                               // ),
-            
+
                               NsgRichText(
+                                  hint: 'Description',
                                   key: GlobalKey(),
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.nameDescription,
@@ -261,7 +346,7 @@ class TasksPage extends GetView<TasksController> {
                               //     controller.currentItem.description;
                               //   },
                               // ),
-            
+
                               // Container(
                               //   height: 500,
                               //   child: quil.QuillEditor.basic(
@@ -274,7 +359,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.namePriority,
                                 label: 'Приоритет',
                               ),
-            
+
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameFootnote,
@@ -292,7 +377,7 @@ class TasksPage extends GetView<TasksController> {
                                 fieldName: TaskDocGenerated.nameDateDeadline,
                                 label: 'Срок выполнения',
                               ),
-            
+
                               // const NsgText('Create CheckList for this Task'),
                               // NsgTable(
                               //   controller: Get.find<TaskCheckListController>(),
@@ -342,7 +427,7 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
-            
+
                               //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
                               //     controller:
@@ -384,7 +469,7 @@ class TasksPage extends GetView<TasksController> {
                               //   minLines: 3,
                               //   maxLines: 20,
                               // ),
-            
+
                               // NsgTable(
                               //   controller:
                               //       Get.find<CommentTableTasksController>(),
