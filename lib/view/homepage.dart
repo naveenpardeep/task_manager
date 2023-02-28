@@ -964,24 +964,22 @@ changeTaskStatus(TaskDoc tasks) {
   );
 }
 
-changeStatus(status) {
+changeStatus(TaskDoc tasks) {
   var form = NsgSelection(
-    selectedElement: status,
+    selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
     controller: Get.find<TaskStatusController>(),
   );
-  // Get.find<TaskBoardController>().postItems([status]);
   form.selectFromArray(
-    'Смена статуса ',
+    'Смена статуса заявки',
     (item) async {
-      status = item;
-      await Get.find<TaskBoardController>().postItems([status]);
-
+      tasks.taskStatus = item as TaskStatus;
+      await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().sendNotify();
       Get.find<TaskStatusTableController>().sendNotify();
-      Get.find<TasksController>().refreshData();
-      Get.find<TaskStatusTableController>().refreshData();
-      Get.find<TaskBoardController>().refreshData();
+
+      //Get.find<TaskStatusTableController>().sendNotify();
+      //taskBoardController.sendNotify();*/
     },
   );
 }
@@ -991,7 +989,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   var taskC = Get.find<TasksController>();
   return GestureDetector(
     onLongPress: () {
-      changeTaskStatus(tasks);
+      changeStatus(tasks);
     },
     child: Stack(
       children: [
