@@ -151,32 +151,35 @@ class _HomepageState extends State<Homepage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: TextField(
-                              controller: textEditController,
-                              decoration: InputDecoration(
-                                  prefixIcon: const Icon(Icons.search),
-                                  border:
-                                      const OutlineInputBorder(borderSide: BorderSide(color: Colors.teal), borderRadius: BorderRadius.all(Radius.circular(20))),
-                                  suffixIcon: IconButton(
-                                      onPressed: (() {
-                                        setState(() {
-                                          textEditController.clear();
-                                          searchvalue = '';
-                                        });
-                                      }),
-                                      icon: const Icon(Icons.cancel)),
-                                  // prefixIcon: Icon(Icons.search),
-                                  hintText: 'Поиск по тексту'),
-                              onChanged: (val) {
-                                searchvalue = val;
-                                taskController.sendNotify();
-                                taskStatusTableController.sendNotify();
-                              }),
+                          child: SizedBox(
+                            height: 40,
+                            child: TextField(
+                                controller: textEditController,
+                                decoration: InputDecoration(
+                                    prefixIcon: const Icon(Icons.search),
+                                    border: const OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.teal), borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    suffixIcon: IconButton(
+                                        onPressed: (() {
+                                          setState(() {
+                                            textEditController.clear();
+                                            searchvalue = '';
+                                          });
+                                        }),
+                                        icon: const Icon(Icons.cancel)),
+                                    // prefixIcon: Icon(Icons.search),
+                                    hintText: 'Поиск по тексту'),
+                                onChanged: (val) {
+                                  searchvalue = val;
+                                  taskController.sendNotify();
+                                  taskStatusTableController.sendNotify();
+                                }),
+                          ),
                         ),
                         NsgButton(
                           width: 50,
                           margin: EdgeInsets.zero,
-                          //  height: 30,
+                          height: 30,
                           icon: Icons.filter_alt_outlined,
                           // text: 'Фильтры',
                           color: ControlOptions.instance.colorMain,
@@ -468,7 +471,10 @@ class _HomepageState extends State<Homepage> {
                   },
                   child: Text(
                     status.status.toString(),
-                    style: TextStyle(fontSize: ControlOptions.instance.sizeL,color: status.status.isDone? Colors.green: Colors.black,),
+                    style: TextStyle(
+                      fontSize: ControlOptions.instance.sizeL,
+                      color: status.status.isDone ? Colors.green : Colors.black,
+                    ),
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
@@ -510,7 +516,10 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
+                      style: TextStyle(
+                        fontSize: ControlOptions.instance.sizeL,
+                        color: status.status.isDone ? Colors.green : Colors.black,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -528,7 +537,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color:  status.status.isDone? Colors.green: Colors.black),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -662,9 +671,7 @@ class _HomepageState extends State<Homepage> {
                         },
                         child: Text(
                           status.status.toString(),
-                          style: TextStyle(
-                            color: status.status.isDone? Colors.green: Colors.black,
-                            fontSize: ControlOptions.instance.sizeL),
+                          style: TextStyle(color: status.status.isDone ? Colors.green : Colors.black, fontSize: ControlOptions.instance.sizeL),
                         ),
                       ),
                       Padding(
@@ -711,7 +718,10 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
+                      style: TextStyle(
+                        fontSize: ControlOptions.instance.sizeL,
+                        color: status.status.isDone ? Colors.green : Colors.black,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -729,7 +739,10 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
+                      style: TextStyle(
+                        fontSize: ControlOptions.instance.sizeL,
+                        color: status.status.isDone ? Colors.green : Colors.black,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -847,13 +860,13 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) async {
         data.taskStatus = status.status;
         taskController.currentItem = data;
-        
-          taskController.currentItem.dateUpdated=DateTime.now();
+
+        taskController.currentItem.dateUpdated = DateTime.now();
         //  taskController.itemPagePost(goBack: false);
         // NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
         // progress.show();
         await taskController.postItems([taskController.currentItem]);
-       // progress.hide();
+        // progress.hide();
         taskController.sendNotify();
       },
     );

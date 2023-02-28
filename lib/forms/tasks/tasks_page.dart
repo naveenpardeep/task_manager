@@ -138,69 +138,69 @@ class TasksPage extends GetView<TasksController> {
                               //     ),
                               //   ],
                               // ),
-                      if(width>700)
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
+                              if (width > 700)
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 4, right: 15),
+                                        child: Text(
+                                          'Создана $formatted',
+                                          style: TextStyle(color: ControlOptions.instance.colorMain),
+                                        ),
+                                      ),
+                                    ),
+                                    if (controller.currentItem.name.isNotEmpty)
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Text(
+                                            'Обновлена $formatupdate',
+                                            style: TextStyle(color: ControlOptions.instance.colorMain),
+                                          ),
+                                        ),
+                                      ),
+                                    if (controller.currentItem.name.isNotEmpty)
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            'Автор  :  ${controller.currentItem.author}',
+                                            style: TextStyle(color: ControlOptions.instance.colorMain),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+
+                              if (width < 700)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
                                       padding: const EdgeInsets.only(left: 4, right: 15),
                                       child: Text(
                                         'Создана $formatted',
                                         style: TextStyle(color: ControlOptions.instance.colorMain),
                                       ),
                                     ),
-                                  ),
-                                  if (controller.currentItem.name.isNotEmpty)
-                                    Expanded(
-                                      child: Padding(
+                                    if (controller.currentItem.name.isNotEmpty)
+                                      Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
                                           'Обновлена $formatupdate',
                                           style: TextStyle(color: ControlOptions.instance.colorMain),
                                         ),
                                       ),
-                                    ),
-                                  if (controller.currentItem.name.isNotEmpty)
-                                    Expanded(
-                                      child: Center(
+                                    if (controller.currentItem.name.isNotEmpty)
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
                                         child: Text(
                                           'Автор  :  ${controller.currentItem.author}',
                                           style: TextStyle(color: ControlOptions.instance.colorMain),
                                         ),
                                       ),
-                                    ),
-                                ],
-                              ),
-
-                              if(width<700)
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 4, right: 15),
-                                    child: Text(
-                                      'Создана $formatted',
-                                      style: TextStyle(color: ControlOptions.instance.colorMain),
-                                    ),
-                                  ),
-                                  if (controller.currentItem.name.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'Обновлена $formatupdate',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
-                                      ),
-                                    ),
-                                  if (controller.currentItem.name.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'Автор  :  ${controller.currentItem.author}',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
-                                      ),
-                                    ),
-                                ],
-                              ),
+                                  ],
+                                ),
 
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -233,7 +233,6 @@ class TasksPage extends GetView<TasksController> {
                                       child: SelectableText(
                                         'Номер задачи  : ${controller.currentItem.taskNumber}',
                                         style: TextStyle(color: ControlOptions.instance.colorMain),
-                                     
                                       ),
                                     ),
                                   ],
@@ -263,10 +262,9 @@ class TasksPage extends GetView<TasksController> {
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
                               if (width < 700)
-                                NsgInput(
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameTaskNumber,
-                                  label: 'Номер задачи',
+                                SelectableText(
+                                  'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                  style: TextStyle(color: ControlOptions.instance.colorMain),
                                 ),
                               // HtmlEditor(
                               //   key: GlobalKey(),
