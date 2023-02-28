@@ -125,7 +125,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                         child: Text(
                           checkList.text,
                           style: TextStyle(
-                            color: ControlOptions.instance.colorMainDark,
+                            color: checkList.isDone==true? const Color(0xff529FBF): ControlOptions.instance.colorMainDark,
                             fontSize: ControlOptions.instance.sizeL,
                           ),
                         ),
