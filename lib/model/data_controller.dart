@@ -55,7 +55,6 @@ class DataController extends DataControllerGenerated {
     //provider!.logout();
     if (_animationFinished && isLoadFinished && status.isSuccess && !gotoDone) {
       gotoDone = true;
-      provider!.logout();
       var accController = Get.find<UserAccountController>();
 
       //Считаем, что у любого пользователя должен существовать как минимум один аккаунт

@@ -57,7 +57,8 @@ class _UserProfileState extends State<UserProfile> {
           //userAccountController.sendNotify();
           Navigator.of(Get.context!).pop();
         },
-        objectsList: const []);
+        // ignore: prefer_const_literals_to_create_immutables
+        objectsList: []);
     organizationName = userAccountController.currentItem.organization.toString();
     if (userAccountController.lateInit) {
       userAccountController.requestItems();
