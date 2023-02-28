@@ -137,15 +137,15 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                           ),
                         ),
                       ),
-                      // IconButton(
-                      //     onPressed: () {
-                      //       showAlertDialog(context, checkList);
-                      //     },
-                      //     icon: const Icon(
-                      //       Icons.remove_circle_outline,
-                      //       color: Colors.red,
-                      //     )),
-                      //  const Icon(Icons.arrow_forward_ios),
+                      IconButton(
+                          onPressed: () {
+                            showAlertDialog(context, checkList);
+                          },
+                          icon: const Icon(
+                            Icons.remove_circle_outline,
+                            color: Colors.red,
+                          )),
+                     //  const Icon(Icons.arrow_forward_ios),
                     ],
                   ),
                 ),
