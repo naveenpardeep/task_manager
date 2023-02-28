@@ -230,10 +230,10 @@ class TasksPage extends GetView<TasksController> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: NsgInput(
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.nameTaskNumber,
-                                        label: 'Номер задачи',
+                                      child: SelectableText(
+                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                     
                                       ),
                                     ),
                                   ],
