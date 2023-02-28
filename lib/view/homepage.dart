@@ -12,6 +12,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -467,7 +468,7 @@ class _HomepageState extends State<Homepage> {
                   },
                   child: Text(
                     status.status.toString(),
-                    style: TextStyle(fontSize: ControlOptions.instance.sizeL),
+                    style: TextStyle(fontSize: ControlOptions.instance.sizeL,color: status.status.isDone? Colors.green: Colors.black,),
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
@@ -509,7 +510,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -527,7 +528,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color:  status.status.isDone? Colors.green: Colors.black),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -661,7 +662,9 @@ class _HomepageState extends State<Homepage> {
                         },
                         child: Text(
                           status.status.toString(),
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeL),
+                          style: TextStyle(
+                            color: status.status.isDone? Colors.green: Colors.black,
+                            fontSize: ControlOptions.instance.sizeL),
                         ),
                       ),
                       Padding(
@@ -708,7 +711,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -726,7 +729,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     Text(
                       status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorText),
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone? Colors.green: Colors.black,),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
@@ -844,11 +847,13 @@ class _HomepageState extends State<Homepage> {
       onAccept: (data) async {
         data.taskStatus = status.status;
         taskController.currentItem = data;
+        
+          taskController.currentItem.dateUpdated=DateTime.now();
         //  taskController.itemPagePost(goBack: false);
-        NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
-        progress.show();
+        // NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
+        // progress.show();
         await taskController.postItems([taskController.currentItem]);
-        progress.hide();
+       // progress.hide();
         taskController.sendNotify();
       },
     );
@@ -943,7 +948,7 @@ changeTaskStatus(TaskDoc tasks) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
-    controller: Get.find<TaskStatusController>(),
+    controller: Get.find<ProjectStatusController>(),
   );
   form.selectFromArray(
     'Смена статуса заявки',

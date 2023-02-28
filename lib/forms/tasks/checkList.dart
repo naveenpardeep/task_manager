@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data_item.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -59,7 +60,13 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                               onPressed: () {
                                 Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
                               },
-                            )
+                            ),
+                            //  NsgButton(
+                            //   text: 'Edit Чек-лист',
+                            //   onPressed: () {
+                            //      Get.find<TaskCheckListController>().itemPageOpen(controller.currentItem, Routes.editChecklistPage);
+                            //       },
+                            // )
                             // NsgTable(
                             //   controller: G,
                             //   elementEditPageName: Routes.taskChecklistPage,
@@ -92,8 +99,8 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            controller.currentItem = checkList;
-            Get.toNamed(Routes.taskChecklistPage);
+             controller.currentItem = checkList;
+             Get.toNamed(Routes.taskChecklistPage);
           },
           onLongPress: () {},
           child: Column(
@@ -130,14 +137,14 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                           ),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(context, checkList);
-                          },
-                          icon: const Icon(
-                            Icons.remove_circle_outline,
-                            color: Colors.red,
-                          )),
+                      // IconButton(
+                      //     onPressed: () {
+                      //       showAlertDialog(context, checkList);
+                      //     },
+                      //     icon: const Icon(
+                      //       Icons.remove_circle_outline,
+                      //       color: Colors.red,
+                      //     )),
                       //  const Icon(Icons.arrow_forward_ios),
                     ],
                   ),

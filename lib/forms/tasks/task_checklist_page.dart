@@ -44,11 +44,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName:
-                                    TaskDocCheckListTableGenerated.nameText,
-                                label: 'Task CheckList Name'),
+                            NsgInput(dataItem: controller.currentItem, fieldName: TaskDocCheckListTableGenerated.nameText, label: 'Task CheckList Name'),
                             // NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName:
