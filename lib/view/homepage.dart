@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -585,7 +586,7 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            if (Platform.isWindows || Platform.isLinux) {
+            if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
@@ -784,7 +785,7 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            if (Platform.isWindows || Platform.isLinux) {
+            if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
@@ -1040,7 +1041,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (Platform.isWindows || Platform.isLinux)
+                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1209,7 +1210,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (Platform.isWindows || Platform.isLinux)
+                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1378,7 +1379,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (Platform.isWindows || Platform.isLinux)
+                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1541,7 +1542,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     maxLines: 1,
                                   ),
                                 ),
-                                if (Platform.isWindows || Platform.isLinux)
+                                if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                                   Flexible(
                                     child: IconButton(
                                         onPressed: () {
