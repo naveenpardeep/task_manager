@@ -152,7 +152,7 @@ class _HomepageState extends State<Homepage> {
                       children: [
                         Expanded(
                           child: SizedBox(
-                            height: 40,
+                            height: 35,
                             child: TextField(
                                 controller: textEditController,
                                 decoration: InputDecoration(
@@ -177,9 +177,10 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                         NsgButton(
+                          borderRadius: 20,
                           width: 50,
                           margin: EdgeInsets.zero,
-                          height: 30,
+                          height: 28,
                           icon: Icons.filter_alt_outlined,
                           // text: 'Фильтры',
                           color: ControlOptions.instance.colorMain,
