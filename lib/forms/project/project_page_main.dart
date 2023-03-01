@@ -115,16 +115,16 @@ class _ProjectpageState extends State<ProjectPage> {
                                     }
                                   },
                                 ),
-
+                              if (controller.currentItem.name.isNotEmpty)
                                 NsgButton(
                                   text: 'Delete Project',
                                   color: Colors.white,
                                   onPressed: () async {
-
-                                  await controller.deleteItems([controller.currentItem]);
-                                  Get.back();
-                                  controller.refreshData();
-                                  },)
+                                    await controller.deleteItems([controller.currentItem]);
+                                    Get.back();
+                                    controller.refreshData();
+                                  },
+                                )
                             ],
                           ),
                         ),
