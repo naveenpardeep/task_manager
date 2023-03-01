@@ -170,6 +170,12 @@ class TasksPage extends GetView<TasksController> {
                                           ),
                                         ),
                                       ),
+                                    Expanded(
+                                      child: SelectableText(
+                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
                                   ],
                                 ),
 
@@ -200,6 +206,13 @@ class TasksPage extends GetView<TasksController> {
                                           style: TextStyle(color: ControlOptions.instance.colorMain),
                                         ),
                                       ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: SelectableText(
+                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
                                   ],
                                 ),
 
@@ -231,9 +244,10 @@ class TasksPage extends GetView<TasksController> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: SelectableText(
-                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      child: NsgInput(
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.namePriority,
+                                        label: 'Приоритет',
                                       ),
                                     ),
                                   ],
@@ -262,11 +276,13 @@ class TasksPage extends GetView<TasksController> {
                                   fieldName: TaskDocGenerated.nameAssigneeId,
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
-                              if (width < 700)
-                                SelectableText(
-                                  'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                  style: TextStyle(color: ControlOptions.instance.colorMain),
-                                ),
+                                 if (width < 700)
+                                NsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: TaskDocGenerated.namePriority,
+                                label: 'Приоритет',
+                              ),
+
                               // HtmlEditor(
                               //   key: GlobalKey(),
                               //   callbacks: Callbacks(
@@ -353,11 +369,7 @@ class TasksPage extends GetView<TasksController> {
                               //     readOnly: false, // true for view only mode
                               //   ),
                               //),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.namePriority,
-                                label: 'Приоритет',
-                              ),
+                              
 
                               NsgInput(
                                 dataItem: controller.currentItem,

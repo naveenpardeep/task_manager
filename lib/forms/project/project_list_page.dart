@@ -129,9 +129,9 @@ class ProjectListPage extends GetView<ProjectController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Рук.: ${project.leader.name}',
-                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                 Text('Заказчик: ${project.contractor}',
-                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color:const Color(0xff529FBF))),
                               ],
                             )),
                             if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))

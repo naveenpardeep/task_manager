@@ -28,6 +28,7 @@ class AddUserToProjectPage extends GetView<ProjectItemUserTableController> {
               children: <Widget>[
                 NsgAppBar(
                   backColor: Colors.white,
+                  color: Colors.black,
                   text: controller.currentItem.isEmpty ? 'User '.toUpperCase() : controller.currentItem.owner.name,
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
