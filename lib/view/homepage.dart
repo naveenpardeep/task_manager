@@ -111,7 +111,7 @@ class _HomepageState extends State<Homepage> {
                       icon: Icons.edit,
                       onPressed: () {
                         //  Get.toNamed(Routes.projectPage);
-                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectPage);
+                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                       },
                     ),
                     //  if (width > 700)

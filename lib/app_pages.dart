@@ -11,6 +11,7 @@ import 'package:task_manager_app/forms/organization/organization_listPage.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
 import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
+import 'package:task_manager_app/forms/project/project_settings.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
@@ -32,7 +33,7 @@ import 'package:task_manager_app/view/taskview.dart';
 import 'forms/invitation/invitaion_bindings.dart';
 import 'forms/project/project_binding.dart';
 import 'forms/project/project_list_page.dart';
-import 'forms/project/project_page.dart';
+import 'forms/project/project_page_main.dart';
 import 'forms/task_status/task_status_binding.dart';
 import 'forms/task_status/task_status_list_page.dart';
 import 'forms/task_status/task_status_page.dart';
@@ -73,8 +74,8 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
-      name: Routes.projectPage,
-      page: () => const ProjectPage(),
+      name: Routes.projectSettingsPage,
+      page: () => const ProjectSettings(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -213,7 +214,7 @@ class AppPages {
       page: () => const ChecklistPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.editChecklistPage,
       page: () => const EditChecklistPage(),
       binding: ProjectBinding(),
@@ -232,7 +233,7 @@ abstract class Routes {
   static const tasksListPage = '/tasksListPage';
   static const tasksPage = '/tasksPage';
   static const projectListPage = '/projectListPage';
-  static const projectPage = '/projectPage';
+  static const projectSettingsPage = '/projectSettingsPage';
   static const commentRowPage = '/commentRowPage';
   static const taskStatusListPage = '/taskStatusListPage';
   static const taskStatusPage = '/taskStatusPage';
@@ -262,5 +263,5 @@ abstract class Routes {
   static const newTaskPage = '/newTaskPage';
   static const checkListPage = '/checkListPage';
   static const taskViewPage = '/taskViewPage';
-  static const editChecklistPage='/editCHecklistPage';
+  static const editChecklistPage = '/editCHecklistPage';
 }
