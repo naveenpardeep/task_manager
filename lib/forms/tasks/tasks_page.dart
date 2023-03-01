@@ -276,12 +276,12 @@ class TasksPage extends GetView<TasksController> {
                                   fieldName: TaskDocGenerated.nameAssigneeId,
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
-                                 if (width < 700)
+                              if (width < 700)
                                 NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.namePriority,
-                                label: 'Приоритет',
-                              ),
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.namePriority,
+                                  label: 'Приоритет',
+                                ),
 
                               // HtmlEditor(
                               //   key: GlobalKey(),
@@ -369,7 +369,6 @@ class TasksPage extends GetView<TasksController> {
                               //     readOnly: false, // true for view only mode
                               //   ),
                               //),
-                              
 
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -538,21 +537,22 @@ class TasksPage extends GetView<TasksController> {
       (state) => NsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
-        callback: (value) {},
-        objectsList: Get.find<TaskImageController>().images,
-        allowedFileFormats: const [],
+        callback: (value) async {},
+        // objectsList: Get.find<TaskImageController>().images,
+        objectsList: Get.find<TaskFilesController>().files,
+        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
       ),
     );
   }
 
-  Widget filesUpload() {
-    return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
-          textChooseFile: 'Add Files',
-          useFilePicker: true,
-          showAsWidget: true,
-          callback: (value) {},
-          objectsList: Get.find<TaskFilesController>().files,
-          allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
-        ));
-  }
+  // Widget filesUpload() {
+  //   return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
+  //         textChooseFile: 'Add Files',
+  //         useFilePicker: true,
+  //         showAsWidget: true,
+  //         callback: (value) {},
+  //         objectsList: Get.find<TaskFilesController>().files,
+  //         allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
+  //       ));
+  // }
 }
