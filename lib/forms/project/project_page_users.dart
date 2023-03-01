@@ -32,15 +32,12 @@ class _ProjectpageState extends State<ProjectPageUsers> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    //double width = MediaQuery.of(context).size.width;
-    // var todaydate = controller.currentItem.date;
+
 
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     var isNewProject = controller.currentItem.name.isEmpty;
     var scrollController = ScrollController();
-    var newscrollController = ScrollController();
 
-    // String formatted = formateddate.format(controller.currentItem.date);
 
     return SafeArea(
       child: Scaffold(
@@ -72,40 +69,43 @@ class _ProjectpageState extends State<ProjectPageUsers> {
                           child: Column(
                             children: [
                               if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в проект')),
-                              // NsgTable(
-                              //   showIconFalse: false,
-                              //   controller:
-                              //       Get.find<ProjectItemUserTableController>(),
-                              //   elementEditPageName: Routes.projectuserRowpage,
-                              //   availableButtons: const [
-                              //     NsgTableMenuButtonType.createNewElement,
-                              //     NsgTableMenuButtonType.editElement,
-                              //     NsgTableMenuButtonType.removeElement
-                              //   ],
-                              //   columns: [
-                              //     NsgTableColumn(
-                              //         name: ProjectItemUserTableGenerated
-                              //             .nameUserAccountId,
-                              //         expanded: true,
-                              //         presentation: 'User'),
-                              //     NsgTableColumn(
-                              //         name: ProjectItemUserTableGenerated
-                              //             .nameIsAdmin,
-                              //         width: 100,
-                              //         presentation: 'Admin'),
-                              //   ],
-                              //  ),
-                              if (!isNewProject)
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: NsgButton(
-                                      borderRadius: 20,
-                                      width: 300,
-                                      text: ' добавить пользователей в проект',
-                                      onPressed: () {
-                                        Get.find<ProjectItemUserTableController>().itemNewPageOpen(Routes.addUserToProjectPage);
-                                      },
-                                    )),
+                             if (!isNewProject)
+                              NsgTable(
+                                showIconFalse: false,
+                                controller:
+                                    Get.find<ProjectItemUserTableController>(),
+                                elementEditPageName: Routes.projectuserRowpage,
+                                availableButtons: const [
+                                  NsgTableMenuButtonType.createNewElement,
+                                  NsgTableMenuButtonType.editElement,
+                                  NsgTableMenuButtonType.removeElement
+                                ],
+                                columns: [
+                                  NsgTableColumn(
+                                      name: ProjectItemUserTableGenerated
+                                          .nameUserAccountId,
+                                      expanded: true,
+                                      presentation: 'User'),
+                                  NsgTableColumn(
+                                      name: ProjectItemUserTableGenerated
+                                          .nameIsAdmin,
+                                      width: 100,
+                                      presentation: 'Admin'),
+                                ],
+                               ),
+                            //  if (!isNewProject)
+                            //     Align(
+                            //         alignment: Alignment.centerLeft,
+                            //         child: Expanded(
+                            //           child: NsgButton(
+                            //             borderRadius: 20,
+                                                                      
+                            //             text: ' добавить пользователей в проект',
+                            //             onPressed: () {
+                            //               Get.find<ProjectItemUserTableController>().itemNewPageOpen(Routes.addUserToProjectPage);
+                            //             },
+                            //           ),
+                            //         )),
                             ],
                           ),
                         ),
