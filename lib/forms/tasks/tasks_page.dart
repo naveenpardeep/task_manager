@@ -276,12 +276,12 @@ class TasksPage extends GetView<TasksController> {
                                   fieldName: TaskDocGenerated.nameAssigneeId,
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
-                                 if (width < 700)
+                              if (width < 700)
                                 NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.namePriority,
-                                label: 'Приоритет',
-                              ),
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.namePriority,
+                                  label: 'Приоритет',
+                                ),
 
                               // HtmlEditor(
                               //   key: GlobalKey(),
@@ -369,7 +369,6 @@ class TasksPage extends GetView<TasksController> {
                               //     readOnly: false, // true for view only mode
                               //   ),
                               //),
-                              
 
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -438,7 +437,15 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
-
+                              if (controller.currentItem.name.isNotEmpty)
+                                NsgButton(
+                                  backColor: Colors.transparent,
+                                  text: 'Удалить задачу',
+                                  color: Colors.red,
+                                  onPressed: () async {
+                                    showAlertDialog(context);
+                                  },
+                                ),
                               Row(
                                 children: [
                                   TaskButton(
@@ -554,5 +561,38 @@ class TasksPage extends GetView<TasksController> {
           objectsList: Get.find<TaskFilesController>().files,
           allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
         ));
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        await controller.deleteItems([controller.currentItem]);
+        Get.back();
+        controller.refreshData();
+        // Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
