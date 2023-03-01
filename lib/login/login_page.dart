@@ -6,7 +6,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'login_params.dart';
 
 class LoginPage extends NsgPhoneLoginPage {
-  LoginPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: LoginPage.getWidgetParams(), loginType: NsgLoginType.email);
+  LoginPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: LoginPage.getWidgetParams());
 
   @override
   Widget getLogo() {
@@ -39,7 +39,7 @@ class LoginPage extends NsgPhoneLoginPage {
       onPressed: () {
         sendData();
       },
-      text: 'Получить СМС'.toUpperCase(),
+      text: 'Продолжить'.toUpperCase(),
     );
   }
 
