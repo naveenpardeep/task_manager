@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
@@ -84,8 +85,11 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () async {
-                        await Get.find<DataController>().provider!.logout();
-                        await Get.find<DataController>().onInit();
+                        //await Get.find<DataController>().provider!.logout();
+                        //await Get.find<DataController>().onInit();\
+                        await Get.find<DataController>().provider!.resetUserToken();
+                        await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                        //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
                       },
                       child: Text(
                         'logout',
