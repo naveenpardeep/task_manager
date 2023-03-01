@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -114,6 +115,16 @@ class _ProjectpageState extends State<ProjectPage> {
                                     }
                                   },
                                 ),
+
+                                NsgButton(
+                                  text: 'Delete Project',
+                                  color: Colors.white,
+                                  onPressed: () async {
+
+                                  await controller.deleteItems([controller.currentItem]);
+                                  Get.back();
+                                  controller.refreshData();
+                                  },)
                             ],
                           ),
                         ),
