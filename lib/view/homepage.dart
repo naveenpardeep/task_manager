@@ -340,24 +340,27 @@ class _HomepageState extends State<Homepage> {
         wrapFlexible(
           child: Tooltip(
             message: 'Поиск по тексту задачи, Описание задачи',
-            child: TextField(
-                controller: textEditController,
-                decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: (() {
-                          setState(() {
-                            textEditController.clear();
-                            searchvalue = '';
-                          });
-                        }),
-                        icon: const Icon(Icons.cancel)),
-                    // prefixIcon: Icon(Icons.search),
-                    hintText: 'Поиск по тексту'),
-                onChanged: (val) {
-                  searchvalue = val;
-                  taskController.sendNotify();
-                  taskStatusTableController.sendNotify();
-                }),
+            child: SizedBox(
+              height: 37,
+              child: TextField(
+                  controller: textEditController,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: (() {
+                            setState(() {
+                              textEditController.clear();
+                              searchvalue = '';
+                            });
+                          }),
+                          icon: const Icon(Icons.cancel)),
+                      // prefixIcon: Icon(Icons.search),
+                      hintText: 'Поиск по тексту'),
+                  onChanged: (val) {
+                    searchvalue = val;
+                    taskController.sendNotify();
+                    taskStatusTableController.sendNotify();
+                  }),
+            ),
           ),
         ),
       // wrapFlexible(
