@@ -106,7 +106,7 @@ class _ProjectpageState extends State<ProjectPageTables> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   child: SizedBox(
-                                    height: height * 0.3,
+                                    height: height * 0.6,
                                     child: RawScrollbar(
                                       thumbVisibility: true,
                                       trackVisibility: true,
