@@ -7,6 +7,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../1/nsg_rich_text.dart';
@@ -425,6 +426,20 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
+
+                              Row(
+                                children: [
+                                  TaskButton(
+                                    text: 'Отменить',
+                                    style: TaskButtonStyle.light,
+                                    onTap: () {},
+                                  ),
+                                  TaskButton(
+                                    text: 'Сохранить',
+                                    onTap: () {},
+                                  ),
+                                ],
+                              )
 
                               //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(

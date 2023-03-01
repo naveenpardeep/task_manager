@@ -11,13 +11,13 @@ import 'app_pages.dart';
 void main() {
   ControlOptions newinstance = ControlOptions(
       borderRadius: 3,
-      appMaxWidth: 1600,
+      appMaxWidth: double.infinity,
       appMinWidth: 375,
       tableHeaderColor: const Color(0xff0050CF),
       tableHeaderLinesColor: const Color(0xff7876D9),
       colorMain: const Color(0xff0050CF),
       colorMainDark: const Color.fromARGB(255, 61, 60, 107),
-      colorMainLight: const Color(0xffEEEEFA),
+      colorMainLight: const Color.fromARGB(255, 171, 244, 255),
       colorMainLighter: const Color(0xffEEEEFA),
       colorMainText: const Color.fromRGBO(255, 255, 255, 1),
       colorText: const Color.fromRGBO(30, 30, 30, 1),
@@ -49,12 +49,7 @@ class MyApp extends StatelessWidget {
     //     const NsgDataControllerMode(storageType: NsgDataStorageType.local);
     return GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.touch,
-          PointerDeviceKind.stylus,
-          PointerDeviceKind.unknown
-        },
+        dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown},
       ),
       textDirection: TextDirection.ltr,
       defaultTransition: Transition.noTransition,
