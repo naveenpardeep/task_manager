@@ -437,7 +437,15 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
-
+                              if (controller.currentItem.name.isNotEmpty)
+                                NsgButton(
+                                  backColor: Colors.transparent,
+                                  text: 'Удалить задачу',
+                                  color: Colors.red,
+                                  onPressed: () async {
+                                    showAlertDialog(context);
+                                  },
+                                ),
                               Row(
                                 children: [
                                   TaskButton(
