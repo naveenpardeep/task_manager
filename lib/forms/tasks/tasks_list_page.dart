@@ -12,7 +12,7 @@ class TasksListPage extends GetView<TasksController> {
 
   final _textTitle = 'Все задачи'.toUpperCase();
   final _textNoItems = 'Задачи ещё не добавлены';
-  final _elementPage = Routes.tasksPage;
+  final _elementPage = Routes.newTaskPage;
 
   @override
   Widget build(BuildContext context) {
