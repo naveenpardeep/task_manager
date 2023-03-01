@@ -1145,6 +1145,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               )
                                             : Image.memory(
                                                 Uint8List.fromList(tasks.assignee.photoFile),
+                                                fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1314,6 +1315,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               )
                                             : Image.memory(
                                                 Uint8List.fromList(tasks.assignee.photoFile),
+                                                fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1483,6 +1485,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               )
                                             : Image.memory(
                                                 Uint8List.fromList(tasks.assignee.photoFile),
+                                                fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,
                                               ),
@@ -1646,6 +1649,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           )
                                         : Image.memory(
                                             Uint8List.fromList(tasks.assignee.photoFile),
+                                            fit: BoxFit.cover,
                                             width: 32,
                                             height: 32,
                                           ),

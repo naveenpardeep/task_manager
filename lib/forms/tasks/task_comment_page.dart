@@ -34,8 +34,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
               child: Column(
                 children: <Widget>[
                   NsgAppBar(
-                  
-                  color: Colors.black,
+                    color: Colors.black,
                     backColor: ControlOptions.instance.colorWhite,
                     text: 'комментарий',
                     icon: Icons.arrow_back_ios_new,
@@ -288,6 +287,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     )
                   : Image.memory(
                       Uint8List.fromList(comment.author.photoFile),
+                      fit: BoxFit.cover,
                       width: 32,
                       height: 32,
                     ),
@@ -322,6 +322,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       )
                     : Image.memory(
                         Uint8List.fromList(comment.author.photoFile),
+                        fit: BoxFit.cover,
                         width: 32,
                         height: 32,
                       ),

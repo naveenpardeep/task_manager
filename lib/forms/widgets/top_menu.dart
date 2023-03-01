@@ -185,6 +185,7 @@ class TmTopMenu extends StatelessWidget {
                     ? const SizedBox(width: 32, height: 32)
                     : Image.memory(
                         Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                        fit: BoxFit.cover,
                         width: 32,
                         height: 32,
                       ),

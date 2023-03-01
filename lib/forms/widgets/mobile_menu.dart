@@ -31,7 +31,6 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.hub,
               color: ControlOptions.instance.colorMain,
-             
             ),
           )),
           Expanded(
@@ -43,7 +42,6 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.task,
               color: ControlOptions.instance.colorMain,
-           
             ),
           )),
           Expanded(
@@ -54,37 +52,34 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.groups,
               color: ControlOptions.instance.colorMain,
-            
             ),
           )),
-           Expanded(
-             child: InkWell(
-               onTap: () {
-                 Get.toNamed(Routes.organizationPage);
-                 //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
-               },
-               child:  Icon(Icons.apartment ,
-               color: ControlOptions.instance.colorMain,)
-             ),
-           ),
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.organizationPage);
+                  //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
+                },
+                child: Icon(
+                  Icons.apartment,
+                  color: ControlOptions.instance.colorMain,
+                )),
+          ),
           Expanded(
               child: InkWell(
             onTap: () {
-              Get.find<InvitationController>()
-                  .newItemPageOpen(pageName: Routes.acceptInvitationPage);
+              Get.find<InvitationController>().newItemPageOpen(pageName: Routes.acceptInvitationPage);
             },
             child: Icon(
               Icons.insert_invitation,
               color: ControlOptions.instance.colorMain,
-              
             ),
           )),
           Expanded(
             child: InkWell(
               onTap: () {
                 Get.find<AccpetController>().refreshData();
-                Get.find<AccpetController>()
-                    .newItemPageOpen(pageName: Routes.acceptRejectListPage);
+                Get.find<AccpetController>().newItemPageOpen(pageName: Routes.acceptRejectListPage);
               },
               child: Icon(
                 Icons.list_alt,
@@ -103,7 +98,6 @@ class TmMobileMenu extends StatelessWidget {
                 child: Icon(
                   Icons.notifications,
                   color: ControlOptions.instance.colorMain,
-                
                 ),
               ),
               Positioned(
@@ -139,29 +133,27 @@ class TmMobileMenu extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       // Get.toNamed(Routes.userProfilePage);
-                      Get.find<UserAccountController>().itemPageOpen(
-                          Get.find<UserAccountController>().currentItem,
-                          Routes.userProfilePage);
+                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
                     },
-                    child:  ClipOval(
-                              child: Get.find<DataController>().currentUser.photoFile.isEmpty
-                                  ? Container(
-                                      decoration:
-                                          BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                      width: 32,
-                                      height: 32,
-                                      child: Icon(
-                                        Icons.account_circle,
-                                        size: 20,
-                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                      ),
-                                    )
-                                  : Image.memory(
-                                      Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
-                                      width: 32,
-                                      height: 32,
-                                    ),
+                    child: ClipOval(
+                      child: Get.find<DataController>().currentUser.photoFile.isEmpty
+                          ? Container(
+                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                              width: 32,
+                              height: 32,
+                              child: Icon(
+                                Icons.account_circle,
+                                size: 20,
+                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                              ),
+                            )
+                          : Image.memory(
+                              Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                              fit: BoxFit.cover,
+                              width: 32,
+                              height: 32,
                             ),
+                    ),
                   ),
                 ],
               ),

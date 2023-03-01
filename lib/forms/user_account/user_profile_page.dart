@@ -140,6 +140,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   )
                                                 : Image.memory(
                                                     Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                                                    fit: BoxFit.cover,
                                                     width: 70,
                                                     height: 70,
                                                   ),

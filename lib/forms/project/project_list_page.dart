@@ -191,6 +191,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                     )
                                   : Image.memory(
                                       Uint8List.fromList(project.leader.photoFile),
+                                      fit: BoxFit.cover,
                                       width: 32,
                                       height: 32,
                                     ),
