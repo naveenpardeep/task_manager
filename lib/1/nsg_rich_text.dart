@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:flutter/material.dart';
+import 'package:nsg_controls/widgets/nsg_error_widget.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:path/path.dart';
@@ -82,7 +83,7 @@ class NsgRichText extends StatefulWidget {
       this.height = 50,
       this.widget,
       this.required,
-      this.fileMaxSize = 1000000.0,
+      this.fileMaxSize = 2000000.0,
       this.allowedImageFormats = const ['jpeg', 'jpg', 'gif', 'png', 'bmp'],
       this.allowedVideoFormats = const ['mp4'],
       this.allowedFileFormats = const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
@@ -202,7 +203,8 @@ class _NsgRichTextState extends State<NsgRichText> {
         var file = File(element.name);
         if ((await file.length()) > widget.fileMaxSize) {
           error = 'Превышен саксимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-          setState(() {});
+          NsgErrorWidget.showErrorByString(error);
+          //setState(() {});
           return;
         }
         if (widget.allowedImageFormats.contains(fileType.toLowerCase())) {

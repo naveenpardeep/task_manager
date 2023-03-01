@@ -100,10 +100,24 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
                       maxLines: 1,
                     )
                   ]))
-              : const Icon(
-                  Icons.picture_in_picture,
-                  size: 50,
-                ),
+              : (fileObject != null)
+                  ? Container(
+                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                      width: 100,
+                      height: 100,
+                      child: Column(children: [
+                        const Flexible(child: Text('PDF')),
+                        Text(
+                          fileObject.description,
+                          overflow: TextOverflow.clip,
+                          style: const TextStyle(fontSize: 9),
+                          maxLines: 1,
+                        )
+                      ]))
+                  : const Icon(
+                      Icons.picture_in_picture,
+                      size: 50,
+                    ),
           onTap: () => (controller as NsgQuillController).fileController.tapFile(fileObject),
         ));
   }
