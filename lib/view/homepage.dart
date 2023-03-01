@@ -111,7 +111,7 @@ class _HomepageState extends State<Homepage> {
                       icon: Icons.edit,
                       onPressed: () {
                         //  Get.toNamed(Routes.projectPage);
-                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectPage);
+                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                       },
                     ),
                     //  if (width > 700)
@@ -152,7 +152,7 @@ class _HomepageState extends State<Homepage> {
                       children: [
                         Expanded(
                           child: SizedBox(
-                            height: 40,
+                            height: 35,
                             child: TextField(
                                 controller: textEditController,
                                 decoration: InputDecoration(
@@ -177,9 +177,10 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                         NsgButton(
+                          borderRadius: 20,
                           width: 50,
                           margin: EdgeInsets.zero,
-                          height: 30,
+                          height: 28,
                           icon: Icons.filter_alt_outlined,
                           // text: 'Фильтры',
                           color: ControlOptions.instance.colorMain,
@@ -340,24 +341,27 @@ class _HomepageState extends State<Homepage> {
         wrapFlexible(
           child: Tooltip(
             message: 'Поиск по тексту задачи, Описание задачи',
-            child: TextField(
-                controller: textEditController,
-                decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: (() {
-                          setState(() {
-                            textEditController.clear();
-                            searchvalue = '';
-                          });
-                        }),
-                        icon: const Icon(Icons.cancel)),
-                    // prefixIcon: Icon(Icons.search),
-                    hintText: 'Поиск по тексту'),
-                onChanged: (val) {
-                  searchvalue = val;
-                  taskController.sendNotify();
-                  taskStatusTableController.sendNotify();
-                }),
+            child: SizedBox(
+              height: 37,
+              child: TextField(
+                  controller: textEditController,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: (() {
+                            setState(() {
+                              textEditController.clear();
+                              searchvalue = '';
+                            });
+                          }),
+                          icon: const Icon(Icons.cancel)),
+                      // prefixIcon: Icon(Icons.search),
+                      hintText: 'Поиск по тексту'),
+                  onChanged: (val) {
+                    searchvalue = val;
+                    taskController.sendNotify();
+                    taskStatusTableController.sendNotify();
+                  }),
+            ),
           ),
         ),
       // wrapFlexible(

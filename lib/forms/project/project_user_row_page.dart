@@ -24,6 +24,7 @@ class ProjectUserRowPage extends GetView<ProjectItemUserTableController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
+                  color: Colors.black,
                   backColor: Colors.white,
                   text: controller.currentItem.isEmpty
                       ? 'User '.toUpperCase()

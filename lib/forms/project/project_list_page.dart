@@ -53,7 +53,7 @@ class ProjectListPage extends GetView<ProjectController> {
                         color: Colors.white,
                         backColor: ControlOptions.instance.colorMain,
                         onPressed: () {
-                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectPage);
+                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
                         },
                       ),
                     ],
@@ -106,7 +106,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                     padding: const EdgeInsets.only(right: 8),
                                     child: InkWell(
                                       onTap: () {
-                                        controller.itemPageOpen(project, Routes.projectPage);
+                                        controller.itemPageOpen(project, Routes.projectSettingsPage);
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
@@ -128,10 +128,9 @@ class ProjectListPage extends GetView<ProjectController> {
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Рук.: ${project.leader.name}',
-                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
+                                Text('Рук.: ${project.leader.name}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                 Text('Заказчик: ${project.contractor}',
-                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark)),
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                               ],
                             )),
                             if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))

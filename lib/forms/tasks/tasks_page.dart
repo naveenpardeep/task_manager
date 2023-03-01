@@ -7,6 +7,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../1/nsg_rich_text.dart';
@@ -169,6 +170,12 @@ class TasksPage extends GetView<TasksController> {
                                           ),
                                         ),
                                       ),
+                                    Expanded(
+                                      child: SelectableText(
+                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
                                   ],
                                 ),
 
@@ -199,6 +206,13 @@ class TasksPage extends GetView<TasksController> {
                                           style: TextStyle(color: ControlOptions.instance.colorMain),
                                         ),
                                       ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: SelectableText(
+                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      ),
+                                    ),
                                   ],
                                 ),
 
@@ -230,9 +244,10 @@ class TasksPage extends GetView<TasksController> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: SelectableText(
-                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
+                                      child: NsgInput(
+                                        dataItem: controller.currentItem,
+                                        fieldName: TaskDocGenerated.namePriority,
+                                        label: 'Приоритет',
                                       ),
                                     ),
                                   ],
@@ -262,10 +277,12 @@ class TasksPage extends GetView<TasksController> {
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
                               if (width < 700)
-                                SelectableText(
-                                  'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                  style: TextStyle(color: ControlOptions.instance.colorMain),
+                                NsgInput(
+                                  dataItem: controller.currentItem,
+                                  fieldName: TaskDocGenerated.namePriority,
+                                  label: 'Приоритет',
                                 ),
+
                               // HtmlEditor(
                               //   key: GlobalKey(),
                               //   callbacks: Callbacks(
@@ -352,11 +369,6 @@ class TasksPage extends GetView<TasksController> {
                               //     readOnly: false, // true for view only mode
                               //   ),
                               //),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.namePriority,
-                                label: 'Приоритет',
-                              ),
 
                               NsgInput(
                                 dataItem: controller.currentItem,
@@ -425,6 +437,28 @@ class TasksPage extends GetView<TasksController> {
                                       }
                                     }),
                               if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
+                              if (controller.currentItem.name.isNotEmpty)
+                                NsgButton(
+                                  backColor: Colors.transparent,
+                                  text: 'Удалить задачу',
+                                  color: Colors.red,
+                                  onPressed: () async {
+                                    showAlertDialog(context);
+                                  },
+                                ),
+                              Row(
+                                children: [
+                                  TaskButton(
+                                    text: 'Отменить',
+                                    style: TaskButtonStyle.light,
+                                    onTap: () {},
+                                  ),
+                                  TaskButton(
+                                    text: 'Сохранить',
+                                    onTap: () {},
+                                  ),
+                                ],
+                              )
 
                               //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
                               // NsgTable(
@@ -511,9 +545,10 @@ class TasksPage extends GetView<TasksController> {
       (state) => NsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
-        callback: (value) {},
-        objectsList: Get.find<TaskImageController>().images,
-        allowedFileFormats: const [],
+        callback: (value) async {},
+        // objectsList: Get.find<TaskImageController>().images,
+        objectsList: Get.find<TaskFilesController>().files,
+        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
       ),
     );
   }
@@ -527,5 +562,38 @@ class TasksPage extends GetView<TasksController> {
           objectsList: Get.find<TaskFilesController>().files,
           allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
         ));
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        await controller.deleteItems([controller.currentItem]);
+        Get.back();
+        controller.refreshData();
+        // Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

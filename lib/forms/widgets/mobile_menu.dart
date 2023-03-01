@@ -31,7 +31,7 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.hub,
               color: ControlOptions.instance.colorMain,
-              size: 32,
+             
             ),
           )),
           Expanded(
@@ -43,7 +43,7 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.task,
               color: ControlOptions.instance.colorMain,
-              size: 32,
+           
             ),
           )),
           Expanded(
@@ -54,9 +54,19 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.groups,
               color: ControlOptions.instance.colorMain,
-              size: 32,
+            
             ),
           )),
+           Expanded(
+             child: InkWell(
+               onTap: () {
+                 Get.toNamed(Routes.organizationPage);
+                 //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
+               },
+               child:  Icon(Icons.apartment ,
+               color: ControlOptions.instance.colorMain,)
+             ),
+           ),
           Expanded(
               child: InkWell(
             onTap: () {
@@ -66,11 +76,10 @@ class TmMobileMenu extends StatelessWidget {
             child: Icon(
               Icons.insert_invitation,
               color: ControlOptions.instance.colorMain,
-              size: 32,
+              
             ),
           )),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
+          Expanded(
             child: InkWell(
               onTap: () {
                 Get.find<AccpetController>().refreshData();
@@ -94,7 +103,7 @@ class TmMobileMenu extends StatelessWidget {
                 child: Icon(
                   Icons.notifications,
                   color: ControlOptions.instance.colorMain,
-                  size: 32,
+                
                 ),
               ),
               Positioned(
