@@ -133,7 +133,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
                               ),
-                              Center(child: userImage()),
+                             // Center(child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',
                               //   color: Colors.white,
