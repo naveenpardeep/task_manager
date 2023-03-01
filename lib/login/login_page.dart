@@ -35,6 +35,7 @@ class LoginPage extends NsgPhoneLoginPage {
   @override
   Widget getButtons() {
     return NsgButton(
+      margin: EdgeInsets.zero,
       onPressed: () {
         sendData();
       },

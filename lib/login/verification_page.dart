@@ -34,6 +34,7 @@ class VerificationPage extends NsgPhoneLoginVerificationPage {
   @override
   Widget getButtons() {
     return NsgButton(
+        margin: EdgeInsets.zero,
         onPressed: () {
           Get.back();
         },
