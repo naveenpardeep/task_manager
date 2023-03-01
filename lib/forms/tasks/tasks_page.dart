@@ -553,14 +553,47 @@ class TasksPage extends GetView<TasksController> {
     );
   }
 
-  // Widget filesUpload() {
-  //   return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
-  //         textChooseFile: 'Add Files',
-  //         useFilePicker: true,
-  //         showAsWidget: true,
-  //         callback: (value) {},
-  //         objectsList: Get.find<TaskFilesController>().files,
-  //         allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
-  //       ));
-  // }
+  Widget filesUpload() {
+    return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
+          textChooseFile: 'Add Files',
+          useFilePicker: true,
+          showAsWidget: true,
+          callback: (value) {},
+          objectsList: Get.find<TaskFilesController>().files,
+          allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
+        ));
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        await controller.deleteItems([controller.currentItem]);
+        Get.back();
+        controller.refreshData();
+        // Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
