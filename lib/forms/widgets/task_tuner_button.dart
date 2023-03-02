@@ -20,7 +20,7 @@ class TaskButton extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLight),
+                  color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLighter),
               child: Text(
                 text,
                 textAlign: TextAlign.center,
@@ -52,7 +52,7 @@ class TaskIconButton extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLight),
+                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLighter),
             child: Stack(children: [
               Icon(
                 icon,
@@ -65,10 +65,10 @@ class TaskIconButton extends StatelessWidget {
                       height: 15,
                       width: 15,
                       padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(color: Colors.red),
+                      decoration: const BoxDecoration(color: Colors.red),
                       child: Text(
                         '$nott',
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     )),

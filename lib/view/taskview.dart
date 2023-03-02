@@ -166,21 +166,31 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(right: 40),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 40),
                                                 child: Text(
                                                   'Дата создания:  ',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
-                                                child: Text(
-                                                  getCreatedDay(),
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Inter',
-                                                    fontSize: 14,
+                                                child: Row(children: [
+                                                  Text(
+                                                    getCreatedDay(),
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Inter',
+                                                      fontSize: 14,
+                                                    ),
                                                   ),
-                                                ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 2),
+                                                    child: Icon(
+                                                      Icons.access_time,
+                                                      size: 20,
+                                                      color: ControlOptions.instance.colorMainLight,
+                                                    ),
+                                                  ),
+                                                ]),
                                               ),
                                             ],
                                           ),
@@ -189,11 +199,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(right: 47),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 47),
                                                 child: Text(
                                                   'Автор задачи:  ',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
@@ -212,11 +222,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(right: 44),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 44),
                                                 child: Text(
                                                   'Статус задачи: ',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
@@ -235,11 +245,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(right: 49),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 49),
                                                 child: Text(
                                                   'Исполнитель : ',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
@@ -258,11 +268,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(right: 69),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 69),
                                                 child: Text(
                                                   'Приоритет :',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
@@ -284,9 +294,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                               // ignore: prefer_const_constructors
                                               Padding(
                                                 padding: const EdgeInsets.only(right: 82),
-                                                child: const Text(
+                                                child: Text(
                                                   'Дедлайн :',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(
@@ -307,9 +317,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                               // ignore: prefer_const_constructors
                                               Padding(
                                                 padding: const EdgeInsets.only(right: 5),
-                                                child: const Text(
+                                                child: Text(
                                                   'Напомнить о задаче:',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
                                                 ),
                                               ),
                                               Expanded(

@@ -23,6 +23,7 @@ import 'package:task_manager_app/view/taskview.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
+import '../forms/widgets/task_tuner_button.dart';
 import '../forms/widgets/top_menu.dart';
 
 class Homepage extends StatefulWidget {
@@ -165,7 +166,7 @@ class _HomepageState extends State<Homepage> {
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
                           child: SizedBox(
@@ -173,10 +174,15 @@ class _HomepageState extends State<Homepage> {
                             child: TextField(
                                 controller: textEditController,
                                 decoration: InputDecoration(
+                                    filled: false,
+                                    fillColor: ControlOptions.instance.colorMainLight,
                                     prefixIcon: const Icon(Icons.search),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.teal), borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    border: OutlineInputBorder(
+                                        gapPadding: 1,
+                                        borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
                                     suffixIcon: IconButton(
+                                        padding: const EdgeInsets.only(bottom: 0),
                                         onPressed: (() {
                                           setState(() {
                                             textEditController.clear();
@@ -185,7 +191,9 @@ class _HomepageState extends State<Homepage> {
                                         }),
                                         icon: const Icon(Icons.cancel)),
                                     // prefixIcon: Icon(Icons.search),
-                                    hintText: 'Поиск по тексту'),
+                                    hintText: 'Поиск по задачам'),
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(color: ControlOptions.instance.colorMainLight),
                                 onChanged: (val) {
                                   searchvalue = val;
                                   taskController.sendNotify();
@@ -193,16 +201,11 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                         ),
-                        NsgButton(
-                          borderRadius: 20,
-                          width: 50,
-                          margin: EdgeInsets.zero,
-                          height: 28,
+                        TaskIconButton(
+                          nott: 0,
+                          style: TaskButtonStyle.light,
                           icon: Icons.filter_alt_outlined,
-                          // text: 'Фильтры',
-                          color: ControlOptions.instance.colorMain,
-                          backColor: const Color(0xffABF4FF),
-                          onPressed: () {
+                          onTap: () {
                             scaffoldKey.currentState!.openDrawer();
                           },
                         ),
