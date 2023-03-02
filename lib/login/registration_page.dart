@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/authorize/nsgPhoneLoginRegistrationPage.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'login_page.dart';
 
-class VerificationPage extends NsgPhoneLoginVerificationPage {
-  VerificationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: LoginPage.getWidgetParams());
+class RegistrationPage extends NsgPhoneLoginRegistrationPage {
+  RegistrationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: LoginPage.getWidgetParams());
 
   @override
   Widget getLogo() {
@@ -23,22 +24,14 @@ class VerificationPage extends NsgPhoneLoginVerificationPage {
     return logo;
   }
 
-  // @override
-  // Image getBackground() {
-  //   var background = const Image(
-  //     image: AssetImage('lib/assets/titan-back.png'),
-  //   );
-  //   return background;
-  // }
-
   @override
   Widget getButtons() {
     return NsgButton(
         margin: EdgeInsets.zero,
         onPressed: () {
-          Get.back();
+          sendData();
         },
-        text: 'Отправить код заново'.toUpperCase());
+        text: 'Получить код'.toUpperCase());
   }
 
   @override

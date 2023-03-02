@@ -39,7 +39,7 @@ class LoginPage extends NsgPhoneLoginPage {
       onPressed: () {
         sendData();
       },
-      text: 'Продолжить'.toUpperCase(),
+      text: 'Войти'.toUpperCase(),
     );
   }
 

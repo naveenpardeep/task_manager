@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:nsg_data/nsg_data.dart';
 
+import '../app_pages.dart';
+
 class LoginParams extends NsgPhoneLoginParams {
   LoginParams()
       : super(
+            mainPage: Routes.splashPage,
             cardColor: Colors.grey[100],
             buttonSize: 32,
-            //headerMessage: 'ТИТАН 112',
+            useEmailLogin: true,
+            usePhoneLogin: true,
+            usePasswordLogin: true,
+            //headerMessage: 'TASK TUNER',
             headerMessageVisible: false,
+            headerMessageLogin: 'Вход',
+            headerMessageRegistration: 'Регистрация',
             headerMessageVerification: 'Введите проверочный код',
             descriptionMessegeVerification: 'Мы отправили проверочный код\nна ваш e-mail: {{phone}}',
-            textEnterPhone: 'Введите ваш телефон',
-            textEnterEmail: 'Введите ваш e-mail',
-            textEnterPassword: 'Введите ваш пароль',
+            textEnterPhone: 'Телефон',
+            textEnterEmail: 'E-mail',
+            textEnterPassword: 'Пароль',
             textResendSms: 'Назад',
             textSendSms: 'Отправить код',
             textEnterCaptcha: 'Введите текст',
@@ -39,7 +47,7 @@ class LoginParams extends NsgPhoneLoginParams {
         message = 'Введите номер телефона!';
         break;
       case 40105:
-        message = 'Введите текст капчи!';
+        message = 'Неверный пароль';
         break;
       case 40300:
         message = 'Проверочный код неправильный. Попробуйте снова!';
