@@ -65,51 +65,17 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              projectUsersList(context),
-                              NsgButton(
-                                text: 'Добавление пользователей в проект',
+                               NsgButton(
+                                color: const Color(0xff529FBF),
+                                backColor: const Color(0xffEDEFF3),
+                                text: '+ Добавить участника в проект',
                                 onPressed: () {
                                   Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
                                 },
                               ),
-                              //   if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в проект')),
-                              //  if (!isNewProject)
-                              //   NsgTable(
-                              //     showIconFalse: false,
-                              //     controller:
-                              //         Get.find<ProjectItemUserTableController>(),
-                              //     elementEditPageName: Routes.projectuserRowpage,
-                              //     availableButtons: const [
-                              //       NsgTableMenuButtonType.createNewElement,
-                              //       NsgTableMenuButtonType.editElement,
-                              //       NsgTableMenuButtonType.removeElement
-                              //     ],
-                              //     columns: [
-                              //       NsgTableColumn(
-                              //           name: ProjectItemUserTableGenerated
-                              //               .nameUserAccountId,
-                              //           expanded: true,
-                              //           presentation: 'User'),
-                              //       NsgTableColumn(
-                              //           name: ProjectItemUserTableGenerated
-                              //               .nameIsAdmin,
-                              //           width: 100,
-                              //           presentation: 'Admin'),
-                              //     ],
-                              //    ),
-                              //  if (!isNewProject)
-                              //     Align(
-                              //         alignment: Alignment.centerLeft,
-                              //         child: Expanded(
-                              //           child: NsgButton(
-                              //             borderRadius: 20,
-
-                              //             text: ' добавить пользователей в проект',
-                              //             onPressed: () {
-                              //               Get.find<ProjectItemUserTableController>().itemNewPageOpen(Routes.addUserToProjectPage);
-                              //             },
-                              //           ),
-                              //         )),
+                              projectUsersList(context),
+                             
+                             
                             ],
                           ),
                         ),
@@ -178,10 +144,11 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 fontSize: ControlOptions.instance.sizeL,
                               ),
                             ),
-                            Text(
-                              projectuser.userAccount.organization.name,
+                             Text(
+                              projectuser.userAccount.phoneNumber,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
+                            
                           ],
                         ),
                       ),
@@ -192,13 +159,14 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              projectuser.userAccount.email,
+                              projectuser.userAccount.organization.name,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
-                            Text(
-                              projectuser.userAccount.phoneNumber,
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            ),
+                            // Text(
+                            //   projectuser.userAccount.email,
+                            //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                            // ),
+                           
                           ],
                         ),
                       ),
