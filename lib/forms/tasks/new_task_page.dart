@@ -63,7 +63,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          taskController.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : taskController.currentItem.name.toString().toUpperCase(),
+          taskController.currentItem.name.isEmpty ? 'Новая задача'.toUpperCase() : taskController.currentItem.name.toString().toUpperCase(),
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(

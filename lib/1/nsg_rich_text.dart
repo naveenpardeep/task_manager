@@ -138,9 +138,11 @@ class _NsgRichTextState extends State<NsgRichText> {
     quillController = NsgQuillController(document: doc, selection: const TextSelection.collapsed(offset: 0), fileController: widget.fileController);
     quillController.document.changes.listen((event) {
       widget.dataItem[widget.fieldName] = jsonEncode(quillController.document.toDelta().toJson());
+      if (widget.disabled) {
+        quillController.undo();
+      }
     });
     scrollController = ScrollController();
-
     //Проверяем, выбран ли тип инпута пользователем
   }
 
@@ -163,18 +165,47 @@ class _NsgRichTextState extends State<NsgRichText> {
         //height: widget.maxLines > 1 ? null : 24 * textScaleFactor,
         decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: ControlOptions.instance.colorMain))),
         child: Column(children: [
-          quil.QuillToolbar.basic(
-            controller: quillController,
-            afterButtonPressed: () {},
-            customButtons: [quil.QuillCustomButton(icon: Icons.image_sharp, onTap: addImage)],
-          ),
+          if (!widget.disabled)
+            quil.QuillToolbar.basic(
+              showDividers: widget.availableButtons.contains(AvailableButtons.showDividers),
+              showFontFamily: widget.availableButtons.contains(AvailableButtons.showFontFamily),
+              showFontSize: widget.availableButtons.contains(AvailableButtons.showFontSize),
+              showBoldButton: widget.availableButtons.contains(AvailableButtons.showBoldButton),
+              showItalicButton: widget.availableButtons.contains(AvailableButtons.showItalicButton),
+              showUnderLineButton: widget.availableButtons.contains(AvailableButtons.showUnderLineButton),
+              showStrikeThrough: widget.availableButtons.contains(AvailableButtons.showStrikeThrough),
+              showInlineCode: widget.availableButtons.contains(AvailableButtons.showInlineCode),
+              showColorButton: widget.availableButtons.contains(AvailableButtons.showColorButton),
+              showBackgroundColorButton: widget.availableButtons.contains(AvailableButtons.showBackgroundColorButton),
+              showClearFormat: widget.availableButtons.contains(AvailableButtons.showClearFormat),
+              showLeftAlignment: widget.availableButtons.contains(AvailableButtons.showLeftAlignment),
+              showCenterAlignment: widget.availableButtons.contains(AvailableButtons.showCenterAlignment),
+              showRightAlignment: widget.availableButtons.contains(AvailableButtons.showRightAlignment),
+              showJustifyAlignment: widget.availableButtons.contains(AvailableButtons.showJustifyAlignment),
+              showHeaderStyle: widget.availableButtons.contains(AvailableButtons.showHeaderStyle),
+              showListNumbers: widget.availableButtons.contains(AvailableButtons.showListNumbers),
+              showListBullets: widget.availableButtons.contains(AvailableButtons.showListBullets),
+              showListCheck: widget.availableButtons.contains(AvailableButtons.showListCheck),
+              showCodeBlock: widget.availableButtons.contains(AvailableButtons.showCodeBlock),
+              showQuote: widget.availableButtons.contains(AvailableButtons.showQuote),
+              showIndent: widget.availableButtons.contains(AvailableButtons.showIndent),
+              showLink: widget.availableButtons.contains(AvailableButtons.showLink),
+              showUndo: widget.availableButtons.contains(AvailableButtons.showUndo),
+              showRedo: widget.availableButtons.contains(AvailableButtons.showRedo),
+              multiRowsDisplay: widget.availableButtons.contains(AvailableButtons.multiRowsDisplay),
+              showSearchButton: widget.availableButtons.contains(AvailableButtons.showSearchButton),
+              controller: quillController,
+              afterButtonPressed: () {},
+              customButtons: [quil.QuillCustomButton(icon: Icons.image_sharp, onTap: addImage)],
+            ),
           SizedBox(
             height: 500,
             child: quil.QuillEditor(
               focusNode: focus,
               scrollController: scrollController,
               controller: quillController,
-              readOnly: false,
+              readOnly: widget.disabled,
+              showCursor: !widget.disabled,
               scrollable: true,
               padding: EdgeInsets.zero,
               autoFocus: true,

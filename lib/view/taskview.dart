@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/helpers/nsg_data_format.dart';
+import 'package:task_manager_app/1/availableButtons.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
@@ -14,8 +15,8 @@ import 'package:task_manager_app/model/generated/task_doc.g.dart';
 
 class TaskViewPage extends StatefulWidget {
   const TaskViewPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TaskViewPage> createState() => _TaskViewPageState();
@@ -335,8 +336,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                       ),
                                     ),
                                     NsgRichText(
+                                        disabled: true,
                                         key: GlobalKey(),
-                                        availableButtons: const [],
+                                        availableButtons: const [...AvailableButtons.allValues],
                                         controller: controller,
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
