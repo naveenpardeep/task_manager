@@ -66,6 +66,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           child: Column(
                             children: [
                                NsgButton(
+                                borderRadius: 30,
                                 color: const Color(0xff529FBF),
                                 backColor: const Color(0xffEDEFF3),
                                 text: '+ Добавить участника в проект',
