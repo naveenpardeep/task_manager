@@ -202,7 +202,7 @@ class _NsgRichTextState extends State<NsgRichText> {
 
         var file = File(element.name);
         if ((await file.length()) > widget.fileMaxSize) {
-          error = 'Превышен саксимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+          error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
           NsgErrorWidget.showErrorByString(error);
           //setState(() {});
           return;
