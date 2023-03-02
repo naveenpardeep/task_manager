@@ -4,10 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_page_tables.dart';
 import 'package:task_manager_app/forms/project/project_page_users.dart';
+import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 
 class ProjectMobileViewPage extends StatefulWidget {
   const ProjectMobileViewPage({
@@ -233,8 +235,8 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                   ],
                 ),
               ),
-              Container(key: GlobalKey(), child: const ProjectPageTables()),
-              Container(key: GlobalKey(), child: const ProjectPageUsers()),
+              Container(key: GlobalKey(), child: const ProjectBoardMobile()),
+              Container(key: GlobalKey(), child: const ProjectUserMobile()),
             ]),
           ),
         ));
