@@ -34,3 +34,44 @@ class TaskButton extends StatelessWidget {
 }
 
 enum TaskButtonStyle { light, dark }
+
+class TaskIconButton extends StatelessWidget {
+  const TaskIconButton({super.key, this.style = TaskButtonStyle.dark, this.onTap, required this.icon, this.nott = 0});
+
+  final TaskButtonStyle style;
+  final void Function()? onTap;
+  final IconData icon;
+  final int nott;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: onTap,
+        child: Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLight),
+            child: Stack(children: [
+              Icon(
+                icon,
+                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMainLight : ControlOptions.instance.colorMain,
+              ),
+              if (nott != 0)
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      height: 15,
+                      width: 15,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Text(
+                        '$nott',
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+            ])));
+  }
+}
