@@ -114,11 +114,11 @@ class ProjectListPage extends GetView<ProjectController> {
                                       padding: const EdgeInsets.only(right: 8),
                                       child: InkWell(
                                         onTap: () {
-                                          if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                                            controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                          } else {
+                                        //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                                        //    controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                         // } else {
                                             controller.itemPageOpen(project, Routes.projectMobilePageview);
-                                          }
+                                       //   }
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),

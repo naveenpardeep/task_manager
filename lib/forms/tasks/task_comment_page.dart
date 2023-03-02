@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/1/availableButtons.dart';
+import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
@@ -64,12 +67,13 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               await controller.createNewItemAsync();
                             }
                           },
-                          child:
-                              //NsgRichText(
-                              //   height: 50,
-                              // dataItem: controller.currentItem,
-                              //   fieldName: TaskDocCommentsTableGenerated.nameText,
-                              //   objectsList: Get.find<TaskImageController>().images)
+                          child: 
+                          // NsgRichText(
+                          //     key: GlobalKey(),
+                          //     controller: controller,
+                          //     dataItem: controller.currentItem,
+                          //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                          //     fileController: Get.find<TaskImageController>()),
                               NsgInput(
                             borderRadius: 10,
                             dataItem: controller.currentItem,
@@ -240,8 +244,16 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child:
-                          //  NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                      child: 
+                      // NsgRichText(
+                      //     disabled: true,
+                      //     key: GlobalKey(),
+                      //     availableButtons: const [...AvailableButtons.allValues],
+                      //     controller: controller,
+                      //     dataItem: controller.currentItem,
+                      //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                      //     fileController: Get.find<TaskImageController>()),
+
                           Text(
                         comment.text,
                         softWrap: true,
@@ -357,7 +369,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child:
-                            //   NsgRichText(dataItem: comment, fieldName: TaskDocCommentsTableGenerated.nameText, objectsList:Get.find<TaskImageController>().images )
+                        //  NsgRichText(
+                        //     disabled: true,
+                        //     key: GlobalKey(),
+                        //     availableButtons: const [...AvailableButtons.allValues],
+                        //     controller: controller,
+                        //     dataItem: controller.currentItem,
+                        //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                        //     fileController: Get.find<TaskImageController>()),
 
                             Text(
                           comment.text,
