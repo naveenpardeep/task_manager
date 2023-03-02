@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
@@ -77,11 +79,12 @@ class ProjectListPage extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                  var taskConstroller = Get.find<TasksController>();
-                  taskConstroller.refreshData();
-                  Get.find<TaskBoardController>().refreshData();
+                //  var taskConstroller = Get.find<TasksController>();
+                //  taskConstroller.refreshData();
+                //  Get.find<TaskBoardController>().refreshData();
                   // Get.toNamed(Routes.homePage);
-                  controller.itemPageOpen(project, Routes.homePage);
+                  controller.itemPageOpen(project, Routes.homePage,needRefreshSelectedItem: true);
+               
                 },
                 child: Card(
                   elevation: 3,
@@ -101,26 +104,27 @@ class ProjectListPage extends GetView<ProjectController> {
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
                                 ),
                               ),
-
-                             // if(Get.find<DataController>().currentUser==project.leader )
-                              Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: InkWell(
-                                      onTap: () {
-                                        controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: ControlOptions.instance.colorGrey,
-                                          size: 24,
+                              if (Get.find<DataController>().currentUser == project.leader ||
+                                  Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
+                                  Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                                Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: InkWell(
+                                        onTap: () {
+                                          controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: ControlOptions.instance.colorGrey,
+                                            size: 24,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ))
+                                    ))
                             ],
                           ),
                         ),

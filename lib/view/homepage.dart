@@ -16,6 +16,7 @@ import 'package:task_manager_app/forms/task_status/project_status_controller.dar
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -104,25 +105,27 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ),
                     ),
-                    NsgIconButton(
-                      padding: const EdgeInsets.all(8),
-                      color: ControlOptions.instance.colorMain,
-                      size: 22,
-                      icon: Icons.edit,
-                      onPressed: () {
-                        //  Get.toNamed(Routes.projectPage);
-                        Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
-                      },
-                    ),
-                     IconButton(
-                         onPressed: () {
-                           Get.find<TasksController>().refreshData();
-                           setState(() {
-                             taskView=false;
-                           });
-                           
-                           },
-                         icon: const Icon(Icons.refresh)),
+                    if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
+                        Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
+                        Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                      NsgIconButton(
+                        padding: const EdgeInsets.all(8),
+                        color: ControlOptions.instance.colorMain,
+                        size: 22,
+                        icon: Icons.edit,
+                        onPressed: () {
+                          //  Get.toNamed(Routes.projectPage);
+                          Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
+                        },
+                      ),
+                    IconButton(
+                        onPressed: () {
+                          Get.find<TasksController>().refreshData();
+                          setState(() {
+                            taskView = false;
+                          });
+                        },
+                        icon: const Icon(Icons.refresh)),
                     //  if (width > 700)
                     Expanded(
                       child: Align(
@@ -1080,7 +1083,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
-                                      
                                   ],
                                 ),
                               ),
@@ -1251,7 +1253,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
-                                     
                                   ],
                                 ),
                               ),
