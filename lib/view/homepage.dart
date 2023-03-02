@@ -114,6 +114,15 @@ class _HomepageState extends State<Homepage> {
                         Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                       },
                     ),
+                     IconButton(
+                         onPressed: () {
+                           Get.find<TasksController>().refreshData();
+                           setState(() {
+                             taskView=false;
+                           });
+                           
+                           },
+                         icon: const Icon(Icons.refresh)),
                     //  if (width > 700)
                     Expanded(
                       child: Align(
@@ -1070,7 +1079,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                             },
                                             icon: const Icon(Icons.edit)),
-                                      )
+                                      ),
+                                      
                                   ],
                                 ),
                               ),
@@ -1240,7 +1250,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                             },
                                             icon: const Icon(Icons.edit)),
-                                      )
+                                      ),
+                                     
                                   ],
                                 ),
                               ),

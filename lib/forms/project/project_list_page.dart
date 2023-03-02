@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
 import '../tasks/tasks_controller.dart';
@@ -100,6 +101,8 @@ class ProjectListPage extends GetView<ProjectController> {
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: ControlOptions.instance.sizeL, height: 1),
                                 ),
                               ),
+
+                             // if(Get.find<DataController>().currentUser==project.leader )
                               Align(
                                   alignment: Alignment.topRight,
                                   child: Padding(
