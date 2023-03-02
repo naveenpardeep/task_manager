@@ -14,7 +14,7 @@ import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
 import 'package:task_manager_app/forms/project/project_edit_page.dart';
 import 'package:task_manager_app/forms/project/project_settings.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
-import 'package:task_manager_app/forms/project/project_view_page.dart';
+import 'package:task_manager_app/forms/project/project_Mobileview_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
@@ -227,8 +227,8 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
-      name: Routes.projectPageview,
-      page: () => const ProjectViewPage(),
+      name: Routes.projectMobilePageview,
+      page: () => const ProjectMobileViewPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -276,6 +276,6 @@ abstract class Routes {
   static const checkListPage = '/checkListPage';
   static const taskViewPage = '/taskViewPage';
   static const editChecklistPage = '/editCHecklistPage';
-  static const projectPageview='/projectPageView';
+  static const projectMobilePageview='/projectMobilePageView';
   static const projectEditPage='/projectEditPage';
 }

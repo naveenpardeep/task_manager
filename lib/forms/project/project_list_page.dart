@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -79,12 +81,11 @@ class ProjectListPage extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                //  var taskConstroller = Get.find<TasksController>();
-                //  taskConstroller.refreshData();
-                //  Get.find<TaskBoardController>().refreshData();
+                  //  var taskConstroller = Get.find<TasksController>();
+                  //  taskConstroller.refreshData();
+                  //  Get.find<TaskBoardController>().refreshData();
                   // Get.toNamed(Routes.homePage);
-                  controller.itemPageOpen(project, Routes.homePage,needRefreshSelectedItem: true);
-               
+                  controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
                 },
                 child: Card(
                   elevation: 3,
@@ -113,8 +114,11 @@ class ProjectListPage extends GetView<ProjectController> {
                                       padding: const EdgeInsets.only(right: 8),
                                       child: InkWell(
                                         onTap: () {
-                                         // controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                         controller.itemPageOpen(project, Routes.projectPageview);
+                                          if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                                            controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                          } else {
+                                            controller.itemPageOpen(project, Routes.projectMobilePageview);
+                                          }
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),

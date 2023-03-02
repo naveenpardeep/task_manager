@@ -9,16 +9,16 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_page_tables.dart';
 import 'package:task_manager_app/forms/project/project_page_users.dart';
 
-class ProjectViewPage extends StatefulWidget {
-  const ProjectViewPage({
+class ProjectMobileViewPage extends StatefulWidget {
+  const ProjectMobileViewPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProjectViewPage> createState() => _ProjectViewPageState();
+  State<ProjectMobileViewPage> createState() => _ProjectMobileViewPageState();
 }
 
-class _ProjectViewPageState extends State<ProjectViewPage> with TickerProviderStateMixin {
+class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with TickerProviderStateMixin {
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<ProjectController>();
