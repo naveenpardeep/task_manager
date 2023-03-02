@@ -108,7 +108,7 @@ class _HomepageState extends State<Homepage> {
                     if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
                         Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
                         Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
-                      NsgIconButton(
+                    NsgIconButton(
                         padding: const EdgeInsets.all(8),
                         color: ControlOptions.instance.colorMain,
                         size: 22,
@@ -117,7 +117,7 @@ class _HomepageState extends State<Homepage> {
                           //  Get.toNamed(Routes.projectPage);
                           Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                         },
-                      ),
+                    ),
                     IconButton(
                         onPressed: () {
                           Get.find<TasksController>().refreshData();

@@ -113,7 +113,8 @@ class ProjectListPage extends GetView<ProjectController> {
                                       padding: const EdgeInsets.only(right: 8),
                                       child: InkWell(
                                         onTap: () {
-                                          controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                         // controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                         controller.itemPageOpen(project, Routes.projectPageview);
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
