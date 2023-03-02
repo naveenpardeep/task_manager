@@ -11,10 +11,12 @@ import 'package:task_manager_app/forms/organization/organization_listPage.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
 import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
+import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_edit_page.dart';
 import 'package:task_manager_app/forms/project/project_settings.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/project/project_Mobileview_page.dart';
+import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
@@ -236,6 +238,16 @@ class AppPages {
       page: () => const ProjectEditPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.projectBoardMobile,
+      page: () => const ProjectBoardMobile(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.projectUserMobile,
+      page: () => const ProjectUserMobile(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -278,4 +290,6 @@ abstract class Routes {
   static const editChecklistPage = '/editCHecklistPage';
   static const projectMobilePageview='/projectMobilePageView';
   static const projectEditPage='/projectEditPage';
+  static const projectBoardMobile='/projectBoardMobile';
+  static const projectUserMobile='/projectUserMobile';
 }
