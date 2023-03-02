@@ -56,7 +56,11 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
               actions: [
                 IconButton(
                     onPressed: () {
-                      controller.itemPageOpen(controller.currentItem, Routes.projectEditPage);
+                      if (_tabController.index == 0) {
+                        controller.itemPageOpen(controller.currentItem, Routes.projectEditPage);
+                      }
+                      if (_tabController.index == 1) {}
+                      if (_tabController.index == 2) {}
                     },
                     icon: const Icon(Icons.edit))
               ],
