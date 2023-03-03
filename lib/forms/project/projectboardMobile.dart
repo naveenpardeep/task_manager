@@ -7,9 +7,8 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
-import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 
 class ProjectBoardMobile extends StatefulWidget {
   const ProjectBoardMobile({Key? key}) : super(key: key);
@@ -37,9 +36,6 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     var isNewProject = controller.currentItem.name.isEmpty;
     var scrollController = ScrollController();
-    var newscrollController = ScrollController();
-
-    // String formatted = formateddate.format(controller.currentItem.date);
 
     return SafeArea(
       child: Scaffold(
@@ -70,7 +66,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              if (isHidden && controller.currentItem.name.isEmpty)
+                              if ( controller.currentItem.name.isEmpty)
                                 NsgButton(
                                   text: 'Сохранить и далее',
                                   color: Colors.white,
@@ -79,62 +75,28 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
                                     } else {
                                       setState(() {
-                                        isHidden = false;
+                                       
                                         controller.itemPagePost(goBack: false);
                                       });
                                     }
                                   },
                                 ),
+                              //   if (controller.currentItem.name.isNotEmpty)
+                              //   const Align(alignment: Alignment.centerLeft, child: NsgText('Создать экран для этого проекта')),
                               if (controller.currentItem.name.isNotEmpty)
-                                const Align(alignment: Alignment.centerLeft, child: NsgText('Создать экран для этого проекта')),
-                              if (controller.currentItem.name.isNotEmpty)
-                                NsgTable(
-                                  controller: Get.find<TaskBoardController>(),
-                                  elementEditPageName: Routes.taskBoard,
-                                  availableButtons: const [
-                                    NsgTableMenuButtonType.createNewElement,
-                                    NsgTableMenuButtonType.editElement,
-                                    NsgTableMenuButtonType.removeElement
-                                  ],
-                                  columns: [
-                                    NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
-                                  ],
-                                ),
-                              // if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление Статусы проекта')),
-                              // if (!isNewProject)
-                              //   Padding(
-                              //     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              //     child: SizedBox(
-                              //       height: height * 0.6,
-                              //       child: RawScrollbar(
-                              //         thumbVisibility: true,
-                              //         trackVisibility: true,
-                              //         controller: newscrollController,
-                              //         thickness: 8,
-                              //         trackBorderColor: ControlOptions.instance.colorGreyLight,
-                              //         trackColor: ControlOptions.instance.colorGreyLight,
-                              //         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                              //         radius: const Radius.circular(0),
-                              //         child: SingleChildScrollView(
-                              //             physics: const BouncingScrollPhysics(),
-                              //             controller: newscrollController,
-                              //             child: NsgTable(
-                              //               showIconFalse: false,
-                              //               controller: Get.find<ProjectStatusController>(),
-                              //               elementEditPageName: Routes.taskStatusPage,
-                              //               availableButtons: const [
-                              //                 NsgTableMenuButtonType.createNewElement,
-                              //                 NsgTableMenuButtonType.editElement,
-                              //                 NsgTableMenuButtonType.removeElement
-                              //               ],
-                              //               columns: [
-                              //                 NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
-                              //                 NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
-                              //               ],
-                              //             )),
-                              //       ),
-                              //     ),
-                              //   ),
+                                // NsgTable(
+                                //   controller: Get.find<TaskBoardController>(),
+                                //   elementEditPageName: Routes.taskBoard,
+                                //   availableButtons: const [
+                                //     NsgTableMenuButtonType.createNewElement,
+                                //     NsgTableMenuButtonType.editElement,
+                                //     NsgTableMenuButtonType.removeElement
+                                //   ],
+                                //   columns: [
+                                //     NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
+                                //   ],
+                                // ),
+                              Get.find<TaskBoardController>().obx((state) => getProjectBoard(context),)  
                             ],
                           ),
                         ),
@@ -146,5 +108,70 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
         ),
       ),
     );
+  }
+
+  Widget getProjectBoard(BuildContext context) {
+    List<Widget> list = [];
+    var taskBoardtable = Get.find<TaskBoardController>().items;
+
+    for (var taskboard in taskBoardtable) {
+      list.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: InkWell(
+          onTap: () {
+            Get.find<TaskBoardController>().currentItem = taskboard;
+            Get.toNamed(Routes.taskBoard);
+          },
+          onLongPress: () {},
+          child: Row(
+            children: [
+              Expanded(
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          taskboard.name,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                        ),
+                     // getTaskBoardStatus(taskboard.name)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ));
+    }
+    return SingleChildScrollView(child: Column(children: list));
+  }
+
+  Widget getTaskBoardStatus(taskBoard) {
+    List<Widget> list = [];
+     var taskboardstatusList = Get.find<TaskStatusTableController>().items;
+
+    for (var taskboardstatus in taskboardstatusList) {
+      // if (taskboardstatus.status!= taskBoard) continue;
+
+      {
+        list.add(GestureDetector(
+          onTap: () {},
+          child: Text(taskboardstatus.status.name),
+        ));
+      }
+    }
+
+    return SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Column(
+            children: list,
+          ),
+        ));
   }
 }

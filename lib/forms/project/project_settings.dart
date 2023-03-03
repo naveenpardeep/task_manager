@@ -5,6 +5,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_page_main.dart';
 import 'package:task_manager_app/forms/project/project_page_tables.dart';
 import 'package:task_manager_app/forms/project/project_page_users.dart';
+import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 
 import '../../app_pages.dart';
 
@@ -92,7 +93,7 @@ class _ProjectSettingsState extends State<ProjectSettings> with TickerProviderSt
         // ignore: prefer_const_literals_to_create_immutables
         (state) => TabBarView(controller: _tabController, children: [
           const ProjectPage(),
-          const ProjectPageTables(),
+          const ProjectBoardMobile(),
           const ProjectUserMobile(),
         ]),
       ),

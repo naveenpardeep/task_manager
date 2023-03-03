@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
+
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 
-import 'package:task_manager_app/model/data_controller_model.dart';
+
 
 class ProjectUserMobile extends StatefulWidget {
   const ProjectUserMobile({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
         child: InkWell(
           onTap: () {
             Get.find<ProjectItemUserTableController>().currentItem = projectuser;
-            Get.toNamed(Routes.projectuserRowpage);
+            Get.toNamed(Routes.projectUserViewPage);
           },
           onLongPress: () {},
           child: Column(

@@ -27,7 +27,8 @@ class TaskBoardPage extends GetView<TaskBoardController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  color: Colors.white,
+                  backColor: Colors.white,
+                  color: Colors.black,
                   text: controller.currentItem.isEmpty
                       ? 'Экран '.toUpperCase()
                       : controller.currentItem.name.toUpperCase(),
