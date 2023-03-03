@@ -101,41 +101,7 @@ class _ProjectpageState extends State<ProjectPageTables> {
                                     NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
                                   ],
                                 ),
-                              if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление Статусы проекта')),
-                              if (!isNewProject)
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  child: SizedBox(
-                                    height: height * 0.6,
-                                    child: RawScrollbar(
-                                      thumbVisibility: true,
-                                      trackVisibility: true,
-                                      controller: newscrollController,
-                                      thickness: 8,
-                                      trackBorderColor: ControlOptions.instance.colorGreyLight,
-                                      trackColor: ControlOptions.instance.colorGreyLight,
-                                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                                      radius: const Radius.circular(0),
-                                      child: SingleChildScrollView(
-                                          physics: const BouncingScrollPhysics(),
-                                          controller: newscrollController,
-                                          child: NsgTable(
-                                            showIconFalse: false,
-                                            controller: Get.find<ProjectStatusController>(),
-                                            elementEditPageName: Routes.taskStatusPage,
-                                            availableButtons: const [
-                                              NsgTableMenuButtonType.createNewElement,
-                                              NsgTableMenuButtonType.editElement,
-                                              NsgTableMenuButtonType.removeElement
-                                            ],
-                                            columns: [
-                                              NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
-                                              NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
-                                            ],
-                                          )),
-                                    ),
-                                  ),
-                                ),
+                            
                             ],
                           ),
                         ),

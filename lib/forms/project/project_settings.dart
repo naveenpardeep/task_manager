@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_page_main.dart';
 import 'package:task_manager_app/forms/project/project_page_tables.dart';
@@ -92,7 +93,7 @@ class _ProjectSettingsState extends State<ProjectSettings> with TickerProviderSt
         (state) => TabBarView(controller: _tabController, children: [
           const ProjectPage(),
           const ProjectPageTables(),
-          const ProjectPageUsers(),
+          const ProjectUserMobile(),
         ]),
       ),
     ));
