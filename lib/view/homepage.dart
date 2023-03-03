@@ -991,6 +991,7 @@ changeTaskStatus(TaskDoc tasks) {
     'Смена статуса заявки',
     (item) async {
       tasks.taskStatus = item as TaskStatus;
+     tasks.dateUpdated=DateTime.now();
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().sendNotify();
       Get.find<TaskStatusTableController>().sendNotify();
