@@ -345,7 +345,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
                                         (widget.required ?? widget.dataItem.isFieldRequired(widget.fieldName)) ? widget.infoString + ' *' : widget.infoString,
-                                        style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: ControlOptions.instance.colorMain),
+                                        style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorMainLight),
                                       ),
                                     )),
                               if (widget.hint != null && focus.hasFocus && textController.text == '')

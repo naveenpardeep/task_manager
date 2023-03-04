@@ -12,6 +12,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../1/nsg_rich_text.dart';
 import '../task_status/task_status_controller.dart';
+import '../widgets/tt_nsg_input.dart';
 import 'task_image_controller.dart';
 import 'task_user_account_controler.dart';
 
@@ -216,16 +217,17 @@ class TasksPage extends GetView<TasksController> {
                                   ],
                                 ),
 
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameName,
                                 label: 'Название задачи',
+                                infoString: 'Укажите название задачи',
                               ),
                               if (width > 700)
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: NsgInput(
+                                      child: TTNsgInput(
                                         controller: controller,
                                         selectionController: Get.find<TaskStatusController>(),
                                         dataItem: controller.currentItem,
@@ -234,9 +236,10 @@ class TasksPage extends GetView<TasksController> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: NsgInput(
+                                      child: TTNsgInput(
                                         controller: controller,
                                         label: 'Исполнитель',
+                                        infoString: 'Выберите исполнителя задачи',
                                         selectionController: Get.find<TaskUserAccountController>(),
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameAssigneeId,
@@ -244,21 +247,23 @@ class TasksPage extends GetView<TasksController> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: NsgInput(
+                                      child: TTNsgInput(
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.namePriority,
                                         label: 'Приоритет',
+                                        infoString: 'Выберите приоритет задачи',
                                       ),
                                     ),
                                   ],
                                 ),
                               if (width < 700)
-                                NsgInput(
+                                TTNsgInput(
                                   controller: controller,
                                   selectionController: Get.find<TaskStatusController>(),
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.nameTaskStatusId,
                                   label: 'Статус',
+                                  infoString: 'Укажите статус задачи',
                                 ),
                               // NsgInput(
                               //   selectionController:
@@ -268,19 +273,21 @@ class TasksPage extends GetView<TasksController> {
                               //   label: 'Исполнитель',
                               // ),
                               if (width < 700)
-                                NsgInput(
+                                TTNsgInput(
                                   controller: controller,
                                   label: 'Исполнитель',
+                                  infoString: 'Выберите исполнителя задачи',
                                   selectionController: Get.find<TaskUserAccountController>(),
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.nameAssigneeId,
                                   //selectionForm: Routes.userAccountListPage,
                                 ),
                               if (width < 700)
-                                NsgInput(
+                                TTNsgInput(
                                   dataItem: controller.currentItem,
                                   fieldName: TaskDocGenerated.namePriority,
                                   label: 'Приоритет',
+                                  infoString: 'Выберите приоритет задачи',
                                 ),
 
                               // HtmlEditor(
@@ -370,19 +377,19 @@ class TasksPage extends GetView<TasksController> {
                               //   ),
                               //),
 
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameFootnote,
                                 label: 'Примечание',
                                 minLines: 1,
                                 maxLines: 5,
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameDateRemind,
                                 label: 'Напонинание о задаче',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: TaskDocGenerated.nameDateDeadline,
                                 label: 'Срок выполнения',
