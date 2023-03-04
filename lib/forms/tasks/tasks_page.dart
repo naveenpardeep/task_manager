@@ -235,6 +235,7 @@ class TasksPage extends GetView<TasksController> {
                                             dataItem: controller.currentItem,
                                             fieldName: TaskDocGenerated.nameTaskStatusId,
                                             label: 'Статус',
+                                            infoString: 'Укажите статус задачи',
                                           ),
                                         ),
                                         Expanded(
