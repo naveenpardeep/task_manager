@@ -101,440 +101,442 @@ class TasksPage extends GetView<TasksController> {
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // NsgInput(
-                              //       dataItem: controller.currentItem,
-                              //       fieldName: TaskDocGenerated.nameDate,
-                              //       //disabled: true,
-                              //       label: 'Создана',
-                              //     ),
-                              // Row(
-                              //   mainAxisSize: MainAxisSize.min,
-                              //   children: [
-                              //     Flexible(
-                              //       child: NsgInput(
-                              //         dataItem: controller.currentItem,
-                              //         fieldName: TaskDocGenerated.nameDate,
-                              //         disabled: true,
-                              //         label: 'Создана',
-                              //       ),
-                              //     ),
-                              //     Flexible(
-                              //       child: NsgInput(
-                              //         dataItem: controller.currentItem,
-                              //         fieldName: TaskDocGenerated.nameDateUpdated,
-                              //         disabled: true,
-                              //         label: 'Обновлена',
-                              //       ),
-                              //     ),
-                              //     Flexible(
-                              //       child: NsgInput(
-                              //         dataItem: controller.currentItem,
-                              //         fieldName: TaskDocGenerated.nameDateClosed,
-                              //         disabled: true,
-                              //         label: 'Закрыта',
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              if (width > 700)
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(left: 4, right: 15),
-                                        child: Text(
-                                          'Создана $formatted',
-                                          style: TextStyle(color: ControlOptions.instance.colorMain),
-                                        ),
-                                      ),
-                                    ),
-                                    if (controller.currentItem.name.isNotEmpty)
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Text(
-                                            'Обновлена $formatupdate',
-                                            style: TextStyle(color: ControlOptions.instance.colorMain),
-                                          ),
-                                        ),
-                                      ),
-                                    if (controller.currentItem.name.isNotEmpty)
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            'Автор  :  ${controller.currentItem.author}',
-                                            style: TextStyle(color: ControlOptions.instance.colorMain),
-                                          ),
-                                        ),
-                                      ),
-                                    Expanded(
-                                      child: SelectableText(
-                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                              if (width < 700)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4, right: 15),
-                                      child: Text(
-                                        'Создана $formatted',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
-                                      ),
-                                    ),
-                                    if (controller.currentItem.name.isNotEmpty)
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          'Обновлена $formatupdate',
-                                          style: TextStyle(color: ControlOptions.instance.colorMain),
-                                        ),
-                                      ),
-                                    if (controller.currentItem.name.isNotEmpty)
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          'Автор  :  ${controller.currentItem.author}',
-                                          style: TextStyle(color: ControlOptions.instance.colorMain),
-                                        ),
-                                      ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: SelectableText(
-                                        'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                        style: TextStyle(color: ControlOptions.instance.colorMain),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                              TTNsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameName,
-                                label: 'Название задачи',
-                                infoString: 'Укажите название задачи',
-                              ),
-                              if (width > 700)
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TTNsgInput(
-                                        controller: controller,
-                                        selectionController: Get.find<TaskStatusController>(),
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.nameTaskStatusId,
-                                        label: 'Статус',
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TTNsgInput(
-                                        controller: controller,
-                                        label: 'Исполнитель',
-                                        infoString: 'Выберите исполнителя задачи',
-                                        selectionController: Get.find<TaskUserAccountController>(),
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.nameAssigneeId,
-                                        //selectionForm: Routes.userAccountListPage,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TTNsgInput(
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.namePriority,
-                                        label: 'Приоритет',
-                                        infoString: 'Выберите приоритет задачи',
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              if (width < 700)
-                                TTNsgInput(
-                                  controller: controller,
-                                  selectionController: Get.find<TaskStatusController>(),
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameTaskStatusId,
-                                  label: 'Статус',
-                                  infoString: 'Укажите статус задачи',
-                                ),
-                              // NsgInput(
-                              //   selectionController:
-                              //       Get.find<UserAccountController>(),
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameAssigneeId,
-                              //   label: 'Исполнитель',
-                              // ),
-                              if (width < 700)
-                                TTNsgInput(
-                                  controller: controller,
-                                  label: 'Исполнитель',
-                                  infoString: 'Выберите исполнителя задачи',
-                                  selectionController: Get.find<TaskUserAccountController>(),
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameAssigneeId,
-                                  //selectionForm: Routes.userAccountListPage,
-                                ),
-                              if (width < 700)
-                                TTNsgInput(
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.namePriority,
-                                  label: 'Приоритет',
-                                  infoString: 'Выберите приоритет задачи',
-                                ),
-
-                              // HtmlEditor(
-                              //   key: GlobalKey(),
-                              //   callbacks: Callbacks(
-                              //       onChangeContent: (String? comment) {
-                              //     controller.currentItem.description = comment!;
-                              //     // controller.postItems([controller.currentItem]);
-                              //   }),
-                              //   controller: htmlcontroller, //required
-                              //   htmlEditorOptions: HtmlEditorOptions(
-                              //       hint: "Описание задачи...",
-                              //       initialText:
-                              //           controller.currentItem.description),
-                              //   otherOptions: const OtherOptions(
-                              //     height: 400,
-                              //   ),
-                              // ),
-
-                              // MarkdownTextInput(
-                              //   (String value) =>
-                              //       controller.currentItem.description = value,
-                              //   controller.currentItem.description,
-                              //   label: 'Description',
-                              //   maxLines: 10,
-                              //   actions: const [
-                              //     MarkdownType.bold,
-                              //     MarkdownType.italic,
-                              //     MarkdownType.title,
-                              //     MarkdownType.link,
-                              //     MarkdownType.list
-                              //   ],
-                              //   controller: textontroller,
-                              //   textStyle: TextStyle(fontSize: 16),
-                              // ),
-                              // TextButton(
-                              //   onPressed: () {
-                              //     textontroller.clear();
-                              //   },
-                              //   child: Text('Clear'),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(top: 10),
-                              //   child: MarkdownBody(
-                              //     data: controller.currentItem.description,
-                              //     shrinkWrap: true,
-                              //     selectable: true,
-                              //   ),
-                              // ),
-
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameDescription,
-                              //   label: 'Описание задачи',
-                              //   minLines: 1,
-                              //   maxLines: 5,
-                              // ),
-
-                              NsgRichText(
-                                  hint: 'Description',
-                                  key: GlobalKey(),
-                                  dataItem: controller.currentItem,
-                                  fieldName: TaskDocGenerated.nameDescription,
-                                  fileController: Get.find<TaskImageController>()),
-                              // Container(
-                              //     height: 300,
-                              //     child: Markdown(
-                              //       styleSheet: MarkdownStyleSheet(
-                              //         h1: const TextStyle(
-                              //             color: Colors.blue, fontSize: 40),
-                              //       ),
-                              //       selectable: true,
-                              //       data: controller.currentItem.description,
-                              //     )),
-                              // quil.QuillToolbar.basic(
-                              //   controller: quillcontroller,
-                              //   afterButtonPressed: () {
-                              //     controller.currentItem.description;
-                              //   },
-                              // ),
-
-                              // Container(
-                              //   height: 500,
-                              //   child: quil.QuillEditor.basic(
-                              //     controller: quillcontroller,
-                              //     readOnly: false, // true for view only mode
-                              //   ),
-                              //),
-
-                              TTNsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameFootnote,
-                                label: 'Примечание',
-                                minLines: 1,
-                                maxLines: 5,
-                              ),
-                              TTNsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameDateRemind,
-                                label: 'Напонинание о задаче',
-                              ),
-                              TTNsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: TaskDocGenerated.nameDateDeadline,
-                                label: 'Срок выполнения',
-                              ),
-
-                              // const NsgText('Create CheckList for this Task'),
-                              // NsgTable(
-                              //   controller: Get.find<TaskCheckListController>(),
-                              //   elementEditPageName: Routes.taskChecklistPage,
-                              //   availableButtons: const [
-                              //     NsgTableMenuButtonType.createNewElement,
-                              //     NsgTableMenuButtonType.editElement,
-                              //     NsgTableMenuButtonType.removeElement
-                              //   ],
-                              //   columns: [
-                              //     NsgTableColumn(
-                              //         name: TaskDocCheckListTableGenerated
-                              //             .nameText,
-                              //         expanded: true,
-                              //         presentation: 'CheckList Name'),
-                              //     NsgTableColumn(
-                              //         name: TaskDocCheckListTableGenerated
-                              //             .nameIsDone,
-                              //         width: 100,
-                              //         presentation: 'Done'),
-                              //   ],
-                              // ),
-                              // if (controller.currentItem.name.isNotEmpty)
-                              //   NsgButton(
-                              //     text: 'Open Comments',
-                              //     onPressed: () {
-                              //       // Get.find<CommentTableTasksController>()
-                              //       //     .itemPageOpen(
-                              //       //        Get.find<CommentTableTasksController>()
-                              //       //          .currentItem,
-                              //       //       Routes.commentRowPage);
-                              //       // Get.toNamed(Routes.commentRowPage);
-                              //       Get.find<CommentTableTasksController>()
-                              //           .newItemPageOpen(
-                              //               pageName: Routes.commentRowPage);
-                              //     },
-                              //   ),
-                              if (controller.currentItem.name.isEmpty)
-                                NsgButton(
-                                    text: 'Add Photos',
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      if (controller.currentItem.name.isEmpty) {
-                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи ')));
-                                      } else {
-                                        controller.itemPagePost(goBack: false);
-                                      }
-                                    }),
-                              if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
-                              if (controller.currentItem.name.isNotEmpty)
-                                NsgButton(
-                                  backColor: Colors.transparent,
-                                  text: 'Удалить задачу',
-                                  color: Colors.red,
-                                  onPressed: () async {
-                                    showAlertDialog(context);
-                                  },
-                                ),
-                              Row(
+                          child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  TaskButton(
-                                    text: 'Отменить',
-                                    style: TaskButtonStyle.light,
-                                    onTap: () {},
+                                  // NsgInput(
+                                  //       dataItem: controller.currentItem,
+                                  //       fieldName: TaskDocGenerated.nameDate,
+                                  //       //disabled: true,
+                                  //       label: 'Создана',
+                                  //     ),
+                                  // Row(
+                                  //   mainAxisSize: MainAxisSize.min,
+                                  //   children: [
+                                  //     Flexible(
+                                  //       child: NsgInput(
+                                  //         dataItem: controller.currentItem,
+                                  //         fieldName: TaskDocGenerated.nameDate,
+                                  //         disabled: true,
+                                  //         label: 'Создана',
+                                  //       ),
+                                  //     ),
+                                  //     Flexible(
+                                  //       child: NsgInput(
+                                  //         dataItem: controller.currentItem,
+                                  //         fieldName: TaskDocGenerated.nameDateUpdated,
+                                  //         disabled: true,
+                                  //         label: 'Обновлена',
+                                  //       ),
+                                  //     ),
+                                  //     Flexible(
+                                  //       child: NsgInput(
+                                  //         dataItem: controller.currentItem,
+                                  //         fieldName: TaskDocGenerated.nameDateClosed,
+                                  //         disabled: true,
+                                  //         label: 'Закрыта',
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  if (width > 700)
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 4, right: 15),
+                                            child: Text(
+                                              'Создана $formatted',
+                                              style: TextStyle(color: ControlOptions.instance.colorMain),
+                                            ),
+                                          ),
+                                        ),
+                                        if (controller.currentItem.name.isNotEmpty)
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                'Обновлена $formatupdate',
+                                                style: TextStyle(color: ControlOptions.instance.colorMain),
+                                              ),
+                                            ),
+                                          ),
+                                        if (controller.currentItem.name.isNotEmpty)
+                                          Expanded(
+                                            child: Center(
+                                              child: Text(
+                                                'Автор  :  ${controller.currentItem.author}',
+                                                style: TextStyle(color: ControlOptions.instance.colorMain),
+                                              ),
+                                            ),
+                                          ),
+                                        Expanded(
+                                          child: SelectableText(
+                                            'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                            style: TextStyle(color: ControlOptions.instance.colorMain),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                  if (width < 700)
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 4, right: 15),
+                                          child: Text(
+                                            'Создана $formatted',
+                                            style: TextStyle(color: ControlOptions.instance.colorMain),
+                                          ),
+                                        ),
+                                        if (controller.currentItem.name.isNotEmpty)
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(
+                                              'Обновлена $formatupdate',
+                                              style: TextStyle(color: ControlOptions.instance.colorMain),
+                                            ),
+                                          ),
+                                        if (controller.currentItem.name.isNotEmpty)
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(
+                                              'Автор  :  ${controller.currentItem.author}',
+                                              style: TextStyle(color: ControlOptions.instance.colorMain),
+                                            ),
+                                          ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: SelectableText(
+                                            'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                            style: TextStyle(color: ControlOptions.instance.colorMain),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                  TTNsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameName,
+                                    label: 'Название задачи',
+                                    infoString: 'Укажите название задачи',
                                   ),
-                                  TaskButton(
-                                    text: 'Сохранить',
-                                    onTap: () {},
+                                  if (width > 700)
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            selectionController: Get.find<TaskStatusController>(),
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.nameTaskStatusId,
+                                            label: 'Статус',
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            label: 'Исполнитель',
+                                            infoString: 'Выберите исполнителя задачи',
+                                            selectionController: Get.find<TaskUserAccountController>(),
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.nameAssigneeId,
+                                            //selectionForm: Routes.userAccountListPage,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.namePriority,
+                                            label: 'Приоритет',
+                                            infoString: 'Выберите приоритет задачи',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  if (width < 700)
+                                    TTNsgInput(
+                                      controller: controller,
+                                      selectionController: Get.find<TaskStatusController>(),
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameTaskStatusId,
+                                      label: 'Статус',
+                                      infoString: 'Укажите статус задачи',
+                                    ),
+                                  // NsgInput(
+                                  //   selectionController:
+                                  //       Get.find<UserAccountController>(),
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameAssigneeId,
+                                  //   label: 'Исполнитель',
+                                  // ),
+                                  if (width < 700)
+                                    TTNsgInput(
+                                      controller: controller,
+                                      label: 'Исполнитель',
+                                      infoString: 'Выберите исполнителя задачи',
+                                      selectionController: Get.find<TaskUserAccountController>(),
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameAssigneeId,
+                                      //selectionForm: Routes.userAccountListPage,
+                                    ),
+                                  if (width < 700)
+                                    TTNsgInput(
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.namePriority,
+                                      label: 'Приоритет',
+                                      infoString: 'Выберите приоритет задачи',
+                                    ),
+
+                                  // HtmlEditor(
+                                  //   key: GlobalKey(),
+                                  //   callbacks: Callbacks(
+                                  //       onChangeContent: (String? comment) {
+                                  //     controller.currentItem.description = comment!;
+                                  //     // controller.postItems([controller.currentItem]);
+                                  //   }),
+                                  //   controller: htmlcontroller, //required
+                                  //   htmlEditorOptions: HtmlEditorOptions(
+                                  //       hint: "Описание задачи...",
+                                  //       initialText:
+                                  //           controller.currentItem.description),
+                                  //   otherOptions: const OtherOptions(
+                                  //     height: 400,
+                                  //   ),
+                                  // ),
+
+                                  // MarkdownTextInput(
+                                  //   (String value) =>
+                                  //       controller.currentItem.description = value,
+                                  //   controller.currentItem.description,
+                                  //   label: 'Description',
+                                  //   maxLines: 10,
+                                  //   actions: const [
+                                  //     MarkdownType.bold,
+                                  //     MarkdownType.italic,
+                                  //     MarkdownType.title,
+                                  //     MarkdownType.link,
+                                  //     MarkdownType.list
+                                  //   ],
+                                  //   controller: textontroller,
+                                  //   textStyle: TextStyle(fontSize: 16),
+                                  // ),
+                                  // TextButton(
+                                  //   onPressed: () {
+                                  //     textontroller.clear();
+                                  //   },
+                                  //   child: Text('Clear'),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(top: 10),
+                                  //   child: MarkdownBody(
+                                  //     data: controller.currentItem.description,
+                                  //     shrinkWrap: true,
+                                  //     selectable: true,
+                                  //   ),
+                                  // ),
+
+                                  // NsgInput(
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameDescription,
+                                  //   label: 'Описание задачи',
+                                  //   minLines: 1,
+                                  //   maxLines: 5,
+                                  // ),
+
+                                  NsgRichText(
+                                      hint: 'Description',
+                                      key: GlobalKey(),
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameDescription,
+                                      fileController: Get.find<TaskImageController>()),
+                                  // Container(
+                                  //     height: 300,
+                                  //     child: Markdown(
+                                  //       styleSheet: MarkdownStyleSheet(
+                                  //         h1: const TextStyle(
+                                  //             color: Colors.blue, fontSize: 40),
+                                  //       ),
+                                  //       selectable: true,
+                                  //       data: controller.currentItem.description,
+                                  //     )),
+                                  // quil.QuillToolbar.basic(
+                                  //   controller: quillcontroller,
+                                  //   afterButtonPressed: () {
+                                  //     controller.currentItem.description;
+                                  //   },
+                                  // ),
+
+                                  // Container(
+                                  //   height: 500,
+                                  //   child: quil.QuillEditor.basic(
+                                  //     controller: quillcontroller,
+                                  //     readOnly: false, // true for view only mode
+                                  //   ),
+                                  //),
+
+                                  TTNsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameFootnote,
+                                    label: 'Примечание',
+                                    minLines: 1,
+                                    maxLines: 5,
                                   ),
+                                  TTNsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameDateRemind,
+                                    label: 'Напонинание о задаче',
+                                  ),
+                                  TTNsgInput(
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameDateDeadline,
+                                    label: 'Срок выполнения',
+                                  ),
+
+                                  // const NsgText('Create CheckList for this Task'),
+                                  // NsgTable(
+                                  //   controller: Get.find<TaskCheckListController>(),
+                                  //   elementEditPageName: Routes.taskChecklistPage,
+                                  //   availableButtons: const [
+                                  //     NsgTableMenuButtonType.createNewElement,
+                                  //     NsgTableMenuButtonType.editElement,
+                                  //     NsgTableMenuButtonType.removeElement
+                                  //   ],
+                                  //   columns: [
+                                  //     NsgTableColumn(
+                                  //         name: TaskDocCheckListTableGenerated
+                                  //             .nameText,
+                                  //         expanded: true,
+                                  //         presentation: 'CheckList Name'),
+                                  //     NsgTableColumn(
+                                  //         name: TaskDocCheckListTableGenerated
+                                  //             .nameIsDone,
+                                  //         width: 100,
+                                  //         presentation: 'Done'),
+                                  //   ],
+                                  // ),
+                                  // if (controller.currentItem.name.isNotEmpty)
+                                  //   NsgButton(
+                                  //     text: 'Open Comments',
+                                  //     onPressed: () {
+                                  //       // Get.find<CommentTableTasksController>()
+                                  //       //     .itemPageOpen(
+                                  //       //        Get.find<CommentTableTasksController>()
+                                  //       //          .currentItem,
+                                  //       //       Routes.commentRowPage);
+                                  //       // Get.toNamed(Routes.commentRowPage);
+                                  //       Get.find<CommentTableTasksController>()
+                                  //           .newItemPageOpen(
+                                  //               pageName: Routes.commentRowPage);
+                                  //     },
+                                  //   ),
+                                  if (controller.currentItem.name.isEmpty)
+                                    NsgButton(
+                                        text: 'Add Photos',
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          if (controller.currentItem.name.isEmpty) {
+                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи ')));
+                                          } else {
+                                            controller.itemPagePost(goBack: false);
+                                          }
+                                        }),
+                                  if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
+                                  if (controller.currentItem.name.isNotEmpty)
+                                    NsgButton(
+                                      backColor: Colors.transparent,
+                                      text: 'Удалить задачу',
+                                      color: Colors.red,
+                                      onPressed: () async {
+                                        showAlertDialog(context);
+                                      },
+                                    ),
+                                  Row(
+                                    children: [
+                                      TaskButton(
+                                        text: 'Отменить',
+                                        style: TaskButtonStyle.light,
+                                        onTap: () {},
+                                      ),
+                                      TaskButton(
+                                        text: 'Сохранить',
+                                        onTap: () {},
+                                      ),
+                                    ],
+                                  )
+
+                                  //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
+                                  // NsgTable(
+                                  //     controller:
+                                  //         Get.find<FilesTableTasksController>(),
+                                  //     columns: [
+                                  //       NsgTableColumn(
+                                  //           name: TaskDocFilesTableGenerated.nameFile,
+                                  //           expanded: true,
+                                  //           presentation: 'Files'),
+                                  //     ]),
+                                  // NsgInput(
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameFiles,
+                                  // ),
+                                  // NsgInput(
+                                  //     selectionController:
+                                  //         Get.find<ProjectController>(),
+                                  //     dataItem: controller.currentItem,
+                                  //     fieldName: TaskDocGenerated.nameProjectId,
+                                  //     label: 'Проект',
+                                  //     //selectionForm: Routes.projectListPage
+                                  //     ),
+                                  // NsgInput(
+                                  //     selectionController:
+                                  //         Get.find<ProjectController>(),
+                                  //     dataItem: controller.currentItem,
+                                  //     fieldName: TaskDocGenerated.nameSprintId,
+                                  //     label: 'Спринт',
+                                  //     selectionForm: Routes.projectListPage),
+                                  // NsgInput(
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameName,
+                                  //   label: 'Заголовок',
+                                  // ),
+                                  // NsgInput(
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameDescription,
+                                  //   label: 'Описание',
+                                  //   minLines: 3,
+                                  //   maxLines: 20,
+                                  // ),
+
+                                  // NsgTable(
+                                  //   controller:
+                                  //       Get.find<CommentTableTasksController>(),
+                                  //   columns: [
+                                  //     NsgTableColumn(
+                                  //         name:
+                                  //             TaskDocCommentsTableGenerated.nameDate,
+                                  //         width: 80,
+                                  //         //expanded: true,
+                                  //         presentation: 'Дата'),
+                                  //     NsgTableColumn(
+                                  //         name: TaskDocCommentsTableGenerated
+                                  //             .nameAuthorId,
+                                  //         width: 80,
+                                  //         //expanded: true,
+                                  //         presentation: 'Автор'),
+                                  //     NsgTableColumn(
+                                  //         name:
+                                  //             TaskDocCommentsTableGenerated.nameText,
+                                  //         expanded: true,
+                                  //         presentation: 'Комментарий')
+                                  //   ],
+                                  //   elementEditPageName: Routes.commentRowPage,
+                                  // ),
                                 ],
-                              )
-
-                              //   if (controller.currentItem.name.isNotEmpty) Flexible(child: filesUpload()),
-                              // NsgTable(
-                              //     controller:
-                              //         Get.find<FilesTableTasksController>(),
-                              //     columns: [
-                              //       NsgTableColumn(
-                              //           name: TaskDocFilesTableGenerated.nameFile,
-                              //           expanded: true,
-                              //           presentation: 'Files'),
-                              //     ]),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameFiles,
-                              // ),
-                              // NsgInput(
-                              //     selectionController:
-                              //         Get.find<ProjectController>(),
-                              //     dataItem: controller.currentItem,
-                              //     fieldName: TaskDocGenerated.nameProjectId,
-                              //     label: 'Проект',
-                              //     //selectionForm: Routes.projectListPage
-                              //     ),
-                              // NsgInput(
-                              //     selectionController:
-                              //         Get.find<ProjectController>(),
-                              //     dataItem: controller.currentItem,
-                              //     fieldName: TaskDocGenerated.nameSprintId,
-                              //     label: 'Спринт',
-                              //     selectionForm: Routes.projectListPage),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameName,
-                              //   label: 'Заголовок',
-                              // ),
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: TaskDocGenerated.nameDescription,
-                              //   label: 'Описание',
-                              //   minLines: 3,
-                              //   maxLines: 20,
-                              // ),
-
-                              // NsgTable(
-                              //   controller:
-                              //       Get.find<CommentTableTasksController>(),
-                              //   columns: [
-                              //     NsgTableColumn(
-                              //         name:
-                              //             TaskDocCommentsTableGenerated.nameDate,
-                              //         width: 80,
-                              //         //expanded: true,
-                              //         presentation: 'Дата'),
-                              //     NsgTableColumn(
-                              //         name: TaskDocCommentsTableGenerated
-                              //             .nameAuthorId,
-                              //         width: 80,
-                              //         //expanded: true,
-                              //         presentation: 'Автор'),
-                              //     NsgTableColumn(
-                              //         name:
-                              //             TaskDocCommentsTableGenerated.nameText,
-                              //         expanded: true,
-                              //         presentation: 'Комментарий')
-                              //   ],
-                              //   elementEditPageName: Routes.commentRowPage,
-                              // ),
-                            ],
-                          ),
+                              )),
                         ),
                       )),
                 ),
