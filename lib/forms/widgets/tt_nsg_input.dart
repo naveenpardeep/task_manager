@@ -334,7 +334,6 @@ class _TTNsgInputState extends State<TTNsgInput> {
                           padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
                           alignment: Alignment.center,
                           //height: widget.maxLines > 1 ? null : 24 * textScaleFactor,
-
                           child: Stack(
                             alignment: Alignment.center,
                             children: [

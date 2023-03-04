@@ -399,7 +399,7 @@ class _HomepageState extends State<Homepage> {
       wrapFlexible(
         child: TTNsgInput(
           label: 'Исполнитель',
-          infoString: 'Выберете исполнителя',
+          infoString: 'Выберите исполнителя',
           selectionController: userAccountController,
           dataItem: serviceC.currentItem,
           fieldName: ServiceObjectGenerated.nameUserAccountId,
@@ -417,7 +417,7 @@ class _HomepageState extends State<Homepage> {
       wrapFlexible(
         child: TTNsgInput(
             label: 'Выбор доски',
-            infoString: 'Выберете доску',
+            infoString: 'Выберите доску',
             selectionController: taskBoardController,
             dataItem: serviceC.currentItem,
             fieldName: ServiceObjectGenerated.nameBoardId,
