@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
 
 class TaskBoardPage extends GetView<TaskBoardController> {
-  const TaskBoardPage({Key? key}) : super(key: key);
+ const  TaskBoardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
         body: controller.obx(
           (state) => Container(
             key: GlobalKey(),
-            decoration: const BoxDecoration(color: Colors.white),
+            decoration:  BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -45,15 +47,63 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                 ),
                 Expanded(
                   child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                      padding:  EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgInput(
+                            TTNsgInput(
                               dataItem: controller.currentItem,
                               fieldName: TaskBoardGenerated.nameName,
-                              label: 'Название экрана',
+                              label: 'Название доски',
+                              infoString: 'Название доски',
                             ),
+                            //  NsgInput(
+                            //   selectionController:
+                            //       Get.find<ProjectStatusController>(),
+                            //   controller: Get.find<TaskStatusTableController>(),
+                            //   dataItem:  controller.currentItem.statusTable.rows.insert(1)
+                            //   ,
+                            //   fieldName:
+                            //       TaskBoardStatusTableGenerated.nameStatusId,
+                            //   label: 'Status ',
+                            // ),
+                            //  TTNsgInput(
+                            //   selectionController:
+                            //       Get.find<ProjectStatusController>(),
+                            //   controller: Get.find<TaskStatusTableController>(),
+                            //   dataItem:  controller.currentItem.statusTable.rows[1],
+                            //   fieldName:
+                            //       TaskBoardStatusTableGenerated.nameStatusId,
+                            //   label: 'Status ',
+                            // ),
+                            //  TTNsgInput(
+                            //   selectionController:
+                            //       Get.find<ProjectStatusController>(),
+                            //   controller: Get.find<TaskStatusTableController>(),
+                            //   dataItem:  controller.currentItem.statusTable.rows[2],
+                            //   fieldName:
+                            //       TaskBoardStatusTableGenerated.nameStatusId,
+                            //   label: 'Status ',
+                            // ),
+                            //  TTNsgInput(
+                            //   selectionController:
+                            //       Get.find<ProjectStatusController>(),
+                            //   controller: Get.find<TaskStatusTableController>(),
+                            //   dataItem:  controller.currentItem.statusTable.rows[3],
+                            //   fieldName:
+                            //       TaskBoardStatusTableGenerated.nameStatusId,
+                            //   label: 'Status ',
+                            // ),
+                            //  TTNsgInput(
+                            //   selectionController:
+                            //       Get.find<ProjectStatusController>(),
+                            //   controller: Get.find<TaskStatusTableController>(),
+                            //   dataItem:  controller.currentItem.statusTable.rows[4],
+                            //   fieldName:
+                            //       TaskBoardStatusTableGenerated.nameStatusId,
+                            //   label: 'Status ',
+                            // ),
+                           
                             NsgTable(
                               controller: Get.find<TaskStatusTableController>(),
                               elementEditPageName: Routes.taskrow,
@@ -79,5 +129,11 @@ class TaskBoardPage extends GetView<TaskBoardController> {
         ),
       ),
     );
+  }
+
+void moveRow(TaskBoardStatusTable row, int newPosition) {
+   controller.currentItem.statusTable.rows.remove(row);
+
+    controller.currentItem.statusTable.rows.insert(newPosition, row);
   }
 }
