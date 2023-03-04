@@ -25,6 +25,7 @@ import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
 import '../forms/widgets/task_tuner_button.dart';
 import '../forms/widgets/top_menu.dart';
+import '../forms/widgets/tt_nsg_input.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -115,11 +116,11 @@ class _HomepageState extends State<Homepage> {
                         size: 22,
                         icon: Icons.edit,
                         onPressed: () {
-                       //   if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                        //    projectController.itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
-                        //  } else {
-                            projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
-                        //  }
+                          //   if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                          //    projectController.itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
+                          //  } else {
+                          projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
+                          //  }
                           //  Get.toNamed(Routes.projectPage);
                           //  Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                         },
@@ -396,8 +397,9 @@ class _HomepageState extends State<Homepage> {
       //   ),
       // ),
       wrapFlexible(
-        child: NsgInput(
+        child: TTNsgInput(
           label: 'Исполнитель',
+          infoString: 'Выберете исполнителя',
           selectionController: userAccountController,
           dataItem: serviceC.currentItem,
           fieldName: ServiceObjectGenerated.nameUserAccountId,
@@ -413,8 +415,9 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       wrapFlexible(
-        child: NsgInput(
+        child: TTNsgInput(
             label: 'Выбор доски',
+            infoString: 'Выберете доску',
             selectionController: taskBoardController,
             dataItem: serviceC.currentItem,
             fieldName: ServiceObjectGenerated.nameBoardId,
@@ -429,7 +432,7 @@ class _HomepageState extends State<Homepage> {
             }),
       ),
       wrapFlexible(
-        child: taskBoardController.obx((state) => NsgInput(
+        child: taskBoardController.obx((state) => TTNsgInput(
               label: 'Сортировка',
               dataItem: taskBoardController.currentItem,
               fieldName: TaskBoardGenerated.nameSortBy,
@@ -440,7 +443,7 @@ class _HomepageState extends State<Homepage> {
             )),
       ),
       wrapFlexible(
-        child: taskBoardController.obx((state) => NsgInput(
+        child: taskBoardController.obx((state) => TTNsgInput(
               label: 'Finished Tasks Period',
               dataItem: taskBoardController.currentItem,
               fieldName: TaskBoardGenerated.namePeriodOfFinishedTasks,
@@ -991,7 +994,7 @@ changeTaskStatus(TaskDoc tasks) {
     'Смена статуса заявки',
     (item) async {
       tasks.taskStatus = item as TaskStatus;
-     tasks.dateUpdated=DateTime.now();
+      tasks.dateUpdated = DateTime.now();
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().sendNotify();
       Get.find<TaskStatusTableController>().sendNotify();
