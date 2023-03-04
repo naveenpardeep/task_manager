@@ -10,6 +10,7 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectEditPage extends StatefulWidget {
@@ -90,33 +91,46 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Выберите проектов (организация)',
                                 selectionController: Get.find<OrganizationController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameOrganizationId,
                                 label: 'Группа проектов (организация)',
                               ),
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Выберите руководителя проекта ',
                                 selectionController: Get.find<UserAccountController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameLeaderId,
                                 label: 'Руководитель проекта',
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: ProjectItemGenerated.nameProjectPrefix,
-                                label: 'Project Prefix',
-                              ),
-                              NsgInput(
+                              // TTNsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: ProjectItemGenerated.nameProjectPrefix,
+                              //   label: 'Project Prefix',
+                              // ),
+                              TTNsgInput(
+                                infoString: 'Укажите название проекта',
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameName,
-                                label: 'Наименование',
+                                label: 'Название проекта',
                               ),
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Укажите заказчика проекта',
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameContractor,
                                 label: 'Заказчик',
                               ),
+                               if (controller.currentItem.name.isNotEmpty)
+                                NsgButton(
+                                  backColor: Colors.transparent,
+                                  text: 'Удалить проект',
+                                  color: Colors.red,
+                                  onPressed: () async {
+                                    showAlertDialog(context);
+                                  },
+                                )
                             ],
                           ),
                         ),
@@ -129,4 +143,38 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
       ),
     );
   }
+   showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        await controller.deleteItems([controller.currentItem]);
+        Get.toNamed(Routes.projectListPage);
+        controller.refreshData();
+        // Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
+
+
