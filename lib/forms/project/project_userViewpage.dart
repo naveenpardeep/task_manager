@@ -45,44 +45,70 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: SizedBox(
-                                child: controller.currentItem.userAccount.photoFile.isEmpty
-                                    ? Container(
-                                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                        width: 200,
-                                        height: 200,
-                                        child: Icon(
-                                          Icons.account_circle,
-                                          size: 20,
-                                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                        ),
-                                      )
-                                    : Image.memory(
-                                        Uint8List.fromList(controller.currentItem.userAccount.photoFile),
-                                        fit: BoxFit.cover,
-                                        width: 200,
-                                        height: 200,
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: ClipOval(
+                                    child: controller.currentItem.userAccount.photoFile.isEmpty
+                                        ? Container(
+                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                            width: 100,
+                                            height: 100,
+                                            child: Icon(
+                                              Icons.account_circle,
+                                              size: 20,
+                                              color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                            ),
+                                          )
+                                        : Image.memory(
+                                            Uint8List.fromList(controller.currentItem.userAccount.photoFile),
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        ' ${controller.currentItem.userAccount.name}',
+                                        style: const TextStyle(fontFamily: 'Inter', fontSize: 21),
                                       ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Имя                   ',
-                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Text(
+                                          ' ${controller.currentItem.userAccount.position}',
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      ' ${controller.currentItem.userAccount.name}',
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
+                            const Divider(
+                              height: 20,
+                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(5.0),
+                            //   child: Row(
+                            //     children: [
+                            //       const Text(
+                            //         'Имя                   ',
+                            //         style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                            //       ),
+                            //       Expanded(
+                            //         child: Text(
+                            //           ' ${controller.currentItem.userAccount.name}',
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
