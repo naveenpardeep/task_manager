@@ -30,20 +30,38 @@ class AcceptInvitationPage extends GetView<InvitationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                NsgAppBar(
-                  backColor: Colors.white,
-                  color: ControlOptions.instance.colorMain,
-                  text: 'Список приглашений',
-                  icon: Icons.person,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
-                  },
-                  icon2: Icons.add,
-                  onPressed2: () async {
-                    Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Проекты',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
+                            },
+                            child: Icon(
+                              Icons.person,
+                              color: ControlOptions.instance.colorMainLight,
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
+                          InkWell(
+                            onTap: () async {
+                              Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
+                            },
+                            child: Icon(Icons.add, color: ControlOptions.instance.colorMainLight),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 if (controller.items.isEmpty) Expanded(child: createFirstOrganization()),
                 if (controller.items.isNotEmpty)
