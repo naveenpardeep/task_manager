@@ -8,8 +8,7 @@ import '../../model/project_item.dart';
 import '../../model/project_item_user_table.dart';
 
 class ProjectController extends NsgDataController<ProjectItem> {
-  ProjectController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+  ProjectController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
       ProjectItemGenerated.nameNumberOfTasksOpen,
       ProjectItemGenerated.nameOrganizationId,
@@ -45,9 +44,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
     var orgController = Get.find<OrganizationController>();
     if (orgController.items.length == 1) {
       element.organization = orgController.firstItem;
-      element.leader = Get.find<UserAccountController>()
-          .items
-          .firstWhere((e) => e.organization == element.organization);
+      element.leader = Get.find<UserAccountController>().items.firstWhere((e) => e.organization == element.organization);
     }
 
     return element;
@@ -62,13 +59,10 @@ class ProjectController extends NsgDataController<ProjectItem> {
   }
 }
 
-class ProjectItemUserTableController
-    extends NsgDataTableController<ProjectItemUserTable> {
+class ProjectItemUserTableController extends NsgDataTableController<ProjectItemUserTable> {
   ProjectItemUserTableController()
       : super(
           masterController: Get.find<ProjectController>(),
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
-
-  
 }
