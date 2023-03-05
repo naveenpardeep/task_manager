@@ -264,7 +264,7 @@ class AppPages {
     ),
      GetPage(
       name: Routes.projectStatusPage,
-      page: () => const ProjectStatusPage(),
+      page: () => const ProjectStatusPage()),
     GetPage(
       name: Routes.startPage,
       page: () => StartPage(),
@@ -317,6 +317,6 @@ abstract class Routes {
   static const projectUserViewPage='/projectUserviewPage';
   static const taskBoardStatusPage='/taskBoardStatusPage';
   static const projectStatusPage='/projectStatusPage';
-  static const projectUserViewPage = '/projectUserviewPage';
+ 
   static const startPage = '/start-page';
 }
