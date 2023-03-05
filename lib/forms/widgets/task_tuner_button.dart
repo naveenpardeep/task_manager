@@ -98,6 +98,6 @@ Color getTextColor(TaskButtonStyle style) {
     case TaskButtonStyle.light:
       return ControlOptions.instance.colorMain;
     case TaskButtonStyle.warning:
-      return ControlOptions.instance.colorWarning;
+      return ControlOptions.instance.colorWhite;
   }
 }

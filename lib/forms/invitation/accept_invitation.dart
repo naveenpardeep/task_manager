@@ -33,7 +33,6 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                 NsgAppBar(
                   backColor: Colors.white,
                   color: ControlOptions.instance.colorMain,
-
                   text: 'Список приглашений',
                   icon: Icons.person,
                   colorsInverted: true,
@@ -41,24 +40,25 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                   onPressed: () {
                     Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
                   },
-                  // icon2: Icons.check,
-                  // onPressed2: () {
-                  //   controller.itemPagePost();
-                  // },
+                  icon2: Icons.add,
+                  onPressed2: () async {
+                    Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
+                  },
                 ),
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            invitationList(),
-                            if (controller.items.isEmpty) createNewOrganizationButton(),
-                          ],
-                        ),
-                      )),
-                ),
+                if (controller.items.isEmpty) Expanded(child: createFirstOrganization()),
+                if (controller.items.isNotEmpty)
+                  Expanded(
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              invitationList(),
+                            ],
+                          ),
+                        )),
+                  ),
               ],
             ),
           ),
@@ -184,12 +184,28 @@ class AcceptInvitationPage extends GetView<InvitationController> {
     ));
   }
 
-  Widget createNewOrganizationButton() {
-    return TaskButton(
-      text: 'Создать свою группу проектов (организацию)',
-      onTap: () async {
-        Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
-      },
-    );
+  Widget createFirstOrganization() {
+    return IntrinsicWidth(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          'Хм... Кажется, у вас еще нет ни одного проекта🤔',
+          textAlign: TextAlign.start,
+          style: TextStyle(fontSize: ControlOptions.instance.sizeH4, fontFamily: 'Inter'),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text('Создайте новый или получите приглашение',
+            textAlign: TextAlign.start, style: TextStyle(fontSize: ControlOptions.instance.sizeH4, fontFamily: 'Inter')),
+      ),
+      TaskButton(
+        text: 'Создать проект',
+        onTap: () async {
+          Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
+        },
+      )
+    ]));
   }
 }
