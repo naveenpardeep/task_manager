@@ -171,14 +171,14 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           ],
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(context, projectuser);
-                          },
-                          icon: const Icon(
-                            Icons.remove_circle_outline,
-                            color: Colors.red,
-                          )),
+                      // IconButton(
+                      //     onPressed: () {
+                      //       showAlertDialog(context, projectuser);
+                      //     },
+                      //     icon: const Icon(
+                      //       Icons.remove_circle_outline,
+                      //       color: Colors.red,
+                      //     )),
                       //  const Icon(Icons.arrow_forward_ios),
                     ],
                   ),

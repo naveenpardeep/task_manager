@@ -9,6 +9,8 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/model/task_board.dart';
+import 'package:task_manager_app/model/task_board_status_table.dart';
 
 class ProjectBoardMobile extends StatefulWidget {
   const ProjectBoardMobile({Key? key}) : super(key: key);
@@ -66,7 +68,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              if ( controller.currentItem.name.isEmpty)
+                              if (controller.currentItem.name.isEmpty)
                                 NsgButton(
                                   text: 'Сохранить и далее',
                                   color: Colors.white,
@@ -75,7 +77,6 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название проекта ')));
                                     } else {
                                       setState(() {
-                                       
                                         controller.itemPagePost(goBack: false);
                                       });
                                     }
@@ -96,7 +97,9 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //     NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
                                 //   ],
                                 // ),
-                              Get.find<TaskBoardController>().obx((state) => getProjectBoard(context),)  
+                                Get.find<TaskBoardController>().obx(
+                                  (state) => getProjectBoard(context),
+                                )
                             ],
                           ),
                         ),
@@ -136,7 +139,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                           taskboard.name,
                           style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
                         ),
-                     // getTaskBoardStatus(taskboard.name)
+                        getTaskBoardStatus(taskboard)
                       ],
                     ),
                   ),
@@ -150,13 +153,10 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
     return SingleChildScrollView(child: Column(children: list));
   }
 
-  Widget getTaskBoardStatus(taskBoard) {
+  Widget getTaskBoardStatus(TaskBoard taskBoard) {
     List<Widget> list = [];
-     var taskboardstatusList = Get.find<TaskStatusTableController>().items;
 
-    for (var taskboardstatus in taskboardstatusList) {
-      // if (taskboardstatus.status!= taskBoard) continue;
-
+    for (var taskboardstatus in taskBoard.statusTable.rows) {
       {
         list.add(GestureDetector(
           onTap: () {},

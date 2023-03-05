@@ -11,6 +11,7 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -73,29 +74,33 @@ class _ProjectpageState extends State<ProjectPage> {
                           child: Column(
                             children: [
                               if (!isNewProject) NsgText('Создано :${formateddate.format(controller.currentItem.date)}'),
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Выберите проектов (организация)',
                                 selectionController: Get.find<OrganizationController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameOrganizationId,
                                 label: 'Группа проектов (организация)',
                               ),
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Выберите руководителя проекта ',
                                 selectionController: Get.find<UserAccountController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameLeaderId,
                                 label: 'Руководитель проекта',
                               ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: ProjectItemGenerated.nameProjectPrefix,
-                                label: 'Project Prefix',
-                              ),
-                              NsgInput(
+                              // TTNsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: ProjectItemGenerated.nameProjectPrefix,
+                              //   label: 'Project Prefix',
+                              // ),
+                              TTNsgInput(
+                                infoString: 'Укажите название проекта',
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameName,
-                                label: 'Наименование',
+                                label: 'Название проекта',
                               ),
-                              NsgInput(
+                              TTNsgInput(
+                                infoString: 'Укажите заказчика проекта',
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameContractor,
                                 label: 'Заказчик',

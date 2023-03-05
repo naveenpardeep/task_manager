@@ -133,6 +133,41 @@ class _HomepageState extends State<Homepage> {
                           });
                         },
                         icon: const Icon(Icons.refresh)),
+
+                    if (width > 700)
+                      Flexible(
+                        child: Tooltip(
+                          message: 'Поиск по тексту задачи, Описание задачи',
+                          child: SizedBox(
+                            height: 37,
+                            child: TextField(
+                                controller: textEditController,
+                                decoration: InputDecoration(
+                                    prefixIcon: const Icon(Icons.search),
+                                    filled: false,
+                                    fillColor: ControlOptions.instance.colorMainLight,
+                                    border: OutlineInputBorder(
+                                        gapPadding: 1,
+                                        borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                    suffixIcon: IconButton(
+                                        onPressed: (() {
+                                          setState(() {
+                                            textEditController.clear();
+                                            searchvalue = '';
+                                          });
+                                        }),
+                                        icon: const Icon(Icons.cancel)),
+                                    // prefixIcon: Icon(Icons.search),
+                                    hintText: 'Поиск по тексту'),
+                                onChanged: (val) {
+                                  searchvalue = val;
+                                  taskController.sendNotify();
+                                  taskStatusTableController.sendNotify();
+                                }),
+                          ),
+                        ),
+                      ),
                     //  if (width > 700)
                     Expanded(
                       child: Align(
@@ -358,33 +393,39 @@ class _HomepageState extends State<Homepage> {
     }
 
     return [
-      if (width > 700)
-        wrapFlexible(
-          child: Tooltip(
-            message: 'Поиск по тексту задачи, Описание задачи',
-            child: SizedBox(
-              height: 37,
-              child: TextField(
-                  controller: textEditController,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                          onPressed: (() {
-                            setState(() {
-                              textEditController.clear();
-                              searchvalue = '';
-                            });
-                          }),
-                          icon: const Icon(Icons.cancel)),
-                      // prefixIcon: Icon(Icons.search),
-                      hintText: 'Поиск по тексту'),
-                  onChanged: (val) {
-                    searchvalue = val;
-                    taskController.sendNotify();
-                    taskStatusTableController.sendNotify();
-                  }),
-            ),
-          ),
-        ),
+      // if (width > 700)
+      //   wrapFlexible(
+      //     child: Tooltip(
+      //       message: 'Поиск по тексту задачи, Описание задачи',
+      //       child: SizedBox(
+      //         height: 37,
+      //         child: TextField(
+      //             controller: textEditController,
+      //             decoration: InputDecoration(
+      //                 filled: false,
+      //                 fillColor: ControlOptions.instance.colorMainLight,
+      //                 border: OutlineInputBorder(
+      //                     gapPadding: 1,
+      //                     borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+      //                     borderRadius: const BorderRadius.all(Radius.circular(10))),
+      //                 suffixIcon: IconButton(
+      //                     onPressed: (() {
+      //                       setState(() {
+      //                         textEditController.clear();
+      //                         searchvalue = '';
+      //                       });
+      //                     }),
+      //                     icon: const Icon(Icons.cancel)),
+      //                 // prefixIcon: Icon(Icons.search),
+      //                 hintText: 'Поиск по тексту'),
+      //             onChanged: (val) {
+      //               searchvalue = val;
+      //               taskController.sendNotify();
+      //               taskStatusTableController.sendNotify();
+      //             }),
+      //       ),
+      //     ),
+      //   ),
       // wrapFlexible(
       //   child: Tooltip(
       //     message: 'Поиск задач по дате создания',
