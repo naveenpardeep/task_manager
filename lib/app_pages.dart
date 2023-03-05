@@ -31,6 +31,7 @@ import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
+import 'package:task_manager_app/login/start_page.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -46,8 +47,8 @@ import 'forms/tasks/tasks_binding.dart';
 import 'forms/tasks/tasks_list_page.dart';
 import 'forms/tasks/tasks_page.dart';
 import 'forms/user_account/user_account_listpage.dart';
+import 'old_start_page.dart';
 import 'splash/splash_page.dart';
-import 'start_page.dart';
 
 class AppPages {
   static const initial = Routes.splashPage;
@@ -60,7 +61,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.mainPage,
-      page: () => const StartPage(),
+      page: () => const StartPageOld(),
       //binding: SplashBinding(),
     ),
     GetPage(
@@ -249,9 +250,14 @@ class AppPages {
       page: () => const ProjectUserMobile(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.projectUserViewPage,
       page: () => const ProjectUserViewPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.startPage,
+      page: () => StartPage(),
       binding: ProjectBinding(),
     ),
   ];
@@ -298,5 +304,6 @@ abstract class Routes {
   static const projectEditPage = '/projectEditPage';
   static const projectBoardMobile = '/projectBoardMobile';
   static const projectUserMobile = '/projectUserMobile';
-  static const projectUserViewPage='/projectUserviewPage';
+  static const projectUserViewPage = '/projectUserviewPage';
+  static const startPage = '/start-page';
 }

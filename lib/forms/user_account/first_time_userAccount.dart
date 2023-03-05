@@ -8,7 +8,11 @@ import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+
+import '../../model/data_controller.dart';
+import '../widgets/tt_nsg_input.dart';
 
 class FirstTimeUserAccountPage extends GetView<UserAccountController> {
   const FirstTimeUserAccountPage({Key? key}) : super(key: key);
@@ -49,9 +53,21 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                     },
                     icon2: Icons.check,
                     onPressed2: () async {
-                      await controller.itemPagePost();
-                      await Get.find<InvitationController>().requestItems();
-                      Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+                      if (controller.currentItem.name.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите ник')));
+                      } else if (controller.currentItem.firstName.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите имя')));
+                      } else if (controller.currentItem.lastName.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите фамилию')));
+                      } else if (controller.currentItem.phoneNumber.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите телефон')));
+                      } else if (controller.currentItem.email.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите Email')));
+                      } else {
+                        await controller.itemPagePost();
+                        await Get.find<InvitationController>().requestItems();
+                        Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+                      }
 
                       // Get.back();
                     },
@@ -71,30 +87,35 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                               //   label: 'Организация',
                               // ),
 
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
                                 label: 'nick',
+                                infoString: 'Введите ник',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
+                                infoString: 'Введите имя',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
+                                infoString: 'Введите фамилию',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
+                                infoString: 'Введите номер телефона',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameEmail,
                                 label: 'Email',
+                                infoString: 'Введите Email',
                               ),
                               //Должность тоже нужна только внутри организации
                               // NsgInput(
@@ -141,6 +162,18 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                 label: 'Все изменения в задачах проектов',
                               ),*/
                               Center(child: userImage()),
+
+                              TaskButton(
+                                style: TaskButtonStyle.warning,
+                                text: 'Выйти',
+                                onTap: () async {
+                                  await Get.find<DataController>().provider!.logout();
+                                  //await Get.find<DataController>().onInit();\
+                                  //await Get.find<DataController>().provider!.resetUserToken();
+                                  await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                                  //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
+                                },
+                              )
                               // NsgButton(
                               //   text: 'Список пользователей',
                               //   color: Colors.white,

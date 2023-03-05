@@ -11,29 +11,24 @@ class TaskButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        flex: flex,
+    return Padding(
+        padding: const EdgeInsets.all(10),
         child: InkWell(
             onTap: onTap,
             child: Container(
-              margin: const EdgeInsets.all(10),
+              width: double.infinity,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLighter),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'Inter',
-                    color: style == TaskButtonStyle.dark ? Colors.white : ControlOptions.instance.colorMain,
-                    fontSize: ControlOptions.instance.sizeM),
+                style: TextStyle(fontFamily: 'Inter', color: getTextColor(style), fontSize: ControlOptions.instance.sizeM),
               ),
             )));
   }
 }
 
-enum TaskButtonStyle { light, dark }
+enum TaskButtonStyle { light, dark, warning }
 
 class TaskIconButton extends StatelessWidget {
   const TaskIconButton({super.key, this.style = TaskButtonStyle.dark, this.onTap, required this.icon, this.nott = 0});
@@ -50,13 +45,11 @@ class TaskIconButton extends StatelessWidget {
         child: Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMain : ControlOptions.instance.colorMainLighter),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
             child: Stack(children: [
               Icon(
                 icon,
-                color: style == TaskButtonStyle.dark ? ControlOptions.instance.colorMainLight : ControlOptions.instance.colorMain,
+                color: getColor(style, invert: true),
               ),
               if (nott != 0)
                 ClipRRect(
@@ -73,5 +66,38 @@ class TaskIconButton extends StatelessWidget {
                       ),
                     )),
             ])));
+  }
+}
+
+Color getColor(TaskButtonStyle style, {bool invert = false}) {
+  if (invert) {
+    switch (style) {
+      case TaskButtonStyle.dark:
+        return ControlOptions.instance.colorMainLight;
+      case TaskButtonStyle.light:
+        return ControlOptions.instance.colorMain;
+      case TaskButtonStyle.warning:
+        return ControlOptions.instance.colorWarning;
+    }
+  } else {
+    switch (style) {
+      case TaskButtonStyle.dark:
+        return ControlOptions.instance.colorMain;
+      case TaskButtonStyle.light:
+        return ControlOptions.instance.colorMainLighter;
+      case TaskButtonStyle.warning:
+        return ControlOptions.instance.colorError;
+    }
+  }
+}
+
+Color getTextColor(TaskButtonStyle style) {
+  switch (style) {
+    case TaskButtonStyle.dark:
+      return ControlOptions.instance.colorWhite;
+    case TaskButtonStyle.light:
+      return ControlOptions.instance.colorMain;
+    case TaskButtonStyle.warning:
+      return ControlOptions.instance.colorWarning;
   }
 }

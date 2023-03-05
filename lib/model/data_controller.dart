@@ -5,6 +5,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
 import '../app_pages.dart';
+import '../forms/invitation/invitation_controller.dart';
 import '../login/login_page.dart';
 import '../login/registration_page.dart';
 import '../login/verification_page.dart';
@@ -74,7 +75,15 @@ class DataController extends DataControllerGenerated {
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
 
-        Get.find<UserAccountController>().itemPageOpen(userC.items.first, Routes.firstTimeUserAccountPage);
+        if (userC.items.first.firstName.isEmpty ||
+            userC.items.first.phoneNumber.isEmpty ||
+            userC.items.first.lastName.isEmpty ||
+            userC.items.first.email.isEmpty) {
+          Get.toNamed(Routes.startPage);
+        } else {
+          await Get.find<InvitationController>().requestItems();
+          Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+        }
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);

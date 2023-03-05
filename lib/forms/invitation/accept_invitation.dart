@@ -9,6 +9,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import '../organization/organization_controller.dart';
+import '../user_account/user_account_controller.dart';
 
 class AcceptInvitationPage extends GetView<InvitationController> {
   const AcceptInvitationPage({Key? key}) : super(key: key);
@@ -30,14 +31,14 @@ class AcceptInvitationPage extends GetView<InvitationController> {
               children: <Widget>[
                 NsgAppBar(
                   backColor: Colors.white,
-                  color: Colors.black,
-                
+                  color: ControlOptions.instance.colorMain,
+
                   text: 'Список приглашений',
-                  icon: Icons.arrow_back_ios_new,
+                  icon: Icons.person,
                   colorsInverted: true,
                   bottomCircular: true,
                   onPressed: () {
-                    controller.itemPageCancel();
+                    Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
                   },
                   // icon2: Icons.check,
                   // onPressed2: () {
