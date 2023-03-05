@@ -136,36 +136,36 @@ class _HomepageState extends State<Homepage> {
 
                     if (width > 700)
                       Flexible(
-                        child: Tooltip(
-                          message: 'Поиск по тексту задачи, Описание задачи',
-                          child: SizedBox(
-                            height: 37,
-                            child: TextField(
-                                controller: textEditController,
-                                decoration: InputDecoration(
-                                    prefixIcon: const Icon(Icons.search),
-                                    filled: false,
-                                    fillColor: ControlOptions.instance.colorMainLight,
-                                    border: OutlineInputBorder(
-                                        gapPadding: 1,
-                                        borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
-                                    suffixIcon: IconButton(
-                                        onPressed: (() {
-                                          setState(() {
-                                            textEditController.clear();
-                                            searchvalue = '';
-                                          });
-                                        }),
-                                        icon: const Icon(Icons.cancel)),
-                                    // prefixIcon: Icon(Icons.search),
-                                    hintText: 'Поиск по тексту'),
-                                onChanged: (val) {
-                                  searchvalue = val;
-                                  taskController.sendNotify();
-                                  taskStatusTableController.sendNotify();
-                                }),
-                          ),
+                        child:  SizedBox(
+                          height: 35,
+                          child: TextField(
+                              controller: textEditController,
+                              decoration: InputDecoration(
+                                  filled: false,
+                                  fillColor: ControlOptions.instance.colorMainLight,
+                                  prefixIcon: const Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                      gapPadding: 1,
+                                      borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                  suffixIcon: IconButton(
+                                      padding: const EdgeInsets.only(bottom: 0),
+                                      onPressed: (() {
+                                        setState(() {
+                                          textEditController.clear();
+                                          searchvalue = '';
+                                        });
+                                      }),
+                                      icon: const Icon(Icons.cancel)),
+                                  // prefixIcon: Icon(Icons.search),
+                                  hintText: 'Поиск по задачам'),
+                              textAlignVertical: TextAlignVertical.bottom,
+                              style: TextStyle(color: ControlOptions.instance.colorMainLight),
+                              onChanged: (val) {
+                                searchvalue = val;
+                                taskController.sendNotify();
+                                taskStatusTableController.sendNotify();
+                              }),
                         ),
                       ),
                     //  if (width > 700)

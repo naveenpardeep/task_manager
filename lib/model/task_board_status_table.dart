@@ -5,4 +5,6 @@ class TaskBoardStatusTable extends TaskBoardStatusTableGenerated {
   String toString() {
     return status.name.toString();
   }
+
+  bool isChecked= false;
 }

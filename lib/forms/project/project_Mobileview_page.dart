@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
+
 import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/project/project_page_tables.dart';
-import 'package:task_manager_app/forms/project/project_page_users.dart';
+
+import 'package:task_manager_app/forms/project/project_status_page.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/model/generated/task_status.g.dart';
 
-import '../task_status/project_status_controller.dart';
 
 class ProjectMobileViewPage extends StatefulWidget {
   const ProjectMobileViewPage({
@@ -40,7 +37,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -96,6 +93,9 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                       } else if (_tabController.index == 2) {
                         _tabController.index = 2;
                       }
+                      else if (_tabController.index == 3) {
+                        _tabController.index = 3;
+                      }
                     });
                   },
                   controller: _tabController,
@@ -103,18 +103,23 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                     Tab(
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: Color(0xff3EA8AB)),
+                        style: TextStyle(color: Color(0xff3EA8AB), fontSize: 12),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Доски',
-                      style: TextStyle(color: Color(0xff3EA8AB)),
+                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: 12),
+                    )),
+                     Tab(
+                        child: Text(
+                      'Status',
+                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: 12),
                     )),
                     Tab(
                       child: Text(
                         'Участники',
-                        style: TextStyle(color: Color(0xff3EA8AB)),
+                        style: TextStyle(color: Color(0xff3EA8AB),fontSize: 12),
                       ),
                     ),
                   ]),
@@ -243,41 +248,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                         ],
                                       ),
                                     ),
-                                    if (!isNewProject) const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление Статусы проекта')),
-                                    if (!isNewProject)
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                        child: SizedBox(
-                                          height: height * 0.6,
-                                          child: RawScrollbar(
-                                            thumbVisibility: true,
-                                            trackVisibility: true,
-                                            controller: newscrollController,
-                                            thickness: 8,
-                                            trackBorderColor: ControlOptions.instance.colorGreyLight,
-                                            trackColor: ControlOptions.instance.colorGreyLight,
-                                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                                            radius: const Radius.circular(0),
-                                            child: SingleChildScrollView(
-                                                physics: const BouncingScrollPhysics(),
-                                                controller: newscrollController,
-                                                child: NsgTable(
-                                                  showIconFalse: false,
-                                                  controller: Get.find<ProjectStatusController>(),
-                                                  elementEditPageName: Routes.taskStatusPage,
-                                                  availableButtons: const [
-                                                    NsgTableMenuButtonType.createNewElement,
-                                                    NsgTableMenuButtonType.editElement,
-                                                    NsgTableMenuButtonType.removeElement
-                                                  ],
-                                                  columns: [
-                                                    NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
-                                                    NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
-                                                  ],
-                                                )),
-                                          ),
-                                        ),
-                                      ),
+                                   
                                   ],
                                 )),
                           )),
@@ -286,6 +257,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                 ),
               ),
               Container(key: GlobalKey(), child: const ProjectBoardMobile()),
+                Container(key: GlobalKey(), child: const ProjectStatusPage()),
               Container(key: GlobalKey(), child: const ProjectUserMobile()),
             ]),
           ),

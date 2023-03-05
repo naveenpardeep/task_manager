@@ -12,7 +12,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 
 class TaskBoardPage extends GetView<TaskBoardController> {
- const  TaskBoardPage({Key? key}) : super(key: key);
+  const TaskBoardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +24,14 @@ class TaskBoardPage extends GetView<TaskBoardController> {
         body: controller.obx(
           (state) => Container(
             key: GlobalKey(),
-            decoration:  BoxDecoration(color: Colors.white),
+            decoration: BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
-                  text: controller.currentItem.isEmpty
-                      ? 'Экран '.toUpperCase()
-                      : controller.currentItem.name.toUpperCase(),
+                  text: controller.currentItem.isEmpty ? 'Экран '.toUpperCase() : controller.currentItem.name.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -47,7 +45,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                 ),
                 Expanded(
                   child: Container(
-                      padding:  EdgeInsets.fromLTRB(5, 10, 5, 15),
+                      padding: EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -57,68 +55,26 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               label: 'Название доски',
                               infoString: 'Название доски',
                             ),
-                            //  NsgInput(
-                            //   selectionController:
-                            //       Get.find<ProjectStatusController>(),
-                            //   controller: Get.find<TaskStatusTableController>(),
-                            //   dataItem:  controller.currentItem.statusTable.rows.insert(1)
-                            //   ,
-                            //   fieldName:
-                            //       TaskBoardStatusTableGenerated.nameStatusId,
-                            //   label: 'Status ',
-                            // ),
-                            //  TTNsgInput(
-                            //   selectionController:
-                            //       Get.find<ProjectStatusController>(),
-                            //   controller: Get.find<TaskStatusTableController>(),
-                            //   dataItem:  controller.currentItem.statusTable.rows[1],
-                            //   fieldName:
-                            //       TaskBoardStatusTableGenerated.nameStatusId,
-                            //   label: 'Status ',
-                            // ),
-                            //  TTNsgInput(
-                            //   selectionController:
-                            //       Get.find<ProjectStatusController>(),
-                            //   controller: Get.find<TaskStatusTableController>(),
-                            //   dataItem:  controller.currentItem.statusTable.rows[2],
-                            //   fieldName:
-                            //       TaskBoardStatusTableGenerated.nameStatusId,
-                            //   label: 'Status ',
-                            // ),
-                            //  TTNsgInput(
-                            //   selectionController:
-                            //       Get.find<ProjectStatusController>(),
-                            //   controller: Get.find<TaskStatusTableController>(),
-                            //   dataItem:  controller.currentItem.statusTable.rows[3],
-                            //   fieldName:
-                            //       TaskBoardStatusTableGenerated.nameStatusId,
-                            //   label: 'Status ',
-                            // ),
-                            //  TTNsgInput(
-                            //   selectionController:
-                            //       Get.find<ProjectStatusController>(),
-                            //   controller: Get.find<TaskStatusTableController>(),
-                            //   dataItem:  controller.currentItem.statusTable.rows[4],
-                            //   fieldName:
-                            //       TaskBoardStatusTableGenerated.nameStatusId,
-                            //   label: 'Status ',
-                            // ),
-                           
-                            NsgTable(
-                              controller: Get.find<TaskStatusTableController>(),
-                              elementEditPageName: Routes.taskrow,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(
-                                    name: TaskBoardStatusTableGenerated.nameStatusId,
-                                    expanded: true,
-                                    presentation: 'Статусы'),
-                              ],
-                            )
+                            NsgButton(
+                              borderRadius: 30,
+                              color: const Color(0xff529FBF),
+                              backColor: const Color(0xffEDEFF3),
+                              text: '+ добавляйте статусы на эту доску',
+                              onPressed: () {
+                                Get.find<TaskStatusTableController>().prepapreProjectStatus();
+                                Get.find<TaskStatusTableController>().newItemPageOpen(pageName: Routes.taskBoardStatusPage);
+                              },
+                            ),
+                            getBoardstatus(context),
+                            if (controller.currentItem.name.isNotEmpty)
+                              NsgButton(
+                                backColor: Colors.transparent,
+                                text: 'Удалить доску',
+                                color: Colors.red,
+                                onPressed: () async {
+                                  showAlertDialogforboard(context);
+                                },
+                              )
                           ],
                         ),
                       )),
@@ -131,8 +87,188 @@ class TaskBoardPage extends GetView<TaskBoardController> {
     );
   }
 
-void moveRow(TaskBoardStatusTable row, int newPosition) {
-   controller.currentItem.statusTable.rows.remove(row);
+  Widget getBoardstatus(BuildContext context) {
+    List<Widget> list = [];
+    double width = MediaQuery.of(context).size.width;
+
+    for (var boardstatus in controller.currentItem.statusTable.rows) {
+      list.add(wrapdragTarget(
+        status: boardstatus,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+          child: Card(
+            margin: EdgeInsets.zero,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Draggable(
+                      data: boardstatus,
+                      childWhenDragging: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                      feedback: Container(
+                        height: 60,
+                        width: width,
+                        child: Card(
+                          margin: EdgeInsets.zero,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    boardstatus.status.name,
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: SizedBox(
+                                      width: 30,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            showAlertDialog(context, boardstatus);
+                                          },
+                                          icon: const Icon(Icons.close))),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      boardstatus.status.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SizedBox(
+                        width: 30,
+                        child: IconButton(
+                            onPressed: () {
+                              showAlertDialog(context, boardstatus);
+                            },
+                            icon: const Icon(Icons.close))),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+    return SingleChildScrollView(child: Column(children: list));
+  }
+
+  showAlertDialogforboard(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        await controller.deleteItems([controller.currentItem]);
+        Get.back();
+        controller.refreshData();
+        // Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialog(BuildContext context, boardstatus) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        controller.currentItem.statusTable.removeRow(boardstatus);
+        controller.itemPagePost(goBack: false);
+
+        Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Widget wrapdragTarget({required Widget child, required TaskBoardStatusTable status}) {
+    return DragTarget<TaskBoardStatusTable>(
+      builder: (context, accepted, rejected) {
+        return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: accepted.isNotEmpty ? ControlOptions.instance.colorMain.withOpacity(0.4) : Colors.transparent,
+            ),
+            child: child);
+      },
+      onWillAccept: (data) {
+        return true;
+      },
+      onAccept: (data) async {
+       // data = status;
+        int newPosition = controller.currentItem.statusTable.rows.indexOf(status);
+        moveRow(data, newPosition);
+        //  await controller.postItems([status.status]);
+        // data.status = status.status;
+        // // Get.find<TaskBoardController>().currentItem.statusTable.addRow(status);
+       // await controller.postItems([controller.currentItem]);
+   controller.sendNotify();
+        // controller.refreshData();
+      },
+    );
+  }
+
+  void moveRow(TaskBoardStatusTable row, int newPosition) {
+    var oldPostition=controller.currentItem.statusTable.rows.indexOf(row);
+    if(oldPostition<newPosition){
+      newPosition--;
+    }
+    controller.currentItem.statusTable.rows.remove(row);
 
     controller.currentItem.statusTable.rows.insert(newPosition, row);
   }
