@@ -10,6 +10,7 @@ import 'package:task_manager_app/model/data_controller.dart';
 
 import '../organization/organization_controller.dart';
 import '../user_account/user_account_controller.dart';
+import '../widgets/task_tuner_button.dart';
 
 class AcceptInvitationPage extends GetView<InvitationController> {
   const AcceptInvitationPage({Key? key}) : super(key: key);
@@ -184,12 +185,9 @@ class AcceptInvitationPage extends GetView<InvitationController> {
   }
 
   Widget createNewOrganizationButton() {
-    return NsgButton(
-      borderRadius: 20,
-      height: 50,
-      width: 400,
+    return TaskButton(
       text: 'Создать свою группу проектов (организацию)',
-      onPressed: () async {
+      onTap: () async {
         Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
       },
     );

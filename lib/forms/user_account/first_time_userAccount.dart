@@ -42,42 +42,60 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  NsgAppBar(
-                    color: Colors.white,
-                    text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
-                    icon: Icons.arrow_back_ios_new,
-                    colorsInverted: true,
-                    bottomCircular: true,
-                    onPressed: () {
-                      controller.itemPageCancel();
-                    },
-                    icon2: Icons.check,
-                    onPressed2: () async {
-                      if (controller.currentItem.name.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите ник')));
-                      } else if (controller.currentItem.firstName.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите имя')));
-                      } else if (controller.currentItem.lastName.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите фамилию')));
-                      } else if (controller.currentItem.phoneNumber.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите телефон')));
-                      } else if (controller.currentItem.email.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите Email')));
-                      } else {
-                        await controller.itemPagePost();
-                        await Get.find<InvitationController>().requestItems();
-                        Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
-                      }
-
-                      // Get.back();
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Настройка профиля',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Container(
-                        padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                        padding: const EdgeInsets.fromLTRB(5, 0, 20, 15),
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
+                              Row(children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                                  child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
+                                    ClipOval(
+                                      child: userImage(),
+                                    ),
+                                    Positioned(
+                                        bottom: -5,
+                                        right: -5,
+                                        child: InkWell(
+                                          onTap: () {},
+                                          child: ClipOval(
+                                              child: Container(
+                                            padding: const EdgeInsets.all(5),
+                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
+                                            child: Center(
+                                                child: Icon(
+                                              Icons.photo_camera_outlined,
+                                              color: ControlOptions.instance.colorMainLight,
+                                            )),
+                                          )),
+                                        )),
+                                  ]),
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Код профиля',
+                                      style: TextStyle(
+                                          fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter', color: ControlOptions.instance.colorMainLight),
+                                    )
+                                  ],
+                                )
+                              ]),
                               // NsgInput(
                               //   selectionController:
                               //       Get.find<OrganizationController>(),
@@ -90,32 +108,32 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
-                                label: 'nick',
+                                label: 'Ваш ник',
                                 infoString: 'Введите ник',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
-                                label: 'Имя',
+                                label: 'Ваше имя',
                                 infoString: 'Введите имя',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameLastName,
-                                label: 'Фамилия',
+                                label: 'Ваша фамилия',
                                 infoString: 'Введите фамилию',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
-                                label: 'Номер телефона',
-                                infoString: 'Введите номер телефона',
+                                label: 'Телефон',
+                                infoString: '+7',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameEmail,
-                                label: 'Email',
-                                infoString: 'Введите Email',
+                                label: 'Электронная почта',
+                                infoString: 'e-mail@mail.org',
                               ),
                               //Должность тоже нужна только внутри организации
                               // NsgInput(
@@ -161,19 +179,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                     .nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
                               ),*/
-                              Center(child: userImage()),
 
-                              TaskButton(
-                                style: TaskButtonStyle.warning,
-                                text: 'Выйти',
-                                onTap: () async {
-                                  await Get.find<DataController>().provider!.logout();
-                                  //await Get.find<DataController>().onInit();\
-                                  //await Get.find<DataController>().provider!.resetUserToken();
-                                  await Get.find<DataController>().provider!.connect(Get.find<DataController>());
-                                  //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
-                                },
-                              )
                               // NsgButton(
                               //   text: 'Список пользователей',
                               //   color: Colors.white,
@@ -184,6 +190,49 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                             ],
                           ),
                         )),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: TaskButton(
+                        style: TaskButtonStyle.warning,
+                        text: 'Выйти',
+                        onTap: () async {
+                          await Get.find<DataController>().provider!.logout();
+                          //await Get.find<DataController>().onInit();\
+                          //await Get.find<DataController>().provider!.resetUserToken();
+                          await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                          //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
+                        },
+                      )),
+                      Expanded(
+                          child: TaskButton(
+                        text: 'Далее',
+                        onTap: () async {
+                          if (controller.currentItem.name.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите ник')));
+                          } else if (controller.currentItem.firstName.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите имя')));
+                          } else if (controller.currentItem.lastName.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите фамилию')));
+                          } else if (controller.currentItem.phoneNumber.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите телефон')));
+                          } else if (controller.currentItem.email.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите Email')));
+                          } else {
+                            if (true /*controller.currentItem.lastChange == DateTime(0)*/) {
+                              await controller.itemPagePost();
+                              Get.toNamed(Routes.loginConfirmPage);
+                            } else {
+                              await Get.find<InvitationController>().requestItems();
+                              Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+                            }
+                          }
+
+                          // Get.back();
+                        },
+                      )),
+                    ],
                   ),
                 ],
               ),

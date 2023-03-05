@@ -33,6 +33,7 @@ import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
+import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
@@ -257,19 +258,18 @@ class AppPages {
       page: () => const ProjectUserViewPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskBoardStatusPage,
       page: () => const TaskBoardStatusPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
-      name: Routes.projectStatusPage,
-      page: () => const ProjectStatusPage()),
+    GetPage(name: Routes.projectStatusPage, page: () => const ProjectStatusPage()),
     GetPage(
       name: Routes.startPage,
       page: () => StartPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(name: Routes.loginConfirmPage, page: () => const LoginConfirmPage(), binding: ProjectBinding()),
   ];
 }
 
@@ -314,9 +314,10 @@ abstract class Routes {
   static const projectEditPage = '/projectEditPage';
   static const projectBoardMobile = '/projectBoardMobile';
   static const projectUserMobile = '/projectUserMobile';
-  static const projectUserViewPage='/projectUserviewPage';
-  static const taskBoardStatusPage='/taskBoardStatusPage';
-  static const projectStatusPage='/projectStatusPage';
- 
+  static const projectUserViewPage = '/projectUserviewPage';
+  static const taskBoardStatusPage = '/taskBoardStatusPage';
+  static const projectStatusPage = '/projectStatusPage';
+
+  static const loginConfirmPage = '/loginConfirmPage';
   static const startPage = '/start-page';
 }

@@ -458,15 +458,17 @@ class TasksPage extends GetView<TasksController> {
                                     ),
                                   Row(
                                     children: [
-                                      TaskButton(
+                                      Expanded(
+                                          child: TaskButton(
                                         text: 'Отменить',
                                         style: TaskButtonStyle.light,
                                         onTap: () {},
-                                      ),
-                                      TaskButton(
+                                      )),
+                                      Expanded(
+                                          child: TaskButton(
                                         text: 'Сохранить',
                                         onTap: () {},
-                                      ),
+                                      )),
                                     ],
                                   )
 
