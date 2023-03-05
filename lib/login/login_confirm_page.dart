@@ -31,6 +31,7 @@ class LoginConfirmPage extends StatelessWidget {
                       'lib/assets/images/task_img.svg',
                       fit: BoxFit.cover,
                     ),
+                    const Padding(padding: EdgeInsets.only(top: 10)),
                     Text(
                       'Ваш профиль был успешно создан!\nТеперь вы можете приступить к использованию планировщика задач Task Tuner',
                       style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter'),

@@ -1,5 +1,8 @@
 // ignore_for_file: file_names
 
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -15,10 +18,37 @@ import '../../model/data_controller.dart';
 import '../widgets/tt_nsg_input.dart';
 
 class FirstTimeUserAccountPage extends GetView<UserAccountController> {
-  const FirstTimeUserAccountPage({Key? key}) : super(key: key);
+  FirstTimeUserAccountPage({Key? key}) : super(key: key);
+  late NsgFilePicker picker;
+  var userAccountController = Get.find<UserAccountController>();
+  var userImageController = Get.find<UserImageController>();
 
   @override
   Widget build(BuildContext context) {
+    picker = NsgFilePicker(
+        showAsWidget: true,
+        skipInterface: true,
+        oneFile: true,
+        callback: (value) async {
+          if (value.isNotEmpty) {
+            List<int> imagefile;
+            if (kIsWeb) {
+              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+            } else {
+              imagefile = await File(value[0].filePath).readAsBytes();
+            }
+            // File imageFile = File(value[0].filePath);
+            //  List<int> imagebytes = await imageFile.readAsBytes();
+            Get.find<DataController>().currentUser.photoFile = imagefile;
+            userAccountController.currentItem.photoFile = imagefile;
+            await userAccountController.postItems([userAccountController.currentItem]);
+            await userAccountController.refreshData();
+          }
+          //userAccountController.sendNotify();
+          Navigator.of(Get.context!).pop();
+        },
+        // ignore: prefer_const_literals_to_create_immutables
+        objectsList: []);
     if (controller.lateInit) {
       controller.requestItems();
     }
@@ -62,30 +92,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                           child: Column(
                             children: [
                               Row(children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-                                  child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
-                                    ClipOval(
-                                      child: userImage(),
-                                    ),
-                                    Positioned(
-                                        bottom: -5,
-                                        right: -5,
-                                        child: InkWell(
-                                          onTap: () {},
-                                          child: ClipOval(
-                                              child: Container(
-                                            padding: const EdgeInsets.all(5),
-                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
-                                            child: Center(
-                                                child: Icon(
-                                              Icons.photo_camera_outlined,
-                                              color: ControlOptions.instance.colorMainLight,
-                                            )),
-                                          )),
-                                        )),
-                                  ]),
-                                ),
+                                Get.width < 700 ? getHeader() : getHeader(),
                                 Column(
                                   children: [
                                     Text(
@@ -245,12 +252,19 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
 
   Widget userImage() {
     var uac = Get.find<UserImageController>();
-    return NsgImage(
-      controller: uac,
+    return Image.memory(
+      Uint8List.fromList(
+        userAccountController.currentItem.photoFile,
+      ),
+      width: 100,
+      height: 100,
+      fit: BoxFit.cover,
+    ); /*NsgImage(
+      controller: userAccountController,
       fieldName: PictureGenerated.nameImage,
       item: uac.currentItem,
       noImage: _noImageWidget(),
-    );
+    );*/
     // NsgFilePicker(
     //   showAsWidget: true,
     //   callback: (value) {},
@@ -271,6 +285,35 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
         border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
       ),
       child: const Center(child: Text('no image')),
+    );
+  }
+
+  Widget getHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+      child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
+        ClipOval(
+          child: userImage(),
+        ),
+        Positioned(
+            bottom: -5,
+            right: -5,
+            child: InkWell(
+              onTap: () {
+                Get.dialog(picker, barrierDismissible: true);
+              },
+              child: ClipOval(
+                  child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
+                child: Center(
+                    child: Icon(
+                  Icons.photo_camera_outlined,
+                  color: ControlOptions.instance.colorMainLight,
+                )),
+              )),
+            )),
+      ]),
     );
   }
 }

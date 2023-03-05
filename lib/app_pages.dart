@@ -190,7 +190,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.firstTimeUserAccountPage,
-      page: () => const FirstTimeUserAccountPage(),
+      page: () => FirstTimeUserAccountPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
