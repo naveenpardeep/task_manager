@@ -85,9 +85,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                                       suffixIcon: IconButton(
                                           padding: const EdgeInsets.only(bottom: 0),
                                           onPressed: (() {
-                                            setState(() {
-                                              
-                                            });
+                                            setState(() {});
                                             textEditController.clear();
                                             searchvalue = '';
                                           }),
@@ -168,9 +166,18 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                     ),
                   ),
                   Expanded(
-                    child: Text(
-                      projectuser.userAccount.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          projectuser.userAccount.name,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          projectuser.userAccount.phoneNumber,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
