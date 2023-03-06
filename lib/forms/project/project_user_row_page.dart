@@ -47,7 +47,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                 NsgAppBar(
                   color: Colors.black,
                   backColor: Colors.white,
-                  text: controller.currentItem.isEmpty ? 'Project '.toUpperCase() : controller.currentItem.name,
+                  text: 'Добавить участников в проект',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
