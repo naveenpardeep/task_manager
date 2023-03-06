@@ -143,7 +143,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                           },
                           icon: const Icon(
                             Icons.remove_circle_outline,
-                            color: Colors.red,
+                            color: Colors.black,
                           )),
                      //  const Icon(Icons.arrow_forward_ios),
                     ],
