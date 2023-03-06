@@ -268,6 +268,8 @@ class TaskBoardPage extends GetView<TaskBoardController> {
     if(oldPostition<newPosition){
       newPosition--;
     }
+   
+    
     controller.currentItem.statusTable.rows.remove(row);
 
     controller.currentItem.statusTable.rows.insert(newPosition, row);

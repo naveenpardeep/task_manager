@@ -32,4 +32,13 @@ class ProjectUserController extends NsgDataController<UserAccount> {
         comparisonOperator: NsgComparisonOperator.inList);
     return NsgDataRequestParams(compare: cmp);
   }
+ @override
+  Future<NsgDataItem> doCreateNewItem() async {
+    var element = await super.doCreateNewItem();
+    element.id = Guid.newGuid();
+  
+
+    return element;
+  }
+  
 }

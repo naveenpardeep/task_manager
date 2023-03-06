@@ -8,6 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
 
 
@@ -18,32 +19,29 @@ class ProjectUserMobile extends StatefulWidget {
 }
 
 class _ProjectpageState extends State<ProjectUserMobile> {
-  //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
-  bool isHidden = true;
+ 
   @override
   void initState() {
     super.initState();
-    // scaffoldKey;
-    isHidden;
+    scaffoldKey;
+  
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    var isNewProject = controller.currentItem.name.isEmpty;
+ 
     var scrollController = ScrollController();
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        // key: scaffoldKey,
+         key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            //   key: GlobalKey(),
+               key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,8 +68,11 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 color: const Color(0xff529FBF),
                                 backColor: const Color(0xffEDEFF3),
                                 text: '+ Добавить участника в проект',
-                                onPressed: () {
+                                onPressed: () async {
+                                  await Get.find<ProjectUserController>().requestItems();
+                                  Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
                                   Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
+
                                 },
                               ),
                               projectUsersList(context),
