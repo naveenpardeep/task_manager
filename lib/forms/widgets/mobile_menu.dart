@@ -58,10 +58,9 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
             child: InkWell(
                 onTap: () {
-                 
                   Get.toNamed(Routes.organizationListMobilePage);
-                  
-                 // Get.toNamed(Routes.organizationPage);
+
+                  // Get.toNamed(Routes.organizationPage);
                   //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                 },
                 child: Icon(
@@ -137,7 +136,8 @@ class TmMobileMenu extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       // Get.toNamed(Routes.userProfilePage);
-                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage,needRefreshSelectedItem: true);
+                      Get.find<UserAccountController>()
+                          .itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
                     },
                     child: ClipOval(
                       child: Get.find<DataController>().currentUser.photoFile.isEmpty

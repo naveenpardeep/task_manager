@@ -33,7 +33,8 @@ class TmTopMenu extends StatelessWidget {
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
 
-                        Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage,needRefreshSelectedItem: true);
+                        Get.find<ProjectController>()
+                            .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
                         //  Get.toNamed(Routes.projectListPage);
                       },
                       child: Text(
@@ -72,7 +73,7 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Get.toNamed(Routes.organizationListMobilePage);
-                      //  Get.toNamed(Routes.organizationPage);
+                        //  Get.toNamed(Routes.organizationPage);
                         //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                       },
                       child: Text(
@@ -178,7 +179,7 @@ class TmTopMenu extends StatelessWidget {
             decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
               onTap: () {
-                Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage,needRefreshSelectedItem: true);
+                Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
               },
               child: ClipOval(
                 child: Get.find<DataController>().currentUser.photoFile.isEmpty
