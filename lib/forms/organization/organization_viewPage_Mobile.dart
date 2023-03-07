@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
@@ -183,16 +184,16 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: const [
-                                          Text(
+                                        children:  [
+                                          const Text(
                                             'Директор                   ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
 
                                           Expanded(
                                             child: Text(
-                                              'Директор Name',
-                                              style: TextStyle(
+                                              controller.currentItem.ceo.toString(),
+                                              style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),
@@ -224,15 +225,15 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: const [
-                                          Text(
+                                        children:  [
+                                          const Text(
                                             'Дата создания          ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
-                                            child: Text('01.02.2022 / 21:20',
-                                            //  getCreatedDay(),
-                                              style: TextStyle(
+                                            child: Text(
+                                              getCreatedDay(),
+                                              style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),
@@ -258,26 +259,26 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
         ));
   }
 
-  // String getCreatedDay() {
-  //   var todayDate = DateTime.now();
-  //   final dateCreated = controller.currentItem.date;
-  //   var daysCreated = todayDate.difference(dateCreated).inDays;
-  //   if (daysCreated > 30) {
-  //     return '${NsgDateFormat.dateFormat(controller.currentItem.date, format: 'dd.MM.yy HH:mm')}';
-  //   }
-  //   var minutes = todayDate.difference(dateCreated).inMinutes;
-  //   if (minutes < 60) {
-  //     return '$minutes мин. назад';
-  //   }
-  //   var hours = todayDate.difference(dateCreated).inHours;
-  //   if (hours <= 24) {
-  //     return '$hours Час. назад';
-  //   }
+  String getCreatedDay() {
+    var todayDate = DateTime.now();
+    final dateCreated = controller.currentItem.dateCreated;
+    var daysCreated = todayDate.difference(dateCreated).inDays;
+    if (daysCreated > 30) {
+      return '${NsgDateFormat.dateFormat(controller.currentItem.dateCreated, format: 'dd.MM.yy HH:mm')}';
+    }
+    var minutes = todayDate.difference(dateCreated).inMinutes;
+    if (minutes < 60) {
+      return '$minutes мин. назад';
+    }
+    var hours = todayDate.difference(dateCreated).inHours;
+    if (hours <= 24) {
+      return '$hours Час. назад';
+    }
 
-  //   if (daysCreated <= 30) {
-  //     return '$daysCreated дн. назад';
-  //   }
+    if (daysCreated <= 30) {
+      return '$daysCreated дн. назад';
+    }
 
-  //   return '$daysCreated дн. назад';
-  // }
+    return '$daysCreated дн. назад';
+  }
 }

@@ -5,6 +5,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../project/project_controller.dart';
@@ -26,8 +27,8 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
                   NsgAppBar(
-                    color: Colors.white,
-                    backColor: const Color(0xff7876D9),
+                    color: Colors.black,
+                    backColor: Colors.white,
                     text: 'Организация'.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
@@ -55,11 +56,27 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Column(children: [
-                          NsgInput(
+                          TTNsgInput(
                             dataItem: controller.currentItem,
                             fieldName: OrganizationItemGenerated.nameName,
-                            label: 'Название группы проектов (организации)',
+                            label: 'Название компании',
+                            infoString: 'Укажите название компании',
                           ),
+                          TTNsgInput(
+                            controller: controller,
+                            selectionController: Get.find<UserAccountController>(),
+                            dataItem: controller.currentItem,
+                            fieldName: OrganizationItemGenerated.nameCEOId,
+                            label: 'CEO',
+                            infoString: 'Укажите генерального директора',
+                          ),
+                          // TTNsgInput(
+                          //   dataItem: controller.currentItem,
+                          //   fieldName: OrganizationItemGenerated.nameDateCreated,
+                          //   label: 'Название компании',
+                          //   infoString: 'Укажите название компании',
+                          // ),
+                      
                           // const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в эту организацию')),
                           // NsgTable(
                           //     controller: Get.find<OrganizationItemUserTableController>(),
