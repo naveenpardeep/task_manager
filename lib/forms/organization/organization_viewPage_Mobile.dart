@@ -63,7 +63,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                   IconButton(
                       onPressed: () {
                         if (_tabController.index == 0) {
-                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage);
+                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage,needRefreshSelectedItem: true);
                         }
 
                         if (_tabController.index == 2) {}
