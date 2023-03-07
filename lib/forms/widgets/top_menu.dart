@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
@@ -34,7 +33,7 @@ class TmTopMenu extends StatelessWidget {
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
 
-                        Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage);
+                        Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage,needRefreshSelectedItem: true);
                         //  Get.toNamed(Routes.projectListPage);
                       },
                       child: Text(
@@ -72,7 +71,8 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.organizationPage);
+                        Get.toNamed(Routes.organizationListMobilePage);
+                      //  Get.toNamed(Routes.organizationPage);
                         //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                       },
                       child: Text(
@@ -178,7 +178,7 @@ class TmTopMenu extends StatelessWidget {
             decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
               onTap: () {
-                Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
+                Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage,needRefreshSelectedItem: true);
               },
               child: ClipOval(
                 child: Get.find<DataController>().currentUser.photoFile.isEmpty

@@ -8,10 +8,14 @@ import '../data_controller_model.dart';
 class OrganizationItemGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
+  static const nameDateCreated = 'dateCreated';
+  static const nameCEOId = 'ceoId';
   static const nameTableUsers = 'tableUsers';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
+    nameDateCreated: 'Дата создания',
+    nameCEOId: 'Руководитель',
   };
 
   @override
@@ -21,8 +25,12 @@ class OrganizationItemGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataDateField(nameDateCreated), primaryKey: false);
+    addField(NsgDataReferenceField<UserAccount>(nameCEOId), primaryKey: false);
     addField(NsgDataReferenceListField<OrganizationItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
+    fieldList.fields[nameDateCreated]?.presentation = 'Дата создания';
+    fieldList.fields[nameCEOId]?.presentation = 'Руководитель';
   }
 
   @override
@@ -45,6 +53,22 @@ class OrganizationItemGenerated extends NsgDataItem {
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
+
+  /// ДатаСоздания
+  DateTime get dateCreated => getFieldValue(nameDateCreated) as DateTime;
+
+  set dateCreated(DateTime value) => setFieldValue(nameDateCreated, value);
+
+  /// Руководитель
+  String get ceoId => getFieldValue(nameCEOId).toString();
+  UserAccount get ceo => getReferent<UserAccount>(nameCEOId);
+  Future<UserAccount> ceoAsync() async {
+   return await getReferentAsync<UserAccount>(nameCEOId);
+  }
+
+  set ceoId(String value) => setFieldValue(nameCEOId, value);
+  set ceo(UserAccount value) =>
+    setFieldValue(nameCEOId, value.id);
 
   /// Сотрудники
   NsgDataTable<OrganizationItemUserTable> get tableUsers => NsgDataTable<OrganizationItemUserTable>(owner: this, fieldName: nameTableUsers);

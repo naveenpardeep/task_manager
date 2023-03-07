@@ -5,8 +5,6 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/model/generated/task_board_status_table.g.dart';
-import 'package:task_manager_app/model/task_board_status_table.dart';
 
 class TaskBoardStatusPage extends GetView<TaskStatusTableController> {
   const TaskBoardStatusPage({Key? key}) : super(key: key);

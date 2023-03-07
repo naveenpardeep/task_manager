@@ -7,8 +7,7 @@ import 'package:task_manager_app/forms/task_status/project_status_controller.dar
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class TaskStatusController extends NsgDataController<TaskStatus> {
-  TaskStatusController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+  TaskStatusController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     masterController = Get.find<ProjectController>();
   }
 //  @override
@@ -45,15 +44,12 @@ class TaskStatusController extends NsgDataController<TaskStatus> {
           name: TaskStatusGenerated.nameId,
           value: projectStatuses,
           comparisonOperator: NsgComparisonOperator.inList);
+    } else {
+      cmp.add(name: TaskStatusGenerated.nameProjectId, value: projectController.currentItem.id);
+      // name: TaskStatusGenerated.nameId,
+      // value: projectStatuses,
+      // comparisonOperator: NsgComparisonOperator.inList);
     }
-else{
-   cmp.add(
-           name: TaskStatusGenerated.nameProjectId,
-          value: projectController.currentItem.id);
-         // name: TaskStatusGenerated.nameId,
-         // value: projectStatuses,
-         // comparisonOperator: NsgComparisonOperator.inList);
-}
     return NsgDataRequestParams(compare: cmp);
 
     // var filter = super.getRequestFilter;
@@ -65,8 +61,7 @@ else{
   }
 }
 
-class TaskStatusTableController
-    extends NsgDataTableController<TaskBoardStatusTable> {
+class TaskStatusTableController extends NsgDataTableController<TaskBoardStatusTable> {
   TaskStatusTableController()
       : super(
           masterController: Get.find<TaskBoardController>(),
@@ -76,40 +71,40 @@ class TaskStatusTableController
   Future itemRemove({bool goBack = true}) {
     return super.itemRemove();
   }
-  List<TaskBoardStatusTable> taskboardstatus=[];
-  void prepapreProjectStatus(){
+
+  List<TaskBoardStatusTable> taskboardstatus = [];
+  void prepapreProjectStatus() {
     taskboardstatus.clear();
-    for(var row in Get.find<TaskBoardController>().currentItem.statusTable.rows){
-      var newRow= TaskBoardStatusTable();
-      newRow.status=row.status;
-      newRow.isChecked=true;
+    for (var row in Get.find<TaskBoardController>().currentItem.statusTable.rows) {
+      var newRow = TaskBoardStatusTable();
+      newRow.status = row.status;
+      newRow.isChecked = true;
       taskboardstatus.add(newRow);
     }
 
-    for(var row in Get.find<ProjectStatusController>().items){
-      if(taskboardstatus.where((element) => element.status==row).isNotEmpty) continue;
+    for (var row in Get.find<ProjectStatusController>().items) {
+      if (taskboardstatus.where((element) => element.status == row).isNotEmpty) continue;
 
-      var newRow= TaskBoardStatusTable();
-      newRow.status=row;
-      newRow.isChecked=false;
+      var newRow = TaskBoardStatusTable();
+      newRow.status = row;
+      newRow.isChecked = false;
       taskboardstatus.add(newRow);
     }
-   
   }
-  void statusSaved(){
-    for(var statusrow in taskboardstatus){
-     var row=  Get.find<TaskBoardController>().currentItem.statusTable.rows.where((element) => element.status==statusrow.status);
-     if(row.isEmpty&& statusrow.isChecked==false) continue;
-     if(row.isEmpty&& statusrow.isChecked==true){
-      Get.find<TaskBoardController>().currentItem.statusTable.addRow(statusrow);
-      Get.find<TaskBoardController>().itemPagePost(goBack: false);
-     }
 
-     if(row.isNotEmpty&& statusrow.isChecked==false){
-      Get.find<TaskBoardController>().currentItem.statusTable.removeRow(row.first);
-        Get.find<TaskBoardController>().itemPagePost(goBack: false);
-     }
+  void statusSaved() {
+    for (var statusrow in taskboardstatus) {
+      var row = Get.find<TaskBoardController>().currentItem.statusTable.rows.where((element) => element.status == statusrow.status);
+      if (row.isEmpty && statusrow.isChecked == false) continue;
+      if (row.isEmpty && statusrow.isChecked == true) {
+        Get.find<TaskBoardController>().currentItem.statusTable.addRow(statusrow);
+      }
+
+      if (row.isNotEmpty && statusrow.isChecked == false) {
+        Get.find<TaskBoardController>().currentItem.statusTable.removeRow(row.first);
+      }
     }
+    Get.find<TaskBoardController>().itemPagePost(goBack: false);
   }
 
   // @override

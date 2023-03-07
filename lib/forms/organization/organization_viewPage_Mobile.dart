@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 
-import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
-import 'package:task_manager_app/forms/project/projectUserMobile.dart';
-
-import 'package:task_manager_app/forms/project/project_controller.dart';
-
-import 'package:task_manager_app/forms/project/project_status_page.dart';
-import 'package:task_manager_app/forms/project/projectboardMobile.dart';
-import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/organization/organization_projects.dart';
+import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 
 
-class ProjectMobileViewPage extends StatefulWidget {
-  const ProjectMobileViewPage({
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
+
+
+class OrganizationViewPageMobile extends StatefulWidget {
+  const OrganizationViewPageMobile({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProjectMobileViewPage> createState() => _ProjectMobileViewPageState();
+  State<OrganizationViewPageMobile> createState() => _OrganizationViewPageMobileState();
 }
 
-class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with TickerProviderStateMixin {
+class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile> with TickerProviderStateMixin {
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
-  var controller = Get.find<ProjectController>();
+  var controller = Get.find<OrganizationController>();
+  var orgTable=Get.find<OrganizationItemUserTableController>().items;
 
   late double height;
   late double width;
@@ -37,7 +37,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -48,7 +48,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
 
   @override
   Widget build(BuildContext context) {
-    var isNewProject = controller.currentItem.name.isEmpty;
+   
     var scrollController = ScrollController();
     var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
@@ -64,16 +64,16 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                   IconButton(
                       onPressed: () {
                         if (_tabController.index == 0) {
-                          controller.itemPageOpen(controller.currentItem, Routes.projectEditPage);
+                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage,needRefreshSelectedItem: true);
                         }
 
                         if (_tabController.index == 2) {}
                       },
                       icon: const Icon(Icons.edit)),
-                if (_tabController.index == 1) IconButton(onPressed: () {
-                   Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
+                // if (_tabController.index == 1) IconButton(onPressed: () {
+                //  //  Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
                        
-                }, icon: const Icon(Icons.add))
+                // }, icon: const Icon(Icons.add))
               ],
 
               backgroundColor: Colors.white,
@@ -93,36 +93,28 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                       } else if (_tabController.index == 2) {
                         _tabController.index = 2;
                       }
-                      else if (_tabController.index == 3) {
-                        _tabController.index = 3;
-                      }
+                     
                     });
                   },
                   controller: _tabController,
                   tabs:  <Widget>[
                     Tab(
-   
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 10:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 12:15),
                       ),
                     ),
                     Tab(
                         child: Text(
-                      'Доски',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      'Сотрудники',
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
                     )),
                      Tab(
                         child: Text(
-                      'Status',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      'Проекты',
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
                     )),
-                    Tab(
-                      child: Text(
-                        'Участники',
-                        style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
-                      ),
-                    ),
+                   
                   ]),
             ),
             body: TabBarView(controller: _tabController, children: [
@@ -153,10 +145,30 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
                                         children: [
-                                          const Text(
-                                            'Название проекта :       ',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                          ),
+                                           Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ClipOval(
+                            child:
+                                //organizations. .photoFile.isEmpty
+                                // ?
+                                Container(
+                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                          width: 55,
+                          height: 55,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 20,
+                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                          ),
+                        )
+                            // : Image.memory(
+                            //     Uint8List.fromList(projectuser.userAccount.photoFile),
+                            //     fit: BoxFit.cover,
+                            //     width: 55,
+                            //     height: 55,
+                            //   ),
+                            ),
+                      ),
                                           Expanded(
                                             child: Text(
                                               ' ${controller.currentItem.name}',
@@ -172,14 +184,15 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: [
+                                        children:  [
                                           const Text(
-                                            'Организация :                  ',
+                                            'Директор                   ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
+
                                           Expanded(
                                             child: Text(
-                                              '${controller.currentItem.organization}',
+                                              controller.currentItem.ceo.toString(),
                                               style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
@@ -194,13 +207,12 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                       child: Row(
                                         children: [
                                           const Text(
-                                            'Заказчик  :                        ',
+                                            'Администратор        ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
-                                            child: Text(
-                                              controller.currentItem.contractor.toString(),
-                                              style: const TextStyle(
+                                            child: Text(orgTable.first.userAccount.name ,
+                                                style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),
@@ -209,32 +221,13 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                         ],
                                       ),
                                     ),
+                                   
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: [
+                                        children:  [
                                           const Text(
-                                            'Руководитель проекта :',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              '${controller.currentItem.leader}',
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Дата создания :               ',
+                                            'Дата создания          ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
@@ -254,12 +247,13 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                 )),
                           )),
                     ),
+                       if (width < 700) const TmMobileMenu(),
                   ],
                 ),
               ),
-              Container(key: GlobalKey(), child: const ProjectBoardMobile()),
-                Container(key: GlobalKey(), child: const ProjectStatusPage()),
-              Container(key: GlobalKey(), child: const ProjectUserMobile()),
+             Container(key: GlobalKey(), child: const OrganizationUsersMobilePage()),
+             Container(key: GlobalKey(), child:  OrganizationProject()),
+     
             ]),
           ),
         ));
@@ -267,10 +261,10 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
 
   String getCreatedDay() {
     var todayDate = DateTime.now();
-    final dateCreated = controller.currentItem.date;
+    final dateCreated = controller.currentItem.dateCreated;
     var daysCreated = todayDate.difference(dateCreated).inDays;
     if (daysCreated > 30) {
-      return '${NsgDateFormat.dateFormat(controller.currentItem.date, format: 'dd.MM.yy HH:mm')}';
+      return '${NsgDateFormat.dateFormat(controller.currentItem.dateCreated, format: 'dd.MM.yy HH:mm')}';
     }
     var minutes = todayDate.difference(dateCreated).inMinutes;
     if (minutes < 60) {

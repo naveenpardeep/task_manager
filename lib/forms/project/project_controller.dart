@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/generated/project_item.g.dart';
 
@@ -65,4 +66,39 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
           masterController: Get.find<ProjectController>(),
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
+
+  List<ProjectItemUserTable> projectUsersList = [];
+  void prepapreProjectUsers() {
+    projectUsersList.clear();
+    // for (var row in Get.find<ProjectController>().currentItem.tableUsers.rows) {
+    //   var newRow = ProjectItemUserTable();
+    //   newRow.userAccount = row.userAccount;
+    //   newRow.isChecked = true;
+    //   projectUsersList.add(newRow);
+    // }
+
+    for (var row in Get.find<ProjectUserController>().items) {
+      if (projectUsersList.where((element) => element.userAccount == row).isNotEmpty) continue;
+
+      var newRow = ProjectItemUserTable();
+      newRow.userAccount = row;
+      newRow.isChecked = false;
+      projectUsersList.add(newRow);
+    }
+  }
+
+  void usersSaved() {
+    for (var userrow in projectUsersList) {
+      var row = Get.find<ProjectController>().currentItem.tableUsers.rows.where((element) => element.userAccount == userrow.userAccount);
+      if (row.isEmpty && userrow.isChecked == false) continue;
+      if (row.isEmpty && userrow.isChecked == true) {
+        Get.find<ProjectController>().currentItem.tableUsers.addRow(userrow);
+      }
+
+      if (row.isNotEmpty && userrow.isChecked == false) {
+        Get.find<ProjectController>().currentItem.tableUsers.removeRow(row.first);
+      }
+    }
+    Get.find<ProjectController>().itemPagePost(goBack: false);
+  }
 }

@@ -5,15 +5,16 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
-import '../widgets/top_menu.dart';
+
 
 // ignore: must_be_immutable
-class ProjectListPage extends GetView<ProjectController> {
-  ProjectListPage({Key? key}) : super(key: key);
+class OrganizationProject extends GetView<ProjectController> {
+  OrganizationProject({Key? key}) : super(key: key);
 
   final scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,32 +32,9 @@ class ProjectListPage extends GetView<ProjectController> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (width > 700) const TmTopMenu(),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Все проекты',
-                          style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
-                        ),
-                      ),
-                      NsgButton(
-                        width: 150,
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
-                        height: 40,
-                        icon: Icons.add,
-                        text: 'Новый проект',
-                        color: Colors.white,
-                        backColor: ControlOptions.instance.colorMain,
-                        onPressed: () {
-                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
-                        },
-                      ),
-                    ],
-                  )),
+            //  if (width > 700) const TmTopMenu(),
+              
+                  
               Expanded(child: controller.obx((state) => showProjects())),
               if (width < 700) const TmMobileMenu(),
             ],
@@ -66,7 +44,7 @@ class ProjectListPage extends GetView<ProjectController> {
 
   Widget showProjects() {
     List<Widget> list = [];
-    for (var project in controller.items) {
+    for (var project in controller.items.where((element) => element.organization==Get.find<OrganizationController>().currentItem)) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: Row(
@@ -75,10 +53,7 @@ class ProjectListPage extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                  //  var taskConstroller = Get.find<TasksController>();
-                  //  taskConstroller.refreshData();
-                  //  Get.find<TaskBoardController>().refreshData();
-                  // Get.toNamed(Routes.homePage);
+                
                   controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
                 },
                 child: Card(

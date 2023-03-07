@@ -11,6 +11,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
+import '../organization/organization_controller.dart';
 
 class TmMobileMenu extends StatelessWidget {
   const TmMobileMenu({super.key});
@@ -57,7 +58,10 @@ class TmMobileMenu extends StatelessWidget {
           Expanded(
             child: InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.organizationPage);
+                 
+                  Get.toNamed(Routes.organizationListMobilePage);
+                  
+                 // Get.toNamed(Routes.organizationPage);
                   //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                 },
                 child: Icon(
@@ -133,7 +137,7 @@ class TmMobileMenu extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       // Get.toNamed(Routes.userProfilePage);
-                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage);
+                      Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().currentItem, Routes.userProfilePage,needRefreshSelectedItem: true);
                     },
                     child: ClipOval(
                       child: Get.find<DataController>().currentUser.photoFile.isEmpty

@@ -17,7 +17,7 @@ class LoginParams extends NsgPhoneLoginParams {
             headerMessageLogin: 'Вход',
             headerMessageRegistration: 'Регистрация',
             headerMessageVerification: 'Введите проверочный код',
-            descriptionMessegeVerification: 'Мы отправили проверочный код\nна ваш e-mail: {{phone}}',
+         //  descriptionMessegeVerification: 'Мы отправили проверочный код\nна ваш e-mail: {{phone}}',
             textEnterPhone: 'Телефон',
             textEnterEmail: 'E-mail',
             textEnterPassword: 'Пароль',

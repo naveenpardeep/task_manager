@@ -307,11 +307,11 @@ class _TTNsgInputState extends State<TTNsgInput> {
       return _buildBoolWidget(fieldValue);
     }
 
-    int? _maxLength;
+    int? maxLength;
     if (widget.dataItem.getField(widget.fieldName) is NsgDataStringField) {
-      _maxLength = (widget.dataItem.getField(widget.fieldName) as NsgDataStringField).maxLength;
-      if (_maxLength == 0) {
-        _maxLength = null;
+      maxLength = (widget.dataItem.getField(widget.fieldName) as NsgDataStringField).maxLength;
+      if (maxLength == 0) {
+        maxLength = null;
       }
     }
 
@@ -375,7 +375,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
                                             )
                                           ]
                                         : null,
-                                maxLength: _maxLength,
+                                maxLength: maxLength,
                                 autofocus: false,
                                 focusNode: focus,
                                 maxLines: widget.maxLines,

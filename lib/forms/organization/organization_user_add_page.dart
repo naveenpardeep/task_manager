@@ -2,19 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/project/project_user_controller.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 
-class ProjectUserRowPage extends StatefulWidget {
-  const ProjectUserRowPage({Key? key}) : super(key: key);
+class OrganizationUserAddPage extends StatefulWidget {
+  const OrganizationUserAddPage({Key? key}) : super(key: key);
   @override
-  State<ProjectUserRowPage> createState() => _ProjectUserRowPageState();
+  State<OrganizationUserAddPage> createState() => _OrganizationUserAddPageState();
 }
 
-class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
+class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  var controller = Get.find<ProjectController>();
+  var controller = Get.find<OrganizationController>();
   var textEditController = TextEditingController();
 
   String searchvalue = '';
@@ -25,12 +24,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Get.find<ProjectUserController>().lateInit) {
-      Get.find<ProjectUserController>().requestItems();
-    }
-    if (Get.find<ProjectController>().lateInit) {
-      Get.find<ProjectController>().requestItems();
-    }
+  
     //  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -46,7 +40,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                 NsgAppBar(
                   color: Colors.black,
                   backColor: Colors.white,
-                  text: 'Добавить участников в проект',
+                  text: 'Добавить участников в Организация',
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -55,12 +49,12 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                   },
                   icon2: Icons.check,
                   onPressed2: () async {
-                    Get.find<ProjectItemUserTableController>().usersSaved();
+                    Get.find<OrganizationItemUserTableController>().usersSaved();
                     //  await controller.itemPagePost();
                     //  await Get.find<ProjectController>().itemPagePost();
 
                     Get.back();
-                    Get.find<ProjectController>().sendNotify();
+                    Get.find<OrganizationController>().sendNotify();
                   },
                 ),
                 Expanded(
@@ -100,23 +94,9 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                                   }),
                             ),
 
-                            // NsgInput(
-                            //   controller: controller,
-                            //   selectionController:
-                            //       Get.find<ProjectUserController>(),
-                            //   dataItem: controller.currentItem,
-                            //   fieldName: ProjectItemUserTableGenerated
-                            //       .nameUserAccountId,
-                            //   label: 'User ',
-                            // ),
-                            // NsgInput(
-                            //   dataItem: controller.currentItem,
-                            //   fieldName:
-                            //       ProjectItemUserTableGenerated.nameIsAdmin,
-                            //   label: 'Admin',
-                            // ),
+                           
 
-                            getProjectuser(context),
+                            getUsers(context),
                           ],
                         ),
                       )),
@@ -129,11 +109,11 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
     );
   }
 
-  Widget getProjectuser(BuildContext context) {
+  Widget getUsers(BuildContext context) {
     List<Widget> list = [];
-    var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersList;
-    for (var projectuser in projectuseritem) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+    var orguseritem = Get.find<OrganizationItemUserTableController>().orgUsersList;
+    for (var orguser in orguseritem) {
+      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
           child: Card(
@@ -145,7 +125,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: ClipOval(
-                      child: projectuser.userAccount.photoFile.isEmpty
+                      child: orguser.userAccount.photoFile.isEmpty
                           ? Container(
                               decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                               width: 32,
@@ -157,7 +137,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                               ),
                             )
                           : Image.memory(
-                              Uint8List.fromList(projectuser.userAccount.photoFile),
+                              Uint8List.fromList(orguser.userAccount.photoFile),
                               fit: BoxFit.cover,
                               width: 32,
                               height: 32,
@@ -169,11 +149,11 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          projectuser.userAccount.name,
+                          orguser.userAccount.name,
                           style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          projectuser.userAccount.phoneNumber,
+                          orguser.userAccount.phoneNumber,
                           style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                         ),
                       ],
@@ -185,9 +165,9 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                           toggleInside: true,
                           key: GlobalKey(),
                           label: '',
-                          value: projectuser.isChecked,
+                          value: orguser.isChecked,
                           onPressed: (currentValue) {
-                            projectuser.isChecked = currentValue;
+                            orguser.isChecked = currentValue;
                           })),
                 ],
               ),

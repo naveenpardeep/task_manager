@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data_item.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -143,7 +142,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                           },
                           icon: const Icon(
                             Icons.remove_circle_outline,
-                            color: Colors.red,
+                            color: Colors.black,
                           )),
                      //  const Icon(Icons.arrow_forward_ios),
                     ],

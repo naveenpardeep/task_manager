@@ -5,21 +5,22 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
-
-import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/project/project_user_controller.dart';
-
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 
-class ProjectUserMobile extends StatefulWidget {
-  const ProjectUserMobile({Key? key}) : super(key: key);
+
+
+
+class OrganizationUsersMobilePage extends StatefulWidget {
+  const OrganizationUsersMobilePage({Key? key}) : super(key: key);
   @override
-  State<ProjectUserMobile> createState() => _ProjectpageState();
+  State<OrganizationUsersMobilePage> createState() => _ProjectpageState();
 }
 
-class _ProjectpageState extends State<ProjectUserMobile> {
+class _ProjectpageState extends State<OrganizationUsersMobilePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  var controller = Get.find<ProjectController>();
+  var controller = Get.find<OrganizationItemUserTableController>();
  
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
 
   @override
   Widget build(BuildContext context) {
- 
+   double width=MediaQuery.of(context).size.width;
     var scrollController = ScrollController();
 
     return SafeArea(
@@ -66,22 +67,23 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 borderRadius: 30,
                                 color: const Color(0xff529FBF),
                                 backColor: const Color(0xffEDEFF3),
-                                text: '+ Добавить участника в проект',
+                                text: '+ Добавить участника в Организация',
                                 onPressed: () async {
-                                  await Get.find<ProjectUserController>().requestItems();
-                                  Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
-                                  Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
+                                // await Get.find<UserAccountController>().requestItems();
+                                 Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
+                                 Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
 
                                 },
                               ),
-                              projectUsersList(context),
+                              organizationUsersList(context),
                              
-                             
+                          
                             ],
                           ),
                         ),
                       )),
                 ),
+                   if (width < 700) const TmMobileMenu(),
               ],
             ),
           ),
@@ -90,17 +92,17 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     );
   }
 
-  Widget projectUsersList(BuildContext context) {
+  Widget organizationUsersList(BuildContext context) {
     List<Widget> list = [];
-    var projectUsertable = Get.find<ProjectItemUserTableController>().items;
+    var orgUsertable = Get.find<OrganizationItemUserTableController>().items;
 
-    for (var projectuser in projectUsertable) {
+    for (var orguser in orgUsertable) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            Get.find<ProjectItemUserTableController>().currentItem = projectuser;
-            Get.toNamed(Routes.projectUserViewPage);
+            Get.find<OrganizationItemUserTableController>().currentItem = orguser;
+            Get.toNamed(Routes.organizationUserProfile);
           },
           onLongPress: () {},
           child: Column(
@@ -115,7 +117,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: ClipOval(
-                          child: projectuser.userAccount.photoFile.isEmpty
+                          child: orguser.userAccount.photoFile.isEmpty
                               ? Container(
                                   decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                   width: 32,
@@ -127,7 +129,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                   ),
                                 )
                               : Image.memory(
-                                  Uint8List.fromList(projectuser.userAccount.photoFile),
+                                  Uint8List.fromList(orguser.userAccount.photoFile),
                                   fit: BoxFit.cover,
                                   width: 32,
                                   height: 32,
@@ -140,33 +142,30 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              projectuser.userAccount.name,
+                              orguser.userAccount.name,
                               style: TextStyle(
                                 fontSize: ControlOptions.instance.sizeL,
                               ),
                             ),
                              Text(
-                              projectuser.userAccount.phoneNumber,
+                              orguser.userAccount.phoneNumber,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
                             
                           ],
                         ),
                       ),
-                      if (projectuser.isAdmin) const Icon(Icons.admin_panel_settings),
+                      if (orguser.isAdmin) const Icon(Icons.admin_panel_settings),
 
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              projectuser.userAccount.organization.name,
+                              orguser.userAccount.position,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
-                            // Text(
-                            //   projectuser.userAccount.email,
-                            //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            // ),
+                            
                            
                           ],
                         ),
@@ -179,7 +178,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                       //       Icons.remove_circle_outline,
                       //       color: Colors.red,
                       //     )),
-                       const Icon(Icons.arrow_forward_ios),
+                        const Icon(Icons.arrow_forward_ios),
                     ],
                   ),
                 ),
@@ -192,37 +191,37 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     return SingleChildScrollView(child: Column(children: list));
   }
 
-  showAlertDialog(BuildContext context, user) {
-    // set up the button
-    Widget okButton = ElevatedButton(
-      child: const Text("Yes"),
-      onPressed: () {
-        Get.find<ProjectItemUserTableController>().currentItem = user;
-        controller.currentItem.tableUsers.removeRow(Get.find<ProjectItemUserTableController>().currentItem);
-        controller.itemPagePost();
+  // showAlertDialog(BuildContext context, user) {
+  //   // set up the button
+  //   Widget okButton = ElevatedButton(
+  //     child: const Text("Yes"),
+  //     onPressed: () {
+  //       Get.find<ProjectItemUserTableController>().currentItem = user;
+  //       controller.currentItem.tableUsers.removeRow(Get.find<ProjectItemUserTableController>().currentItem);
+  //       controller.itemPagePost();
 
-        Navigator.of(context).pop();
-      },
-    );
-    Widget noButton = ElevatedButton(
-      child: const Text("No"),
-      onPressed: () {
-        Navigator.of(context).pop(); // dismiss dialog
-      },
-    );
+  //       Navigator.of(context).pop();
+  //     },
+  //   );
+  //   Widget noButton = ElevatedButton(
+  //     child: const Text("No"),
+  //     onPressed: () {
+  //       Navigator.of(context).pop(); // dismiss dialog
+  //     },
+  //   );
 
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: const Text("Do you want to Delete?"),
-      actions: [okButton, noButton],
-    );
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: const Text("Do you want to Delete?"),
+  //     actions: [okButton, noButton],
+  //   );
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 }

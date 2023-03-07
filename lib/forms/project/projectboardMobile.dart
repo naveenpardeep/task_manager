@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
+
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
-import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+
 import 'package:task_manager_app/model/task_board.dart';
-import 'package:task_manager_app/model/task_board_status_table.dart';
+
 
 class ProjectBoardMobile extends StatefulWidget {
   const ProjectBoardMobile({Key? key}) : super(key: key);
@@ -31,12 +30,8 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    //double width = MediaQuery.of(context).size.width;
-    // var todaydate = controller.currentItem.date;
-
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
-    var isNewProject = controller.currentItem.name.isEmpty;
+  
+ 
     var scrollController = ScrollController();
 
     return SafeArea(
@@ -134,6 +129,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           taskboard.name,
@@ -159,7 +155,10 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
     for (var taskboardstatus in taskBoard.statusTable.rows) {
       {
         list.add(GestureDetector(
-          onTap: () {},
+          onTap: () {
+              Get.find<TaskBoardController>().currentItem = taskBoard;
+            Get.toNamed(Routes.taskBoard);
+          },
           child: Text(taskboardstatus.status.name),
         ));
       }
@@ -170,6 +169,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
         child: Padding(
           padding: const EdgeInsets.only(right: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: list,
           ),
         ));
