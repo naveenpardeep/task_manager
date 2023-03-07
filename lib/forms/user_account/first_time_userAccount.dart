@@ -39,8 +39,9 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
             }
             // File imageFile = File(value[0].filePath);
             //  List<int> imagebytes = await imageFile.readAsBytes();
-            Get.find<DataController>().currentUser.photoFile = imagefile;
+            Get.find<DataController>().currentUser.photoFile = imagefile; //????????
             userAccountController.currentItem.photoFile = imagefile;
+            await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
             await userAccountController.postItems([userAccountController.currentItem]);
             await userAccountController.refreshData();
           }
@@ -131,6 +132,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                 infoString: 'Введите фамилию',
                               ),
                               TTNsgInput(
+                                maskType: NsgInputMaskType.phone,
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Телефон',
@@ -252,15 +254,20 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
 
   Widget userImage() {
     var uac = Get.find<UserImageController>();
-    return Image.memory(
-      Uint8List.fromList(
-        userAccountController.currentItem.photoFile,
-      ),
-      width: 100,
-      height: 100,
-      fit: BoxFit.cover,
-    ); /*NsgImage(
-      controller: userAccountController,
+    if (userAccountController.currentItem.photoFile.isNotEmpty) {
+      return Image.memory(
+        Uint8List.fromList(
+          userAccountController.currentItem.photoFile,
+        ),
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return _noImageWidget();
+    }
+    /*NsgImage(
+      controller: uac,
       fieldName: PictureGenerated.nameImage,
       item: uac.currentItem,
       noImage: _noImageWidget(),
