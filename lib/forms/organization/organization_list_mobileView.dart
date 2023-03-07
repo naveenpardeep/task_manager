@@ -79,7 +79,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
           onTap: () {
             Get.find<OrganizationController>().currentItem = organizations;
             Get.find<OrganizationController>().itemPageOpen(organizations
-            , Routes.organizationViewPageMobile);
+            , Routes.organizationViewPageMobile,needRefreshSelectedItem: true);
             // Get.toNamed(Routes.organizationPage);
           },
           onLongPress: () {},
