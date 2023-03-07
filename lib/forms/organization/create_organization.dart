@@ -62,19 +62,19 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                             fieldName: OrganizationItemGenerated.nameName,
                             label: 'Название группы проектов (организации)',
                           ),
-                          const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в эту организацию')),
-                          NsgTable(
-                              controller: Get.find<OrganizationItemUserTableController>(),
-                              elementEditPageName: Routes.organizationUserRowPage,
-                              availableButtons: const [
-                                NsgTableMenuButtonType.createNewElement,
-                                NsgTableMenuButtonType.editElement,
-                                NsgTableMenuButtonType.removeElement
-                              ],
-                              columns: [
-                                NsgTableColumn(name: OrganizationItemUserTableGenerated.nameUserAccountId, expanded: true, presentation: 'Users'),
-                                NsgTableColumn(name: OrganizationItemUserTableGenerated.nameIsAdmin, width: 100, presentation: 'Admin'),
-                              ]),
+                          // const Align(alignment: Alignment.centerLeft, child: NsgText('Добавление пользователей в эту организацию')),
+                          // NsgTable(
+                          //     controller: Get.find<OrganizationItemUserTableController>(),
+                          //     elementEditPageName: Routes.organizationUserRowPage,
+                          //     availableButtons: const [
+                          //       NsgTableMenuButtonType.createNewElement,
+                          //       NsgTableMenuButtonType.editElement,
+                          //       NsgTableMenuButtonType.removeElement
+                          //     ],
+                          //     columns: [
+                          //       NsgTableColumn(name: OrganizationItemUserTableGenerated.nameUserAccountId, expanded: true, presentation: 'Users'),
+                          //       NsgTableColumn(name: OrganizationItemUserTableGenerated.nameIsAdmin, width: 100, presentation: 'Admin'),
+                          //     ]),
                         ]),
                       ),
                     ),

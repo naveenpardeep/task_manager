@@ -72,7 +72,8 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.organizationPage);
+                        Get.toNamed(Routes.organizationListMobilePage);
+                      //  Get.toNamed(Routes.organizationPage);
                         //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                       },
                       child: Text(

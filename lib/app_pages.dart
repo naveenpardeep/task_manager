@@ -8,8 +8,14 @@ import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/create_organization.dart';
 import 'package:task_manager_app/forms/organization/oraganization_userTable.dart';
 import 'package:task_manager_app/forms/organization/organization_listPage.dart';
+import 'package:task_manager_app/forms/organization/organization_list_mobileView.dart';
 import 'package:task_manager_app/forms/organization/organization_page.dart';
+import 'package:task_manager_app/forms/organization/organization_projects.dart';
+import 'package:task_manager_app/forms/organization/organization_userProfile.dart';
+import 'package:task_manager_app/forms/organization/organization_user_add_page.dart';
 import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
+import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
+import 'package:task_manager_app/forms/organization/organization_viewPage_Mobile.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_edit_page.dart';
@@ -270,6 +276,37 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(name: Routes.loginConfirmPage, page: () => const LoginConfirmPage(), binding: ProjectBinding()),
+ 
+    GetPage(
+      name: Routes.organizationListMobilePage,
+      page: () => const OrganizationListMobileView(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.organizationViewPageMobile,
+      page: () => const OrganizationViewPageMobile(),
+      binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.organizationUsersMobilePage,
+      page: () => const OrganizationUsersMobilePage(),
+      binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.organizationUserAddPage,
+      page: () => const OrganizationUserAddPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.organizationUserProfile,
+      page: () => const OrganizationUserProfile(),
+      binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.organizationPage,
+      page: () =>  OrganizationProject(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -320,4 +357,10 @@ abstract class Routes {
 
   static const loginConfirmPage = '/loginConfirmPage';
   static const startPage = '/start-page';
+  static const organizationListMobilePage = '/organizationListMobile';
+  static const organizationViewPageMobile ='/OrganizationViewPageMobile';
+  static const organizationUsersMobilePage ='/OrganizationUsersMobilePage';
+  static const organizationUserAddPage='/OrganizationUserAddPage';
+  static const organizationUserProfile='/OrganizationUserProfile';
+  static const organizationProject='/organizationProject';
 }
