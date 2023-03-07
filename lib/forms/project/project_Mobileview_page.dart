@@ -104,23 +104,23 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
    
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: Color(0xff3EA8AB), fontSize: width<700? 10:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 10:15),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Доски',
-                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
                     )),
                      Tab(
                         child: Text(
                       'Status',
-                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
                     )),
                     Tab(
                       child: Text(
                         'Участники',
-                        style: TextStyle(color: Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
                       ),
                     ),
                   ]),

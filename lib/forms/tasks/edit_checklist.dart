@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/generated/task_doc_check_list_table.g.dart';
 

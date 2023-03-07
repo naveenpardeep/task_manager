@@ -5,7 +5,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
-import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectUserRowPage extends StatefulWidget {
   const ProjectUserRowPage({Key? key}) : super(key: key);

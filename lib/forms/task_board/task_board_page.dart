@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 
@@ -24,7 +23,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
         body: controller.obx(
           (state) => Container(
             key: GlobalKey(),
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -45,7 +44,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                 ),
                 Expanded(
                   child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 10, 5, 15),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -107,7 +106,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                     child: Draggable(
                       data: boardstatus,
                       childWhenDragging: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
-                      feedback: Container(
+                      feedback: SizedBox(
                         height: 60,
                         width: width,
                         child: Card(

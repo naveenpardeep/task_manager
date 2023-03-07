@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
-import 'package:task_manager_app/model/generated/organization_item_user_table.g.dart';
 
 import '../project/project_controller.dart';
 import '../user_account/user_account_controller.dart';

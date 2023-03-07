@@ -3,19 +3,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
-import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
-import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 
-import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/project/project_list_page.dart';
 
-import 'package:task_manager_app/forms/project/project_status_page.dart';
-import 'package:task_manager_app/forms/project/projectboardMobile.dart';
-import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 
@@ -32,6 +25,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<OrganizationController>();
+  var orgTable=Get.find<OrganizationItemUserTableController>().items;
 
   late double height;
   late double width;
@@ -106,18 +100,18 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                     Tab(
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: Color(0xff3EA8AB), fontSize: width<700? 12:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 12:15),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Сотрудники',
-                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: width<700? 12:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
                     )),
                      Tab(
                         child: Text(
                       'Проекты',
-                      style: TextStyle(color: Color(0xff3EA8AB),fontSize: width<700? 12:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
                     )),
                    
                   ]),
@@ -189,8 +183,8 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: [
-                                          const Text(
+                                        children: const [
+                                          Text(
                                             'Директор                   ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
@@ -198,7 +192,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                           Expanded(
                                             child: Text(
                                               'Директор Name',
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),
@@ -216,7 +210,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
-                                            child: Text('Администратор ',
+                                            child: Text(orgTable.first.userAccount.name ,
                                                 style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
@@ -230,15 +224,15 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children: [
-                                          const Text(
+                                        children: const [
+                                          Text(
                                             'Дата создания          ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
                                             child: Text('01.02.2022 / 21:20',
                                             //  getCreatedDay(),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),

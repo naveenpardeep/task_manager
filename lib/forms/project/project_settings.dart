@@ -3,11 +3,8 @@ import 'package:get/get.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_page_main.dart';
-import 'package:task_manager_app/forms/project/project_page_tables.dart';
-import 'package:task_manager_app/forms/project/project_page_users.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 
-import '../../app_pages.dart';
 
 class ProjectSettings extends StatefulWidget {
   const ProjectSettings({super.key});
