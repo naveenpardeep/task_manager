@@ -8,7 +8,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
+import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 
 class OrganizationListMobileView extends GetView<OrganizationController> {
   const OrganizationListMobileView({Key? key}) : super(key: key);
@@ -23,21 +23,24 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                 // key: GlobalKey(),
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-                  NsgAppBar(
-                    backColor: Colors.white,
-                    color: Colors.black,
-                    text: 'Компании'.toUpperCase(),
-                    icon: Icons.arrow_back_ios_new,
-                    colorsInverted: true,
-                    bottomCircular: true,
-                    onPressed: () {
-                      Get.back();
-                      // controller.itemPageCancel();
-                    },
-                    icon2: Icons.add,
-                    onPressed2: () {
-                      controller.itemNewPageOpen(Routes.createOrganizationPage);
-                    },
+                  TTAppBar(
+                    title: 'Компании',
+                    leftIcons: [
+                      TTAppBarIcon(
+                        icon: Icons.arrow_back_ios_new,
+                        onTap: () {
+                          Get.back();
+                        },
+                      ),
+                    ],
+                    rightIcons: [
+                      TTAppBarIcon(
+                        icon: Icons.add,
+                        onTap: () {
+                          controller.itemNewPageOpen(Routes.createOrganizationPage);
+                        },
+                      )
+                    ],
                   ),
                   // Expanded(
                   //   child: Container(
