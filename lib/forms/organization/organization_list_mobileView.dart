@@ -7,39 +7,37 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
-
-
 
 class OrganizationListMobileView extends GetView<OrganizationController> {
   const OrganizationListMobileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,
             body: controller.obx((state) => Container(
-               // key: GlobalKey(),
+                // key: GlobalKey(),
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
                   NsgAppBar(
                     backColor: Colors.white,
                     color: Colors.black,
-                   
                     text: 'Компании'.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
                     bottomCircular: true,
                     onPressed: () {
                       Get.back();
-                     // controller.itemPageCancel();
+                      // controller.itemPageCancel();
                     },
-                     icon2: Icons.add,
-                     onPressed2: ()  {
-                       controller.itemNewPageOpen(Routes.createOrganizationPage);
-                     },
+                    icon2: Icons.add,
+                    onPressed2: () {
+                      controller.itemNewPageOpen(Routes.createOrganizationPage);
+                    },
                   ),
                   // Expanded(
                   //   child: Container(
@@ -64,7 +62,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                   // ),
 
                   Expanded(child: getOrganizationList()),
-             if (width < 700) const TmMobileMenu(),
+                  if (width < 700) const BottomMenu(),
                 ])))));
   }
 
@@ -78,8 +76,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
         child: InkWell(
           onTap: () {
             Get.find<OrganizationController>().currentItem = organizations;
-            Get.find<OrganizationController>().itemPageOpen(organizations
-            , Routes.organizationViewPageMobile,needRefreshSelectedItem: true);
+            Get.find<OrganizationController>().itemPageOpen(organizations, Routes.organizationViewPageMobile, needRefreshSelectedItem: true);
             // Get.toNamed(Routes.organizationPage);
           },
           onLongPress: () {},
@@ -128,7 +125,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                             // // for CEO of the Company need to change
                             // Text(
                             //   organizations.tableUsers.rows.where((element) => element.isAdmin==true).toString(),
-                                             
+
                             //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             // ),
                           ],

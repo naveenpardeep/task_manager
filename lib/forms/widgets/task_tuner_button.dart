@@ -69,6 +69,25 @@ class TaskIconButton extends StatelessWidget {
   }
 }
 
+class TaskTextButton extends StatelessWidget {
+  const TaskTextButton({super.key, this.text = '', this.onTap});
+
+  final void Function()? onTap;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          InkWell(
+            onTap: onTap,
+            child: Text(text, style: TextStyle(color: ControlOptions.instance.colorError, fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter')),
+          )
+        ]));
+  }
+}
+
 Color getColor(TaskButtonStyle style, {bool invert = false}) {
   if (invert) {
     switch (style) {

@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../model/data_controller.dart';
+import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_nsg_input.dart';
 
 class FirstTimeUserAccountPage extends GetView<UserAccountController> {
@@ -73,18 +74,8 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Настройка профиля',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
-                        ),
-                      ],
-                    ),
+                  const TTAppBar(
+                    title: 'Настройка профиля',
                   ),
                   Expanded(
                     child: Container(
@@ -253,7 +244,6 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
   }
 
   Widget userImage() {
-    var uac = Get.find<UserImageController>();
     if (userAccountController.currentItem.photoFile.isNotEmpty) {
       return Image.memory(
         Uint8List.fromList(
@@ -264,7 +254,15 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
         fit: BoxFit.cover,
       );
     } else {
-      return _noImageWidget();
+      return Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
+        ),
+        child: const Center(child: Text('no image')),
+      );
     }
     /*NsgImage(
       controller: uac,
@@ -283,17 +281,6 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
   }
 
   //TODO: show image "no image"
-  _noImageWidget() {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
-      ),
-      child: const Center(child: Text('no image')),
-    );
-  }
 
   Widget getHeader() {
     return Padding(

@@ -181,7 +181,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.createOrganizationPage,
-      page: () => const CreateOrganizationPage(),
+      page: () => CreateOrganizationPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -276,7 +276,6 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(name: Routes.loginConfirmPage, page: () => const LoginConfirmPage(), binding: ProjectBinding()),
- 
     GetPage(
       name: Routes.organizationListMobilePage,
       page: () => const OrganizationListMobileView(),
@@ -287,12 +286,12 @@ class AppPages {
       page: () => const OrganizationViewPageMobile(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.organizationUsersMobilePage,
       page: () => const OrganizationUsersMobilePage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.organizationUserAddPage,
       page: () => const OrganizationUserAddPage(),
       binding: ProjectBinding(),
@@ -302,9 +301,9 @@ class AppPages {
       page: () => const OrganizationUserProfile(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.organizationPage,
-      page: () =>  OrganizationProject(),
+      page: () => OrganizationProject(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -363,10 +362,10 @@ abstract class Routes {
   static const loginConfirmPage = '/loginConfirmPage';
   static const startPage = '/start-page';
   static const organizationListMobilePage = '/organizationListMobile';
-  static const organizationViewPageMobile ='/OrganizationViewPageMobile';
-  static const organizationUsersMobilePage ='/OrganizationUsersMobilePage';
-  static const organizationUserAddPage='/OrganizationUserAddPage';
-  static const organizationUserProfile='/OrganizationUserProfile';
-  static const organizationProject='/organizationProject';
-  static const invitationAcceptNew='/invitationAcceptNew';
+  static const organizationViewPageMobile = '/OrganizationViewPageMobile';
+  static const organizationUsersMobilePage = '/OrganizationUsersMobilePage';
+  static const organizationUserAddPage = '/OrganizationUserAddPage';
+  static const organizationUserProfile = '/OrganizationUserProfile';
+  static const organizationProject = '/organizationProject';
+  static const invitationAcceptNew = '/invitationAcceptNew';
 }

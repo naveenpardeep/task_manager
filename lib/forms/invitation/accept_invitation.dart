@@ -6,6 +6,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import '../organization/organization_controller.dart';
@@ -30,38 +31,22 @@ class AcceptInvitationPage extends GetView<InvitationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Проекты',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
-                            },
-                            child: Icon(
-                              Icons.person,
-                              color: ControlOptions.instance.colorMainLight,
-                            ),
-                          ),
-                          const Padding(padding: EdgeInsets.only(left: 10)),
-                          InkWell(
-                            onTap: () async {
-                              Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
-                            },
-                            child: Icon(Icons.add, color: ControlOptions.instance.colorMainLight),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                TTAppBar(
+                  title: 'Проекты',
+                  rightIcons: [
+                    TTAppBarIcon(
+                      icon: Icons.person,
+                      onTap: () {
+                        Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
+                      },
+                    ),
+                    TTAppBarIcon(
+                      icon: Icons.add,
+                      onTap: () {
+                        Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.createOrganizationPage);
+                      },
+                    )
+                  ],
                 ),
                 if (controller.items.isEmpty) Expanded(child: createFirstOrganization()),
                 if (controller.items.isNotEmpty)
