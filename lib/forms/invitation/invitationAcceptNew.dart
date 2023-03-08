@@ -83,26 +83,12 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Организация:  ${invitation.organization}',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                              textScaleFactor: 1.2,
-                            ),
-                            Text(
-                              'Проект:  ${invitation.project}',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                              textScaleFactor: 1.2,
-                            ),
-                            Text(
-                              'Author Name:  ${invitation.author}',
-                              // style: const TextStyle(fontWeight: FontWeight.bold),
-                              // textScaleFactor: 1.2,
-                            ),
-                            Text(
-                              'Invited User:  ${invitation.invitedUser}',
-                              // style: const TextStyle(fontWeight: FontWeight.bold),
-                              // textScaleFactor: 1.2,
-                            ),
+                            Text('Организация:  ${invitation.organization}',
+                                style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                            Text('Проект:  ${invitation.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                            Text('Author Name:  ${invitation.author}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                            Text('Invited User:  ${invitation.invitedUser}',
+                                style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
                             Text(
                               'создано: ${formateddate.format(invitation.date)}',
                               maxLines: 1,
