@@ -3,6 +3,7 @@ import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
 import 'package:task_manager_app/forms/invitation/accept_invitation.dart';
+import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
 import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/create_organization.dart';
@@ -306,6 +307,11 @@ class AppPages {
       page: () =>  OrganizationProject(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.invitationAcceptNew,
+      page: () => const InvitationAcceptNew(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -362,4 +368,5 @@ abstract class Routes {
   static const organizationUserAddPage='/OrganizationUserAddPage';
   static const organizationUserProfile='/OrganizationUserProfile';
   static const organizationProject='/organizationProject';
+  static const invitationAcceptNew='/invitationAcceptNew';
 }

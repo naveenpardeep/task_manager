@@ -106,8 +106,8 @@ class TmTopMenu extends StatelessWidget {
                         onTap: () {
                           Get.find<InvitationController>().refreshData();
                           //   Get.toNamed(Routes.acceptInvitationPage);
-                          Get.find<InvitationController>().newItemPageOpen(pageName: Routes.acceptInvitationPage);
-                        },
+                           Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationAcceptNew);
+                            },
                         child: Icon(
                           Icons.insert_invitation_sharp,
                           color: ControlOptions.instance.colorMainText,
