@@ -43,7 +43,7 @@ class LoginParams extends NsgPhoneLoginParams {
         message = 'Неправильный текст капчи. Попробуйте снова!';
         break;
       case 40104:
-        message = 'Введите номер телефона!';
+        message = 'Введите E-mail!';
         break;
       case 40105:
         message = 'Неверный пароль';
