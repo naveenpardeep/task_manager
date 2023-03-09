@@ -137,8 +137,11 @@ class TmMobileMenu extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       // Get.toNamed(Routes.userProfilePage);
-                      Get.find<UserAccountController>()
-                          .itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
+                      //Get.find<UserAccountController>()
+                      //    .itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
+                    Get.find<UserAccountController>()
+                          .itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
+                   
                     },
                     child: ClipOval(
                       child: Get.find<DataController>().currentUser.photoFile.isEmpty

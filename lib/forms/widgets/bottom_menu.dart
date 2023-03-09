@@ -39,7 +39,7 @@ class BottomMenu extends StatelessWidget {
           'Аккаунт',
           icon: Icons.photo,
           isProfileItem: true,
-          link: Routes.userProfilePage,
+          link: Routes.profileViewPage,
         ),
       ],
     );

@@ -36,6 +36,7 @@ import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
+import 'package:task_manager_app/forms/user_account/profile_ViewPage.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
@@ -311,6 +312,11 @@ class AppPages {
       page: () => const InvitationAcceptNew(),
       binding: ProjectBinding(),
     ),
+     GetPage(
+      name: Routes.profileViewPage,
+      page: () => const ProfileViewPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -368,4 +374,5 @@ abstract class Routes {
   static const organizationUserProfile = '/OrganizationUserProfile';
   static const organizationProject = '/organizationProject';
   static const invitationAcceptNew = '/invitationAcceptNew';
+  static const profileViewPage='/profileViewPage';
 }

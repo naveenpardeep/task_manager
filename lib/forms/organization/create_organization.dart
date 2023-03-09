@@ -99,14 +99,14 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       ))
                     ],
                   ),
-                  const BottomMenu()
+               //   const BottomMenu()
                 ])))));
   }
 
   List<IconsTabsTab> getTabs() {
     List<IconsTabsTab> list = [];
 
-    list.addAll([IconsTabsTab(page: getOrgSettings(), icon: Icons.apartment), IconsTabsTab(page: getProfileSettings(), icon: Icons.person)]);
+    list.addAll([IconsTabsTab(page: getOrgSettings(), icon: Icons.apartment),]);
 
     return list;
   }

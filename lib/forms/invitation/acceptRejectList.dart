@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 
 class AcceptRejectListPage extends GetView<AccpetController> {
   const AcceptRejectListPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-
+    double width=MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -26,6 +27,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+               if(width>700) 
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
@@ -64,6 +66,8 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             )),
                       )),
                 ),
+                 if(width<700)
+                    const BottomMenu()
               ],
             ),
           ),

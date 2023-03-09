@@ -6,6 +6,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 class InvitationAcceptNew extends GetView<InvitationController> {
@@ -16,6 +17,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
+    double width=MediaQuery.of(context).size.width;
 
     return BodyWrap(
       child: Scaffold(
@@ -26,6 +28,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                if(width>700)
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
@@ -54,6 +57,8 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         ),
                       )),
                 ),
+                 if(width<700)
+                    const BottomMenu()
               ],
             ),
           ),
