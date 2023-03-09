@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -208,26 +207,15 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
   }
 
   Widget companyImage() {
-    if (false) {
-      /*return Image.memory(
-        Uint8List.fromList(
-          controller.currentItem.photoFile,
-        ),
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover,
-      );*/
-    } else {
-      return Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
-        ),
-        child: const Center(child: Text('no image')),
-      );
-    }
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
+      ),
+      child: const Center(child: Text('no image')),
+    );
     /*NsgImage(
       controller: uac,
       fieldName: PictureGenerated.nameImage,

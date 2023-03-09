@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:nsg_controls/file_picker/nsg_file_picker_interface.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:nsg_controls/widgets/nsg_error_widget.dart';
@@ -53,7 +54,7 @@ class NsgRichText extends StatefulWidget {
   final NsgDataController? updateController;
 
   ///Контроллер, управляющий картинками
-  final NsgFilePickerController fileController;
+  final NsgFilePickerInterface fileController;
 
   final List<String> allowedImageFormats;
   final List<String> allowedVideoFormats;
@@ -245,7 +246,7 @@ class _NsgRichTextState extends State<NsgRichText> {
               description: basenameWithoutExtension(element.name),
               fileType: fileType,
               filePath: element.path ?? '');
-          widget.fileController.images.add(obj);
+          widget.fileController.files.add(obj);
           addImageBlock(obj);
         } else if (widget.allowedFileFormats.contains(fileType.toLowerCase()) || widget.allowedVideoFormats.contains(fileType.toLowerCase())) {
           var obj = NsgFilePickerObject(
@@ -255,7 +256,7 @@ class _NsgRichTextState extends State<NsgRichText> {
               description: basenameWithoutExtension(element.name),
               fileType: fileType,
               filePath: element.path ?? '');
-          widget.fileController.images.add(obj);
+          widget.fileController.files.add(obj);
           addImageBlock(obj);
         } else {
           error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';

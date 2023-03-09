@@ -77,7 +77,7 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
       var id = block.value.data['id'].toString();
       fileObject = (controller as NsgQuillController)
           .fileController
-          .images
+          .files
           .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
     }
 

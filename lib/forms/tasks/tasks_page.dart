@@ -24,7 +24,7 @@ class TasksPage extends GetView<TasksController> {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
     var notificationController = Get.find<NotificationController>();
-    var imageCont = Get.find<TaskImageController>();
+    var imageCont = Get.find<TaskFilesController>();
     var fileController = Get.find<TaskFilesController>();
     if (notificationController.lateInit) {
       notificationController.requestItems();
@@ -354,7 +354,7 @@ class TasksPage extends GetView<TasksController> {
                                       key: GlobalKey(),
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.nameDescription,
-                                      fileController: Get.find<TaskImageController>()),
+                                      fileController: Get.find<TaskFilesController>()),
                                   // Container(
                                   //     height: 300,
                                   //     child: Markdown(
@@ -553,7 +553,7 @@ class TasksPage extends GetView<TasksController> {
 
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
-    return Get.find<TaskImageController>().obx(
+    return Get.find<TaskFilesController>().obx(
       (state) => NsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
