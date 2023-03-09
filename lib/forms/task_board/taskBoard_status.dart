@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -32,15 +34,13 @@ class TaskBoardStatusPage extends GetView<TaskStatusTableController> {
                   bottomCircular: true,
                   onPressed: () {
                     Get.back();
-                  //  controller.itemPageCancel();
+                    //  controller.itemPageCancel();
                   },
                   icon2: Icons.check,
                   onPressed2: () {
-                    controller.statusSaved(); 
+                    controller.statusSaved();
                     Get.back();
                     Get.find<TaskBoardController>().sendNotify();
-
-               
                   },
                 ),
                 Expanded(
@@ -49,7 +49,6 @@ class TaskBoardStatusPage extends GetView<TaskStatusTableController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                           
                             Get.find<ProjectStatusController>().obx(
                               (state) => getProjectstatus(context),
                             )
@@ -67,7 +66,7 @@ class TaskBoardStatusPage extends GetView<TaskStatusTableController> {
 
   Widget getProjectstatus(BuildContext context) {
     List<Widget> list = [];
-    var projectstatusitem =  controller.taskboardstatus;
+    var projectstatusitem = controller.taskboardstatus;
     for (var projectstatus in projectstatusitem) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -84,9 +83,9 @@ class TaskBoardStatusPage extends GetView<TaskStatusTableController> {
                         key: GlobalKey(),
                         label: '',
                         value: projectstatus.isChecked,
-                        onPressed: (currentValue)  {
-                          projectstatus.isChecked=currentValue;
-                        //  Get.find<TaskBoardController>().currentItem.statusTable.addRow();
+                        onPressed: (currentValue) {
+                          projectstatus.isChecked = currentValue;
+                          //  Get.find<TaskBoardController>().currentItem.statusTable.addRow();
                         })),
                 Text(
                   projectstatus.status.name,

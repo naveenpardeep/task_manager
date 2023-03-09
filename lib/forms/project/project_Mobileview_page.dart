@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +14,6 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_status_page.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-
 
 class ProjectMobileViewPage extends StatefulWidget {
   const ProjectMobileViewPage({
@@ -48,9 +49,9 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
 
   @override
   Widget build(BuildContext context) {
-    var isNewProject = controller.currentItem.name.isEmpty;
+    // var isNewProject = controller.currentItem.name.isEmpty;
     var scrollController = ScrollController();
-    var newscrollController = ScrollController();
+    // var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -60,7 +61,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
             key: scaffoldKey,
             appBar: AppBar(
               actions: [
-                if (_tabController.index == 0 )
+                if (_tabController.index == 0)
                   IconButton(
                       onPressed: () {
                         if (_tabController.index == 0) {
@@ -70,10 +71,12 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                         if (_tabController.index == 2) {}
                       },
                       icon: const Icon(Icons.edit)),
-                if (_tabController.index == 1) IconButton(onPressed: () {
-                   Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
-                       
-                }, icon: const Icon(Icons.add))
+                if (_tabController.index == 1)
+                  IconButton(
+                      onPressed: () {
+                        Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
+                      },
+                      icon: const Icon(Icons.add))
               ],
 
               backgroundColor: Colors.white,
@@ -92,35 +95,33 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                         _tabController.index = 1;
                       } else if (_tabController.index == 2) {
                         _tabController.index = 2;
-                      }
-                      else if (_tabController.index == 3) {
+                      } else if (_tabController.index == 3) {
                         _tabController.index = 3;
                       }
                     });
                   },
                   controller: _tabController,
-                  tabs:  <Widget>[
+                  tabs: <Widget>[
                     Tab(
-   
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 10:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Доски',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
                     )),
-                     Tab(
+                    Tab(
                         child: Text(
                       'Status',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
                     )),
                     Tab(
                       child: Text(
                         'Участники',
-                        style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 10:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
                       ),
                     ),
                   ]),
@@ -249,7 +250,6 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                         ],
                                       ),
                                     ),
-                                   
                                   ],
                                 )),
                           )),
@@ -258,7 +258,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                 ),
               ),
               Container(key: GlobalKey(), child: const ProjectBoardMobile()),
-                Container(key: GlobalKey(), child: const ProjectStatusPage()),
+              Container(key: GlobalKey(), child: const ProjectStatusPage()),
               Container(key: GlobalKey(), child: const ProjectUserMobile()),
             ]),
           ),

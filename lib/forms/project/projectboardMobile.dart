@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -7,9 +9,7 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
-
 import 'package:task_manager_app/model/task_board.dart';
-
 
 class ProjectBoardMobile extends StatefulWidget {
   const ProjectBoardMobile({Key? key}) : super(key: key);
@@ -30,8 +30,6 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
 
   @override
   Widget build(BuildContext context) {
-  
- 
     var scrollController = ScrollController();
 
     return SafeArea(
@@ -156,7 +154,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
       {
         list.add(GestureDetector(
           onTap: () {
-              Get.find<TaskBoardController>().currentItem = taskBoard;
+            Get.find<TaskBoardController>().currentItem = taskBoard;
             Get.toNamed(Routes.taskBoard);
           },
           child: Text(taskboardstatus.status.name),

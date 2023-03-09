@@ -77,7 +77,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
           //image: Image.memory(Uint8List.fromList(element.file)),
           description: element.name,
           //fileType: 'jpg',
-          fileType: extension(element.name) as String,
+          fileType: extension(element.name),
           id: element.id));
     }
     return;

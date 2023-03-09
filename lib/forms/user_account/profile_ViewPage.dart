@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -44,8 +46,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    var scrollController = ScrollController();
-    var newscrollController = ScrollController();
+    // var scrollController = ScrollController();
+    // var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();

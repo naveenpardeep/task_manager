@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
-import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
@@ -18,6 +17,7 @@ import '../../model/data_controller.dart';
 import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_nsg_input.dart';
 
+// ignore: must_be_immutable
 class FirstTimeUserAccountPage extends GetView<UserAccountController> {
   FirstTimeUserAccountPage({Key? key}) : super(key: key);
   late NsgFilePicker picker;
@@ -223,10 +223,11 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                             if (true /*controller.currentItem.lastChange == DateTime(0)*/) {
                               await controller.itemPagePost();
                               Get.toNamed(Routes.loginConfirmPage);
-                            } else {
-                              await Get.find<InvitationController>().requestItems();
-                              Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
                             }
+                            // else {
+                            //   await Get.find<InvitationController>().requestItems();
+                            //   Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+                            // }
                           }
 
                           // Get.back();

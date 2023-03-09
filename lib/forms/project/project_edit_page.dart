@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
@@ -29,14 +28,14 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    //double height = MediaQuery.of(context).size.height;
     //double width = MediaQuery.of(context).size.width;
     // var todaydate = controller.currentItem.date;
 
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    //DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     var isNewProject = controller.currentItem.name.isEmpty;
     var scrollController = ScrollController();
-    var newscrollController = ScrollController();
+    //var newscrollController = ScrollController();
 
     // String formatted = formateddate.format(controller.currentItem.date);
 
@@ -119,7 +118,7 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                                 fieldName: ProjectItemGenerated.nameContractor,
                                 label: 'Заказчик',
                               ),
-                               if (controller.currentItem.name.isNotEmpty)
+                              if (controller.currentItem.name.isNotEmpty)
                                 NsgButton(
                                   backColor: Colors.transparent,
                                   text: 'Удалить проект',
@@ -140,7 +139,8 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
       ),
     );
   }
-   showAlertDialog(BuildContext context) {
+
+  showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
@@ -173,5 +173,3 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
     );
   }
 }
-
-

@@ -4,7 +4,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
-import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 import 'tasks_controller.dart';
 
@@ -34,8 +33,7 @@ class TasksListPage extends GetView<TasksController> {
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(
                         'Все задачи',
-                        style: TextStyle(
-                            color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                     type: NsgListPageMode.table,
@@ -56,15 +54,8 @@ class TasksListPage extends GetView<TasksController> {
                       NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
 
                       NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
-                      if (width > 700)
-                        NsgTableColumn(
-                            name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
-                      if (width > 700)
-                        NsgTableColumn(
-                            name: TaskDocGenerated.nameAssigneeId,
-                            width: 100,
-                            presentation: 'Исполнитель',
-                            expanded: true),
+                      if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
+                      if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameAssigneeId, width: 100, presentation: 'Исполнитель', expanded: true),
                       NsgTableColumn(name: TaskDocGenerated.nameTaskStatusId, expanded: true, presentation: 'Статус'),
 
                       // NsgTableColumn(
@@ -74,8 +65,8 @@ class TasksListPage extends GetView<TasksController> {
                     ]),
               ),
             ),
-          //  if (width < 700) const TmMobileMenu(),
-           if (width < 700) const BottomMenu(),
+            //  if (width < 700) const TmMobileMenu(),
+            if (width < 700) const BottomMenu(),
           ],
         ),
       ),
