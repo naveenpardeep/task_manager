@@ -67,17 +67,21 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                     rightIcons: [
                       TTAppBarIcon(
                         icon: Icons.close,
-                        onTap: () {},
+                        onTap: () {
+                           Get.back();
+                        },
                       )
                     ],
                   ),
-                  Expanded(child: IconsTabs(tabs: getTabs())),
+                  Expanded(child:  getOrgSettings(context)),
                   Row(
                     children: [
                       Expanded(
                           child: TaskButton(
                         text: 'Отменить',
-                        onTap: () {},
+                        onTap: () {
+                          Get.back();
+                        },
                         style: TaskButtonStyle.light,
                       )),
                       Expanded(
@@ -99,19 +103,12 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       ))
                     ],
                   ),
-               //   const BottomMenu()
+                  const BottomMenu()
                 ])))));
   }
 
-  List<IconsTabsTab> getTabs() {
-    List<IconsTabsTab> list = [];
 
-    list.addAll([IconsTabsTab(page: getOrgSettings(), icon: Icons.apartment),]);
-
-    return list;
-  }
-
-  Widget getOrgSettings() {
+  Widget getOrgSettings(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
       child: SingleChildScrollView(
@@ -124,14 +121,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             label: 'Название компании',
             infoString: 'Укажите название компании',
           ),
-          TTNsgInput(
-            controller: controller,
-            selectionController: Get.find<UserAccountController>(),
-            dataItem: controller.currentItem,
-            fieldName: OrganizationItemGenerated.nameCEOId,
-            label: 'CEO',
-            infoString: 'Укажите генерального директора',
-          ),
+      
           TTNsgInput(
             controller: controller,
             selectionController: Get.find<UserAccountController>(),
@@ -163,14 +153,51 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
           //     ]),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Expanded(child: Divider(color: ControlOptions.instance.colorGrey)),
+            child: Divider(color: ControlOptions.instance.colorGrey),
           ),
+          if(controller.currentItem.name.isNotEmpty)
           TaskTextButton(
             text: 'Удалить компанию',
-            onTap: () {},
+            onTap: () {
+      showAlertDialog(context);
+            },
           )
         ]),
       ),
+    );
+  }
+   showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        
+        controller.deleteItems([controller.currentItem]);
+        controller.refreshData();
+        NsgNavigator.instance.offAndToPage(Routes.projectListPage);
+
+        Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
