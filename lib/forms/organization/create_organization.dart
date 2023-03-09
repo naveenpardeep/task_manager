@@ -29,24 +29,24 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
     // if (controller.lateInit) {
     //   controller.requestItems();
     // }
-    picker = NsgFilePicker(
-        showAsWidget: true,
-        skipInterface: true,
-        oneFile: true,
-        callback: (value) async {
-          if (value.isNotEmpty) {
-            List<int> imagefile;
-            if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-            } else {
-              imagefile = await File(value[0].filePath).readAsBytes();
-            }
-            //сохранение фото
-          }
-          Navigator.of(Get.context!).pop();
-        },
-        // ignore: prefer_const_literals_to_create_immutables
-        objectsList: []);
+    // picker = NsgFilePicker(
+    //     showAsWidget: true,
+    //     skipInterface: true,
+    //     oneFile: true,
+    //     callback: (value) async {
+    //       if (value.isNotEmpty) {
+    //         List<int> imagefile;
+    //         if (kIsWeb) {
+    //           imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+    //         } else {
+    //           imagefile = await File(value[0].filePath).readAsBytes();
+    //         }
+    //         //сохранение фото
+    //       }
+    //       Navigator.of(Get.context!).pop();
+    //     },
+    //     // ignore: prefer_const_literals_to_create_immutables
+    //     objectsList: []);
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,
@@ -114,7 +114,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
-          getHeader(),
+        //  getHeader(),
           TTNsgInput(
             dataItem: controller.currentItem,
             fieldName: OrganizationItemGenerated.nameName,
@@ -205,69 +205,69 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
     return Container();
   }
 
-  Widget getHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-      child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
-        ClipOval(
-          child: companyImage(),
-        ),
-        Positioned(
-            bottom: -5,
-            right: -5,
-            child: InkWell(
-              onTap: () {
-                Get.dialog(picker, barrierDismissible: true);
-              },
-              child: ClipOval(
-                  child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
-                child: Center(
-                    child: Icon(
-                  Icons.photo_camera_outlined,
-                  color: ControlOptions.instance.colorMainLight,
-                )),
-              )),
-            )),
-      ]),
-    );
-  }
+  // Widget getHeader() {
+  //   return Padding(
+  //     padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+  //     child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
+  //       ClipOval(
+  //         child: companyImage(),
+  //       ),
+  //       Positioned(
+  //           bottom: -5,
+  //           right: -5,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Get.dialog(picker, barrierDismissible: true);
+  //             },
+  //             child: ClipOval(
+  //                 child: Container(
+  //               padding: const EdgeInsets.all(5),
+  //               decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
+  //               child: Center(
+  //                   child: Icon(
+  //                 Icons.photo_camera_outlined,
+  //                 color: ControlOptions.instance.colorMainLight,
+  //               )),
+  //             )),
+  //           )),
+  //     ]),
+  //   );
+  // }
 
-  Widget companyImage() {
-    if (false) {
-      /*return Image.memory(
-        Uint8List.fromList(
-          controller.currentItem.photoFile,
-        ),
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover,
-      );*/
-    } else {
-      return Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
-        ),
-        child: const Center(child: Text('no image')),
-      );
-    }
-    /*NsgImage(
-      controller: uac,
-      fieldName: PictureGenerated.nameImage,
-      item: uac.currentItem,
-      noImage: _noImageWidget(),
-    );*/
-    // NsgFilePicker(
-    //   showAsWidget: true,
-    //   callback: (value) {},
-    //   objectsList: Get.find<UserImageController>().images,
-    //   allowedFileFormats: const [],
-    //   maxFilesCount: 1,
-    // ),
-    //);
-  }
+  // Widget companyImage() {
+  //   if (false) {
+  //     /*return Image.memory(
+  //       Uint8List.fromList(
+  //         controller.currentItem.photoFile,
+  //       ),
+  //       width: 100,
+  //       height: 100,
+  //       fit: BoxFit.cover,
+  //     );*/
+  //   } else {
+  //     return Container(
+  //       width: 100,
+  //       height: 100,
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
+  //       ),
+  //       child: const Center(child: Text('no image')),
+  //     );
+  //   }
+  //   /*NsgImage(
+  //     controller: uac,
+  //     fieldName: PictureGenerated.nameImage,
+  //     item: uac.currentItem,
+  //     noImage: _noImageWidget(),
+  //   );*/
+  //   // NsgFilePicker(
+  //   //   showAsWidget: true,
+  //   //   callback: (value) {},
+  //   //   objectsList: Get.find<UserImageController>().images,
+  //   //   allowedFileFormats: const [],
+  //   //   maxFilesCount: 1,
+  //   // ),
+  //   //);
+  // }
 }
