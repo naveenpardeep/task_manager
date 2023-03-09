@@ -125,12 +125,12 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                                 fontSize: ControlOptions.instance.sizeL,
                               ),
                             ),
-                            // // for CEO of the Company need to change
-                            // Text(
-                            //   organizations.tableUsers.rows.where((element) => element.isAdmin==true).toString(),
+                            // for CEO of the Company need to change
+                            Text(
+                              organizations.ceo.toString(),
 
-                            //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            // ),
+                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                            ),
                           ],
                         ),
                       ),

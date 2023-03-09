@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
@@ -36,7 +37,7 @@ class OrganizationProject extends GetView<ProjectController> {
               
                   
               Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 700) const TmMobileMenu(),
+              if (width < 700) const BottomMenu(),
             ],
           )),
     );

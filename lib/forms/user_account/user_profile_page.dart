@@ -84,7 +84,7 @@ class _UserProfileState extends State<UserProfile> {
           child: SafeArea(
             child: Scaffold(
                 key: scaffoldKey,
-                appBar: AppBar(
+                appBar:width>700? AppBar(
                   // ignore: prefer_const_constructors
                   title: Center(
                     child: const Text(
@@ -107,7 +107,9 @@ class _UserProfileState extends State<UserProfile> {
                       child: const Icon(Icons.arrow_back_ios)),
                   backgroundColor: Colors.white,
                   //  toolbarHeight: 200, // Set this height
-                ),
+                )
+                :
+                null,
                 body: SafeArea(
                   child: Column(children: [
                     Expanded(
@@ -151,7 +153,15 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(child: organizationList()),
+                                      Expanded(
+                                        child: Container(
+                                          color: Colors.white,
+                                          width: width*0.5,
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: organizationList()),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   Padding(
@@ -406,6 +416,7 @@ class _UserProfileState extends State<UserProfile> {
                         ],
                       ),
                     )),
+                    if(width<700)
                     const BottomMenu()
                   ]),
                 )),

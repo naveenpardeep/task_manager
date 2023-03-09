@@ -25,6 +25,7 @@ class UserProjectListPage extends GetView<UserNotificationController> {
               children: <Widget>[
                 NsgAppBar(
                   backColor: Colors.white,
+                  color: Colors.black,
                   text: 'проект '.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,

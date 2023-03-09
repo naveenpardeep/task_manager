@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import '../../app_pages.dart';
 import '../user_account/user_account_controller.dart';
@@ -39,7 +40,7 @@ class BottomMenu extends StatelessWidget {
           'Аккаунт',
           icon: Icons.photo,
           isProfileItem: true,
-          link: Routes.userProfilePage,
+          link: Routes.profileViewPage,
         ),
       ],
     );
@@ -123,11 +124,12 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
   }
 
   Widget getPhoto() {
+    Get.find<DataController>().currentUser;
     var userAccountController = Get.find<UserAccountController>();
-    if (userAccountController.currentItem.photoFile.isNotEmpty) {
+    if (Get.find<DataController>().currentUser.photoFile.isNotEmpty) {
       return Image.memory(
         Uint8List.fromList(
-          userAccountController.currentItem.photoFile,
+         Get.find<DataController>().currentUser.photoFile,
         ),
         width: 32,
         height: 32,

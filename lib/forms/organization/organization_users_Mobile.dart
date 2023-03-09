@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 
@@ -83,7 +84,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                         ),
                       )),
                 ),
-                   if (width < 700) const TmMobileMenu(),
+                   if (width < 700) const BottomMenu(),
               ],
             ),
           ),

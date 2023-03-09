@@ -8,10 +8,9 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
-
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
-
 
 class OrganizationViewPageMobile extends StatefulWidget {
   const OrganizationViewPageMobile({
@@ -26,7 +25,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<OrganizationController>();
-  var orgTable=Get.find<OrganizationItemUserTableController>().items;
+  var orgTable = Get.find<OrganizationItemUserTableController>().items;
 
   late double height;
   late double width;
@@ -48,7 +47,6 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
 
   @override
   Widget build(BuildContext context) {
-   
     var scrollController = ScrollController();
     var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
@@ -60,11 +58,11 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
             key: scaffoldKey,
             appBar: AppBar(
               actions: [
-                if (_tabController.index == 0 )
+                if (_tabController.index == 0)
                   IconButton(
                       onPressed: () {
                         if (_tabController.index == 0) {
-                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage,needRefreshSelectedItem: true);
+                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage, needRefreshSelectedItem: true);
                         }
 
                         if (_tabController.index == 2) {}
@@ -72,7 +70,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                       icon: const Icon(Icons.edit)),
                 // if (_tabController.index == 1) IconButton(onPressed: () {
                 //  //  Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
-                       
+
                 // }, icon: const Icon(Icons.add))
               ],
 
@@ -93,28 +91,26 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                       } else if (_tabController.index == 2) {
                         _tabController.index = 2;
                       }
-                     
                     });
                   },
                   controller: _tabController,
-                  tabs:  <Widget>[
+                  tabs: <Widget>[
                     Tab(
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width<700? 12:15),
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Сотрудники',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
                     )),
-                     Tab(
+                    Tab(
                         child: Text(
                       'Проекты',
-                      style: TextStyle(color: const Color(0xff3EA8AB),fontSize: width<700? 12:15),
+                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
                     )),
-                   
                   ]),
             ),
             body: TabBarView(controller: _tabController, children: [
@@ -145,54 +141,33 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
                                         children: [
-                                           Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipOval(
-                            child:
-                                //organizations. .photoFile.isEmpty
-                                // ?
-                                Container(
-                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                          width: 55,
-                          height: 55,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 20,
-                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                          ),
-                        )
-                            // : Image.memory(
-                            //     Uint8List.fromList(projectuser.userAccount.photoFile),
-                            //     fit: BoxFit.cover,
-                            //     width: 55,
-                            //     height: 55,
-                            //   ),
-                            ),
-                      ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: ClipOval(
+                                                child:
+                                                    //organizations. .photoFile.isEmpty
+                                                    // ?
+                                                    Container(
+                                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                              width: 55,
+                                              height: 55,
+                                              child: Icon(
+                                                Icons.account_circle,
+                                                size: 20,
+                                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                              ),
+                                            )
+                                                // : Image.memory(
+                                                //     Uint8List.fromList(projectuser.userAccount.photoFile),
+                                                //     fit: BoxFit.cover,
+                                                //     width: 55,
+                                                //     height: 55,
+                                                //   ),
+                                                ),
+                                          ),
                                           Expanded(
                                             child: Text(
                                               ' ${controller.currentItem.name}',
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        children:  [
-                                          const Text(
-                                            'Директор                   ',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                          ),
-
-                                          Expanded(
-                                            child: Text(
-                                              controller.currentItem.ceo.toString(),
                                               style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
@@ -211,8 +186,9 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
-                                            child: Text(orgTable.first.userAccount.name ,
-                                                style: const TextStyle(
+                                            child: Text(
+                                              controller.currentItem.ceo.toString(),
+                                              style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
                                               ),
@@ -221,11 +197,10 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                         ],
                                       ),
                                     ),
-                                   
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
-                                        children:  [
+                                        children: [
                                           const Text(
                                             'Дата создания          ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
@@ -242,18 +217,16 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                         ],
                                       ),
                                     ),
-                                   
                                   ],
                                 )),
                           )),
                     ),
-                       if (width < 700) const TmMobileMenu(),
+                    if (width < 700) const BottomMenu(),
                   ],
                 ),
               ),
-             Container(key: GlobalKey(), child: const OrganizationUsersMobilePage()),
-             Container(key: GlobalKey(), child:  OrganizationProject()),
-     
+              Container(key: GlobalKey(), child: const OrganizationUsersMobilePage()),
+              Container(key: GlobalKey(), child: OrganizationProject()),
             ]),
           ),
         ));
