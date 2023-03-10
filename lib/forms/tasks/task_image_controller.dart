@@ -10,6 +10,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:path/path.dart';
 
 import '../../model/data_controller_model.dart';
+import '../../model/options/server_options.dart';
 import 'tasks_controller.dart';
 
 class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable> {
@@ -28,43 +29,6 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     return NsgDataRequestParams(compare: cmp);
   }
 
-  Future<bool> saveFiles_old() async {
-    var progress = NsgProgressDialog(textDialog: 'Сохранение File');
-    progress.show();
-    var ids = <String>[];
-    try {
-      for (var file in files) {
-        if (file.file == null) continue;
-        if (file.id == '') {
-          var filename = TaskDocFilesTable();
-          filename.name = filename.name;
-          filename.ownerId = Get.find<TasksController>().currentItem.id;
-
-          if (kIsWeb) {
-            File filesupload = File.fromUri(Uri(path: file.filePath));
-            filename.file = await filesupload.readAsBytes();
-          } else {
-            File filesUpload = File(file.filePath);
-            filename.file = await filesUpload.readAsBytes();
-          }
-          await filename.post();
-        }
-        ids.add(file.id);
-      }
-
-      var itemsToDelete = items.where((e) => !ids.contains(e.id)).toList();
-      if (itemsToDelete.isNotEmpty) {
-        deleteItems(itemsToDelete);
-      }
-      progress.hide();
-    } on Exception catch (ex) {
-      progress.hide();
-      NsgErrorWidget.showError(ex);
-      rethrow;
-    }
-    return true;
-  }
-
   @override
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
@@ -73,8 +37,8 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     for (var element in items) {
       files.add(NsgFilePickerObject(
           isNew: false,
-          filePath: element.name,
-          //image: Image.memory(Uint8List.fromList(element.file)),
+          filePath: '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${element.name}',
+          image: Image.network('${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${element.name}'),
           description: element.name,
           //fileType: 'jpg',
           fileType: extension(element.name),
@@ -100,6 +64,10 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
   Future<NsgFilePickerObject> dataItemToFileObject(NsgDataItem dataItem) async {
     dataItem as TaskDocFilesTable;
     return NsgFilePickerObject(
-        isNew: false, image: Image.memory(Uint8List.fromList(dataItem.file)), description: dataItem.name, fileType: 'jpg', id: dataItem.id);
+        isNew: false,
+        image: Image.network('${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${dataItem.name}'),
+        description: dataItem.name,
+        fileType: 'jpg',
+        id: dataItem.id);
   }
 }
