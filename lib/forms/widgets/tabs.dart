@@ -105,3 +105,52 @@ class _IconsTabsState extends State<IconsTabs> {
     return list;
   }
 }
+
+class DefaultTabsTab {
+  DefaultTabsTab({required this.tab, required this.page});
+  final Tab tab;
+  final Widget page;
+}
+
+class DefaultTabs extends StatefulWidget {
+  const DefaultTabs({super.key, this.controller, this.tabs = const [], this.onTap});
+
+  final TabController? controller;
+  final List<DefaultTabsTab> tabs;
+  final void Function(int value)? onTap;
+
+  @override
+  State<DefaultTabs> createState() => _DefaultTabsState();
+}
+
+class _DefaultTabsState extends State<DefaultTabs> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      TabBar(
+        controller: widget.controller,
+        onTap: widget.onTap,
+        tabs: getTabs(),
+      ),
+      TabBarView(
+        children: getPages(),
+      )
+    ]);
+  }
+
+  List<Tab> getTabs() {
+    List<Tab> list = [];
+    for (var tab in widget.tabs) {
+      list.add(tab.tab);
+    }
+    return list;
+  }
+
+  List<Widget> getPages() {
+    List<Widget> list = [];
+    for (var tab in widget.tabs) {
+      list.add(tab.page);
+    }
+    return list;
+  }
+}

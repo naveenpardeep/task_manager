@@ -135,7 +135,7 @@ class _HomepageState extends State<Homepage> {
 
                     if (width > 700)
                       Flexible(
-                        child:  SizedBox(
+                        child: SizedBox(
                           height: 35,
                           child: TextField(
                               controller: textEditController,

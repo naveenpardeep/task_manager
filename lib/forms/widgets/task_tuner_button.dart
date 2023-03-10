@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 class TaskButton extends StatelessWidget {
-  const TaskButton({super.key, this.flex = 1, this.style = TaskButtonStyle.dark, this.onTap, this.text = ''});
+  const TaskButton({super.key, this.flex = 1, this.style = TaskButtonStyle.dark, this.onTap, this.text, this.icon});
 
   final int flex;
+  final IconData? icon;
   final TaskButtonStyle style;
   final void Function()? onTap;
-  final String text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +17,25 @@ class TaskButton extends StatelessWidget {
         child: InkWell(
             onTap: onTap,
             child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'Inter', color: getTextColor(style), fontSize: ControlOptions.instance.sizeM),
-              ),
-            )));
+                width: text != null ? double.infinity : null,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  if (icon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: Icon(
+                        icon,
+                        color: getColor(style, invert: true),
+                      ),
+                    ),
+                  if (text != null)
+                    Text(
+                      text!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontFamily: 'Inter', color: getTextColor(style), fontSize: ControlOptions.instance.sizeM),
+                    ),
+                ]))));
   }
 }
 
@@ -92,7 +103,7 @@ Color getColor(TaskButtonStyle style, {bool invert = false}) {
   if (invert) {
     switch (style) {
       case TaskButtonStyle.dark:
-        return ControlOptions.instance.colorMainLight;
+        return ControlOptions.instance.colorWhite;
       case TaskButtonStyle.light:
         return ControlOptions.instance.colorMain;
       case TaskButtonStyle.warning:
