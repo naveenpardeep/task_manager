@@ -92,7 +92,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Container(
-                      color: const Color(0xff3ea8ab),
+                      color: const Color.fromARGB(255, 235, 238, 238),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
