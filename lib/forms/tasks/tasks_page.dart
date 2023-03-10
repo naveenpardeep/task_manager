@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -462,12 +463,26 @@ class TasksPage extends GetView<TasksController> {
                                           child: TaskButton(
                                         text: 'Отменить',
                                         style: TaskButtonStyle.light,
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.back();
+                                        },
                                       )),
                                       Expanded(
                                           child: TaskButton(
                                         text: 'Сохранить',
-                                        onTap: () {},
+                                        onTap: () async{
+                                              if (controller.currentItem.taskStatus.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                } else if (controller.currentItem.name.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                } else {
+                  controller.currentItem.dateUpdated = DateTime.now();
+                
+                  await controller.itemPagePost(goBack: false);
+                  Get.find<TasksController>().refreshData();
+                  Get.toNamed(Routes.homePage);
+                }
+                                        },
                                       )),
                                     ],
                                   )
