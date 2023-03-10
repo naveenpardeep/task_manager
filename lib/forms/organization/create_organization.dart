@@ -35,15 +35,15 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
         skipInterface: true,
         oneFile: true,
         callback: (value) async {
-          if (value.isNotEmpty) {
-            List<int> imagefile;
-            if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-            } else {
-              imagefile = await File(value[0].filePath).readAsBytes();
-            }
-            //сохранение фото
-          }
+          // if (value.isNotEmpty) {
+          //   List<int> imagefile;
+          //   if (kIsWeb) {
+          //     imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+          //   } else {
+          //     imagefile = await File(value[0].filePath).readAsBytes();
+          //   }
+          //   //сохранение фото
+          // }
           Navigator.of(Get.context!).pop();
         },
         // ignore: prefer_const_literals_to_create_immutables

@@ -12,7 +12,7 @@ import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/generated/task_doc.g.dart';
 
-import '../forms/tasks/task_image_controller.dart';
+import '../forms/tasks/task_file_controller.dart';
 
 class TaskViewPage extends StatefulWidget {
   const TaskViewPage({

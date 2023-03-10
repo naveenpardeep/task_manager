@@ -7,7 +7,7 @@ import 'package:task_manager_app/forms/user_account/service_object_controller.da
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 
-import 'task_image_controller.dart';
+import 'task_file_controller.dart';
 
 class TasksController extends NsgDataController<TaskDoc> {
   TasksController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {

@@ -14,7 +14,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../1/nsg_rich_text.dart';
 import '../task_status/task_status_controller.dart';
 import '../widgets/tt_nsg_input.dart';
-import 'task_image_controller.dart';
+import 'task_file_controller.dart';
 import 'task_user_account_controler.dart';
 
 class TasksPage extends GetView<TasksController> {
@@ -470,18 +470,18 @@ class TasksPage extends GetView<TasksController> {
                                       Expanded(
                                           child: TaskButton(
                                         text: 'Сохранить',
-                                        onTap: () async{
-                                              if (controller.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
-                } else if (controller.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
-                } else {
-                  controller.currentItem.dateUpdated = DateTime.now();
-                
-                  await controller.itemPagePost(goBack: false);
-                  Get.find<TasksController>().refreshData();
-                  Get.toNamed(Routes.homePage);
-                }
+                                        onTap: () async {
+                                          if (controller.currentItem.taskStatus.isEmpty) {
+                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                                          } else if (controller.currentItem.name.isEmpty) {
+                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                                          } else {
+                                            controller.currentItem.dateUpdated = DateTime.now();
+
+                                            await controller.itemPagePost(goBack: false);
+                                            Get.find<TasksController>().refreshData();
+                                            Get.toNamed(Routes.homePage);
+                                          }
                                         },
                                       )),
                                     ],

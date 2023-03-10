@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'package:task_manager_app/forms/tasks/task_image_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import '../project/project_controller.dart';

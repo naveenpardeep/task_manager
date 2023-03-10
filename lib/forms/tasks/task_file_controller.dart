@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/file_picker/nsg_file_picker_table_controller.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/widgets/nsg_error_widget.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:path/path.dart';
 
@@ -20,6 +18,10 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     requestOnInit = true;
   }
 
+  String getFilePath(String fileName) {
+    return '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=$fileName';
+  }
+
   @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
@@ -27,24 +29,6 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
 
     cmp.add(name: TaskDocFilesTableGenerated.nameOwnerId, value: taskController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
-  }
-
-  @override
-  Future refreshData({List<NsgUpdateKey>? keys}) async {
-    await super.refreshData(keys: keys);
-    files.clear();
-
-    for (var element in items) {
-      files.add(NsgFilePickerObject(
-          isNew: false,
-          filePath: '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${element.name}',
-          image: Image.network('${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${element.name}'),
-          description: element.name,
-          //fileType: 'jpg',
-          fileType: extension(element.name),
-          id: element.id));
-    }
-    return;
   }
 
   //TODO: Проверка наличие файлов в richText для удаления лишних
@@ -63,11 +47,11 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
   @override
   Future<NsgFilePickerObject> dataItemToFileObject(NsgDataItem dataItem) async {
     dataItem as TaskDocFilesTable;
-    return NsgFilePickerObject(
-        isNew: false,
-        image: Image.network('${NsgServerOptions.serverUriDataController}/Data/GetStream?path=${dataItem.name}'),
-        description: dataItem.name,
-        fileType: 'jpg',
-        id: dataItem.id);
+    var fileType = extension(dataItem.name).replaceAll('.', '');
+    if (fileType == 'jpg') {
+      return NsgFilePickerObject(isNew: false, image: Image.network(getFilePath(dataItem.name)), description: '', fileType: fileType, id: dataItem.id);
+    } else {
+      return NsgFilePickerObject(isNew: false, description: '', fileType: fileType, id: dataItem.id);
+    }
   }
 }
