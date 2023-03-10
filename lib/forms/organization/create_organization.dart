@@ -22,6 +22,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
 
   @override
   Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
     // if (controller.lateInit) {
     //   controller.requestItems();
     // }
@@ -99,6 +100,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       ))
                     ],
                   ),
+                  if(width<700)
                   const BottomMenu()
                 ])))));
   }
