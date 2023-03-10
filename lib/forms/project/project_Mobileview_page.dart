@@ -39,6 +39,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
     super.initState();
 
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(_setIndex);
   }
 
   @override
@@ -286,5 +287,19 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
     }
 
     return '$daysCreated дн. назад';
+  }
+
+  void _setIndex() {
+    
+    setState(() {
+      if (_tabController.index == 0) {
+        _tabController.index = 0;
+      } else if (_tabController.index == 1) {
+        _tabController.index = 1;
+      } else if (_tabController.index == 2) {
+        _tabController.index = 2;
+      }
+    });
+  
   }
 }

@@ -36,6 +36,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_setindex);
   }
 
   @override
@@ -115,5 +116,19 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
             ]),
           ),
         ));
+  }
+
+  void _setindex() {
+
+    setState(() {
+      if (_tabController.index == 0) {
+        _tabController.index = 0;
+      } else if (_tabController.index == 1) {
+        _tabController.index = 1;
+      } else if (_tabController.index == 2) {
+        _tabController.index = 2;
+      }
+    });
+  
   }
 }
