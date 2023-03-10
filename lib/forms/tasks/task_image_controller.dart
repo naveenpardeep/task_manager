@@ -28,7 +28,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     return NsgDataRequestParams(compare: cmp);
   }
 
-  Future<bool> saveFiles() async {
+  Future<bool> saveFiles_old() async {
     var progress = NsgProgressDialog(textDialog: 'Сохранение File');
     progress.show();
     var ids = <String>[];
