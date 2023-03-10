@@ -161,6 +161,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             padding: const EdgeInsets.all(10),
             child: Expanded(child: Divider(color: ControlOptions.instance.colorGrey)),
           ),
+          if(controller.currentItem.name.isNotEmpty)
           TaskTextButton(
             text: 'Удалить компанию',
             onTap: () {},
