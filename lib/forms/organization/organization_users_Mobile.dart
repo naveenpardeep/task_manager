@@ -8,6 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 
 class OrganizationUsersMobilePage extends StatefulWidget {
@@ -69,6 +70,15 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                                   // await Get.find<UserAccountController>().requestItems();
                                   Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
                                   Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
+                                },
+                              ),
+                              NsgButton(
+                                borderRadius: 30,
+                                color: const Color(0xff0859ff),
+                                backColor: const Color(0xffABF4FF),
+                                text: '+ Пригласить нового пользователя',
+                                onPressed: () async {
+                                  Get.find<UserAccountController>().newItemPageOpen(pageName: Routes.createInvitationUser);
                                 },
                               ),
                               organizationUsersList(context),
