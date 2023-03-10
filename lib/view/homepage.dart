@@ -74,138 +74,70 @@ class _HomepageState extends State<Homepage> {
     var scrollController = ScrollController();
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
-    return BodyWrap(
-      child: Scaffold(
-        key: scaffoldKey,
-        drawer: drawer(),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (width > 700) const TmTopMenu(),
-            Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                child: Row(
-                  children: [
-                    NsgIconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icons.arrow_back_ios_new,
-                      backColor: Colors.transparent,
-                      color: ControlOptions.instance.colorMain,
-                      size: 24,
-                      onPressed: () {
-                        Get.toNamed(Routes.projectListPage);
-                      },
-                    ),
-                    projectController.obx(
-                      (state) => Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(
-                          projectController.currentItem.name,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
-                        ),
-                      ),
-                    ),
-                    if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
-                        Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
-                        Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+    return projectController.obx((state) => 
+       BodyWrap(
+        child: Scaffold(
+          key: scaffoldKey,
+          drawer: drawer(),
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (width > 700) const TmTopMenu(),
+              Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: Row(
+                    children: [
                       NsgIconButton(
-                        padding: const EdgeInsets.all(8),
+                        padding: EdgeInsets.zero,
+                        icon: Icons.arrow_back_ios_new,
+                        backColor: Colors.transparent,
                         color: ControlOptions.instance.colorMain,
                         size: 22,
-                        icon: Icons.edit,
                         onPressed: () {
-                          //   if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                          //    projectController.itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
-                          //  } else {
-                          projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
-                          //  }
-                          //  Get.toNamed(Routes.projectPage);
-                          //  Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
+                          Get.toNamed(Routes.projectListPage);
                         },
                       ),
-                    IconButton(
-                        onPressed: () {
-                          Get.find<TasksController>().refreshData();
-                          setState(() {
-                            taskView = false;
-                          });
-                        },
-                        icon: const Icon(Icons.refresh)),
-
-                    if (width > 700)
-                      Flexible(
-                        child: SizedBox(
-                          height: 35,
-                          child: TextField(
-                              controller: textEditController,
-                              decoration: InputDecoration(
-                                  filled: false,
-                                  fillColor: ControlOptions.instance.colorMainLight,
-                                  prefixIcon: const Icon(Icons.search),
-                                  border: OutlineInputBorder(
-                                      gapPadding: 1,
-                                      borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                  suffixIcon: IconButton(
-                                      padding: const EdgeInsets.only(bottom: 0),
-                                      onPressed: (() {
-                                        setState(() {
-                                          textEditController.clear();
-                                          searchvalue = '';
-                                        });
-                                      }),
-                                      icon: const Icon(Icons.cancel)),
-                                  // prefixIcon: Icon(Icons.search),
-                                  hintText: 'Поиск по задачам'),
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: TextStyle(color: ControlOptions.instance.colorMainLight),
-                              onChanged: (val) {
-                                searchvalue = val;
-                                taskController.sendNotify();
-                                taskStatusTableController.sendNotify();
-                              }),
+                      projectController.obx(
+                        (state) => Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            projectController.currentItem.name,
+                            style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
+                          ),
                         ),
                       ),
-                    //  if (width > 700)
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: NsgButton(
-                          width: width > 700 ? 150 : 35,
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.zero,
-                          height: 40,
-                          icon: Icons.add,
-                          text: width > 700 ? 'Новая Задача' : '',
-                          color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
-                          backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                      if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
+                          Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
+                          Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                        NsgIconButton(
+                          padding: const EdgeInsets.all(8),
+                          color: ControlOptions.instance.colorMain,
+                          size: 22,
+                          icon: Icons.edit,
                           onPressed: () {
-                            Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                            // Get.find<TasksController>()
-                            //     .newItemPageOpen(pageName: Routes.tasksPage);
-                            // Get.toNamed(Routes.tasksPage);
+                            //   if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                            //    projectController.itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
+                            //  } else {
+                            projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
+                            //  }
+                            //  Get.toNamed(Routes.projectPage);
+                            //  Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                           },
                         ),
-                      ),
-                    ),
-                  ],
-                )),
-            width > 700
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: filters(width: width),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
+                      IconButton(
+                          onPressed: () {
+                            Get.find<TasksController>().refreshData();
+                            setState(() {
+                              taskView = false;
+                            });
+                          },
+                          icon: const Icon(Icons.refresh)),
+    
+                      if (width > 700)
+                        Flexible(
                           child: SizedBox(
-                            height: 35,
+                            height: 30,
                             child: TextField(
                                 controller: textEditController,
                                 decoration: InputDecoration(
@@ -236,87 +168,157 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                         ),
-                        TaskIconButton(
-                          nott: 0,
-                          style: TaskButtonStyle.light,
-                          icon: Icons.filter_alt_outlined,
-                          onTap: () {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
+                      //  if (width > 700)
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: NsgButton(
+                            width: width > 700 ? 150 : 35,
+                            margin: EdgeInsets.zero,
+                            padding: EdgeInsets.zero,
+                            height: 10,
+                            icon: Icons.add,
+                            text: width > 700 ? 'Новая Задача' : '',
+                            color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
+                            backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                            onPressed: () {
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                              // Get.find<TasksController>()
+                              //     .newItemPageOpen(pageName: Routes.tasksPage);
+                              // Get.toNamed(Routes.tasksPage);
+                            },
+                          ),
                         ),
-                        // const SizedBox(width: 10),
-                        // Expanded(
-                        //   child: NsgButton(
-                        //     margin: EdgeInsets.zero,
-                        //   //  height: 30,
-                        //     icon: Icons.add,
-                        //     text: 'Новая Задача',
-                        //     color: Colors.white,
-                        //     backColor: ControlOptions.instance.colorMain,
-                        //     onPressed: () {
-                        //       //   var images = <NsgFilePickerObject>[].clear();
-                        //       // Get.find<TasksController>()
-                        //       //     .newItemPageOpen(pageName: Routes.tasksPage);
-                        //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                        //       //  Get.toNamed(Routes.tasksPage);
-                        //     },
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-
-            //  if (taskBoardController.currentItem.isNotEmpty)
-            Expanded(
-              child: Stack(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (taskView)
-                    RawScrollbar(
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        controller: scrollController,
-                        thickness: 15,
-                        trackBorderColor: ControlOptions.instance.colorMain,
-                        trackColor: ControlOptions.instance.colorMain,
-                        mainAxisMargin: 5,
-                        crossAxisMargin: 2,
-                        thumbColor: ControlOptions.instance.colorGrey,
-                        radius: const Radius.circular(50),
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            controller: scrollController,
-                            child: SizedBox(
-                              width: width + 450,
-                              child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
-                            ))),
-                  if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: taskView == false ? 0 : 388,
-                      child: taskController.obx((state) => const TaskViewPage()),
-                    ),
-                  ),
-                  if (taskView)
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              taskView = false;
-                            });
-                          },
-                          icon: const Icon(Icons.close)),
+                      ),
+                    ],
+                  )),
+              width > 700
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: filters(width: width),
+                      ),
                     )
-                ],
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 35,
+                              child: TextField(
+                                  controller: textEditController,
+                                  decoration: InputDecoration(
+                                      filled: false,
+                                      fillColor: ControlOptions.instance.colorMainLight,
+                                      prefixIcon: const Icon(Icons.search),
+                                      border: OutlineInputBorder(
+                                          gapPadding: 1,
+                                          borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                          borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                      suffixIcon: IconButton(
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          onPressed: (() {
+                                            setState(() {
+                                              textEditController.clear();
+                                              searchvalue = '';
+                                            });
+                                          }),
+                                          icon: const Icon(Icons.cancel)),
+                                      // prefixIcon: Icon(Icons.search),
+                                      hintText: 'Поиск по задачам'),
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: TextStyle(color: ControlOptions.instance.colorMainLight),
+                                  onChanged: (val) {
+                                    searchvalue = val;
+                                    taskController.sendNotify();
+                                    taskStatusTableController.sendNotify();
+                                  }),
+                            ),
+                          ),
+                          TaskIconButton(
+                            nott: 0,
+                            style: TaskButtonStyle.light,
+                            icon: Icons.filter_alt_outlined,
+                            onTap: () {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                          // const SizedBox(width: 10),
+                          // Expanded(
+                          //   child: NsgButton(
+                          //     margin: EdgeInsets.zero,
+                          //   //  height: 30,
+                          //     icon: Icons.add,
+                          //     text: 'Новая Задача',
+                          //     color: Colors.white,
+                          //     backColor: ControlOptions.instance.colorMain,
+                          //     onPressed: () {
+                          //       //   var images = <NsgFilePickerObject>[].clear();
+                          //       // Get.find<TasksController>()
+                          //       //     .newItemPageOpen(pageName: Routes.tasksPage);
+                          //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                          //       //  Get.toNamed(Routes.tasksPage);
+                          //     },
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
+    
+              //  if (taskBoardController.currentItem.isNotEmpty)
+              Expanded(
+                child: Stack(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (taskView)
+                      RawScrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollController,
+                          thickness: 15,
+                          trackBorderColor: ControlOptions.instance.colorMain,
+                          trackColor: ControlOptions.instance.colorMain,
+                          mainAxisMargin: 5,
+                          crossAxisMargin: 2,
+                          thumbColor: ControlOptions.instance.colorGrey,
+                          radius: const Radius.circular(50),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              controller: scrollController,
+                              child: SizedBox(
+                                width: width + 450,
+                                child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
+                              ))),
+                    if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: taskView == false ? 0 : 388,
+                        child: taskController.obx((state) => const TaskViewPage()),
+                      ),
+                    ),
+                    if (taskView)
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                taskView = false;
+                              });
+                            },
+                            icon: const Icon(Icons.close)),
+                      )
+                  ],
+                ),
               ),
-            ),
-
-            if (width < 700) const TmMobileMenu(),
-          ],
+    
+              if (width < 700) const TmMobileMenu(),
+            ],
+          ),
         ),
       ),
     );

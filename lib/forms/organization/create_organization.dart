@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:path/path.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
@@ -74,7 +75,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       )
                     ],
                   ),
-                  Expanded(child: IconsTabs(tabs: getTabs())),
+                  Expanded(child: IconsTabs(tabs: getTabs(context))),
                   Row(
                     children: [
                       Expanded(
@@ -106,15 +107,15 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                 ])))));
   }
 
-  List<IconsTabsTab> getTabs() {
+  List<IconsTabsTab> getTabs(context) {
     List<IconsTabsTab> list = [];
 
-    list.addAll([IconsTabsTab(page: getOrgSettings(), icon: Icons.apartment), IconsTabsTab(page: getProfileSettings(), icon: Icons.person)]);
+    list.addAll([IconsTabsTab(page: getOrgSettings(context), icon: Icons.apartment), IconsTabsTab(page: getProfileSettings(), icon: Icons.person)]);
 
     return list;
   }
 
-  Widget getOrgSettings() {
+  Widget getOrgSettings(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
       child: SingleChildScrollView(
@@ -161,12 +162,48 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             padding: const EdgeInsets.all(10),
             child: Expanded(child: Divider(color: ControlOptions.instance.colorGrey)),
           ),
+          if(controller.currentItem.name.isNotEmpty)
           TaskTextButton(
             text: 'Удалить компанию',
-            onTap: () {},
+            onTap: () {
+               showAlertDialog(context);
+            },
           )
         ]),
       ),
+    );
+  }
+   showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        controller.deleteItems([controller.currentItem]);
+        controller.refreshData();
+        NsgNavigator.instance.offAndToPage(Routes.projectListPage);
+
+        Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
