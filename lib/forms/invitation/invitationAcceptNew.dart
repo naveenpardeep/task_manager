@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +19,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
 
     return BodyWrap(
       child: Scaffold(
@@ -28,22 +30,22 @@ class InvitationAcceptNew extends GetView<InvitationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                if(width>700)
-                NsgAppBar(
-                  backColor: Colors.white,
-                  color: Colors.black,
-                  text: 'Список приглашений',
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  // icon2: Icons.check,
-                  // onPressed2: () {
-                  //   controller.itemPagePost();
-                  // },
-                ),
+                if (width > 700)
+                  NsgAppBar(
+                    backColor: Colors.white,
+                    color: Colors.black,
+                    text: 'Список приглашений',
+                    icon: Icons.arrow_back_ios_new,
+                    colorsInverted: true,
+                    bottomCircular: true,
+                    onPressed: () {
+                      controller.itemPageCancel();
+                    },
+                    // icon2: Icons.check,
+                    // onPressed2: () {
+                    //   controller.itemPagePost();
+                    // },
+                  ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -57,8 +59,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         ),
                       )),
                 ),
-                 if(width<700)
-                    const BottomMenu()
+                if (width < 700) const BottomMenu()
               ],
             ),
           ),

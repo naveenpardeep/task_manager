@@ -75,7 +75,7 @@ class TTNsgInput extends StatefulWidget {
   ///При работе с enum можно задать возможные варианты для выбора, если не заданы, будут предложены все
   final List<NsgDataItem>? itemsToSelect;
 
-  final infoString;
+  final String infoString;
 
   const TTNsgInput(
       {Key? key,
@@ -343,7 +343,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
-                                        (widget.required ?? widget.dataItem.isFieldRequired(widget.fieldName)) ? widget.infoString + ' *' : widget.infoString,
+                                        (widget.required ?? widget.dataItem.isFieldRequired(widget.fieldName)) ? '${widget.infoString} *' : widget.infoString,
                                         style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: ControlOptions.instance.colorMainLight),
                                       ),
                                     )),

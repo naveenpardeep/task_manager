@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -6,12 +8,8 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
-
-
-
-
 
 class OrganizationUsersMobilePage extends StatefulWidget {
   const OrganizationUsersMobilePage({Key? key}) : super(key: key);
@@ -22,27 +20,26 @@ class OrganizationUsersMobilePage extends StatefulWidget {
 class _ProjectpageState extends State<OrganizationUsersMobilePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<OrganizationItemUserTableController>();
- 
+
   @override
   void initState() {
     super.initState();
     scaffoldKey;
-  
   }
 
   @override
   Widget build(BuildContext context) {
-   double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     var scrollController = ScrollController();
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-         key: scaffoldKey,
+        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-               key: GlobalKey(),
+            key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,27 +61,33 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                               NsgButton(
+                              NsgButton(
                                 borderRadius: 30,
-                                color: const Color(0xff529FBF),
-                                backColor: const Color(0xffEDEFF3),
+                                color: Colors.white,
+                                backColor: const Color(0xff0859ff),
                                 text: '+ Добавить участника в Организация',
                                 onPressed: () async {
-                                // await Get.find<UserAccountController>().requestItems();
-                                 Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
-                                 Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
-
+                                  // await Get.find<UserAccountController>().requestItems();
+                                  Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
+                                  Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
+                                },
+                              ),
+                              NsgButton(
+                                borderRadius: 30,
+                                color: const Color(0xff0859ff),
+                                backColor: const Color(0xffABF4FF),
+                                text: '+ Пригласить нового пользователя',
+                                onPressed: () async {
+                                  Get.find<UserAccountController>().newItemPageOpen(pageName: Routes.createInvitationUser);
                                 },
                               ),
                               organizationUsersList(context),
-                             
-                          
                             ],
                           ),
                         ),
                       )),
                 ),
-                   if (width < 700) const BottomMenu(),
+                if (width < 700) const BottomMenu(),
               ],
             ),
           ),
@@ -148,11 +151,10 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                                 fontSize: ControlOptions.instance.sizeL,
                               ),
                             ),
-                             Text(
+                            Text(
                               orguser.userAccount.phoneNumber,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
-                            
                           ],
                         ),
                       ),
@@ -166,8 +168,6 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                               orguser.userAccount.position,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
-                            
-                           
                           ],
                         ),
                       ),
@@ -179,7 +179,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                       //       Icons.remove_circle_outline,
                       //       color: Colors.red,
                       //     )),
-                        const Icon(Icons.arrow_forward_ios),
+                      const Icon(Icons.arrow_forward_ios),
                     ],
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import '../app_pages.dart';
 import '../forms/user_account/user_account_controller.dart';
 
+// ignore: must_be_immutable
 class StartPage extends StatelessWidget {
   StartPage({super.key});
 

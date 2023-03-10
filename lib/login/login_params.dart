@@ -17,15 +17,14 @@ class LoginParams extends NsgPhoneLoginParams {
             headerMessageLogin: 'Вход',
             headerMessageRegistration: 'Регистрация',
             headerMessageVerification: 'Введите проверочный код',
-         //  descriptionMessegeVerification: 'Мы отправили проверочный код\nна ваш e-mail: {{phone}}',
-            textEnterPhone: 'Телефон',
-            textEnterEmail: 'E-mail',
-            textEnterPassword: 'Пароль',
-            textResendSms: 'Назад',
-            textSendSms: 'Отправить код',
-            textEnterCaptcha: 'Введите текст',
+            //  descriptionMessegeVerification: 'Мы отправили проверочный код\nна ваш e-mail: {{phone}}',
+            // textEnterPhone: 'Телефон',
+            // textEnterEmail: 'E-mail',
+            // textEnterPassword: 'Пароль',
+            // textResendSms: 'Назад',
+            // textSendSms: 'Отправить код',
+            // textEnterCaptcha: 'Введите текст',
             textLoginSuccessful: 'Успешная авторизация',
-            textEnterCorrectPhone: 'Введите правильный e-mail',
             textCheckInternet: 'Проверьте интернет соединение',
             appbar: false,
             useCaptcha: false);
@@ -44,7 +43,7 @@ class LoginParams extends NsgPhoneLoginParams {
         message = 'Неправильный текст капчи. Попробуйте снова!';
         break;
       case 40104:
-        message = 'Введите номер телефона!';
+        message = 'Введите E-mail!';
         break;
       case 40105:
         message = 'Неверный пароль';

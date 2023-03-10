@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -34,6 +36,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_setindex);
   }
 
   @override
@@ -44,8 +47,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    var scrollController = ScrollController();
-    var newscrollController = ScrollController();
+    // var scrollController = ScrollController();
+    // var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -113,5 +116,19 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
             ]),
           ),
         ));
+  }
+
+  void _setindex() {
+
+    setState(() {
+      if (_tabController.index == 0) {
+        _tabController.index = 0;
+      } else if (_tabController.index == 1) {
+        _tabController.index = 1;
+      } else if (_tabController.index == 2) {
+        _tabController.index = 2;
+      }
+    });
+  
   }
 }

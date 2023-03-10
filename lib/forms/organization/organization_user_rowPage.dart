@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class CreateInvitationUserPage extends GetView<UserAccountController> {
@@ -36,7 +37,8 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   NsgAppBar(
-                    color: Colors.white,
+                    color: Colors.black,
+                    backColor: Colors.white,
                     text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
@@ -69,38 +71,43 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
-                              NsgInput(
+                              TTNsgInput(
                                 selectionController: Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteProjectId,
                                 label: 'Select Project',
+                                infoString: 'Select ',
                               ),
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
                                 label: 'добавить пользователя без приглашения',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
-                                label: 'UserName',
+                                label: 'User Name',
+                                infoString: 'Set user name for user',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
+                                infoString: 'Имя',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
+                                infoString: 'Фамилия',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 maskType: NsgInputMaskType.phone,
                                 keyboard: TextInputType.phone,
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
                                 label: 'Номер телефона',
+                                infoString: 'Номер телефона',
                               ),
                             ],
                           ),

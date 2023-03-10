@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -9,8 +11,6 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
-
-
 class ProjectUserMobile extends StatefulWidget {
   const ProjectUserMobile({Key? key}) : super(key: key);
   @override
@@ -20,27 +20,25 @@ class ProjectUserMobile extends StatefulWidget {
 class _ProjectpageState extends State<ProjectUserMobile> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
- 
+
   @override
   void initState() {
     super.initState();
     scaffoldKey;
-  
   }
 
   @override
   Widget build(BuildContext context) {
- 
     var scrollController = ScrollController();
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-         key: scaffoldKey,
+        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-               key: GlobalKey(),
+            key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,21 +60,18 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                               NsgButton(
+                              NsgButton(
                                 borderRadius: 30,
-                                color: const Color(0xff529FBF),
-                                backColor: const Color(0xffEDEFF3),
+                                color: Colors.white,
+                                backColor: const Color(0xff0859ff),
                                 text: '+ Добавить участника в проект',
                                 onPressed: () async {
                                   await Get.find<ProjectUserController>().requestItems();
                                   Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
                                   Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
-
                                 },
                               ),
                               projectUsersList(context),
-                             
-                             
                             ],
                           ),
                         ),
@@ -145,11 +140,10 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 fontSize: ControlOptions.instance.sizeL,
                               ),
                             ),
-                             Text(
+                            Text(
                               projectuser.userAccount.phoneNumber,
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
-                            
                           ],
                         ),
                       ),
@@ -167,7 +161,6 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                             //   projectuser.userAccount.email,
                             //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             // ),
-                           
                           ],
                         ),
                       ),
@@ -179,7 +172,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                       //       Icons.remove_circle_outline,
                       //       color: Colors.red,
                       //     )),
-                       const Icon(Icons.arrow_forward_ios),
+                      const Icon(Icons.arrow_forward_ios),
                     ],
                   ),
                 ),

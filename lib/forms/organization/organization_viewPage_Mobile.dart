@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +11,6 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 class OrganizationViewPageMobile extends StatefulWidget {
   const OrganizationViewPageMobile({
@@ -37,6 +37,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_indexSet);
   }
 
   @override
@@ -48,7 +49,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
   @override
   Widget build(BuildContext context) {
     var scrollController = ScrollController();
-    var newscrollController = ScrollController();
+    //var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -253,5 +254,17 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
     }
 
     return '$daysCreated дн. назад';
+  }
+
+  void _indexSet() {
+    setState(() {
+      if (_tabController.index == 0) {
+        _tabController.index = 0;
+      } else if (_tabController.index == 1) {
+        _tabController.index = 1;
+      } else if (_tabController.index == 2) {
+        _tabController.index = 2;
+      }
+    });
   }
 }

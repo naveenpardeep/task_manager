@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,8 +9,6 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
-import '../widgets/mobile_menu.dart';
-
 
 // ignore: must_be_immutable
 class OrganizationProject extends GetView<ProjectController> {
@@ -33,9 +30,8 @@ class OrganizationProject extends GetView<ProjectController> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            //  if (width > 700) const TmTopMenu(),
-              
-                  
+              //  if (width > 700) const TmTopMenu(),
+
               Expanded(child: controller.obx((state) => showProjects())),
               if (width < 700) const BottomMenu(),
             ],
@@ -45,7 +41,7 @@ class OrganizationProject extends GetView<ProjectController> {
 
   Widget showProjects() {
     List<Widget> list = [];
-    for (var project in controller.items.where((element) => element.organization==Get.find<OrganizationController>().currentItem)) {
+    for (var project in controller.items.where((element) => element.organization == Get.find<OrganizationController>().currentItem)) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: Row(
@@ -54,7 +50,7 @@ class OrganizationProject extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                
+
                   controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
                 },
                 child: Card(
@@ -111,7 +107,8 @@ class OrganizationProject extends GetView<ProjectController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Рук.: ${project.leader.name}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
-                                Text('Организация: ${project.organization}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                Text('Организация: ${project.organization}',
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                 Text('Заказчик: ${project.contractor}',
                                     style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                               ],

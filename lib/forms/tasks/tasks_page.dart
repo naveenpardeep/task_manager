@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -24,7 +25,7 @@ class TasksPage extends GetView<TasksController> {
     var todaydate = controller.currentItem.date;
     var updatedate = controller.currentItem.dateUpdated;
     var notificationController = Get.find<NotificationController>();
-    var imageCont = Get.find<TaskImageController>();
+    var imageCont = Get.find<TaskFilesController>();
     var fileController = Get.find<TaskFilesController>();
     if (notificationController.lateInit) {
       notificationController.requestItems();
@@ -354,7 +355,7 @@ class TasksPage extends GetView<TasksController> {
                                       key: GlobalKey(),
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.nameDescription,
-                                      fileController: Get.find<TaskImageController>()),
+                                      fileController: Get.find<TaskFilesController>()),
                                   // Container(
                                   //     height: 300,
                                   //     child: Markdown(
@@ -462,12 +463,26 @@ class TasksPage extends GetView<TasksController> {
                                           child: TaskButton(
                                         text: 'Отменить',
                                         style: TaskButtonStyle.light,
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.back();
+                                        },
                                       )),
                                       Expanded(
                                           child: TaskButton(
                                         text: 'Сохранить',
-                                        onTap: () {},
+                                        onTap: () async{
+                                              if (controller.currentItem.taskStatus.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                } else if (controller.currentItem.name.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                } else {
+                  controller.currentItem.dateUpdated = DateTime.now();
+                
+                  await controller.itemPagePost(goBack: false);
+                  Get.find<TasksController>().refreshData();
+                  Get.toNamed(Routes.homePage);
+                }
+                                        },
                                       )),
                                     ],
                                   )
@@ -553,7 +568,7 @@ class TasksPage extends GetView<TasksController> {
 
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
-    return Get.find<TaskImageController>().obx(
+    return Get.find<TaskFilesController>().obx(
       (state) => NsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,

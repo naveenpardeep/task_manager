@@ -15,7 +15,7 @@ class NsgRichTextFile extends quil.CustomBlockEmbed {
   static const String blockType = 'nsg_image';
 
   static NsgRichTextFile fromDocument(quil.Document document) {
-    var json = document.toDelta().toJson();
+    // var json = document.toDelta().toJson();
     //var id = json.contains('id') ? json['id'].toString() : '';
     return NsgRichTextFile(
 
@@ -34,7 +34,7 @@ class NsgRichTextFile extends quil.CustomBlockEmbed {
   }
 
   static NsgRichTextFile fromText(String data) {
-    var json = jsonDecode(data);
+    //var json = jsonDecode(data);
     return NsgRichTextFile(
         //jsonEncode(document.toDelta().toJson())
         NsgFilePickerObject(description: '', isNew: false));
@@ -77,7 +77,7 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
       var id = block.value.data['id'].toString();
       fileObject = (controller as NsgQuillController)
           .fileController
-          .images
+          .files
           .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
     }
 

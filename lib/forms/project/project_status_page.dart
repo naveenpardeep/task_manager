@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:task_manager_app/app_pages.dart';
@@ -27,9 +26,9 @@ class _ProjectStatuspageState extends State<ProjectStatusPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    // double height = MediaQuery.of(context).size.height;
 
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    // DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     var isNewProject = controller.currentItem.name.isEmpty;
     var scrollController = ScrollController();
     var newscrollController = ScrollController();
@@ -83,7 +82,6 @@ class _ProjectStatuspageState extends State<ProjectStatusPage> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   child: SizedBox(
-                                  
                                     child: RawScrollbar(
                                       thumbVisibility: true,
                                       trackVisibility: true,

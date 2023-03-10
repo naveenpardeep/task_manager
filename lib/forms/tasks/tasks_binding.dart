@@ -14,10 +14,8 @@ class TasksListBinding extends Bindings {
     Get.put(TasksController());
     Get.put(ProjectController());
     Get.put(CommentTableTasksController());
-    Get.put(TaskImageController());
     Get.put(TaskStatusController());
     Get.put(TaskUserAccountController());
-    Get.put(TaskImageController());
 
     Get.put(TaskCheckListController());
 
