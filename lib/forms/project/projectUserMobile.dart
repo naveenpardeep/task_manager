@@ -62,8 +62,8 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                             children: [
                               NsgButton(
                                 borderRadius: 30,
-                                color: const Color(0xff529FBF),
-                                backColor: const Color(0xffEDEFF3),
+                                color: Colors.white,
+                                backColor: const Color(0xff0859ff),
                                 text: '+ Добавить участника в проект',
                                 onPressed: () async {
                                   await Get.find<ProjectUserController>().requestItems();
