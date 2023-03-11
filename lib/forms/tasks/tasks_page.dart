@@ -474,7 +474,7 @@ class TasksPage extends GetView<TasksController> {
                                           if (controller.currentItem.taskStatus.isEmpty) {
                                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                                           } else if (controller.currentItem.name.isEmpty) {
-                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи')));
                                           } else {
                                             controller.currentItem.dateUpdated = DateTime.now();
 
@@ -575,20 +575,9 @@ class TasksPage extends GetView<TasksController> {
         callback: (value) async {},
         // objectsList: Get.find<TaskImageController>().images,
         objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
+        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
       ),
     );
-  }
-
-  Widget filesUpload() {
-    return Get.find<TaskFilesController>().obx((state) => NsgFilePicker(
-          textChooseFile: 'Add Files',
-          useFilePicker: true,
-          showAsWidget: true,
-          callback: (value) {},
-          objectsList: Get.find<TaskFilesController>().files,
-          allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf'],
-        ));
   }
 
   showAlertDialog(BuildContext context) {

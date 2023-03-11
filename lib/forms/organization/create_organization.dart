@@ -1,12 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:path/path.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
@@ -162,18 +157,19 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             padding: const EdgeInsets.all(10),
             child: Expanded(child: Divider(color: ControlOptions.instance.colorGrey)),
           ),
-          if(controller.currentItem.name.isNotEmpty)
-          TaskTextButton(
-            text: 'Удалить компанию',
-            onTap: () {
-               showAlertDialog(context);
-            },
-          )
+          if (controller.currentItem.name.isNotEmpty)
+            TaskTextButton(
+              text: 'Удалить компанию',
+              onTap: () {
+                showAlertDialog(context);
+              },
+            )
         ]),
       ),
     );
   }
-   showAlertDialog(BuildContext context) {
+
+  showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
@@ -241,16 +237,17 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
   }
 
   Widget companyImage() {
-    if (false) {
-      /*return Image.memory(
+    /*if (false) {
+      return Image.memory(
         Uint8List.fromList(
           controller.currentItem.photoFile,
         ),
         width: 100,
         height: 100,
         fit: BoxFit.cover,
-      );*/
-    } else {
+      );
+    } else */
+    {
       return Container(
         width: 100,
         height: 100,
