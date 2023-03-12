@@ -69,7 +69,11 @@ class UserImageController extends NsgImageController<Picture> {
     images.clear();
     for (var element in items) {
       images.add(NsgFilePickerObject(
-          isNew: false, image: Image.memory(Uint8List.fromList(element.image)), description: element.name, fileType: 'jpg', id: element.id));
+          isNew: false,
+          image: Image.memory(Uint8List.fromList(element.image)),
+          description: element.name,
+          fileType: NsgFilePickerObjectType.image,
+          id: element.id));
     }
     if (items.isNotEmpty) {
       currentItem = items.first;

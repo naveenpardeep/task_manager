@@ -38,7 +38,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
   Future<TaskDocFilesTable> fileObjectToDataItem(NsgFilePickerObject fileObject, File imageFile) async {
     var pic = TaskDocFilesTable();
     pic.id = fileObject.id;
-    pic.name = '${fileObject.description}.${fileObject.fileType ?? ''}';
+    pic.name = '${fileObject.description}.${extension(fileObject.filePath).replaceAll('.', '')}';
     pic.ownerId = Get.find<TasksController>().currentItem.id;
     pic.file = await imageFile.readAsBytes();
     return pic;
@@ -47,8 +47,8 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
   @override
   Future<NsgFilePickerObject> dataItemToFileObject(NsgDataItem dataItem) async {
     dataItem as TaskDocFilesTable;
-    var fileType = extension(dataItem.name).replaceAll('.', '');
-    if (fileType == 'jpg') {
+    var fileType = NsgFilePicker.getFileType(extension(dataItem.name).replaceAll('.', ''));
+    if (fileType == NsgFilePickerObjectType.image) {
       return NsgFilePickerObject(isNew: false, image: Image.network(getFilePath(dataItem.name)), description: '', fileType: fileType, id: dataItem.id);
     } else {
       return NsgFilePickerObject(isNew: false, description: '', fileType: fileType, id: dataItem.id);

@@ -230,7 +230,7 @@ class _NsgRichTextState extends State<NsgRichText> {
         await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats]);
     if (result != null) {
       for (var element in result.files) {
-        String? fileType = extension(element.name).replaceAll('.', '');
+        var fileType = NsgFilePicker.getFileType(extension(element.name).replaceAll('.', ''));
 
         var file = File(element.name);
         if ((await file.length()) > widget.fileMaxSize) {
@@ -239,7 +239,7 @@ class _NsgRichTextState extends State<NsgRichText> {
           //setState(() {});
           return;
         }
-        if (widget.allowedImageFormats.contains(fileType.toLowerCase())) {
+        if (fileType == NsgFilePickerObjectType.image) {
           var obj = NsgFilePickerObject(
               isNew: true,
               image: Image.file(File(element.name)),
@@ -248,7 +248,7 @@ class _NsgRichTextState extends State<NsgRichText> {
               filePath: element.path ?? '');
           widget.fileController.files.add(obj);
           addImageBlock(obj);
-        } else if (widget.allowedFileFormats.contains(fileType.toLowerCase()) || widget.allowedVideoFormats.contains(fileType.toLowerCase())) {
+        } else if (fileType != NsgFilePickerObjectType.unknown) {
           var obj = NsgFilePickerObject(
               isNew: true,
               file: File(element.name),
