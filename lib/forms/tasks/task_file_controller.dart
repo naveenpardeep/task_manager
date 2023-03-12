@@ -51,7 +51,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     if (fileType == NsgFilePickerObjectType.image) {
       return NsgFilePickerObject(isNew: false, image: Image.network(getFilePath(dataItem.name)), description: '', fileType: fileType, id: dataItem.id);
     } else {
-      return NsgFilePickerObject(isNew: false, description: '', fileType: fileType, id: dataItem.id);
+      return NsgFilePickerObject(isNew: false, description: '', fileType: fileType, id: dataItem.id, filePath: getFilePath(dataItem.name));
     }
   }
 }
