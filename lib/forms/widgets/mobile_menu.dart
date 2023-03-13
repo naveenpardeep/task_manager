@@ -74,7 +74,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                       Icons.people,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    Text('Сотрудники', style: TextStyle(color: ControlOptions.instance.colorMain))
+                    Text('Люди', style: TextStyle(color: ControlOptions.instance.colorMain))
                   ],
                 )),
           ),

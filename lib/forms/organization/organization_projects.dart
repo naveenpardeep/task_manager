@@ -24,18 +24,20 @@ class OrganizationProject extends GetView<ProjectController> {
       controller.requestItems();
     }
     width = MediaQuery.of(context).size.width;
-    return BodyWrap(
-      child: Scaffold(
-          key: scaffoldKey,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //  if (width > 700) const TmTopMenu(),
+    return controller.obx(
+      (state) => BodyWrap(
+        child: Scaffold(
+            key: scaffoldKey,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //  if (width > 700) const TmTopMenu(),
 
-              Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 700) const BottomMenu(),
-            ],
-          )),
+                Expanded(child: controller.obx((state) => showProjects())),
+                if (width < 700) const BottomMenu(),
+              ],
+            )),
+      ),
     );
   }
 
@@ -83,7 +85,10 @@ class OrganizationProject extends GetView<ProjectController> {
                                           //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
                                           //    controller.itemPageOpen(project, Routes.projectSettingsPage);
                                           // } else {
-                                          controller.itemPageOpen(project, Routes.projectMobilePageview, );
+                                          controller.itemPageOpen(
+                                            project,
+                                            Routes.projectMobilePageview,
+                                          );
                                           //   }
                                         },
                                         child: Padding(
