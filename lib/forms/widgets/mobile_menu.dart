@@ -3,22 +3,34 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/invitation/acceptController.dart';
-import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
-import 'package:task_manager_app/forms/notification/notification_controller.dart';
+
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
-class TmMobileMenu extends StatelessWidget {
+class TmMobileMenu extends StatefulWidget {
   const TmMobileMenu({super.key});
+
+  @override
+  State<TmMobileMenu> createState() => _TmMobileMenuState();
+}
+
+class _TmMobileMenuState extends State<TmMobileMenu> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //decoration: BoxDecoration(color: ControlOptions.instance.colorGrey),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Row(
         children: [
@@ -34,7 +46,7 @@ class TmMobileMenu extends StatelessWidget {
                       Icons.folder,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    const Text('Проекты')
+                    Text('Проекты', style: TextStyle(color: ControlOptions.instance.colorMain)),
                   ],
                 )),
           ),
@@ -46,49 +58,44 @@ class TmMobileMenu extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.task,
-                      color: ControlOptions.instance.colorMain,
-                    ),
-                    const Text('Задачи')
+                    Icon(Icons.task, color: ControlOptions.instance.colorMain),
+                    Text('Задачи', style: TextStyle(color: ControlOptions.instance.colorMain))
                   ],
                 )),
           ),
-               Expanded(
-                 child: InkWell(
-                  onTap: () {
-                             Get.toNamed(Routes.userAccountListPage);
-                  },
-                  child:
-                         Column(
-                           children: [
-                             Icon(
-                             Icons.people,
-                             color: ControlOptions.instance.colorMain,
-                  ),
-                           const  Text( 'Сотрудники')
-                           ],)
-                         ),
-               ),
-           Expanded(
-             child: InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.organizationListMobilePage);
-           
-                      // Get.toNamed(Routes.organizationPage);
-                      //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
-                    },
-                    child: 
-                     Column(
-              children: [
-               Icon(
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.userAccountListPage);
+                },
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.people,
+                      color: ControlOptions.instance.colorMain,
+                    ),
+                    Text('Сотрудники', style: TextStyle(color: ControlOptions.instance.colorMain))
+                  ],
+                )),
+          ),
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.organizationListMobilePage);
+
+                  // Get.toNamed(Routes.organizationPage);
+                  //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
+                },
+                child: Column(
+                  children: [
+                    Icon(
                       Icons.apartment,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    const Text('Компании')
-              ],)
-                     ),
-           ),
+                    Text('Компании', style: TextStyle(color: ControlOptions.instance.colorMain))
+                  ],
+                )),
+          ),
           // Expanded(
           //     child: InkWell(
           //   onTap: () {
@@ -151,19 +158,17 @@ class TmMobileMenu extends StatelessWidget {
           //   ],
           // ),
 
-           Expanded(
-             child: InkWell(
-                  onTap: () {
-                    // Get.toNamed(Routes.userProfilePage);
-                    //Get.find<UserAccountController>()
-                    //    .itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
-                    Get.find<UserAccountController>()
-                        .itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
-                  },
-                  child:
-                     Column(
-              children: [
-                ClipOval(
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                // Get.toNamed(Routes.userProfilePage);
+                //Get.find<UserAccountController>()
+                //    .itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
+                Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
+              },
+              child: Column(
+                children: [
+                  ClipOval(
                     child: Get.find<DataController>().currentUser.photoFile.isEmpty
                         ? Container(
                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
@@ -182,11 +187,11 @@ class TmMobileMenu extends StatelessWidget {
                             height: 25,
                           ),
                   ),
-                  const Text('Аккаунт')
-                
-              ],
-                     ),),
-           )
+                  Text('Аккаунт', style: TextStyle(color: ControlOptions.instance.colorMain))
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
