@@ -215,18 +215,23 @@ class ProjectListPage extends GetView<ProjectController> {
         ),
       ));
     }
-    return RawScrollbar(
-        thumbVisibility: true,
-        trackVisibility: true,
-        controller: scrollController,
-        thickness: 10,
-        trackBorderColor: ControlOptions.instance.colorGreyLight,
-        trackColor: ControlOptions.instance.colorGreyLight,
-        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-        radius: const Radius.circular(0),
-        child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            controller: scrollController,
-            child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: list) : Column(children: list)));
+    return RefreshIndicator(
+      onRefresh: () {
+        return controller.refreshData();
+      },
+      child: RawScrollbar(
+          thumbVisibility: true,
+          trackVisibility: true,
+          controller: scrollController,
+          thickness: 10,
+          trackBorderColor: ControlOptions.instance.colorGreyLight,
+          trackColor: ControlOptions.instance.colorGreyLight,
+          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+          radius: const Radius.circular(0),
+          child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              controller: scrollController,
+              child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: list) : Column(children: list))),
+    );
   }
 }

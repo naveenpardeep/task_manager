@@ -821,8 +821,12 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            child: Column(
-              children: [taskController.obx((state) => getTaskList(status.status))],
+            child: 
+            Column(
+              children: [
+                     
+                taskController.obx((state) => getTaskList(status.status))
+             ],
             )));
       }
     }
