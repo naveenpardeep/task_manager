@@ -1,3 +1,6 @@
+
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -155,7 +158,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
           //     ]),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Expanded(child: Divider(color: ControlOptions.instance.colorGrey)),
+            child: Divider(color: ControlOptions.instance.colorGrey),
           ),
           if (controller.currentItem.name.isNotEmpty)
             TaskTextButton(

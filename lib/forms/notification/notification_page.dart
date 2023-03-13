@@ -27,7 +27,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    double height = MediaQuery.of(context).size.height;
+  
     return SafeArea(
       child: BodyWrap(
           child: Scaffold(
