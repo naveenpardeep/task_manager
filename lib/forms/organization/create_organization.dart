@@ -1,6 +1,6 @@
+import 'dart:io';
 
-
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -34,19 +34,22 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
         skipInterface: true,
         oneFile: true,
         callback: (value) async {
-          // if (value.isNotEmpty) {
-          //   List<int> imagefile;
-          //   if (kIsWeb) {
-          //     imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-          //   } else {
-          //     imagefile = await File(value[0].filePath).readAsBytes();
-          //   }
-          //   //сохранение фото
-          // }
+          if (value.isNotEmpty) {
+            List<int> imagefile;
+            if (kIsWeb) {
+              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+            } else {
+              imagefile = await File(value[0].filePath).readAsBytes();
+            }
+
+            controller.currentItem.photoFile = imagefile;
+            await controller.postItems([controller.currentItem]);
+            await controller.refreshData();
+          }
+
           Navigator.of(Get.context!).pop();
         },
-        // ignore: prefer_const_literals_to_create_immutables
-        objectsList: []);
+        objectsList:  []);
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,
@@ -240,7 +243,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
   }
 
   Widget companyImage() {
-    /*if (false) {
+    if (controller.currentItem.photoFile.isNotEmpty) {
       return Image.memory(
         Uint8List.fromList(
           controller.currentItem.photoFile,
@@ -249,31 +252,17 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
         height: 100,
         fit: BoxFit.cover,
       );
-    } else */
-    {
+    } else {
       return Container(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
           color: Colors.white,
           border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
         ),
-        child: const Center(child: Text('no image')),
+        child: const Center(child: Text('add photo')),
       );
     }
-    /*NsgImage(
-      controller: uac,
-      fieldName: PictureGenerated.nameImage,
-      item: uac.currentItem,
-      noImage: _noImageWidget(),
-    );*/
-    // NsgFilePicker(
-    //   showAsWidget: true,
-    //   callback: (value) {},
-    //   objectsList: Get.find<UserImageController>().images,
-    //   allowedFileFormats: const [],
-    //   maxFilesCount: 1,
-    // ),
-    //);
   }
 }

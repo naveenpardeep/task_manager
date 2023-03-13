@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -95,8 +96,8 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                         padding: const EdgeInsets.all(4.0),
                         child: ClipOval(
                             child:
-                                //organizations. .photoFile.isEmpty
-                                // ?
+                                organizations.photoFile.isEmpty
+                                 ?
                                 Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                           width: 32,
@@ -107,12 +108,12 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                             color: ControlOptions.instance.colorMain.withOpacity(0.4),
                           ),
                         )
-                            // : Image.memory(
-                            //     Uint8List.fromList(projectuser.userAccount.photoFile),
-                            //     fit: BoxFit.cover,
-                            //     width: 32,
-                            //     height: 32,
-                            //   ),
+                            : Image.memory(
+                                Uint8List.fromList(organizations.photoFile),
+                                fit: BoxFit.cover,
+                                width: 32,
+                                height: 32,
+                              ),
                             ),
                       ),
                       Expanded(

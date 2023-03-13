@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -146,8 +147,8 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                             padding: const EdgeInsets.all(4.0),
                                             child: ClipOval(
                                                 child:
-                                                    //organizations. .photoFile.isEmpty
-                                                    // ?
+                                                    controller.currentItem.photoFile.isEmpty
+                                                     ?
                                                     Container(
                                               decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                               width: 55,
@@ -158,12 +159,12 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                                 color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                               ),
                                             )
-                                                // : Image.memory(
-                                                //     Uint8List.fromList(projectuser.userAccount.photoFile),
-                                                //     fit: BoxFit.cover,
-                                                //     width: 55,
-                                                //     height: 55,
-                                                //   ),
+                                                : Image.memory(
+                                                    Uint8List.fromList(controller.currentItem.photoFile),
+                                                    fit: BoxFit.cover,
+                                                    width: 55,
+                                                    height: 55,
+                                                  ),
                                                 ),
                                           ),
                                           Expanded(
