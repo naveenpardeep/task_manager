@@ -58,7 +58,7 @@ class ProjectListPage extends GetView<ProjectController> {
                     ],
                   )),
               Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 700) const TmMobileMenu(),
+              if (width < 700)  const TmMobileMenu(),
             ],
           )),
     );

@@ -274,7 +274,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
               ),
             ),
 
-            if (width < 700) const TmMobileMenu(),
+            if (width < 700)  const TmMobileMenu(),
           ],
         ),
       ),
