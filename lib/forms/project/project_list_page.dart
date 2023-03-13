@@ -79,7 +79,7 @@ class ProjectListPage extends GetView<ProjectController> {
                   //  taskConstroller.refreshData();
                   //  Get.find<TaskBoardController>().refreshData();
                   // Get.toNamed(Routes.homePage);
-                  controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
+                  controller.itemPageOpen(project, Routes.homePage, );
                 },
                 child: Card(
                   elevation: 3,
@@ -111,7 +111,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                           //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
                                           //    controller.itemPageOpen(project, Routes.projectSettingsPage);
                                           // } else {
-                                          controller.itemPageOpen(project, Routes.projectMobilePageview, needRefreshSelectedItem: true);
+                                          controller.itemPageOpen(project, Routes.projectMobilePageview);
                                           //   }
                                         },
                                         child: Padding(
