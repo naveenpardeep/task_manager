@@ -109,4 +109,27 @@ class DataControllerGenerated extends NsgBaseController {
       progress.hide();
     }
   }
+
+  /// Дата последнего редактирования задачи по проекту
+  Future<List<DateTime>> getLastTaskEditedByProject(String projectId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['projectId'] = projectId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<DateTime>().requestItems(
+          provider: provider!,
+          function: '/Data/GetLastTaskEditedByProject',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
 }
