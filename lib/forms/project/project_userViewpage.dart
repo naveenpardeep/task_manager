@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -95,28 +96,32 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                             const Divider(
                               height: 20,
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.all(5.0),
-                            //   child: Row(
-                            //     children: [
-                            //       const Text(
-                            //         'Имя                   ',
-                            //         style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                            //       ),
-                            //       Expanded(
-                            //         child: Text(
-                            //           ' ${controller.currentItem.userAccount.name}',
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                           Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Дата рождения ',
+                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                     NsgDateFormat.dateFormat(controller.currentItem.userAccount.birthDate ,  format: 'dd.MM.yy').toString(),
+                                      style: const TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
                                 children: [
                                   const Text(
-                                    'Телефон           ',
+                                    'Телефон              ',
                                     style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                   ),
                                   Expanded(
@@ -136,7 +141,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                               child: Row(
                                 children: [
                                   const Text(
-                                    'Почта                ',
+                                    'Почта                    ',
                                     style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                   ),
                                   Expanded(
@@ -156,7 +161,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                               child: Row(
                                 children: [
                                   const Text(
-                                    'Организация   ',
+                                    'Организация       ',
                                     style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                   ),
                                   Expanded(
