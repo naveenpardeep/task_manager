@@ -9,6 +9,8 @@ class OrganizationItemGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameDateCreated = 'dateCreated';
+  static const namePhotoPath = 'photoPath';
+  static const namePhotoFile = 'photoFile';
   static const nameCEOId = 'ceoId';
   static const nameTableUsers = 'tableUsers';
 
@@ -26,6 +28,8 @@ class OrganizationItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataDateField(nameDateCreated), primaryKey: false);
+    addField(NsgDataStringField(namePhotoPath), primaryKey: false);
+    addField(NsgDataBinaryField(namePhotoFile), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameCEOId), primaryKey: false);
     addField(NsgDataReferenceListField<OrganizationItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
@@ -58,6 +62,18 @@ class OrganizationItemGenerated extends NsgDataItem {
   DateTime get dateCreated => getFieldValue(nameDateCreated) as DateTime;
 
   set dateCreated(DateTime value) => setFieldValue(nameDateCreated, value);
+
+  /// КартинкаПуть
+  String get photoPath => getFieldValue(namePhotoPath).toString();
+
+  set photoPath(String value) => setFieldValue(namePhotoPath, value);
+
+  /// Картинка
+  List<int> get photoFile {
+    return getFieldValue(namePhotoFile) as List<int>;
+  }
+
+  set photoFile(List<int> value) => setFieldValue(namePhotoFile, value);
 
   /// Руководитель
   String get ceoId => getFieldValue(nameCEOId).toString();

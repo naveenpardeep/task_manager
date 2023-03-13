@@ -10,6 +10,7 @@ class UserAccountGenerated extends NsgDataItem {
   static const nameName = 'name';
   static const nameFirstName = 'firstName';
   static const nameLastName = 'lastName';
+  static const nameBirthDate = 'birthDate';
   static const namePhoneNumber = 'phoneNumber';
   static const nameEmail = 'email';
   static const namePosition = 'position';
@@ -48,6 +49,7 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataStringField(nameFirstName), primaryKey: false);
     addField(NsgDataStringField(nameLastName), primaryKey: false);
+    addField(NsgDataDateField(nameBirthDate), primaryKey: false);
     addField(NsgDataStringField(namePhoneNumber), primaryKey: false);
     addField(NsgDataStringField(nameEmail), primaryKey: false);
     addField(NsgDataStringField(namePosition), primaryKey: false);
@@ -102,6 +104,11 @@ class UserAccountGenerated extends NsgDataItem {
   String get lastName => getFieldValue(nameLastName).toString();
 
   set lastName(String value) => setFieldValue(nameLastName, value);
+
+  /// ДатаРождения
+  DateTime get birthDate => getFieldValue(nameBirthDate) as DateTime;
+
+  set birthDate(DateTime value) => setFieldValue(nameBirthDate, value);
 
   /// НомерТелефона
   String get phoneNumber => getFieldValue(namePhoneNumber).toString();
