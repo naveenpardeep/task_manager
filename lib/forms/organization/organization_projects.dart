@@ -83,7 +83,7 @@ class OrganizationProject extends GetView<ProjectController> {
                                           //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
                                           //    controller.itemPageOpen(project, Routes.projectSettingsPage);
                                           // } else {
-                                          controller.itemPageOpen(project, Routes.projectMobilePageview, needRefreshSelectedItem: true);
+                                          controller.itemPageOpen(project, Routes.projectMobilePageview, );
                                           //   }
                                         },
                                         child: Padding(
