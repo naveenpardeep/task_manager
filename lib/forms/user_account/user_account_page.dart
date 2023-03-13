@@ -4,6 +4,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -37,7 +38,8 @@ class UserAccountPage extends GetView<UserAccountController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   NsgAppBar(
-                    color: Colors.white,
+                    color: Colors.black,
+                    backColor: Colors.white,
                     text: controller.currentItem.isEmpty ? 'Новый пользователь'.toUpperCase() : controller.currentItem.name.toUpperCase(),
                     icon: Icons.arrow_back_ios_new,
                     colorsInverted: true,
@@ -71,36 +73,48 @@ class UserAccountPage extends GetView<UserAccountController> {
                               //   label: 'Организация',
                               // ),
 
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameName,
-                                label: 'nick',
+                                label: 'Ваш ник',
+                                infoString: 'Введите ник',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameFirstName,
-                                label: 'Имя',
+                                 label: 'Ваше имя',
+                                infoString: 'Введите имя',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameLastName,
-                                label: 'Фамилия',
+                                label: 'Ваша фамилия',
+                                infoString: 'Введите фамилию',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
-                                label: 'Номер телефона',
+                               label: 'Телефон',
+                                infoString: '+7',
                               ),
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameEmail,
-                                label: 'Email',
+                                 label: 'Электронная почта',
+                                infoString: 'e-mail@mail.org',
+                              ),
+                               TTNsgInput(
+                                dataItem: Get.find<DataController>().currentUser,
+                                fieldName: UserAccountGenerated.nameBirthDate,
+                                 label: 'Ваша Дата рождения',
+                                infoString: 'Введите Дата рождения',
                               ),
                               //  Должность тоже нужна только внутри организации
-                              NsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePosition,
                                 label: 'Должность',
+                                infoString: 'Введите Должность',
                               ),
                               //  Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
                               NsgInput(

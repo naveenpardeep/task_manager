@@ -18,6 +18,7 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var proController = Get.find<ProjectController>();
 
     element.inviteProject = proController.currentItem;
+    element.birthDate=DateTime.now();
     return element;
   }
 
@@ -37,6 +38,7 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var proController = Get.find<ProjectController>();
 
     element.inviteProject = proController.currentItem;
+    element.birthDate=DateTime.now();
 
     return element;
   }

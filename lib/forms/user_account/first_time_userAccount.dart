@@ -123,6 +123,12 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                 infoString: 'Введите фамилию',
                               ),
                               TTNsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameBirthDate,
+                                label: 'Ваша Дата рождения',
+                                infoString: 'Введите Дата рождения',
+                              ),
+                              TTNsgInput(
                                 maskType: NsgInputMaskType.phone,
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
