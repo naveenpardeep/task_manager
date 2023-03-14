@@ -74,8 +74,8 @@ class _HomepageState extends State<Homepage> {
     var scrollController = ScrollController();
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
-    return projectController.obx((state) => 
-       BodyWrap(
+    return projectController.obx(
+      (state) => BodyWrap(
         child: Scaffold(
           key: scaffoldKey,
           drawer: drawer(),
@@ -133,7 +133,7 @@ class _HomepageState extends State<Homepage> {
                             });
                           },
                           icon: const Icon(Icons.refresh)),
-    
+
                       if (width > 700)
                         Flexible(
                           child: SizedBox(
@@ -266,7 +266,7 @@ class _HomepageState extends State<Homepage> {
                         ],
                       ),
                     ),
-    
+
               //  if (taskBoardController.currentItem.isNotEmpty)
               Expanded(
                 child: Stack(
@@ -315,8 +315,8 @@ class _HomepageState extends State<Homepage> {
                   ],
                 ),
               ),
-    
-              if (width < 700)  const TmMobileMenu(),
+
+              if (width < 700) const TmMobileMenu(),
             ],
           ),
         ),
@@ -665,7 +665,7 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+            if (kIsWeb || (Platform.isWindows || !Platform.isLinux)) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
@@ -821,12 +821,8 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            child: 
-            Column(
-              children: [
-                     
-                taskController.obx((state) => getTaskList(status.status))
-             ],
+            child: Column(
+              children: [taskController.obx((state) => getTaskList(status.status))],
             )));
       }
     }
@@ -874,7 +870,7 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+            if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
@@ -1131,7 +1127,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1301,7 +1297,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1471,7 +1467,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         maxLines: 1,
                                       ),
                                     ),
-                                    if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
@@ -1635,7 +1631,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     maxLines: 1,
                                   ),
                                 ),
-                                if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                                if (kIsWeb || (Platform.isWindows || Platform.isLinux))
                                   Flexible(
                                     child: IconButton(
                                         onPressed: () {
