@@ -172,7 +172,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.createInvitationUser,
-      page: () => const CreateInvitationUserPage(),
+      page: () =>  CreateInvitationUserPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
