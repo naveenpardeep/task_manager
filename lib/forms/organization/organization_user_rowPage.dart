@@ -100,12 +100,12 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 label: 'Электронная почта',
                                 infoString: 'e-mail@mail.org',
                               ),
-                              TTNsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.nameName,
-                                label: 'User Name',
-                                infoString: 'Set user name for user',
-                              ),
+                              // TTNsgInput(
+                              //   dataItem: controller.currentItem,
+                              //   fieldName: UserAccountGenerated.nameName,
+                              //   label: 'User Name',
+                              //   infoString: 'Set user name for user',
+                              // ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
