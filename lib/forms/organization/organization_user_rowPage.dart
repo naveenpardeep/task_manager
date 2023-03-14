@@ -71,6 +71,10 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               //       UserAccountGenerated.nameOrganizationId,
                               //   label: 'Организация',
                               // ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Center(child: Text('Поскольку пользователь еще не зарегестрирован, необходимо для него создать предварительный аккаунт' ,style: TextStyle(color: Color(0xff529FBF)),)),
+                              ),
                               TTNsgInput(
                                 selectionController: Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
