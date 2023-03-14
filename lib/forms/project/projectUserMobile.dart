@@ -60,22 +60,22 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              NsgButton(
-                                borderRadius: 30,
-                                color: Colors.white,
-                                backColor: const Color(0xff0859ff),
-                                text: '+ Добавить участника в проект',
-                                onPressed: () async {
-                                  await Get.find<ProjectUserController>().requestItems();
-                                  Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
-                                  Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
-                                },
-                              ),
                               projectUsersList(context),
                             ],
                           ),
                         ),
                       )),
+                ),
+                NsgButton(
+                  borderRadius: 30,
+                  color: Colors.white,
+                  backColor: const Color(0xff0859ff),
+                  text: '+ Добавить участника в проект',
+                  onPressed: () async {
+                    await Get.find<ProjectUserController>().requestItems();
+                    Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
+                    Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
+                  },
                 ),
               ],
             ),

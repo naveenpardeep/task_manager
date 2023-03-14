@@ -75,13 +75,30 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 selectionController: Get.find<ProjectController>(),
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteProjectId,
-                                label: 'Select Project',
-                                infoString: 'Select ',
+                                label: 'Проект',
+                                infoString: 'Добавить к участию в проекте ',
                               ),
+                             
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
                                 label: 'добавить пользователя без приглашения',
+                              ),
+                               TTNsgInput(
+                                maskType: NsgInputMaskType.phone,
+                                keyboard: TextInputType.phone,
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.namePhoneNumber,
+                                label: 'Номер телефона',
+                                infoString: '+7',
+                              ),
+                              TTNsgInput(
+                                
+                                keyboard: TextInputType.emailAddress,
+                                dataItem: controller.currentItem,
+                                fieldName: UserAccountGenerated.nameEmail,
+                                label: 'Электронная почта',
+                                infoString: 'e-mail@mail.org',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
@@ -93,22 +110,15 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameFirstName,
                                 label: 'Имя',
-                                infoString: 'Имя',
+                                infoString: 'Укажите имя пользователя',
                               ),
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameLastName,
                                 label: 'Фамилия',
-                                infoString: 'Фамилия',
+                                infoString: 'Укажите фамилию пользователя',
                               ),
-                              TTNsgInput(
-                                maskType: NsgInputMaskType.phone,
-                                keyboard: TextInputType.phone,
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated.namePhoneNumber,
-                                label: 'Номер телефона',
-                                infoString: 'Номер телефона',
-                              ),
+                             
                             ],
                           ),
                         )),

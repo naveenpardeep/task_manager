@@ -2,8 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
+
+import '../user_account/user_account_controller.dart';
 
 
 class ProjectUserRowPage extends StatefulWidget {
@@ -120,6 +123,15 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                           ],
                         ),
                       )),
+                ),
+                NsgButton(
+                  borderRadius: 30,
+                  color: const Color(0xff0859ff),
+                  backColor: const Color(0xffABF4FF),
+                  text: 'Пригласить по почте или телефону',
+                  onPressed: () async {
+                    Get.find<UserAccountController>().newItemPageOpen(pageName: Routes.createInvitationUser);
+                  },
                 ),
               ],
             ),

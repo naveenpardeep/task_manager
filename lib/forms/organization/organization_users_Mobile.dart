@@ -62,35 +62,27 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              NsgButton(
-                                borderRadius: 30,
-                                color: Colors.white,
-                                backColor: const Color(0xff0859ff),
-                                text: '+ Добавить участника в Организация',
-                                onPressed: () async {
-                                  // await Get.find<UserAccountController>().requestItems();
-                                  Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
-                                  Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
-                                },
-                              ),
-                              NsgButton(
-                                borderRadius: 30,
-                                color: const Color(0xff0859ff),
-                                backColor: const Color(0xffABF4FF),
-                                text: '+ Пригласить нового пользователя',
-                                onPressed: () async {
-                                  Get.find<UserAccountController>().newItemPageOpen(pageName: Routes.createInvitationUser);
-                                },
-                              ),
                               organizationUsersList(context),
                             ],
                           ),
                         ),
                       )),
                 ),
-                if (width < 700) 
-                //const BottomMenu(),
-                 const TmMobileMenu()
+                NsgButton(
+                  borderRadius: 30,
+                  color: Colors.white,
+                  backColor: const Color(0xff0859ff),
+                  text: '+ Добавить участника в Организация',
+                  onPressed: () async {
+                    // await Get.find<UserAccountController>().requestItems();
+                    Get.find<OrganizationItemUserTableController>().prepapreOrgUsers();
+                    Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
+                  },
+                ),
+               
+                if (width < 700)
+                  //const BottomMenu(),
+                  const TmMobileMenu()
               ],
             ),
           ),
