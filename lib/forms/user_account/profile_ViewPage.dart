@@ -10,7 +10,12 @@ import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
+
+import '../widgets/nsg_tabs.dart';
+import '../widgets/tt_app_bar.dart';
+import '../widgets/tt_tabs.dart';
 
 class ProfileViewPage extends StatefulWidget {
   const ProfileViewPage({
@@ -23,8 +28,10 @@ class ProfileViewPage extends StatefulWidget {
 
 class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderStateMixin {
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
-  late TabController _tabController;
+  //late TabController _tabController;
   var controller = Get.find<UserAccountController>();
+
+  TTTabsTab currentTab = TTTabsTab(name: 'Профиль', onTap: (v) {});
 
   late double height;
   late double width;
@@ -35,13 +42,13 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(_setindex);
+    //_tabController = TabController(length: 3, vsync: this);
+    //_tabController.addListener(_setindex);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    //_tabController.dispose();
     super.dispose();
   }
 
@@ -55,71 +62,198 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
 
     return controller.obx((state) => SafeArea(
           child: Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
-              actions: [
-                if (_tabController.index == 0)
-                  IconButton(
-                      onPressed: () {
+              key: scaffoldKey,
+              /*appBar: AppBar(
+                actions: [
+                  if (_tabController.index == 0)
+                    IconButton(
+                        onPressed: () {
+                          if (_tabController.index == 0) {
+                            controller.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
+                          }
+
+                          if (_tabController.index == 2) {}
+                        },
+                        icon: const Icon(Icons.edit)),
+                ],
+
+                backgroundColor: Colors.white,
+                elevation: 0.0, //Shadow gone
+                centerTitle: true,
+                title: controller.obx((state) => Text(
+                      controller.currentItem.name.toString().toUpperCase(),
+                      style: const TextStyle(color: Colors.black),
+                    )),
+                bottom: TabBar(
+                    onTap: (value) {
+                      setState(() {
                         if (_tabController.index == 0) {
-                          controller.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
+                          _tabController.index = 0;
+                        } else if (_tabController.index == 1) {
+                          _tabController.index = 1;
+                        } else if (_tabController.index == 2) {
+                          _tabController.index = 2;
                         }
-
-                        if (_tabController.index == 2) {}
-                      },
-                      icon: const Icon(Icons.edit)),
-              ],
-
-              backgroundColor: Colors.white,
-              elevation: 0.0, //Shadow gone
-              centerTitle: true,
-              title: controller.obx((state) => Text(
-                    controller.currentItem.name.toString().toUpperCase(),
-                    style: const TextStyle(color: Colors.black),
-                  )),
-              bottom: TabBar(
-                  onTap: (value) {
-                    setState(() {
-                      if (_tabController.index == 0) {
-                        _tabController.index = 0;
-                      } else if (_tabController.index == 1) {
-                        _tabController.index = 1;
-                      } else if (_tabController.index == 2) {
-                        _tabController.index = 2;
-                      }
-                    });
-                  },
-                  controller: _tabController,
-                  tabs: <Widget>[
-                    Tab(
-                      child: Text(
-                        'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                      });
+                    },
+                    controller: _tabController,
+                    tabs: <Widget>[
+                      Tab(
+                        child: Text(
+                          'Основное',
+                          style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                        ),
                       ),
-                    ),
-                    Tab(
-                        child: Text(
-                      'Приглашения',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                    )),
-                    Tab(
-                        child: Text(
-                      'Список приглашений',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                    )),
-                  ]),
-            ),
-            body: TabBarView(controller: _tabController, children: [
+                      Tab(
+                          child: Text(
+                        'Приглашения',
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                      )),
+                      Tab(
+                          child: Text(
+                        'Список приглашений',
+                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                      )),
+                    ]),
+              ),*/
+              body: Column(
+                children: [
+                  TTAppBar(
+                    title: 'Аккаунт',
+                    rightIcons: [
+                      if (currentTab.name == 'Профиль')
+                        TTAppBarIcon(
+                          icon: Icons.edit_outlined,
+                          onTap: () {},
+                        ),
+                      TTAppBarIcon(
+                        icon: Icons.notifications_outlined,
+                        nott: 1,
+                        onTap: (() {
+                          _dialogBuilder(context);
+                        }),
+                      )
+                    ],
+                  ),
+                  TTTabs(
+                    currentTab: currentTab,
+                    tabs: [
+                      TTTabsTab(
+                          name: 'Профиль',
+                          onTap: (v) {
+                            currentTab = v;
+                            setState(() {});
+                          }),
+                      TTTabsTab(
+                          name: 'Уведомления',
+                          onTap: (v) {
+                            currentTab = v;
+                            setState(() {});
+                          }),
+                      TTTabsTab(
+                          name: 'Приглашения',
+                          onTap: (v) {
+                            currentTab = v;
+                            setState(() {});
+                          })
+                    ],
+                  ),
+                  Expanded(child: content()),
+                ],
+              )
+
+              /*TabBarView(controller: _tabController, children: [
               Container(key: GlobalKey(), child: const UserProfile()),
               Container(key: GlobalKey(), child: const InvitationAcceptNew()),
               Container(key: GlobalKey(), child: const AcceptRejectListPage()),
-            ]),
-          ),
+            ]),*/
+              ),
         ));
   }
 
-  void _setindex() {
+  Widget content() {
+    if (currentTab.name == 'Профиль') {
+      return const UserProfile();
+    }
+    if (currentTab.name == 'Уведомления') {
+      return const InvitationAcceptNew();
+    }
+    return const AcceptRejectListPage();
+  }
 
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+          insetAnimationDuration: const Duration(milliseconds: 100),
+          insetAnimationCurve: Curves.easeOutCubic,
+          insetPadding: const EdgeInsets.only(top: 30),
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.only(top: 5)),
+              TTAppBar(
+                title: 'Уведомления',
+                rightIcons: [
+                  TTAppBarIcon(
+                    icon: Icons.settings,
+                    onTap: () {},
+                  ),
+                ],
+                leftIcons: [
+                  TTAppBarIcon(
+                    icon: Icons.arrow_back_ios_new,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                child: Column(children: []),
+              )),
+              TaskButton(
+                text: "Пометить все как прочитанные",
+                onTap: () {},
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /*
+  AlertDialog(
+          title: TTAppBar(
+            title: 'Уведомления',
+            rightIcons: [
+              TTAppBarIcon(
+                icon: Icons.settings,
+                onTap: () {},
+              ),
+            ],
+            leftIcons: [
+              TTAppBarIcon(
+                icon: Icons.arrow_back_ios_new,
+                onTap: () {},
+              )
+            ],
+          ),
+          content: Expanded(
+            child: Container(color: Colors.white),
+          ),
+          actions: <Widget>[
+            TaskButton(
+              text: 'Прочитать все',
+              onTap: () {},
+            )
+          ],
+        );
+  
+  void _setindex() {
     setState(() {
       if (_tabController.index == 0) {
         _tabController.index = 0;
@@ -129,6 +263,5 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
         _tabController.index = 2;
       }
     });
-  
-  }
+  }*/
 }

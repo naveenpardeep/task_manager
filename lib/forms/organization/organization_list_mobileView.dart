@@ -95,26 +95,24 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: ClipOval(
-                            child:
-                                organizations.photoFile.isEmpty
-                                 ?
-                                Container(
-                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                          width: 32,
-                          height: 32,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 20,
-                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                          ),
-                        )
-                            : Image.memory(
-                                Uint8List.fromList(organizations.photoFile),
-                                fit: BoxFit.cover,
-                                width: 32,
-                                height: 32,
-                              ),
-                            ),
+                          child: organizations.photoFile.isEmpty
+                              ? Container(
+                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                  width: 32,
+                                  height: 32,
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    size: 20,
+                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                  ),
+                                )
+                              : Image.memory(
+                                  Uint8List.fromList(organizations.photoFile),
+                                  fit: BoxFit.cover,
+                                  width: 32,
+                                  height: 32,
+                                ),
+                        ),
                       ),
                       Expanded(
                         child: Column(
@@ -129,7 +127,6 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                             // for CEO of the Company need to change
                             Text(
                               organizations.ceo.toString(),
-
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
                           ],
