@@ -67,9 +67,9 @@ class _NotificationPageState extends State<NotificationPage> {
       {
         list.add(GestureDetector(
           onTap: () {
-            // Get.toNamed(Routes.tasksPage);
+       
 
-            controller.itemPageOpen(tasks, Routes.acceptInvitationPage, needRefreshSelectedItem: true);
+            controller.itemPageOpen(tasks, Routes.invitationAcceptNew, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [

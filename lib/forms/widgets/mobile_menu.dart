@@ -46,7 +46,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                       Icons.folder,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    Text('Проекты', style: TextStyle(color: ControlOptions.instance.colorMain)),
+                    Text('Проекты', style: TextStyle(color: ControlOptions.instance.colorMain,fontSize: 8)),
                   ],
                 )),
           ),
@@ -59,7 +59,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                 child: Column(
                   children: [
                     Icon(Icons.task, color: ControlOptions.instance.colorMain),
-                    Text('Задачи', style: TextStyle(color: ControlOptions.instance.colorMain))
+                   Text('Задачи', style: TextStyle(color: ControlOptions.instance.colorMain,fontSize: 8))
                   ],
                 )),
           ),
@@ -74,7 +74,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                       Icons.people,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    Text('Сотрудники', style: TextStyle(color: ControlOptions.instance.colorMain))
+                    Text('Люди', style: TextStyle(color: ControlOptions.instance.colorMain,fontSize: 8))
                   ],
                 )),
           ),
@@ -92,7 +92,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                       Icons.apartment,
                       color: ControlOptions.instance.colorMain,
                     ),
-                    Text('Компании', style: TextStyle(color: ControlOptions.instance.colorMain))
+                   Text('Компании', style: TextStyle(color: ControlOptions.instance.colorMain,fontSize: 8))
                   ],
                 )),
           ),
@@ -187,7 +187,7 @@ class _TmMobileMenuState extends State<TmMobileMenu> {
                             height: 25,
                           ),
                   ),
-                  Text('Аккаунт', style: TextStyle(color: ControlOptions.instance.colorMain))
+                 Text('Аккаунт', style: TextStyle(color: ControlOptions.instance.colorMain,fontSize: 8))
                 ],
               ),
             ),

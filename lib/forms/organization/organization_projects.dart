@@ -7,6 +7,7 @@ import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 
@@ -24,18 +25,22 @@ class OrganizationProject extends GetView<ProjectController> {
       controller.requestItems();
     }
     width = MediaQuery.of(context).size.width;
-    return BodyWrap(
-      child: Scaffold(
-          key: scaffoldKey,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //  if (width > 700) const TmTopMenu(),
+    return controller.obx(
+      (state) => BodyWrap(
+        child: Scaffold(
+            key: scaffoldKey,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //  if (width > 700) const TmTopMenu(),
 
-              Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 700) const BottomMenu(),
-            ],
-          )),
+                Expanded(child: controller.obx((state) => showProjects())),
+                if (width < 700) 
+                //const BottomMenu(),
+                 const TmMobileMenu()
+              ],
+            )),
+      ),
     );
   }
 
@@ -83,7 +88,10 @@ class OrganizationProject extends GetView<ProjectController> {
                                           //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
                                           //    controller.itemPageOpen(project, Routes.projectSettingsPage);
                                           // } else {
-                                          controller.itemPageOpen(project, Routes.projectMobilePageview, needRefreshSelectedItem: true);
+                                          controller.itemPageOpen(
+                                            project,
+                                            Routes.projectMobilePageview,
+                                          );
                                           //   }
                                         },
                                         child: Padding(

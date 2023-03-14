@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -44,9 +45,12 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            NsgInput(
+                            TTNsgInput(
                               maxLines: 20,
-                              dataItem: controller.currentItem, fieldName: TaskDocCheckListTableGenerated.nameText, label: 'Task CheckList Name'),
+                              minLines: 5,
+                              dataItem: controller.currentItem, fieldName: TaskDocCheckListTableGenerated.nameText, 
+                              label: 'CheckList',
+                              infoString: 'Create Checklist',),
                             // NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName:

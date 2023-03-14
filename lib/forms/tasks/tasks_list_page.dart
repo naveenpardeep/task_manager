@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../widgets/top_menu.dart';
@@ -66,7 +67,9 @@ class TasksListPage extends GetView<TasksController> {
               ),
             ),
             //  if (width < 700) const TmMobileMenu(),
-            if (width < 700) const BottomMenu(),
+            if (width < 700) 
+            //const BottomMenu(),
+             const TmMobileMenu()
           ],
         ),
       ),

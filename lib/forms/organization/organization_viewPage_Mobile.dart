@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 class OrganizationViewPageMobile extends StatefulWidget {
   const OrganizationViewPageMobile({
@@ -223,7 +224,9 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                 )),
                           )),
                     ),
-                    if (width < 700) const BottomMenu(),
+                    if (width < 700)
+                    // const BottomMenu(),
+                     const TmMobileMenu()
                   ],
                 ),
               ),

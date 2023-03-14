@@ -8,6 +8,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
@@ -104,7 +105,9 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       ))
                     ],
                   ),
-                  if (width < 700) const BottomMenu()
+                  if (width < 700) 
+                  //const BottomMenu()
+                   const TmMobileMenu()
                 ])))));
   }
 

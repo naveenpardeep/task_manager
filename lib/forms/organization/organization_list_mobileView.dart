@@ -9,6 +9,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 
 class OrganizationListMobileView extends GetView<OrganizationController> {
@@ -66,7 +67,9 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                   // ),
 
                   Expanded(child: getOrganizationList()),
-                  if (width < 700) const BottomMenu(),
+                  if (width < 700)
+                  // const BottomMenu(),
+                   const TmMobileMenu()
                 ])))));
   }
 
