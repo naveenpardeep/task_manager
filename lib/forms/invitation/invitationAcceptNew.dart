@@ -9,6 +9,7 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 class InvitationAcceptNew extends GetView<InvitationController> {
@@ -59,7 +60,9 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         ),
                       )),
                 ),
-                if (width < 700) const BottomMenu()
+                if (width < 700) 
+                //const BottomMenu()
+                 const TmMobileMenu()
               ],
             ),
           ),

@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 class AcceptRejectListPage extends GetView<AccpetController> {
   const AcceptRejectListPage({Key? key}) : super(key: key);
@@ -67,7 +68,8 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                       )),
                 ),
                  if(width<700)
-                    const BottomMenu()
+                  //  const BottomMenu()
+                  const TmMobileMenu()
               ],
             ),
           ),

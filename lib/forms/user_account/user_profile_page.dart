@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -417,7 +418,8 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     )),
                     if(width<700)
-                    const BottomMenu()
+                  //  const BottomMenu()
+                   const TmMobileMenu()
                   ]),
                 )),
           ),
