@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -73,7 +74,11 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               // ),
                               const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Center(child: Text('Поскольку пользователь еще не зарегестрирован, необходимо для него создать предварительный аккаунт' ,style: TextStyle(color: Color(0xff529FBF)),)),
+                                child: Center(
+                                    child: Text(
+                                  'Поскольку пользователь еще не зарегестрирован, необходимо для него создать предварительный аккаунт',
+                                  style: TextStyle(color: Color(0xff529FBF)),
+                                )),
                               ),
                               TTNsgInput(
                                 selectionController: Get.find<ProjectController>(),
@@ -82,13 +87,13 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 label: 'Проект',
                                 infoString: 'Добавить к участию в проекте ',
                               ),
-                             
+
                               NsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameInviteInstantAdd,
                                 label: 'добавить пользователя без приглашения',
                               ),
-                               TTNsgInput(
+                              TTNsgInput(
                                 maskType: NsgInputMaskType.phone,
                                 keyboard: TextInputType.phone,
                                 dataItem: controller.currentItem,
@@ -97,7 +102,6 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 infoString: '+7',
                               ),
                               TTNsgInput(
-                                
                                 keyboard: TextInputType.emailAddress,
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameEmail,
@@ -122,11 +126,35 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 label: 'Фамилия',
                                 infoString: 'Укажите фамилию пользователя',
                               ),
-                             
                             ],
                           ),
                         )),
                   ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: TaskButton(
+                        text: 'Отменить',
+                        style: TaskButtonStyle.light,
+                        onTap: () {
+                          Get.back();
+                        },
+                      )),
+                      Expanded(
+                          child: TaskButton(
+                        text: 'Пригласить',
+                        onTap: () async {
+                          if (controller.currentItem.phoneNumber.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона ')));
+                          } else {
+                            await controller.itemPagePost();
+
+                            Get.back();
+                          }
+                        },
+                      )),
+                    ],
+                  )
                 ],
               ),
             ),
