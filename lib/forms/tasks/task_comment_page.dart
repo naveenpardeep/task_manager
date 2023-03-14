@@ -8,6 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -64,23 +65,25 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                               await controller.createNewItemAsync();
                             }
                           },
-                          child: 
-                          // NsgRichText(
-                          //     key: GlobalKey(),
-                          //     controller: controller,
-                          //     dataItem: controller.currentItem,
-                          //     fieldName: TaskDocCommentsTableGenerated.nameText,
-                          //     fileController: Get.find<TaskImageController>()),
-                              NsgInput(
+                          child:
+                              // NsgRichText(
+                              //     key: GlobalKey(),
+                              //     controller: controller,
+                              //     dataItem: controller.currentItem,
+                              //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                              //     fileController: Get.find<TaskImageController>()),
+                              TTNsgInput(
                             borderRadius: 10,
                             dataItem: controller.currentItem,
                             fieldName: TaskDocCommentsTableGenerated.nameText,
-                            label: 'Комментарий',
+                            label: '',
+                            infoString: 'Комментарий',
                           ),
                         ),
                       ),
                       Positioned(
                         right: 0,
+                        bottom: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
@@ -93,7 +96,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                                 //   Get.find<TasksController>().sendNotify();
                                 // controller.sendNotify();
                               },
-                              icon: const Icon(Icons.send)),
+                              icon: const Icon(Icons.send_rounded)),
                         ),
                       )
                     ],
@@ -241,15 +244,15 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: 
-                      // NsgRichText(
-                      //     disabled: true,
-                      //     key: GlobalKey(),
-                      //     availableButtons: const [...AvailableButtons.allValues],
-                      //     controller: controller,
-                      //     dataItem: controller.currentItem,
-                      //     fieldName: TaskDocCommentsTableGenerated.nameText,
-                      //     fileController: Get.find<TaskImageController>()),
+                      child:
+                          // NsgRichText(
+                          //     disabled: true,
+                          //     key: GlobalKey(),
+                          //     availableButtons: const [...AvailableButtons.allValues],
+                          //     controller: controller,
+                          //     dataItem: controller.currentItem,
+                          //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                          //     fileController: Get.find<TaskImageController>()),
 
                           Text(
                         comment.text,
@@ -281,8 +284,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         ),
         Padding(
             padding: const EdgeInsets.all(4.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
+            child: ClipOval(
               child: comment.author.photoFile.isEmpty
                   ? Container(
                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
@@ -316,8 +318,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         children: [
           Padding(
               padding: const EdgeInsets.all(4.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+              child: ClipOval(
                 child: comment.author.photoFile.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
@@ -366,14 +367,14 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child:
-                        //  NsgRichText(
-                        //     disabled: true,
-                        //     key: GlobalKey(),
-                        //     availableButtons: const [...AvailableButtons.allValues],
-                        //     controller: controller,
-                        //     dataItem: controller.currentItem,
-                        //     fieldName: TaskDocCommentsTableGenerated.nameText,
-                        //     fileController: Get.find<TaskImageController>()),
+                            //  NsgRichText(
+                            //     disabled: true,
+                            //     key: GlobalKey(),
+                            //     availableButtons: const [...AvailableButtons.allValues],
+                            //     controller: controller,
+                            //     dataItem: controller.currentItem,
+                            //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                            //     fileController: Get.find<TaskImageController>()),
 
                             Text(
                           comment.text,
