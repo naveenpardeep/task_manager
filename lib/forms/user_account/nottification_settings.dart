@@ -110,6 +110,7 @@ class NotificationSettings extends StatelessWidget {
                       style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter'),
                     ),
                     NsgIconButton(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       size: 25,
                       color: ControlOptions.instance.colorMainLight,
                       icon: Icons.add,
