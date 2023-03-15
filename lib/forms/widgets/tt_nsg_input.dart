@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -579,20 +580,36 @@ class _TTNsgInputState extends State<TTNsgInput> {
     return Container(
         margin: widget.margin,
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        decoration:
-            BoxDecoration(color: ControlOptions.instance.colorInverted, border: Border(bottom: BorderSide(width: 1, color: ControlOptions.instance.colorMain))),
-        child: Row(
+        child: IntrinsicHeight(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-                child: Text(
-              widget.label,
-              style: TextStyle(fontSize: ControlOptions.instance.sizeM),
+            Flexible(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.label,
+                  style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter'),
+                ),
+                if (widget.infoString != '')
+                  Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Text(
+                        widget.infoString,
+                        style: TextStyle(fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter', color: ControlOptions.instance.colorMainLight),
+                      )),
+              ],
             )),
+            const Padding(padding: EdgeInsets.only(left: 20)),
             StatefulBuilder(
-              builder: ((context, setState) => CupertinoSwitch(
+              builder: ((context, setState) => FlutterSwitch(
                   value: fieldValue,
+                  inactiveToggleColor: ControlOptions.instance.colorMainLight,
+                  inactiveColor: ControlOptions.instance.colorGreyLight,
                   activeColor: ControlOptions.instance.colorMain,
-                  onChanged: (value) {
+                  onToggle: (value) {
                     fieldValue = !fieldValue;
                     widget.dataItem.setFieldValue(widget.fieldName, fieldValue);
                     if (widget.updateController != null) {
@@ -603,6 +620,6 @@ class _TTNsgInputState extends State<TTNsgInput> {
                   })),
             )
           ],
-        ));
+        )));
   }
 }

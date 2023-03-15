@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/task_status/project_status_controller.dar
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -108,7 +109,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                     if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
                         Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
                         Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
-                    NsgIconButton(
+                      NsgIconButton(
                         padding: const EdgeInsets.all(8),
                         color: ControlOptions.instance.colorMain,
                         size: 22,
@@ -117,7 +118,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                           //  Get.toNamed(Routes.projectPage);
                           Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
                         },
-                    ),
+                      ),
                     IconButton(
                         onPressed: () {
                           Get.find<TasksController>().refreshData();
@@ -274,7 +275,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
               ),
             ),
 
-            if (width < 700)  const TmMobileMenu(),
+            if (width < 700) const BottomMenu(),
           ],
         ),
       ),

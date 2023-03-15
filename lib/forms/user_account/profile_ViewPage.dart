@@ -7,6 +7,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
 import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
+import 'package:task_manager_app/forms/user_account/nottification_settings.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
@@ -176,7 +177,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
       return const UserProfile();
     }
     if (currentTab.name == 'Уведомления') {
-      return const InvitationAcceptNew();
+      return NotificationSettings();
     }
     return const AcceptRejectListPage();
   }

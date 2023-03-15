@@ -70,7 +70,7 @@ class TTAppBarIcon extends StatelessWidget {
               width: 10,
               height: 10,
               padding: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(color: Colors.red),
+              decoration: BoxDecoration(color: ControlOptions.instance.colorError),
             ))
         ]));
   }

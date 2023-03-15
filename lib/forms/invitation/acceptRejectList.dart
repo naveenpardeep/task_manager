@@ -18,7 +18,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -28,23 +28,23 @@ class AcceptRejectListPage extends GetView<AccpetController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-               if(width>700) 
-                NsgAppBar(
-                  backColor: Colors.white,
-                  color: Colors.black,
-                 
-                  text: 'Invited Users List',
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  // icon2: Icons.check,
-                  // onPressed2: () {
-                  //   controller.itemPagePost();
-                  // },
-                ),
+                if (width > 700)
+                  NsgAppBar(
+                    backColor: Colors.white,
+                    color: Colors.black,
+
+                    text: 'Invited Users List',
+                    icon: Icons.arrow_back_ios_new,
+                    colorsInverted: true,
+                    bottomCircular: true,
+                    onPressed: () {
+                      controller.itemPageCancel();
+                    },
+                    // icon2: Icons.check,
+                    // onPressed2: () {
+                    //   controller.itemPagePost();
+                    // },
+                  ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -67,9 +67,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             )),
                       )),
                 ),
-                 if(width<700)
-                  //  const BottomMenu()
-                  const TmMobileMenu()
+                if (width < 700) const BottomMenu()
               ],
             ),
           ),

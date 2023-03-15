@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
@@ -58,7 +58,7 @@ class ProjectListPage extends GetView<ProjectController> {
                     ],
                   )),
               Expanded(child: controller.obx((state) => showProjects())),
-              if (width < 700)  const TmMobileMenu(),
+              if (width < 700) const BottomMenu(),
             ],
           )),
     );
@@ -79,7 +79,10 @@ class ProjectListPage extends GetView<ProjectController> {
                   //  taskConstroller.refreshData();
                   //  Get.find<TaskBoardController>().refreshData();
                   // Get.toNamed(Routes.homePage);
-                  controller.itemPageOpen(project, Routes.homePage, );
+                  controller.itemPageOpen(
+                    project,
+                    Routes.homePage,
+                  );
                 },
                 child: Card(
                   elevation: 3,
@@ -135,7 +138,8 @@ class ProjectListPage extends GetView<ProjectController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Рук.: ${project.leader.name}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
-                                Text('Организация: ${project.organization}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                Text('Организация: ${project.organization}',
+                                    style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                 Text('Заказчик: ${project.contractor}',
                                     style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                               ],

@@ -67,9 +67,8 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                   // ),
 
                   Expanded(child: getOrganizationList()),
-                  if (width < 700)
-                  // const BottomMenu(),
-                   const TmMobileMenu()
+                  if (width < 700) const BottomMenu(),
+                  //const TmMobileMenu()
                 ])))));
   }
 

@@ -50,7 +50,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList:  []);
+        objectsList: []);
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,
@@ -105,9 +105,8 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       ))
                     ],
                   ),
-                  if (width < 700) 
-                  //const BottomMenu()
-                   const TmMobileMenu()
+                  if (width < 700) const BottomMenu()
+                  //const TmMobileMenu()
                 ])))));
   }
 

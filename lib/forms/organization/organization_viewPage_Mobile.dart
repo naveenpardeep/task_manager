@@ -147,26 +147,24 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: ClipOval(
-                                                child:
-                                                    controller.currentItem.photoFile.isEmpty
-                                                     ?
-                                                    Container(
-                                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                              width: 55,
-                                              height: 55,
-                                              child: Icon(
-                                                Icons.account_circle,
-                                                size: 20,
-                                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                              ),
-                                            )
-                                                : Image.memory(
-                                                    Uint8List.fromList(controller.currentItem.photoFile),
-                                                    fit: BoxFit.cover,
-                                                    width: 55,
-                                                    height: 55,
-                                                  ),
-                                                ),
+                                              child: controller.currentItem.photoFile.isEmpty
+                                                  ? Container(
+                                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                      width: 55,
+                                                      height: 55,
+                                                      child: Icon(
+                                                        Icons.account_circle,
+                                                        size: 20,
+                                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                      ),
+                                                    )
+                                                  : Image.memory(
+                                                      Uint8List.fromList(controller.currentItem.photoFile),
+                                                      fit: BoxFit.cover,
+                                                      width: 55,
+                                                      height: 55,
+                                                    ),
+                                            ),
                                           ),
                                           Expanded(
                                             child: Text(
@@ -224,9 +222,8 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                 )),
                           )),
                     ),
-                    if (width < 700)
-                    // const BottomMenu(),
-                     const TmMobileMenu()
+                    if (width < 700) const BottomMenu(),
+                    //const TmMobileMenu()
                   ],
                 ),
               ),

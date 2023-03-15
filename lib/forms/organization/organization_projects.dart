@@ -35,9 +35,8 @@ class OrganizationProject extends GetView<ProjectController> {
                 //  if (width > 700) const TmTopMenu(),
 
                 Expanded(child: controller.obx((state) => showProjects())),
-                if (width < 700) 
-                //const BottomMenu(),
-                 const TmMobileMenu()
+                if (width < 700) const BottomMenu(),
+                //const TmMobileMenu()
               ],
             )),
       ),

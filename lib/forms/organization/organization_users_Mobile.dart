@@ -79,10 +79,9 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                     Get.find<OrganizationItemUserTableController>().newItemPageOpen(pageName: Routes.organizationUserAddPage);
                   },
                 ),
-               
-                if (width < 700)
-                  //const BottomMenu(),
-                  const TmMobileMenu()
+
+                if (width < 700) const BottomMenu(),
+                //const TmMobileMenu()
               ],
             ),
           ),

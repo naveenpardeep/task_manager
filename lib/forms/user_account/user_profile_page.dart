@@ -85,32 +85,32 @@ class _UserProfileState extends State<UserProfile> {
           child: SafeArea(
             child: Scaffold(
                 key: scaffoldKey,
-                appBar:width>700? AppBar(
-                  // ignore: prefer_const_constructors
-                  title: Center(
-                    child: const Text(
-                      'Аккаунт ',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        userAccountController.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
-                      },
-                      icon: const Icon(Icons.edit),
-                    )
-                  ],
-                  leading: InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Icon(Icons.arrow_back_ios)),
-                  backgroundColor: Colors.white,
-                  //  toolbarHeight: 200, // Set this height
-                )
-                :
-                null,
+                appBar: width > 700
+                    ? AppBar(
+                        // ignore: prefer_const_constructors
+                        title: Center(
+                          child: const Text(
+                            'Аккаунт ',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        actions: [
+                          IconButton(
+                            onPressed: () {
+                              userAccountController.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
+                            },
+                            icon: const Icon(Icons.edit),
+                          )
+                        ],
+                        leading: InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: const Icon(Icons.arrow_back_ios)),
+                        backgroundColor: Colors.white,
+                        //  toolbarHeight: 200, // Set this height
+                      )
+                    : null,
                 body: SafeArea(
                   child: Column(children: [
                     Expanded(
@@ -136,8 +136,8 @@ class _UserProfileState extends State<UserProfile> {
                                               child: Get.find<DataController>().currentUser.photoFile.isEmpty
                                                   ? Container(
                                                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                      width: 70,
-                                                      height: 70,
+                                                      width: 100,
+                                                      height: 100,
                                                       child: Icon(
                                                         Icons.add_a_photo,
                                                         size: 32,
@@ -147,8 +147,8 @@ class _UserProfileState extends State<UserProfile> {
                                                   : Image.memory(
                                                       Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
                                                       fit: BoxFit.cover,
-                                                      width: 70,
-                                                      height: 70,
+                                                      width: 100,
+                                                      height: 100,
                                                     ),
                                             ),
                                           ),
@@ -157,10 +157,8 @@ class _UserProfileState extends State<UserProfile> {
                                       Expanded(
                                         child: Container(
                                           color: Colors.white,
-                                          width: width*0.5,
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: organizationList()),
+                                          width: width * 0.5,
+                                          child: SingleChildScrollView(scrollDirection: Axis.horizontal, child: organizationList()),
                                         ),
                                       ),
                                     ],
@@ -229,197 +227,12 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: width,
-                            child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                                    child: Text(
-                                      'Уведомления',
-                                      textScaleFactor: 2,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyByPush,
-                                      label: 'Показывать push-уведомления',
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
-                                      label: 'Отправлять уведомления на почту',
-                                      // onChanged: (p0) async {
-                                      //  await userAccountController.itemPagePost(goBack: false);
-                                      // },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgText(
-                                      'МОИ ЗАДАЧИ',
-                                      color: ControlOptions.instance.colorGrey,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyNewTasks,
-                                      label: 'Создана задача с моим участием',
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyEditedTasks,
-                                      label: 'Все изменения в задачах с моим участием',
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgText(
-                                      'ЗАДАЧИ ПРОЕКТОВ',
-                                      color: ControlOptions.instance.colorGrey,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyNewTasksInProjects,
-                                      label: 'Новая задача в проекте',
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgInput(
-                                      dataItem: Get.find<DataController>().currentUser,
-                                      fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
-                                      label: 'Все изменения в задачах проектов',
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: NsgText(
-                                      'ПРОЕКТЫ-ИСКЛЮЧЕНИЯ',
-                                      color: ControlOptions.instance.colorGrey,
-                                    ),
-                                  ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: NsgTable(
-                                  //     controller: Get.find<UserNotificationController>(),
-                                  //     elementEditPageName:
-                                  //         Routes.userProjectListPage,
-                                  //     availableButtons: const [NsgTableMenuButtonType.createNewElement],
-                                  //     columns: [
-                                  //       NsgTableColumn(
-                                  //           name: UserNotificationSettingsGenerated.nameProjectId,
-                                  //           expanded: true,
-                                  //           presentation: 'Проекты'),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  Get.find<UserNotificationController>().obx(
-                                    (state) => (projectList()),
-                                  ),
-
-                                  Center(
-                                    child: NsgButton(
-                                      text: '+ добавить проект для уведомлений',
-                                      borderRadius: 10,
-                                      onPressed: () {
-                                        Get.find<UserNotificationController>().newItemPageOpen(pageName: Routes.userProjectListPage);
-                                      },
-                                    ),
-                                  ),
-
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(10.0),
-                                  //   child: SizedBox(
-                                  //     width: width,
-                                  //     height: 200,
-                                  //     child: NsgListPage(
-                                  //         appBar: const SizedBox(),
-                                  //         appBarIcon: null,
-                                  //         appBarIcon2: null,
-                                  //         appBarBackColor:
-                                  //             const Color(0xff7876D9),
-                                  //         appBarColor: Colors.white,
-                                  //         type: NsgListPageMode.table,
-                                  //         controller: Get.find<
-                                  //             UserNotificationController>(),
-                                  //         title: '',
-                                  //         textNoItems: '',
-                                  //         elementEditPage:
-                                  //             Routes.userProjectListPage,
-                                  //         onElementTap: (element) {
-                                  //           element as UserNotificationSettings;
-
-                                  //           Get.find<UserNotificationController>()
-                                  //               .currentItem = element;
-                                  //           Get.toNamed(Routes
-                                  //               .userNotificationNewTaskPage);
-                                  //         },
-                                  //         availableButtons: const [
-                                  //           NsgTableMenuButtonType
-                                  //               .createNewElement,
-                                  //           NsgTableMenuButtonType.editElement,
-                                  //           NsgTableMenuButtonType.removeElement
-                                  //         ],
-                                  //         columns: [
-                                  //           NsgTableColumn(
-                                  //               name:
-                                  //                   UserNotificationSettingsGenerated
-                                  //                       .nameProjectId,
-                                  //               expanded: true,
-                                  //               presentation: 'Название проекта'),
-                                  //         ]),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     )),
-                    if(width<700)
-                  //  const BottomMenu()
-                   const TmMobileMenu()
+                    if (width < 700)
+                      //  const BottomMenu()
+                      const BottomMenu()
                   ]),
                 )),
           ),

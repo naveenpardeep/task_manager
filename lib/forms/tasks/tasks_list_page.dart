@@ -67,9 +67,8 @@ class TasksListPage extends GetView<TasksController> {
               ),
             ),
             //  if (width < 700) const TmMobileMenu(),
-            if (width < 700) 
-            //const BottomMenu(),
-             const TmMobileMenu()
+            if (width < 700) const BottomMenu(),
+            //const TmMobileMenu()
           ],
         ),
       ),

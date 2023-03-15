@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import '../../app_pages.dart';
 import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
@@ -50,7 +51,7 @@ class FirstStartPage extends GetView<OrganizationController> {
                 ],
               )),
           Expanded(child: controller.obx((state) => showOrganization())),
-          if (width! < 700)  const TmMobileMenu(),
+          if (width! < 700) const BottomMenu(),
         ],
       )),
     );
