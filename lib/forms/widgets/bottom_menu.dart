@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import '../../app_pages.dart';
@@ -14,23 +15,24 @@ class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const [
+      children: [
         NsgBottomMenuItem(
           'Проекты',
           icon: Icons.folder,
           link: Routes.projectListPage,
+          controller: Get.find<ProjectController>(),
         ),
-        NsgBottomMenuItem(
+        const NsgBottomMenuItem(
           'Задачи',
           icon: Icons.task,
           link: Routes.tasksListPage,
         ),
-        NsgBottomMenuItem(
+        const NsgBottomMenuItem(
           'Компании',
           icon: Icons.apartment,
           link: Routes.organizationListMobilePage,
         ),
-        NsgBottomMenuItem(
+        const NsgBottomMenuItem(
           'Аккаунт',
           icon: Icons.photo,
           isProfileItem: true,

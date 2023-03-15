@@ -59,7 +59,6 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         ),
                       )),
                 ),
-                if (width < 700) const BottomMenu()
                 //const TmMobileMenu()
               ],
             ),

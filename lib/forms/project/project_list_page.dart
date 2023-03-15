@@ -8,6 +8,8 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
+import '../task_board/task_board_controller.dart';
+import '../tasks/tasks_controller.dart';
 import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
@@ -75,14 +77,11 @@ class ProjectListPage extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                  //  var taskConstroller = Get.find<TasksController>();
-                  //  taskConstroller.refreshData();
-                  //  Get.find<TaskBoardController>().refreshData();
-                  // Get.toNamed(Routes.homePage);
-                  controller.itemPageOpen(
-                    project,
-                    Routes.homePage,
-                  );
+                  var taskConstroller = Get.find<TasksController>();
+                  taskConstroller.refreshData();
+                  Get.find<TaskBoardController>().refreshData();
+                  Get.toNamed(Routes.homePage);
+                  //controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
                 },
                 child: Card(
                   elevation: 3,

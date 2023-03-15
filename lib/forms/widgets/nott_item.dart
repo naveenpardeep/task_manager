@@ -63,6 +63,7 @@ class NottItem extends StatelessWidget {
     if (notification.notificationType == ENotificationType.editedTask) {
       return notification.task.name;
     } else if (notification.notificationType == ENotificationType.invitationAccepted) {
+      //notification.invitation.
       return notification.project.name;
     } else if (notification.notificationType == ENotificationType.invitationRejected) {
       return notification.project.name;
@@ -78,21 +79,7 @@ class NottItem extends StatelessWidget {
   }
 
   String getData() {
-    if (notification.notificationType == ENotificationType.editedTask) {
-      return notification.task.name;
-    } else if (notification.notificationType == ENotificationType.invitationAccepted) {
-      return notification.project.name;
-    } else if (notification.notificationType == ENotificationType.invitationRejected) {
-      return notification.project.name;
-    } else if (notification.notificationType == ENotificationType.newTask) {
-      return notification.task.name;
-    } else if (notification.notificationType == ENotificationType.recievedTask) {
-      return notification.task.name;
-    } else if (notification.notificationType == ENotificationType.userAdded) {
-      return notification.project.name;
-    } else {
-      return 'Ошибка';
-    }
+    return notification.comment;
   }
 
   String getAuthor() {

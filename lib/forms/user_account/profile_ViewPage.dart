@@ -187,7 +187,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     if (currentTab.name == 'Уведомления') {
       return NotificationSettings();
     }
-    return const AcceptRejectListPage();
+    return const InvitationAcceptNew();
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
