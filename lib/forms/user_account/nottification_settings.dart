@@ -103,6 +103,7 @@ class NotificationSettings extends StatelessWidget {
               child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Проекты-исключения',

@@ -26,11 +26,6 @@ class BottomMenu extends StatelessWidget {
           link: Routes.tasksListPage,
         ),
         NsgBottomMenuItem(
-          'Люди',
-          icon: Icons.people,
-          link: Routes.userAccountListPage,
-        ),
-        NsgBottomMenuItem(
           'Компании',
           icon: Icons.apartment,
           link: Routes.organizationListMobilePage,
