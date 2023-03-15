@@ -22,9 +22,7 @@ class NotificationSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -172,7 +170,7 @@ class NotificationSettings extends StatelessWidget {
           // ),
         ],
       )),
-    ));
+    );
   }
 
   Widget projectList(BuildContext context) {
