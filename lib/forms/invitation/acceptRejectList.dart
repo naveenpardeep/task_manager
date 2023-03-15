@@ -67,7 +67,6 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             )),
                       )),
                 ),
-                if (width < 700) const BottomMenu()
               ],
             ),
           ),

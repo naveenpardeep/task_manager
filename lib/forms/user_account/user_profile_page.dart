@@ -230,9 +230,6 @@ class _UserProfileState extends State<UserProfile> {
                         ],
                       ),
                     )),
-                    if (width < 700)
-                      //  const BottomMenu()
-                      const BottomMenu()
                   ]),
                 )),
           ),

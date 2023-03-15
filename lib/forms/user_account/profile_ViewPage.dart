@@ -14,6 +14,9 @@ import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
+import '../notification/notification_controller.dart';
+import '../widgets/bottom_menu.dart';
+import '../widgets/nott_item.dart';
 import '../widgets/nsg_tabs.dart';
 import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_tabs.dart';
@@ -38,6 +41,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
   late double width;
   ScrollController scrollController = ScrollController();
   ScrollController scrollController2 = ScrollController();
+  var notifC = Get.find<NotificationController>();
 
   @override
   void initState() {
@@ -131,6 +135,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                         icon: Icons.notifications_outlined,
                         nott: 1,
                         onTap: (() {
+                          notifC.refreshData();
                           _dialogBuilder(context);
                         }),
                       )
@@ -160,6 +165,9 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                     ],
                   ),
                   Expanded(child: content()),
+                  if (width < 700)
+                    //  const BottomMenu()
+                    const BottomMenu()
                 ],
               )
 
@@ -211,9 +219,12 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                   )
                 ],
               ),
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Column(children: []),
+              Expanded(child: notifC.obx(
+                (state) {
+                  return SingleChildScrollView(
+                    child: Column(children: getNotifications()),
+                  );
+                },
               )),
               TaskButton(
                 text: "Пометить все как прочитанные",
@@ -226,6 +237,15 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     );
   }
 
+  List<NottItem> getNotifications() {
+    List<NottItem> list = [];
+
+    for (var notif in notifC.items) {
+      list.add(NottItem(notification: notif));
+    }
+
+    return list;
+  }
   /*
   AlertDialog(
           title: TTAppBar(
