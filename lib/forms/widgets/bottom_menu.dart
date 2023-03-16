@@ -74,8 +74,9 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         if (widget.controller != null) {
           if (widget.controller!.currentItem.isNotEmpty) {
             widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
+          } else {
+            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
           }
-          widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
         } else {
           Get.offAndToNamed(widget.link);
         }
