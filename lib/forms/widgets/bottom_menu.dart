@@ -37,7 +37,7 @@ class BottomMenu extends StatelessWidget {
           link: Routes.organizationListMobilePage,
           controller: Get.find<OrganizationController>(),
         ),
-         NsgBottomMenuItem(
+        NsgBottomMenuItem(
           'Аккаунт',
           icon: Icons.photo,
           isProfileItem: true,
@@ -72,7 +72,10 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         child: InkWell(
       onTap: () {
         if (widget.controller != null) {
-          widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
+          if (widget.controller!.currentItem.isNotEmpty) {
+            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
+          }
+          widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
         } else {
           Get.offAndToNamed(widget.link);
         }
