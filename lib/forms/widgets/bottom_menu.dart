@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import '../../app_pages.dart';
@@ -22,15 +24,17 @@ class BottomMenu extends StatelessWidget {
           link: Routes.projectListPage,
           controller: Get.find<ProjectController>(),
         ),
-        const NsgBottomMenuItem(
+         NsgBottomMenuItem(
           'Задачи',
           icon: Icons.task,
           link: Routes.tasksListPage,
+            controller: Get.find<TasksController>(),
         ),
-        const NsgBottomMenuItem(
+         NsgBottomMenuItem(
           'Компании',
           icon: Icons.apartment,
           link: Routes.organizationListMobilePage,
+            controller: Get.find<OrganizationController>(),
         ),
         const NsgBottomMenuItem(
           'Аккаунт',
@@ -70,7 +74,8 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         }
         //Get.find<DataController>().setCurrentProfile();
         //Get.find<ProfileItemController>().profileItem = null;
-        Get.offAndToNamed(widget.link);
+       // Get.offAndToNamed(widget.link);
+        widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
       },
       child: Container(
           decoration: const BoxDecoration(

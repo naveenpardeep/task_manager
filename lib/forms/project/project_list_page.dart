@@ -77,11 +77,11 @@ class ProjectListPage extends GetView<ProjectController> {
               child: InkWell(
                 onTap: () {
                   controller.currentItem = project;
-                  var taskConstroller = Get.find<TasksController>();
-                  taskConstroller.refreshData();
-                  Get.find<TaskBoardController>().refreshData();
-                  Get.toNamed(Routes.homePage);
-                  //controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
+               //   var taskConstroller = Get.find<TasksController>();
+                //  taskConstroller.refreshData();
+                //  Get.find<TaskBoardController>().refreshData();
+                 // Get.toNamed(Routes.homePage);
+                  controller.itemPageOpen(project, Routes.homePage, );
                 },
                 child: Card(
                   elevation: 3,

@@ -129,7 +129,9 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                     ),
                   ]),
             ),
-            body: TabBarView(controller: _tabController, children: [
+            body: TabBarView(
+              key: GlobalKey(),
+              controller: _tabController, children: [
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(
