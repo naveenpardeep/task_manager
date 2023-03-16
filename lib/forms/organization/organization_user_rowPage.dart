@@ -100,27 +100,27 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               Row(
                                 // ignore: prefer_const_literals_to_create_immutables
                                 children: [
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: InkWell(
-                                  //     onTap: () {
-                                  //       Get.dialog(picker, barrierDismissible: true);
-                                  //     },
-                                  //     child: ClipOval(
-                                  //         child: Container(
-                                  //       height: 100,
-                                  //       width: 100,
-                                  //       padding: const EdgeInsets.all(5),
-                                  //       decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
-                                  //       child: Center(
-                                  //           child: Icon(
-                                  //         Icons.add_a_photo,
-                                  //         color: ControlOptions.instance.colorMainLight,
-                                  //         size: 25,
-                                  //       )),
-                                  //     )),
-                                  //   ),
-                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.dialog(picker, barrierDismissible: true);
+                                      },
+                                      child: ClipOval(
+                                          child: Container(
+                                        height: 100,
+                                        width: 100,
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.add_a_photo,
+                                          color: ControlOptions.instance.colorMainLight,
+                                          size: 25,
+                                        )),
+                                      )),
+                                    ),
+                                  ),
                                   const Expanded(
                                       child: Text(
                                     'Поскольку пользователь еще не зарегестрирован, необходимо для него создать предварительный аккаунт',
