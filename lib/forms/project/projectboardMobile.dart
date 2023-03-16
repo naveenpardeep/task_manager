@@ -35,11 +35,11 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        // key: scaffoldKey,
+        //  key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            //   key: GlobalKey(),
+            key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -90,9 +90,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //     NsgTableColumn(name: TaskBoardGenerated.nameName, expanded: true, presentation: 'Название доски'),
                                 //   ],
                                 // ),
-                                Get.find<TaskBoardController>().obx(
-                                  (state) => getProjectBoard(context),
-                                )
+                                getProjectBoard(context),
                             ],
                           ),
                         ),
