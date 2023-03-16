@@ -20,28 +20,28 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-      picker = NsgFilePicker(
-          showAsWidget: true,
-          skipInterface: true,
-          oneFile: true,
-          callback: (value) async {
-            if (value.isNotEmpty) {
-              List<int> imagefile;
-              if (kIsWeb) {
-                imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-              } else {
-                imagefile = await File(value[0].filePath).readAsBytes();
-              }
-
-              controller.currentItem.photoFile = imagefile;
-              await controller.postItems([controller.currentItem]);
-              await controller.refreshData();
+    picker = NsgFilePicker(
+        showAsWidget: true,
+        skipInterface: true,
+        oneFile: true,
+        callback: (value) async {
+          if (value.isNotEmpty) {
+            List<int> imagefile;
+            if (kIsWeb) {
+              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+            } else {
+              imagefile = await File(value[0].filePath).readAsBytes();
             }
 
-            Navigator.of(Get.context!).pop();
-          },
-          objectsList: []);
-    
+            controller.currentItem.photoFile = imagefile;
+            await controller.postItems([controller.currentItem]);
+            await controller.refreshData();
+          }
+
+          Navigator.of(Get.context!).pop();
+        },
+        objectsList: []);
+
     // if (Get.find<UserImageController>().lateInit) {
     //   Get.find<UserImageController>().requestItems();
     // }
@@ -100,20 +100,26 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                               Row(
                                 // ignore: prefer_const_literals_to_create_immutables
                                 children: [
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     Get.dialog(picker, barrierDismissible: true);
-                                  //   },
-                                  //   child: ClipOval(
-                                  //       child: Container(
-                                  //     padding: const EdgeInsets.all(5),
-                                  //     decoration: BoxDecoration(color: ControlOptions.instance.colorMainLighter),
-                                  //     child: Center(
-                                  //         child: Icon(
-                                  //       Icons.photo_camera_outlined,
-                                  //       color: ControlOptions.instance.colorMainLight,
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: InkWell(
+                                  //     onTap: () {
+                                  //       Get.dialog(picker, barrierDismissible: true);
+                                  //     },
+                                  //     child: ClipOval(
+                                  //         child: Container(
+                                  //       height: 100,
+                                  //       width: 100,
+                                  //       padding: const EdgeInsets.all(5),
+                                  //       decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
+                                  //       child: Center(
+                                  //           child: Icon(
+                                  //         Icons.add_a_photo,
+                                  //         color: ControlOptions.instance.colorMainLight,
+                                  //         size: 25,
+                                  //       )),
                                   //     )),
-                                  //   )),
+                                  //   ),
                                   // ),
                                   const Expanded(
                                       child: Text(

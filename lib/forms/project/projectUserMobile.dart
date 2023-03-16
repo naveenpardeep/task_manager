@@ -89,7 +89,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     List<Widget> list = [];
     var projectUsertable = Get.find<ProjectItemUserTableController>().items;
 
-    for (var projectuser in projectUsertable) {
+    for (var projectuser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(

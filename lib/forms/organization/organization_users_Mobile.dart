@@ -20,7 +20,7 @@ class OrganizationUsersMobilePage extends StatefulWidget {
 
 class _ProjectpageState extends State<OrganizationUsersMobilePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  var controller = Get.find<OrganizationItemUserTableController>();
+  var controller = Get.find<OrganizationController>();
 
   @override
   void initState() {
@@ -94,7 +94,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
     List<Widget> list = [];
     var orgUsertable = Get.find<OrganizationItemUserTableController>().items;
 
-    for (var orguser in orgUsertable) {
+    for (var orguser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
