@@ -74,7 +74,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                   onPressed: () async {
                     await Get.find<ProjectUserController>().requestItems();
                     Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
-                     
+
                     Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
                   },
                 ),

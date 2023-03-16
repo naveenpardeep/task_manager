@@ -61,8 +61,10 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
 
     return controller.obx((state) => SafeArea(
           child: Scaffold(
+            
             key: scaffoldKey,
             appBar: AppBar(
+            
               actions: [
                 if (_tabController.index == 0)
                   IconButton(
