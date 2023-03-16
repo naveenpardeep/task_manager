@@ -15,6 +15,8 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameProjectPrefix = 'projectPrefix';
   static const nameLeaderId = 'leaderId';
   static const nameContractor = 'contractor';
+  static const namePhotoPath = 'photoPath';
+  static const namePhotoFile = 'photoFile';
   static const nameNumberOfTasksOpen = 'numberOfTasksOpen';
   static const nameNumberOfTasksUpdatedIn24Hours = 'numberOfTasksUpdatedIn24Hours';
   static const nameNumberOfTasksOverdue = 'numberOfTasksOverdue';
@@ -39,6 +41,8 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameProjectPrefix, maxLength: 15), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
+    addField(NsgDataStringField(namePhotoPath), primaryKey: false);
+    addField(NsgDataBinaryField(namePhotoFile), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksOpen), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksUpdatedIn24Hours), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksOverdue), primaryKey: false);
@@ -123,6 +127,18 @@ class ProjectItemGenerated extends NsgDataItem {
   String get contractor => getFieldValue(nameContractor).toString();
 
   set contractor(String value) => setFieldValue(nameContractor, value);
+
+  /// КартинкаПуть
+  String get photoPath => getFieldValue(namePhotoPath).toString();
+
+  set photoPath(String value) => setFieldValue(namePhotoPath, value);
+
+  /// Картинка
+  List<int> get photoFile {
+    return getFieldValue(namePhotoFile) as List<int>;
+  }
+
+  set photoFile(List<int> value) => setFieldValue(namePhotoFile, value);
 
   /// Количество открытых задач пользователя
   int get numberOfTasksOpen => getFieldValue(nameNumberOfTasksOpen) as int;
