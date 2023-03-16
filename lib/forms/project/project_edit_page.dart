@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -18,12 +21,34 @@ class ProjectEditPage extends StatefulWidget {
 class _ProjectEditpageState extends State<ProjectEditPage> {
   //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
+  late NsgFilePicker picker;
   bool isHidden = true;
   @override
   void initState() {
     super.initState();
     // scaffoldKey;
     isHidden;
+    picker = NsgFilePicker(
+        showAsWidget: true,
+        skipInterface: true,
+        oneFile: true,
+        callback: (value) async {
+          if (value.isNotEmpty) {
+            List<int> imagefile;
+            if (kIsWeb) {
+              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+            } else {
+              imagefile = await File(value[0].filePath).readAsBytes();
+            }
+
+            controller.currentItem.photoFile = imagefile;
+
+            controller.sendNotify();
+          }
+
+          Navigator.of(Get.context!).pop();
+        },
+        objectsList: []);
   }
 
   @override
@@ -69,6 +94,39 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                       controller.itemPagePost();
                     }
                   },
+                ),
+                Row(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          Get.dialog(picker, barrierDismissible: true);
+                        },
+                        child: controller.currentItem.photoFile.isEmpty
+                            ? ClipOval(
+                                child: Container(
+                                height: 100,
+                                width: 100,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
+                                child: Center(
+                                    child: Icon(
+                                  Icons.add_a_photo,
+                                  color: ControlOptions.instance.colorMainLight,
+                                  size: 25,
+                                )),
+                              ))
+                            : Image.memory(
+                                Uint8List.fromList(controller.currentItem.photoFile),
+                                fit: BoxFit.cover,
+                                width: 100,
+                                height: 100,
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: Container(

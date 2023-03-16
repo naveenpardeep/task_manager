@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -155,6 +157,44 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
                                         children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: ClipOval(
+                                              child: controller.currentItem.photoFile.isEmpty
+                                                  ? Container(
+                                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                                      width: 120,
+                                                      height: 120,
+                                                      child: Icon(
+                                                        Icons.account_circle,
+                                                        size: 20,
+                                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                                      ),
+                                                    )
+                                                  : Image.memory(
+                                                      Uint8List.fromList(controller.currentItem.photoFile),
+                                                      fit: BoxFit.cover,
+                                                      width: 120,
+                                                      height: 120,
+                                                    ),
+                                            ),
+                                          ),
+                                          // Expanded(
+                                          //   child: Text(
+                                          //     ' ${controller.currentItem.name}',
+                                          //     style: const TextStyle(
+                                          //       fontFamily: 'Inter',
+                                          //       fontSize: 14,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
                                           const Text(
                                             'Название проекта :       ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
@@ -290,7 +330,6 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
   }
 
   void _setIndex() {
-    
     setState(() {
       if (_tabController.index == 0) {
         _tabController.index = 0;
@@ -300,6 +339,5 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
         _tabController.index = 2;
       }
     });
-  
   }
 }

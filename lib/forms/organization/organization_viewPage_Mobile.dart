@@ -150,8 +150,8 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                               child: controller.currentItem.photoFile.isEmpty
                                                   ? Container(
                                                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                      width: 55,
-                                                      height: 55,
+                                                      width: 120,
+                                                      height: 120,
                                                       child: Icon(
                                                         Icons.account_circle,
                                                         size: 20,
@@ -161,8 +161,8 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                                   : Image.memory(
                                                       Uint8List.fromList(controller.currentItem.photoFile),
                                                       fit: BoxFit.cover,
-                                                      width: 55,
-                                                      height: 55,
+                                                      width: 120,
+                                                      height: 120,
                                                     ),
                                             ),
                                           ),
