@@ -106,19 +106,26 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                       onTap: () {
                                         Get.dialog(picker, barrierDismissible: true);
                                       },
-                                      child: ClipOval(
-                                          child: Container(
-                                        height: 100,
-                                        width: 100,
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
-                                        child: Center(
-                                            child: Icon(
-                                          Icons.add_a_photo,
-                                          color: ControlOptions.instance.colorMainLight,
-                                          size: 25,
-                                        )),
-                                      )),
+                                      child: Get.find<UserAccountController>().currentItem.photoFile.isEmpty
+                                          ? ClipOval(
+                                              child: Container(
+                                              height: 100,
+                                              width: 100,
+                                              padding: const EdgeInsets.all(5),
+                                              decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.add_a_photo,
+                                                color: ControlOptions.instance.colorMainLight,
+                                                size: 25,
+                                              )),
+                                            ))
+                                          : Image.memory(
+                                              Uint8List.fromList(Get.find<UserAccountController>().currentItem.photoFile),
+                                              fit: BoxFit.cover,
+                                              width: 100,
+                                              height: 100,
+                                            ),
                                     ),
                                   ),
                                   const Expanded(
