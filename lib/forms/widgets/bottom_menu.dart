@@ -24,17 +24,17 @@ class BottomMenu extends StatelessWidget {
           link: Routes.projectListPage,
           controller: Get.find<ProjectController>(),
         ),
-         NsgBottomMenuItem(
+        NsgBottomMenuItem(
           'Задачи',
           icon: Icons.task,
           link: Routes.tasksListPage,
-            controller: Get.find<TasksController>(),
+          controller: Get.find<TasksController>(),
         ),
-         NsgBottomMenuItem(
+        NsgBottomMenuItem(
           'Компании',
           icon: Icons.apartment,
           link: Routes.organizationListMobilePage,
-            controller: Get.find<OrganizationController>(),
+          controller: Get.find<OrganizationController>(),
         ),
         const NsgBottomMenuItem(
           'Аккаунт',
@@ -70,12 +70,13 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         child: InkWell(
       onTap: () {
         if (widget.controller != null) {
-          widget.controller!.refreshData();
+          widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
+        } else {
+          Get.offAndToNamed(widget.link);
         }
         //Get.find<DataController>().setCurrentProfile();
         //Get.find<ProfileItemController>().profileItem = null;
-       // Get.offAndToNamed(widget.link);
-        widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
+        //
       },
       child: Container(
           decoration: const BoxDecoration(
