@@ -34,8 +34,8 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
             }
 
             controller.currentItem.photoFile = imagefile;
-            await controller.postItems([controller.currentItem]);
-            await controller.refreshData();
+
+            controller.sendNotify();
           }
 
           Navigator.of(Get.context!).pop();
