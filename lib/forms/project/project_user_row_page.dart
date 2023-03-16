@@ -8,7 +8,6 @@ import 'package:task_manager_app/forms/project/project_user_controller.dart';
 
 import '../user_account/user_account_controller.dart';
 
-
 class ProjectUserRowPage extends StatefulWidget {
   const ProjectUserRowPage({Key? key}) : super(key: key);
   @override
@@ -118,6 +117,10 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                             //       ProjectItemUserTableGenerated.nameIsAdmin,
                             //   label: 'Admin',
                             // ),
+                            getProjectShowUser(context),
+                            const Divider(
+                              height: 5,
+                            ),
 
                             getProjectuser(context),
                           ],
@@ -160,19 +163,19 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                       child: projectuser.userAccount.photoFile.isEmpty
                           ? Container(
                               decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                              width: 32,
-                              height: 32,
+                              width: 48,
+                              height: 48,
                               child: Icon(
                                 Icons.account_circle,
-                                size: 20,
+                                size: 48,
                                 color: ControlOptions.instance.colorMain.withOpacity(0.4),
                               ),
                             )
                           : Image.memory(
                               Uint8List.fromList(projectuser.userAccount.photoFile),
                               fit: BoxFit.cover,
-                              width: 32,
-                              height: 32,
+                              width: 48,
+                              height: 48,
                             ),
                     ),
                   ),
@@ -209,5 +212,67 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
       }
     }
     return SingleChildScrollView(child: Column(children: list));
+  }
+
+  Widget getProjectShowUser(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    List<Widget> list = [];
+    var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersShowList;
+    for (var projectuser in projectuseritem) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+        list.add(Stack(
+          children: [
+            Positioned(
+              right: 10,
+              child: Container(
+                  decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.close,
+                        color: Color(0xff529FBF),
+                      ))),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: projectuser.userAccount.photoFile.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 48,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                ),
+                              )
+                            : Image.memory(
+                                Uint8List.fromList(projectuser.userAccount.photoFile),
+                                fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
+                              ),
+                      ),
+                    ),
+                    Text(
+                      projectuser.userAccount.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeXS),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ));
+      }
+    }
+    return Container(color: Colors.white, width: width, child: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Row(children: list)));
   }
 }
