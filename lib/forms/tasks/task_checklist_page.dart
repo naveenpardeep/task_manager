@@ -50,7 +50,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                               minLines: 5,
                               dataItem: controller.currentItem, fieldName: TaskDocCheckListTableGenerated.nameText, 
                               label: 'CheckList',
-                              infoString: 'Create Checklist',),
+                              infoString: '',),
                             // NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName:
