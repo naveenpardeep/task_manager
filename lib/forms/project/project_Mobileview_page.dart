@@ -129,9 +129,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                     ),
                   ]),
             ),
-            body: TabBarView(
-              key: GlobalKey(),
-              controller: _tabController, children: [
+            body: TabBarView(key: GlobalKey(), controller: _tabController, children: [
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(
@@ -181,15 +179,32 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                                     ),
                                             ),
                                           ),
-                                          // Expanded(
-                                          //   child: Text(
-                                          //     ' ${controller.currentItem.name}',
-                                          //     style: const TextStyle(
-                                          //       fontFamily: 'Inter',
-                                          //       fontSize: 14,
-                                          //     ),
-                                          //   ),
-                                          // ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  controller.currentItem.name,
+                                                  style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                  'Компания',
+                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                                ),
+                                                Text(
+                                                  '${controller.currentItem.organization}',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

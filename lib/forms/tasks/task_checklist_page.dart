@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -48,24 +49,89 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                             TTNsgInput(
                               maxLines: 20,
                               minLines: 5,
-                              dataItem: controller.currentItem, fieldName: TaskDocCheckListTableGenerated.nameText, 
+                              dataItem: controller.currentItem,
+                              fieldName: TaskDocCheckListTableGenerated.nameText,
                               label: 'CheckList',
-                              infoString: 'Create Checklist',),
+                              infoString: '',
+                            ),
                             // NsgInput(
                             //   dataItem: controller.currentItem,
                             //   fieldName:
                             //       TaskDocCheckListTableGenerated.nameIsDone,
                             //   label: 'Done',
                             // ),
+                            if (controller.currentItem.text.isNotEmpty)
+                              NsgButton(
+                                backColor: Colors.transparent,
+                                text: 'Удалить пункт',
+                                color: Colors.red,
+                                onPressed: () async {
+                                  showAlertDialog(context);
+                                },
+                              )
                           ],
                         ),
                       )),
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: TaskButton(
+                      text: 'Отменить',
+                      style: TaskButtonStyle.light,
+                      onTap: () {
+                        controller.itemPageCancel();
+                      },
+                    )),
+                    Expanded(
+                        child: TaskButton(
+                      text: 'Сохранить',
+                      onTap: () async {
+                        await controller.itemPagePost();
+                        await Get.find<TasksController>().itemPagePost();
+                      },
+                    )),
+                  ],
+                )
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      child: const Text("Yes"),
+      onPressed: () async {
+        Get.find<TasksController>().currentItem.checkList.removeRow(controller.currentItem);
+        await Get.find<TasksController>().itemPagePost();
+
+        Navigator.of(context).pop();
+        Get.back();
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Do you want to Delete?"),
+      actions: [okButton, noButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

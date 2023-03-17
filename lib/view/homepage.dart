@@ -110,7 +110,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
                           Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
-                          Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                         Get.find<DataController>().currentUser==projectController.currentItem.organization.ceo )
                         NsgIconButton(
                           padding: const EdgeInsets.all(8),
                           color: ControlOptions.instance.colorMain,
@@ -1671,7 +1671,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 4),
                                       child: Text(
-                                        'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
+                                        'создано: ${getcreateDay(tasks)}',
                                         maxLines: 1,
                                         style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                       ),
@@ -1819,3 +1819,27 @@ String getupdateDay(TaskDoc tasks) {
 
   return '$daysleft дн. назад';
 }
+
+String getcreateDay(TaskDoc tasks) {
+  var todayDate = DateTime.now();
+  final lastDate = tasks.date;
+  var daysleft = todayDate.difference(lastDate).inDays;
+  if (daysleft > 7) {
+    return '${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}';
+  }
+  var minutes = todayDate.difference(lastDate).inMinutes;
+  if (minutes < 60) {
+    return '$minutes мин. назад';
+  }
+  var hours = todayDate.difference(lastDate).inHours;
+  if (hours <= 24) {
+    return '$hours Час. назад';
+  }
+
+  if (daysleft <= 7) {
+    return '$daysleft дн. назад';
+  }
+
+  return '$daysleft дн. назад';
+}
+

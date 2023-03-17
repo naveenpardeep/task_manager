@@ -9,6 +9,7 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -95,38 +96,36 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                     }
                   },
                 ),
-                Row(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Get.dialog(picker, barrierDismissible: true);
-                        },
-                        child: controller.currentItem.photoFile.isEmpty
-                            ? ClipOval(
-                                child: Container(
-                                height: 100,
-                                width: 100,
-                                padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
-                                child: Center(
-                                    child: Icon(
-                                  Icons.add_a_photo,
-                                  color: ControlOptions.instance.colorMainLight,
-                                  size: 25,
-                                )),
-                              ))
-                            : Image.memory(
-                                Uint8List.fromList(controller.currentItem.photoFile),
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 100,
-                              ),
-                      ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        Get.dialog(picker, barrierDismissible: true);
+                      },
+                      child: controller.currentItem.photoFile.isEmpty
+                          ? ClipOval(
+                              child: Container(
+                              height: 100,
+                              width: 100,
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(color: ControlOptions.instance.colorGreyLighter),
+                              child: Center(
+                                  child: Icon(
+                                Icons.add_a_photo,
+                                color: ControlOptions.instance.colorMainLight,
+                                size: 25,
+                              )),
+                            ))
+                          : Image.memory(
+                              Uint8List.fromList(controller.currentItem.photoFile),
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                            ),
                     ),
-                  ],
+                  ),
                 ),
                 Expanded(
                   child: Container(
@@ -159,11 +158,11 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                                 fieldName: ProjectItemGenerated.nameLeaderId,
                                 label: 'Руководитель проекта',
                               ),
-                              // TTNsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: ProjectItemGenerated.nameProjectPrefix,
-                              //   label: 'Project Prefix',
-                              // ),
+                              TTNsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: ProjectItemGenerated.nameProjectPrefix,
+                                label: 'Project Prefix',
+                              ),
                               TTNsgInput(
                                 infoString: 'Укажите название проекта',
                                 dataItem: controller.currentItem,
@@ -190,6 +189,25 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                         ),
                       )),
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: TaskButton(
+                      text: 'Отменить',
+                      style: TaskButtonStyle.light,
+                      onTap: () {
+                        Get.back();
+                      },
+                    )),
+                    Expanded(
+                        child: TaskButton(
+                      text: 'Сохранить',
+                      onTap: () async {
+                        await controller.itemPagePost();
+                      },
+                    )),
+                  ],
+                )
               ],
             ),
           ),

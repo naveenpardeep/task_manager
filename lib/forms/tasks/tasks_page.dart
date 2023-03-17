@@ -143,82 +143,82 @@ class TasksPage extends GetView<TasksController> {
                                   //     ),
                                   //   ],
                                   // ),
-                                  if (width > 700)
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 4, right: 15),
-                                            child: Text(
-                                              'Создана $formatted',
-                                              style: TextStyle(color: ControlOptions.instance.colorMain),
-                                            ),
-                                          ),
-                                        ),
-                                        if (controller.currentItem.name.isNotEmpty)
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                'Обновлена $formatupdate',
-                                                style: TextStyle(color: ControlOptions.instance.colorMain),
-                                              ),
-                                            ),
-                                          ),
-                                        if (controller.currentItem.name.isNotEmpty)
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                'Автор  :  ${controller.currentItem.author}',
-                                                style: TextStyle(color: ControlOptions.instance.colorMain),
-                                              ),
-                                            ),
-                                          ),
-                                        Expanded(
-                                          child: SelectableText(
-                                            'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                            style: TextStyle(color: ControlOptions.instance.colorMain),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  // if (width > 700)
+                                  //   Row(
+                                  //     children: [
+                                  //       Expanded(
+                                  //         child: Padding(
+                                  //           padding: const EdgeInsets.only(left: 4, right: 15),
+                                  //           child: Text(
+                                  //             'Создана $formatted',
+                                  //             style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //       if (controller.currentItem.name.isNotEmpty)
+                                  //         Expanded(
+                                  //           child: Padding(
+                                  //             padding: const EdgeInsets.all(4.0),
+                                  //             child: Text(
+                                  //               'Обновлена $formatupdate',
+                                  //               style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       if (controller.currentItem.name.isNotEmpty)
+                                  //         Expanded(
+                                  //           child: Center(
+                                  //             child: Text(
+                                  //               'Автор  :  ${controller.currentItem.author}',
+                                  //               style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       Expanded(
+                                  //         child: SelectableText(
+                                  //           'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                  //           style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
 
-                                  if (width < 700)
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4, right: 15),
-                                          child: Text(
-                                            'Создана $formatted',
-                                            style: TextStyle(color: ControlOptions.instance.colorMain),
-                                          ),
-                                        ),
-                                        if (controller.currentItem.name.isNotEmpty)
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Text(
-                                              'Обновлена $formatupdate',
-                                              style: TextStyle(color: ControlOptions.instance.colorMain),
-                                            ),
-                                          ),
-                                        if (controller.currentItem.name.isNotEmpty)
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Text(
-                                              'Автор  :  ${controller.currentItem.author}',
-                                              style: TextStyle(color: ControlOptions.instance.colorMain),
-                                            ),
-                                          ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: SelectableText(
-                                            'Номер задачи  : ${controller.currentItem.taskNumber}',
-                                            style: TextStyle(color: ControlOptions.instance.colorMain),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  // if (width < 700)
+                                  //   Column(
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Padding(
+                                  //         padding: const EdgeInsets.only(left: 4, right: 15),
+                                  //         child: Text(
+                                  //           'Создана $formatted',
+                                  //           style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //         ),
+                                  //       ),
+                                  //       if (controller.currentItem.name.isNotEmpty)
+                                  //         Padding(
+                                  //           padding: const EdgeInsets.all(4.0),
+                                  //           child: Text(
+                                  //             'Обновлена $formatupdate',
+                                  //             style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //           ),
+                                  //         ),
+                                  //       if (controller.currentItem.name.isNotEmpty)
+                                  //         Padding(
+                                  //           padding: const EdgeInsets.all(4.0),
+                                  //           child: Text(
+                                  //             'Автор  :  ${controller.currentItem.author}',
+                                  //             style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //           ),
+                                  //         ),
+                                  //       Padding(
+                                  //         padding: const EdgeInsets.all(4.0),
+                                  //         child: SelectableText(
+                                  //           'Номер задачи  : ${controller.currentItem.taskNumber}',
+                                  //           style: TextStyle(color: ControlOptions.instance.colorMain),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
 
                                   TTNsgInput(
                                     dataItem: controller.currentItem,

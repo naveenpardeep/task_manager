@@ -106,7 +106,8 @@ class ProjectListPage extends GetView<ProjectController> {
                               ),
                               if (Get.find<DataController>().currentUser == project.leader ||
                                   Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                  Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                                  Get.find<DataController>().currentUser==project.organization.ceo 
+                    )
                                 Align(
                                     alignment: Alignment.topRight,
                                     child: Padding(
