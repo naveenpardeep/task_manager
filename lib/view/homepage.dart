@@ -666,7 +666,7 @@ class _HomepageState extends State<Homepage> {
           tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(GestureDetector(
           onTap: () {
-            if (kIsWeb || (Platform.isWindows || !Platform.isLinux)) {
+            if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
