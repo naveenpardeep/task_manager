@@ -41,7 +41,6 @@ class _UserProfileState extends State<UserProfile> {
   final scrollController = ScrollController();
   double? width;
   late NsgFilePicker picker;
-  final CarouselController carouselController = CarouselController();
 
   @override
   void initState() {
@@ -100,8 +99,12 @@ class _UserProfileState extends State<UserProfile> {
                         children: [
                           NsgCarousel(
                             widgetList: getProfilesCards(),
-                            controller: carouselController,
                             height: 330,
+                            onChange: (current) {
+                              //Example use
+                              //NsgCarousel carousel = NsgCarousel(widgetList: []);
+                              //var current = carousel.currentTab;
+                            },
                           ),
                           const Padding(padding: EdgeInsets.only(top: 20)),
                           TaskTextButton(

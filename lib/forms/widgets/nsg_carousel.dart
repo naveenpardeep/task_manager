@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 class NsgCarousel extends StatefulWidget {
-  const NsgCarousel({super.key, required this.widgetList, this.controller, this.autoPlay = false, this.height});
+  NsgCarousel({super.key, required this.widgetList, this.controller, this.autoPlay = false, this.height, this.onChange});
 
   final List<Widget> widgetList;
   final CarouselController? controller;
   final bool autoPlay;
   final double? height;
+  int currentTab = 0;
+  final Function(int current)? onChange;
 
   @override
   State<NsgCarousel> createState() => _NsgCarouselState();
 }
 
 class _NsgCarouselState extends State<NsgCarousel> {
-  int _current = 0;
   late CarouselController _controller;
 
   @override
@@ -48,7 +49,10 @@ class _NsgCarouselState extends State<NsgCarousel> {
               enlargeFactor: 0.3,
               onPageChanged: (i, v) {
                 setState(() {
-                  _current = i;
+                  widget.currentTab = i;
+                  if (widget.onChange != null) {
+                    widget.onChange!(i);
+                  }
                 });
               },
               scrollDirection: Axis.horizontal,
@@ -59,12 +63,13 @@ class _NsgCarouselState extends State<NsgCarousel> {
             return GestureDetector(
                 onTap: () => _controller.animateToPage(entry.key),
                 child: Container(
-                    width: 8,
-                    height: 8,
+                    width: 20,
+                    height: 5,
                     margin: const EdgeInsets.only(top: 10, right: 10, left: 10, bottom: 15),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == entry.key ? ControlOptions.instance.colorMain : ControlOptions.instance.colorGrey,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(10),
+                      color: widget.currentTab == entry.key ? ControlOptions.instance.colorMain : ControlOptions.instance.colorGrey,
                     )));
           }).toList(),
         ),
