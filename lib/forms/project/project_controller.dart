@@ -68,16 +68,16 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
         );
 
   List<ProjectItemUserTable> projectUsersList = [];
-   List<ProjectItemUserTable> projectUsersShowList = [];
+  // List<ProjectItemUserTable> projectUsersShowList = [];
   void prepapreProjectUsers() {
     projectUsersList.clear();
-     projectUsersShowList.clear();
-     for (var row in Get.find<ProjectController>().currentItem.tableUsers.rows) {
-      var newRow = ProjectItemUserTable();
-      newRow.userAccount = row.userAccount;
-      newRow.isChecked = true;
-      projectUsersShowList.add(newRow);
-    }
+    //  projectUsersShowList.clear();
+    //  for (var row in Get.find<ProjectController>().currentItem.tableUsers.rows) {
+    //   var newRow = ProjectItemUserTable();
+    //   newRow.userAccount = row.userAccount;
+    //   newRow.isChecked = true;
+    //   projectUsersShowList.add(newRow);
+    // }
 
     for (var row in Get.find<ProjectUserController>().items) {
       if (projectUsersList.where((element) => element.userAccount == row).isNotEmpty) continue;

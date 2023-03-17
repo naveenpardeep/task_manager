@@ -53,7 +53,6 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                   colorsInverted: true,
                   bottomCircular: true,
                   onPressed: () {
-                  
                     controller.itemPageCancel();
                   },
                   icon2: Icons.check,
@@ -218,8 +217,8 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
   Widget getProjectShowUser(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     List<Widget> list = [];
-    var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersShowList;
-    for (var projectuser in projectuseritem) {
+    //  var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersShowList;
+    for (var projectuser in controller.currentItem.tableUsers.rows) {
       if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
@@ -228,7 +227,13 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
               child: Container(
                   decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        controller.currentItem.tableUsers.removeRow(projectuser);
+
+                        await controller.itemPagePost(goBack: false);
+                        Get.find<ProjectItemUserTableController>().projectUsersList.add(projectuser);
+                        controller.sendNotify();
+                      },
                       icon: const Icon(
                         Icons.close,
                         color: Color(0xff529FBF),
