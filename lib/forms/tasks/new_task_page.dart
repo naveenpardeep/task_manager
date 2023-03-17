@@ -103,8 +103,9 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         // ignore: prefer_const_literals_to_create_immutables
         (state) => TabBarView(controller: _tabController, children: [
           const TasksPage(),
-          const ChecklistPage(),
-          const TasksCommentRowPage(),
+          Container(key: GlobalKey(), child: const ChecklistPage()),
+          Container(key: GlobalKey(), child: const TasksCommentRowPage()),
+         
         ]),
       ),
     ));
