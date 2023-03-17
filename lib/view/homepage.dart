@@ -110,7 +110,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
                           Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
-                          Get.find<ProjectItemUserTableController>().currentItem.isAdmin)
+                         Get.find<DataController>().currentUser==projectController.currentItem.organization.ceo )
                         NsgIconButton(
                           padding: const EdgeInsets.all(8),
                           color: ControlOptions.instance.colorMain,
