@@ -158,11 +158,11 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                                 fieldName: ProjectItemGenerated.nameLeaderId,
                                 label: 'Руководитель проекта',
                               ),
-                              // TTNsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: ProjectItemGenerated.nameProjectPrefix,
-                              //   label: 'Project Prefix',
-                              // ),
+                              TTNsgInput(
+                                dataItem: controller.currentItem,
+                                fieldName: ProjectItemGenerated.nameProjectPrefix,
+                                label: 'Project Prefix',
+                              ),
                               TTNsgInput(
                                 infoString: 'Укажите название проекта',
                                 dataItem: controller.currentItem,
