@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/helpers/nsg_data_format.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/1/availableButtons.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
@@ -52,15 +51,6 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    double totalChecklist = controller.currentItem.checkList.rows.length.toDouble();
-    double isDone = controller.currentItem.checkList.rows.where((element) => element.isDone == true).length.toDouble();
-
-    late double donePercent;
-    if (isDone != 0) {
-      donePercent = (isDone / totalChecklist);
-    } else {
-      donePercent = 0.0;
-    }
 
     return controller.obx((state) => SafeArea(
           child: Scaffold(
@@ -88,44 +78,22 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                     });
                   },
                   controller: _tabController,
-                  tabs: <Widget>[
-                    const Tab(
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          'Основное',
-                          style: TextStyle(color: Color(0xff3EA8AB)),
-                        ),
+                  tabs: const <Widget>[
+                    Tab(
+                      child: Text(
+                        'Основное',
+                        style: TextStyle(color: Color(0xff3EA8AB)),
                       ),
                     ),
                     Tab(
-                        child: Column(
-                      children: [
-                        const Text(
-                          'Чек-лист',
-                          style: TextStyle(color: Color(0xff3EA8AB)),
-                        ),
-                        if (controller.currentItem.checkList.rows.isNotEmpty && (_tabController.index == 0 || _tabController.index == 2))
-                          LinearPercentIndicator(
-                            key: GlobalKey(),
-                            center: Text(
-                              ('${(donePercent * 100).toStringAsFixed(2)}%'),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            lineHeight: 20,
-                            percent: donePercent,
-                            backgroundColor: Colors.grey,
-                            progressColor: Colors.green,
-                          ),
-                      ],
-                    )),
-                    const Tab(
-                      child: Align(
-                        alignment: Alignment.topCenter,
                         child: Text(
-                          'Комментарии',
-                          style: TextStyle(color: Color(0xff3EA8AB)),
-                        ),
+                      'Чек-лист',
+                      style: TextStyle(color: Color(0xff3EA8AB)),
+                    )),
+                    Tab(
+                      child: Text(
+                        'Комментарии',
+                        style: TextStyle(color: Color(0xff3EA8AB)),
                       ),
                     ),
                   ]),
