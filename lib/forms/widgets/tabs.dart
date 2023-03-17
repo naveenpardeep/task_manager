@@ -15,9 +15,11 @@ class IconsTabs extends StatefulWidget {
   final NavigationBodyStyle bodyStyle;
   final List<IconsTabsTab> tabs;
   final bool showIdentifier;
+  final double? iconsSize;
 
   const IconsTabs({
     super.key,
+    this.iconsSize,
     this.showIdentifier = false,
     required this.tabs,
     this.barStyle = const NavigationBarStyle(
@@ -59,14 +61,19 @@ class _IconsTabsState extends State<IconsTabs> {
           clipBehavior: Clip.none,
           alignment: AlignmentDirectional.topEnd,
           children: [
-            Icon(widget.tabs[i].icon, color: Colors.grey),
+            Icon(
+              widget.tabs[i].icon,
+              color: Colors.grey,
+              size: widget.iconsSize ?? 25,
+            ),
             Positioned(
               top: -10,
               right: -10,
               child: widget.tabs[i].showAlert
-                  ? const Icon(
+                  ? Icon(
                       Icons.info,
                       color: Colors.red,
+                      size: widget.iconsSize ?? 25,
                     )
                   : Container(),
             ),
@@ -77,14 +84,19 @@ class _IconsTabsState extends State<IconsTabs> {
           clipBehavior: Clip.none,
           alignment: AlignmentDirectional.topEnd,
           children: [
-            Icon(widget.tabs[i].icon, color: ControlOptions.instance.colorMain),
+            Icon(
+              widget.tabs[i].icon,
+              color: ControlOptions.instance.colorMain,
+              size: widget.iconsSize ?? 25,
+            ),
             Positioned(
               top: -10,
               right: -10,
               child: widget.tabs[i].showAlert
-                  ? const Icon(
+                  ? Icon(
                       Icons.info,
                       color: Colors.red,
+                      size: widget.iconsSize ?? 25,
                     )
                   : Container(),
             ),
