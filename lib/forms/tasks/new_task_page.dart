@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
@@ -38,6 +39,15 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+    double totalChecklist = taskController.currentItem.checkList.rows.length.toDouble();
+     double isDone = taskController.currentItem.checkList.rows.where((element) => element.isDone == true).length.toDouble();
+  
+    late double donePercent;
+    if (isDone != 0) {
+      donePercent = (isDone / totalChecklist);
+    } else {
+      donePercent = 0.0;
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -79,22 +89,44 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
               });
             },
             controller: _tabController,
-            tabs: const <Widget>[
-              Tab(
-                child: Text(
-                  'Основное',
-                  style: TextStyle(color: Color(0xff3EA8AB)),
+            tabs: <Widget>[
+              const Tab(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    'Основное',
+                    style: TextStyle(color: Color(0xff3EA8AB)),
+                  ),
                 ),
               ),
               Tab(
-                  child: Text(
-                'Чек-лист',
-                style: TextStyle(color: Color(0xff3EA8AB)),
+                  child: Column(
+                children: [
+                  const Text(
+                    'Чек-лист',
+                    style: TextStyle(color: Color(0xff3EA8AB)),
+                  ),
+                  if (taskController.currentItem.checkList.rows.isNotEmpty && (_tabController.index == 0 || _tabController.index == 2))
+                    LinearPercentIndicator(
+                      key: GlobalKey(),
+                      center: Text(
+                        ('${(donePercent * 100).toStringAsFixed(2)}%'),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      lineHeight: 20,
+                      percent: donePercent,
+                      backgroundColor: Colors.grey,
+                      progressColor: Colors.green,
+                    ),
+                ],
               )),
-              Tab(
-                child: Text(
-                  'Комментарии',
-                  style: TextStyle(color: Color(0xff3EA8AB)),
+              const Tab(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    'Комментарии',
+                    style: TextStyle(color: Color(0xff3EA8AB)),
+                  ),
                 ),
               ),
             ]),
@@ -105,7 +137,6 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
           const TasksPage(),
           Container(key: GlobalKey(), child: const ChecklistPage()),
           Container(key: GlobalKey(), child: const TasksCommentRowPage()),
-         
         ]),
       ),
     ));
