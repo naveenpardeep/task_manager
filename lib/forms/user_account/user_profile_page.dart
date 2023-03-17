@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:nsg_data/nsg_data.dart';
+import 'package:scroll_navigation/scroll_navigation.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -13,10 +15,13 @@ import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
+import 'package:task_manager_app/forms/widgets/tabs.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../app_pages.dart';
+import '../widgets/tt_text.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -80,160 +85,58 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return userAccountController.obx((state) => (BodyWrap(
           child: SafeArea(
             child: Scaffold(
                 key: scaffoldKey,
-                appBar: width > 700
-                    ? AppBar(
-                        // ignore: prefer_const_constructors
-                        title: Center(
-                          child: const Text(
-                            'Аккаунт ',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        actions: [
-                          IconButton(
-                            onPressed: () {
-                              userAccountController.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
-                            },
-                            icon: const Icon(Icons.edit),
-                          )
-                        ],
-                        leading: InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: const Icon(Icons.arrow_back_ios)),
-                        backgroundColor: Colors.white,
-                        //  toolbarHeight: 200, // Set this height
-                      )
-                    : null,
-                body: SafeArea(
-                  child: Column(children: [
+                body: Column(
+                  children: [
                     Expanded(
                         child: SingleChildScrollView(
                       child: Column(
+                        //TODO: fix tabs Передавать currentTab, доделать IconsTabsController
                         children: [
                           SizedBox(
-                            width: width,
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                        child: ClipOval(
-                                          child: Material(
-                                            color: Colors.transparent,
-                                            child: InkWell(
-                                              onTap: () {
-                                                Get.dialog(picker, barrierDismissible: true);
-                                              },
-                                              child: Get.find<DataController>().currentUser.photoFile.isEmpty
-                                                  ? Container(
-                                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                      width: 100,
-                                                      height: 100,
-                                                      child: Icon(
-                                                        Icons.add_a_photo,
-                                                        size: 32,
-                                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                                      ),
-                                                    )
-                                                  : Image.memory(
-                                                      Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
-                                                      fit: BoxFit.cover,
-                                                      width: 100,
-                                                      height: 100,
-                                                    ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          color: Colors.white,
-                                          width: width * 0.5,
-                                          child: SingleChildScrollView(scrollDirection: Axis.horizontal, child: organizationList()),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Text('Должность  : ${Get.find<DataController>().currentUser.position}'),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width,
-                            child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                                    child: Text('Организация  : ${Get.find<DataController>().currentUser.organization.name}'),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                                    child: Text('Имя пользователя  : ${Get.find<DataController>().currentUser.name}'),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                                    child: Text('Телефон   : ${Get.find<DataController>().currentUser.phoneNumber}'),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-                                    child: Text('Почта   : ${Get.find<DataController>().currentUser.email}'),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-                                    child: Divider(
-                                      color: ControlOptions.instance.colorBlue,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                              height: 300,
+                              child: IconsTabs(
+                                tabs: getTabs(),
+                                iconsSize: 15,
+                                barStyle:
+                                    const NavigationBarStyle(position: NavigationPosition.bottom, background: Colors.white, elevation: 0.0, verticalPadding: 0),
+                              )),
+                          const Padding(padding: EdgeInsets.only(top: 20)),
+                          TaskTextButton(
+                            text: 'Выйти из аккаунта',
+                            onTap: () {},
+                          )
                         ],
                       ),
                     )),
-                  ]),
+                  ],
                 )),
           ),
         )));
+  }
+
+  List<IconsTabsTab> getTabs() {
+    List<IconsTabsTab> list = [];
+
+    for (var profile in getProfiles()) {
+      list.add(IconsTabsTab(page: ProfileCard(profile: profile), icon: Icons.crop_16_9));
+    }
+
+    return list;
+  }
+
+  List<UserAccount> getProfiles() {
+    List<UserAccount> list = [];
+
+    list.add(Get.find<DataController>().currentUser);
+    list.add(Get.find<DataController>().currentUser);
+    list.add(Get.find<DataController>().currentUser);
+
+    //TODO: load all user profiles in list
+    return list;
   }
 
   selectOrganization() {
@@ -354,5 +257,114 @@ class _UserProfileState extends State<UserProfile> {
     return Row(
       children: list,
     );
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({super.key, required this.profile});
+
+  final UserAccount profile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(offset: const Offset(0, 5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3)),
+            BoxShadow(offset: const Offset(0, -5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3))
+          ],
+        ),
+        child: IntrinsicWidth(
+            child: Column(
+          children: [
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  ClipOval(
+                    child: profile.photoFile.isEmpty
+                        ? Container(
+                            decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                            width: 100,
+                            height: 100,
+                            child: Icon(
+                              Icons.add_a_photo,
+                              size: 32,
+                              color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                            ),
+                          )
+                        : Image.memory(
+                            Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${profile.lastName} ${profile.firstName}',
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter'),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Код профиля',
+                              style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeM),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'GN2934NIUN98798',
+                                    style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeM),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Icon(
+                                        Icons.copy,
+                                        color: ControlOptions.instance.colorMainLight,
+                                        size: 15,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            TTInfoList(
+              rows: [
+                TTInfoRow(title: 'Должность', value: profile.position),
+                TTInfoRow(title: 'Дата рождения', value: '${NsgDateFormat.dateFormat(profile.birthDate, format: 'dd.MM.yyyy')}'),
+                TTInfoRow(title: 'Телефон', value: profile.phoneNumber),
+                TTInfoRow(title: 'Почта', value: profile.email),
+                TTInfoRow(title: 'Компания', value: profile.organization.name),
+                //TTInfoRow(title: 'Проект', value: profile.),
+              ],
+            ),
+          ],
+        )),
+      )
+    ]);
   }
 }
