@@ -54,12 +54,12 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                                 progressColor: Colors.green,
                               ),
                             checkList(context),
-                            NsgButton(
-                              text: 'Создать Чек-лист',
-                              onPressed: () {
-                                Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
-                              },
-                            ),
+                            // NsgButton(
+                            //   text: 'Создать Чек-лист',
+                            //   onPressed: () {
+                            //     Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
+                            //   },
+                            // ),
                             //  NsgButton(
                             //   text: 'Edit Чек-лист',
                             //   onPressed: () {

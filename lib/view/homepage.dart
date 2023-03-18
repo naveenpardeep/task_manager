@@ -668,6 +668,7 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
+               Get.find<TaskCheckListController>().requestItems();
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
                 taskView = true;
@@ -873,6 +874,7 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
+                Get.find<TaskCheckListController>().requestItems();
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
                 taskView = true;
@@ -1132,6 +1134,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                              Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
@@ -1302,6 +1305,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                              Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
@@ -1472,6 +1476,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                              Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
@@ -1636,6 +1641,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Flexible(
                                     child: IconButton(
                                         onPressed: () {
+                                          Get.find<TaskCheckListController>().requestItems();
                                           Get.find<TasksController>().currentItem = tasks;
 
                                           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);

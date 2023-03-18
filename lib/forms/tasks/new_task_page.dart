@@ -27,6 +27,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_setIndex);
   }
 
   @override
@@ -40,8 +41,8 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     double totalChecklist = taskController.currentItem.checkList.rows.length.toDouble();
-     double isDone = taskController.currentItem.checkList.rows.where((element) => element.isDone == true).length.toDouble();
-  
+    double isDone = taskController.currentItem.checkList.rows.where((element) => element.isDone == true).length.toDouble();
+
     late double donePercent;
     if (isDone != 0) {
       donePercent = (isDone / totalChecklist);
@@ -53,21 +54,34 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         child: Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-              onPressed: () async {
-                if (taskController.currentItem.taskStatus.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
-                } else if (taskController.currentItem.name.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
-                } else {
-                  taskController.currentItem.dateUpdated = DateTime.now();
-                  //await Get.find<TaskFilesController>().itemPagePost(goBack: false);
-                  await taskController.itemPagePost(goBack: false);
-                  Get.find<TasksController>().refreshData();
-                  Get.toNamed(Routes.homePage);
-                }
-              },
-              icon: const Icon(Icons.check))
+          if (_tabController.index == 0)
+            IconButton(
+                onPressed: () async {
+                  if (taskController.currentItem.taskStatus.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                  } else if (taskController.currentItem.name.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                  } else {
+                    taskController.currentItem.dateUpdated = DateTime.now();
+                    //await Get.find<TaskFilesController>().itemPagePost(goBack: false);
+                    await taskController.itemPagePost(goBack: false);
+                    Get.find<TasksController>().refreshData();
+                    Get.toNamed(Routes.homePage);
+                  }
+                },
+                icon: const Icon(Icons.check)),
+          if (_tabController.index == 1)
+            IconButton(
+                onPressed: () async {
+                  if (taskController.currentItem.taskStatus.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
+                  } else if (taskController.currentItem.name.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
+                  } else {
+                    Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
+                  }
+                },
+                icon: const Icon(Icons.add))
         ],
         backgroundColor: Colors.white,
         elevation: 0.0, //Shadow gone
@@ -140,5 +154,17 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         ]),
       ),
     ));
+  }
+
+  void _setIndex() {
+    setState(() {
+      if (_tabController.index == 0) {
+        _tabController.index = 0;
+      } else if (_tabController.index == 1) {
+        _tabController.index = 1;
+      } else if (_tabController.index == 2) {
+        _tabController.index = 2;
+      }
+    });
   }
 }
