@@ -110,8 +110,36 @@ class _HomepageState extends State<Homepage> {
                       ),
                       if (Get.find<DataController>().currentUser == projectController.currentItem.leader ||
                           Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
-                         Get.find<DataController>().currentUser==projectController.currentItem.organization.ceo ||
-                          Get.find<DataController>().currentUser==projectController.currentItem.organization.ceo.mainUserAccount )
+                          Get.find<DataController>().currentUser == projectController.currentItem.organization.ceo ||
+                          Get.find<DataController>().currentUser == projectController.currentItem.organization.ceo.mainUserAccount ||
+                          Get.find<DataController>().currentUser ==
+                              projectController.currentItem.organization.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => OrganizationItemUserTable(),
+                                  )
+                                  .userAccount ||
+                          Get.find<DataController>().currentUser.mainUserAccount ==
+                              projectController.currentItem.organization.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => OrganizationItemUserTable(),
+                                  )
+                                  .userAccount ||
+                          Get.find<DataController>().currentUser.mainUserAccount ==
+                              projectController.currentItem.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => ProjectItemUserTable(),
+                                  )
+                                  .userAccount ||
+                          Get.find<DataController>().currentUser ==
+                              projectController.currentItem.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => ProjectItemUserTable(),
+                                  )
+                                  .userAccount)
                         NsgIconButton(
                           padding: const EdgeInsets.all(8),
                           color: ControlOptions.instance.colorMain,
@@ -184,7 +212,7 @@ class _HomepageState extends State<Homepage> {
                             color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
                             backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
                             onPressed: () {
-                              Get.find<TasksController>().selectedItem==null;
+                              Get.find<TasksController>().selectedItem == null;
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);
@@ -670,7 +698,7 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
-               Get.find<TaskCheckListController>().requestItems();
+                Get.find<TaskCheckListController>().requestItems();
                 taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
 
                 taskView = true;
@@ -1850,4 +1878,3 @@ String getcreateDay(TaskDoc tasks) {
 
   return '$daysleft дн. назад';
 }
-

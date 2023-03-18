@@ -7,6 +7,7 @@ import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
 import '../tasks/tasks_controller.dart';
@@ -78,8 +79,8 @@ class ProjectListPage extends GetView<ProjectController> {
                 onTap: () {
                   controller.currentItem = project;
                   var taskConstroller = Get.find<TasksController>();
-                   taskConstroller.refreshData();
-                    Get.find<TaskBoardController>().refreshData();
+                  taskConstroller.refreshData();
+                  Get.find<TaskBoardController>().refreshData();
                   // Get.toNamed(Routes.homePage);
                   controller.itemPageOpen(
                     project,
@@ -106,10 +107,36 @@ class ProjectListPage extends GetView<ProjectController> {
                               ),
                               if (Get.find<DataController>().currentUser == project.leader ||
                                   Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                  Get.find<DataController>().currentUser==project.organization.ceo ||
-                                  Get.find<DataController>().currentUser==project.organization.ceo.mainUserAccount 
-                                 
-                    )
+                                  Get.find<DataController>().currentUser == project.organization.ceo ||
+                                  Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
+                                  Get.find<DataController>().currentUser ==
+                                      project.organization.tableUsers.rows
+                                          .firstWhere(
+                                            (element) => element.isAdmin == true,
+                                            orElse: () => OrganizationItemUserTable(),
+                                          )
+                                          .userAccount ||
+                                  Get.find<DataController>().currentUser.mainUserAccount ==
+                                      project.organization.tableUsers.rows
+                                          .firstWhere(
+                                            (element) => element.isAdmin == true,
+                                            orElse: () => OrganizationItemUserTable(),
+                                          )
+                                          .userAccount ||
+                                  Get.find<DataController>().currentUser.mainUserAccount ==
+                                      project.tableUsers.rows
+                                          .firstWhere(
+                                            (element) => element.isAdmin == true,
+                                            orElse: () => ProjectItemUserTable(),
+                                          )
+                                          .userAccount ||
+                                  Get.find<DataController>().currentUser ==
+                                      project.tableUsers.rows
+                                          .firstWhere(
+                                            (element) => element.isAdmin == true,
+                                            orElse: () => ProjectItemUserTable(),
+                                          )
+                                          .userAccount)
                                 Align(
                                     alignment: Alignment.topRight,
                                     child: Padding(
