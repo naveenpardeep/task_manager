@@ -212,11 +212,13 @@ class _HomepageState extends State<Homepage> {
                             color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
                             backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
                             onPressed: () {
-                              Get.find<TasksController>().selectedItem == null;
+                               Get.find<TasksController>().selectedItem == null;
+                          //  Get.find<TasksController>().createNewItemAsync();
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                            
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);
-                              // Get.toNamed(Routes.tasksPage);
+                             //  Get.toNamed(Routes.newTaskPage);
                             },
                           ),
                         ),

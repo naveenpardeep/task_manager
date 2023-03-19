@@ -28,14 +28,25 @@ class _TasksPageState extends State<TasksPage> {
   var controller = Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
   var fileController = Get.find<TaskFilesController>();
-  bool isCheckeddateRemind = false;
-  bool isCheckedDeadline = false;
+  late bool isCheckeddateRemind ;
+ late  bool isCheckedDeadline;
 
   bool isHidden = true;
   @override
   void initState() {
     super.initState();
-    isCheckeddateRemind;
+    if(controller.currentItem.dateRemind.toString()=='0001-01-01 00:00:00.000'){
+    isCheckeddateRemind=false;
+    }
+    else{
+       isCheckeddateRemind=true;
+    }
+    if(controller.currentItem.dateDeadline.toString()=='0001-01-01 00:00:00.000'){
+    isCheckedDeadline=false;
+    }
+    else{
+       isCheckedDeadline=true;
+    }
     isCheckedDeadline;
     if (controller.lateInit) {
       controller.requestItems();
@@ -419,6 +430,7 @@ class _TasksPageState extends State<TasksPage> {
                                       }),
                                   if (isCheckeddateRemind == true)
                                     TTNsgInput(
+                                      controller: controller,
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.nameDateRemind,
                                       label: 'Напонинание о задаче',
@@ -435,6 +447,7 @@ class _TasksPageState extends State<TasksPage> {
                                       }),
                                   if (isCheckedDeadline == true)
                                     TTNsgInput(
+                                      controller: controller,
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
