@@ -6,4 +6,5 @@ class TaskDoc extends TaskDocGenerated {
     return fieldName == TaskDocGenerated.nameProjectId ||
         fieldName == TaskDocGenerated.nameTaskStatusId;
   }
+ 
 }

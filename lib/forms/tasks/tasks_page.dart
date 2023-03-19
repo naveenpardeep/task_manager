@@ -17,16 +17,29 @@ import '../widgets/tt_nsg_input.dart';
 import 'task_file_controller.dart';
 import 'task_user_account_controler.dart';
 
-class TasksPage extends GetView<TasksController> {
+class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    var todaydate = controller.currentItem.date;
-    var updatedate = controller.currentItem.dateUpdated;
-    var notificationController = Get.find<NotificationController>();
-    var imageCont = Get.find<TaskFilesController>();
-    var fileController = Get.find<TaskFilesController>();
+  State<TasksPage> createState() => _TasksPageState();
+}
+
+class _TasksPageState extends State<TasksPage> {
+  var notificationController = Get.find<NotificationController>();
+  var controller = Get.find<TasksController>();
+  var imageCont = Get.find<TaskFilesController>();
+  var fileController = Get.find<TaskFilesController>();
+  bool isCheckeddateRemind = false;
+  bool isCheckedDeadline = false;
+
+  bool isHidden = true;
+  @override
+  void initState() {
+    super.initState();
+    isCheckeddateRemind;
+    isCheckedDeadline;
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }
@@ -36,6 +49,12 @@ class TasksPage extends GetView<TasksController> {
     if (fileController.lateInit) {
       fileController.requestItems();
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var todaydate = controller.currentItem.date;
+    var updatedate = controller.currentItem.dateUpdated;
 
     final scrollController = ScrollController();
     double width = MediaQuery.of(context).size.width;
@@ -388,16 +407,38 @@ class TasksPage extends GetView<TasksController> {
                                     minLines: 1,
                                     maxLines: 5,
                                   ),
-                                  TTNsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameDateRemind,
-                                    label: 'Напонинание о задаче',
-                                  ),
-                                  TTNsgInput(
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameDateDeadline,
-                                    label: 'Срок выполнения',
-                                  ),
+                                  NsgCheckBox(
+                                      toggleInside: true,
+                                      key: GlobalKey(),
+                                      label: 'установить напоминание ',
+                                      value: isCheckeddateRemind,
+                                      onPressed: (currentValue) {
+                                        setState(() {
+                                          isCheckeddateRemind = currentValue;
+                                        });
+                                      }),
+                                  if (isCheckeddateRemind == true)
+                                    TTNsgInput(
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameDateRemind,
+                                      label: 'Напонинание о задаче',
+                                    ),
+                                  NsgCheckBox(
+                                      toggleInside: true,
+                                      key: GlobalKey(),
+                                      label: 'задать дедлайн',
+                                      value: isCheckedDeadline,
+                                      onPressed: (currentValue) {
+                                        setState(() {
+                                          isCheckedDeadline = currentValue;
+                                        });
+                                      }),
+                                  if (isCheckedDeadline == true)
+                                    TTNsgInput(
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameDateDeadline,
+                                      label: 'Срок выполнения',
+                                    ),
 
                                   // const NsgText('Create CheckList for this Task'),
                                   // NsgTable(
