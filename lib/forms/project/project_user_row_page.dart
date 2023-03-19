@@ -58,10 +58,6 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                   icon2: Icons.check,
                   onPressed2: () async {
                     Get.find<ProjectItemUserTableController>().usersSaved();
-                    //  await controller.itemPagePost();
-                    //  await Get.find<ProjectController>().itemPagePost();
-
-                    Get.back();
                     Get.find<ProjectController>().sendNotify();
                   },
                 ),

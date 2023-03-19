@@ -101,6 +101,6 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
         Get.find<ProjectController>().currentItem.tableUsers.removeRow(row.first);
       }
     }
-    Get.find<ProjectController>().itemPagePost(goBack: false);
+    Get.find<ProjectController>().itemPagePost();
   }
 }
