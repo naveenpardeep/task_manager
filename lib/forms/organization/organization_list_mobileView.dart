@@ -100,19 +100,19 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                           child: organizations.photoFile.isEmpty
                               ? Container(
                                   decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                  width: 32,
-                                  height: 32,
+                                  width: 48,
+                                  height: 48,
                                   child: Icon(
                                     Icons.account_circle,
-                                    size: 20,
+                                    size: 48,
                                     color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                   ),
                                 )
                               : Image.memory(
                                   Uint8List.fromList(organizations.photoFile),
                                   fit: BoxFit.cover,
-                                  width: 32,
-                                  height: 32,
+                                  width: 48,
+                                  height: 48,
                                 ),
                         ),
                       ),
