@@ -16,10 +16,12 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/helper.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import 'package:task_manager_app/view/taskview.dart';
+import '../forms/tasks/task_file_controller.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
@@ -212,13 +214,13 @@ class _HomepageState extends State<Homepage> {
                             color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
                             backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
                             onPressed: () {
-                               Get.find<TasksController>().selectedItem == null;
-                          //  Get.find<TasksController>().createNewItemAsync();
+                              Get.find<TasksController>().selectedItem == null;
+                              //  Get.find<TasksController>().createNewItemAsync();
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                            
+
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);
-                             //  Get.toNamed(Routes.newTaskPage);
+                              //  Get.toNamed(Routes.newTaskPage);
                             },
                           ),
                         ),
@@ -1234,7 +1236,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: tasks.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1245,8 +1247,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                   color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                 ),
                                               )
-                                            : Image.memory(
-                                                Uint8List.fromList(tasks.assignee.photoFile),
+                                            : Image.network(
+                                                TaskFilesController.getFilePath(tasks.assignee.photoName),
                                                 fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,

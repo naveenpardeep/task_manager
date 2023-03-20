@@ -18,7 +18,7 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var proController = Get.find<ProjectController>();
 
     element.inviteProject = proController.currentItem;
-  
+
     return element;
   }
 
@@ -26,7 +26,10 @@ class UserAccountController extends NsgDataController<UserAccount> {
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
     if (items.isNotEmpty) {
-      Get.find<DataController>().currentUser = items.firstWhere((account) => account.organizationId.isEmpty);
+      var user = items.firstWhereOrNull((account) => account.organizationId.isEmpty);
+      if (user != null) {
+        Get.find<DataController>().currentUser = user;
+      }
     }
   }
 
@@ -38,7 +41,6 @@ class UserAccountController extends NsgDataController<UserAccount> {
     var proController = Get.find<ProjectController>();
 
     element.inviteProject = proController.currentItem;
-    
 
     return element;
   }
