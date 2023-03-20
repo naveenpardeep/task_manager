@@ -114,20 +114,20 @@ class _HomepageState extends State<Homepage> {
                           Get.find<DataController>().currentUser == projectController.currentItem.leader.mainUserAccount ||
                           Get.find<DataController>().currentUser == projectController.currentItem.organization.ceo ||
                           Get.find<DataController>().currentUser == projectController.currentItem.organization.ceo.mainUserAccount ||
-                          // Get.find<DataController>().currentUser ==
-                          //     projectController.currentItem.organization.tableUsers.rows
-                          //         .firstWhere(
-                          //           (element) => element.isAdmin == true,
-                          //           orElse: () => OrganizationItemUserTable(),
-                          //         )
-                          //         .userAccount ||
-                          // Get.find<DataController>().currentUser.mainUserAccount ==
-                          //     projectController.currentItem.organization.tableUsers.rows
-                          //         .firstWhere(
-                          //           (element) => element.isAdmin == true,
-                          //           orElse: () => OrganizationItemUserTable(),
-                          //         )
-                          //         .userAccount ||
+                          Get.find<DataController>().currentUser ==
+                              projectController.currentItem.organization.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => OrganizationItemUserTable(),
+                                  )
+                                  .userAccount ||
+                          Get.find<DataController>().currentUser.mainUserAccount ==
+                              projectController.currentItem.organization.tableUsers.rows
+                                  .firstWhere(
+                                    (element) => element.isAdmin == true,
+                                    orElse: () => OrganizationItemUserTable(),
+                                  )
+                                  .userAccount ||
                           Get.find<DataController>().currentUser.mainUserAccount ==
                               projectController.currentItem.tableUsers.rows
                                   .firstWhere(
