@@ -20,6 +20,9 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameNumberOfTasksOpen = 'numberOfTasksOpen';
   static const nameNumberOfTasksUpdatedIn24Hours = 'numberOfTasksUpdatedIn24Hours';
   static const nameNumberOfTasksOverdue = 'numberOfTasksOverdue';
+  static const nameNumberOfNotifications = 'numberOfNotifications';
+  static const nameIsPinned = 'isPinned';
+  static const namePriority = 'priority';
   static const nameTableUsers = 'tableUsers';
 
   static final Map<String, String> fieldNameDict = {
@@ -46,6 +49,9 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataIntField(nameNumberOfTasksOpen), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksUpdatedIn24Hours), primaryKey: false);
     addField(NsgDataIntField(nameNumberOfTasksOverdue), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfNotifications), primaryKey: false);
+    addField(NsgDataBoolField(nameIsPinned), primaryKey: false);
+    addField(NsgDataIntField(namePriority), primaryKey: false);
     addField(NsgDataReferenceListField<ProjectItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
@@ -154,6 +160,21 @@ class ProjectItemGenerated extends NsgDataItem {
   int get numberOfTasksOverdue => getFieldValue(nameNumberOfTasksOverdue) as int;
 
   set numberOfTasksOverdue(int value) => setFieldValue(nameNumberOfTasksOverdue, value);
+
+  /// Количество новых уведомлений пользователя по проекту
+  int get numberOfNotifications => getFieldValue(nameNumberOfNotifications) as int;
+
+  set numberOfNotifications(int value) => setFieldValue(nameNumberOfNotifications, value);
+
+  /// Закреплен
+  bool get isPinned => getFieldValue(nameIsPinned) as bool;
+
+  set isPinned(bool value) => setFieldValue(nameIsPinned, value);
+
+  /// Приоритет
+  int get priority => getFieldValue(namePriority) as int;
+
+  set priority(int value) => setFieldValue(namePriority, value);
 
   /// ТаблицаПользователи
   NsgDataTable<ProjectItemUserTable> get tableUsers => NsgDataTable<ProjectItemUserTable>(owner: this, fieldName: nameTableUsers);
