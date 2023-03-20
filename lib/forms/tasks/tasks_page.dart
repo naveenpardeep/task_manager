@@ -35,13 +35,13 @@ class _TasksPageState extends State<TasksPage> {
   @override
   void initState() {
     super.initState();
-    if(controller.currentItem.dateRemind.toString()=='0001-01-01 00:00:00.000'){
+    if(controller.currentItem.dateRemind.toString()=='1754-01-01 00:00:00.000' || controller.currentItem.dateRemind.toString()=='0001-01-01 00:00:00.000'){
     isCheckeddateRemind=false;
     }
     else{
        isCheckeddateRemind=true;
     }
-    if(controller.currentItem.dateDeadline.toString()=='0001-01-01 00:00:00.000'){
+    if(controller.currentItem.dateDeadline.toString()=='1754-01-01 00:00:00.000' || controller.currentItem.dateDeadline.toString()=='0001-01-01 00:00:00.000'){
     isCheckedDeadline=false;
     }
     else{
