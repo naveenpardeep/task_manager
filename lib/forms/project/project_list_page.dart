@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
@@ -20,12 +21,20 @@ class ProjectListPage extends GetView<ProjectController> {
 
   final scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  var orgcon=Get.find<OrganizationController>();
+   var orgitemcon=Get.find<OrganizationItemUserTableController>();
   late double width;
 
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
+    }
+     if (orgcon.lateInit) {
+      orgcon.requestItems();
+    }
+     if (orgitemcon.lateInit) {
+      orgitemcon.requestItems();
     }
     width = MediaQuery.of(context).size.width;
     return BodyWrap(
@@ -109,20 +118,20 @@ class ProjectListPage extends GetView<ProjectController> {
                                   Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
                                   Get.find<DataController>().currentUser == project.organization.ceo ||
                                   Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
-                                  Get.find<DataController>().currentUser ==
-                                      project.organization.tableUsers.rows
-                                          .firstWhere(
-                                            (element) => element.isAdmin == true,
-                                            orElse: () => OrganizationItemUserTable(),
-                                          )
-                                          .userAccount ||
-                                  Get.find<DataController>().currentUser.mainUserAccount ==
-                                      project.organization.tableUsers.rows
-                                          .firstWhere(
-                                            (element) => element.isAdmin == true,
-                                            orElse: () => OrganizationItemUserTable(),
-                                          )
-                                          .userAccount ||
+                                  // Get.find<DataController>().currentUser ==
+                                  //     project.organization.tableUsers.rows
+                                  //         .firstWhere(
+                                  //           (element) => element.isAdmin == true,
+                                  //           orElse: () => OrganizationItemUserTable(),
+                                  //         )
+                                  //         .userAccount ||
+                                  // Get.find<DataController>().currentUser.mainUserAccount ==
+                                  //     project.organization.tableUsers.rows
+                                  //         .firstWhere(
+                                  //           (element) => element.isAdmin == true,
+                                  //           orElse: () => OrganizationItemUserTable(),
+                                  //         )
+                                  //         .userAccount ||
                                   Get.find<DataController>().currentUser.mainUserAccount ==
                                       project.tableUsers.rows
                                           .firstWhere(
