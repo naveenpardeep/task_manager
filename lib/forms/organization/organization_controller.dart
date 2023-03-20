@@ -44,12 +44,12 @@ class OrganizationItemUserTableController
          List<OrganizationItemUserTable> orgUsersList = [];
   void prepapreOrgUsers() {
     orgUsersList.clear();
-    // for (var row in Get.find<OrganizationController>().currentItem.tableUsers.rows) {
-    //   var newRow = OrganizationItemUserTable();
-    //   newRow.userAccount = row.userAccount;
-    //   newRow.isChecked = true;
-    //   orgUsersList.add(newRow);
-    // }
+    for (var row in Get.find<OrganizationController>().currentItem.tableUsers.rows) {
+      var newRow = OrganizationItemUserTable();
+      newRow.userAccount = row.userAccount;
+      newRow.isChecked = true;
+      orgUsersList.add(newRow);
+    }
 
     for (var row in Get.find<UserAccountController>().items) {
       if (orgUsersList.where((element) => element.userAccount == row).isNotEmpty) continue;

@@ -123,7 +123,9 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
     List<Widget> list = [];
     var orguseritem = Get.find<OrganizationItemUserTableController>().orgUsersList;
     for (var orguser in orguseritem) {
-      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      orguser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      orguser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
           child: Card(
@@ -193,7 +195,9 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
     double width = MediaQuery.of(context).size.width;
     List<Widget> list = [];
     for (var orguser in controller.currentItem.tableUsers.rows) {
-      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      orguser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      orguser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
             Positioned(

@@ -144,7 +144,9 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
     List<Widget> list = [];
     var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersList;
     for (var projectuser in projectuseritem) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
           child: Card(
@@ -215,7 +217,9 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
     List<Widget> list = [];
     //  var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersShowList;
     for (var projectuser in controller.currentItem.tableUsers.rows) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
+      projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
             Positioned(

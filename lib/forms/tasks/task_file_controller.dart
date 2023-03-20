@@ -18,7 +18,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     requestOnInit = true;
   }
 
-  String getFilePath(String fileName) {
+  static String getFilePath(String fileName) {
     return '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=$fileName';
   }
 
