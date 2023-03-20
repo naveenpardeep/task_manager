@@ -213,12 +213,12 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                       child: Row(
                                         children: [
                                           const Text(
-                                            'Название проекта :       ',
+                                            'Project Prefix :                 ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
                                             child: Text(
-                                              ' ${controller.currentItem.name}',
+                                              ' ${controller.currentItem.projectPrefix}',
                                               style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,
