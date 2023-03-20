@@ -176,6 +176,21 @@ class ProjectListPage extends GetView<ProjectController> {
                                     style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                               ],
                             )),
+                             if (project.numberOfNotifications.isGreaterThan(0))
+                              Tooltip(
+                                message: 'Number of Notifications',
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: NsgCircle(
+                                    text: project.numberOfNotifications.toString(),
+                                    fontSize: 14,
+                                    borderWidth: 1.3,
+                                    color: ControlOptions.instance.colorText,
+                                    borderColor: ControlOptions.instance.colorBlue,
+                                    shadow: const BoxShadow(),
+                                  ),
+                                ),
+                              ),
                             if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
                               Tooltip(
                                 message: 'Tasks Updated In 24Hours',
