@@ -354,6 +354,8 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
                                         fileController: Get.find<TaskFilesController>()),
+                                   if (controller.currentItem.name.isNotEmpty)  imageGallery(),
+                               
                                   ],
                                 )),
                           )),
@@ -366,6 +368,20 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
             ]),
           ),
         ));
+  }
+
+  Widget imageGallery() {
+
+    return Get.find<TaskFilesController>().obx(
+      (state) => NsgFilePicker(
+        useFilePicker: true,
+        showAsWidget: true,
+        callback: (value) async {},
+      
+        objectsList: Get.find<TaskFilesController>().files,
+        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
+      ),
+    );
   }
 
   String getCreatedDay() {
