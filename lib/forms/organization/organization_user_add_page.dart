@@ -192,8 +192,8 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
   Widget getOrgShowUser(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     List<Widget> list = [];
-    for (var projectuser in controller.currentItem.tableUsers.rows) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+    for (var orguser in controller.currentItem.tableUsers.rows) {
+      if (orguser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
             Positioned(
@@ -202,10 +202,10 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                   decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
                   child: IconButton(
                       onPressed: () async {
-                        controller.currentItem.tableUsers.removeRow(projectuser);
+                        controller.currentItem.tableUsers.removeRow(orguser);
 
                         await controller.itemPagePost(goBack: false);
-                        Get.find<OrganizationItemUserTableController>().orgUsersList.add(projectuser);
+                        Get.find<OrganizationItemUserTableController>().orgUsersList.add(orguser);
                         controller.sendNotify();
                       },
                       icon: const Icon(
@@ -222,7 +222,7 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: ClipOval(
-                        child: projectuser.userAccount.photoFile.isEmpty
+                        child: orguser.userAccount.photoFile.isEmpty
                             ? Container(
                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                 width: 48,
@@ -234,7 +234,7 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                                 ),
                               )
                             : Image.memory(
-                                Uint8List.fromList(projectuser.userAccount.photoFile),
+                                Uint8List.fromList(orguser.userAccount.photoFile),
                                 fit: BoxFit.cover,
                                 width: 48,
                                 height: 48,
@@ -242,7 +242,7 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                       ),
                     ),
                     Text(
-                      projectuser.userAccount.name,
+                      orguser.userAccount.name,
                       style: TextStyle(fontSize: ControlOptions.instance.sizeXS),
                     ),
                   ],
