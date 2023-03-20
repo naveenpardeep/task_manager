@@ -5,7 +5,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'login_page.dart';
 
 class RegistrationPage extends NsgPhoneLoginRegistrationPage {
-  RegistrationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: LoginPage.getWidgetParams());
+  RegistrationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: NsgPhoneLoginParams.defaultParams);
 
   @override
   Widget getLogo() {
