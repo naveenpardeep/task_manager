@@ -6,7 +6,6 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 
-
 class OrganizationUserAddPage extends StatefulWidget {
   const OrganizationUserAddPage({Key? key}) : super(key: key);
   @override
@@ -26,7 +25,6 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
 
   @override
   Widget build(BuildContext context) {
-  
     //  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -95,15 +93,16 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                                     });
                                   }),
                             ),
-
-                           
-
+                            getOrgShowUser(context),
+                            const Divider(
+                              height: 5,
+                            ),
                             getUsers(context),
                           ],
                         ),
                       )),
                 ),
-                 NsgButton(
+                NsgButton(
                   borderRadius: 30,
                   color: const Color(0xff0859ff),
                   backColor: const Color(0xffABF4FF),
@@ -188,5 +187,72 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
       }
     }
     return SingleChildScrollView(child: Column(children: list));
+  }
+
+  Widget getOrgShowUser(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    List<Widget> list = [];
+    for (var projectuser in controller.currentItem.tableUsers.rows) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+        list.add(Stack(
+          children: [
+            Positioned(
+              right: 10,
+              child: Container(
+                  decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
+                  child: IconButton(
+                      onPressed: () async {
+                        controller.currentItem.tableUsers.removeRow(projectuser);
+
+                        await controller.itemPagePost(goBack: false);
+                        Get.find<OrganizationItemUserTableController>().orgUsersList.add(projectuser);
+                        controller.sendNotify();
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Color(0xff529FBF),
+                      ))),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: projectuser.userAccount.photoFile.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 48,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                ),
+                              )
+                            : Image.memory(
+                                Uint8List.fromList(projectuser.userAccount.photoFile),
+                                fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
+                              ),
+                      ),
+                    ),
+                    Text(
+                      projectuser.userAccount.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeXS),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ));
+      }
+    }
+    return Container(color: Colors.white, width: width, child: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Row(children: list)));
   }
 }
