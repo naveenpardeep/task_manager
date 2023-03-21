@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
@@ -245,14 +246,12 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
   }
 
   Widget companyImage() {
-    if (controller.currentItem.photoFile.isNotEmpty) {
-      return Image.memory(
-        Uint8List.fromList(
-          controller.currentItem.photoFile,
-        ),
+    if (controller.currentItem.photoPath.isNotEmpty) {
+      return Image.network(
+        TaskFilesController.getFilePath(controller.currentItem.photoPath),
+        fit: BoxFit.cover,
         width: 100,
         height: 100,
-        fit: BoxFit.cover,
       );
     } else {
       return Container(

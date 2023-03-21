@@ -16,6 +16,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_status_page.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 
 class ProjectMobileViewPage extends StatefulWidget {
   const ProjectMobileViewPage({
@@ -160,7 +161,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: ClipOval(
-                                              child: controller.currentItem.photoFile.isEmpty
+                                              child: controller.currentItem.photoPath.isEmpty
                                                   ? Container(
                                                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                       width: 120,
@@ -171,8 +172,8 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                                         color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                       ),
                                                     )
-                                                  : Image.memory(
-                                                      Uint8List.fromList(controller.currentItem.photoFile),
+                                                  : Image.network(
+                                                      TaskFilesController.getFilePath(controller.currentItem.photoPath),
                                                       fit: BoxFit.cover,
                                                       width: 120,
                                                       height: 120,

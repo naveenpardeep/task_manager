@@ -8,6 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
@@ -97,7 +98,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: ClipOval(
-                          child: organizations.photoFile.isEmpty
+                          child: organizations.photoPath.isEmpty
                               ? Container(
                                   decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                   width: 48,
@@ -108,8 +109,8 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                                     color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                   ),
                                 )
-                              : Image.memory(
-                                  Uint8List.fromList(organizations.photoFile),
+                              : Image.network(
+                                  TaskFilesController.getFilePath(organizations.photoPath),
                                   fit: BoxFit.cover,
                                   width: 48,
                                   height: 48,

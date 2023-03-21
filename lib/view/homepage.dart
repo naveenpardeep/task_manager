@@ -1407,7 +1407,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: tasks.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1418,8 +1418,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                   color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                 ),
                                               )
-                                            : Image.memory(
-                                                Uint8List.fromList(tasks.assignee.photoFile),
+                                            : Image.network(
+                                                TaskFilesController.getFilePath(tasks.assignee.photoName),
                                                 fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,
@@ -1578,7 +1578,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: tasks.assignee.photoFile.isEmpty
+                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1589,8 +1589,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                   color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                 ),
                                               )
-                                            : Image.memory(
-                                                Uint8List.fromList(tasks.assignee.photoFile),
+                                            : Image.network(
+                                                TaskFilesController.getFilePath(tasks.assignee.photoName),
                                                 fit: BoxFit.cover,
                                                 width: 32,
                                                 height: 32,
@@ -1743,7 +1743,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                   ClipOval(
-                                    child: tasks.assignee.photoFile.isEmpty
+                                   child: tasks.assignee.photoName.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
@@ -1754,12 +1754,12 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                             ),
                                           )
-                                        : Image.memory(
-                                            Uint8List.fromList(tasks.assignee.photoFile),
-                                            fit: BoxFit.cover,
-                                            width: 32,
-                                            height: 32,
-                                          ),
+                                        : Image.network(
+                                                TaskFilesController.getFilePath(tasks.assignee.photoName),
+                                                fit: BoxFit.cover,
+                                                width: 32,
+                                                height: 32,
+                                              ),
                                   ),
                                 ],
                               ),

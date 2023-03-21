@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -20,12 +22,20 @@ class ProjectListPage extends GetView<ProjectController> {
 
   final scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  var orgcon = Get.find<OrganizationController>();
+  var orgitemcon = Get.find<OrganizationItemUserTableController>();
   late double width;
 
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
+    }
+    if (orgcon.lateInit) {
+      orgcon.requestItems();
+    }
+    if (orgitemcon.lateInit) {
+      orgitemcon.requestItems();
     }
     width = MediaQuery.of(context).size.width;
     return BodyWrap(
@@ -176,7 +186,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                     style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                               ],
                             )),
-                             if (project.numberOfNotifications.isGreaterThan(0))
+                            if (project.numberOfNotifications.isGreaterThan(0))
                               Tooltip(
                                 message: 'Number of Notifications',
                                 child: Padding(
@@ -236,24 +246,23 @@ class ProjectListPage extends GetView<ProjectController> {
                                 ),
                               ),
                             ClipOval(
-                              child: project.leader.photoFile.isEmpty
-                                  ? Container(
-                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                      width: 32,
-                                      height: 32,
-                                      child: Icon(
-                                        Icons.account_circle,
-                                        size: 20,
-                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                      ),
-                                    )
-                                  : Image.memory(
-                                      Uint8List.fromList(project.leader.photoFile),
-                                      fit: BoxFit.cover,
-                                      width: 32,
-                                      height: 32,
-                                    ),
-                            ),
+                                child: project.leader.photoName.isEmpty
+                                    ? Container(
+                                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                        width: 32,
+                                        height: 32,
+                                        child: Icon(
+                                          Icons.account_circle,
+                                          size: 20,
+                                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                        ),
+                                      )
+                                    : Image.network(
+                                        TaskFilesController.getFilePath(project.leader.photoName),
+                                        fit: BoxFit.cover,
+                                        width: 32,
+                                        height: 32,
+                                      )),
                           ],
                         ),
                       ],

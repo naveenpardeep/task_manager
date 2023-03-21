@@ -11,6 +11,7 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
@@ -147,7 +148,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: ClipOval(
-                                              child: controller.currentItem.photoFile.isEmpty
+                                              child: controller.currentItem.photoPath.isEmpty
                                                   ? Container(
                                                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                       width: 120,
@@ -158,11 +159,11 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                                         color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                                       ),
                                                     )
-                                                  : Image.memory(
-                                                      Uint8List.fromList(controller.currentItem.photoFile),
+                                                  : Image.network(
+                                                      TaskFilesController.getFilePath(controller.currentItem.photoPath),
                                                       fit: BoxFit.cover,
-                                                      width: 120,
-                                                      height: 120,
+                                                      width: 100,
+                                                      height: 100,
                                                     ),
                                             ),
                                           ),

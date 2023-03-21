@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
@@ -43,8 +44,9 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
             }
 
             controller.currentItem.photoFile = imagefile;
-
-            controller.sendNotify();
+             await controller.postItems([controller.currentItem]);
+            await controller.refreshData();
+            
           }
 
           Navigator.of(Get.context!).pop();
@@ -104,7 +106,7 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                       onTap: () {
                         Get.dialog(picker, barrierDismissible: true);
                       },
-                      child: controller.currentItem.photoFile.isEmpty
+                      child: controller.currentItem.photoPath.isEmpty
                           ? ClipOval(
                               child: Container(
                               height: 100,
@@ -118,8 +120,8 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                                 size: 25,
                               )),
                             ))
-                          : Image.memory(
-                              Uint8List.fromList(controller.currentItem.photoFile),
+                          : Image.network(
+                              TaskFilesController.getFilePath(controller.currentItem.photoPath),
                               fit: BoxFit.cover,
                               width: 100,
                               height: 100,

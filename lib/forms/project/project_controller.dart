@@ -3,6 +3,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/generated/organization_item.g.dart';
 import 'package:task_manager_app/model/generated/project_item.g.dart';
 
 import '../../model/project_item.dart';
@@ -12,7 +13,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
   ProjectController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
       ProjectItemGenerated.nameNumberOfTasksOpen,
-      ProjectItemGenerated.nameOrganizationId,
+      '${ProjectItemGenerated.nameOrganizationId}.${OrganizationItemGenerated.nameTableUsers}',
       ProjectItemGenerated.nameLeaderId,
       ProjectItemGenerated.nameTableUsers,
     ];
