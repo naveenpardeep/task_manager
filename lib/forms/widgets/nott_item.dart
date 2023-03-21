@@ -28,8 +28,9 @@ class NottItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Row(
-                children: [Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter'))]), //Вы были добавлены в новый проект
+            child: Flexible(
+              child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
+            ), //Вы были добавлены в новый проект
           ),
           IntrinsicHeight(
               child: Row(
