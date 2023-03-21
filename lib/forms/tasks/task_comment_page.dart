@@ -129,7 +129,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           child: InkWell(
             onTap: () {
               if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
-                showAlertDialog(context, comment);
+              //  showAlertDialog(context, comment);
               }
               //   controller.currentItem.text = comment.text;
               //   controller.sendNotify();
