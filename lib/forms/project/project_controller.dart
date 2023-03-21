@@ -19,16 +19,16 @@ class ProjectController extends NsgDataController<ProjectItem> {
     ];
   }
 
-  // @override
-  // NsgDataRequestParams get getRequestFilter {
-  //   var filter = NsgDataRequestParams();
-  //   var projectController = Get.find<ProjectController>();
+  @override
+  NsgDataRequestParams get getRequestFilter {
+    var filter = NsgDataRequestParams();
+    var projectController = Get.find<ProjectController>();
 
-  //   filter.compare.add(name: ProjectItemGenerated.namePriority, value: projectController.currentItem);
-  //   filter.sorting = "${ProjectItemGenerated.namePriority}-";
+    filter.compare.add(name: ProjectItemGenerated.namePriority, value: projectController.currentItem.priority);
+    filter.sorting = "${ProjectItemGenerated.namePriority}-";
 
-  //   return filter;
-  // }
+    return filter;
+  }
 
   @override
   Future itemRemove({bool goBack = true}) {
