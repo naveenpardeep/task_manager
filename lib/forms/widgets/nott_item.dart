@@ -44,7 +44,7 @@ class NottItem extends StatelessWidget {
                     getAuthor(),
                     style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
                   ), //Леонид Павлов
-                  Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy /HH:mm"),
+                  Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
                       style: TextStyle(
                           color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter')) //01.01.2023 / 9:43
                 ],
