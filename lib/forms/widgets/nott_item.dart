@@ -87,7 +87,7 @@ class NottItem extends StatelessWidget {
     if (notification.notificationType == ENotificationType.editedTask) {
       return notification.task.name;
     } else if (notification.notificationType == ENotificationType.invitationAccepted) {
-      return notification.invitation.author.name;
+      return '${notification.invitation.author.name} ${notification.invitation.author.lastName}';
     } else if (notification.notificationType == ENotificationType.invitationRejected) {
       return notification.invitation.author.name;
     } else if (notification.notificationType == ENotificationType.newTask) {
@@ -95,7 +95,7 @@ class NottItem extends StatelessWidget {
     } else if (notification.notificationType == ENotificationType.recievedTask) {
       return 'name';
     } else if (notification.notificationType == ENotificationType.userAdded) {
-      return notification.userAccount.name;
+      return '${notification.userAccount.name} ${notification.userAccount.lastName}';
     } else {
       return 'Ошибка';
     }
