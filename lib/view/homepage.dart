@@ -1407,7 +1407,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: tasks.assignee.photoFile.isEmpty
+                                        child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1578,7 +1578,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                        child: tasks.assignee.photoFile.isEmpty
+                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1743,7 +1743,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                   ClipOval(
-                                    child: tasks.assignee.photoFile.isEmpty
+                                   child: tasks.assignee.photoName.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
