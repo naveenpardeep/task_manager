@@ -323,6 +323,11 @@ class AppPages {
       page: () => ProfileEditPage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.notificationTaskPage,
+      page: () => const NotificationPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -382,4 +387,5 @@ abstract class Routes {
   static const invitationAcceptNew = '/invitationAcceptNew';
   static const profileViewPage = '/profileViewPage';
   static const profileEditPage = '/profile-edit-page';
+  static const notificationTaskPage='/notificationTaskPage';
 }

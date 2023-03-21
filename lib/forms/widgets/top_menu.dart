@@ -158,14 +158,6 @@ class TmTopMenu extends StatelessWidget {
                             minWidth: 15,
                             minHeight: 15,
                           ),
-                          child: Text(
-                            Get.find<NotificationController>().items.length.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
                         ),
                       )
                     ],
