@@ -33,6 +33,7 @@ import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
+import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
@@ -325,7 +326,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.notificationTaskPage,
-      page: () => const NotificationPage(),
+      page: () =>  const NotificationTasksPage(),
       binding: ProjectBinding(),
     ),
   ];
