@@ -28,24 +28,24 @@ class _TasksPageState extends State<TasksPage> {
   var controller = Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
   var fileController = Get.find<TaskFilesController>();
-  late bool isCheckeddateRemind ;
- late  bool isCheckedDeadline;
+  late bool isCheckeddateRemind;
+  late bool isCheckedDeadline;
 
   bool isHidden = true;
   @override
   void initState() {
     super.initState();
-    if(controller.currentItem.dateRemind.toString()=='1754-01-01 00:00:00.000' || controller.currentItem.dateRemind.toString()=='0001-01-01 00:00:00.000'){
-    isCheckeddateRemind=false;
+    if (controller.currentItem.dateRemind.toString() == '1754-01-01 00:00:00.000' ||
+        controller.currentItem.dateRemind.toString() == '0001-01-01 00:00:00.000') {
+      isCheckeddateRemind = false;
+    } else {
+      isCheckeddateRemind = true;
     }
-    else{
-       isCheckeddateRemind=true;
-    }
-    if(controller.currentItem.dateDeadline.toString()=='1754-01-01 00:00:00.000' || controller.currentItem.dateDeadline.toString()=='0001-01-01 00:00:00.000'){
-    isCheckedDeadline=false;
-    }
-    else{
-       isCheckedDeadline=true;
+    if (controller.currentItem.dateDeadline.toString() == '1754-01-01 00:00:00.000' ||
+        controller.currentItem.dateDeadline.toString() == '0001-01-01 00:00:00.000') {
+      isCheckedDeadline = false;
+    } else {
+      isCheckedDeadline = true;
     }
     isCheckedDeadline;
     if (controller.lateInit) {

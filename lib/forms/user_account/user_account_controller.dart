@@ -57,7 +57,7 @@ class UserAccountController extends NsgDataController<UserAccount> {
     //if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
     await imageController.saveImages();
     //}
-    return await super.itemPagePost(goBack: false, useValidation: useValidation);
+    return await super.itemPagePost(goBack: goBack, useValidation: useValidation);
   }
 
   @override
