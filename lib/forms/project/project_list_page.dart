@@ -99,7 +99,6 @@ class ProjectListPage extends GetView<ProjectController> {
                   );
                 },
                 onLongPress: () {
-                  //  controller.currentItem = project;
                   showAlertDialogPin(context, project);
                 },
                 child: Card(
@@ -301,7 +300,6 @@ class ProjectListPage extends GetView<ProjectController> {
                   );
                 },
                 onLongPress: () {
-                  //  controller.currentItem = project;
                   showAlertDialogUnpin(context, project);
                 },
                 child: Card(
@@ -515,10 +513,14 @@ class ProjectListPage extends GetView<ProjectController> {
       ),
       child: const Text("Pin"),
       onPressed: () async {
-        project.isPinned = true;
-        controller.currentItem = project;
-        await controller.postItems([controller.currentItem]);
-        controller.refreshData();
+        if (controller.items.where((element) => element.isPinned == true).length >= 3) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('You can Pin upto 3 projects in free version')));
+        } else {
+          project.isPinned = true;
+          controller.currentItem = project;
+          await controller.postItems([controller.currentItem]);
+          controller.refreshData();
+        }
 
         Navigator.of(context).pop();
       },
