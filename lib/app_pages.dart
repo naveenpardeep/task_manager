@@ -33,10 +33,12 @@ import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
+import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
 import 'package:task_manager_app/forms/user_account/profile_ViewPage.dart';
+import 'package:task_manager_app/forms/user_account/profile_edit_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
@@ -172,7 +174,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.createInvitationUser,
-      page: () =>  CreateInvitationUserPage(),
+      page: () => CreateInvitationUserPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -312,9 +314,19 @@ class AppPages {
       page: () => const InvitationAcceptNew(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.profileViewPage,
       page: () => const ProfileViewPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.profileEditPage,
+      page: () => ProfileEditPage(),
+      binding: ProjectBinding(),
+    ),
+    GetPage(
+      name: Routes.notificationTaskPage,
+      page: () =>  const NotificationTasksPage(),
       binding: ProjectBinding(),
     ),
   ];
@@ -374,5 +386,7 @@ abstract class Routes {
   static const organizationUserProfile = '/OrganizationUserProfile';
   static const organizationProject = '/organizationProject';
   static const invitationAcceptNew = '/invitationAcceptNew';
-  static const profileViewPage='/profileViewPage';
+  static const profileViewPage = '/profileViewPage';
+  static const profileEditPage = '/profile-edit-page';
+  static const notificationTaskPage='/notificationTaskPage';
 }

@@ -17,13 +17,13 @@ import '../widgets/tt_nsg_input.dart';
 import 'task_file_controller.dart';
 import 'task_user_account_controler.dart';
 
-class TasksPage extends StatefulWidget {
-  const TasksPage({Key? key}) : super(key: key);
+class NotificationTasksPage extends StatefulWidget {
+  const NotificationTasksPage({Key? key}) : super(key: key);
   @override
-  State<TasksPage> createState() => _TasksPageState();
+  State<NotificationTasksPage> createState() => _NotificationTasksPageState();
 }
 
-class _TasksPageState extends State<TasksPage> {
+class _NotificationTasksPageState extends State<NotificationTasksPage> {
   var notificationController = Get.find<NotificationController>();
   var controller = Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
@@ -83,40 +83,37 @@ class _TasksPageState extends State<TasksPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // NsgAppBar(
-                //   backColor: const Color(0xff7876D9),
-                //   text: controller.currentItem.isEmpty
-                //       ? 'Новая задача'.toUpperCase()
-                //       : controller.currentItem.name.toString().toUpperCase(),
-                //   icon: Icons.arrow_back_ios_new,
-                //   color: Colors.white,
+                NsgAppBar(
+                  backColor: Colors.white,
+                  color: Colors.black,
+                  text: controller.currentItem.isEmpty
+                      ? 'Новая задача'.toUpperCase()
+                      : controller.currentItem.name.toString().toUpperCase(),
+                  icon: Icons.arrow_back_ios_new,
+               
 
-                //   colorsInverted: true,
-                //   // bottomCircular: true,
-                //   onPressed: () {
-                //     controller.itemPageCancel();
-                //   },
-                //   icon2: Icons.check,
-                //   onPressed2: () async {
-                //     if (controller.currentItem.taskStatus.isEmpty) {
-                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                //           content: Text('Пожалуйста, выберите статус задачи')));
-                //     } else if (controller.currentItem.name.isEmpty) {
-                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                //           content:
-                //               Text('пожалуйста, введите название задачи')));
-                //     } else {
-                //       controller.currentItem.dateUpdated = DateTime.now();
-                //       // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
-                //       // notificationController.currentItem.task.name=controller.currentItem.name;
-                //       // notificationController.currentItem.task.date=todaydate;
-                //       // notificationController.itemPagePost();
-                //       await controller.itemPagePost();
-                //       Get.find<TasksController>().refreshData();
-                //       Get.toNamed(Routes.homePage);
-                //     }
-                //   },
-                // ),
+                  colorsInverted: true,
+                  // bottomCircular: true,
+                  onPressed: () {
+                    controller.itemPageCancel();
+                  },
+                  icon2: Icons.check,
+                  onPressed2: () async {
+                    if (controller.currentItem.taskStatus.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Пожалуйста, выберите статус задачи')));
+                    } else if (controller.currentItem.name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text('пожалуйста, введите название задачи')));
+                    } else {
+                      controller.currentItem.dateUpdated = DateTime.now();
+                      await controller.itemPagePost();
+                      Get.find<TasksController>().refreshData();
+                      Get.toNamed(Routes.homePage);
+                    }
+                  },
+                ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),

@@ -106,8 +106,8 @@ class TmTopMenu extends StatelessWidget {
                         onTap: () {
                           Get.find<InvitationController>().refreshData();
                           //   Get.toNamed(Routes.acceptInvitationPage);
-                           Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationAcceptNew);
-                            },
+                          Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationAcceptNew);
+                        },
                         child: Icon(
                           Icons.insert_invitation_sharp,
                           color: ControlOptions.instance.colorMainText,
@@ -158,14 +158,6 @@ class TmTopMenu extends StatelessWidget {
                             minWidth: 15,
                             minHeight: 15,
                           ),
-                          child: Text(
-                            Get.find<NotificationController>().items.length.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
                         ),
                       )
                     ],
@@ -179,7 +171,7 @@ class TmTopMenu extends StatelessWidget {
             decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
               onTap: () {
-                Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.userProfilePage, needRefreshSelectedItem: true);
+                Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
               },
               child: ClipOval(
                 child: Get.find<DataController>().currentUser.photoFile.isEmpty

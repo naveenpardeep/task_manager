@@ -28,8 +28,9 @@ class NottItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Row(
-                children: [Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter'))]), //Вы были добавлены в новый проект
+            child: Flexible(
+              child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
+            ), //Вы были добавлены в новый проект
           ),
           IntrinsicHeight(
               child: Row(
@@ -43,7 +44,7 @@ class NottItem extends StatelessWidget {
                     getAuthor(),
                     style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
                   ), //Леонид Павлов
-                  Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy /HH:mm"),
+                  Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
                       style: TextStyle(
                           color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter')) //01.01.2023 / 9:43
                 ],
@@ -86,7 +87,7 @@ class NottItem extends StatelessWidget {
     if (notification.notificationType == ENotificationType.editedTask) {
       return notification.task.name;
     } else if (notification.notificationType == ENotificationType.invitationAccepted) {
-      return notification.invitation.author.name;
+      return '${notification.invitation.author.name} ${notification.invitation.author.lastName}';
     } else if (notification.notificationType == ENotificationType.invitationRejected) {
       return notification.invitation.author.name;
     } else if (notification.notificationType == ENotificationType.newTask) {
@@ -94,7 +95,7 @@ class NottItem extends StatelessWidget {
     } else if (notification.notificationType == ENotificationType.recievedTask) {
       return 'name';
     } else if (notification.notificationType == ENotificationType.userAdded) {
-      return notification.userAccount.name;
+      return '${notification.userAccount.name} ${notification.userAccount.lastName}';
     } else {
       return 'Ошибка';
     }

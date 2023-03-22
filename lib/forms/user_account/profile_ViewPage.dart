@@ -18,6 +18,7 @@ import '../notification/notification_controller.dart';
 import '../widgets/bottom_menu.dart';
 import '../widgets/nott_item.dart';
 import '../widgets/nsg_tabs.dart';
+import '../widgets/top_menu.dart';
 import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_tabs.dart';
 
@@ -68,6 +69,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     return controller.obx((state) => SafeArea(
           child: Scaffold(
               key: scaffoldKey,
+
               /*appBar: AppBar(
                 actions: [
                   if (_tabController.index == 0)
@@ -123,24 +125,29 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
               ),*/
               body: Column(
                 children: [
-                  TTAppBar(
-                    title: 'Аккаунт',
-                    rightIcons: [
-                      if (currentTab.name == 'Профиль')
+                  if (width > 700) const TmTopMenu(),
+                  if (width <= 700)
+                    TTAppBar(
+                      title: 'Аккаунт',
+                      rightIcons: [
+                        if (currentTab.name == 'Профиль')
+                          TTAppBarIcon(
+                            icon: Icons.edit_outlined,
+                            onTap: () {
+                              var userAcC = Get.find<UserAccountController>();
+                              userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+                            },
+                          ),
                         TTAppBarIcon(
-                          icon: Icons.edit_outlined,
-                          onTap: () {},
-                        ),
-                      TTAppBarIcon(
-                        icon: Icons.notifications_outlined,
-                        nott: 1,
-                        onTap: (() {
-                          notifC.refreshData();
-                          _dialogBuilder(context);
-                        }),
-                      )
-                    ],
-                  ),
+                          icon: Icons.notifications_outlined,
+                          nott: 1,
+                          onTap: (() {
+                            notifC.refreshData();
+                            _dialogBuilder(context);
+                          }),
+                        )
+                      ],
+                    ),
                   TTTabs(
                     currentTab: currentTab,
                     tabs: [

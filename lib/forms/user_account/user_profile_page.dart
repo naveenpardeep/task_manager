@@ -1,23 +1,16 @@
 import 'dart:io';
-
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:scroll_navigation/scroll_navigation.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
-import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/nsg_carousel.dart';
-import 'package:task_manager_app/forms/widgets/tabs.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -41,6 +34,8 @@ class _UserProfileState extends State<UserProfile> {
   final scrollController = ScrollController();
   double? width;
   late NsgFilePicker picker;
+  var currentTabIndex = 0;
+  List<ProfileCard> profilesList = [];
 
   @override
   void initState() {
@@ -87,46 +82,49 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return userAccountController.obx((state) => (BodyWrap(
-          child: SafeArea(
-            child: Scaffold(
-                key: scaffoldKey,
-                body: Column(
-                  children: [
-                    Expanded(
-                        child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          NsgCarousel(
-                            widgetList: getProfilesCards(),
-                            height: 330,
-                            onChange: (current) {
-                              //Example use
-                              //NsgCarousel carousel = NsgCarousel(widgetList: []);
-                              //var current = carousel.currentTab;
-                            },
-                          ),
-                          const Padding(padding: EdgeInsets.only(top: 20)),
-                          TaskTextButton(
-                            text: 'Выйти из аккаунта',
-                            onTap: () {},
-                          )
-                        ],
-                      ),
-                    )),
-                  ],
-                )),
-          ),
-        )));
+    return userAccountController.obx((state) {
+      profilesList = getProfilesCards();
+      userAccountController.currentItem = profilesList[currentTabIndex].profile;
+      return BodyWrap(
+        child: SafeArea(
+          child: Scaffold(
+              key: scaffoldKey,
+              body: Column(
+                children: [
+                  Expanded(
+                      child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        NsgCarousel(
+                          maxSliderItems: 7,
+                          widgetList: profilesList,
+                          height: 300,
+                          onChange: (current) {
+                            currentTabIndex = current;
+                            userAccountController.currentItem = profilesList[current].profile;
+                          },
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 20)),
+                        TaskTextButton(
+                          text: 'Выйти из аккаунта',
+                          onTap: () {},
+                        )
+                      ],
+                    ),
+                  )),
+                ],
+              )),
+        ),
+      );
+    });
   }
 
   List<ProfileCard> getProfilesCards() {
     List<ProfileCard> list = [];
 
-    //TODO: load all user profiles in list
-    list.add(ProfileCard(profile: Get.find<DataController>().currentUser));
-    list.add(ProfileCard(profile: Get.find<DataController>().currentUser));
-    list.add(ProfileCard(profile: Get.find<DataController>().currentUser));
+    for (var profile in userAccountController.items) {
+      list.add(ProfileCard(profile: profile));
+    }
 
     return list;
   }
@@ -265,10 +263,10 @@ class ProfileCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(offset: const Offset(0, 5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3)),
-          BoxShadow(offset: const Offset(0, -5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3))
-        ],
+        //boxShadow: [
+        //BoxShadow(offset: const Offset(0, 5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3)),
+        //BoxShadow(offset: const Offset(0, -5), blurRadius: 5, color: ControlOptions.instance.colorText.withOpacity(.3))
+        //],
       ),
       child: IntrinsicWidth(
           child: Column(

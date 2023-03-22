@@ -151,7 +151,7 @@ class _NotificationPageState extends State<NotificationPage> {
       {
         list.add(GestureDetector(
           onTap: () {
-            controller.itemPageOpen(tasks, Routes.tasksPage, needRefreshSelectedItem: true);
+            controller.itemPageOpen(tasks, Routes.notificationTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
@@ -234,7 +234,7 @@ class _NotificationPageState extends State<NotificationPage> {
       {
         list.add(GestureDetector(
           onTap: () {
-            controller.itemPageOpen(tasks, Routes.tasksPage, needRefreshSelectedItem: true);
+            controller.itemPageOpen(tasks, Routes.notificationTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
