@@ -327,7 +327,7 @@ class AppPages {
     GetPage(
       name: Routes.notificationTaskPage,
       page: () =>  const NotificationTasksPage(),
-      binding: ProjectBinding(),
+       binding: TasksListBinding(),
     ),
   ];
 }

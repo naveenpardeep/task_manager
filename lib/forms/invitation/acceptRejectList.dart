@@ -28,7 +28,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                if (width > 700)
+               
                   NsgAppBar(
                     backColor: Colors.white,
                     color: Colors.black,
