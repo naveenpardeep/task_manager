@@ -1,12 +1,17 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/navigator.dart';
+//import 'analytics/firebase_options.dart';
 
 import 'app_pages.dart';
+import 'middleware.dart';
 
 void main() {
   ControlOptions newinstance = ControlOptions(
@@ -37,6 +42,12 @@ void main() {
         'header': [const Color.fromRGBO(81, 67, 142, 1), const Color.fromRGBO(146, 120, 255, 1)],
       });
   ControlOptions.instance = newinstance;
+
+  NsgNavigator.instance = TTNavigator();
+  NsgMiddleware.instance = TTMiddleware();
+  NsgMiddleware.instance.initialPage = Routes.splashPage;
+  NsgMiddleware.instance.useDeepLinks = true;
+
   runApp(const MyApp());
 }
 
@@ -125,6 +136,10 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('ru')],
       locale: const Locale('ru'),
+      navigatorObservers:
+          //kIsWeb ?
+          //<NavigatorObserver>[FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)] :
+          const <NavigatorObserver>[],
     );
   }
 }
