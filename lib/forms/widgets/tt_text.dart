@@ -16,6 +16,7 @@ class TTInfoList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: getTitles(),
         ),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.only(left: 50),
           child: Column(

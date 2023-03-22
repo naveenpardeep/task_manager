@@ -206,13 +206,28 @@ class ProfileEditPage extends GetView<UserAccountController> {
                           ),
                         )),
                   ),
-                  TaskButton(
-                    style: TaskButtonStyle.dark,
-                    text: 'Назад',
-                    onTap: () async {
-                      controller.itemPagePost(goBack: true);
-                      //Get.back();
-                    },
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TaskButton(
+                          style: TaskButtonStyle.light,
+                          text: 'Назад',
+                          onTap: () async {
+                            Get.back();
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: TaskButton(
+                          style: TaskButtonStyle.dark,
+                          text: 'Сохранить',
+                          onTap: () async {
+                            controller.itemPagePost(goBack: true);
+                            //Get.back();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

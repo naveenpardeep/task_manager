@@ -122,8 +122,11 @@ class _UserProfileState extends State<UserProfile> {
   List<ProfileCard> getProfilesCards() {
     List<ProfileCard> list = [];
 
+    list.add(ProfileCard(profile: Get.find<DataController>().currentUser));
     for (var profile in userAccountController.items) {
-      list.add(ProfileCard(profile: profile));
+      if (Get.find<DataController>().currentUser == profile.mainUserAccount) {
+        list.add(ProfileCard(profile: profile));
+      }
     }
 
     return list;
@@ -274,6 +277,7 @@ class ProfileCard extends StatelessWidget {
         children: [
           IntrinsicHeight(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ClipOval(
                   child: profile.photoFile.isEmpty

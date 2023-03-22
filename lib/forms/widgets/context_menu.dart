@@ -85,36 +85,46 @@ class ContextMenuListener extends StatefulWidget {
 
   final Widget widget;
   final ContextMenu contextMenu;
+  static List<ContextMenuListenerState>? currentMenu = [];
 
   @override
-  State<ContextMenuListener> createState() => _ContextMenuListenerState();
+  State<ContextMenuListener> createState() => ContextMenuListenerState();
 }
 
-class _ContextMenuListenerState extends State<ContextMenuListener> {
+class ContextMenuListenerState extends State<ContextMenuListener> {
   OverlayEntry? entry;
-  Offset offset = Offset(20, 20);
+  Offset offset = const Offset(20, 20);
 
   @override
   void initState() {
     //hideOverlay();
+    ContextMenuListener.currentMenu!.add(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    hideOverlay();
+    for (var menu in ContextMenuListener.currentMenu!) {
+      menu.hideOverlay();
+    }
+
+    if (ContextMenuListener.currentMenu!.contains(this)) ContextMenuListener.currentMenu!.remove(this);
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    hideOverlay();
     return Listener(
       onPointerSignal: (event) {
-        hideOverlay();
+        for (var menu in ContextMenuListener.currentMenu!) {
+          menu.hideOverlay();
+        }
       },
       onPointerDown: (event) {
-        hideOverlay();
+        for (var menu in ContextMenuListener.currentMenu!) {
+          menu.hideOverlay();
+        }
         if (event.kind == PointerDeviceKind.mouse && event.buttons == kSecondaryMouseButton) {
           double x = event.position.dx;
           double y = event.position.dy;
@@ -136,12 +146,7 @@ class _ContextMenuListenerState extends State<ContextMenuListener> {
         builder: (context) => Positioned(
             top: offset.dy,
             left: offset.dx,
-            child: GestureDetector(
-                onPanUpdate: (details) {
-                  offset += details.delta;
-                  entry!.markNeedsBuild();
-                },
-                child: Card(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)), clipBehavior: Clip.antiAlias, child: widget.contextMenu))));
+            child: Card(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)), clipBehavior: Clip.antiAlias, child: widget.contextMenu)));
 
     final overlay = Overlay.of(context);
     overlay.insert(entry!);
