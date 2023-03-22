@@ -1,63 +1,96 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/widgets/context_menu.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/enums/e_notification_type.dart';
 
 import '../../model/notification_doc.dart';
+import '../notification/notification_controller.dart';
 
 class NottItem extends StatelessWidget {
-  const NottItem({super.key, required this.notification});
+  NottItem({super.key, required this.notification});
   final NotificationDoc notification;
+  var notifC = Get.find<NotificationController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ControlOptions.instance.colorGreyLight),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ContextMenuListener(
+      contextMenu: ContextMenu(
+        menuItems: [ContextMenuItem(text: 'Проверка', onTap: () {}), ContextMenuItem(onTap: () {})],
+      ),
+      widget: Container(
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ControlOptions.instance.colorGreyLight),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(getName(), style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter')), //ОС
-              Icon(Icons.more_vert, color: ControlOptions.instance.colorMainLight)
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Flexible(
-              child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
-            ), //Вы были добавлены в новый проект
-          ),
-          IntrinsicHeight(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    getAuthor(),
-                    style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
-                  ), //Леонид Павлов
-                  Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
-                      style: TextStyle(
-                          color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter')) //01.01.2023 / 9:43
+                  Text(getName(), style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter')), //ОС
+                  InkWell(
+                    onTap: () {
+                      _dialogBuilder(context);
+                    },
+                    child: Icon(Icons.more_vert, color: ControlOptions.instance.colorMainLight),
+                  ),
                 ],
               ),
-              //TODO: Фото
-              ClipOval(
-                child: Material(child: getPhoto()),
-              )
+              Flexible(
+                  child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
+                //Вы были добавлены в новый проект
+              )),
+              IntrinsicHeight(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        getAuthor(),
+                        style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
+                      ), //Леонид Павлов
+                      Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
+                          style: TextStyle(
+                              color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter')) //01.01.2023 / 9:43
+                    ],
+                  ),
+                  //TODO: Фото
+                  ClipOval(
+                    child: Material(child: getPhoto()),
+                  )
+                ],
+              ))
             ],
-          ))
-        ],
-      ),
+          )),
     );
+  }
+
+  void goToPage() {
+    if (notification.notificationType == ENotificationType.editedTask) {
+      //
+    } else if (notification.notificationType == ENotificationType.invitationAccepted) {
+      //
+    } else if (notification.notificationType == ENotificationType.invitationRejected) {
+      //
+    } else if (notification.notificationType == ENotificationType.newTask) {
+      //
+    } else if (notification.notificationType == ENotificationType.recievedTask) {
+      //
+    } else if (notification.notificationType == ENotificationType.userAdded) {
+      //
+    } else {
+      //TODO: показывать AlertDialog!
+    }
   }
 
   String getName() {
@@ -129,5 +162,27 @@ class NottItem extends StatelessWidget {
                           width: 70,
                           height: 70,
                         );*/
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TaskButton(
+              text: 'text1',
+              onTap: () {},
+            ),
+            TaskButton(
+              text: 'text2',
+              onTap: () {},
+            )
+          ],
+        );
+      },
+    );
   }
 }
