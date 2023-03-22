@@ -15,7 +15,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   var controller = Get.find<NotificationController>();
- var taskc= Get.find<TasksController>();
+  var taskc = Get.find<TasksController>();
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
 
   @override
@@ -24,41 +24,37 @@ class _NotificationPageState extends State<NotificationPage> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-     if (taskc.lateInit) {
+    if (taskc.lateInit) {
       taskc.requestItems();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
-      child: BodyWrap(
-          child: Scaffold(
-              key: scaffoldKey,
-              backgroundColor: Colors.white,
-              body: controller.obx((state) => Container(
-                  key: GlobalKey(),
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-                      NsgAppBar(
-                        color: Colors.white,
-                        backColor: const Color(0xff7876D9),
-                        text: 'Уведомления'.toUpperCase(),
-                        icon: Icons.arrow_back_ios_new,
-                        colorsInverted: true,
-                        bottomCircular: true,
-                        onPressed: () {
-                          controller.itemPageCancel();
-                        },
-                      ),
-                      getNotificationList(),
-                     
-                    ]),
-                  ))))),
+      child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Colors.white,
+          body: controller.obx((state) => Container(
+              key: GlobalKey(),
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                NsgAppBar(
+                  backColor: Colors.white,
+                  color: Colors.black,
+                  text: 'Уведомления'.toUpperCase(),
+                  icon: Icons.arrow_back_ios_new,
+                  colorsInverted: true,
+                  bottomCircular: true,
+                  onPressed: () {
+                    controller.itemPageCancel();
+                  },
+                ),
+                Expanded(child: getNotificationList()),
+              ])))),
     );
   }
 
@@ -91,13 +87,10 @@ class _NotificationPageState extends State<NotificationPage> {
               );
             }
             if (tasks.notificationType == ENotificationType.newTask) {
-               Get.find<TasksController>().itemPageOpen(tasks.task, Routes.newTaskPage,needRefreshSelectedItem: true);
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
             if (tasks.notificationType == ENotificationType.recievedTask) {
-               Get.find<TasksController>().itemPageOpen(
-                tasks.task,
-                Routes.newTaskPage,needRefreshSelectedItem: true
-              );
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
           },
           child: Row(
@@ -112,11 +105,10 @@ class _NotificationPageState extends State<NotificationPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Text(
-                                  'Project Name:  ${tasks.project.name}',
-                                  maxLines: 1,
-                                ),
-                              
+                              Text(
+                                'Project Name:  ${tasks.project.name}',
+                                maxLines: 1,
+                              ),
                               if (tasks.notificationType == ENotificationType.invitationAccepted)
                                 Text(
                                   'Invitation Accepted by: ${tasks.invitation.invitedUser}',
@@ -176,7 +168,7 @@ class _NotificationPageState extends State<NotificationPage> {
         thumbVisibility: true,
         trackVisibility: true,
         controller: scrollController,
-        thickness: 10,
+        thickness: 15,
         trackBorderColor: ControlOptions.instance.colorGreyLight,
         trackColor: ControlOptions.instance.colorGreyLight,
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -191,6 +183,4 @@ class _NotificationPageState extends State<NotificationPage> {
               ),
             )));
   }
-
- 
 }
