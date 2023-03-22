@@ -22,7 +22,7 @@ class NottItem extends StatelessWidget {
       contextMenu: ContextMenu(
         menuItems: [ContextMenuItem(text: 'Проверка', onTap: () {}), ContextMenuItem(onTap: () {})],
       ),
-      widget: Container(
+      child: Container(
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ControlOptions.instance.colorGreyLight),

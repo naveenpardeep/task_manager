@@ -81,9 +81,9 @@ class ContextMenu extends StatelessWidget {
 }
 
 class ContextMenuListener extends StatefulWidget {
-  const ContextMenuListener({super.key, required this.widget, required this.contextMenu});
+  const ContextMenuListener({super.key, required this.child, required this.contextMenu});
 
-  final Widget widget;
+  final Widget child;
   final ContextMenu contextMenu;
   static List<ContextMenuListenerState>? currentMenu = [];
 
@@ -137,7 +137,7 @@ class ContextMenuListenerState extends State<ContextMenuListener> {
         }
       },
       //onTap: showOverlay,
-      child: widget.widget,
+      child: widget.child,
     );
   }
 
