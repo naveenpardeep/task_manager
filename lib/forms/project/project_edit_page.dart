@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
+import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectEditPage extends StatefulWidget {
@@ -23,14 +24,14 @@ class ProjectEditPage extends StatefulWidget {
 class _ProjectEditpageState extends State<ProjectEditPage> {
   //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
-  late NsgFilePicker picker;
+  late TTNsgFilePicker picker;
   bool isHidden = true;
   @override
   void initState() {
     super.initState();
     // scaffoldKey;
     isHidden;
-    picker = NsgFilePicker(
+    picker = TTNsgFilePicker(
         showAsWidget: true,
         skipInterface: true,
         oneFile: true,

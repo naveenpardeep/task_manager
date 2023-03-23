@@ -9,6 +9,10 @@ import 'package:task_manager_app/forms/notification/notification_controller.dart
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
+import 'package:task_manager_app/image_file_view/image_file.dart';
+import 'package:task_manager_app/image_file_view/multi_image_picker_controller.dart';
+import 'package:task_manager_app/image_file_view/multi_image_picker_view.dart';
+import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../1/nsg_rich_text.dart';
@@ -24,6 +28,7 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
+  var nsgMultiImagePickerController = NsgMultiImagePickerController();
   var notificationController = Get.find<NotificationController>();
   var controller = Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
@@ -501,6 +506,7 @@ class _TasksPageState extends State<TasksPage> {
                                             controller.itemPagePost(goBack: false);
                                           }
                                         }),
+
                                   if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
                                     NsgButton(
@@ -623,7 +629,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
     return Get.find<TaskFilesController>().obx(
-      (state) => NsgFilePicker(
+      (state) => TTNsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
         callback: (value) async {},
@@ -633,6 +639,19 @@ class _TasksPageState extends State<TasksPage> {
       ),
     );
   }
+  // Widget imageGallery() {
+
+  //   return Get.find<TaskFilesController>().obx(
+  //     (state) => NsgFilePicker(
+  //       useFilePicker: true,
+  //       showAsWidget: true,
+  //       callback: (value) async {},
+  //       objectsList: Get.find<TaskImageController>().images,
+  //       objectsList: Get.find<TaskFilesController>().files,
+  //       allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
+  //     ),
+  //   );
+  // }
 
   showAlertDialog(BuildContext context) {
     // set up the button

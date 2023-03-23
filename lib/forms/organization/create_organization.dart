@@ -1,5 +1,7 @@
 import 'dart:io';
 
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,7 @@ import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
+import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../project/project_controller.dart';
@@ -23,7 +26,7 @@ import '../widgets/tabs.dart';
 class CreateOrganizationPage extends GetView<OrganizationController> {
   CreateOrganizationPage({Key? key}) : super(key: key);
 
-  late NsgFilePicker picker;
+  late TTNsgFilePicker picker;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
     // if (controller.lateInit) {
     //   controller.requestItems();
     // }
-    picker = NsgFilePicker(
+    picker = TTNsgFilePicker(
         showAsWidget: true,
         skipInterface: true,
         oneFile: true,
