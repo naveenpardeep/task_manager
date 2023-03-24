@@ -174,7 +174,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.createInvitationUser,
-      page: () => CreateInvitationUserPage(),
+      page: () => const CreateInvitationUserPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -326,8 +326,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.notificationTaskPage,
-      page: () =>  const NotificationTasksPage(),
-       binding: TasksListBinding(),
+      page: () => const NotificationTasksPage(),
+      binding: TasksListBinding(),
     ),
   ];
 }
@@ -388,5 +388,5 @@ abstract class Routes {
   static const invitationAcceptNew = '/invitationAcceptNew';
   static const profileViewPage = '/profileViewPage';
   static const profileEditPage = '/profile-edit-page';
-  static const notificationTaskPage='/notificationTaskPage';
+  static const notificationTaskPage = '/notificationTaskPage';
 }

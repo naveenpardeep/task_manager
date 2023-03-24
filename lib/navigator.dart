@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 
-import 'app_pages.dart';
 import 'model/data_controller.dart';
 
 class TTNavigator extends NsgNavigator {

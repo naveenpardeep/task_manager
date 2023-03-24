@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
-import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 class AcceptRejectListPage extends GetView<AccpetController> {
   const AcceptRejectListPage({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -28,23 +26,22 @@ class AcceptRejectListPage extends GetView<AccpetController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-               
-                  NsgAppBar(
-                    backColor: Colors.white,
-                    color: Colors.black,
+                NsgAppBar(
+                  backColor: Colors.white,
+                  color: Colors.black,
 
-                    text: 'Invited Users List',
-                    icon: Icons.arrow_back_ios_new,
-                    colorsInverted: true,
-                    bottomCircular: true,
-                    onPressed: () {
-                      controller.itemPageCancel();
-                    },
-                    // icon2: Icons.check,
-                    // onPressed2: () {
-                    //   controller.itemPagePost();
-                    // },
-                  ),
+                  text: 'Invited Users List',
+                  icon: Icons.arrow_back_ios_new,
+                  colorsInverted: true,
+                  bottomCircular: true,
+                  onPressed: () {
+                    controller.itemPageCancel();
+                  },
+                  // icon2: Icons.check,
+                  // onPressed2: () {
+                  //   controller.itemPagePost();
+                  // },
+                ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),

@@ -88,7 +88,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
 
   Widget projectUsersList(BuildContext context) {
     List<Widget> list = [];
-    var projectUsertable = Get.find<ProjectItemUserTableController>().items;
+    //var projectUsertable = Get.find<ProjectItemUserTableController>().items;
 
     for (var projectuser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(

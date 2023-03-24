@@ -45,14 +45,13 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
             }
 
             controller.currentItem.photoFile = imagefile;
-             await controller.postItems([controller.currentItem]);
+            await controller.postItems([controller.currentItem]);
             await controller.refreshData();
-            
           }
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList: []);
+        objectsList: const []);
   }
 
   @override

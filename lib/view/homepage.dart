@@ -16,14 +16,12 @@ import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/helper.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import 'package:task_manager_app/view/taskview.dart';
 import '../forms/tasks/task_file_controller.dart';
 import '../forms/user_account/service_object_controller.dart';
-import '../forms/widgets/mobile_menu.dart';
 import '../forms/widgets/nsg_tabs.dart';
 import '../forms/widgets/task_tuner_button.dart';
 import '../forms/widgets/top_menu.dart';
@@ -1578,7 +1576,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                       ClipOval(
-                                         child: tasks.assignee.photoName.isEmpty
+                                        child: tasks.assignee.photoName.isEmpty
                                             ? Container(
                                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                                 width: 32,
@@ -1743,7 +1741,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                   ClipOval(
-                                   child: tasks.assignee.photoName.isEmpty
+                                    child: tasks.assignee.photoName.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
@@ -1755,11 +1753,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             ),
                                           )
                                         : Image.network(
-                                                TaskFilesController.getFilePath(tasks.assignee.photoName),
-                                                fit: BoxFit.cover,
-                                                width: 32,
-                                                height: 32,
-                                              ),
+                                            TaskFilesController.getFilePath(tasks.assignee.photoName),
+                                            fit: BoxFit.cover,
+                                            width: 32,
+                                            height: 32,
+                                          ),
                                   ),
                                 ],
                               ),

@@ -8,9 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
-import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 
 class OrganizationUsersMobilePage extends StatefulWidget {
   const OrganizationUsersMobilePage({Key? key}) : super(key: key);
@@ -92,7 +90,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
 
   Widget organizationUsersList(BuildContext context) {
     List<Widget> list = [];
-    var orgUsertable = Get.find<OrganizationItemUserTableController>().items;
+    //var orgUsertable = Get.find<OrganizationItemUserTableController>().items;
 
     for (var orguser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(

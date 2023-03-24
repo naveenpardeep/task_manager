@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +9,6 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 
 class OrganizationListMobileView extends GetView<OrganizationController> {

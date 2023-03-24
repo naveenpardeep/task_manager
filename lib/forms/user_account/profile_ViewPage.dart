@@ -5,19 +5,16 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager_app/app_pages.dart';
 
-import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
 import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
 import 'package:task_manager_app/forms/user_account/nottification_settings.dart';
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
-import 'package:task_manager_app/model/data_controller.dart';
 
 import '../notification/notification_controller.dart';
 import '../widgets/bottom_menu.dart';
 import '../widgets/nott_item.dart';
-import '../widgets/nsg_tabs.dart';
 import '../widgets/top_menu.dart';
 import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_tabs.dart';
@@ -192,7 +189,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
       return const UserProfile();
     }
     if (currentTab.name == 'Уведомления') {
-      return NotificationSettings();
+      return const NotificationSettings();
     }
     return const InvitationAcceptNew();
   }

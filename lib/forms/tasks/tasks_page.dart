@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
-import 'package:task_manager_app/image_file_view/image_file.dart';
 import 'package:task_manager_app/image_file_view/multi_image_picker_controller.dart';
-import 'package:task_manager_app/image_file_view/multi_image_picker_view.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -69,13 +66,13 @@ class _TasksPageState extends State<TasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    var todaydate = controller.currentItem.date;
-    var updatedate = controller.currentItem.dateUpdated;
+    // var todaydate = controller.currentItem.date;
+    // var updatedate = controller.currentItem.dateUpdated;
 
     final scrollController = ScrollController();
     double width = MediaQuery.of(context).size.width;
-    String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
-    String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
+    // String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
+    // String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -635,7 +632,7 @@ class _TasksPageState extends State<TasksPage> {
         callback: (value) async {},
         // objectsList: Get.find<TaskImageController>().images,
         objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats: [],
+        allowedFileFormats: const [],
       ),
     );
   }

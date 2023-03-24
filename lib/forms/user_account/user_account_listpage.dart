@@ -7,7 +7,6 @@ import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/top_menu.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
-import '../widgets/mobile_menu.dart';
 
 class UserAccountListPage extends GetView<UserAccountController> {
   const UserAccountListPage({Key? key}) : super(key: key);

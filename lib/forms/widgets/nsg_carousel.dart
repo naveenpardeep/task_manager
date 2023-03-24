@@ -1,9 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/model/data_controller.dart';
 
 class NsgCarousel extends StatefulWidget {
   NsgCarousel(
@@ -20,6 +17,7 @@ class NsgCarousel extends StatefulWidget {
   final CarouselController? controller;
   final bool autoPlay;
   final double? height;
+  //TODO: Судя по гуглу, изменяемые переменные должны быть в классе стейта
   int currentTab = 0;
   final SliderPosition sliderPosition;
   final Function(int current)? onChange;

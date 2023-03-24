@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
-import 'package:nsg_controls/nsg_text.dart';
-import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 
 import '../../app_pages.dart';
 import '../../model/data_controller.dart';
@@ -13,9 +11,9 @@ import '../widgets/tt_nsg_input.dart';
 import 'user_notification_controller.dart';
 
 class NotificationSettings extends StatelessWidget {
-  NotificationSettings({super.key, this.width});
+  const NotificationSettings({super.key, this.width});
 
-  double? width;
+  final double? width;
 
   final EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 10);
 

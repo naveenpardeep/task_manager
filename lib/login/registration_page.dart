@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/authorize/nsgPhoneLoginRegistrationPage.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'login_page.dart';
 
 class RegistrationPage extends NsgPhoneLoginRegistrationPage {
   RegistrationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: NsgPhoneLoginParams.defaultParams);

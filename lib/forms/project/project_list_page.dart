@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -13,7 +12,6 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
 import '../tasks/tasks_controller.dart';
-import '../widgets/mobile_menu.dart';
 import '../widgets/top_menu.dart';
 
 // ignore: must_be_immutable
@@ -522,7 +520,7 @@ class ProjectListPage extends GetView<ProjectController> {
           controller.refreshData();
         }
 
-        Navigator.of(context).pop();
+        Get.back();
       },
     );
 
@@ -557,7 +555,7 @@ class ProjectListPage extends GetView<ProjectController> {
         controller.currentItem = project;
         await controller.postItems([controller.currentItem]);
         controller.refreshData();
-        Navigator.of(context).pop(); //
+        Get.back(); //
       },
     );
 

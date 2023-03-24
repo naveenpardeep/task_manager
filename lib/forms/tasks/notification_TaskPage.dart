@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
@@ -64,13 +65,13 @@ class _NotificationTasksPageState extends State<NotificationTasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    var todaydate = controller.currentItem.date;
-    var updatedate = controller.currentItem.dateUpdated;
+    // var todaydate = controller.currentItem.date;
+    // var updatedate = controller.currentItem.dateUpdated;
 
     final scrollController = ScrollController();
     double width = MediaQuery.of(context).size.width;
-    String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
-    String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
+    // String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
+    // String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -86,11 +87,8 @@ class _NotificationTasksPageState extends State<NotificationTasksPage> {
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
-                  text: controller.currentItem.isEmpty
-                      ? 'Новая задача'.toUpperCase()
-                      : controller.currentItem.name.toString().toUpperCase(),
+                  text: controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.name.toString().toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
-               
 
                   colorsInverted: true,
                   // bottomCircular: true,
@@ -100,12 +98,9 @@ class _NotificationTasksPageState extends State<NotificationTasksPage> {
                   icon2: Icons.check,
                   onPressed2: () async {
                     if (controller.currentItem.taskStatus.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Пожалуйста, выберите статус задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                     } else if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('пожалуйста, введите название задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
                       await controller.itemPagePost();

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:task_manager_app/login/registration_page.dart';
-import 'login_page.dart';
 
 class VerificationPage extends NsgPhoneLoginVerificationPage {
   VerificationPage(NsgDataProvider provider, {super.key}) : super(provider, widgetParams: NsgPhoneLoginParams.defaultParams);

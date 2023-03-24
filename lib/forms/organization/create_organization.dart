@@ -1,7 +1,5 @@
 import 'dart:io';
 
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +9,6 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
-import 'package:task_manager_app/forms/widgets/mobile_menu.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
@@ -54,7 +51,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList: []);
+        objectsList: const []);
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,

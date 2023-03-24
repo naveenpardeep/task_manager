@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/widgets/context_menu.dart';
@@ -9,15 +6,14 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/enums/e_notification_type.dart';
 
 import '../../model/notification_doc.dart';
-import '../notification/notification_controller.dart';
 
 class NottItem extends StatelessWidget {
-  NottItem({super.key, required this.notification});
+  const NottItem({super.key, required this.notification});
   final NotificationDoc notification;
-  var notifC = Get.find<NotificationController>();
 
   @override
   Widget build(BuildContext context) {
+    //var notifC = Get.find<NotificationController>();
     return ContextMenuListener(
       contextMenu: ContextMenu(
         menuItems: [ContextMenuItem(text: 'Проверка', onTap: () {}), ContextMenuItem(onTap: () {})],

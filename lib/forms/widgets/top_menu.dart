@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
-import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -33,8 +33,9 @@ class TmTopMenu extends StatelessWidget {
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
 
-                        Get.find<ProjectController>()
-                            .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
+                        NsgNavigator.instance.toPage(Routes.projectListPage);
+                        // Get.find<ProjectController>()
+                        //     .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
                         //  Get.toNamed(Routes.projectListPage);
                       },
                       child: Text(

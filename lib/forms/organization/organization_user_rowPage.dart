@@ -13,14 +13,13 @@ import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class CreateInvitationUserPage extends GetView<UserAccountController> {
-  CreateInvitationUserPage({Key? key}) : super(key: key);
-  late NsgFilePicker picker;
+  const CreateInvitationUserPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
     }
-    picker = NsgFilePicker(
+    var picker = NsgFilePicker(
         showAsWidget: true,
         skipInterface: true,
         oneFile: true,
@@ -40,7 +39,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList: []);
+        objectsList: const []);
 
     // if (Get.find<UserImageController>().lateInit) {
     //   Get.find<UserImageController>().requestItems();

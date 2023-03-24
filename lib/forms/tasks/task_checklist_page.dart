@@ -109,7 +109,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
         Get.find<TasksController>().currentItem.checkList.removeRow(controller.currentItem);
         await Get.find<TasksController>().itemPagePost();
 
-        Navigator.of(context).pop();
+        Get.back();
         Get.back();
       },
     );
