@@ -374,7 +374,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
 
     return Get.find<TaskFilesController>().obx(
       (state) => NsgFilePicker(
-        useFilePicker: false,
+        useFilePicker: true,
         showAsWidget: true,
         callback: (value) async {},
       

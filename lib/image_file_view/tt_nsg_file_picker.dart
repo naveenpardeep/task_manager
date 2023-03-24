@@ -132,7 +132,7 @@ class TTNsgFilePicker extends StatefulWidget {
   }
 }
 
-class _TTNsgFilePickerState extends State<TTNsgFilePicker>  {
+class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   String error = '';
   bool galleryPage = true;
@@ -157,77 +157,47 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker>  {
     );
   }
 
-  
-
   // Pick an image
   Future galleryImage() async {
     if (kIsWeb) {
-      var result = await ImagePicker().pickMultiImage(
-        imageQuality: widget.imageQuality,
-        maxWidth: widget.imageMaxWidth,
-        maxHeight: widget.imageMaxHeight,
-      );
+      // var result = await ImagePicker().pickMultiImage(
+      //   imageQuality: widget.imageQuality,
+      //   maxWidth: widget.imageMaxWidth,
+      //   maxHeight: widget.imageMaxHeight,
+      // );
+      FilePickerResult? result = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
 
       galleryPage = true;
 
       /// Если стоит ограничение на 1 файл
-      if (widget.oneFile) {
-        result = [result[0]];
-        objectsList.clear();
-      }
-      for (var element in result) {
-        var obj =
-            NsgFilePickerObject(isNew: true, image: Image.network(element.path), description: basenameWithoutExtension(element.path), filePath: element.path);
-        obj.fileContent = await element.readAsBytes();
-        objectsList.add(obj);
-      }
-      if (widget.skipInterface) {
-        widget.callback(objectsList);
-      } else {
-        setState(() {});
-      }
-    } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
-       FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
-    if (result != null) {
-      galleryPage = true;
-      for (var element in result.files) {
-        var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
 
-        if (!GetPlatform.isLinux) {
-          var file = File(element.name);
+      for (var element in result!.files) {
+        var fileType = TTNsgFilePicker.getFileType(extension(element.bytes!.first.toString()).replaceAll('.', '').toLowerCase());
 
-          if ((await file.length()) > widget.fileMaxSize) {
-            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-            setState(() {});
-            return;
-          }
-        }
-        if (GetPlatform.isLinux) {
-          File file = File(element.path.toString());
-          var filesize = file.openRead();
-          if ((await filesize.length) > widget.fileMaxSize) {
-            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-            setState(() {});
-            return;
-          }
-        }
+        File file = File(element.bytes!.first.toString());
+
+        // if ((await file.length()) > widget.fileMaxSize) {
+        //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+        //   setState(() {});
+        //   return;
+        // }
 
         if (fileType == NsgFilePickerObjectType.image) {
           objectsList.add(NsgFilePickerObject(
               isNew: true,
-              image: Image.file(File(element.name.toString())),
-              description: basenameWithoutExtension(element.name.toString()),
+              image: Image.file(File(element.bytes!.first.toString())),
+              description: basenameWithoutExtension(element.bytes!.first.toString()),
               fileType: fileType,
-              filePath: element.path ?? ''));
+              filePath: element.bytes!.first.toString()));
         } else if (fileType != NsgFilePickerObjectType.unknown) {
           objectsList.add(NsgFilePickerObject(
               isNew: true,
-              file: File(element.name),
+              file: File(element.bytes!.first.toString()),
               image: null,
-              description: basenameWithoutExtension(element.name),
+              description: basenameWithoutExtension(element.bytes!.first.toString()),
               fileType: fileType,
-              filePath: element.path ?? ''));
+              filePath: element.bytes!.first.toString()));
         } else {
           error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
           setState(() {});
@@ -238,7 +208,79 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker>  {
       } else {
         setState(() {});
       }
-    }
+    } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
+      FilePickerResult? result = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
+      if (result != null) {
+        galleryPage = true;
+        for (var element in result.files) {
+          var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
+
+          if (!GetPlatform.isLinux) {
+            var file = File(element.name);
+
+            if ((await file.length()) > widget.fileMaxSize) {
+              error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+              setState(() {});
+              return;
+            }
+             if (fileType == NsgFilePickerObjectType.image) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                image: Image.file(File(element.name.toString())),
+                description: basenameWithoutExtension(element.name.toString()),
+                fileType: fileType,
+                filePath: element.path ?? ''));
+          } else if (fileType != NsgFilePickerObjectType.unknown) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                file: File(element.name),
+                image: null,
+                description: basenameWithoutExtension(element.name),
+                fileType: fileType,
+                filePath: element.path ?? ''));
+          } else {
+            error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+            setState(() {});
+          }
+          }
+          if (GetPlatform.isLinux) {
+            File file = File(element.path.toString());
+           
+            if ((await file.length()) > widget.fileMaxSize) {
+              error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+              setState(() {});
+              return;
+            }
+             if (fileType == NsgFilePickerObjectType.image) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                image: Image.file(File(element.path.toString())),
+                description: basenameWithoutExtension(element.path.toString()),
+                fileType: fileType,
+                filePath: element.path.toString()));
+          } else if (fileType != NsgFilePickerObjectType.unknown) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                file: File(element.name),
+                image: null,
+                description: basenameWithoutExtension(element.name),
+                fileType: fileType,
+                filePath: element.path ?? ''));
+          } else {
+            error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+            setState(() {});
+          }
+          }
+
+         
+        }
+        if (widget.skipInterface) {
+          widget.callback(objectsList);
+        } else {
+          setState(() {});
+        }
+      }
     } else if (GetPlatform.isMacOS) {
       var jpgsTypeGroup = const file.XTypeGroup(
         label: 'JPEGs',
@@ -353,18 +395,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker>  {
             setState(() {});
             return;
           }
-        }
-        if (GetPlatform.isLinux) {
-          File file = File(element.path.toString());
-          var filesize = file.openRead();
-          if ((await filesize.length) > widget.fileMaxSize) {
-            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-            setState(() {});
-            return;
-          }
-        }
-
-        if (fileType == NsgFilePickerObjectType.image) {
+          if (fileType == NsgFilePickerObjectType.image) {
           objectsList.add(NsgFilePickerObject(
               isNew: true,
               image: Image.file(File(element.name.toString())),
@@ -383,6 +414,37 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker>  {
           error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
           setState(() {});
         }
+        }
+        if (GetPlatform.isLinux) {
+          File file = File(element.path.toString());
+        
+          if ((await file.length()) > widget.fileMaxSize) {
+            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+            setState(() {});
+            return;
+          }
+          if (fileType == NsgFilePickerObjectType.image) {
+          objectsList.add(NsgFilePickerObject(
+              isNew: true,
+              image: Image.file(File(element.path.toString())),
+              description: basenameWithoutExtension(element.name.toString()),
+              fileType: fileType,
+              filePath: element.path ?? ''));
+        } else if (fileType != NsgFilePickerObjectType.unknown) {
+          objectsList.add(NsgFilePickerObject(
+              isNew: true,
+              file: File(element.name),
+              image: null,
+              description: basenameWithoutExtension(element.name),
+              fileType: fileType,
+              filePath: element.path ?? ''));
+        } else {
+          error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+          setState(() {});
+        }
+        }
+
+        
       }
       if (widget.skipInterface) {
         widget.callback(objectsList);
