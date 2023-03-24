@@ -354,7 +354,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
                                         fileController: Get.find<TaskFilesController>()),
-                                   if (controller.currentItem.name.isNotEmpty)  imageGallery(),
+                               //    if (controller.currentItem.name.isNotEmpty)  imageGallery(),
                                
                                   ],
                                 )),

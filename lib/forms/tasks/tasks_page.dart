@@ -635,7 +635,7 @@ class _TasksPageState extends State<TasksPage> {
         callback: (value) async {},
         // objectsList: Get.find<TaskImageController>().images,
         objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
+        allowedFileFormats: [],
       ),
     );
   }
