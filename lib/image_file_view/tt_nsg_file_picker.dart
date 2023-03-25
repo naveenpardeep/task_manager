@@ -12,7 +12,7 @@ import 'package:task_manager_app/image_file_view/image_file.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player_win/video_player_win.dart';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'package:file_selector/file_selector.dart' as file;
 import 'package:dio/dio.dart' as dio;
 
@@ -160,53 +160,50 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   // Pick an image
   Future galleryImage() async {
     if (kIsWeb) {
-      // var result = await ImagePicker().pickMultiImage(
-      //   imageQuality: widget.imageQuality,
-      //   maxWidth: widget.imageMaxWidth,
-      //   maxHeight: widget.imageMaxHeight,
-      // );
       FilePickerResult? result = await FilePicker.platform
           .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
 
-      galleryPage = true;
+    
+        if (result != null) {
+ 
+        galleryPage = true;
+        for (var element in result.files) {
+           Uint8List? fileBytes = element.bytes;
+          String fileName = element.name;
+          var fileType = TTNsgFilePicker.getFileType(extension(fileName).replaceAll('.', '').toLowerCase());
 
-      /// Если стоит ограничение на 1 файл
+         // var file = File(element.name);
 
-      for (var element in result!.files) {
-        var fileType = TTNsgFilePicker.getFileType(extension(element.bytes!.toString()).replaceAll('.', '').toLowerCase());
-
-        File file = File(element.bytes!.toString());
-
-        if ((await file.length()) > widget.fileMaxSize) {
-          error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-          setState(() {});
-          return;
+          // if ((await file.length()) > widget.fileMaxSize) {
+          //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+          //   setState(() {});
+          //   return;
+          // }
+          if (fileType == NsgFilePickerObjectType.image) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                image: Image.memory(fileBytes!),
+                description: basenameWithoutExtension(fileName),
+                fileType: fileType,
+                filePath: ''));
+          } else if (fileType != NsgFilePickerObjectType.unknown) {
+            objectsList.add(NsgFilePickerObject(
+                isNew: true,
+                file: File(fileBytes.toString()),
+                image: null,
+                description: basenameWithoutExtension(fileName),
+                fileType: fileType,
+                filePath:  ''));
+          } else {
+            error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+            setState(() {});
+          }
         }
-
-        if (fileType == NsgFilePickerObjectType.image) {
-          objectsList.add(NsgFilePickerObject(
-              isNew: true,
-              image: Image.network(element.path.toString()),
-              description: basenameWithoutExtension(element.bytes!.toString()),
-              fileType: fileType,
-              filePath: element.path.toString()));
-        } else if (fileType != NsgFilePickerObjectType.unknown) {
-          objectsList.add(NsgFilePickerObject(
-              isNew: true,
-              file: File(element.bytes!.toString()),
-              image: null,
-              description: basenameWithoutExtension(element.bytes!.toString()),
-              fileType: fileType,
-              filePath: element.bytes!.toString()));
+        if (widget.skipInterface) {
+          widget.callback(objectsList);
         } else {
-          error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
           setState(() {});
         }
-      }
-      if (widget.skipInterface) {
-        widget.callback(objectsList);
-      } else {
-        setState(() {});
       }
     } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
       FilePickerResult? result = await FilePicker.platform
