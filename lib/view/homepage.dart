@@ -1843,6 +1843,9 @@ String getupdateDay(TaskDoc tasks) {
     return 'Обновлено: ${NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
+  if (minutes ==0) {
+    return 'Обновлено: только что';
+  }
   if (minutes < 60) {
     return 'Обновлено: $minutes мин. назад';
   }
@@ -1866,6 +1869,9 @@ String getcreateDay(TaskDoc tasks) {
     return '${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
+  if (minutes ==0) {
+    return 'только что';
+  }
   if (minutes < 60) {
     return '$minutes мин. назад';
   }
