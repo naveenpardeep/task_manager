@@ -73,8 +73,9 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                     },
                     icon2: Icons.check,
                     onPressed2: () async {
-                      if (controller.currentItem.phoneNumber.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона ')));
+                      if (controller.currentItem.phoneNumber.isEmpty && controller.currentItem.email.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона или по электронной почте ')));
                       } else {
                         await controller.itemPagePost();
 
@@ -198,8 +199,9 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                           child: TaskButton(
                         text: 'Пригласить',
                         onTap: () async {
-                          if (controller.currentItem.phoneNumber.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона ')));
+                          if (controller.currentItem.phoneNumber.isEmpty && controller.currentItem.email.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона или по электронной почте ')));
                           } else {
                             await controller.itemPagePost();
 
