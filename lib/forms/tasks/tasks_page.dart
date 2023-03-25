@@ -632,7 +632,7 @@ class _TasksPageState extends State<TasksPage> {
         callback: (value) async {},
         // objectsList: Get.find<TaskImageController>().images,
         objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats: const [],
+        //allowedFileFormats: const [],
       ),
     );
   }

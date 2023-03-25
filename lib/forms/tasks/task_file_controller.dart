@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/file_picker/nsg_file_picker_table_controller.dart';
@@ -40,7 +41,11 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     pic.id = fileObject.id;
     pic.name = '${fileObject.description}.${extension(fileObject.filePath).replaceAll('.', '')}';
     pic.ownerId = Get.find<TasksController>().currentItem.id;
-    pic.file = await imageFile.readAsBytes();
+    if (kIsWeb) {
+      pic.file = fileObject.fileContent!;
+    } else {
+      pic.file = await imageFile.readAsBytes();
+    }
     return pic;
   }
 

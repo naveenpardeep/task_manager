@@ -179,10 +179,20 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           // }
           if (fileType == NsgFilePickerObjectType.image) {
             widget.objectsList.add(NsgFilePickerObject(
-                isNew: true, image: Image.memory(fileBytes!), description: basenameWithoutExtension(fileName), fileType: fileType, filePath: ''));
+                isNew: true,
+                image: Image.memory(fileBytes!),
+                fileContent: fileBytes,
+                description: basenameWithoutExtension(fileName),
+                fileType: fileType,
+                filePath: fileName));
           } else if (fileType != NsgFilePickerObjectType.unknown) {
             widget.objectsList.add(NsgFilePickerObject(
-                isNew: true, file: File(fileBytes.toString()), image: null, description: basenameWithoutExtension(fileName), fileType: fileType, filePath: ''));
+                isNew: true,
+                file: File(fileBytes.toString()),
+                image: null,
+                description: basenameWithoutExtension(fileName),
+                fileType: fileType,
+                filePath: fileName));
           } else {
             error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
             setState(() {});
