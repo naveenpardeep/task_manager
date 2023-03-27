@@ -130,6 +130,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             onTap: () {
               if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
               //  showAlertDialog(context, comment);
+                showEditDelete(context, comment);
               }
               //   controller.currentItem.text = comment.text;
               //   controller.sendNotify();
@@ -172,7 +173,57 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
             )));
   }
 
-  showAlertDialog(BuildContext context, comment) {
+  showEditDelete(BuildContext context, TaskDocCommentsTable comment) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    // set up the button
+    Widget edit = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        // elevation: 3,
+        minimumSize: Size(width, height * 0.08),
+      ),
+      child: const Text("Edit"),
+      onPressed: () {
+        controller.currentItem.text = comment.text;
+
+        controller.itemPageOpen(comment, Routes.commentRowPage);
+        controller.sendNotify();
+
+        Navigator.of(context).pop();
+      },
+    );
+     Widget delete = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        // elevation: 3,
+        minimumSize: Size(width, height * 0.08),
+      ),
+      child: const Text("Delete"),
+      onPressed: ()async {
+       Get.find<TasksController>().currentItem.tableComments.removeRow(comment);
+      await Get.find<TasksController>().itemPagePost(goBack: false);
+        controller.sendNotify();
+
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      actions: [edit,delete],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialog(BuildContext context, TaskDocCommentsTable comment) {
     // set up the button
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
