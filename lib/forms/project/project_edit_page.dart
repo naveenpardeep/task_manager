@@ -39,7 +39,8 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
           if (value.isNotEmpty) {
             List<int> imagefile;
             if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+              assert(value.isNotEmpty && value[0].fileContent != null);
+              imagefile = value[0].fileContent!;
             } else {
               imagefile = await File(value[0].filePath).readAsBytes();
             }
@@ -52,7 +53,7 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
           Navigator.of(Get.context!).pop();
         },
         // ignore: prefer_const_literals_to_create_immutables
-        objectsList:  []);
+        objectsList: []);
   }
 
   @override

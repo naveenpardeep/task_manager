@@ -27,7 +27,8 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
           if (value.isNotEmpty) {
             List<int> imagefile;
             if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+              assert(value.isNotEmpty && value[0].fileContent != null);
+              imagefile = value[0].fileContent!;
             } else {
               imagefile = await File(value[0].filePath).readAsBytes();
             }
