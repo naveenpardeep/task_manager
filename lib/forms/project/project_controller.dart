@@ -6,6 +6,7 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 import 'package:task_manager_app/model/generated/project_item.g.dart';
 
+import '../../model/generated/project_item_user_table.g.dart';
 import '../../model/project_item.dart';
 import '../../model/project_item_user_table.dart';
 
@@ -67,6 +68,8 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
 
+  
+
   List<ProjectItemUserTable> projectUsersList = [];
   // List<ProjectItemUserTable> projectUsersShowList = [];
   void prepapreProjectUsers() {
@@ -86,6 +89,7 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
       newRow.userAccount = row;
       newRow.isChecked = false;
       projectUsersList.add(newRow);
+      projectUsersList.sort((a, b) => a.userAccount.name.compareTo(b.userAccount.name));
     }
   }
 
