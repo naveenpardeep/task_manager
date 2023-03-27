@@ -51,7 +51,8 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList: const []);
+        // ignore: prefer_const_literals_to_create_immutables
+        objectsList:  []);
     return BodyWrap(
         child: Scaffold(
             backgroundColor: Colors.white,

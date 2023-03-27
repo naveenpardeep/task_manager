@@ -27,7 +27,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
 
     filter.compare.add(name: ProjectItemGenerated.namePriority, value: projectController.currentItem.priority);
     filter.sorting = "${ProjectItemGenerated.namePriority}-";
-
+ 
     return filter;
   }
 

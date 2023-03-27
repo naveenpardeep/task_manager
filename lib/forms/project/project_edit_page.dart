@@ -51,7 +51,8 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
 
           Navigator.of(Get.context!).pop();
         },
-        objectsList: const []);
+        // ignore: prefer_const_literals_to_create_immutables
+        objectsList:  []);
   }
 
   @override
