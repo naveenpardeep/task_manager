@@ -7,7 +7,9 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
@@ -32,7 +34,8 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
-
+                    
+                       Get.find<ServiceObjectController>().selectedItem=null;
                         NsgNavigator.instance.toPage(Routes.projectListPage);
                         // Get.find<ProjectController>()
                         //     .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
