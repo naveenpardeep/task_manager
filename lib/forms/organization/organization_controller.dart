@@ -51,14 +51,14 @@ class OrganizationItemUserTableController
       orgUsersList.add(newRow);
     }
 
-    for (var row in Get.find<UserAccountController>().items) {
-      if (orgUsersList.where((element) => element.userAccount == row).isNotEmpty) continue;
+    // for (var row in Get.find<UserAccountController>().items) {
+    //   if (orgUsersList.where((element) => element.userAccount == row).isNotEmpty) continue;
 
-      var newRow = OrganizationItemUserTable();
-      newRow.userAccount = row;
-      newRow.isChecked = false;
-      orgUsersList.add(newRow);
-    }
+    //   var newRow = OrganizationItemUserTable();
+    //   newRow.userAccount = row;
+    //   newRow.isChecked = false;
+    //   orgUsersList.add(newRow);
+    // }
   }
 
   void usersSaved() {
