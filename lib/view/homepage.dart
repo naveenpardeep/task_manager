@@ -96,6 +96,7 @@ class _HomepageState extends State<Homepage> {
                         color: ControlOptions.instance.colorMain,
                         size: 22,
                         onPressed: () {
+                          serviceC.selectedItem=null;
                           Get.toNamed(Routes.projectListPage);
                         },
                       ),
