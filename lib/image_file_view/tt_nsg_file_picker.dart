@@ -65,27 +65,27 @@ class TTNsgFilePicker extends StatefulWidget {
     this.maxFilesCount = 0,
     required this.callback,
     required this.objectsList,
-    this.textChooseFile = 'Добавить фото',
+    this.textChooseFile = 'Добавить фото или файл',
     this.oneFile = false,
     this.skipInterface = false,
-    //Iterable<ImageFile>? images
+//Iterable<ImageFile>? images
   }) : super(key: key) {
     _resisterComponents();
 
-    // if (images != null) {
-    //   _images = List.from(images);
-    // } else {
-    //   _images = [];
-    // }
+// if (images != null) {
+// _images = List.from(images);
+// } else {
+// _images = [];
+// }
   }
 
-  //late final List<ImageFile> _images;
+//late final List<ImageFile> _images;
 
   /// Returns [Iterable] of [ImageFile] that user has selected.
-  //Iterable<ImageFile> get images => _images;
+//Iterable<ImageFile> get images => _images;
 
   /// Returns true if user has selected no images.
-  //bool get hasNoImages => _images.isEmpty;
+//bool get hasNoImages => _images.isEmpty;
 
   static bool _isComponentsRegistered = false;
   static _resisterComponents() {
@@ -97,14 +97,14 @@ class TTNsgFilePicker extends StatefulWidget {
     }
   }
 
-  // popup() {
-  //   Get.dialog(
-  //       NsgPopUp(
-  //         title: 'Загрузите фотографию',
-  //         contentTop: SizedBox(width: 300, height: 300, child: this),
-  //       ),
-  //       barrierDismissible: true);
-  // }
+// popup() {
+// Get.dialog(
+// NsgPopUp(
+// title: 'Загрузите фотографию',
+// contentTop: SizedBox(width: 300, height: 300, child: this),
+// ),
+// barrierDismissible: true);
+// }
 
   @override
   State<TTNsgFilePicker> createState() => _TTNsgFilePickerState();
@@ -137,7 +137,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   String error = '';
   bool galleryPage = true;
   ScrollController scrollController = ScrollController();
-  //List<NsgFilePickerObject> objectsList = [];
+//List<NsgFilePickerObject> objectsList = [];
   Widget _appBar() {
     return NsgAppBar(
       text: widget.objectsList.isEmpty ? 'Добавление фотографий'.toUpperCase() : 'Сохранение фотографий'.toUpperCase(),
@@ -157,7 +157,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
     );
   }
 
-  // Pick an image
+// Pick an image
   Future galleryImage() async {
     if (kIsWeb) {
       FilePickerResult? result = await FilePicker.platform
@@ -170,13 +170,13 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           String fileName = element.name;
           var fileType = TTNsgFilePicker.getFileType(extension(fileName).replaceAll('.', '').toLowerCase());
 
-          // var file = File(element.name);
+// var file = File(element.name);
 
-          // if ((await file.length()) > widget.fileMaxSize) {
-          //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-          //   setState(() {});
-          //   return;
-          // }
+// if ((await file.length()) > widget.fileMaxSize) {
+// error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+// setState(() {});
+// return;
+// }
           if (fileType == NsgFilePickerObjectType.image) {
             widget.objectsList.add(NsgFilePickerObject(
                 isNew: true,
@@ -479,8 +479,8 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   /// Capture a photo
   Future cameraImage() async {
     final ImagePicker picker = ImagePicker();
-    //NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Добавляем фото из камеры', canStopped: false);
-    //progress.show(Get.context);
+//NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Добавляем фото из камеры', canStopped: false);
+//progress.show(Get.context);
     final XFile? image = await picker.pickImage(source: ImageSource.camera);
 
     if (image != null) {
@@ -537,13 +537,13 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       fileName += extension(fileObject.filePath);
     }
 
-    //TODO: add progress
+//TODO: add progress
     dio.Dio io = dio.Dio();
     await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
-      //setState(() {
-      // downloading = true;
-      // progress =
-      //     ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+//setState(() {
+// downloading = true;
+// progress =
+// ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
     });
     await launchUrlString('file:$fileName');
   }
@@ -621,7 +621,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                //hoverColor: ControlOptions.instance.colorMain,
+//hoverColor: ControlOptions.instance.colorMain,
                 onTap: () {
                   if (element.fileType != NsgFilePickerObjectType.other && element.fileType != NsgFilePickerObjectType.unknown) {
                     List<NsgFilePickerObject> imagesList = [];
@@ -739,7 +739,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
   @override
   void initState() {
-    //objectsList.addAll(widget.objectsList);
+//objectsList.addAll(widget.objectsList);
     super.initState();
   }
 
@@ -778,7 +778,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                       child: body(),
                     ),
 
-                    //SizedBox(height: MediaQuery.of(context).padding.bottom),
+//SizedBox(height: MediaQuery.of(context).padding.bottom),
                   ],
                 ),
               ),
@@ -795,107 +795,64 @@ class NsgImagePickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (!kIsWeb && (GetPlatform.isWindows || GetPlatform.isLinux))
-        ? InkWell(
-            hoverColor: ControlOptions.instance.colorMain,
-            onTap: onPressed,
-            child: Container(
-              decoration: BoxDecoration(
-                color: ControlOptions.instance.colorMain,
-              ),
-              width: 100,
-              height: 100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add, size: 24, color: ControlOptions.instance.colorInverted),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
-                    child: Text(textChooseFile,
-                        textAlign: TextAlign.center, style: TextStyle(color: ControlOptions.instance.colorInverted, fontWeight: FontWeight.bold, fontSize: 12)),
-                  ),
-                ],
-              ),
+    return
+//(!kIsWeb && (GetPlatform.isWindows || GetPlatform.isLinux))
+// ?
+        InkWell(
+      hoverColor: ControlOptions.instance.colorMain,
+      onTap: () {
+        Scaffold.of(context).showBottomSheet(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(50),
             ),
-          )
-        : Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(color: ControlOptions.instance.colorMainDark),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: ControlOptions.instance.colorMainDark,
-                  ),
-                  width: 100,
-                  height: 46,
+          ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          (BuildContext context) {
+            return Card(
+              elevation: 3,
+              child: Container(
+                height: 200,
+                decoration: const BoxDecoration(
+                    color: Colors.lightBlueAccent, borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
+                child: Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(textChooseFile,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: ControlOptions.instance.colorInverted, fontWeight: FontWeight.bold, fontSize: 10)),
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.photo),
+                        onPressed: onPressed,
                       ),
-                      Icon(Icons.arrow_downward, size: 16, color: ControlOptions.instance.colorInverted),
+                      IconButton(
+                        icon: const Icon(Icons.folder),
+                        onPressed: () {
+// widget.galleryImage();
+                        },
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 2),
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        hoverColor: ControlOptions.instance.colorMain,
-                        onTap: onPressed,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: ControlOptions.instance.colorMain,
-                          ),
-                          height: 46,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.camera_alt_outlined, size: 24, color: ControlOptions.instance.colorInverted),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 0),
-                                child:
-                                    Text('Камера', style: TextStyle(color: ControlOptions.instance.colorInverted, fontWeight: FontWeight.bold, fontSize: 10)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: InkWell(
-                        hoverColor: ControlOptions.instance.colorMain,
-                        onTap: onPressed2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: ControlOptions.instance.colorMain,
-                          ),
-                          height: 46,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.photo_library_outlined, size: 24, color: ControlOptions.instance.colorInverted),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 0),
-                                child:
-                                    Text('Галерея', style: TextStyle(color: ControlOptions.instance.colorInverted, fontWeight: FontWeight.bold, fontSize: 10)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          );
+              ),
+            );
+          },
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: ControlOptions.instance.colorMain,
+        ),
+        width: 100,
+        height: 50,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.attachment, size: 24, color: ControlOptions.instance.colorInverted),
+          ],
+        ),
+      ),
+    );
   }
 }
