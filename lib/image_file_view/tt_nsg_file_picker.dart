@@ -165,6 +165,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
       if (result != null) {
         galleryPage = true;
+       
         for (var element in result.files) {
           Uint8List? fileBytes = element.bytes;
           String fileName = element.name;
@@ -210,6 +211,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
       if (result != null) {
         galleryPage = true;
+        
         for (var element in result.files) {
           var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
 

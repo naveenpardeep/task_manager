@@ -59,8 +59,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           autofocus: true,
                           onKey: (event) async {
                             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                              Get.find<TasksController>().currentItem.tableComments.addRow(controller.currentItem);
-
+                              await controller.itemPagePost(goBack: false);
                               await Get.find<TasksController>().itemPagePost(goBack: false);
                               await controller.createNewItemAsync();
                             }
@@ -88,8 +87,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
                               onPressed: () async {
-                                Get.find<TasksController>().currentItem.tableComments.addRow(controller.currentItem);
-                                //await controller.itemPagePost(goBack: false);
+                                await controller.itemPagePost(goBack: false);
                                 await Get.find<TasksController>().itemPagePost(goBack: false);
                                 await controller.createNewItemAsync();
 
