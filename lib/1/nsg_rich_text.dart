@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/file_picker/nsg_file_picker_interface.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -231,14 +232,49 @@ class _NsgRichTextState extends State<NsgRichText> {
     if (result != null) {
       for (var element in result.files) {
         var fileType = NsgFilePicker.getFileType(extension(element.name).replaceAll('.', ''));
+       
+        if (!kIsWeb&&( GetPlatform.isLinux || GetPlatform.isAndroid)) {
+          File file = File(element.path.toString());
 
-        var file = File(element.name);
-        if ((await file.length()) > widget.fileMaxSize) {
-          error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-          NsgErrorWidget.showErrorByString(error);
-          //setState(() {});
-          return;
-        }
+          if ((await file.length()) > widget.fileMaxSize) {
+            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+            setState(() {});
+            return;
+          }
+          if (fileType == NsgFilePickerObjectType.image) {
+            var obj = NsgFilePickerObject(
+                isNew: true,
+                image: Image.file(File(element.path.toString())),
+                description: basenameWithoutExtension(element.name.toString()),
+                fileType: fileType,
+                filePath: element.path ?? '');
+            widget.fileController.files.add(obj);
+            addImageBlock(obj);
+          } else if (fileType != NsgFilePickerObjectType.unknown) {
+            var obj = NsgFilePickerObject(
+                isNew: true,
+                file: File(element.name),
+                image: null,
+                description: basenameWithoutExtension(element.name),
+                fileType: fileType,
+                filePath: element.path ?? '');
+            widget.fileController.files.add(obj);
+            addImageBlock(obj);
+          } else {
+            error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+            setState(() {});
+          }
+        } 
+        else {
+          var file = File(element.name);
+          if ((await file.length()) > widget.fileMaxSize) {
+            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+            NsgErrorWidget.showErrorByString(error);
+            //setState(() {});
+            return;
+          }
+      
+
         if (fileType == NsgFilePickerObjectType.image) {
           var obj = NsgFilePickerObject(
               isNew: true,
@@ -263,6 +299,7 @@ class _NsgRichTextState extends State<NsgRichText> {
           setState(() {});
         }
       }
+     }
     }
   }
 
