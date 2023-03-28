@@ -165,7 +165,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
       if (result != null) {
         galleryPage = true;
-       
+
         for (var element in result.files) {
           Uint8List? fileBytes = element.bytes;
           String fileName = element.name;
@@ -211,7 +211,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
       if (result != null) {
         galleryPage = true;
-        
+
         for (var element in result.files) {
           var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
 
@@ -698,7 +698,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           }
         },
         onPressed2: () {
-          galleryImage();
+          pickFile();
         }));
 
     return RawScrollbar(
@@ -829,9 +829,7 @@ class NsgImagePickerButton extends StatelessWidget {
                       ),
                       IconButton(
                         icon: const Icon(Icons.folder),
-                        onPressed: () {
-// widget.galleryImage();
-                        },
+                        onPressed: onPressed2,
                       ),
                     ],
                   ),
