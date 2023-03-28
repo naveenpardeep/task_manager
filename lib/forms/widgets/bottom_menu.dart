@@ -72,6 +72,7 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         child: InkWell(
       onTap: () {
         if (widget.controller != null) {
+           widget.controller!.refreshData();
           if (widget.controller!.currentItem.isNotEmpty) {
             widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
           } else {
