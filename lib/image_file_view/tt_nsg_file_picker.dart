@@ -834,6 +834,7 @@ class NsgImagePickerButton extends StatelessWidget {
                         icon: const Icon(Icons.folder),
                         onPressed: onPressed2,
                       ),
+                      if(GetPlatform.isAndroid || GetPlatform.isIOS)
                       IconButton(
                         icon: const Icon(Icons.add_a_photo),
                         onPressed: onPressed3,
