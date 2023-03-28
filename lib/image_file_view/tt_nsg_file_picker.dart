@@ -481,8 +481,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   /// Capture a photo
   Future cameraImage() async {
     final ImagePicker picker = ImagePicker();
-//NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Добавляем фото из камеры', canStopped: false);
-//progress.show(Get.context);
+
     final XFile? image = await picker.pickImage(source: ImageSource.camera);
 
     if (image != null) {
@@ -699,7 +698,11 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         },
         onPressed2: () {
           pickFile();
-        }));
+        },
+        onPressed3:(){
+          cameraImage();
+        },
+        ));
 
     return RawScrollbar(
         minOverscrollLength: 100,
@@ -780,7 +783,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                       child: body(),
                     ),
 
-//SizedBox(height: MediaQuery.of(context).padding.bottom),
+
                   ],
                 ),
               ),
@@ -792,14 +795,14 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 class NsgImagePickerButton extends StatelessWidget {
   final void Function() onPressed;
   final void Function() onPressed2;
+  final void Function() onPressed3;
   final String textChooseFile;
-  const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2, required this.textChooseFile}) : super(key: key);
+  const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2,required this.onPressed3, required this.textChooseFile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return
-//(!kIsWeb && (GetPlatform.isWindows || GetPlatform.isLinux))
-// ?
+
         InkWell(
       hoverColor: ControlOptions.instance.colorMain,
       onTap: () {
@@ -830,6 +833,10 @@ class NsgImagePickerButton extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.folder),
                         onPressed: onPressed2,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_a_photo),
+                        onPressed: onPressed3,
                       ),
                     ],
                   ),
