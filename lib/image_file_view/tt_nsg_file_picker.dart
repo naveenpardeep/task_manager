@@ -413,7 +413,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           }
         }
 
-        if (!kIsWeb && !GetPlatform.isLinux) {
+        if (!kIsWeb && GetPlatform.isWindows) {
           var file = File(element.name);
 
           if ((await file.length()) > widget.fileMaxSize) {
@@ -441,7 +441,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             setState(() {});
           }
         }
-        if (GetPlatform.isLinux) {
+        if (GetPlatform.isLinux || GetPlatform.isAndroid) {
           File file = File(element.path.toString());
 
           if ((await file.length()) > widget.fileMaxSize) {
