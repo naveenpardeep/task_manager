@@ -155,7 +155,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
             Get.find<TaskBoardController>().currentItem = taskBoard;
             Get.toNamed(Routes.taskBoard);
           },
-          child: Text(taskboardstatus.status.name),
+          child: Text(taskboardstatus.status.name ,style: TextStyle(color: taskboardstatus.status.isDone? Colors.green: Colors.black,)),
         ));
       }
     }
