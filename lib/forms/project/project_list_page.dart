@@ -518,9 +518,10 @@ class ProjectListPage extends GetView<ProjectController> {
           controller.currentItem = project;
           await controller.postItems([controller.currentItem]);
           controller.refreshData();
+          Navigator.canPop(context);
         }
 
-        Get.back();
+    
       },
     );
 
@@ -555,7 +556,7 @@ class ProjectListPage extends GetView<ProjectController> {
         controller.currentItem = project;
         await controller.postItems([controller.currentItem]);
         controller.refreshData();
-        Get.back(); //
+      Navigator.pop(context);
       },
     );
 
