@@ -518,10 +518,9 @@ class ProjectListPage extends GetView<ProjectController> {
           controller.currentItem = project;
           await controller.postItems([controller.currentItem]);
           controller.refreshData();
-          Navigator.canPop(context);
         }
-
-    
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pop();
       },
     );
 
@@ -556,7 +555,8 @@ class ProjectListPage extends GetView<ProjectController> {
         controller.currentItem = project;
         await controller.postItems([controller.currentItem]);
         controller.refreshData();
-      Navigator.pop(context);
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pop();
       },
     );
 
