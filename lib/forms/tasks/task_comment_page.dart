@@ -21,87 +21,79 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       controller.requestItems();
     }
 
-    double height = MediaQuery.of(context).size.height;
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: controller.obx(
-          (state) => Container(
-            decoration: const BoxDecoration(color: Colors.white),
-            child: SingleChildScrollView(
-              reverse: true,
-              child: Column(
-                children: <Widget>[
-                  NsgAppBar(
-                    color: Colors.black,
-                    backColor: ControlOptions.instance.colorWhite,
-                    text: 'комментарий',
-                    icon: Icons.arrow_back_ios_new,
-                    colorsInverted: true,
-                    bottomCircular: true,
-                    onPressed: () {
-                      controller.itemPageCancel();
-                    },
-                    // icon2: Icons.check,
-                    // onPressed2: () {
-                    //   controller.itemPagePost();
-                    // },
-                  ),
-                  SizedBox(height: height * 0.75, child: commentList(context)),
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
-                        child: RawKeyboardListener(
-                          focusNode: FocusNode(),
-                          autofocus: true,
-                          onKey: (event) async {
-                            if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                              await controller.itemPagePost(goBack: false);
-                              await Get.find<TasksController>().itemPagePost(goBack: false);
-                              await controller.createNewItemAsync();
-                            }
-                          },
-                          child:
-                              // NsgRichText(
-                              //     key: GlobalKey(),
-                              //     controller: controller,
-                              //     dataItem: controller.currentItem,
-                              //     fieldName: TaskDocCommentsTableGenerated.nameText,
-                              //     fileController: Get.find<TaskImageController>()),
-                              TTNsgInput(
-                            borderRadius: 10,
-                            dataItem: controller.currentItem,
-                            fieldName: TaskDocCommentsTableGenerated.nameText,
-                            label: '',
-                            infoString: 'Комментарий',
-                          ),
-                        ),
+          (state) => Column(
+            children: <Widget>[
+              //  NsgAppBar(
+              //    color: Colors.black,
+              //    backColor: ControlOptions.instance.colorWhite,
+              //    text: 'комментарий',
+              //    icon: Icons.arrow_back_ios_new,
+              //    colorsInverted: true,
+              //    bottomCircular: true,
+              //    onPressed: () {
+              //      controller.itemPageCancel();
+              //     },
+              // icon2: Icons.check,
+              // onPressed2: () {
+              //   controller.itemPagePost();
+              // },
+              //  ),
+              Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context))),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
+                    child: RawKeyboardListener(
+                      focusNode: FocusNode(),
+                      autofocus: true,
+                      onKey: (event) async {
+                        if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+                          await controller.itemPagePost(goBack: false);
+                          await Get.find<TasksController>().itemPagePost(goBack: false);
+                          await controller.createNewItemAsync();
+                        }
+                      },
+                      child:
+                          // NsgRichText(
+                          //     key: GlobalKey(),
+                          //     controller: controller,
+                          //     dataItem: controller.currentItem,
+                          //     fieldName: TaskDocCommentsTableGenerated.nameText,
+                          //     fileController: Get.find<TaskImageController>()),
+                          TTNsgInput(
+                        borderRadius: 10,
+                        dataItem: controller.currentItem,
+                        fieldName: TaskDocCommentsTableGenerated.nameText,
+                        label: '',
+                        infoString: 'Комментарий',
                       ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: IconButton(
-                              onPressed: () async {
-                                await controller.itemPagePost(goBack: false);
-                                await Get.find<TasksController>().itemPagePost(goBack: false);
-                                await controller.createNewItemAsync();
-
-                                //   Get.find<TasksController>().sendNotify();
-                                // controller.sendNotify();
-                              },
-                              icon: const Icon(Icons.send_rounded)),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(
+                          onPressed: () async {
+                            await controller.itemPagePost(goBack: false);
+                            await Get.find<TasksController>().itemPagePost(goBack: false);
+                            await controller.createNewItemAsync();
+
+                            //   Get.find<TasksController>().sendNotify();
+                            // controller.sendNotify();
+                          },
+                          icon: const Icon(Icons.send_rounded)),
+                    ),
+                  )
                 ],
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -127,7 +119,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
           child: InkWell(
             onTap: () {
               if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
-              //  showAlertDialog(context, comment);
+                //  showAlertDialog(context, comment);
                 showEditDelete(context, comment);
               }
               //   controller.currentItem.text = comment.text;
@@ -185,22 +177,22 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       onPressed: () {
         controller.currentItem.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.commentRowPage);
+        controller.itemPageOpen(comment, Routes.newTaskPage);
         controller.sendNotify();
 
         Navigator.of(context).pop();
       },
     );
-     Widget delete = ElevatedButton(
+    Widget delete = ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         // elevation: 3,
         minimumSize: Size(width, height * 0.08),
       ),
       child: const Text("Delete"),
-      onPressed: ()async {
-       Get.find<TasksController>().currentItem.tableComments.removeRow(comment);
-      await Get.find<TasksController>().itemPagePost(goBack: false);
+      onPressed: () async {
+        Get.find<TasksController>().currentItem.tableComments.removeRow(comment);
+        await Get.find<TasksController>().itemPagePost(goBack: false);
         controller.sendNotify();
 
         Navigator.of(context).pop();
@@ -209,7 +201,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      actions: [edit,delete],
+      actions: [edit, delete],
     );
 
     // show the dialog

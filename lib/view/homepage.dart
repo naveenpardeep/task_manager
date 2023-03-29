@@ -1224,16 +1224,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Row(
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
-                                        InkWell(
-                                          onTap: () {
-                                            taskC.currentItem = tasks;
-                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                                          },
-                                          child: Tooltip(
+                                         Tooltip(
                                             message: 'Comments',
                                             child: NsgCircle(text: tasks.tableComments.length.toString()),
                                           ),
-                                        ),
+                                        
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1395,16 +1390,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Row(
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
-                                        InkWell(
-                                          onTap: () {
-                                            taskC.currentItem = tasks;
-                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                                          },
-                                          child: Tooltip(
+                                        Tooltip(
                                             message: 'Comments',
                                             child: NsgCircle(text: tasks.tableComments.length.toString()),
                                           ),
-                                        ),
+                                        
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1566,16 +1556,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Row(
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
-                                        InkWell(
-                                          onTap: () {
-                                            taskC.currentItem = tasks;
-                                            Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                                          },
-                                          child: Tooltip(
+                                        Tooltip(
                                             message: 'Comments',
                                             child: NsgCircle(text: tasks.tableComments.length.toString()),
                                           ),
-                                        ),
+                                        
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1731,16 +1716,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                               Row(
                                 children: [
                                   if (tasks.tableComments.length.isGreaterThan(0))
-                                    InkWell(
-                                      onTap: () {
-                                        taskC.currentItem = tasks;
-                                        Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
-                                      },
-                                      child: Tooltip(
+                                     Tooltip(
                                         message: 'Comments',
                                         child: NsgCircle(text: tasks.tableComments.length.toString()),
                                       ),
-                                    ),
+                                    
                                   ClipOval(
                                     child: tasks.assignee.photoName.isEmpty
                                         ? Container(
@@ -1806,7 +1786,7 @@ openTaskDialog(tasks, context) {
     child: const Text("Open Comments"),
     onPressed: () {
       Get.find<TasksController>().currentItem = tasks;
-      Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.commentRowPage);
+      Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
       Navigator.of(context).pop();
     },
   );
