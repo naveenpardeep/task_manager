@@ -1779,20 +1779,7 @@ openTaskDialog(tasks, context) {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
   // set up the button
-  Widget commentButton = ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.white,
-      // elevation: 3,
-      minimumSize: Size(width, height * 0.08),
-    ),
-    child: const Text("Open Comments"),
-    onPressed: () {
-      Get.find<TasksController>().currentItem = tasks;
-      Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage);
-
-      Navigator.of(context).pop();
-    },
-  );
+  
   Widget statusButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
@@ -1807,7 +1794,7 @@ openTaskDialog(tasks, context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    actions: [commentButton, statusButton],
+    actions: [statusButton],
   );
 
   // show the dialog
