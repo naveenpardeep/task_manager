@@ -96,7 +96,7 @@ class _HomepageState extends State<Homepage> {
                         color: ControlOptions.instance.colorMain,
                         size: 22,
                         onPressed: () {
-                          serviceC.selectedItem=null;
+                          serviceC.selectedItem = null;
                           Get.toNamed(Routes.projectListPage);
                         },
                       ),
@@ -1171,6 +1171,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                                Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
@@ -1224,11 +1225,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Row(
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
-                                         Tooltip(
-                                            message: 'Comments',
-                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
-                                          ),
-                                        
+                                        Tooltip(
+                                          message: 'Comments',
+                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                        ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1337,6 +1337,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                               Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
@@ -1391,10 +1392,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
                                         Tooltip(
-                                            message: 'Comments',
-                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
-                                          ),
-                                        
+                                          message: 'Comments',
+                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                        ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1503,6 +1503,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                               Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       )
@@ -1557,10 +1558,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                     children: [
                                       if (tasks.tableComments.length.isGreaterThan(0))
                                         Tooltip(
-                                            message: 'Comments',
-                                            child: NsgCircle(text: tasks.tableComments.length.toString()),
-                                          ),
-                                        
+                                          message: 'Comments',
+                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                        ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
                                             ? Container(
@@ -1663,6 +1663,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           Get.find<TasksController>().currentItem = tasks;
 
                                           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                          Get.find<TasksController>().sendNotify();
                                         },
                                         icon: const Icon(Icons.edit)),
                                   )
@@ -1716,11 +1717,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                               Row(
                                 children: [
                                   if (tasks.tableComments.length.isGreaterThan(0))
-                                     Tooltip(
-                                        message: 'Comments',
-                                        child: NsgCircle(text: tasks.tableComments.length.toString()),
-                                      ),
-                                    
+                                    Tooltip(
+                                      message: 'Comments',
+                                      child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                    ),
                                   ClipOval(
                                     child: tasks.assignee.photoName.isEmpty
                                         ? Container(
@@ -1824,7 +1824,7 @@ String getupdateDay(TaskDoc tasks) {
     return 'Обновлено: ${NsgDateFormat.dateFormat(tasks.dateUpdated, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
-  if (minutes ==0) {
+  if (minutes == 0) {
     return 'Обновлено: только что';
   }
   if (minutes < 60) {
@@ -1850,7 +1850,7 @@ String getcreateDay(TaskDoc tasks) {
     return '${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}';
   }
   var minutes = todayDate.difference(lastDate).inMinutes;
-  if (minutes ==0) {
+  if (minutes == 0) {
     return 'только что';
   }
   if (minutes < 60) {
