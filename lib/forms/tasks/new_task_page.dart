@@ -88,9 +88,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          taskController.currentItem.name.isEmpty
-              ? 'Новая задача'.toUpperCase()
-              : "${taskController.currentItem.docNumber}. ${taskController.currentItem.name.toString().toUpperCase()}",
+          "${taskController.currentItem.docNumber}  ${taskController.currentItem.name.toString().toUpperCase()}",
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(
@@ -153,9 +151,9 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         (state) => TabBarView(controller: _tabController, children: [
           const TasksPage(),
           Container(key: GlobalKey(), child: const ChecklistPage()),
-       commnetController .obx(
-        // ignore: prefer_const_literals_to_create_immutables
-        (state) =>   Container(key: GlobalKey(), child: const TasksCommentRowPage())),
+          commnetController.obx(
+              // ignore: prefer_const_literals_to_create_immutables
+              (state) => Container(key: GlobalKey(), child: const TasksCommentRowPage())),
         ]),
       ),
     ));
