@@ -13,7 +13,9 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasks_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
@@ -1786,7 +1788,8 @@ openTaskDialog(tasks, context) {
     child: const Text("Open Comments"),
     onPressed: () {
       Get.find<TasksController>().currentItem = tasks;
-      Get.find<CommentTableTasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+      Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage);
+
       Navigator.of(context).pop();
     },
   );
