@@ -63,7 +63,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                   } else {
                     taskController.currentItem.dateUpdated = DateTime.now();
-               
+
                     await taskController.itemPagePost(goBack: false);
                     Get.find<TasksController>().refreshData();
                     Get.toNamed(Routes.homePage);
@@ -88,7 +88,9 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          taskController.currentItem.name.isEmpty ? 'Новая задача'.toUpperCase() : taskController.currentItem.name.toString().toUpperCase(),
+          taskController.currentItem.name.isEmpty
+              ? 'Новая задача'.toUpperCase()
+              : "${taskController.currentItem.docNumber}. ${taskController.currentItem.name.toString().toUpperCase()}",
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(
