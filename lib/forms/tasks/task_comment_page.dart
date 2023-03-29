@@ -195,6 +195,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
         await Get.find<TasksController>().itemPagePost(goBack: false);
         controller.sendNotify();
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
       },
     );
