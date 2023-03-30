@@ -351,16 +351,19 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
                                       ),
                                     ),
-                                    NsgRichText(
-                                        disabled: true,
-                                        key: GlobalKey(),
-                                        availableButtons: const [...AvailableButtons.allValues],
-                                        controller: controller,
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.nameDescription,
-                                        fileController: Get.find<TaskFilesController>()),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: NsgRichText(
+                                          disabled: true,
+                                          key: GlobalKey(),
+                                          availableButtons: const [...AvailableButtons.allValues],
+                                          controller: controller,
+                                          dataItem: controller.currentItem,
+                                          fieldName: TaskDocGenerated.nameDescription,
+                                          fileController: Get.find<TaskFilesController>()),
+                                    ),
                                     if (controller.currentItem.name.isNotEmpty)
-                                     Container(
+                                     SizedBox(
                                       key: GlobalKey(),
                                       height: 500, width: 375, child: imageGallery()),
                                   ],
