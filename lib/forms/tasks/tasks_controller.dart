@@ -19,7 +19,7 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameAssigneeId,
       //  TaskDocGenerated.nameTableComments,
       TaskDocGenerated.nameCheckList,
-      //  TaskDocGenerated.nameFiles
+      TaskDocGenerated.nameFiles
     ];
   }
 

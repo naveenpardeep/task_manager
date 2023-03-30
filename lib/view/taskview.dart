@@ -10,6 +10,7 @@ import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/generated/task_doc.g.dart';
 
 import '../forms/tasks/task_file_controller.dart';
@@ -27,6 +28,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
   var controller = Get.find<TasksController>();
+  var taskfileC = Get.find<TaskFilesController>();
   var commnetController = Get.find<CommentTableTasksController>();
   late double height;
   late double width;
@@ -36,6 +38,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
+    if(taskfileC.lateInit){
+      taskfileC.requestItems();
+    }
 
     _tabController = TabController(length: 3, vsync: this);
   }
@@ -354,8 +359,10 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                         dataItem: controller.currentItem,
                                         fieldName: TaskDocGenerated.nameDescription,
                                         fileController: Get.find<TaskFilesController>()),
-                               //    if (controller.currentItem.name.isNotEmpty)  imageGallery(),
-                               
+                                    if (controller.currentItem.name.isNotEmpty)
+                                     Container(
+                                      key: GlobalKey(),
+                                      height: 500, width: 375, child: imageGallery()),
                                   ],
                                 )),
                           )),
@@ -371,15 +378,12 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   }
 
   Widget imageGallery() {
-
     return Get.find<TaskFilesController>().obx(
-      (state) => NsgFilePicker(
-        useFilePicker: true,
-        showAsWidget: true,
+      (state) => TTNsgFilePicker(
+        useFilePicker: false,
+        showAsWidget: false,
         callback: (value) async {},
-      
         objectsList: Get.find<TaskFilesController>().files,
-        allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
       ),
     );
   }

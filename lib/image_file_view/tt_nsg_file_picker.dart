@@ -778,7 +778,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _appBar(),
+                  //  _appBar(),
                     Expanded(
                       child: body(),
                     ),

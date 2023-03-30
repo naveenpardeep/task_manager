@@ -18,6 +18,14 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     editModeAllowed = true;
     requestOnInit = true;
   }
+   @override
+  Future requestItems({List<NsgUpdateKey>? keys}) async {
+    await super.requestItems(keys: keys);
+
+    if (masterController!.selectedItem != null && currentItem.isEmpty) {
+      createNewItemAsync();
+    }
+  }
 
   static String getFilePath(String fileName) {
     return '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=$fileName';

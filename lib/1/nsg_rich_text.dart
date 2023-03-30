@@ -200,21 +200,37 @@ class _NsgRichTextState extends State<NsgRichText> {
               afterButtonPressed: () {},
               customButtons: [quil.QuillCustomButton(icon: Icons.image_sharp, onTap: addImage)],
             ),
-          SizedBox(
-            height: 500,
-            child: quil.QuillEditor(
-              focusNode: focus,
-              scrollController: scrollController,
-              controller: quillController,
-              readOnly: widget.disabled,
-              showCursor: !widget.disabled,
-              scrollable: true,
-              padding: EdgeInsets.zero,
-              autoFocus: true,
-              expands: false,
-              embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
+          if (!widget.disabled)
+            SizedBox(
+              height: 500,
+              child: quil.QuillEditor(
+                focusNode: focus,
+                scrollController: scrollController,
+                controller: quillController,
+                readOnly: widget.disabled,
+                showCursor: !widget.disabled,
+                scrollable: true,
+                padding: EdgeInsets.zero,
+                autoFocus: true,
+                expands: false,
+                embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
+              ),
             ),
-          )
+          if (widget.disabled)
+            SizedBox(
+              child: quil.QuillEditor(
+                focusNode: focus,
+                scrollController: scrollController,
+                controller: quillController,
+                readOnly: widget.disabled,
+                showCursor: !widget.disabled,
+                scrollable: true,
+                padding: EdgeInsets.zero,
+                autoFocus: true,
+                expands: false,
+                embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
+              ),
+            )
         ]));
   }
 
@@ -232,8 +248,8 @@ class _NsgRichTextState extends State<NsgRichText> {
     if (result != null) {
       for (var element in result.files) {
         var fileType = NsgFilePicker.getFileType(extension(element.name).replaceAll('.', ''));
-       
-        if (!kIsWeb&&( GetPlatform.isLinux || GetPlatform.isAndroid)) {
+
+        if (!kIsWeb && (GetPlatform.isLinux || GetPlatform.isAndroid)) {
           File file = File(element.path.toString());
 
           if ((await file.length()) > widget.fileMaxSize) {
@@ -264,8 +280,7 @@ class _NsgRichTextState extends State<NsgRichText> {
             error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
             setState(() {});
           }
-        } 
-        else {
+        } else {
           var file = File(element.name);
           if ((await file.length()) > widget.fileMaxSize) {
             error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
@@ -273,33 +288,32 @@ class _NsgRichTextState extends State<NsgRichText> {
             //setState(() {});
             return;
           }
-      
 
-        if (fileType == NsgFilePickerObjectType.image) {
-          var obj = NsgFilePickerObject(
-              isNew: true,
-              image: Image.file(File(element.name)),
-              description: basenameWithoutExtension(element.name),
-              fileType: fileType,
-              filePath: element.path ?? '');
-          widget.fileController.files.add(obj);
-          addImageBlock(obj);
-        } else if (fileType != NsgFilePickerObjectType.unknown) {
-          var obj = NsgFilePickerObject(
-              isNew: true,
-              file: File(element.name),
-              image: null,
-              description: basenameWithoutExtension(element.name),
-              fileType: fileType,
-              filePath: element.path ?? '');
-          widget.fileController.files.add(obj);
-          addImageBlock(obj);
-        } else {
-          error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
-          setState(() {});
+          if (fileType == NsgFilePickerObjectType.image) {
+            var obj = NsgFilePickerObject(
+                isNew: true,
+                image: Image.file(File(element.name)),
+                description: basenameWithoutExtension(element.name),
+                fileType: fileType,
+                filePath: element.path ?? '');
+            widget.fileController.files.add(obj);
+            addImageBlock(obj);
+          } else if (fileType != NsgFilePickerObjectType.unknown) {
+            var obj = NsgFilePickerObject(
+                isNew: true,
+                file: File(element.name),
+                image: null,
+                description: basenameWithoutExtension(element.name),
+                fileType: fileType,
+                filePath: element.path ?? '');
+            widget.fileController.files.add(obj);
+            addImageBlock(obj);
+          } else {
+            error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+            setState(() {});
+          }
         }
       }
-     }
     }
   }
 

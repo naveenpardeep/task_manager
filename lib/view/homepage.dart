@@ -329,12 +329,14 @@ class _HomepageState extends State<Homepage> {
                                 width: width + 450,
                                 child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
                               ))),
-                    if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
+                    if (taskView == false) 
+                    Container(child: taskStatusTableController.obx((state) => getStatusList())),
+                    if (taskView == true) 
                     Align(
                       alignment: Alignment.centerRight,
                       child: SizedBox(
-                        width: taskView == false ? 0 : 388,
-                        child: taskController.obx((state) => const TaskViewPage()),
+                        width:  388,
+                        child: taskController.obx((state) => Container(  key: GlobalKey(),child: const TaskViewPage())),
                       ),
                     ),
                     if (taskView)
@@ -703,8 +705,9 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
+                  Get.find<TaskFilesController>().requestItems();
                 Get.find<TaskCheckListController>().requestItems();
-                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
+                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments,TaskDocGenerated.nameFiles]);
 
                 taskView = true;
               });
@@ -909,8 +912,9 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
+                Get.find<TaskFilesController>().requestItems();
                 Get.find<TaskCheckListController>().requestItems();
-                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments]);
+                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments,TaskDocGenerated.nameFiles]);
 
                 taskView = true;
               });
