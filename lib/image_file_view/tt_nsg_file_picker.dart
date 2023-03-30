@@ -566,7 +566,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                   alignment: Alignment.centerLeft,
                   height: 40,
                   child: Text(
-                    element.description,
+                    '',
                     maxLines: 3,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
@@ -686,23 +686,23 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
     }
     List<Widget> listWithPlus = list;
     listWithPlus.add(NsgImagePickerButton(
-        textChooseFile: widget.textChooseFile,
-        onPressed: () {
-          if (kIsWeb) {
-            galleryImage();
-          } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
-            pickFile();
-          } else {
-            galleryImage();
-          }
-        },
-        onPressed2: () {
+      textChooseFile: widget.textChooseFile,
+      onPressed: () {
+        if (kIsWeb) {
+          galleryImage();
+        } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
           pickFile();
-        },
-        onPressed3:(){
-          cameraImage();
-        },
-        ));
+        } else {
+          galleryImage();
+        }
+      },
+      onPressed2: () {
+        pickFile();
+      },
+      onPressed3: () {
+        cameraImage();
+      },
+    ));
 
     return RawScrollbar(
         minOverscrollLength: 100,
@@ -778,12 +778,10 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                  //  _appBar(),
+                    //  _appBar(),
                     Expanded(
                       child: body(),
                     ),
-
-
                   ],
                 ),
               ),
@@ -797,13 +795,12 @@ class NsgImagePickerButton extends StatelessWidget {
   final void Function() onPressed2;
   final void Function() onPressed3;
   final String textChooseFile;
-  const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2,required this.onPressed3, required this.textChooseFile}) : super(key: key);
+  const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2, required this.onPressed3, required this.textChooseFile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return
-
-        InkWell(
+    return InkWell(
       hoverColor: ControlOptions.instance.colorMain,
       onTap: () {
         Scaffold.of(context).showBottomSheet(
@@ -834,11 +831,11 @@ class NsgImagePickerButton extends StatelessWidget {
                         icon: const Icon(Icons.folder),
                         onPressed: onPressed2,
                       ),
-                      if(GetPlatform.isAndroid || GetPlatform.isIOS)
-                      IconButton(
-                        icon: const Icon(Icons.add_a_photo),
-                        onPressed: onPressed3,
-                      ),
+                      if (GetPlatform.isAndroid || GetPlatform.isIOS)
+                        IconButton(
+                          icon: const Icon(Icons.add_a_photo),
+                          onPressed: onPressed3,
+                        ),
                     ],
                   ),
                 ),
