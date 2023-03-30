@@ -10,6 +10,8 @@ export 'task_doc_check_list_table.dart';
 export 'generated/task_doc_check_list_table.g.dart';
 export 'task_doc_files_table.dart';
 export 'generated/task_doc_files_table.g.dart';
+export 'task_comment.dart';
+export 'generated/task_comment.g.dart';
 export 'task_status.dart';
 export 'generated/task_status.g.dart';
 export 'task_status_transition_table.dart';
