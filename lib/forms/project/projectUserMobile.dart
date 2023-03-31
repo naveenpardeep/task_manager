@@ -93,7 +93,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
 
     for (var projectuser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+    padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
         child: InkWell(
           onTap: () {
             Get.find<ProjectItemUserTableController>().currentItem = projectuser;
@@ -102,82 +102,75 @@ class _ProjectpageState extends State<ProjectUserMobile> {
           onLongPress: () {},
           child: Column(
             children: [
-              Card(
-                // elevation: 3,
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipOval(
-                          child: projectuser.userAccount.photoFile.isEmpty
-                              ? Container(
-                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                  width: 48,
-                                  height: 48,
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    size: 48,
-                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                  ),
-                                )
-                              : Image.memory(
-                                  Uint8List.fromList(projectuser.userAccount.photoFile),
-                                  fit: BoxFit.cover,
-                                  width: 48,
-                                  height: 48,
-                                ),
-                        ),
-                      ),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              projectuser.userAccount.name,
-                              style: TextStyle(
-                                fontSize: ControlOptions.instance.sizeL,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: ClipOval(
+                      child: projectuser.userAccount.photoFile.isEmpty
+                          ? Container(
+                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                              width: 48,
+                              height: 48,
+                              child: Icon(
+                                Icons.account_circle,
+                                size: 48,
+                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
                               ),
+                            )
+                          : Image.memory(
+                              Uint8List.fromList(projectuser.userAccount.photoFile),
+                              fit: BoxFit.cover,
+                              width: 48,
+                              height: 48,
                             ),
-                            Text(
-                              projectuser.userAccount.phoneNumber,
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (projectuser.isAdmin) const Icon(Icons.admin_panel_settings),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              projectuser.userAccount.organization.name,
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            ),
-                            // Text(
-                            //   projectuser.userAccount.email,
-                            //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            // ),
-                          ],
-                        ),
-                      ),
-                      // IconButton(
-                      //     onPressed: () {
-                      //       showAlertDialog(context, projectuser);
-                      //     },
-                      //     icon: const Icon(
-                      //       Icons.remove_circle_outline,
-                      //       color: Colors.red,
-                      //     )),
-                      const Icon(Icons.arrow_forward_ios),
-                    ],
+                    ),
                   ),
-                ),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          projectuser.userAccount.name,
+                          style: TextStyle(
+                            fontSize: ControlOptions.instance.sizeL,
+                          ),
+                        ),
+                        Text(
+                          projectuser.userAccount.phoneNumber,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (projectuser.isAdmin) const Icon(Icons.admin_panel_settings),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          projectuser.userAccount.organization.name,
+                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                        ),
+                        // Text(
+                        //   projectuser.userAccount.email,
+                        //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                        // ),
+                      ],
+                    ),
+                  ),
+                  // IconButton(
+                  //     onPressed: () {
+                  //       showAlertDialog(context, projectuser);
+                  //     },
+                  //     icon: const Icon(
+                  //       Icons.remove_circle_outline,
+                  //       color: Colors.red,
+                  //     )),
+                  const Icon(Icons.arrow_forward_ios),
+                ],
               ),
             ],
           ),

@@ -55,10 +55,14 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                   onPressed: () {
                     controller.itemPageCancel();
                   },
-                  icon2: Icons.check,
-                  onPressed2: () async {
-                    Get.find<ProjectItemUserTableController>().usersSaved();
-                    Get.find<ProjectController>().sendNotify();
+                  // icon2: Icons.check,
+                  // onPressed2: () async {
+                  //   Get.find<ProjectItemUserTableController>().usersSaved();
+                  //   Get.find<ProjectController>().sendNotify();
+                  // },
+                  icon2: Icons.close,
+                  onPressed2: () {
+                    controller.itemPageCancel();
                   },
                 ),
                 Expanded(
@@ -115,7 +119,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                             // ),
                             getProjectShowUser(context),
                             const Divider(
-                              height: 5,
+                              height: 2,
                             ),
 
                             getProjectuser(context),
@@ -142,74 +146,159 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
 
   Widget getProjectuser(BuildContext context) {
     List<Widget> list = [];
+    List<Widget> adduser = [];
     var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersList;
     for (var projectuser in projectuseritem) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
-      projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
-      projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Card(
-            margin: EdgeInsets.zero,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: ClipOval(
-                      child: projectuser.userAccount.photoFile.isEmpty
-                          ? Container(
-                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                              width: 48,
-                              height: 48,
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 48,
-                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                              ),
-                            )
-                          : Image.memory(
-                              Uint8List.fromList(projectuser.userAccount.photoFile),
-                              fit: BoxFit.cover,
-                              width: 48,
-                              height: 48,
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          projectuser.userAccount.name,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ClipOval(
+                  child: projectuser.userAccount.photoFile.isEmpty
+                      ? Container(
+                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                          width: 48,
+                          height: 48,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 48,
+                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                          ),
+                        )
+                      : Image.memory(
+                          Uint8List.fromList(projectuser.userAccount.photoFile),
+                          fit: BoxFit.cover,
+                          width: 48,
+                          height: 48,
                         ),
-                        Text(
-                          projectuser.userAccount.phoneNumber,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                      width: 30,
-                      child: NsgCheckBox(
-                          toggleInside: true,
-                          key: GlobalKey(),
-                          label: '',
-                          value: projectuser.isChecked,
-                          onPressed: (currentValue) {
-                            projectuser.isChecked = currentValue;
-                          })),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      projectuser.userAccount.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      projectuser.userAccount.phoneNumber,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                    ),
+                  ],
+                ),
+              ),
+              if (projectuser.isChecked == false)
+                Container(
+                  constraints: BoxConstraints.tight(const Size(50, 42)),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: const Color(0xff0859ff),
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      alignment: Alignment.center,
+                      onPressed: () {
+                        projectuser.isChecked = true;
+                        
+                        Get.find<ProjectItemUserTableController>().usersSaved();
+                        projectuseritem.remove(projectuser);
+                         Get.find<ProjectController>().sendNotify();
+                      },
+                      icon: const Icon(Icons.add),
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+             
+              // SizedBox(
+              //     width: 30,
+              //     child: NsgCheckBox(
+              //         toggleInside: true,
+              //         key: GlobalKey(),
+              //         label: '',
+              //         value: projectuser.isChecked,
+              //         onPressed: (currentValue) {
+              //           projectuser.isChecked = currentValue;
+              //         })),
+            ],
           ),
         ));
       }
     }
-    return SingleChildScrollView(child: Column(children: list));
+    for (var projectuser in controller.currentItem.tableUsers.rows) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+        adduser.add(Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ClipOval(
+                  child: projectuser.userAccount.photoFile.isEmpty
+                      ? Container(
+                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                          width: 48,
+                          height: 48,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 48,
+                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                          ),
+                        )
+                      : Image.memory(
+                          Uint8List.fromList(projectuser.userAccount.photoFile),
+                          fit: BoxFit.cover,
+                          width: 48,
+                          height: 48,
+                        ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      projectuser.userAccount.name,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      projectuser.userAccount.phoneNumber,
+                      style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                constraints: BoxConstraints.tight(const Size(50, 42)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: const Color(0xffEDEFF3),
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    alignment: Alignment.center,
+                    onPressed: () {},
+                    icon: const Icon(Icons.check),
+                    color: const Color(0xff529FBF),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+    return SingleChildScrollView(child: Column(children:  list + adduser));
   }
 
   Widget getProjectShowUser(BuildContext context) {
@@ -217,9 +306,9 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
     List<Widget> list = [];
     //  var projectuseritem = Get.find<ProjectItemUserTableController>().projectUsersShowList;
     for (var projectuser in controller.currentItem.tableUsers.rows) {
-      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase())||
-      projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase())||
-      projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
             Positioned(
