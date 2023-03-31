@@ -60,6 +60,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(UserNotificationSettingsStatusTable(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(UserProjectSettings(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(UserAccount(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(UserSettings(), remoteProvider: provider);
