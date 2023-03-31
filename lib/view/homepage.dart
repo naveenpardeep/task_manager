@@ -50,6 +50,7 @@ class _HomepageState extends State<Homepage> {
   var taskBoardController = Get.find<TaskBoardController>();
   var taskStatusTableController = Get.find<TaskStatusTableController>();
   var userAccountController = Get.find<UserAccountController>();
+  var taskcommentC = Get.find<TaskCommentsController>();
   var serviceC = Get.find<ServiceObjectController>();
   var textEditController = TextEditingController();
   String screenName = '';
@@ -61,6 +62,9 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
+    if(taskcommentC.lateInit){
+      taskcommentC.requestItems();
+    }
     reset();
     taskView;
     projectName;
@@ -330,16 +334,15 @@ class _HomepageState extends State<Homepage> {
                                 width: width + 450,
                                 child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
                               ))),
-                    if (taskView == false) 
-                    Container(child: taskStatusTableController.obx((state) => getStatusList())),
-                    if (taskView == true) 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        width:  388,
-                        child: taskController.obx((state) => Container(  key: GlobalKey(),child: const TaskViewPage())),
+                    if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
+                    if (taskView == true)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                          width: 388,
+                          child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                        ),
                       ),
-                    ),
                     if (taskView)
                       Align(
                         alignment: Alignment.topRight,
@@ -706,9 +709,10 @@ class _HomepageState extends State<Homepage> {
           onTap: () {
             if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
               setState(() {
-                  Get.find<TaskFilesController>().requestItems();
+                Get.find<TaskFilesController>().requestItems();
                 Get.find<TaskCheckListController>().requestItems();
-                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments,TaskDocGenerated.nameFiles]);
+                taskController
+                    .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
 
                 taskView = true;
               });
@@ -915,7 +919,8 @@ class _HomepageState extends State<Homepage> {
               setState(() {
                 Get.find<TaskFilesController>().requestItems();
                 Get.find<TaskCheckListController>().requestItems();
-                taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments,TaskDocGenerated.nameFiles]);
+                taskController
+                    .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
 
                 taskView = true;
               });
@@ -1176,9 +1181,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
-                                             
+
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                                Get.find<TasksController>().sendNotify();
+                                              Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
@@ -1231,10 +1236,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   ),
                                   Row(
                                     children: [
-                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
                                         Tooltip(
                                           message: 'Comments',
-                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          child: NsgCircle(
+                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
                                         ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
@@ -1342,9 +1348,9 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
-                                                
+
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                               Get.find<TasksController>().sendNotify();
+                                              Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
@@ -1397,10 +1403,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   ),
                                   Row(
                                     children: [
-                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
                                         Tooltip(
                                           message: 'Comments',
-                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          child: NsgCircle(
+                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
                                         ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
@@ -1474,27 +1481,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: Row(
                                   children: [
-                                    // if (tasks.priority == EPriority.high)
-                                    //   const Tooltip(
-                                    //       message: 'High Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.red,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.medium)
-                                    //   const Tooltip(
-                                    //       message: 'Medium Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.orange,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.low)
-                                    //   const Tooltip(
-                                    //       message: 'Low Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.green,
-                                    //       )),
                                     Flexible(
                                       child: Text(
                                         tasks.docNumber,
@@ -1510,7 +1496,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().currentItem = tasks;
 
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                               Get.find<TasksController>().sendNotify();
+                                              Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
                                       )
@@ -1563,10 +1549,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   ),
                                   Row(
                                     children: [
-                                      if (tasks.tableComments.length.isGreaterThan(0))
+                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
                                         Tooltip(
                                           message: 'Comments',
-                                          child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                          child: NsgCircle(
+                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
                                         ),
                                       ClipOval(
                                         child: tasks.assignee.photoName.isEmpty
@@ -1634,27 +1621,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                             padding: const EdgeInsets.only(bottom: 8),
                             child: Row(
                               children: [
-                                // if (tasks.priority == EPriority.high)
-                                //   const Tooltip(
-                                //       message: 'High Priority',
-                                //       child: Icon(
-                                //         Icons.priority_high,
-                                //         color: Colors.red,
-                                //       )),
-                                // if (tasks.priority == EPriority.medium)
-                                //   const Tooltip(
-                                //       message: 'Medium Priority',
-                                //       child: Icon(
-                                //         Icons.priority_high,
-                                //         color: Colors.orange,
-                                //       )),
-                                // if (tasks.priority == EPriority.low)
-                                //   const Tooltip(
-                                //       message: 'Low Priority',
-                                //       child: Icon(
-                                //         Icons.priority_high,
-                                //         color: Colors.green,
-                                //       )),
                                 Flexible(
                                   child: Text(
                                     tasks.docNumber,
@@ -1668,7 +1634,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         onPressed: () {
                                           Get.find<TaskCheckListController>().requestItems();
                                           Get.find<TasksController>().currentItem = tasks;
-                                           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                          Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                           Get.find<TasksController>().sendNotify();
                                         },
                                         icon: const Icon(Icons.edit)),
@@ -1708,13 +1674,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       ),
                                     ),
                                     Text(
-                                      //   'Обновлено: ${{
-                                      // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                                      //     format: 'dd.MM.yy HH:mm')
-                                      //   }}',
                                       getupdateDay(tasks),
                                       maxLines: 1,
-
                                       style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                     ),
                                   ],
@@ -1722,10 +1683,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                               ),
                               Row(
                                 children: [
-                                  if (tasks.tableComments.length.isGreaterThan(0))
+                                  if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
                                     Tooltip(
                                       message: 'Comments',
-                                      child: NsgCircle(text: tasks.tableComments.length.toString()),
+                                      child: NsgCircle(
+                                          text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
                                     ),
                                   ClipOval(
                                     child: tasks.assignee.photoName.isEmpty
@@ -1783,7 +1745,7 @@ openTaskDialog(tasks, context) {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
   // set up the button
-  
+
   Widget statusButton = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
