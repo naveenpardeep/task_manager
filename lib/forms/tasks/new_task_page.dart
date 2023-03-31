@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -17,7 +19,7 @@ class NewTaskPage extends StatefulWidget {
 class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin {
   late TabController _tabController;
   var taskController = Get.find<TasksController>();
-  var commnetController = Get.find<CommentTableTasksController>();
+  var commnetController = Get.find<TaskCommentsController>();
   late double height;
   late double width;
   ScrollController scrollController = ScrollController();
@@ -26,6 +28,9 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
+    if(commnetController.lateInit){
+      commnetController.requestItems();
+    }
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_setIndex);
   }
@@ -152,8 +157,8 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
           const TasksPage(),
           Container(key: GlobalKey(), child: const ChecklistPage()),
           commnetController.obx(
-              // ignore: prefer_const_literals_to_create_immutables
-              (state) => Container(key: GlobalKey(), child: const TasksCommentRowPage())),
+        // ignore: prefer_const_literals_to_create_immutables
+        (state) =>Container(key: GlobalKey(), child: const TasksCommentPage())),
         ]),
       ),
     ));

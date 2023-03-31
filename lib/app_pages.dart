@@ -28,6 +28,7 @@ import 'package:task_manager_app/forms/project/project_Mobileview_page.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
 import 'package:task_manager_app/forms/task_board/taskBoard_status.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
@@ -45,6 +46,7 @@ import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -52,6 +54,7 @@ import 'package:task_manager_app/view/taskview.dart';
 import 'forms/invitation/invitaion_bindings.dart';
 import 'forms/project/project_binding.dart';
 import 'forms/project/project_list_page.dart';
+import 'forms/task_comment/task_comment_binding.dart';
 import 'forms/task_status/task_status_binding.dart';
 import 'forms/task_status/task_status_list_page.dart';
 import 'forms/task_status/task_status_page.dart';
@@ -329,6 +332,11 @@ class AppPages {
       page: () => const NotificationTasksPage(),
       binding: TasksListBinding(),
     ),
+     GetPage(
+      name: Routes.taskcommentpage,
+      page: () => const TasksCommentPage(),
+      binding: TaskCommentBinding(),
+    ),
   ];
 }
 
@@ -389,4 +397,5 @@ abstract class Routes {
   static const profileViewPage = '/profileViewPage';
   static const profileEditPage = '/profile-edit-page';
   static const notificationTaskPage = '/notificationTaskPage';
+  static const taskcommentpage='/taskcommetpage';
 }

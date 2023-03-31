@@ -7,6 +7,8 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/1/availableButtons.dart';
 import 'package:task_manager_app/1/nsg_rich_text.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -29,7 +31,8 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   late TabController _tabController;
   var controller = Get.find<TasksController>();
   var taskfileC = Get.find<TaskFilesController>();
-  var commnetController = Get.find<CommentTableTasksController>();
+
+   var commnetController = Get.find<TaskCommentsController>();
   late double height;
   late double width;
   ScrollController scrollController = ScrollController();
@@ -40,6 +43,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
     super.initState();
     if(taskfileC.lateInit){
       taskfileC.requestItems();
+        if(commnetController.lateInit){
+      commnetController.requestItems();
+    }
     }
 
     _tabController = TabController(length: 3, vsync: this);
@@ -374,7 +380,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                 ),
               ),
               Container(key: GlobalKey(), child: const ChecklistPage()),
-              Container(key: GlobalKey(), child: const TasksCommentRowPage()),
+              Container(key: GlobalKey(), child: const TasksCommentPage()),
             ]),
           ),
         ));

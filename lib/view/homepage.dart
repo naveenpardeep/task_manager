@@ -11,6 +11,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
@@ -1175,7 +1176,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
-
+                                             
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                                 Get.find<TasksController>().sendNotify();
                                             },
@@ -1341,7 +1342,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
-
+                                                
                                               Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                                Get.find<TasksController>().sendNotify();
                                             },
@@ -1667,8 +1668,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         onPressed: () {
                                           Get.find<TaskCheckListController>().requestItems();
                                           Get.find<TasksController>().currentItem = tasks;
-
-                                          Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                           Get.find<TasksController>().sendNotify();
                                         },
                                         icon: const Icon(Icons.edit)),
