@@ -40,7 +40,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       onKey: (event) async {
                         if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
                           await controller.itemPagePost(goBack: false);
-                      
+
                           await controller.createNewItemAsync();
                         }
                       },
@@ -159,9 +159,9 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
       ),
       child: const Text("Delete"),
       onPressed: () async {
-        controller.currentItem=comment;
-       await controller.deleteItems([controller.currentItem]);
-       
+        controller.currentItem = comment;
+        await controller.deleteItems([controller.currentItem]);
+
         controller.refreshData();
 
         // ignore: use_build_context_synchronously
@@ -182,8 +182,6 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
       },
     );
   }
-
-
 
   Widget currentUser(context, comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
@@ -220,10 +218,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child:
-                        
-
-                          Text(
+                      child: Text(
                         comment.text,
                         softWrap: true,
                         style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
@@ -251,41 +246,11 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
             ),
           ),
         ),
-        Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ClipOval(
-              child: comment.author.photoFile.isEmpty
-                  ? Container(
-                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                      width: 32,
-                      height: 32,
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 20,
-                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                      ),
-                    )
-                  : Image.memory(
-                      Uint8List.fromList(comment.author.photoFile),
-                      fit: BoxFit.cover,
-                      width: 32,
-                      height: 32,
-                    ),
-            )),
-        const SizedBox(
-          height: 70,
-        )
-      ],
-    );
-  }
-
-  Widget anotherUsers(context, comment, width) {
-    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
-        children: [
-          Padding(
+        InkWell(
+          onTap: () {
+            showuser(context, comment);
+          },
+          child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: ClipOval(
                 child: comment.author.photoFile.isEmpty
@@ -306,6 +271,93 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         height: 32,
                       ),
               )),
+        ),
+        const SizedBox(
+          height: 70,
+        )
+      ],
+    );
+  }
+
+  showuser(BuildContext context, TaskComment comment) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    // set up the button
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(comment.author.toString()),
+      content: SizedBox(
+        height: 200,
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: comment.author.photoFile.isEmpty
+                    ? Container(
+                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                        width: 100,
+                        height: 100,
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 20,
+                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                        ),
+                      )
+                    : Image.memory(
+                        Uint8List.fromList(comment.author.photoFile),
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      )),
+            Text(comment.author.phoneNumber),
+            Text(comment.author.email)
+          ],
+        ),
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Widget anotherUsers(context, comment, width) {
+    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              showuser(context, comment);
+            },
+            child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ClipOval(
+                  child: comment.author.photoFile.isEmpty
+                      ? Container(
+                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                          width: 32,
+                          height: 32,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 20,
+                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                          ),
+                        )
+                      : Image.memory(
+                          Uint8List.fromList(comment.author.photoFile),
+                          fit: BoxFit.cover,
+                          width: 32,
+                          height: 32,
+                        ),
+                )),
+          ),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -335,9 +387,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child:
-                            
-                            Text(
+                        child: Text(
                           comment.text,
                           softWrap: true,
                           style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
