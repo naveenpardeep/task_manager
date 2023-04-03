@@ -4,12 +4,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/invitation/acceptController.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectUserMobile extends StatefulWidget {
@@ -21,10 +24,14 @@ class ProjectUserMobile extends StatefulWidget {
 class _ProjectpageState extends State<ProjectUserMobile> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
+  var invitations = Get.find<AccpetController>();
 
   @override
   void initState() {
     super.initState();
+    if (invitations.lateInit) {
+      invitations.requestItems();
+    }
     scaffoldKey;
   }
 
@@ -61,6 +68,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
+                              invitations.obx((state) => projectuserInvitations(context)),
                               projectUsersList(context),
                             ],
                           ),
@@ -87,13 +95,113 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     );
   }
 
+  Widget projectuserInvitations(BuildContext context) {
+    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    List<Widget> list = [];
+
+    var invitations = Get.find<AccpetController>()
+        .items
+        .reversed
+        .where((element) => element.project.name == controller.currentItem.name && element.isAccepted == false && element.isRejected == false);
+
+    {
+      for (var invitation in invitations) {
+        {
+          list.add(GestureDetector(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ClipOval(
+                          child: invitation.invitedUser.photoName.isEmpty
+                              ? Container(
+                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                  width: 48,
+                                  height: 48,
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    size: 48,
+                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                  ),
+                                )
+                              : Image.network(
+                              TaskFilesController.getFilePath(invitation.invitedUser.photoName),
+                              fit: BoxFit.cover,
+                              width: 48,
+                              height: 48,
+                            ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              invitation.invitedUser.name,
+                              style: TextStyle(
+                                fontSize: ControlOptions.instance.sizeL,
+                              ),
+                            ),
+                            Text(
+                              invitation.invitedUser.phoneNumber,
+                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Invitated User',
+                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Tooltip(
+                        message: 'Cancel Invitation',
+                        child: IconButton(
+                          icon: const Icon(Icons.cancel),
+                          onPressed: () async {
+                            Get.find<AccpetController>().currentItem = invitation;
+                            await Get.find<AccpetController>().deleteItems([Get.find<AccpetController>().currentItem]);
+                            Get.find<AccpetController>().refreshData();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ));
+        }
+      }
+    }
+
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: list,
+      ),
+    ));
+  }
+
   Widget projectUsersList(BuildContext context) {
     List<Widget> list = [];
     //var projectUsertable = Get.find<ProjectItemUserTableController>().items;
 
     for (var projectuser in controller.currentItem.tableUsers.rows) {
       list.add(Padding(
-    padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
+        padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
         child: InkWell(
           onTap: () {
             Get.find<ProjectItemUserTableController>().currentItem = projectuser;
@@ -107,7 +215,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: ClipOval(
-                      child: projectuser.userAccount.photoFile.isEmpty
+                      child: projectuser.userAccount.photoName.isEmpty
                           ? Container(
                               decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                               width: 48,
@@ -118,8 +226,8 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 color: ControlOptions.instance.colorMain.withOpacity(0.4),
                               ),
                             )
-                          : Image.memory(
-                              Uint8List.fromList(projectuser.userAccount.photoFile),
+                          : Image.network(
+                              TaskFilesController.getFilePath(projectuser.userAccount.photoName),
                               fit: BoxFit.cover,
                               width: 48,
                               height: 48,
@@ -177,8 +285,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
         ),
       ));
     }
- 
-   
+
     return SingleChildScrollView(child: Column(children: list));
   }
 

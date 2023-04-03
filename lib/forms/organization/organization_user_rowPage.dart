@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
@@ -79,7 +80,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                             .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона или по электронной почте ')));
                       } else {
                         await controller.itemPagePost();
-
+                        Get.find<AccpetController>().refreshData();
                         Get.back();
                       }
                     },
@@ -205,7 +206,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                                 .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона или по электронной почте ')));
                           } else {
                             await controller.itemPagePost();
-
+                              Get.find<AccpetController>().refreshData();
                             Get.back();
                           }
                         },
