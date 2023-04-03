@@ -229,12 +229,12 @@ class TasksController extends NsgDataController<TaskDoc> {
     return await super.itemPagePost(goBack: false, useValidation: useValidation);
   }
 
-  @override
-  Future setAndRefreshSelectedItem(NsgDataItem item, List<String>? referenceList) async {
-    await super.setAndRefreshSelectedItem(item, referenceList);
-    //Обновление подчиненных контроллеров происходит автоматически при смене текущей строки
-    //await Get.find<TaskFilesController>().refreshData();
-  }
+  // @override
+  // Future setAndRefreshSelectedItem(NsgDataItem item, List<String>? referenceList) async {
+  //   await super.setAndRefreshSelectedItem(item, referenceList);
+  //   //Обновление подчиненных контроллеров происходит автоматически при смене текущей строки
+  //   //await Get.find<TaskFilesController>().refreshData();
+  // }
 }
 
 class CommentTableTasksController extends NsgDataTableController<TaskDocCommentsTable> {

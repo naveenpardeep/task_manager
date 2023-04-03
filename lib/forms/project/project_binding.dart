@@ -6,6 +6,7 @@ import 'package:task_manager_app/forms/organization/organization_controller.dart
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -46,5 +47,7 @@ class ProjectBinding extends Bindings {
     Get.put(TaskCheckListController());
     Get.put(ProjectUserController());
     Get.put(TaskFilesController());
+    Get.put(TaskCommentsController());
+   
   }
 }

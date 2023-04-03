@@ -40,6 +40,8 @@ export 'user_notification_settings.dart';
 export 'generated/user_notification_settings.g.dart';
 export 'user_notification_settings_status_table.dart';
 export 'generated/user_notification_settings_status_table.g.dart';
+export 'user_project_settings.dart';
+export 'generated/user_project_settings.g.dart';
 export 'user_account.dart';
 export 'generated/user_account.g.dart';
 export 'user_settings.dart';
