@@ -177,7 +177,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                 })
           ],
         ),
-        controller.obx((state) => Expanded(child: content())),
+        Expanded(child: controller.obx((state) => content())),
         if (width < 700)
           //  const BottomMenu()
           const BottomMenu()

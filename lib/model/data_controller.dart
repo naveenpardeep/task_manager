@@ -10,6 +10,7 @@ import '../login/login_page.dart';
 import '../login/registration_page.dart';
 import '../login/verification_page.dart';
 import 'generated/data_controller.g.dart';
+import 'options/server_options.dart';
 import 'user_account.dart';
 
 class DataController extends DataControllerGenerated {
@@ -55,6 +56,10 @@ class DataController extends DataControllerGenerated {
     _gotoMainPage();
   }
 
+  static String getFilePath(String fileName) {
+    return '${NsgServerOptions.serverUriDataController}/Data/GetStream?path=$fileName';
+  }
+
   bool isLoadFinished = false;
   bool gotoDone = false;
   Future _gotoMainPage() async {
@@ -76,6 +81,7 @@ class DataController extends DataControllerGenerated {
           mainProfile = profile;
         }
       }
+      //mainProfile = userC.items.firstWhereOrNull((account) => account.organizationId.isEmpty)!;
       if (!mainProfile.isFilled) {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.

@@ -64,15 +64,6 @@ class UserAccountPage extends GetView<UserAccountController> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              // NsgInput(
-                              //   selectionController:
-                              //       Get.find<OrganizationController>(),
-                              //   dataItem: controller.currentItem,
-                              //   fieldName:
-                              //       UserAccountGenerated.nameOrganizationId,
-                              //   label: 'Организация',
-                              // ),
-
                               TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameName,
@@ -147,14 +138,6 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
                               ),
-                              // Center(child: userImage()),
-                              // NsgButton(
-                              //   text: 'Список пользователей',
-                              //   color: Colors.white,
-                              //   onPressed: () {
-                              //     Get.toNamed(Routes.userAccountListPage);
-                              //   },
-                              // )
                             ],
                           ),
                         )),
@@ -164,39 +147,6 @@ class UserAccountPage extends GetView<UserAccountController> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget userImage() {
-    var uac = Get.find<UserImageController>();
-    return NsgImage(
-      controller: uac,
-      fieldName: PictureGenerated.nameImage,
-      item: uac.currentItem,
-      noImage: _noImageWidget(),
-    );
-    // NsgFilePicker(
-    //   showAsWidget: true,
-    //   callback: (value) {},
-    //   objectsList: Get.find<UserImageController>().images,
-    //   allowedFileFormats: const [],
-    //   maxFilesCount: 1,
-    // ),
-    //);
-  }
-
-  //TODO: show image "no image"
-  _noImageWidget() {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
-      ),
-      child: const ClipOval(
-        child: SizedBox(width: 100, height: 100, child: Icon(Icons.add_a_photo)),
       ),
     );
   }

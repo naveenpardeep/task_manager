@@ -30,20 +30,25 @@ class ProfileEditPage extends GetView<UserAccountController> {
         skipInterface: true,
         oneFile: true,
         callback: (value) async {
-          if (value.isNotEmpty) {
-            List<int> imagefile;
-            if (kIsWeb) {
-              imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-            } else {
-              imagefile = await File(value[0].filePath).readAsBytes();
+          NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение...', canStopped: false);
+          try {
+            progress.show();
+            if (value.isNotEmpty) {
+              List<int> imagefile;
+              if (kIsWeb) {
+                imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+              } else {
+                imagefile = await File(value[0].filePath).readAsBytes();
+              }
+              // File imageFile = File(value[0].filePath);
+              //  List<int> imagebytes = await imageFile.readAsBytes();
+              controller.currentItem.photoFile = imagefile;
+              //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
+              await userAccountController.currentItem.post();
+              await controller.refreshData();
             }
-            // File imageFile = File(value[0].filePath);
-            //  List<int> imagebytes = await imageFile.readAsBytes();
-            Get.find<DataController>().currentUser.photoFile = imagefile; //????????
-            userAccountController.currentItem.photoFile = imagefile;
-            await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
-            await userAccountController.postItems([userAccountController.currentItem]);
-            await userAccountController.refreshData();
+          } finally {
+            progress.hide();
           }
           //userAccountController.sendNotify();
           Navigator.of(Get.context!).pop();
@@ -103,15 +108,6 @@ class ProfileEditPage extends GetView<UserAccountController> {
                                   ],
                                 )
                               ]),
-                              // NsgInput(
-                              //   selectionController:
-                              //       Get.find<OrganizationController>(),
-                              //   dataItem: controller.currentItem,
-                              //   fieldName:
-                              //       UserAccountGenerated.nameOrganizationId,
-                              //   label: 'Организация',
-                              // ),
-
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
@@ -149,58 +145,6 @@ class ProfileEditPage extends GetView<UserAccountController> {
                                 label: 'Электронная почта',
                                 infoString: 'e-mail@mail.org',
                               ),
-                              //Должность тоже нужна только внутри организации
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: UserAccountGenerated.namePosition,
-                              //   label: 'Должность',
-                              // ),
-                              //Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
-                              /*NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByPush,
-                                label: 'Показывать push-уведомления',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByEmail,
-                                label: 'Отправлять уведомления на почту',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasks,
-                                label: 'Создана задача с моим участием',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasks,
-                                label:
-                                    'Все изменения в задачах с моим участием',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasksInProjects,
-                                label: 'Новая задача в проекте',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasksInProjects,
-                                label: 'Все изменения в задачах проектов',
-                              ),*/
-
-                              // NsgButton(
-                              //   text: 'Список пользователей',
-                              //   color: Colors.white,
-                              //   onPressed: () {
-                              //     Get.toNamed(Routes.userAccountListPage);
-                              //   },
-                              // )
                             ],
                           ),
                         )),
@@ -238,11 +182,9 @@ class ProfileEditPage extends GetView<UserAccountController> {
   }
 
   Widget userImage() {
-    if (userAccountController.currentItem.photoFile.isNotEmpty) {
-      return Image.memory(
-        Uint8List.fromList(
-          userAccountController.currentItem.photoFile,
-        ),
+    if (userAccountController.currentItem.photoName.isNotEmpty) {
+      return Image.network(
+        DataController.getFilePath(userAccountController.currentItem.photoName),
         width: 100,
         height: 100,
         fit: BoxFit.cover,
