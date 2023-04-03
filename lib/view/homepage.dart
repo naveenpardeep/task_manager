@@ -62,7 +62,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    if(taskcommentC.lateInit){
+    if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
     }
     reset();
@@ -695,10 +695,6 @@ class _HomepageState extends State<Homepage> {
     List<Widget> list = [];
 
     var tasksList = taskController.items;
-
-    // var taskstart = tasksList.where((
-    //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
-
     for (var tasks in tasksList) {
       if (tasks.taskStatus != status) continue;
 
@@ -721,11 +717,10 @@ class _HomepageState extends State<Homepage> {
 
               taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
-
-            // taskConstroller.currentItem.taskStatus = status;
-            // Get.toNamed(Routes.tasksPage);
-            //   tasks.taskStatus = status;
-            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+              tasks.isReadByAssignee = true;
+              Get.find<TasksController>().postItems([tasks]);
+            }
           },
           child: Row(
             children: [
@@ -930,10 +925,12 @@ class _HomepageState extends State<Homepage> {
               taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
 
-            // taskConstroller.currentItem.taskStatus = status;
-            // Get.toNamed(Routes.tasksPage);
-            //   tasks.taskStatus = status;
-            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+              {
+                tasks.isReadByAssignee =true;
+                Get.find<TasksController>().postItems([tasks]);
+              }
+            }
           },
           child: Row(
             children: [
@@ -1147,27 +1144,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: Row(
                                   children: [
-                                    // if (tasks.priority == EPriority.high)
-                                    //   const Tooltip(
-                                    //       message: 'High Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.red,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.medium)
-                                    //   const Tooltip(
-                                    //       message: 'Medium Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.orange,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.low)
-                                    //   const Tooltip(
-                                    //       message: 'Low Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.green,
-                                    //       )),
                                     Flexible(
                                       child: Text(
                                         tasks.docNumber,
@@ -1179,6 +1155,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                              if (Get.find<DataController>().currentUser == tasks.assignee ||
+                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+                                                tasks.isReadByAssignee = true;
+                                                Get.find<TasksController>().postItems([tasks]);
+                                              }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1187,6 +1168,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
+                                    if (tasks.isReadByAssignee == true) const Icon(Icons.visibility),
                                   ],
                                 ),
                               ),
@@ -1222,13 +1204,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                         Text(
-                                          //   'Обновлено: ${{
-                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                                          //     format: 'dd.MM.yy HH:mm')
-                                          //   }}',
                                           getupdateDay(tasks),
                                           maxLines: 1,
-
                                           style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
@@ -1314,27 +1291,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: Row(
                                   children: [
-                                    // if (tasks.priority == EPriority.high)
-                                    //   const Tooltip(
-                                    //       message: 'High Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.red,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.medium)
-                                    //   const Tooltip(
-                                    //       message: 'Medium Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.orange,
-                                    //       )),
-                                    // if (tasks.priority == EPriority.low)
-                                    //   const Tooltip(
-                                    //       message: 'Low Priority',
-                                    //       child: Icon(
-                                    //         Icons.priority_high,
-                                    //         color: Colors.green,
-                                    //       )),
                                     Flexible(
                                       child: Text(
                                         tasks.docNumber,
@@ -1346,6 +1302,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                               if (Get.find<DataController>().currentUser == tasks.assignee ||
+                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+                                                tasks.isReadByAssignee = true;
+                                                Get.find<TasksController>().postItems([tasks]);
+                                              }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1354,6 +1315,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             },
                                             icon: const Icon(Icons.edit)),
                                       ),
+                                    if (tasks.isReadByAssignee == true) const Icon(Icons.visibility),
                                   ],
                                 ),
                               ),
@@ -1389,13 +1351,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                           ),
                                         ),
                                         Text(
-                                          //   'Обновлено: ${{
-                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                                          //     format: 'dd.MM.yy HH:mm')
-                                          //   }}',
                                           getupdateDay(tasks),
                                           maxLines: 1,
-
                                           style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                                         ),
                                       ],
@@ -1492,6 +1449,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
+                                              if (Get.find<DataController>().currentUser == tasks.assignee ||
+                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+                                                tasks.isReadByAssignee = true;
+                                                Get.find<TasksController>().postItems([tasks]);
+                                              }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1499,7 +1461,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                               Get.find<TasksController>().sendNotify();
                                             },
                                             icon: const Icon(Icons.edit)),
-                                      )
+                                      ),
+                                    if (tasks.isReadByAssignee == true) const Icon(Icons.visibility),
                                   ],
                                 ),
                               ),
@@ -1632,13 +1595,19 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Flexible(
                                     child: IconButton(
                                         onPressed: () {
+                                          if (Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
                                           Get.find<TaskCheckListController>().requestItems();
                                           Get.find<TasksController>().currentItem = tasks;
                                           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                                           Get.find<TasksController>().sendNotify();
                                         },
                                         icon: const Icon(Icons.edit)),
-                                  )
+                                  ),
+                                if (tasks.isReadByAssignee == true) const Icon(Icons.visibility),
                               ],
                             ),
                           ),
