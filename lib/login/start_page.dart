@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import '../app_pages.dart';
 import '../forms/user_account/user_account_controller.dart';
@@ -39,9 +40,9 @@ class StartPage extends StatelessWidget {
             ),
             TaskButton(
               style: TaskButtonStyle.dark,
-              text: 'Погнали',
+              text: 'Начать!',
               onTap: () {
-                Get.find<UserAccountController>().itemPageOpen(userC.items.first, Routes.firstTimeUserAccountPage);
+                Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().mainProfile, Routes.firstTimeUserAccountPage);
               },
             )
           ],

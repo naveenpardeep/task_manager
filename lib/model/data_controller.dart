@@ -22,6 +22,7 @@ class DataController extends DataControllerGenerated {
   }
 
   UserAccount currentUser = UserAccount();
+  UserAccount mainProfile = UserAccount();
 
   @override
   Future onInit() async {
@@ -70,20 +71,17 @@ class DataController extends DataControllerGenerated {
         await Get.find<DataController>().provider!.connect(Get.find<DataController>());
         return;
       }
-      if (userC.items.length == 1) {
+      for (var profile in userC.items) {
+        if (profile.organization.isEmpty) {
+          mainProfile = profile;
+        }
+      }
+      if (!mainProfile.isFilled) {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
 
-        if (userC.items.first.firstName.isEmpty ||
-            userC.items.first.phoneNumber.isEmpty ||
-            userC.items.first.lastName.isEmpty ||
-            userC.items.first.email.isEmpty) {
-          Get.toNamed(Routes.startPage);
-        } else {
-          await Get.find<InvitationController>().requestItems();
-          Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
-        }
+        Get.toNamed(Routes.startPage);
       } else {
         // Get.offAndToNamed(Routes.tasksListPage);
         //Get.offAndToNamed(Routes.homePage);
@@ -91,7 +89,16 @@ class DataController extends DataControllerGenerated {
         //   Get.offAndToNamed(Routes.projectListPage);
         //Get.offAndToNamed(Routes.userAccountListPage);
         //Get.offAndToNamed(Routes.invitationPage);
-        Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage);
+        await Get.find<InvitationController>().requestItems();
+        if (Get.find<InvitationController>().items.isEmpty) {
+          if (userC.items.length == 1) {
+            Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+          } else {
+            Get.find<ProjectController>().itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage);
+          }
+        } else {
+          Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
+        }
       }
     }
   }

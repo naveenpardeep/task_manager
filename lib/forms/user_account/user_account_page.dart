@@ -82,7 +82,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                               TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameFirstName,
-                                 label: 'Ваше имя',
+                                label: 'Ваше имя',
                                 infoString: 'Введите имя',
                               ),
                               TTNsgInput(
@@ -94,19 +94,19 @@ class UserAccountPage extends GetView<UserAccountController> {
                               TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.namePhoneNumber,
-                               label: 'Телефон',
+                                label: 'Телефон',
                                 infoString: '+7',
                               ),
                               TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameEmail,
-                                 label: 'Электронная почта',
+                                label: 'Электронная почта',
                                 infoString: 'e-mail@mail.org',
                               ),
-                               TTNsgInput(
+                              TTNsgInput(
                                 dataItem: Get.find<DataController>().currentUser,
                                 fieldName: UserAccountGenerated.nameBirthDate,
-                                 label: 'Ваша Дата рождения',
+                                label: 'Ваша Дата рождения',
                                 infoString: 'Введите Дата рождения',
                               ),
                               //  Должность тоже нужна только внутри организации
@@ -147,7 +147,7 @@ class UserAccountPage extends GetView<UserAccountController> {
                                 fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
                                 label: 'Все изменения в задачах проектов',
                               ),
-                             // Center(child: userImage()),
+                              // Center(child: userImage()),
                               // NsgButton(
                               //   text: 'Список пользователей',
                               //   color: Colors.white,
@@ -195,7 +195,9 @@ class UserAccountPage extends GetView<UserAccountController> {
         color: Colors.white,
         border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
       ),
-      child: const Center(child: Text('no image')),
+      child: const ClipOval(
+        child: SizedBox(width: 100, height: 100, child: Icon(Icons.add_a_photo)),
+      ),
     );
   }
 }

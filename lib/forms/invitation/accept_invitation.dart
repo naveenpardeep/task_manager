@@ -37,7 +37,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                     TTAppBarIcon(
                       icon: Icons.person,
                       onTap: () {
-                        Get.find<UserAccountController>().itemPageOpen(Get.find<UserAccountController>().items.first, Routes.firstTimeUserAccountPage);
+                        Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().mainProfile, Routes.firstTimeUserAccountPage);
                       },
                     ),
                     TTAppBarIcon(

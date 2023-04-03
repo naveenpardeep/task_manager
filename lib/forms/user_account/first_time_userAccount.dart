@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../../model/data_controller.dart';
+import '../invitation/invitation_controller.dart';
 import '../widgets/tt_app_bar.dart';
 import '../widgets/tt_nsg_input.dart';
 
@@ -226,14 +227,14 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                           } else if (controller.currentItem.email.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите Email')));
                           } else {
-                            if (true /*controller.currentItem.lastChange == DateTime(0)*/) {
+                            if (!controller.currentItem.isFilled) {
+                              controller.currentItem.isFilled = true;
                               await controller.itemPagePost();
                               Get.toNamed(Routes.loginConfirmPage);
+                            } else {
+                              await Get.find<InvitationController>().requestItems();
+                              Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
                             }
-                            // else {
-                            //   await Get.find<InvitationController>().requestItems();
-                            //   Get.find<InvitationController>().itemNewPageOpen(Routes.acceptInvitationPage);
-                            // }
                           }
 
                           // Get.back();
