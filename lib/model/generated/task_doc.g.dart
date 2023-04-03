@@ -26,6 +26,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameFiles = 'files';
   static const nameAuthorId = 'authorId';
   static const nameAssigneeId = 'assigneeId';
+  static const nameIsReadByAssignee = 'isReadByAssignee';
   static const namePriority = 'priority';
 
   static final Map<String, String> fieldNameDict = {
@@ -65,6 +66,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceListField<TaskDocFilesTable>(nameFiles), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
+    addField(NsgDataBoolField(nameIsReadByAssignee), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
@@ -207,6 +209,11 @@ class TaskDocGenerated extends NsgDataItem {
   set assigneeId(String value) => setFieldValue(nameAssigneeId, value);
   set assignee(UserAccount value) =>
     setFieldValue(nameAssigneeId, value.id);
+
+  /// ПрочитанаИсполнителем
+  bool get isReadByAssignee => getFieldValue(nameIsReadByAssignee) as bool;
+
+  set isReadByAssignee(bool value) => setFieldValue(nameIsReadByAssignee, value);
 
   /// Приоритет
   EPriority get priority => NsgEnum.fromValue(EPriority, getFieldValue(namePriority)) as EPriority;

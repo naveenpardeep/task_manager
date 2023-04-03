@@ -14,6 +14,7 @@ class UserAccountGenerated extends NsgDataItem {
   static const namePhoneNumber = 'phoneNumber';
   static const nameEmail = 'email';
   static const namePosition = 'position';
+  static const nameIsFilled = 'isFilled';
   static const nameSettingNotifyByEmail = 'settingNotifyByEmail';
   static const nameSettingNotifyByPush = 'settingNotifyByPush';
   static const nameSettingNotifyNewTasks = 'settingNotifyNewTasks';
@@ -53,6 +54,7 @@ class UserAccountGenerated extends NsgDataItem {
     addField(NsgDataStringField(namePhoneNumber), primaryKey: false);
     addField(NsgDataStringField(nameEmail), primaryKey: false);
     addField(NsgDataStringField(namePosition), primaryKey: false);
+    addField(NsgDataBoolField(nameIsFilled), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyByEmail), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyByPush), primaryKey: false);
     addField(NsgDataBoolField(nameSettingNotifyNewTasks), primaryKey: false);
@@ -124,6 +126,11 @@ class UserAccountGenerated extends NsgDataItem {
   String get position => getFieldValue(namePosition).toString();
 
   set position(String value) => setFieldValue(namePosition, value);
+
+  /// Заполнен
+  bool get isFilled => getFieldValue(nameIsFilled) as bool;
+
+  set isFilled(bool value) => setFieldValue(nameIsFilled, value);
 
   /// ВключеныУведомленияEmail
   bool get settingNotifyByEmail => getFieldValue(nameSettingNotifyByEmail) as bool;
