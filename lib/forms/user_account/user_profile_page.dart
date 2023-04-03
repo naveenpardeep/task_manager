@@ -122,9 +122,9 @@ class _UserProfileState extends State<UserProfile> {
   List<ProfileCard> getProfilesCards() {
     List<ProfileCard> list = [];
 
-    list.add(ProfileCard(profile: Get.find<DataController>().currentUser));
+    list.add(ProfileCard(profile: Get.find<DataController>().mainProfile));
     for (var profile in userAccountController.items) {
-      if (Get.find<DataController>().currentUser == profile.mainUserAccount) {
+      if (Get.find<DataController>().mainProfile == profile.mainUserAccount) {
         list.add(ProfileCard(profile: profile));
       }
     }
@@ -280,7 +280,7 @@ class ProfileCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ClipOval(
-                  child: profile.photoFile.isEmpty
+                  child: profile.photoName.isEmpty
                       ? Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                           width: 100,
@@ -291,8 +291,8 @@ class ProfileCard extends StatelessWidget {
                             color: ControlOptions.instance.colorMain.withOpacity(0.4),
                           ),
                         )
-                      : Image.memory(
-                          Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
+                      : Image.network(
+                          DataController.getFilePath(profile.photoName),
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,
