@@ -267,7 +267,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       )
                     : Image.network(
                               TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               width: 32,
                               height: 32,
                             ),
@@ -281,9 +281,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
   }
 
   showuser(BuildContext context, TaskComment comment) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    // set up the button
+
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -307,12 +305,12 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       )
                     : Image.network(
                               TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               width: 120,
                               height: 120,
                             ),),
-            Text(comment.author.phoneNumber),
-            Text(comment.author.email)
+            SelectableText(comment.author.phoneNumber),
+            SelectableText(comment.author.email)
           ],
         ),
       ),
@@ -353,7 +351,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         )
                       : Image.network(
                               TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               width: 32,
                               height: 32,
                             ),
