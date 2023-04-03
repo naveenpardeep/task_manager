@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -81,7 +82,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                       } else {
                         await controller.itemPagePost();
                         Get.find<AccpetController>().refreshData();
-                        Get.back();
+                         Get.toNamed(Routes.projectMobilePageview);
                       }
                     },
                   ),
@@ -91,14 +92,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              // NsgInput(
-                              //   selectionController:
-                              //       Get.find<OrganizationController>(),
-                              //   dataItem: controller.currentItem,
-                              //   fieldName:
-                              //       UserAccountGenerated.nameOrganizationId,
-                              //   label: 'Организация',
-                              // ),
+                             
                               Row(
                                 // ignore: prefer_const_literals_to_create_immutables
                                 children: [
@@ -205,9 +199,9 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(content: Text('Пожалуйста, введите номер мобильного телефона или по электронной почте ')));
                           } else {
-                            await controller.itemPagePost();
+                            await controller.itemPagePost(goBack: false);
                               Get.find<AccpetController>().refreshData();
-                            Get.back();
+                            Get.toNamed(Routes.projectMobilePageview);
                           }
                         },
                       )),
