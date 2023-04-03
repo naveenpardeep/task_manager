@@ -72,7 +72,7 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         child: InkWell(
       onTap: () {
         if (widget.controller != null) {
-           widget.controller!.refreshData();
+          widget.controller!.refreshData();
           if (widget.controller!.currentItem.isNotEmpty) {
             widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
           } else {
@@ -148,11 +148,16 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
       return Container(
         width: 32,
         height: 32,
+        //padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.green, width: 5.0, style: BorderStyle.solid),
+          color: ControlOptions.instance.colorMainLighter,
+          shape: BoxShape.circle,
         ),
-        child: const Center(child: Text('no image')),
+        child: Icon(
+          Icons.add_a_photo,
+          color: ControlOptions.instance.colorMainLight,
+          size: ControlOptions.instance.sizeXL,
+        ),
       );
     }
   }
