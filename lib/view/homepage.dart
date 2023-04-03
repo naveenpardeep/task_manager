@@ -718,7 +718,7 @@ class _HomepageState extends State<Homepage> {
               taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
             if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-              tasks.isReadByAssignee == true;
+              tasks.isReadByAssignee = true;
               Get.find<TasksController>().postItems([tasks]);
             }
           },
@@ -927,7 +927,7 @@ class _HomepageState extends State<Homepage> {
 
             if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
               {
-                tasks.isReadByAssignee == true;
+                tasks.isReadByAssignee =true;
                 Get.find<TasksController>().postItems([tasks]);
               }
             }
@@ -1157,7 +1157,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               if (Get.find<DataController>().currentUser == tasks.assignee ||
                                                   Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee == true;
+                                                tasks.isReadByAssignee = true;
                                                 Get.find<TasksController>().postItems([tasks]);
                                               }
                                               Get.find<TaskCheckListController>().requestItems();
@@ -1304,7 +1304,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                                if (Get.find<DataController>().currentUser == tasks.assignee ||
                                                   Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee == true;
+                                                tasks.isReadByAssignee = true;
                                                 Get.find<TasksController>().postItems([tasks]);
                                               }
                                               Get.find<TaskCheckListController>().requestItems();
@@ -1451,7 +1451,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               if (Get.find<DataController>().currentUser == tasks.assignee ||
                                                   Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee == true;
+                                                tasks.isReadByAssignee = true;
                                                 Get.find<TasksController>().postItems([tasks]);
                                               }
                                               Get.find<TaskCheckListController>().requestItems();
@@ -1597,7 +1597,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                         onPressed: () {
                                           if (Get.find<DataController>().currentUser == tasks.assignee ||
                                               Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                            tasks.isReadByAssignee == true;
+                                            tasks.isReadByAssignee = true;
                                             Get.find<TasksController>().postItems([tasks]);
                                           }
                                           Get.find<TaskCheckListController>().requestItems();
