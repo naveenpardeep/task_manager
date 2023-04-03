@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
@@ -253,7 +254,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
           child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: ClipOval(
-                child: comment.author.photoFile.isEmpty
+                child: comment.author.photoName.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                         width: 32,
@@ -264,12 +265,12 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                           color: ControlOptions.instance.colorMain.withOpacity(0.4),
                         ),
                       )
-                    : Image.memory(
-                        Uint8List.fromList(comment.author.photoFile),
-                        fit: BoxFit.cover,
-                        width: 32,
-                        height: 32,
-                      ),
+                    : Image.network(
+                              TaskFilesController.getFilePath(comment.author.photoName),
+                              fit: BoxFit.cover,
+                              width: 32,
+                              height: 32,
+                            ),
               )),
         ),
         const SizedBox(
@@ -293,7 +294,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
           children: [
             Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: comment.author.photoFile.isEmpty
+                child: comment.author.photoName.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                         width: 100,
@@ -304,12 +305,12 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                           color: ControlOptions.instance.colorMain.withOpacity(0.4),
                         ),
                       )
-                    : Image.memory(
-                        Uint8List.fromList(comment.author.photoFile),
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                      )),
+                    : Image.network(
+                              TaskFilesController.getFilePath(comment.author.photoName),
+                              fit: BoxFit.cover,
+                              width: 120,
+                              height: 120,
+                            ),),
             Text(comment.author.phoneNumber),
             Text(comment.author.email)
           ],
@@ -339,7 +340,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
             child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: ClipOval(
-                  child: comment.author.photoFile.isEmpty
+                  child: comment.author.photoName.isEmpty
                       ? Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                           width: 32,
@@ -350,12 +351,12 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                             color: ControlOptions.instance.colorMain.withOpacity(0.4),
                           ),
                         )
-                      : Image.memory(
-                          Uint8List.fromList(comment.author.photoFile),
-                          fit: BoxFit.cover,
-                          width: 32,
-                          height: 32,
-                        ),
+                      : Image.network(
+                              TaskFilesController.getFilePath(comment.author.photoName),
+                              fit: BoxFit.cover,
+                              width: 32,
+                              height: 32,
+                            ),
                 )),
           ),
           Flexible(
