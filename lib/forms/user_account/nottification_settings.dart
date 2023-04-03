@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
+import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 
 import '../../app_pages.dart';
 import '../../model/data_controller.dart';
 import '../../model/generated/user_account.g.dart';
 import '../../model/user_notification_settings.dart';
 import '../widgets/tt_nsg_input.dart';
+import 'user_account_controller.dart';
 import 'user_notification_controller.dart';
 
-class NotificationSettings extends StatelessWidget {
-  const NotificationSettings({super.key, this.width});
-
-  final double? width;
+class NotificationSettings extends GetView<UserAccountController> {
+  const NotificationSettings({super.key});
 
   final EdgeInsets margin = const EdgeInsets.fromLTRB(0, 10, 0, 10);
 
@@ -24,52 +24,74 @@ class NotificationSettings extends StatelessWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          controller.obx(
+            (state) {
+              return TaskButton(
+                isEnabled: controller.isModified,
+                style: TaskButtonStyle.light,
+                text: 'Сохранить',
+                onTap: () async {
+                  NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение...', canStopped: false);
+                  try {
+                    progress.show();
+                    await controller.itemPagePost(goBack: false, useValidation: true);
+                    controller.saveBackup(controller.currentItem);
+                  } finally {
+                    progress.hide();
+                  }
+                },
+              );
+            },
+          ),
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyByPush,
             label: 'Push-уведомления',
           ),
 
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyByEmail,
             label: 'Уведомления на почту',
-            // onChanged: (p0) async {
-            //  await userAccountController.itemPagePost(goBack: false);
-            // },
           ),
           const Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyNewTasks,
             label: 'Новые задачи со мной',
             infoString: 'Уведомлять о новых задачах во всех проектах, где я указан исполнителем',
           ),
 
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyEditedTasks,
             label: 'Изменения в задачах со мной',
             infoString: 'Уведомлять об изменениях в задачах во всех проектах, где я указан исполнителем',
           ),
 
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyNewTasksInProjects,
             label: 'Новая задача в проекте',
             infoString: 'Уведомлять о новых задачах во всех проектах',
           ),
 
           TTNsgInput(
+            controller: controller,
             margin: margin,
-            dataItem: Get.find<DataController>().currentUser,
+            dataItem: controller.currentItem,
             fieldName: UserAccountGenerated.nameSettingNotifyEditedTasksInProjects,
             label: 'Изменения во всех задачах',
             infoString: 'Уведомлять об изменениях в задачах во всех проектах',

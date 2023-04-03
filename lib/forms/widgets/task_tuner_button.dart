@@ -2,40 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 class TaskButton extends StatelessWidget {
-  const TaskButton({super.key, this.flex = 1, this.style = TaskButtonStyle.dark, this.onTap, this.text, this.icon});
+  const TaskButton({super.key, this.isEnabled = true, this.flex = 1, this.style = TaskButtonStyle.dark, this.onTap, this.text, this.icon});
 
   final int flex;
   final IconData? icon;
   final TaskButtonStyle style;
   final void Function()? onTap;
   final String? text;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(10),
-        child: InkWell(
-            onTap: onTap,
-            child: Container(
-                width: text != null ? double.infinity : null,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
-                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  if (icon != null)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: Icon(
-                        icon,
-                        color: getColor(style, invert: true),
-                      ),
-                    ),
-                  if (text != null)
-                    Text(
-                      text!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Inter', color: getTextColor(style), fontSize: ControlOptions.instance.sizeM),
-                    ),
-                ]))));
+        child: Stack(
+          children: [
+            InkWell(
+                onTap: isEnabled ? onTap : null,
+                child: Container(
+                    width: text != null ? double.infinity : null,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      if (icon != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Icon(
+                            icon,
+                            color: getColor(style, invert: true),
+                          ),
+                        ),
+                      if (text != null)
+                        Text(
+                          text!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontFamily: 'Inter', color: getTextColor(style), fontSize: ControlOptions.instance.sizeM),
+                        ),
+                    ]))),
+            if (!isEnabled)
+              Positioned.fill(
+                  child: Container(
+                color: Colors.white.withAlpha(150),
+              ))
+          ],
+        ));
   }
 }
 

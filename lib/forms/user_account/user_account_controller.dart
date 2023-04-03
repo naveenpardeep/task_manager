@@ -22,6 +22,14 @@ class UserAccountController extends NsgDataController<UserAccount> {
     return element;
   }
 
+  saveBackup(UserAccount item) {
+    currentItem = item;
+    backupItem = currentItem;
+    currentItem = currentItem.clone() as UserAccount;
+  }
+
+  //UserAccount backUp = UserAccount();
+
   @override
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);

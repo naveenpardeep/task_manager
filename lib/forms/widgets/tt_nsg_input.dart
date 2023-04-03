@@ -614,6 +614,10 @@ class _TTNsgInputState extends State<TTNsgInput> {
                     if (widget.updateController != null) {
                       widget.updateController!.update();
                     } else {
+                      if (widget.controller != null) {
+                        widget.controller!.sendNotify();
+                      }
+
                       setState(() {});
                     }
                   })),
