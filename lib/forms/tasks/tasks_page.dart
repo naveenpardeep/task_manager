@@ -197,15 +197,13 @@ class _TasksPageState extends State<TasksPage> {
                                   //             ),
                                   //           ),
                                   //         ),
-                                  //       if (controller.currentItem.name.isNotEmpty)
-                                  //         Expanded(
-                                  //           child: Center(
-                                  //             child: Text(
-                                  //               'Автор  :  ${controller.currentItem.author}',
-                                  //               style: TextStyle(color: ControlOptions.instance.colorMain),
-                                  //             ),
-                                  //           ),
-                                  //         ),
+                                        if (controller.currentItem.name.isNotEmpty)
+                                          Center(
+                                            child: Text(
+                                              'Автор  :  ${controller.currentItem.author}',
+                                              style: TextStyle(color: ControlOptions.instance.colorMain),
+                                            ),
+                                          ),
                                   //       Expanded(
                                   //         child: SelectableText(
                                   //           'Номер задачи  : ${controller.currentItem.taskNumber}',

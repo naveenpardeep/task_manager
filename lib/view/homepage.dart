@@ -717,10 +717,11 @@ class _HomepageState extends State<Homepage> {
 
               taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
-            if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-              tasks.isReadByAssignee = true;
-              Get.find<TasksController>().postItems([tasks]);
-            }
+            if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
           },
           child: Row(
             children: [
@@ -925,12 +926,12 @@ class _HomepageState extends State<Homepage> {
               taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
             }
 
-            if (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-              {
-                tasks.isReadByAssignee =true;
-                Get.find<TasksController>().postItems([tasks]);
-              }
-            }
+             if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
+            
           },
           child: Row(
             children: [
@@ -1155,11 +1156,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
-                                              if (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
+                                             if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1302,11 +1303,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
-                                               if (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
+                                               if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1449,11 +1450,11 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                       Flexible(
                                         child: IconButton(
                                             onPressed: () {
-                                              if (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
+                                              if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                                            tasks.isReadByAssignee = true;
+                                            Get.find<TasksController>().postItems([tasks]);
+                                          }
                                               Get.find<TaskCheckListController>().requestItems();
                                               Get.find<TasksController>().currentItem = tasks;
 
@@ -1595,8 +1596,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                   Flexible(
                                     child: IconButton(
                                         onPressed: () {
-                                          if (Get.find<DataController>().currentUser == tasks.assignee ||
-                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount) {
+                                           if (tasks.isReadByAssignee==false &&(Get.find<DataController>().currentUser == tasks.assignee ||
+                                              Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
                                             tasks.isReadByAssignee = true;
                                             Get.find<TasksController>().postItems([tasks]);
                                           }
