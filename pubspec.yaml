@@ -3,7 +3,7 @@ description: Task Tuner
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.41+21
+version: 1.0.42+22
 
 environment:
   sdk: ">=2.17.1 <3.0.0"
