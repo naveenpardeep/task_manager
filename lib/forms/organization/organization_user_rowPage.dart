@@ -83,7 +83,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                         await controller.itemPagePost();
                         Get.find<AccpetController>().refreshData();
                        
-                         Get.offAndToNamed(Routes.projectMobilePageview);
+                         Get.toNamed(Routes.projectMobilePageview);
                       }
                     },
                   ),
@@ -202,7 +202,7 @@ class CreateInvitationUserPage extends GetView<UserAccountController> {
                           } else {
                             await controller.itemPagePost(goBack: false);
                               Get.find<AccpetController>().refreshData();
-                           Get.offAndToNamed(Routes.projectMobilePageview);
+                           Get.toNamed(Routes.projectMobilePageview);
                           }
                         },
                       )),

@@ -59,6 +59,11 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
           child: Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
+               leading: IconButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.organizationListMobilePage);
+                  },
+                  icon: const Icon(Icons.arrow_back_ios)),
               actions: [
                 if (_tabController.index == 0)
                   IconButton(

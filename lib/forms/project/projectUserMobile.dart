@@ -54,7 +54,12 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child: RawScrollbar(
+                      child:   RefreshIndicator(
+      onRefresh: () {
+        return controller.refreshData();
+      },
+      child:
+                      RawScrollbar(
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
@@ -74,7 +79,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           ),
                         ),
                       )),
-                ),
+                )),
                 NsgButton(
                   borderRadius: 30,
                   color: Colors.white,
