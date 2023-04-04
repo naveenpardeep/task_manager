@@ -107,7 +107,10 @@ class _UserProfileState extends State<UserProfile> {
                         const Padding(padding: EdgeInsets.only(top: 20)),
                         TaskTextButton(
                           text: 'Выйти из аккаунта',
-                          onTap: () {},
+                          onTap: () async {
+                            await Get.find<DataController>().provider!.logout();
+                            await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                          },
                         )
                       ],
                     ),

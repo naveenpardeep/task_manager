@@ -35,6 +35,7 @@ class ProfileEditPage extends GetView<UserAccountController> {
             progress.show();
             if (value.isNotEmpty) {
               List<int> imagefile;
+
               if (kIsWeb) {
                 imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
               } else {
@@ -46,6 +47,8 @@ class ProfileEditPage extends GetView<UserAccountController> {
               //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
               await userAccountController.currentItem.post();
               await controller.refreshData();
+              final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
+              provider.evict();
             }
           } finally {
             progress.hide();

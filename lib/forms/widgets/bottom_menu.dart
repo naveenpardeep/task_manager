@@ -14,7 +14,9 @@ import '../../app_pages.dart';
 import '../tasks/task_file_controller.dart';
 
 class BottomMenu extends StatelessWidget {
-  const BottomMenu({super.key});
+  const BottomMenu({super.key, this.menuItems = const []});
+
+  final List<NsgBottomMenuItem> menuItems;
 
   @override
   Widget build(BuildContext context) {

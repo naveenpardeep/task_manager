@@ -6,6 +6,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
@@ -62,6 +63,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                           ),
                         )),
                   ),
+                const BottomMenu()
               ],
             ),
           ),
