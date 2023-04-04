@@ -136,4 +136,29 @@ class DataControllerGenerated extends NsgBaseController {
       progress.hide();
     }
   }
+
+  /// Удалить пользователя из проекта или организации
+  Future<List<bool>> removeUser(String projectId, String userId, String insteadUserId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['projectId'] = projectId;
+      params['userId'] = userId;
+      params['insteadUserId'] = insteadUserId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<bool>().requestItems(
+          provider: provider!,
+          function: '/Data/RemoveUser',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
 }

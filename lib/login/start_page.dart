@@ -32,11 +32,10 @@ class StartPage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Flexible(
-                  child: Text(
+              child: Text(
                 'Task Tuner -\nНастройся на рабочий лад',
                 style: TextStyle(fontSize: ControlOptions.instance.sizeH3),
-              )),
+              ),
             ),
             TaskButton(
               style: TaskButtonStyle.dark,

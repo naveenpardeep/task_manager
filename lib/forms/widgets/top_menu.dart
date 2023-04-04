@@ -120,7 +120,7 @@ class TmTopMenu extends StatelessWidget {
                     ),
                   ),
                   Tooltip(
-                    message: 'Invitated Users List',
+                    message: 'Invited User List',
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: InkWell(

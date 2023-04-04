@@ -159,7 +159,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Invitated User',
+                              'Invited User',
                               style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                             ),
                           ],
