@@ -62,6 +62,11 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
           child: Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.projectListPage);
+                  },
+                  icon: const Icon(Icons.arrow_back_ios)),
               actions: [
                 if (_tabController.index == 0)
                   IconButton(

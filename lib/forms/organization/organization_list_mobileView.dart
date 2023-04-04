@@ -30,7 +30,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                       TTAppBarIcon(
                         icon: Icons.arrow_back_ios_new,
                         onTap: () {
-                          Get.back();
+                          Get.toNamed(Routes.projectListPage);
                         },
                       ),
                     ],

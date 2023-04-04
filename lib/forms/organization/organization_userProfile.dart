@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsgApiException.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -13,6 +16,7 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
 
   @override
   Widget build(BuildContext context) {
+    bool res;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -95,22 +99,6 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
                             const Divider(
                               height: 20,
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.all(5.0),
-                            //   child: Row(
-                            //     children: [
-                            //       const Text(
-                            //         'Имя                   ',
-                            //         style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                            //       ),
-                            //       Expanded(
-                            //         child: Text(
-                            //           ' ${controller.currentItem.userAccount.name}',
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
@@ -183,9 +171,29 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
                             NsgButton(
                               color: Colors.red,
                               backColor: Colors.transparent,
-                              text: 'Исключить из проекта',
-                              onPressed: () {
-                                showAlertDialog(context, controller.currentItem);
+                              text: 'Исключить из Организация',
+                              onPressed: () async {
+                                try {
+                                  var dataController = Get.find<DataController>();
+                                  var orgController = Get.find<OrganizationController>();
+                                  res = (await dataController.removeUser(orgController.currentItem.id, controller.currentItem.userAccountId, '',
+                                          showProgress: true))
+                                      .first;
+
+                                  if (res) {
+                                    Get.find<OrganizationController>().currentItem.tableUsers.removeRow(controller.currentItem);
+
+                                    Get.back();
+                                    orgController.refreshData();
+                                  }
+                                  if (res == false) {
+                                    //for selecting new user
+                                    controller.refreshData();
+                                    Get.toNamed(Routes.newOrgUserForDeletedUserPage);
+                                  }
+                                } on NsgApiException catch (e) {
+                                  throw Get.snackbar('', 'Sorry, Only Admin can remove users');
+                                }
                               },
                             )
                           ],

@@ -7,6 +7,7 @@ import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
 import 'package:task_manager_app/forms/invitation/invitation_page.dart';
 import 'package:task_manager_app/forms/notification/notification_page.dart';
 import 'package:task_manager_app/forms/organization/create_organization.dart';
+import 'package:task_manager_app/forms/organization/new_orgUser_for_deletedUser.dart';
 import 'package:task_manager_app/forms/organization/oraganization_userTable.dart';
 import 'package:task_manager_app/forms/organization/organization_listPage.dart';
 import 'package:task_manager_app/forms/organization/organization_list_mobileView.dart';
@@ -18,6 +19,7 @@ import 'package:task_manager_app/forms/organization/organization_user_rowPage.da
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 import 'package:task_manager_app/forms/organization/organization_viewPage_Mobile.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
+import 'package:task_manager_app/forms/project/new_user_for_deletedUser.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_edit_page.dart';
 import 'package:task_manager_app/forms/project/project_settings.dart';
@@ -337,6 +339,16 @@ class AppPages {
       page: () => const TasksCommentPage(),
       binding: TaskCommentBinding(),
     ),
+     GetPage(
+      name: Routes.newUserForDeletedUserPage,
+      page: () =>const NewUserForDeletedUserPage(),
+      binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.newOrgUserForDeletedUserPage,
+      page: () =>const NewOrgUserForDeletedUserPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -398,4 +410,6 @@ abstract class Routes {
   static const profileEditPage = '/profile-edit-page';
   static const notificationTaskPage = '/notificationTaskPage';
   static const taskcommentpage='/taskcommetpage';
+  static const newUserForDeletedUserPage='/newUserForDeletedUserPage';
+  static const newOrgUserForDeletedUserPage='/newOrgUserForDeletedUserPage';
 }

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -14,6 +16,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
 
   @override
   Widget build(BuildContext context) {
+    bool res;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -96,7 +99,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                             const Divider(
                               height: 20,
                             ),
-                           Padding(
+                            Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
                                 children: [
@@ -106,7 +109,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                     NsgDateFormat.dateFormat(controller.currentItem.userAccount.birthDate ,  format: 'dd.MM.yy').toString(),
+                                      NsgDateFormat.dateFormat(controller.currentItem.userAccount.birthDate, format: 'dd.MM.yy').toString(),
                                       style: const TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize: 14,
@@ -189,10 +192,36 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                               color: Colors.red,
                               backColor: Colors.transparent,
                               text: 'Исключить из проекта',
-                              onPressed: () {
-                                showAlertDialog(context, controller.currentItem);
+                              onPressed: () async 
+                              {
+                                try{
+                              var dataController = Get.find<DataController>();
+                                var projController = Get.find<ProjectController>();
+                                res = (await dataController.removeUser(projController.currentItem.id, controller.currentItem.userAccountId, '',
+                                        showProgress: true))
+                                    .first;
+                                
+                                
+                                if (res) {
+                                  Get.find<ProjectController>().currentItem.tableUsers.removeRow(Get.find<ProjectItemUserTableController>().currentItem);
+
+                                  Get.back();
+                                  projController.refreshData();
+                                }
+                                if (res == false) {
+                                  //for selecting new user
+                                  controller.refreshData();
+                                  Get.toNamed(Routes.newUserForDeletedUserPage);
+                                  
+                                }
+                                }
+                               on NsgApiException catch (e){
+                              throw Get.snackbar( '','Project Leader can not be Deleted');
+                                }
+
+                                //  showAlertDialog(context, controller.currentItem);
                               },
-                            )
+                            ),
                           ],
                         ),
                       )),
