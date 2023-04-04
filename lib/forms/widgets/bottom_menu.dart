@@ -136,11 +136,11 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
   }
 
   Widget getPhoto() {
-    Get.find<DataController>().currentUser;
-    // var userAccountController = Get.find<UserAccountController>();
-    if (Get.find<DataController>().currentUser.photoName.isNotEmpty) {
+    //Get.find<DataController>().currentUser;
+    var userAccountController = Get.find<UserAccountController>();
+    if (userAccountController.currentItem.photoName.isNotEmpty) {
       return Image.network(
-        DataController.getFilePath(Get.find<DataController>().currentUser.photoName),
+        DataController.getFilePath(userAccountController.currentItem.photoName),
         width: 32,
         height: 32,
         fit: BoxFit.cover,

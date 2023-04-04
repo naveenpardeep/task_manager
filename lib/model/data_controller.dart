@@ -86,15 +86,8 @@ class DataController extends DataControllerGenerated {
         //Если у пользователя есть только один аккаунт (основной), то значит он еще не создал
         //ни одной организации и не принял ни одного приглашения.
         //без выбора хотя бы одной организации, дальнейшее участие становится достаточно бесмысленным
-
         Get.toNamed(Routes.startPage);
       } else {
-        // Get.offAndToNamed(Routes.tasksListPage);
-        //Get.offAndToNamed(Routes.homePage);
-        // Get.offAndToNamed(Routes.taskStatusListPage);
-        //   Get.offAndToNamed(Routes.projectListPage);
-        //Get.offAndToNamed(Routes.userAccountListPage);
-        //Get.offAndToNamed(Routes.invitationPage);
         await Get.find<InvitationController>().requestItems();
         if (Get.find<InvitationController>().items.isEmpty) {
           if (userC.items.length == 1) {

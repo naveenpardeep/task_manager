@@ -33,12 +33,12 @@ class UserAccountController extends NsgDataController<UserAccount> {
   @override
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
-    if (items.isNotEmpty) {
+    /*(if (items.isNotEmpty) {
       var user = items.firstWhereOrNull((account) => account.organizationId.isEmpty);
       if (user != null) {
         Get.find<DataController>().currentUser = user;
       }
-    }
+    }*/
   }
 
   @override
@@ -61,9 +61,9 @@ class UserAccountController extends NsgDataController<UserAccount> {
 
   @override
   Future<bool> itemPagePost({bool goBack = false, bool useValidation = false}) async {
-    var imageController = Get.find<UserImageController>();
+    //var imageController = Get.find<UserImageController>();
     //if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
-    await imageController.saveImages();
+    //await imageController.saveImages();
     //}
     return await super.itemPagePost(goBack: goBack, useValidation: useValidation);
   }

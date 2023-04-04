@@ -20,8 +20,6 @@ import '../widgets/tt_nsg_input.dart';
 class ProfileEditPage extends GetView<UserAccountController> {
   ProfileEditPage({Key? key}) : super(key: key);
   late NsgFilePicker picker;
-  var userAccountController = Get.find<UserAccountController>();
-  var userImageController = Get.find<UserImageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +34,8 @@ class ProfileEditPage extends GetView<UserAccountController> {
             if (value.isNotEmpty) {
               List<int> imagefile;
 
+              //final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
+              //provider.evict();
               if (kIsWeb) {
                 imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
               } else {
@@ -45,10 +45,8 @@ class ProfileEditPage extends GetView<UserAccountController> {
               //  List<int> imagebytes = await imageFile.readAsBytes();
               controller.currentItem.photoFile = imagefile;
               //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
-              await userAccountController.currentItem.post();
+              await controller.currentItem.post();
               await controller.refreshData();
-              final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
-              provider.evict();
             }
           } finally {
             progress.hide();
@@ -61,13 +59,7 @@ class ProfileEditPage extends GetView<UserAccountController> {
     if (controller.lateInit) {
       controller.requestItems();
     }
-    if (Get.find<UserImageController>().lateInit) {
-      Get.find<UserImageController>().requestItems();
-    }
 
-    if (Get.find<OrganizationController>().lateInit) {
-      Get.find<OrganizationController>().requestItems();
-    }
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: BodyWrap(
@@ -185,9 +177,9 @@ class ProfileEditPage extends GetView<UserAccountController> {
   }
 
   Widget userImage() {
-    if (userAccountController.currentItem.photoName.isNotEmpty) {
+    if (controller.currentItem.photoName.isNotEmpty) {
       return Image.network(
-        DataController.getFilePath(userAccountController.currentItem.photoName),
+        DataController.getFilePath(controller.currentItem.photoName),
         width: 100,
         height: 100,
         fit: BoxFit.cover,
@@ -219,14 +211,14 @@ class ProfileEditPage extends GetView<UserAccountController> {
     //);
   }
 
-  //TODO: show image "no image"
-
   Widget getHeader() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
       child: Stack(clipBehavior: Clip.none, alignment: Alignment.bottomRight, children: [
         ClipOval(
-          child: userImage(),
+          child: controller.obx(
+            (state) => userImage(),
+          ),
         ),
         Positioned(
             bottom: -5,

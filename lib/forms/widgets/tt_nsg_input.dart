@@ -68,6 +68,15 @@ class TTNsgInput extends StatefulWidget {
   /// Маска текста
   final String? mask;
 
+  /// Самая ранняя дата, доступная для выбора
+  final DateTime? firstDateTime;
+
+  /// Самая поздняя дата, доступная для выбора
+  final DateTime? lastDateTime;
+
+  /// Дата с которой будет предложен выбор, если поле равно 0г. или 1754г.
+  final DateTime? initialDateTime;
+
   /// Поле с телефоном и специальной маской для телефонов разных стран
   /// Поле с российским номером автомобиля и автокорректировкой символов
   final NsgInputMaskType? maskType;
@@ -79,6 +88,9 @@ class TTNsgInput extends StatefulWidget {
 
   const TTNsgInput(
       {Key? key,
+      this.initialDateTime,
+      this.firstDateTime,
+      this.lastDateTime,
       this.validateText = '',
       this.infoString = '',
       required this.dataItem,
@@ -564,7 +576,15 @@ class _TTNsgInputState extends State<TTNsgInput> {
         NsgNavigator.instance.toPage(widget.selectionForm);
       }
     } else if (inputType == NsgInputType.dateValue) {
-      NsgDatePicker(initialTime: widget.dataItem[widget.fieldName], onClose: (value) {}).showPopup(context, widget.dataItem[widget.fieldName], (value) {
+      NsgDatePicker(
+              firstDateTime: widget.firstDateTime,
+              lastDateTime: widget.lastDateTime,
+              initialTime: DateTime(01, 01, 01).isAtSameMomentAs(widget.dataItem[widget.fieldName]) ||
+                      DateTime(1754, 01, 01).isAtSameMomentAs(widget.dataItem[widget.fieldName])
+                  ? widget.initialDateTime ?? DateTime.now()
+                  : widget.dataItem[widget.fieldName],
+              onClose: (value) {})
+          .showPopup(context, widget.dataItem[widget.fieldName], (value) {
         if (widget.onChanged != null) widget.onChanged!(widget.dataItem);
         if (widget.onEditingComplete != null) {
           widget.onEditingComplete!(widget.dataItem, widget.fieldName);
