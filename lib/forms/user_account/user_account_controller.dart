@@ -34,12 +34,12 @@ class UserAccountController extends NsgDataController<UserAccount> {
   @override
   Future refreshData({List<NsgUpdateKey>? keys}) async {
     await super.refreshData(keys: keys);
-    /*(if (items.isNotEmpty) {
+    if (items.isNotEmpty) {
       var user = items.firstWhereOrNull((account) => account.organizationId.isEmpty);
       if (user != null) {
         Get.find<DataController>().currentUser = user;
       }
-    }*/
+    }
   }
 
   @override

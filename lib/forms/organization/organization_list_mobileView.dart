@@ -22,55 +22,27 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
             backgroundColor: Colors.white,
             body: Column(
               children: [
-                controller.obx((state) => Container(
-                    // key: GlobalKey(),
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
-                      TTAppBar(
-                        title: 'Компании',
-                        leftIcons: [
-                          TTAppBarIcon(
-                            icon: Icons.arrow_back_ios_new,
-                            onTap: () {
-                              Get.toNamed(Routes.projectListPage);
-                            },
-                          ),
-                        ],
-                        rightIcons: [
-                          TTAppBarIcon(
-                            icon: Icons.add,
-                            onTap: () {
-                              controller.itemNewPageOpen(Routes.createOrganizationPage);
-                            },
-                          )
-                        ],
-                      ),
-                      // Expanded(
-                      //   child: Container(
-                      //     padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      //     child: SingleChildScrollView(
-                      //       child: Column(children: [
-                      //         NsgTable(
-                      //             showIconFalse: false,
-                      //             controller: Get.find<OrganizationController>(),
-                      //             elementEditPageName: Routes.organizationPage,
-                      //             availableButtons: const [
-                      //               NsgTableMenuButtonType.createNewElement,
-                      //               NsgTableMenuButtonType.editElement,
-                      //               NsgTableMenuButtonType.removeElement
-                      //             ],
-                      //             columns: [
-                      //               NsgTableColumn(name: OrganizationItemGenerated.nameName, expanded: true, presentation: 'Organization'),
-                      //             ])
-                      //       ]),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      Expanded(child: getOrganizationList()),
-                    ]))),
+                TTAppBar(
+                  title: 'Компании',
+                  leftIcons: [
+                    TTAppBarIcon(
+                      icon: Icons.arrow_back_ios_new,
+                      onTap: () {
+                        Get.toNamed(Routes.projectListPage);
+                      },
+                    ),
+                  ],
+                  rightIcons: [
+                    TTAppBarIcon(
+                      icon: Icons.add,
+                      onTap: () {
+                        controller.itemNewPageOpen(Routes.createOrganizationPage);
+                      },
+                    )
+                  ],
+                ),
+                Expanded(child: controller.obx((state) => getOrganizationList())),
                 if (width < 700) const BottomMenu(),
-                //const TmMobileMenu()
               ],
             )));
   }
