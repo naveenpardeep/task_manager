@@ -166,7 +166,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                 name: 'Уведомления',
                 onTap: (v) {
                   currentTab = v;
-                  Get.find<UserAccountController>().saveBackup(Get.find<DataController>().currentUser);
+                  Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
                   setState(() {});
                 }),
             TTTabsTab(

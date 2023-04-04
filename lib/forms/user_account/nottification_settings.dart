@@ -35,7 +35,7 @@ class NotificationSettings extends GetView<UserAccountController> {
                   try {
                     progress.show();
                     await controller.itemPagePost(goBack: false, useValidation: true);
-                    controller.saveBackup(controller.currentItem);
+                    //controller.saveBackup(controller.currentItem);
                   } finally {
                     progress.hide();
                   }

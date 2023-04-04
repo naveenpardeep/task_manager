@@ -281,6 +281,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
   void dispose() {
     _notifier.dispose();
     textController.dispose();
+    focus.unfocus();
     focus.removeListener(() {});
     focus.dispose();
 
@@ -416,6 +417,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
                                   //labelStyle: TextStyle(color: ControlOptions.instance.colorMainDark, backgroundColor: Colors.transparent),
                                 ),
                                 onFieldSubmitted: (string) {
+                                  focus.unfocus();
                                   if (widget.onEditingComplete != null) {
                                     //     widget.onEditingComplete!(widget.dataItem, widget.fieldName);
                                   }
