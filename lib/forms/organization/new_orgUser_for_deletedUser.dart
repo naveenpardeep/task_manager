@@ -42,7 +42,7 @@ class _ProjectpageState extends State<NewOrgUserForDeletedUserPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Center(child: Text('Select User for assign Pending Tasks')),
+          title: const Center(child: Text('Выберите пользователя для назначения отложенных задач')),
         ),
         resizeToAvoidBottomInset: true,
         key: scaffoldKey,
