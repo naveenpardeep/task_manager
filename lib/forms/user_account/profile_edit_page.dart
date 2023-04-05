@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nsg_controls/file_picker/nsg_crop_page.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -33,6 +34,7 @@ class ProfileEditPage extends GetView<UserAccountController> {
             progress.show();
             if (value.isNotEmpty) {
               List<int> imagefile;
+              List<List<int>>? cropped;
 
               //final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
               //provider.evict();
@@ -41,9 +43,18 @@ class ProfileEditPage extends GetView<UserAccountController> {
               } else {
                 imagefile = await File(value[0].filePath).readAsBytes();
               }
+
+              if (context.mounted) {
+                cropped = await NsgCrop().cropImages(context, imageList: [imagefile], ratio: 1 / 1);
+              }
+
               // File imageFile = File(value[0].filePath);
               //  List<int> imagebytes = await imageFile.readAsBytes();
-              controller.currentItem.photoFile = imagefile;
+              if (cropped != null) {
+                controller.currentItem.photoFile = cropped[0];
+              } else {
+                controller.currentItem.photoFile = imagefile;
+              }
               //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
               await controller.currentItem.post();
               await controller.refreshData();
