@@ -362,7 +362,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget statuslist(context) {
     List<Widget> list = [];
     var taskboardstaus = Get.find<TaskBoardController>().currentItem;
-    var stsList = Get.find<NewTaskStatusController>().items.where((element) => element.isDone == false);
+    var stsList = Get.find<NewTaskStatusController>().items;
 
     for (var status in stsList) {
       list.add(Padding(
