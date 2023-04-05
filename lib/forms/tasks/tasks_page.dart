@@ -344,7 +344,11 @@ class _TasksPageState extends State<TasksPage> {
       content: SizedBox(
         child: SingleChildScrollView(
           child: Column(
-            children: [statuslist(context)],
+            children: [
+              if(controller.currentItem.name.isEmpty)
+              newtaskstatuslist(context),
+              if(controller.currentItem.name.isNotEmpty)
+              statuslist(context)],
           ),
         ),
       ),
@@ -385,7 +389,32 @@ class _TasksPageState extends State<TasksPage> {
     }
     return SingleChildScrollView(child: Column(children: list));
   }
+ Widget newtaskstatuslist(context) {
+    List<Widget> list = [];
+    var taskboardstaus = Get.find<TaskBoardController>().currentItem;
+    var stsList = Get.find<NewTaskStatusController>().items.where((element) => element.isDone==false);
 
+    for (var status in stsList) {
+      list.add(Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+          child: InkWell(
+              onTap: () {
+                controller.currentItem.taskStatus = status;
+                controller.sendNotify();
+                Navigator.of(context).pop();
+              },
+              onLongPress: () {},
+              child: Column(children: [
+                Text(
+                  status.name,
+                  style: TextStyle(
+                      fontSize: ControlOptions.instance.sizeL,
+                      color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+                ),
+              ]))));
+    }
+    return SingleChildScrollView(child: Column(children: list));
+  }
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
     return Get.find<TaskFilesController>().obx(
