@@ -8,6 +8,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 
 class OrganizationUsersMobilePage extends StatefulWidget {
@@ -113,22 +114,22 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: ClipOval(
-                          child: orguser.userAccount.photoFile.isEmpty
+                          child: orguser.userAccount.photoName.isNotEmpty
                               ? Container(
                                   decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                  width: 32,
-                                  height: 32,
+                                  width: 48,
+                                  height: 48,
                                   child: Icon(
                                     Icons.account_circle,
-                                    size: 20,
+                                    size: 32,
                                     color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                   ),
                                 )
-                              : Image.memory(
-                                  Uint8List.fromList(orguser.userAccount.photoFile),
+                              : Image.network(
+                                  TaskFilesController.getFilePath(orguser.userAccount.photoName),
                                   fit: BoxFit.cover,
-                                  width: 32,
-                                  height: 32,
+                                  width: 48,
+                                  height: 48,
                                 ),
                         ),
                       ),
