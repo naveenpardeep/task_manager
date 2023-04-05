@@ -8,12 +8,14 @@ import '../data_controller_model.dart';
 class TaskStatusGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
+  static const nameIsToDo = 'isToDo';
   static const nameIsDone = 'isDone';
   static const nameProjectId = 'projectId';
   static const nameTransitionTable = 'transitionTable';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
+    nameIsToDo: 'Статус начальный',
     nameIsDone: 'Статус завершения',
   };
 
@@ -24,10 +26,12 @@ class TaskStatusGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
+    addField(NsgDataBoolField(nameIsToDo), primaryKey: false);
     addField(NsgDataBoolField(nameIsDone), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceListField<TaskStatusTransitionTable>(nameTransitionTable), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
+    fieldList.fields[nameIsToDo]?.presentation = 'Статус начальный';
     fieldList.fields[nameIsDone]?.presentation = 'Статус завершения';
   }
 
@@ -48,6 +52,11 @@ class TaskStatusGenerated extends NsgDataItem {
   String get name => getFieldValue(nameName).toString();
 
   set name(String value) => setFieldValue(nameName, value);
+
+  /// СтатусНачальный
+  bool get isToDo => getFieldValue(nameIsToDo) as bool;
+
+  set isToDo(bool value) => setFieldValue(nameIsToDo, value);
 
   /// СтатусЗавершения
   bool get isDone => getFieldValue(nameIsDone) as bool;

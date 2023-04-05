@@ -9,11 +9,13 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameName = 'name';
   static const nameDate = 'date';
+  static const nameStatusToDoId = 'statusToDoId';
   static const nameStatusDoneId = 'statusDoneId';
   static const nameStatusCancelledId = 'statusCancelledId';
   static const nameOrganizationId = 'organizationId';
   static const nameProjectPrefix = 'projectPrefix';
   static const nameLeaderId = 'leaderId';
+  static const nameDefaultUserId = 'defaultUserId';
   static const nameContractor = 'contractor';
   static const namePhotoPath = 'photoPath';
   static const namePhotoFile = 'photoFile';
@@ -38,11 +40,13 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataDateField(nameDate), primaryKey: false);
+    addField(NsgDataReferenceField<TaskStatus>(nameStatusToDoId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusDoneId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusCancelledId), primaryKey: false);
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     addField(NsgDataStringField(nameProjectPrefix, maxLength: 15), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameLeaderId), primaryKey: false);
+    addField(NsgDataReferenceField<UserAccount>(nameDefaultUserId), primaryKey: false);
     addField(NsgDataStringField(nameContractor), primaryKey: false);
     addField(NsgDataStringField(namePhotoPath), primaryKey: false);
     addField(NsgDataBinaryField(namePhotoFile), primaryKey: false);
@@ -79,6 +83,17 @@ class ProjectItemGenerated extends NsgDataItem {
   DateTime get date => getFieldValue(nameDate) as DateTime;
 
   set date(DateTime value) => setFieldValue(nameDate, value);
+
+  /// СтатусНачальный
+  String get statusToDoId => getFieldValue(nameStatusToDoId).toString();
+  TaskStatus get statusToDo => getReferent<TaskStatus>(nameStatusToDoId);
+  Future<TaskStatus> statusToDoAsync() async {
+   return await getReferentAsync<TaskStatus>(nameStatusToDoId);
+  }
+
+  set statusToDoId(String value) => setFieldValue(nameStatusToDoId, value);
+  set statusToDo(TaskStatus value) =>
+    setFieldValue(nameStatusToDoId, value.id);
 
   /// СтатусЗавершения
   String get statusDoneId => getFieldValue(nameStatusDoneId).toString();
@@ -128,6 +143,17 @@ class ProjectItemGenerated extends NsgDataItem {
   set leaderId(String value) => setFieldValue(nameLeaderId, value);
   set leader(UserAccount value) =>
     setFieldValue(nameLeaderId, value.id);
+
+  /// ИсполнительПоУмолчанию
+  String get defaultUserId => getFieldValue(nameDefaultUserId).toString();
+  UserAccount get defaultUser => getReferent<UserAccount>(nameDefaultUserId);
+  Future<UserAccount> defaultUserAsync() async {
+   return await getReferentAsync<UserAccount>(nameDefaultUserId);
+  }
+
+  set defaultUserId(String value) => setFieldValue(nameDefaultUserId, value);
+  set defaultUser(UserAccount value) =>
+    setFieldValue(nameDefaultUserId, value.id);
 
   /// Заказчик
   String get contractor => getFieldValue(nameContractor).toString();
