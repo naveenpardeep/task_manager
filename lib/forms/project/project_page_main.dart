@@ -97,6 +97,13 @@ class _ProjectpageState extends State<ProjectPage> {
                                 fieldName: ProjectItemGenerated.nameName,
                                 label: 'Название проекта',
                               ),
+                               TTNsgInput(
+                                infoString: 'Выберите Исполнитель по умолчанию ',
+                                selectionController: Get.find<UserAccountController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: ProjectItemGenerated.nameDefaultUserId,
+                                label: 'Исполнитель по умолчанию',
+                              ),
                               TTNsgInput(
                                 infoString: 'Укажите заказчика проекта',
                                 dataItem: controller.currentItem,

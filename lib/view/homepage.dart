@@ -1139,114 +1139,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        tasks.docNumber,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-                                      Flexible(
-                                        child: IconButton(
-                                            onPressed: () {
-                                              if (tasks.isReadByAssignee == false &&
-                                                  (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                      Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
-                                              Get.find<TaskCheckListController>().requestItems();
-                                              Get.find<TasksController>().currentItem = tasks;
-
-                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                              Get.find<TasksController>().sendNotify();
-                                            },
-                                            icon: const Icon(Icons.edit)),
-                                      ),
-                                    if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        tasks.name,
-                                        maxLines: 2,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: Wrap(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Text(
-                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
-                                            maxLines: 1,
-                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                          ),
-                                        ),
-                                        Text(
-                                          getupdateDay(tasks),
-                                          maxLines: 1,
-                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
-                                        Tooltip(
-                                          message: 'Comments',
-                                          child: NsgCircle(
-                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
-                                        ),
-                                      ClipOval(
-                                        child: tasks.assignee.photoName.isEmpty
-                                            ? Container(
-                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                width: 32,
-                                                height: 32,
-                                                child: Icon(
-                                                  Icons.account_circle,
-                                                  size: 20,
-                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                                ),
-                                              )
-                                            : Tooltip(
-                                                message: tasks.assignee.toString(),
-                                                child: Image.network(
-                                                  TaskFilesController.getFilePath(tasks.assignee.photoName),
-                                                  fit: BoxFit.cover,
-                                                  width: 32,
-                                                  height: 32,
-                                                ),
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                            children: [tasksubPart(tasks)],
                           ),
                         ),
                       ),
@@ -1291,112 +1184,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        tasks.docNumber,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-                                      Flexible(
-                                        child: IconButton(
-                                            onPressed: () {
-                                              if (tasks.isReadByAssignee == false &&
-                                                  (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                      Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
-                                              Get.find<TaskCheckListController>().requestItems();
-                                              Get.find<TasksController>().currentItem = tasks;
-
-                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                              Get.find<TasksController>().sendNotify();
-                                            },
-                                            icon: const Icon(Icons.edit)),
-                                      ),
-                                    if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        tasks.name,
-                                        maxLines: 2,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: Wrap(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Text(
-                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
-                                            maxLines: 1,
-                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                          ),
-                                        ),
-                                        Text(
-                                          getupdateDay(tasks),
-                                          maxLines: 1,
-                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
-                                        Tooltip(
-                                          message: 'Comments',
-                                          child: NsgCircle(
-                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
-                                        ),
-                                      ClipOval(
-                                        child: tasks.assignee.photoName.isEmpty
-                                            ? Container(
-                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                width: 32,
-                                                height: 32,
-                                                child: Icon(
-                                                  Icons.account_circle,
-                                                  size: 20,
-                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                                ),
-                                              )
-                                            : Tooltip(
-                                                message: tasks.assignee.toString(),
-                                                child: Image.network(
-                                                  TaskFilesController.getFilePath(tasks.assignee.photoName),
-                                                  fit: BoxFit.cover,
-                                                  width: 32,
-                                                  height: 32,
-                                                ),
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                             tasksubPart(tasks)
                             ],
                           ),
                         ),
@@ -1442,117 +1230,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        tasks.docNumber,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                    if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-                                      Flexible(
-                                        child: IconButton(
-                                            onPressed: () {
-                                              if (tasks.isReadByAssignee == false &&
-                                                  (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                      Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                                                tasks.isReadByAssignee = true;
-                                                Get.find<TasksController>().postItems([tasks]);
-                                              }
-                                              Get.find<TaskCheckListController>().requestItems();
-                                              Get.find<TasksController>().currentItem = tasks;
-
-                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                              Get.find<TasksController>().sendNotify();
-                                            },
-                                            icon: const Icon(Icons.edit)),
-                                      ),
-                                    if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        tasks.name,
-                                        maxLines: 2,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: Wrap(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 4),
-                                          child: Text(
-                                            'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
-                                            maxLines: 1,
-                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                          ),
-                                        ),
-                                        Text(
-                                          //   'Обновлено: ${{
-                                          // NsgDateFormat.dateFormat(tasks.dateUpdated,
-                                          //     format: 'dd.MM.yy HH:mm')
-                                          //   }}',
-                                          getupdateDay(tasks),
-                                          maxLines: 1,
-
-                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
-                                        Tooltip(
-                                          message: 'Comments',
-                                          child: NsgCircle(
-                                              text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
-                                        ),
-                                      ClipOval(
-                                        child: tasks.assignee.photoName.isEmpty
-                                            ? Container(
-                                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                width: 32,
-                                                height: 32,
-                                                child: Icon(
-                                                  Icons.account_circle,
-                                                  size: 20,
-                                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                                ),
-                                              )
-                                            : Tooltip(
-                                                message: tasks.assignee.toString(),
-                                                child: Image.network(
-                                                  TaskFilesController.getFilePath(tasks.assignee.photoName),
-                                                  fit: BoxFit.cover,
-                                                  width: 32,
-                                                  height: 32,
-                                                ),
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                          tasksubPart(tasks)
                             ],
                           ),
                         ),
@@ -1592,111 +1270,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    tasks.docNumber,
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-                                  Flexible(
-                                    child: IconButton(
-                                        onPressed: () {
-                                          if (tasks.isReadByAssignee == false &&
-                                              (Get.find<DataController>().currentUser == tasks.assignee ||
-                                                  Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                                            tasks.isReadByAssignee = true;
-                                            Get.find<TasksController>().postItems([tasks]);
-                                          }
-                                          Get.find<TaskCheckListController>().requestItems();
-                                          Get.find<TasksController>().currentItem = tasks;
-                                          Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                                          Get.find<TasksController>().sendNotify();
-                                        },
-                                        icon: const Icon(Icons.edit)),
-                                  ),
-                                if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    tasks.name,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                child: Wrap(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 4),
-                                      child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 4),
-                                      child: Text(
-                                        'создано: ${getcreateDay(tasks)}',
-                                        maxLines: 1,
-                                        style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                      ),
-                                    ),
-                                    Text(
-                                      getupdateDay(tasks),
-                                      maxLines: 1,
-                                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
-                                    Tooltip(
-                                      message: 'Comments',
-                                      child: NsgCircle(
-                                          text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
-                                    ),
-                                  ClipOval(
-                                    child: tasks.assignee.photoName.isEmpty
-                                        ? Container(
-                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                            width: 32,
-                                            height: 32,
-                                            child: Icon(
-                                              Icons.account_circle,
-                                              size: 20,
-                                              color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                            ),
-                                          )
-                                        : Tooltip(
-                                            message: tasks.assignee.toString(),
-                                            child: Image.network(
-                                              TaskFilesController.getFilePath(tasks.assignee.photoName),
-                                              fit: BoxFit.cover,
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        tasksubPart(tasks)
                         ],
                       ),
                     ),
@@ -1724,6 +1298,116 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       ],
     ),
   );
+}
+
+Widget tasksubPart(tasks) {
+  return Column(children: [
+    Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: [
+          Flexible(
+            child: Text(
+              tasks.docNumber,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              maxLines: 1,
+            ),
+          ),
+          if (kIsWeb || (Platform.isWindows || Platform.isLinux))
+            Flexible(
+              child: IconButton(
+                  onPressed: () {
+                    if (tasks.isReadByAssignee == false &&
+                        (Get.find<DataController>().currentUser == tasks.assignee ||
+                            Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                      tasks.isReadByAssignee = true;
+                      Get.find<TasksController>().postItems([tasks]);
+                    }
+                    Get.find<TaskCheckListController>().requestItems();
+                    Get.find<TasksController>().currentItem = tasks;
+
+                    Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                    Get.find<TasksController>().sendNotify();
+                  },
+                  icon: const Icon(Icons.edit)),
+            ),
+          if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
+        ],
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              tasks.name,
+              maxLines: 2,
+            ),
+          ),
+        ],
+      ),
+    ),
+    Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Text(
+                  'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
+                  maxLines: 1,
+                  style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
+                ),
+              ),
+              Text(
+                getupdateDay(tasks),
+                maxLines: 1,
+                style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
+              ),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            if (Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.isGreaterThan(0))
+              Tooltip(
+                message: 'Comments',
+                child: NsgCircle(text: Get.find<TaskCommentsController>().items.where((element) => element.ownerId == tasks.id).length.toString()),
+              ),
+            ClipOval(
+              child: tasks.assignee.photoName.isEmpty
+                  ? Container(
+                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                      width: 32,
+                      height: 32,
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 20,
+                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                      ),
+                    )
+                  : Tooltip(
+                      message: tasks.assignee.toString(),
+                      child: Image.network(
+                        TaskFilesController.getFilePath(tasks.assignee.photoName),
+                        fit: BoxFit.cover,
+                        width: 32,
+                        height: 32,
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ],
+    )
+  ]);
 }
 
 openTaskDialog(tasks, context) {

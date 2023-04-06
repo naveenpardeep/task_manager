@@ -277,7 +277,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                       child: Row(
                                         children: [
                                           const Text(
-                                            'Руководитель проекта :',
+                                            'Руководитель\nпроекта :                           ',
                                             style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
                                           ),
                                           Expanded(
@@ -292,6 +292,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                         ],
                                       ),
                                     ),
+                                    
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Row(
@@ -303,6 +304,27 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                                           Expanded(
                                             child: Text(
                                               getCreatedDay(),
+                                              style: const TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                     Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Исполнитель\nпо умолчанию :                ',
+                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              '${controller.currentItem.defaultUser}',
                                               style: const TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: 14,

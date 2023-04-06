@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -216,6 +217,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     element.project = Get.find<ProjectController>().currentItem;
     element.date = DateTime.now();
     element.dateUpdated = DateTime.now();
+    element.taskStatus = Get.find<TaskBoardController>().currentItem.statusTable.rows.first.status;
 
     return element;
   }
