@@ -23,6 +23,13 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
+  Future<List<TaskDoc>> getTasksFromStatus(TaskStatus status) async {
+    var tasks = NsgDataRequest<TaskDoc>(dataItemType: TaskDoc);
+    var filter = NsgDataRequestParams();
+    filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
+    return await tasks.requestItems(filter: filter);
+  }
+
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = NsgDataRequestParams();
@@ -209,7 +216,6 @@ class TasksController extends NsgDataController<TaskDoc> {
     element.project = Get.find<ProjectController>().currentItem;
     element.date = DateTime.now();
     element.dateUpdated = DateTime.now();
-  
 
     return element;
   }

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nsg_controls/widgets/nsg_dialog.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
@@ -10,7 +11,6 @@ import 'package:task_manager_app/forms/user_account/nottification_settings.dart'
 
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
-import 'package:task_manager_app/forms/widgets/nsg_dialog.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -70,10 +70,10 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
 
     return SafeArea(
         child: NsgDialogBody(
-      controller: nsgDialogBodyController,
-      key: scaffoldKey,
+            controller: nsgDialogBodyController,
+            key: scaffoldKey,
 
-      /*appBar: AppBar(
+            /*appBar: AppBar(
                 actions: [
                   if (_tabController.index == 0)
                     IconButton(
@@ -127,62 +127,63 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                     ]),
               ),*/
 
-      children: [
-        if (width > 700) const TmTopMenu(),
-        if (width <= 700)
-          TTAppBar(
-            title: 'Аккаунт',
-            rightIcons: [
-              if (currentTab.name == 'Профиль')
-                TTAppBarIcon(
-                  icon: Icons.edit_outlined,
-                  onTap: () {
-                    var userAcC = Get.find<UserAccountController>();
-                    userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
-                  },
+            child: Column(
+              children: [
+                if (width > 700) const TmTopMenu(),
+                if (width <= 700)
+                  TTAppBar(
+                    title: 'Аккаунт',
+                    rightIcons: [
+                      if (currentTab.name == 'Профиль')
+                        TTAppBarIcon(
+                          icon: Icons.edit_outlined,
+                          onTap: () {
+                            var userAcC = Get.find<UserAccountController>();
+                            userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+                          },
+                        ),
+                      TTAppBarIcon(
+                        icon: Icons.notifications_outlined,
+                        nott: 1,
+                        onTap: (() {
+                          notifC.refreshData();
+                          nsgDialogBodyController.openDialog(dialogBody());
+                          //NsgDialog().showNsgBottomDialog(context, dialogBody());
+                          //_dialogBuilder(context);
+                        }),
+                      )
+                    ],
+                  ),
+                TTTabs(
+                  currentTab: currentTab,
+                  tabs: [
+                    TTTabsTab(
+                        name: 'Профиль',
+                        onTap: (v) {
+                          currentTab = v;
+                          setState(() {});
+                        }),
+                    TTTabsTab(
+                        name: 'Уведомления',
+                        onTap: (v) {
+                          currentTab = v;
+                          Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
+                          setState(() {});
+                        }),
+                    TTTabsTab(
+                        name: 'Приглашения',
+                        onTap: (v) {
+                          currentTab = v;
+                          setState(() {});
+                        })
+                  ],
                 ),
-              TTAppBarIcon(
-                icon: Icons.notifications_outlined,
-                nott: 1,
-                onTap: (() {
-                  notifC.refreshData();
-                  nsgDialogBodyController.openDialog(dialogBody());
-                  //NsgDialog().showNsgBottomDialog(context, dialogBody());
-                  //_dialogBuilder(context);
-                }),
-              )
-            ],
-          ),
-        TTTabs(
-          currentTab: currentTab,
-          tabs: [
-            TTTabsTab(
-                name: 'Профиль',
-                onTap: (v) {
-                  currentTab = v;
-                  setState(() {});
-                }),
-            TTTabsTab(
-                name: 'Уведомления',
-                onTap: (v) {
-                  currentTab = v;
-                  Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
-                  setState(() {});
-                }),
-            TTTabsTab(
-                name: 'Приглашения',
-                onTap: (v) {
-                  currentTab = v;
-                  setState(() {});
-                })
-          ],
-        ),
-        Expanded(child: controller.obx((state) => content())),
-        if (width < 700)
-          //  const BottomMenu()
-          const BottomMenu()
-      ],
-    )
+                Expanded(child: controller.obx((state) => content())),
+                if (width < 700)
+                  //  const BottomMenu()
+                  const BottomMenu()
+              ],
+            ))
 
         /*TabBarView(controller: _tabController, children: [
               Container(key: GlobalKey(), child: const UserProfile()),

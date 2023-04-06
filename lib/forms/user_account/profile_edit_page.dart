@@ -24,49 +24,7 @@ class ProfileEditPage extends GetView<UserAccountController> {
 
   @override
   Widget build(BuildContext context) {
-    picker = NsgFilePicker(
-        showAsWidget: true,
-        skipInterface: true,
-        oneFile: true,
-        callback: (value) async {
-          NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение...', canStopped: false);
-          try {
-            progress.show();
-            if (value.isNotEmpty) {
-              List<int> imagefile;
-              List<List<int>>? cropped;
-
-              //final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
-              //provider.evict();
-              if (kIsWeb) {
-                imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
-              } else {
-                imagefile = await File(value[0].filePath).readAsBytes();
-              }
-
-              if (context.mounted) {
-                cropped = await NsgCrop().cropImages(context, imageList: [imagefile], ratio: 1 / 1);
-              }
-
-              // File imageFile = File(value[0].filePath);
-              //  List<int> imagebytes = await imageFile.readAsBytes();
-              if (cropped != null) {
-                controller.currentItem.photoFile = cropped[0];
-              } else {
-                controller.currentItem.photoFile = imagefile;
-              }
-              //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
-              await controller.currentItem.post();
-              await controller.refreshData();
-            }
-          } finally {
-            progress.hide();
-          }
-          //userAccountController.sendNotify();
-          Navigator.of(Get.context!).pop();
-        },
-        // ignore: prefer_const_literals_to_create_immutables
-        objectsList: []);
+    picker = initPicker(context);
     if (controller.lateInit) {
       controller.requestItems();
     }
@@ -251,5 +209,51 @@ class ProfileEditPage extends GetView<UserAccountController> {
             )),
       ]),
     );
+  }
+
+  NsgFilePicker initPicker(BuildContext context) {
+    return NsgFilePicker(
+        showAsWidget: true,
+        skipInterface: true,
+        oneFile: true,
+        callback: (value) async {
+          NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение...', canStopped: false);
+          try {
+            progress.show();
+            if (value.isNotEmpty) {
+              List<int> imagefile;
+              List<List<int>>? cropped;
+
+              //final NetworkImage provider = NetworkImage(controller.currentItem.photoName);
+              //provider.evict();
+              if (kIsWeb) {
+                imagefile = await File.fromUri(Uri(path: value[0].filePath)).readAsBytes();
+              } else {
+                imagefile = await File(value[0].filePath).readAsBytes();
+              }
+
+              if (context.mounted) {
+                cropped = await NsgCrop().cropImages(context, imageList: [imagefile, imagefile], ratio: 1 / 1, isCircle: true);
+              }
+
+              // File imageFile = File(value[0].filePath);
+              //  List<int> imagebytes = await imageFile.readAsBytes();
+              if (cropped != null) {
+                controller.currentItem.photoFile = cropped[0];
+              } else {
+                controller.currentItem.photoFile = imagefile;
+              }
+              //await userAccountController.postItems([Get.find<DataController>().currentUser]); //???????
+              await controller.currentItem.post();
+              await controller.refreshData();
+            }
+          } finally {
+            progress.hide();
+          }
+          //userAccountController.sendNotify();
+          Navigator.of(Get.context!).pop();
+        },
+        // ignore: prefer_const_literals_to_create_immutables
+        objectsList: []);
   }
 }
