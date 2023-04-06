@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_grid.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import '../../app_pages.dart';
@@ -164,7 +165,7 @@ class OrganizationProject extends GetView<ProjectController> {
                                 ),
                               ),
                             ClipOval(
-                              child: project.leader.photoFile.isEmpty
+                              child: project.photoPath.isEmpty
                                   ? Container(
                                       decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                       width: 32,
@@ -175,12 +176,12 @@ class OrganizationProject extends GetView<ProjectController> {
                                         color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                       ),
                                     )
-                                  : Image.memory(
-                                      Uint8List.fromList(project.leader.photoFile),
-                                      fit: BoxFit.cover,
-                                      width: 32,
-                                      height: 32,
-                                    ),
+                                  : Image.network(
+                                        TaskFilesController.getFilePath(project.photoPath),
+                                        fit: BoxFit.cover,
+                                        width: 32,
+                                        height: 32,
+                                      )
                             ),
                           ],
                         ),

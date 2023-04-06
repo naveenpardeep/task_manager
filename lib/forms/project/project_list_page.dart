@@ -249,7 +249,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                 ),
                               ),
                             ClipOval(
-                                child: project.leader.photoName.isEmpty
+                                child: project.photoPath.isEmpty
                                     ? Container(
                                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                         width: 32,
@@ -261,7 +261,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                         ),
                                       )
                                     : Image.network(
-                                        TaskFilesController.getFilePath(project.leader.photoName),
+                                        TaskFilesController.getFilePath(project.photoPath),
                                         fit: BoxFit.cover,
                                         width: 32,
                                         height: 32,
@@ -450,7 +450,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                 ),
                               ),
                             ClipOval(
-                                child: project.leader.photoName.isEmpty
+                                child: project.photoPath.isEmpty
                                     ? Container(
                                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                         width: 32,
@@ -462,7 +462,7 @@ class ProjectListPage extends GetView<ProjectController> {
                                         ),
                                       )
                                     : Image.network(
-                                        TaskFilesController.getFilePath(project.leader.photoName),
+                                        TaskFilesController.getFilePath(project.photoPath),
                                         fit: BoxFit.cover,
                                         width: 32,
                                         height: 32,
