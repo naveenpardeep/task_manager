@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 
@@ -315,6 +316,9 @@ class _TasksPageState extends State<TasksPage> {
                                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи')));
                                           } else {
                                             controller.currentItem.dateUpdated = DateTime.now();
+                                            if (controller.currentItem.assignee.isEmpty) {
+                                              controller.currentItem.assignee = Get.find<ProjectController>().currentItem.defaultUser;
+                                            }
 
                                             await controller.itemPagePost(goBack: false);
                                             Get.find<TasksController>().refreshData();
@@ -344,11 +348,7 @@ class _TasksPageState extends State<TasksPage> {
       content: SizedBox(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              if(controller.currentItem.name.isEmpty)
-              newtaskstatuslist(context),
-              if(controller.currentItem.name.isNotEmpty)
-              statuslist(context)],
+            children: [if (controller.currentItem.name.isEmpty) newtaskstatuslist(context), if (controller.currentItem.name.isNotEmpty) statuslist(context)],
           ),
         ),
       ),
@@ -389,10 +389,11 @@ class _TasksPageState extends State<TasksPage> {
     }
     return SingleChildScrollView(child: Column(children: list));
   }
- Widget newtaskstatuslist(context) {
+
+  Widget newtaskstatuslist(context) {
     List<Widget> list = [];
     var taskboardstaus = Get.find<TaskBoardController>().currentItem;
-    var stsList = Get.find<NewTaskStatusController>().items.where((element) => element.isDone==false);
+    var stsList = Get.find<NewTaskStatusController>().items.where((element) => element.isDone == false);
 
     for (var status in stsList) {
       list.add(Padding(
@@ -415,6 +416,7 @@ class _TasksPageState extends State<TasksPage> {
     }
     return SingleChildScrollView(child: Column(children: list));
   }
+
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
     return Get.find<TaskFilesController>().obx(

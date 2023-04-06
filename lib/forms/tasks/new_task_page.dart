@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
@@ -28,7 +29,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    if(commnetController.lateInit){
+    if (commnetController.lateInit) {
       commnetController.requestItems();
     }
     _tabController = TabController(length: 3, vsync: this);
@@ -68,7 +69,9 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                   } else {
                     taskController.currentItem.dateUpdated = DateTime.now();
-
+                    if (taskController.currentItem.assignee.isEmpty) {
+                      taskController.currentItem.assignee = Get.find<ProjectController>().currentItem.defaultUser;
+                    }
                     await taskController.itemPagePost(goBack: false);
                     Get.find<TasksController>().refreshData();
                     Get.toNamed(Routes.homePage);
@@ -157,8 +160,8 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
           const TasksPage(),
           Container(key: GlobalKey(), child: const ChecklistPage()),
           commnetController.obx(
-        // ignore: prefer_const_literals_to_create_immutables
-        (state) =>Container(key: GlobalKey(), child: const TasksCommentPage())),
+              // ignore: prefer_const_literals_to_create_immutables
+              (state) => Container(key: GlobalKey(), child: const TasksCommentPage())),
         ]),
       ),
     ));
