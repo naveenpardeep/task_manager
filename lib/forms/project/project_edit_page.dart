@@ -163,6 +163,13 @@ class _ProjectEditpageState extends State<ProjectEditPage> {
                                 label: 'Руководитель проекта',
                               ),
                               TTNsgInput(
+                                infoString: 'Выберите Исполнитель по умолчанию ',
+                                selectionController: Get.find<UserAccountController>(),
+                                dataItem: controller.currentItem,
+                                fieldName: ProjectItemGenerated.nameDefaultUserId,
+                                label: 'Исполнитель по умолчанию',
+                              ),
+                              TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: ProjectItemGenerated.nameProjectPrefix,
                                 label: 'Project Prefix',
