@@ -8,6 +8,7 @@ import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -178,11 +179,11 @@ class TmTopMenu extends StatelessWidget {
                 Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
               },
               child: ClipOval(
-                child: Get.find<DataController>().currentUser.photoFile.isEmpty
+                child: Get.find<DataController>().currentUser.photoName.isEmpty
                     ? const SizedBox(width: 32, height: 32)
-                    : Image.memory(
-                        Uint8List.fromList(Get.find<DataController>().currentUser.photoFile),
-                        fit: BoxFit.cover,
+                    : Image.network(
+                        TaskFilesController.getFilePath(Get.find<DataController>().currentUser.photoName),
+                        fit: BoxFit.fill,
                         width: 32,
                         height: 32,
                       ),
