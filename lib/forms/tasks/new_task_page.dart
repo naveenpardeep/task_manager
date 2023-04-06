@@ -93,7 +93,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
         elevation: 0.0, //Shadow gone
         centerTitle: true,
         title: Text(
-          "${taskController.currentItem.docNumber}  ${taskController.currentItem.name.toString().toUpperCase()}",
+          "${taskController.currentItem.docNumber}  ",
           style: const TextStyle(color: Colors.black),
         ),
         bottom: TabBar(
