@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
@@ -348,7 +349,11 @@ class _TasksPageState extends State<TasksPage> {
       content: SizedBox(
         child: SingleChildScrollView(
           child: Column(
-            children: [if (controller.currentItem.name.isEmpty) newtaskstatuslist(context), if (controller.currentItem.name.isNotEmpty) statuslist(context)],
+            children: [
+              if (controller.currentItem.state== NsgDataItemState.create)
+               newtaskstatuslist(context),
+                if (controller.currentItem.state== NsgDataItemState.fill) 
+                statuslist(context)],
           ),
         ),
       ),
