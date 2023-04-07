@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/forms/tasks/tasklist_controller.dart';
+import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
+
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
@@ -13,7 +14,7 @@ class TasksListPage extends GetView<TaskListController> {
 
   final _textTitle = 'Все задачи'.toUpperCase();
   final _textNoItems = 'Задачи ещё не добавлены';
-  final _elementPage = Routes.newTaskPage;
+  final _elementPage = Routes.taskPageFortaskList;
 
   @override
   Widget build(BuildContext context) {

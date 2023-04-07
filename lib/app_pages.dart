@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
@@ -37,6 +38,7 @@ import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
+import 'package:task_manager_app/forms/TaskList/taskPageForTaskList.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
@@ -61,7 +63,7 @@ import 'forms/task_status/task_status_binding.dart';
 import 'forms/task_status/task_status_list_page.dart';
 import 'forms/task_status/task_status_page.dart';
 import 'forms/tasks/tasks_binding.dart';
-import 'forms/tasks/tasks_list_page.dart';
+import 'forms/TaskList/tasks_list_page.dart';
 import 'forms/tasks/tasks_page.dart';
 import 'forms/user_account/user_account_listpage.dart';
 import 'old_start_page.dart';
@@ -349,6 +351,16 @@ class AppPages {
       page: () =>const NewOrgUserForDeletedUserPage(),
       binding: ProjectBinding(),
     ),
+     GetPage(
+      name: Routes.taskPageFortaskList,
+      page: () => const TaskPageForTaskList(),
+      binding: TasksListBinding(),
+    ),
+    GetPage(
+      name: Routes.taskopenForTaskList,
+      page: () => const TaskopenForTaskList(),
+      binding: TasksListBinding(),
+    ),
   ];
 }
 
@@ -412,4 +424,6 @@ abstract class Routes {
   static const taskcommentpage='/taskcommetpage';
   static const newUserForDeletedUserPage='/newUserForDeletedUserPage';
   static const newOrgUserForDeletedUserPage='/newOrgUserForDeletedUserPage';
+  static const taskPageFortaskList='/TaskPageforTaskList';
+  static const taskopenForTaskList='/taskopenForTaskList';
 }
