@@ -1359,7 +1359,7 @@ Widget tasksubPart(tasks) {
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: Text(
-                  'создано: ${NsgDateFormat.dateFormat(tasks.date, format: 'dd.MM.yy HH:mm')}',
+                  'создано: ${getcreateDay(tasks)}',
                   maxLines: 1,
                   style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF)),
                 ),
