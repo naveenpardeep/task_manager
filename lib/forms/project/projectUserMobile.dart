@@ -1,11 +1,10 @@
-// ignore_for_file: file_names
-
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:ui';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:substring_highlight/substring_highlight.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
@@ -13,7 +12,6 @@ import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
-import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ProjectUserMobile extends StatefulWidget {
   const ProjectUserMobile({Key? key}) : super(key: key);
@@ -25,10 +23,14 @@ class _ProjectpageState extends State<ProjectUserMobile> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
   var invitations = Get.find<AccpetController>();
+  var textEditController = TextEditingController();
+
+  String searchvalue = '';
 
   @override
   void initState() {
     super.initState();
+
     if (invitations.lateInit) {
       invitations.requestItems();
     }
@@ -46,20 +48,19 @@ class _ProjectpageState extends State<ProjectUserMobile> {
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            key: GlobalKey(),
+          //  key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                      child:   RefreshIndicator(
-      onRefresh: () {
-        return controller.refreshData();
-      },
-      child:
-                      RawScrollbar(
+                    child: Container(
+                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                  child: RefreshIndicator(
+                      onRefresh: () {
+                        return controller.refreshData();
+                      },
+                      child: RawScrollbar(
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
@@ -73,6 +74,36 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
+                              SizedBox(
+                                height: 35,
+                                child: TextField(
+                                    controller: textEditController,
+                                    decoration: InputDecoration(
+                                        filled: false,
+                                        fillColor: ControlOptions.instance.colorMainLight,
+                                        prefixIcon: const Icon(Icons.search),
+                                        border: OutlineInputBorder(
+                                            gapPadding: 1,
+                                            borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                        suffixIcon: IconButton(
+                                            padding: const EdgeInsets.only(bottom: 0),
+                                            onPressed: (() {
+                                              setState(() {});
+                                              textEditController.clear();
+                                              searchvalue = '';
+                                            }),
+                                            icon: const Icon(Icons.cancel)),
+                                        // prefixIcon: Icon(Icons.search),
+                                        hintText: 'Search Users'),
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    style: TextStyle(color: ControlOptions.instance.colorMainLight),
+                                    onChanged: (val) {
+                                      setState(() {
+                                        searchvalue = val;
+                                      });
+                                    }),
+                              ),
                               invitations.obx((state) => projectuserInvitations(context)),
                               projectUsersList(context),
                             ],
@@ -101,7 +132,6 @@ class _ProjectpageState extends State<ProjectUserMobile> {
   }
 
   Widget projectuserInvitations(BuildContext context) {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
     var invitations = Get.find<AccpetController>()
@@ -135,11 +165,11 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                   ),
                                 )
                               : Image.network(
-                              TaskFilesController.getFilePath(invitation.invitedUser.photoName),
-                              fit: BoxFit.cover,
-                              width: 48,
-                              height: 48,
-                            ),
+                                  TaskFilesController.getFilePath(invitation.invitedUser.photoName),
+                                  fit: BoxFit.cover,
+                                  width: 48,
+                                  height: 48,
+                                ),
                         ),
                       ),
                       Expanded(
@@ -205,90 +235,101 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     //var projectUsertable = Get.find<ProjectItemUserTableController>().items;
 
     for (var projectuser in controller.currentItem.tableUsers.rows) {
-      list.add(Padding(
-        padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
-        child: InkWell(
-          onTap: () {
-            Get.find<ProjectItemUserTableController>().currentItem = projectuser;
-            Get.toNamed(Routes.projectUserViewPage);
-          },
-          onLongPress: () {},
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: ClipOval(
-                      child: projectuser.userAccount.photoName.isEmpty
-                          ? Container(
-                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                              width: 48,
-                              height: 48,
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 48,
-                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+      if (projectuser.userAccount.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+          projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+        list.add(Padding(
+          padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
+          child: InkWell(
+            onTap: () {
+              Get.find<ProjectItemUserTableController>().currentItem = projectuser;
+              Get.toNamed(Routes.projectUserViewPage);
+            },
+            onLongPress: () {},
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: projectuser.userAccount.photoName.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 48,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                ),
+                              )
+                            : Image.network(
+                                TaskFilesController.getFilePath(projectuser.userAccount.photoName),
+                                fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
                               ),
-                            )
-                          : Image.network(
-                              TaskFilesController.getFilePath(projectuser.userAccount.photoName),
-                              fit: BoxFit.cover,
-                              width: 48,
-                              height: 48,
-                            ),
+                      ),
                     ),
-                  ),
 
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          projectuser.userAccount.name,
-                          style: TextStyle(
-                            fontSize: ControlOptions.instance.sizeL,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: SubstringHighlight(
+                                text: projectuser.userAccount.name,
+                                term: searchvalue,
+                                textStyle: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, color: Colors.black),
+                                textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                              )),
+                          Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: SubstringHighlight(
+                                text: projectuser.userAccount.phoneNumber,
+                                term: searchvalue,
+                                textStyle: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                                textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                              )),
+                          
+                        ],
+                      ),
+                    ),
+                    if (projectuser.isAdmin) const Icon(Icons.admin_panel_settings),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            projectuser.userAccount.organization.name,
+                            style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                           ),
-                        ),
-                        Text(
-                          projectuser.userAccount.phoneNumber,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                        ),
-                      ],
+                          // Text(
+                          //   projectuser.userAccount.email,
+                          //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                          // ),
+                        ],
+                      ),
                     ),
-                  ),
-                  if (projectuser.isAdmin) const Icon(Icons.admin_panel_settings),
-
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          projectuser.userAccount.organization.name,
-                          style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                        ),
-                        // Text(
-                        //   projectuser.userAccount.email,
-                        //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                        // ),
-                      ],
-                    ),
-                  ),
-                  // IconButton(
-                  //     onPressed: () {
-                  //       showAlertDialog(context, projectuser);
-                  //     },
-                  //     icon: const Icon(
-                  //       Icons.remove_circle_outline,
-                  //       color: Colors.red,
-                  //     )),
-                  const Icon(Icons.arrow_forward_ios),
-                ],
-              ),
-            ],
+                    // IconButton(
+                    //     onPressed: () {
+                    //       showAlertDialog(context, projectuser);
+                    //     },
+                    //     icon: const Icon(
+                    //       Icons.remove_circle_outline,
+                    //       color: Colors.red,
+                    //     )),
+                    const Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ));
+        ));
+      }
     }
 
     return SingleChildScrollView(child: Column(children: list));

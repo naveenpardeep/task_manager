@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
@@ -182,14 +183,22 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      projectuser.userAccount.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      projectuser.userAccount.phoneNumber,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                    ),
+                    Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: SubstringHighlight(
+                          text: projectuser.userAccount.name,
+                          term: searchvalue,
+                          textStyle: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, color: Colors.black),
+                          textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                        )),
+                    Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: SubstringHighlight(
+                          text: projectuser.userAccount.phoneNumber,
+                          term: searchvalue,
+                          textStyle: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                          textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                        )),
                   ],
                 ),
               ),
@@ -206,17 +215,17 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                       alignment: Alignment.center,
                       onPressed: () {
                         projectuser.isChecked = true;
-                        
+
                         Get.find<ProjectItemUserTableController>().usersSaved();
                         projectuseritem.remove(projectuser);
-                         Get.find<ProjectController>().sendNotify();
+                        Get.find<ProjectController>().sendNotify();
                       },
                       icon: const Icon(Icons.add),
                       color: Colors.white,
                     ),
                   ),
                 ),
-             
+
               // SizedBox(
               //     width: 30,
               //     child: NsgCheckBox(
@@ -298,7 +307,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
         ));
       }
     }
-    return SingleChildScrollView(child: Column(children:  list + adduser));
+    return SingleChildScrollView(child: Column(children: list + adduser));
   }
 
   Widget getProjectShowUser(BuildContext context) {
