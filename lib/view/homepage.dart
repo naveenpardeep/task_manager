@@ -972,16 +972,20 @@ class _HomepageState extends State<Homepage> {
         return true;
       },
       onAccept: (data) async {
-        data.taskStatus = status.status;
-        taskController.currentItem = data;
+        if (status.status != data.taskStatus) {
+          data.taskStatus = status.status;
+          taskController.currentItem = data;
+          taskController.currentItem.dateUpdated = DateTime.now();
+          NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
+       
+            progress.show();
+          await taskController.postItems([taskController.currentItem]);
+           progress.hide();
+          taskController.sendNotify();
+        }
 
-        taskController.currentItem.dateUpdated = DateTime.now();
         //  taskController.itemPagePost(goBack: false);
-        // NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
-        // progress.show();
-        await taskController.postItems([taskController.currentItem]);
-        // progress.hide();
-        taskController.sendNotify();
+        // 
       },
     );
   }
@@ -1183,9 +1187,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                             tasksubPart(tasks)
-                            ],
+                            children: [tasksubPart(tasks)],
                           ),
                         ),
                       ),
@@ -1229,9 +1231,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          tasksubPart(tasks)
-                            ],
+                            children: [tasksubPart(tasks)],
                           ),
                         ),
                       ),
@@ -1269,9 +1269,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        tasksubPart(tasks)
-                        ],
+                        children: [tasksubPart(tasks)],
                       ),
                     ),
                     Align(
