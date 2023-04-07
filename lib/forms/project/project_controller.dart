@@ -20,16 +20,7 @@ class ProjectController extends NsgDataController<ProjectItem> {
     ];
   }
 
-  @override
-  NsgDataRequestParams get getRequestFilter {
-    var filter = NsgDataRequestParams();
-    var projectController = Get.find<ProjectController>();
-
-    filter.compare.add(name: ProjectItemGenerated.namePriority, value: projectController.currentItem.priority);
-    filter.sorting = "${ProjectItemGenerated.namePriority}-";
  
-    return filter;
-  }
 
   @override
   Future itemRemove({bool goBack = true}) {
