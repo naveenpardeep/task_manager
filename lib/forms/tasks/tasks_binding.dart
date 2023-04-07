@@ -3,6 +3,7 @@ import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart
 import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
+import 'package:task_manager_app/forms/tasks/tasklist_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 import '../project/project_controller.dart';
@@ -24,6 +25,7 @@ class TasksListBinding extends Bindings {
     Get.put(TaskFilesController());
     Get.put(TaskCommentsController());
     Get.put(NewTaskStatusController());
+    Get.put(TaskListController());
     
   }
 }

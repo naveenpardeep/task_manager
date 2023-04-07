@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/tasks/tasklist_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../widgets/top_menu.dart';
-import 'tasks_controller.dart';
 
-class TasksListPage extends GetView<TasksController> {
+
+class TasksListPage extends GetView<TaskListController> {
   TasksListPage({Key? key}) : super(key: key);
 
   final _textTitle = 'Все задачи'.toUpperCase();
