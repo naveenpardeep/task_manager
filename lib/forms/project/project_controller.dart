@@ -20,7 +20,12 @@ class ProjectController extends NsgDataController<ProjectItem> {
     ];
   }
 
- 
+  @override
+  NsgDataRequestParams get getRequestFilter {
+    var filter = NsgDataRequestParams();
+    filter.sorting = "${ProjectItemGenerated.namePriority}-";
+    return filter;
+  }
 
   @override
   Future itemRemove({bool goBack = true}) {
@@ -59,14 +64,12 @@ class ProjectItemUserTableController extends NsgDataTableController<ProjectItemU
           tableFieldName: ProjectItemGenerated.nameTableUsers,
         );
 
-  
-
   List<ProjectItemUserTable> projectUsersList = [];
-   List<ProjectItemUserTable> projectUsersShowList = [];
+  List<ProjectItemUserTable> projectUsersShowList = [];
   void prepapreProjectUsers() {
     projectUsersList.clear();
-     projectUsersShowList.clear();
-     for (var row in Get.find<ProjectController>().currentItem.tableUsers.rows) {
+    projectUsersShowList.clear();
+    for (var row in Get.find<ProjectController>().currentItem.tableUsers.rows) {
       var newRow = ProjectItemUserTable();
       newRow.userAccount = row.userAccount;
       newRow.isChecked = true;
