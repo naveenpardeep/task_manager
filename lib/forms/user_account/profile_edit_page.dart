@@ -233,7 +233,7 @@ class ProfileEditPage extends GetView<UserAccountController> {
               }
 
               if (context.mounted) {
-                cropped = await NsgCrop().cropImages(context, imageList: [imagefile, imagefile], ratio: 1 / 1, isCircle: true);
+                cropped = await NsgCrop().cropImages(context, imageList: [imagefile], ratio: 1 / 1, isCircle: true);
               }
 
               // File imageFile = File(value[0].filePath);

@@ -24,9 +24,9 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
-  Future<List<TaskDoc>> getTasksFromStatus(TaskStatus status) async {
+  Future<List<TaskDoc>> getTasksFromStatus(TaskStatus status, int top, int count) async {
     var tasks = NsgDataRequest<TaskDoc>(dataItemType: TaskDoc);
-    var filter = NsgDataRequestParams();
+    var filter = NsgDataRequestParams(top: top, count: count);
     filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
     return await tasks.requestItems(filter: filter);
   }
