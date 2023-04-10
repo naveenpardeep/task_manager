@@ -153,10 +153,11 @@ class TasksController extends NsgDataController<TaskDoc> {
     var serviceC = Get.find<ServiceObjectController>();
 
     // Если указан ID пользователя, то фильтруем заявки по пользователю
-    if (serviceC.currentItem.userAccountId.isNotEmpty) {
-      filter.compare.add(name: TaskDocGenerated.nameAssigneeId, value: serviceC.currentItem.userAccountId);
+   
+  
+   if (serviceC.currentItem.userAccountId.isNotEmpty) {
+      filter.compare.add(name: TaskDocGenerated.nameAssigneeId + '.' + UserAccountGenerated.nameMainUserAccountId, value: serviceC.currentItem.userAccountId);
     }
-
     if (projectController.currentItem.id != "") {
       if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) {
         filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);

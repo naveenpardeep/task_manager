@@ -213,7 +213,8 @@ class _HomepageState extends State<Homepage> {
                           width: 100,
                           onPressed: () {
                             serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
-                            taskController.refreshData();
+
+                            Get.find<TasksController>().refreshData();
                           },
                           text: 'My Tasks'),
                       //  if (width > 700)
