@@ -87,22 +87,22 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: InkWell(
-                      onTap: () async {
-                        await Get.find<DataController>().provider!.logout();
-                        //await Get.find<DataController>().onInit();\
-                        //await Get.find<DataController>().provider!.resetUserToken();
-                        await Get.find<DataController>().provider!.connect(Get.find<DataController>());
-                        //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
-                      },
-                      child: Text(
-                        'logout',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 20),
+                  //   child: InkWell(
+                  //     onTap: () async {
+                  //       await Get.find<DataController>().provider!.logout();
+                  //       //await Get.find<DataController>().onInit();\
+                  //       //await Get.find<DataController>().provider!.resetUserToken();
+                  //       await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                  //       //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
+                  //     },
+                  //     child: Text(
+                  //       'logout',
+                  //       style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                  //     ),
+                  //   ),
+                  // ),
                   Tooltip(
                     message: 'Invitations',
                     child: Padding(
