@@ -73,9 +73,9 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                     ],
                     rightIcons: [
                       TTAppBarIcon(
-                        icon: Icons.close,
-                        onTap: () {
-                          Get.back();
+                        icon: Icons.check,
+                        onTap: () async{
+                          await controller.itemPagePost();
                         },
                       )
                     ],

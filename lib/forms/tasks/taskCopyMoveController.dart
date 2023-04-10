@@ -10,8 +10,8 @@ import 'package:task_manager_app/model/enums.dart';
 
 import 'task_file_controller.dart';
 
-class TasksController extends NsgDataController<TaskDoc> {
-  TasksController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+class TaskCopyMoveController extends NsgDataController<TaskDoc> {
+  TaskCopyMoveController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     referenceList = [
       TaskDocGenerated.nameProjectId,
       // TaskDocGenerated.nameSprintId,
@@ -233,7 +233,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     var imageController = Get.find<TaskFilesController>();
     //if (imageController.images.firstWhereOrNull((e) => e.id == '') != null) {
     await imageController.checkImagesInRichText();
-    await imageController.saveImages();
+   // await imageController.saveImages();
     //}
     return await super.itemPagePost(goBack: false, useValidation: useValidation);
   }
@@ -246,50 +246,5 @@ class TasksController extends NsgDataController<TaskDoc> {
   // }
 }
 
-class CommentTableTasksController extends NsgDataTableController<TaskDocCommentsTable> {
-  CommentTableTasksController() : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameTableComments) {
-    readOnly = false;
-    editModeAllowed = true;
-    requestOnInit = true;
-  }
 
-  @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
 
-    if (masterController!.selectedItem != null && currentItem.isEmpty) {
-      createNewItemAsync();
-    }
-  }
-
-  @override
-  Future<TaskDocCommentsTable> doCreateNewItem() async {
-    var item = await super.doCreateNewItem();
-    item.date = DateTime.now();
-    return item;
-  }
-}
-
-class TaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
-  TaskCheckListController() : super(masterController: Get.find<TasksController>(), tableFieldName: TaskDocGenerated.nameCheckList) {
-    readOnly = false;
-    editModeAllowed = true;
-    requestOnInit = true;
-  }
-
-  @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
-
-    if (masterController!.selectedItem != null && currentItem.isEmpty) {
-      createNewItemAsync();
-    }
-  }
-
-  @override
-  Future<TaskDocCheckListTable> doCreateNewItem() async {
-    var item = await super.doCreateNewItem();
-
-    return item;
-  }
-}

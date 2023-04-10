@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/enums.dart';
 
@@ -97,7 +99,6 @@ class _NotificationPageState extends State<NotificationPage> {
             children: [
               Expanded(
                 child: SizedBox(
-                    height: 98,
                     child: Card(
                         color: const Color.fromARGB(239, 248, 250, 252),
                         child: Padding(
@@ -106,37 +107,40 @@ class _NotificationPageState extends State<NotificationPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Project Name:  ${tasks.project.name}',
+                                tasks.project.name,
                                 maxLines: 1,
+                              ),
+                              Text(
+                                tasks.comment,
                               ),
                               if (tasks.notificationType == ENotificationType.invitationAccepted)
                                 Text(
-                                  'Invitation Accepted by: ${tasks.invitation.invitedUser}',
+                                  '${tasks.invitation.invitedUser}',
                                   maxLines: 1,
                                 ),
                               if (tasks.notificationType == ENotificationType.invitationRejected)
                                 Text(
-                                  'Invitation Rejected by: ${tasks.invitation.invitedUser}',
+                                  '${tasks.invitation.invitedUser}',
                                   maxLines: 1,
                                 ),
                               if (tasks.notificationType == ENotificationType.editedTask)
                                 Text(
-                                  'Edited Task:  ${tasks.task}',
+                                  tasks.task.name,
                                   maxLines: 1,
                                 ),
                               if (tasks.notificationType == ENotificationType.newTask)
                                 Text(
-                                  'New Task:  ${tasks.task.name}',
+                                  tasks.task.name,
                                   maxLines: 1,
                                 ),
                               if (tasks.notificationType == ENotificationType.recievedTask)
                                 Text(
-                                  'Recieved Task:  ${tasks.task}',
+                                  tasks.task.name,
                                   maxLines: 1,
                                 ),
                               if (tasks.notificationType == ENotificationType.userAdded)
                                 Text(
-                                  'User Added:  ${tasks.userAccount}',
+                                  tasks.userAccount.toString(),
                                   maxLines: 1,
                                 ),
                               Row(
@@ -146,12 +150,33 @@ class _NotificationPageState extends State<NotificationPage> {
                                     size: 12,
                                   ),
                                   Expanded(
-                                      child: Text(
-                                    'создано: ${formateddate.format(tasks.date)}',
-                                    maxLines: 1,
-                                    textScaleFactor: 0.8,
-                                    style: const TextStyle(color: Color(0xff10051C)),
-                                  )),
+                                      child: Text(NsgDateFormat.dateFormat(tasks.date, format: "dd.MM.yyyy / HH:mm"),
+                                          style: TextStyle(
+                                              color: ControlOptions.instance.colorMainLight,
+                                              fontSize: ControlOptions.instance.sizeS,
+                                              fontFamily: 'Inter')) //01.01.2023 / 9:43
+                                      ),
+                                  tasks.project.photoPath.isEmpty
+                                      ? ClipOval(
+                                          child: Container(
+                                            decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                            width: 32,
+                                            height: 32,
+                                            child: Icon(
+                                              Icons.add_a_photo,
+                                              size: 32,
+                                              color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                            ),
+                                          ),
+                                        )
+                                      : ClipOval(
+                                          child: Image.network(
+                                            TaskFilesController.getFilePath(tasks.project.photoPath),
+                                            fit: BoxFit.cover,
+                                            width: 32,
+                                            height: 32,
+                                          ),
+                                        )
                                 ],
                               )
                             ],

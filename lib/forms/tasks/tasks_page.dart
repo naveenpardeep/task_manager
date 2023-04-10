@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/image_file_view/multi_image_picker_controller.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
@@ -183,6 +184,18 @@ class _TasksPageState extends State<TasksPage> {
                                     Row(
                                       children: [
                                         Expanded(
+                                          child:NsgButton(
+                                            backColor: Colors.lightBlueAccent,
+                                            color: Colors.white,
+                                            text: 'Assign me',
+                                            onPressed: () {
+                                              controller.currentItem.assignee=Get.find<DataController>().currentUser;
+                                              controller.sendNotify();
+                                            },
+                                            //selectionForm: Routes.userAccountListPage,
+                                          ),
+                                        ),
+                                        Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
                                             label: 'Исполнитель',
@@ -276,18 +289,8 @@ class _TasksPageState extends State<TasksPage> {
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
                                     ),
-                                  if (controller.currentItem.name.isEmpty)
-                                    NsgButton(
-                                        text: 'Add Photos',
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          if (controller.currentItem.name.isEmpty) {
-                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи ')));
-                                          } else {
-                                            controller.itemPagePost(goBack: false);
-                                          }
-                                        }),
-                                  if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
+                                 
+                                  Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
                                     NsgButton(
                                       backColor: Colors.transparent,

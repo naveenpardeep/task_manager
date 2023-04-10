@@ -35,8 +35,8 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
-                    
-                       Get.find<ServiceObjectController>().selectedItem=null;
+
+                        Get.find<ServiceObjectController>().selectedItem = null;
                         NsgNavigator.instance.toPage(Routes.projectListPage);
                         // Get.find<ProjectController>()
                         //     .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
@@ -87,31 +87,29 @@ class TmTopMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: InkWell(
-                      onTap: () async {
-                        await Get.find<DataController>().provider!.logout();
-                        //await Get.find<DataController>().onInit();\
-                        //await Get.find<DataController>().provider!.resetUserToken();
-                        await Get.find<DataController>().provider!.connect(Get.find<DataController>());
-                        //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
-                      },
-                      child: Text(
-                        'logout',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 20),
+                  //   child: InkWell(
+                  //     onTap: () async {
+                  //       await Get.find<DataController>().provider!.logout();
+                  //       //await Get.find<DataController>().onInit();\
+                  //       //await Get.find<DataController>().provider!.resetUserToken();
+                  //       await Get.find<DataController>().provider!.connect(Get.find<DataController>());
+                  //       //NsgNavigator.instance.offAndToPage(Routes.firstStartPage);
+                  //     },
+                  //     child: Text(
+                  //       'logout',
+                  //       style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                  //     ),
+                  //   ),
+                  // ),
                   Tooltip(
                     message: 'Invitations',
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: InkWell(
                         onTap: () {
-                          Get.find<InvitationController>().refreshData();
-                          //   Get.toNamed(Routes.acceptInvitationPage);
-                          Get.find<InvitationController>().newItemPageOpen(pageName: Routes.invitationAcceptNew);
+                          Get.toNamed(Routes.invitationAcceptNew);
                         },
                         child: Icon(
                           Icons.insert_invitation_sharp,
@@ -126,8 +124,7 @@ class TmTopMenu extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 20),
                       child: InkWell(
                         onTap: () {
-                          Get.find<AccpetController>().refreshData();
-                          Get.find<AccpetController>().newItemPageOpen(pageName: Routes.acceptRejectListPage);
+                          Get.toNamed(Routes.acceptRejectListPage);
                         },
                         child: Icon(
                           Icons.list_alt,
