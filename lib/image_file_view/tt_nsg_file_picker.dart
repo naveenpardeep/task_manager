@@ -814,7 +814,7 @@ class NsgImagePickerButton extends StatelessWidget {
             return Card(
               elevation: 3,
               child: Container(
-                height: 200,
+                height: 140,
                 decoration: const BoxDecoration(
                     color: Colors.lightBlueAccent, borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
                 child: Center(
