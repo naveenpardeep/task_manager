@@ -99,7 +99,6 @@ class _NotificationPageState extends State<NotificationPage> {
             children: [
               Expanded(
                 child: SizedBox(
-                   
                     child: Card(
                         color: const Color.fromARGB(239, 248, 250, 252),
                         child: Padding(
@@ -111,9 +110,8 @@ class _NotificationPageState extends State<NotificationPage> {
                                 tasks.project.name,
                                 maxLines: 1,
                               ),
-                               Text(
+                              Text(
                                 tasks.comment,
-                                maxLines: 1,
                               ),
                               if (tasks.notificationType == ENotificationType.invitationAccepted)
                                 Text(
@@ -160,7 +158,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                       ),
                                   tasks.project.photoPath.isEmpty
                                       ? ClipOval(
-                                        child: Container(
+                                          child: Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                             width: 32,
                                             height: 32,
@@ -170,15 +168,15 @@ class _NotificationPageState extends State<NotificationPage> {
                                               color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                             ),
                                           ),
-                                      )
+                                        )
                                       : ClipOval(
-                                        child: Image.network(
+                                          child: Image.network(
                                             TaskFilesController.getFilePath(tasks.project.photoPath),
                                             fit: BoxFit.cover,
                                             width: 32,
                                             height: 32,
                                           ),
-                                      )
+                                        )
                                 ],
                               )
                             ],
