@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
+import 'package:task_manager_app/forms/tasks/task_user_account_controler.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_page.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -206,6 +207,15 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                         ),
+                      NsgButton(
+                          height: 10,
+                          borderRadius: 20,
+                          width: 100,
+                          onPressed: () {
+                            serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
+                            taskController.refreshData();
+                          },
+                          text: 'My Tasks'),
                       //  if (width > 700)
                       Expanded(
                         child: Align(
@@ -977,15 +987,15 @@ class _HomepageState extends State<Homepage> {
           taskController.currentItem = data;
           taskController.currentItem.dateUpdated = DateTime.now();
           NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
-       
-            progress.show();
+
+          progress.show();
           await taskController.postItems([taskController.currentItem]);
-           progress.hide();
+          progress.hide();
           taskController.sendNotify();
         }
 
         //  taskController.itemPagePost(goBack: false);
-        // 
+        //
       },
     );
   }
@@ -1413,21 +1423,42 @@ openTaskDialog(tasks, context) {
   double height = MediaQuery.of(context).size.height;
   // set up the button
 
-  Widget statusButton = ElevatedButton(
+  // Widget statusButton = ElevatedButton(
+  //   style: ElevatedButton.styleFrom(
+  //     backgroundColor: Colors.white,
+  //     // elevation: 3,
+  //     minimumSize: Size(width, height * 0.08),
+  //   ),
+  //   child: const Text("Change Status"),
+  //   onPressed: () {
+  //     changeTaskStatus(tasks);
+  //   },
+  // );
+  Widget copy = ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
       // elevation: 3,
       minimumSize: Size(width, height * 0.08),
     ),
-    child: const Text("Change Status"),
+    child: const Text("Copy Task to another Project"),
     onPressed: () {
-      changeTaskStatus(tasks);
+      selectProject(tasks);
     },
   );
-
+  Widget move = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      // elevation: 3,
+      minimumSize: Size(width, height * 0.08),
+    ),
+    child: const Text("Move Task to another Project"),
+    onPressed: () {
+      selectProject(tasks);
+    },
+  );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    actions: [statusButton],
+    actions: [copy, move],
   );
 
   // show the dialog
@@ -1435,6 +1466,30 @@ openTaskDialog(tasks, context) {
     context: context,
     builder: (BuildContext context) {
       return alert;
+    },
+  );
+}
+
+selectProject(TaskDoc tasks) {
+  var form = NsgSelection(
+    selectedElement: ProjectItem(),
+    inputType: NsgInputType.reference,
+    controller: Get.find<ProjectController>(),
+  );
+  form.selectFromArray(
+    'Projects',
+    (item) async {
+      // tasks.taskStatus = item as TaskStatus;
+
+      // tasks.dateUpdated = DateTime.now();
+
+      Get.find<TasksController>().currentItem = tasks;
+      await Get.find<TasksController>().itemPagePost(goBack: false);
+      // Get.find<TasksController>().sendNotify();
+      // Get.find<TaskStatusTableController>().sendNotify();
+
+      //Get.find<TaskStatusTableController>().sendNotify();
+      //taskBoardController.sendNotify();*/
     },
   );
 }

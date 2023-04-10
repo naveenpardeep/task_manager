@@ -276,18 +276,8 @@ class _TasksPageState extends State<TasksPage> {
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
                                     ),
-                                  if (controller.currentItem.name.isEmpty)
-                                    NsgButton(
-                                        text: 'Add Photos',
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          if (controller.currentItem.name.isEmpty) {
-                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, введите название задачи ')));
-                                          } else {
-                                            controller.itemPagePost(goBack: false);
-                                          }
-                                        }),
-                                  if (controller.currentItem.name.isNotEmpty) Flexible(child: imageGallery()),
+                                 
+                                  Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
                                     NsgButton(
                                       backColor: Colors.transparent,
