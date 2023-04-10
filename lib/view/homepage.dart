@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
+import 'package:task_manager_app/forms/tasks/taskCopyMoveController.dart';
 import 'package:task_manager_app/forms/tasks/task_user_account_controler.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_page.dart';
@@ -54,6 +55,7 @@ class _HomepageState extends State<Homepage> {
   var taskcommentC = Get.find<TaskCommentsController>();
   var serviceC = Get.find<ServiceObjectController>();
   var textEditController = TextEditingController();
+  var taskCopyMoveController = Get.find<TaskCopyMoveController>();
   String screenName = '';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
@@ -65,6 +67,9 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
+    }
+    if (taskCopyMoveController.lateInit) {
+      taskCopyMoveController.requestItems();
     }
     reset();
     taskView;
@@ -97,17 +102,17 @@ class _HomepageState extends State<Homepage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Row(
                     children: [
-                      NsgIconButton(
-                        padding: EdgeInsets.zero,
-                        icon: Icons.arrow_back_ios_new,
-                        backColor: Colors.transparent,
-                        color: ControlOptions.instance.colorMain,
-                        size: 22,
-                        onPressed: () {
-                          serviceC.selectedItem = null;
-                          Get.toNamed(Routes.projectListPage);
-                        },
-                      ),
+                      // NsgIconButton(
+                      //   padding: EdgeInsets.zero,
+                      //   icon: Icons.arrow_back_ios_new,
+                      //   backColor: Colors.transparent,
+                      //   color: ControlOptions.instance.colorMain,
+                      //   size: 22,
+                      //   onPressed: () {
+                      //     serviceC.selectedItem = null;
+                      //     Get.toNamed(Routes.projectListPage);
+                      //   },
+                      // ),
                       projectController.obx(
                         (state) => Padding(
                           padding: const EdgeInsets.only(left: 5),
@@ -1443,7 +1448,8 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Copy Task to another Project"),
     onPressed: () {
-      selectProject(tasks);
+    //  selectProjectCopy(tasks);
+     //  Get.find<TaskCopyMoveController>().createNewItemAsync();
     },
   );
   Widget move = ElevatedButton(
@@ -1454,12 +1460,12 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Move Task to another Project"),
     onPressed: () {
-      selectProject(tasks);
+      selectProjectMove(tasks);
     },
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    actions: [copy, move],
+    actions:  [copy, move] ,
   );
 
   // show the dialog
@@ -1471,26 +1477,35 @@ openTaskDialog(tasks, context) {
   );
 }
 
-selectProject(TaskDoc tasks) {
+selectProjectCopy(TaskDoc tasks) {
   var form = NsgSelection(
     selectedElement: ProjectItem(),
     inputType: NsgInputType.reference,
     controller: Get.find<ProjectController>(),
   );
   form.selectFromArray(
-    'Projects',
+    'Select Project',
     (item) async {
-      // tasks.taskStatus = item as TaskStatus;
+      Get.find<TaskCopyMoveController>().currentItem.projectId = Get.find<ProjectController>().currentItem.id;
+      Get.find<TaskCopyMoveController>().currentItem=tasks;
+      await Get.find<TaskCopyMoveController>().itemPagePost(goBack: false);
+    },
+  );
+}
 
-      // tasks.dateUpdated = DateTime.now();
-
-      Get.find<TasksController>().currentItem = tasks;
-      await Get.find<TasksController>().itemPagePost(goBack: false);
-      // Get.find<TasksController>().sendNotify();
-      // Get.find<TaskStatusTableController>().sendNotify();
-
-      //Get.find<TaskStatusTableController>().sendNotify();
-      //taskBoardController.sendNotify();*/
+selectProjectMove(TaskDoc tasks) {
+  var form = NsgSelection(
+    selectedElement: ProjectItem(),
+    inputType: NsgInputType.reference,
+    controller: Get.find<ProjectController>(),
+  );
+  form.selectFromArray(
+    'Select Project',
+    (item) async {
+      tasks.projectId = Get.find<ProjectController>().currentItem.id;
+      tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
+      await Get.find<TaskCopyMoveController>().postItems([tasks]);
+      
     },
   );
 }

@@ -14,6 +14,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/image_file_view/multi_image_picker_controller.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/view/homepage.dart';
 
@@ -182,6 +183,18 @@ class _TasksPageState extends State<TasksPage> {
                                   if (width > 700)
                                     Row(
                                       children: [
+                                        Expanded(
+                                          child:NsgButton(
+                                            backColor: Colors.lightBlueAccent,
+                                            color: Colors.white,
+                                            text: 'Assign me',
+                                            onPressed: () {
+                                              controller.currentItem.assignee=Get.find<DataController>().currentUser;
+                                              controller.sendNotify();
+                                            },
+                                            //selectionForm: Routes.userAccountListPage,
+                                          ),
+                                        ),
                                         Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
