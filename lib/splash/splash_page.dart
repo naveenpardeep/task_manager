@@ -52,7 +52,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 100),
     );
 
     _fadein = Tween(begin: 0.0, end: 1.0).animate(
