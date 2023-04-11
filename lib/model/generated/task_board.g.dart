@@ -13,6 +13,7 @@ class TaskBoardGenerated extends NsgDataItem {
   static const nameSortBy = 'sortBy';
   static const namePeriodOfFinishedTasks = 'periodOfFinishedTasks';
   static const nameStatusTable = 'statusTable';
+  static const nameTypeTable = 'typeTable';
 
   static final Map<String, String> fieldNameDict = {
     nameName: 'Наименование',
@@ -29,6 +30,7 @@ class TaskBoardGenerated extends NsgDataItem {
     addField(NsgDataEnumReferenceField<ESorting>(nameSortBy), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPeriod>(namePeriodOfFinishedTasks), primaryKey: false);
     addField(NsgDataReferenceListField<TaskBoardStatusTable>(nameStatusTable), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskBoardTypeTable>(nameTypeTable), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
   }
 
@@ -73,6 +75,10 @@ class TaskBoardGenerated extends NsgDataItem {
 
   /// Статусы
   NsgDataTable<TaskBoardStatusTable> get statusTable => NsgDataTable<TaskBoardStatusTable>(owner: this, fieldName: nameStatusTable);
+
+
+  /// ТипыЗадач
+  NsgDataTable<TaskBoardTypeTable> get typeTable => NsgDataTable<TaskBoardTypeTable>(owner: this, fieldName: nameTypeTable);
 
 
   @override

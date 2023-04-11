@@ -20,6 +20,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameFootnote = 'footnote';
   static const nameProjectId = 'projectId';
   static const nameSprintId = 'sprintId';
+  static const nameTaskTypeId = 'taskTypeId';
   static const nameTaskStatusId = 'taskStatusId';
   static const nameTableComments = 'tableComments';
   static const nameCheckList = 'checkList';
@@ -60,6 +61,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameFootnote), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<SprintDoc>(nameSprintId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskType>(nameTaskTypeId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskStatusId), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCommentsTable>(nameTableComments), primaryKey: false);
     addField(NsgDataReferenceListField<TaskDocCheckListTable>(nameCheckList), primaryKey: false);
@@ -164,6 +166,17 @@ class TaskDocGenerated extends NsgDataItem {
   set sprintId(String value) => setFieldValue(nameSprintId, value);
   set sprint(SprintDoc value) =>
     setFieldValue(nameSprintId, value.id);
+
+  /// ТипЗадачи
+  String get taskTypeId => getFieldValue(nameTaskTypeId).toString();
+  TaskType get taskType => getReferent<TaskType>(nameTaskTypeId);
+  Future<TaskType> taskTypeAsync() async {
+   return await getReferentAsync<TaskType>(nameTaskTypeId);
+  }
+
+  set taskTypeId(String value) => setFieldValue(nameTaskTypeId, value);
+  set taskType(TaskType value) =>
+    setFieldValue(nameTaskTypeId, value.id);
 
   /// СтатусЗадачи
   String get taskStatusId => getFieldValue(nameTaskStatusId).toString();
