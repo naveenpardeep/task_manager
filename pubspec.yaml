@@ -92,6 +92,9 @@ flutter:
     - lib/assets/images/
     - lib/assets/close-48.png
   fonts:
+    - family: NsgIcons
+      fonts:
+      - asset: font/NsgIcons.ttf
     - family: Inter
       fonts:
         - asset: lib/assets/fonts/Inter-Medium.ttf
