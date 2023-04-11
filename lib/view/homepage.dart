@@ -1461,7 +1461,7 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Copy Task to another Project"),
     onPressed: () {
-    //  selectProjectCopy(tasks);
+      selectProjectCopy(tasks);
     },
   );
   Widget move = ElevatedButton(
@@ -1498,12 +1498,12 @@ selectProjectCopy(TaskDoc tasks) {
   form.selectFromArray(
     'Select Project',
     (item) async {
-     tasks.state = NsgDataItemState.create;
-      Get.find<TaskCopyMoveController>().currentItem = tasks;
+      tasks.state = NsgDataItemState.create;
+      tasks.projectId = Get.find<ProjectController>().currentItem.id;
+      tasks.id = Guid.newGuid();
+      Get.find<TasksController>().currentItem = tasks;
 
-      Get.find<TaskCopyMoveController>().currentItem.projectId = Get.find<ProjectController>().currentItem.id;
-
-      await Get.find<TaskCopyMoveController>().postItems([Get.find<TaskCopyMoveController>().currentItem]);
+      await Get.find<TasksController>().postItems([tasks]);
     },
   );
 }
