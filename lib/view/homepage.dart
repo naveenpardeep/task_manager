@@ -212,16 +212,17 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                         ),
-                      NsgButton(
-                          height: 10,
-                          borderRadius: 20,
-                          width: 100,
-                          onPressed: () {
-                            serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
+                      if (width > 700)
+                        NsgButton(
+                            height: 10,
+                            borderRadius: 20,
+                            width: 100,
+                            onPressed: () {
+                              serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
 
-                            Get.find<TasksController>().refreshData();
-                          },
-                          text: 'My Tasks'),
+                              Get.find<TasksController>().refreshData();
+                            },
+                            text: 'My Tasks'),
                       //  if (width > 700)
                       Expanded(
                         child: Align(
@@ -496,6 +497,18 @@ class _HomepageState extends State<Homepage> {
       //     ),
       //   ),
       // ),
+      if (width < 700)
+        wrapFlexible(
+            child: NsgButton(
+                height: 10,
+                borderRadius: 20,
+                width: 100,
+                onPressed: () {
+                  serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
+
+                  Get.find<TasksController>().refreshData();
+                },
+                text: 'My Tasks')),
       wrapFlexible(
         child: TTNsgInput(
           label: 'Исполнитель',
@@ -1448,8 +1461,7 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Copy Task to another Project"),
     onPressed: () {
-    //  selectProjectCopy(tasks);
-     //  Get.find<TaskCopyMoveController>().createNewItemAsync();
+      selectProjectCopy(tasks);
     },
   );
   Widget move = ElevatedButton(
@@ -1465,7 +1477,7 @@ openTaskDialog(tasks, context) {
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    actions:  [copy, move] ,
+    actions: [copy, move],
   );
 
   // show the dialog
@@ -1486,9 +1498,12 @@ selectProjectCopy(TaskDoc tasks) {
   form.selectFromArray(
     'Select Project',
     (item) async {
+      Get.find<TaskCopyMoveController>().currentItem.state = NsgDataItemState.create;
+      Get.find<TaskCopyMoveController>().currentItem = tasks;
+
       Get.find<TaskCopyMoveController>().currentItem.projectId = Get.find<ProjectController>().currentItem.id;
-      Get.find<TaskCopyMoveController>().currentItem=tasks;
-      await Get.find<TaskCopyMoveController>().itemPagePost(goBack: false);
+
+      await Get.find<TaskCopyMoveController>().postItems([Get.find<TaskCopyMoveController>().currentItem]);
     },
   );
 }
@@ -1505,7 +1520,6 @@ selectProjectMove(TaskDoc tasks) {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
       await Get.find<TaskCopyMoveController>().postItems([tasks]);
-      
     },
   );
 }
