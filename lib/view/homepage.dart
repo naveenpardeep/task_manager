@@ -1350,6 +1350,7 @@ Widget tasksubPart(tasks) {
                       tasks.isReadByAssignee = true;
                       Get.find<TasksController>().postItems([tasks]);
                     }
+                    
                     Get.find<TaskCheckListController>().requestItems();
                     Get.find<TasksController>().currentItem = tasks;
 

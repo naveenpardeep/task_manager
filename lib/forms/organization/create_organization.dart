@@ -86,20 +86,22 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                       Expanded(
                           child: TaskButton(
                         text: 'Отменить',
-                        onTap: () {},
+                        onTap: () {
+                          Get.back();
+                        },
                         style: TaskButtonStyle.light,
                       )),
                       Expanded(
                           child: TaskButton(
                         text: 'Сохранить',
                         onTap: () async {
-                          await controller.itemPagePost(goBack: false);
+                          await controller.itemPagePost();
                           //При создании новой организации, должен автоматически создастся профиль для нее
                           //Соотвественно, надо перечитать профили
-                          await Get.find<UserAccountController>().requestItems();
-                          var projectC = Get.find<ProjectController>();
-                          projectC.refreshData();
-                          NsgNavigator.instance.offAndToPage(Routes.projectListPage);
+                        //  await Get.find<UserAccountController>().requestItems();
+                         // var projectC = Get.find<ProjectController>();
+                        //  projectC.refreshData();
+                        //  NsgNavigator.instance.offAndToPage(Routes.projectListPage);
                           // projectC.itemPageOpen(
                           //     Get.find<ProjectController>().currentItem,
                           //     Routes.projectListPage);
