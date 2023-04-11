@@ -1501,6 +1501,15 @@ selectProjectCopy(TaskDoc tasks) {
       tasks.state = NsgDataItemState.create;
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.id = Guid.newGuid();
+      if (tasks.assignee !=
+          Get.find<ProjectController>()
+              .currentItem
+              .tableUsers
+              .rows
+              .firstWhere((element) => element.userAccount == tasks.assignee, orElse: () => ProjectItemUserTable())
+              .userAccount) {
+        tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
+      }
       Get.find<TasksController>().currentItem = tasks;
 
       await Get.find<TasksController>().postItems([tasks]);
@@ -1519,6 +1528,15 @@ selectProjectMove(TaskDoc tasks) {
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
+       if (tasks.assignee !=
+          Get.find<ProjectController>()
+              .currentItem
+              .tableUsers
+              .rows
+              .firstWhere((element) => element.userAccount == tasks.assignee, orElse: () => ProjectItemUserTable())
+              .userAccount) {
+        tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
+      }
       await Get.find<TaskCopyMoveController>().postItems([tasks]);
     },
   );
