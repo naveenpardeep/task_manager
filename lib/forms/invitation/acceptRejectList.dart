@@ -83,6 +83,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
         {
           list.add(GestureDetector(
             child: Row(
+            
               children: [
                 Expanded(
                   child: Padding(
@@ -92,19 +93,17 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              'Project Name:  ${invitation.project}',
+                            Text('Project Name:  ${invitation.project}',
                             ),
                             Text('Author Name:  ${invitation.author}'),
-                            Text(
-                              'Invited User:  ${invitation.invitedUser} ',
+                            Text('Invited User:  ${invitation.invitedUser} ',
                             ),
                             Text('Mobile: ${invitation.invitedPhoneNumber}'),
                             Text('Accept  : ${invitation.isAccepted}'),
-                            Text(
-                              'Reject  :  ${invitation.isRejected}',
+                            Text('Reject  :  ${invitation.isRejected}',
                             ),
                             Text(
                               'Organization Name:  ${invitation.organization}',
@@ -117,6 +116,8 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             if (invitation.isAccepted == false && invitation.isRejected == false)
                               Center(
                                 child: NsgButton(
+                                  borderRadius: 50,
+                                  width: 100,
                                   text: 'Cancel',
                                   onPressed: () async {
                                     controller.currentItem = invitation;
