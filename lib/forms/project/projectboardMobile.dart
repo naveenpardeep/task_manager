@@ -143,6 +143,8 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
             children: [
               Expanded(
                 child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  color: const Color(0xffEDEFF3),
                   margin: EdgeInsets.zero,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
