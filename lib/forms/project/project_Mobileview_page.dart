@@ -106,27 +106,27 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                     });
                   },
                   controller: _tabController,
-                  tabs: <Widget>[
+                  tabs: const <Widget>[
                     Tab(
                       child: Text(
                         'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                        style: TextStyle(color: Color(0xff3EA8AB), ),
                       ),
                     ),
                     Tab(
                         child: Text(
                       'Доски',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                      style: TextStyle(color: Color(0xff3EA8AB), ),
                     )),
                     // Tab(
                     //     child: Text(
                     //   'Status',
-                    //   style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                    //   style: TextStyle(color: const Color(0xff3EA8AB),),
                     // )),
                     Tab(
                       child: Text(
                         'Участники',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                        style: TextStyle(color: Color(0xff3EA8AB),),
                       ),
                     ),
                   ]),
