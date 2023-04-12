@@ -33,7 +33,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    //double height = MediaQuery.of(context).size.height;
+   
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
@@ -64,6 +64,7 @@ class _NotificationPageState extends State<NotificationPage> {
     List<Widget> list = [];
     var scrollController = ScrollController();
     var tasksList = controller.items.reversed;
+     double width = MediaQuery.of(context).size.width;
 
     for (var tasks in tasksList) {
       {
@@ -193,7 +194,7 @@ class _NotificationPageState extends State<NotificationPage> {
         thumbVisibility: true,
         trackVisibility: true,
         controller: scrollController,
-        thickness: 15,
+        thickness: width>700? 10: 0,
         trackBorderColor: ControlOptions.instance.colorGreyLight,
         trackColor: ControlOptions.instance.colorGreyLight,
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),

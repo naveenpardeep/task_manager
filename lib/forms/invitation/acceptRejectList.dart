@@ -16,7 +16,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
       controller.requestItems();
     }
     var scrollController = ScrollController();
-    //double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -49,7 +49,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: 15,
+                        thickness: width>700? 10: 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),

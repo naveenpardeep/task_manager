@@ -625,7 +625,7 @@ class _HomepageState extends State<Homepage> {
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
-                          thickness: 10,
+                          thickness: width > 700 ? 10 : 0,
                           trackBorderColor: ControlOptions.instance.colorGreyLight,
                           trackColor: ControlOptions.instance.colorGreyLight,
                           thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -826,7 +826,7 @@ class _HomepageState extends State<Homepage> {
                             thumbVisibility: true,
                             trackVisibility: true,
                             controller: scrollController,
-                            thickness: 10,
+                            thickness: width > 700 ? 10 : 0,
                             trackBorderColor: ControlOptions.instance.colorGreyLight,
                             trackColor: ControlOptions.instance.colorGreyLight,
                             thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -1155,8 +1155,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
           SizedBox(
             width: constraints.maxWidth,
             child: Card(
-                elevation: 3,
-                color: const Color.fromARGB(239, 248, 250, 252),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
                     ClipPath(
@@ -1199,8 +1199,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
           SizedBox(
             width: constraints.maxWidth,
             child: Card(
-                elevation: 3,
-                color: const Color.fromARGB(239, 248, 250, 252),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
                     ClipPath(
@@ -1243,15 +1243,19 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
           SizedBox(
             width: constraints.maxWidth,
             child: Card(
-                elevation: 3,
-                color: const Color.fromARGB(239, 248, 250, 252),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
                     ClipPath(
                       child: Container(
                         decoration: const BoxDecoration(
+                   
                             border: Border(
-                          left: BorderSide(color: Colors.green, width: 5),
+                          left: BorderSide(
+                            color: Colors.green,
+                            width: 5,
+                          ),
                         )),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -1287,8 +1291,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
           SizedBox(
             width: constraints.maxWidth,
             child: Card(
-                elevation: 3,
-                color: const Color.fromARGB(239, 248, 250, 252),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
                     Padding(
@@ -1347,7 +1351,7 @@ Widget tasksubPart(tasks) {
                       tasks.isReadByAssignee = true;
                       Get.find<TasksController>().postItems([tasks]);
                     }
-                    
+
                     Get.find<TaskCheckListController>().requestItems();
                     Get.find<TasksController>().currentItem = tasks;
 
@@ -1526,7 +1530,7 @@ selectProjectMove(TaskDoc tasks) {
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
-       if (tasks.assignee !=
+      if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
               .tableUsers

@@ -32,6 +32,7 @@ class _ProjectpageState extends State<NewUserForDeletedUserPage> {
   @override
   Widget build(BuildContext context) {
     var scrollController = ScrollController();
+    double width=MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -56,7 +57,7 @@ class _ProjectpageState extends State<NewUserForDeletedUserPage> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: 10,
+                        thickness:  width>700? 10: 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
