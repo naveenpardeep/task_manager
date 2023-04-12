@@ -63,55 +63,52 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
           onLongPress: () {},
           child: Column(
             children: [
-              Card(
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipOval(
-                          child: organizations.photoPath.isEmpty
-                              ? Container(
-                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                  width: 48,
-                                  height: 48,
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    size: 48,
-                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                  ),
-                                )
-                              : Image.network(
-                                  TaskFilesController.getFilePath(organizations.photoPath),
-                                  fit: BoxFit.cover,
-                                  width: 48,
-                                  height: 48,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: organizations.photoPath.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 48,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                 ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              organizations.name,
-                              style: TextStyle(
-                                fontSize: ControlOptions.instance.sizeL,
+                              )
+                            : Image.network(
+                                TaskFilesController.getFilePath(organizations.photoPath),
+                                fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
                               ),
-                            ),
-                            // for CEO of the Company need to change
-                            Text(
-                              organizations.ceo.toString(),
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            ),
-                          ],
-                        ),
                       ),
-                      const Icon(Icons.arrow_forward_ios),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            organizations.name,
+                            style: TextStyle(
+                              fontSize: ControlOptions.instance.sizeL,
+                            ),
+                          ),
+                          // for CEO of the Company need to change
+                          // Text(
+                          //   organizations.ceo.toString(),
+                          //   style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                          // ),
+                        ],
+                      ),
+                    ),
+                   // const Icon(Icons.arrow_forward_ios),
+                  ],
                 ),
               ),
             ],
