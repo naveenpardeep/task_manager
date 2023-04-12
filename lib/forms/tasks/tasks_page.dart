@@ -162,7 +162,7 @@ class _TasksPageState extends State<TasksPage> {
                                     infoString: 'Укажите название задачи',
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(6.0),
+                                    padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                     child: TextFormField(
                                       initialValue: controller.currentItem.taskStatus.toString(),
                                       decoration: InputDecoration(
@@ -178,21 +178,11 @@ class _TasksPageState extends State<TasksPage> {
                                       },
                                     ),
                                   ),
+                                    
                                   if (width > 700)
                                     Row(
                                       children: [
-                                        Expanded(
-                                          child:NsgButton(
-                                            backColor: Colors.lightBlueAccent,
-                                            color: Colors.white,
-                                            text: 'Assign me',
-                                            onPressed: () {
-                                              controller.currentItem.assignee=Get.find<DataController>().currentUser;
-                                              controller.sendNotify();
-                                            },
-                                            //selectionForm: Routes.userAccountListPage,
-                                          ),
-                                        ),
+                                     
                                         Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
@@ -214,6 +204,7 @@ class _TasksPageState extends State<TasksPage> {
                                         ),
                                       ],
                                     ),
+                                     
                                   if (width < 700)
                                     // TTNsgInput(
                                     //   controller: controller,
@@ -239,6 +230,21 @@ class _TasksPageState extends State<TasksPage> {
                                       fieldName: TaskDocGenerated.namePriority,
                                       label: 'Приоритет',
                                       infoString: 'Выберите приоритет задачи',
+                                    ),
+                                    Center(
+                                      child: NsgButton(
+                                        borderRadius: 20,
+                                        width: width,
+                                        height: 7,
+                                         backColor: const Color.fromARGB(255, 173, 233, 230),
+                                         color: Colors.black,
+                                         text: 'Assign me',
+                                         onPressed: () {
+                                           controller.currentItem.assignee=Get.find<DataController>().currentUser;
+                                           controller.sendNotify();
+                                         },
+                                         //selectionForm: Routes.userAccountListPage,
+                                       ),
                                     ),
                                   NsgRichText(
                                       hint: 'Description',
