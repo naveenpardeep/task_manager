@@ -39,7 +39,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_setIndex);
   }
 
@@ -102,9 +102,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                         _tabController.index = 1;
                       } else if (_tabController.index == 2) {
                         _tabController.index = 2;
-                      } else if (_tabController.index == 3) {
-                        _tabController.index = 3;
-                      }
+                      } 
                     });
                   },
                   controller: _tabController,
@@ -120,11 +118,11 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                       'Доски',
                       style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
                     )),
-                    Tab(
-                        child: Text(
-                      'Status',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                    )),
+                    // Tab(
+                    //     child: Text(
+                    //   'Status',
+                    //   style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                    // )),
                     Tab(
                       child: Text(
                         'Участники',
@@ -342,7 +340,7 @@ class _ProjectMobileViewPageState extends State<ProjectMobileViewPage> with Tick
                 ),
               ),
               Container(key: GlobalKey(), child: const ProjectBoardMobile()),
-              Container(key: GlobalKey(), child: const ProjectStatusPage()),
+             // Container(key: GlobalKey(), child: const ProjectStatusPage()),
               Container(key: GlobalKey(), child: const ProjectUserMobile()),
             ]),
           ),

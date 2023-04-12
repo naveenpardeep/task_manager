@@ -7,9 +7,13 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/project/project_status_page.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
 import 'package:task_manager_app/model/task_board.dart';
+
+import '../../model/generated/task_status.g.dart';
+import '../task_status/project_status_controller.dart';
 
 class ProjectBoardMobile extends StatefulWidget {
   const ProjectBoardMobile({Key? key}) : super(key: key);
@@ -31,7 +35,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
   @override
   Widget build(BuildContext context) {
     var scrollController = ScrollController();
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -40,7 +44,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-        //    key: GlobalKey(),
+            //    key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,7 +56,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: width>700? 10: 0,
+                        thickness: width > 700 ? 10 : 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -92,6 +96,23 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //   ],
                                 // ),
                                 getProjectBoard(context),
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: NsgTable(
+                                  showIconFalse: false,
+                                  controller: Get.find<ProjectStatusController>(),
+                                  elementEditPageName: Routes.taskStatusPage,
+                                  availableButtons: const [
+                                    NsgTableMenuButtonType.createNewElement,
+                                    NsgTableMenuButtonType.editElement,
+                                    NsgTableMenuButtonType.removeElement
+                                  ],
+                                  columns: [
+                                    NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
+                                    NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -156,7 +177,10 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
             Get.find<TaskBoardController>().currentItem = taskBoard;
             Get.toNamed(Routes.taskBoard);
           },
-          child: Text(taskboardstatus.status.name ,style: TextStyle(color: taskboardstatus.status.isDone? Colors.green: Colors.black,)),
+          child: Text(taskboardstatus.status.name,
+              style: TextStyle(
+                color: taskboardstatus.status.isDone ? Colors.green : Colors.black,
+              )),
         ));
       }
     }

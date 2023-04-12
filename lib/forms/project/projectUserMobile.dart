@@ -320,7 +320,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                     //       Icons.remove_circle_outline,
                     //       color: Colors.red,
                     //     )),
-                    const Icon(Icons.arrow_forward_ios),
+                   // const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ],
