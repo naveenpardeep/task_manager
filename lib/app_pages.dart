@@ -50,7 +50,6 @@ import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
-import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -95,7 +94,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.projectListPage,
-      page: () => ProjectListPage(),
+      page: () => const ProjectListPage(),
       binding: ProjectBinding(),
     ),
     GetPage(

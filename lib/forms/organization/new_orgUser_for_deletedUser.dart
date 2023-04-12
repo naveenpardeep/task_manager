@@ -1,17 +1,14 @@
 // ignore_for_file: file_names
 
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
-import 'package:task_manager_app/forms/project/project_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';

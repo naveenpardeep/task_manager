@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
-import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -156,7 +155,7 @@ class TaskCopyMoveController extends NsgDataController<TaskDoc> {
    
   
    if (serviceC.currentItem.userAccountId.isNotEmpty) {
-      filter.compare.add(name: TaskDocGenerated.nameAssigneeId + '.' + UserAccountGenerated.nameMainUserAccountId, value: serviceC.currentItem.userAccountId);
+      filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccountId);
     }
     if (projectController.currentItem.id != "") {
       if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) {

@@ -10,7 +10,6 @@ import 'package:task_manager_app/1/nsg_rich_text.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
-import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/generated/task_doc.g.dart';

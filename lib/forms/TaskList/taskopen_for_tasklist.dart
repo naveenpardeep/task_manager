@@ -18,10 +18,8 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/image_file_view/multi_image_picker_controller.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import 'package:task_manager_app/view/homepage.dart';
 
 import '../../1/nsg_rich_text.dart';
-import '../task_status/task_status_controller.dart';
 import '../widgets/tt_nsg_input.dart';
 
 

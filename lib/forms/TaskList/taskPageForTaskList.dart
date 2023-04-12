@@ -8,10 +8,8 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
-import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
-import 'package:task_manager_app/forms/tasks/tasks_page.dart';
 
 class TaskPageForTaskList extends StatefulWidget {
   const TaskPageForTaskList({super.key});

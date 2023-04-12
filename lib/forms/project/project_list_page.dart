@@ -68,7 +68,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                               decoration: InputDecoration(
                                   filled: false,
                                   fillColor: ControlOptions.instance.colorMainLight,
-                                  prefixIcon: width>700? const Icon(Icons.search): null,
+                                  prefixIcon: width > 700 ? const Icon(Icons.search) : null,
                                   border: OutlineInputBorder(
                                       gapPadding: 1,
                                       borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
@@ -120,27 +120,29 @@ class _ProjectListPageState extends State<ProjectListPage> {
       if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    controller.currentItem = project;
-                    var taskConstroller = Get.find<TasksController>();
-                    taskConstroller.refreshData();
-                    Get.find<TaskBoardController>().refreshData();
-                    // Get.toNamed(Routes.homePage);
-                    controller.itemPageOpen(
-                      project,
-                      Routes.homePage,
-                    );
-                  },
-                  onLongPress: () {
-                    showAlertDialogPin(context, project);
-                  },
-                  child: Card(
-                    elevation: 3,
-                    margin: EdgeInsets.zero,
+          child: Container(
+             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xffEDEFF3),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      controller.currentItem = project;
+                      var taskConstroller = Get.find<TasksController>();
+                      taskConstroller.refreshData();
+                      Get.find<TaskBoardController>().refreshData();
+                      // Get.toNamed(Routes.homePage);
+                      controller.itemPageOpen(
+                        project,
+                        Routes.homePage,
+                      );
+                    },
+                    onLongPress: () {
+                      showAlertDialogPin(context, project);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
@@ -160,7 +162,6 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                                
                                 if (Get.find<DataController>().currentUser == project.leader ||
                                     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
                                     Get.find<DataController>().currentUser == project.organization.ceo ||
@@ -226,8 +227,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                   child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Рук.: ${project.leader.name}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                  Text('Рук.: ${project.leader.name}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                   Text('Организация: ${project.organization}',
                                       style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                   Text('Заказчик: ${project.contractor}',
@@ -318,8 +318,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
       }
@@ -329,27 +329,29 @@ class _ProjectListPageState extends State<ProjectListPage> {
       if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         pinlist.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    controller.currentItem = project;
-                    var taskConstroller = Get.find<TasksController>();
-                    taskConstroller.refreshData();
-                    Get.find<TaskBoardController>().refreshData();
-                    // Get.toNamed(Routes.homePage);
-                    controller.itemPageOpen(
-                      project,
-                      Routes.homePage,
-                    );
-                  },
-                  onLongPress: () {
-                    showAlertDialogUnpin(context, project);
-                  },
-                  child: Card(
-                    elevation: 3,
-                    margin: EdgeInsets.zero,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xffEDEFF3),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      controller.currentItem = project;
+                      var taskConstroller = Get.find<TasksController>();
+                      taskConstroller.refreshData();
+                      Get.find<TaskBoardController>().refreshData();
+                      // Get.toNamed(Routes.homePage);
+                      controller.itemPageOpen(
+                        project,
+                        Routes.homePage,
+                      );
+                    },
+                    onLongPress: () {
+                      showAlertDialogUnpin(context, project);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
@@ -369,7 +371,6 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                                
                                 if (Get.find<DataController>().currentUser == project.leader ||
                                     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
                                     Get.find<DataController>().currentUser == project.organization.ceo ||
@@ -527,8 +528,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
       }

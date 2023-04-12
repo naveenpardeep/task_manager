@@ -215,7 +215,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                                   
                                 }
                                 }
-                               on NsgApiException catch (e){
+                               on NsgApiException {
                               throw Get.snackbar( '','Project Leader can not be Deleted');
                                 }
 

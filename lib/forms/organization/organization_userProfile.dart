@@ -191,7 +191,7 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
                                     controller.refreshData();
                                     Get.toNamed(Routes.newOrgUserForDeletedUserPage);
                                   }
-                                } on NsgApiException catch (e) {
+                                } on NsgApiException {
                                   throw Get.snackbar('', 'Sorry, Only Admin can remove users');
                                 }
                               },

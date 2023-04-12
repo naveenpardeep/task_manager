@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:ui';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';

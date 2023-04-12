@@ -6,7 +6,6 @@ import 'package:task_manager_app/forms/user_account/user_account_controller.dart
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 import 'package:task_manager_app/model/generated/project_item.g.dart';
 
-import '../../model/generated/project_item_user_table.g.dart';
 import '../../model/project_item.dart';
 import '../../model/project_item_user_table.dart';
 
