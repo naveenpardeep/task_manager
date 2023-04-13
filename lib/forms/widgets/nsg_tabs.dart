@@ -153,7 +153,7 @@ class _NsgTabsState extends State<NsgTabs> {
                       thumbVisibility: true,
                       trackVisibility: true,
                       controller: scrollControllers[key],
-                      thickness: 10,
+                      thickness: width>700?10:0,
                       trackBorderColor: ControlOptions.instance.colorGreyLight,
                       trackColor: ControlOptions.instance.colorGreyLight,
                       thumbColor:
