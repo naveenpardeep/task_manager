@@ -449,7 +449,7 @@ class _NewTaskPageState extends State<NewTaskPage> with TickerProviderStateMixin
                 ],
               ),
             ),
-             const ChecklistPage(),
+             Container(key: GlobalKey(),child: const ChecklistPage()),
           commnetController.obx(
               // ignore: prefer_const_literals_to_create_immutables
               (state) => const TasksCommentPage()),
