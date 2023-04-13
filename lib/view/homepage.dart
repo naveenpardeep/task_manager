@@ -1159,7 +1159,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                 color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
-                    ClipPath(
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
                       child: Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -1178,14 +1179,14 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                         alignment: Alignment.topRight,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8),
-                          child: InkWell(
-                            onTap: () {
-                              openTaskDialog(tasks, context);
+                          child: GestureDetector(
+                            onTapDown: (TapDownDetails details) {
+                              showPopUpMenu(details.globalPosition, tasks, context);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: const EdgeInsets.all(7.0),
                               child: Icon(
-                                Icons.more_horiz,
+                                Icons.more_vert,
                                 color: ControlOptions.instance.colorGrey,
                                 size: 24,
                               ),
@@ -1203,7 +1204,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                 color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
-                    ClipPath(
+                   ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
                       child: Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -1222,14 +1224,14 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                         alignment: Alignment.topRight,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8),
-                          child: InkWell(
-                            onTap: () {
-                              openTaskDialog(tasks, context);
+                          child: GestureDetector(
+                            onTapDown: (TapDownDetails details) {
+                              showPopUpMenu(details.globalPosition, tasks, context);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: const EdgeInsets.all(7.0),
                               child: Icon(
-                                Icons.more_horiz,
+                                Icons.more_vert,
                                 color: ControlOptions.instance.colorGrey,
                                 size: 24,
                               ),
@@ -1247,10 +1249,10 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                 color: const Color(0xffEDEFF3),
                 child: Stack(
                   children: [
-                    ClipPath(
+                   ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
                       child: Container(
                         decoration: const BoxDecoration(
-                   
                             border: Border(
                           left: BorderSide(
                             color: Colors.green,
@@ -1270,14 +1272,14 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                         alignment: Alignment.topRight,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8),
-                          child: InkWell(
-                            onTap: () {
-                              openTaskDialog(tasks, context);
+                          child: GestureDetector(
+                            onTapDown: (TapDownDetails details) {
+                              showPopUpMenu(details.globalPosition, tasks, context);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: const EdgeInsets.all(7.0),
                               child: Icon(
-                                Icons.more_horiz,
+                                Icons.more_vert,
                                 color: ControlOptions.instance.colorGrey,
                                 size: 24,
                               ),
@@ -1306,14 +1308,14 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                         alignment: Alignment.topRight,
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8),
-                          child: InkWell(
-                            onTap: () {
-                              openTaskDialog(tasks, context);
+                          child: GestureDetector(
+                            onTapDown: (TapDownDetails details) {
+                              showPopUpMenu(details.globalPosition, tasks, context);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: const EdgeInsets.all(7.0),
                               child: Icon(
-                                Icons.more_horiz,
+                                Icons.more_vert,
                                 color: ControlOptions.instance.colorGrey,
                                 size: 24,
                               ),
@@ -1328,10 +1330,79 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   );
 }
 
+Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
+  double left = globalPosition.dx;
+  double top = globalPosition.dy;
+
+  await showMenu(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(12.0),
+      ),
+    ),
+    color: const Color(0xffEDEFF3),
+    context: context,
+    position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
+    items: [
+      const PopupMenuItem(
+        value: 1,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 20),
+          child: Text(
+            "Редактировать",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      const PopupMenuItem(
+        value: 2,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 0),
+          child: Text(
+            "Перенести в другой проект",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      const PopupMenuItem(
+        value: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 0),
+          child: Text(
+            "Скопировать в другой проект",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+    ],
+    elevation: 8.0,
+  ).then((value) {
+    if (value == 1) {
+      if (tasks.isReadByAssignee == false &&
+          (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+        tasks.isReadByAssignee = true;
+        Get.find<TasksController>().postItems([tasks]);
+      }
+
+      Get.find<TaskCheckListController>().requestItems();
+      Get.find<TasksController>().currentItem = tasks;
+
+      Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+      Get.find<TasksController>().sendNotify();
+    }
+    if (value == 2) {
+      selectProjectMove(tasks);
+    }
+    if (value == 3) {
+      selectProjectCopy(tasks);
+    }
+  });
+}
+
 Widget tasksubPart(tasks) {
   return Column(children: [
     Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 3),
       child: Row(
         children: [
           Flexible(
@@ -1341,25 +1412,25 @@ Widget tasksubPart(tasks) {
               maxLines: 1,
             ),
           ),
-          if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-            Flexible(
-              child: IconButton(
-                  onPressed: () {
-                    if (tasks.isReadByAssignee == false &&
-                        (Get.find<DataController>().currentUser == tasks.assignee ||
-                            Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                      tasks.isReadByAssignee = true;
-                      Get.find<TasksController>().postItems([tasks]);
-                    }
+          // if (kIsWeb || (Platform.isWindows || Platform.isLinux))
+          //   Flexible(
+          //     child: IconButton(
+          //         onPressed: () {
+          //           if (tasks.isReadByAssignee == false &&
+          //               (Get.find<DataController>().currentUser == tasks.assignee ||
+          //                   Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+          //             tasks.isReadByAssignee = true;
+          //             Get.find<TasksController>().postItems([tasks]);
+          //           }
 
-                    Get.find<TaskCheckListController>().requestItems();
-                    Get.find<TasksController>().currentItem = tasks;
+          //           Get.find<TaskCheckListController>().requestItems();
+          //           Get.find<TasksController>().currentItem = tasks;
 
-                    Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                    Get.find<TasksController>().sendNotify();
-                  },
-                  icon: const Icon(Icons.edit)),
-            ),
+          //           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+          //           Get.find<TasksController>().sendNotify();
+          //         },
+          //         icon: const Icon(Icons.edit)),
+          //   ),
           if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
         ],
       ),
