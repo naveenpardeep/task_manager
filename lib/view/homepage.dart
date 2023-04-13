@@ -1431,7 +1431,7 @@ Widget tasksubPart(tasks) {
           //         },
           //         icon: const Icon(Icons.edit)),
           //   ),
-          if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all)),
+          if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all,color: Color(0xff529FBF))),
         ],
       ),
     ),
@@ -1454,10 +1454,7 @@ Widget tasksubPart(tasks) {
         Expanded(
           child: Wrap(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: Icon(Icons.access_time, size: ControlOptions.instance.sizeS, color: ControlOptions.instance.colorGreyDark),
-              ),
+             
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: Text(
