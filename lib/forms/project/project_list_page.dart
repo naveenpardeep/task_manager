@@ -121,7 +121,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
           child: Container(
-             decoration: BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: const Color(0xffEDEFF3),
             ),
@@ -162,61 +162,67 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                                if (Get.find<DataController>().currentUser == project.leader ||
-                                    Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                    Get.find<DataController>().currentUser == project.organization.ceo ||
-                                    Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
-                                    Get.find<DataController>().currentUser ==
-                                        project.organization.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => OrganizationItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser.mainUserAccount ==
-                                        project.organization.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => OrganizationItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser.mainUserAccount ==
-                                        project.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => ProjectItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser ==
-                                        project.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => ProjectItemUserTable(),
-                                            )
-                                            .userAccount)
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(right: 8),
-                                        child: InkWell(
-                                          onTap: () {
-                                            //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                                            //    controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                            // } else {
-                                            controller.itemPageOpen(project, Routes.projectMobilePageview);
-                                            //   }
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: ControlOptions.instance.colorGrey,
-                                              size: 24,
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue)
+                                // if (Get.find<DataController>().currentUser == project.leader ||
+                                //     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
+                                //     Get.find<DataController>().currentUser == project.organization.ceo ||
+                                //     Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
+                                //     Get.find<DataController>().currentUser ==
+                                //         project.organization.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => OrganizationItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser.mainUserAccount ==
+                                //         project.organization.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => OrganizationItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser.mainUserAccount ==
+                                //         project.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => ProjectItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser ==
+                                //         project.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => ProjectItemUserTable(),
+                                //             )
+                                //             .userAccount)
+                                //   Align(
+                                //       alignment: Alignment.topRight,
+                                //       child: Padding(
+                                //         padding: const EdgeInsets.only(right: 8),
+                                //         child: InkWell(
+                                //           onTap: () {
+                                //             //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                                //             //    controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                //             // } else {
+                                //             controller.itemPageOpen(project, Routes.projectMobilePageview);
+                                //             //   }
+                                //           },
+                                //           child: Padding(
+                                //             padding: const EdgeInsets.all(5.0),
+                                //             child: Icon(
+                                //               Icons.edit,
+                                //               color: ControlOptions.instance.colorGrey,
+                                //               size: 24,
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       )),
+                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
+                                GestureDetector(
+                                  onTapDown: (TapDownDetails details) {
+                                    showPopUpMenu(details.globalPosition, project);
+                                  },
+                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                                ),
                               ],
                             ),
                           ),
@@ -227,7 +233,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                   child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Рук.: ${project.leader.name}', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                  Text('Рук.: ${project.leader.name}',
+                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                   Text('Организация: ${project.organization}',
                                       style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
                                   Text('Заказчик: ${project.contractor}',
@@ -371,61 +378,67 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                                if (Get.find<DataController>().currentUser == project.leader ||
-                                    Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                    Get.find<DataController>().currentUser == project.organization.ceo ||
-                                    Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
-                                    Get.find<DataController>().currentUser ==
-                                        project.organization.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => OrganizationItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser.mainUserAccount ==
-                                        project.organization.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => OrganizationItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser.mainUserAccount ==
-                                        project.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => ProjectItemUserTable(),
-                                            )
-                                            .userAccount ||
-                                    Get.find<DataController>().currentUser ==
-                                        project.tableUsers.rows
-                                            .firstWhere(
-                                              (element) => element.isAdmin == true,
-                                              orElse: () => ProjectItemUserTable(),
-                                            )
-                                            .userAccount)
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(right: 8),
-                                        child: InkWell(
-                                          onTap: () {
-                                            //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                                            //    controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                            // } else {
-                                            controller.itemPageOpen(project, Routes.projectMobilePageview);
-                                            //   }
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: ControlOptions.instance.colorGrey,
-                                              size: 24,
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue)
+                                // if (Get.find<DataController>().currentUser == project.leader ||
+                                //     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
+                                //     Get.find<DataController>().currentUser == project.organization.ceo ||
+                                //     Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
+                                //     Get.find<DataController>().currentUser ==
+                                //         project.organization.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => OrganizationItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser.mainUserAccount ==
+                                //         project.organization.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => OrganizationItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser.mainUserAccount ==
+                                //         project.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => ProjectItemUserTable(),
+                                //             )
+                                //             .userAccount ||
+                                //     Get.find<DataController>().currentUser ==
+                                //         project.tableUsers.rows
+                                //             .firstWhere(
+                                //               (element) => element.isAdmin == true,
+                                //               orElse: () => ProjectItemUserTable(),
+                                //             )
+                                //             .userAccount)
+                                //   Align(
+                                //       alignment: Alignment.topRight,
+                                //       child: Padding(
+                                //         padding: const EdgeInsets.only(right: 8),
+                                //         child: InkWell(
+                                //           onTap: () {
+                                //             //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+                                //             //    controller.itemPageOpen(project, Routes.projectSettingsPage);
+                                //             // } else {
+                                //             controller.itemPageOpen(project, Routes.projectMobilePageview);
+                                //             //   }
+                                //           },
+                                //           child: Padding(
+                                //             padding: const EdgeInsets.all(5.0),
+                                //             child: Icon(
+                                //               Icons.edit,
+                                //               color: ControlOptions.instance.colorGrey,
+                                //               size: 24,
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       )),
+                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
+                                GestureDetector(
+                                  onTapDown: (TapDownDetails details) {
+                                    showPopUpMenu(details.globalPosition, project);
+                                  },
+                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                                ),
                               ],
                             ),
                           ),
@@ -542,7 +555,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
           thumbVisibility: true,
           trackVisibility: true,
           controller: scrollController,
-          thickness: width>700? 10: 0,
+          thickness: width > 700 ? 10 : 0,
           trackBorderColor: ControlOptions.instance.colorGreyLight,
           trackColor: ControlOptions.instance.colorGreyLight,
           thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -627,5 +640,91 @@ class _ProjectListPageState extends State<ProjectListPage> {
         return alert;
       },
     );
+  }
+
+  Future<void> showPopUpMenu(Offset globalPosition, project) async {
+    double left = globalPosition.dx;
+    double top = globalPosition.dy;
+
+    await showMenu(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.0),
+        ),
+      ),
+      color: const Color(0xffEDEFF3),
+      context: context,
+      position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
+      items: [
+        const PopupMenuItem(
+          value: 1,
+          child: Padding(
+            padding: EdgeInsets.only(left: 0, right: 40),
+            child: Text(
+              "Редактировать",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+        const PopupMenuItem(
+          value: 2,
+          child: Padding(
+            padding:  EdgeInsets.only(left: 0, right: 40),
+            child: Text(
+              "Закрепить",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+      elevation: 8.0,
+    ).then((value) {
+      if (value == 1) {
+        if (Get.find<DataController>().currentUser == project.leader ||
+            Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
+            Get.find<DataController>().currentUser == project.organization.ceo ||
+            Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
+            Get.find<DataController>().currentUser ==
+                project.organization.tableUsers.rows
+                    .firstWhere(
+                      (element) => element.isAdmin == true,
+                      orElse: () => OrganizationItemUserTable(),
+                    )
+                    .userAccount ||
+            Get.find<DataController>().currentUser.mainUserAccount ==
+                project.organization.tableUsers.rows
+                    .firstWhere(
+                      (element) => element.isAdmin == true,
+                      orElse: () => OrganizationItemUserTable(),
+                    )
+                    .userAccount ||
+            Get.find<DataController>().currentUser.mainUserAccount ==
+                project.tableUsers.rows
+                    .firstWhere(
+                      (element) => element.isAdmin == true,
+                      orElse: () => ProjectItemUserTable(),
+                    )
+                    .userAccount ||
+            Get.find<DataController>().currentUser ==
+                project.tableUsers.rows
+                    .firstWhere(
+                      (element) => element.isAdmin == true,
+                      orElse: () => ProjectItemUserTable(),
+                    )
+                    .userAccount) {
+          controller.itemPageOpen(project, Routes.projectMobilePageview);
+        } else {
+          Get.snackbar('', 'Sorry you can not edit this Project');
+        }
+      }
+      if (value == 2) {
+        if (project.isPinned == false) {
+          showAlertDialogPin(context, project);
+        }
+        if (project.isPinned) {
+          showAlertDialogUnpin(context, project);
+        }
+      }
+    });
   }
 }
