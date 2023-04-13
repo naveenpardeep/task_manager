@@ -816,7 +816,7 @@ class NsgImagePickerButton extends StatelessWidget {
               child: Container(
                 height: 150,
                 decoration: const BoxDecoration(
-                    color: Colors.lightBlueAccent, borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
+                    color:  Color(0xffEDEFF3), borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -847,14 +847,18 @@ class NsgImagePickerButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: ControlOptions.instance.colorMain,
+          color: const Color(0xffEDEFF3),
         ),
-        width: 100,
-        height: 50,
+        width: 160,
+        height: 159,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.attachment, size: 24, color: ControlOptions.instance.colorInverted),
+          
+          children: const [
+            Icon(Icons.attach_file,  color:  Color(0xff529FBF)),
+            Align(
+              alignment: Alignment.center,
+              child: Text('Загрузить файл' ,style: TextStyle(color: Color(0xff529FBF),fontSize: 12),))
           ],
         ),
       ),
