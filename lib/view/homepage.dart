@@ -155,16 +155,10 @@ class _HomepageState extends State<Homepage> {
                           padding: const EdgeInsets.all(8),
                           color: ControlOptions.instance.colorMain,
                           size: 22,
-                          icon: Icons.edit,
+                          icon: Icons.settings,
                           onPressed: () {
-                            //   if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                            //    projectController.itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
-                            //  } else {
-                            projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
-                            //  }
-                            //  Get.toNamed(Routes.projectPage);
-                            //  Get.find<ProjectController>().itemPageOpen(projectController.currentItem, Routes.projectSettingsPage);
-                          },
+                              projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
+                             },
                         ),
                       IconButton(
                           onPressed: () {
@@ -236,7 +230,7 @@ class _HomepageState extends State<Homepage> {
                             onPressed: () {
                               Get.find<TasksController>().selectedItem == null;
                               //  Get.find<TasksController>().createNewItemAsync();
-                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.createTaskPage);
 
                               // Get.find<TasksController>()
                               //     .newItemPageOpen(pageName: Routes.tasksPage);

@@ -34,11 +34,13 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
+import 'package:task_manager_app/forms/tasks/createTask.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
 import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
 import 'package:task_manager_app/forms/TaskList/taskPageForTaskList.dart';
+import 'package:task_manager_app/forms/tasks/taskEditPageMobile.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
 import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
@@ -360,6 +362,16 @@ class AppPages {
       page: () => const TaskopenForTaskList(),
       binding: TasksListBinding(),
     ),
+     GetPage(
+      name: Routes.taskEditPageMobile,
+      page: () => const TaskEditPageMobile(),
+      binding: TasksListBinding(),
+    ),
+    GetPage(
+      name: Routes.createTaskPage,
+      page: () => const CreateTaskPage(),
+      binding: TasksListBinding(),
+    ),
   ];
 }
 
@@ -425,4 +437,6 @@ abstract class Routes {
   static const newOrgUserForDeletedUserPage='/newOrgUserForDeletedUserPage';
   static const taskPageFortaskList='/TaskPageforTaskList';
   static const taskopenForTaskList='/taskopenForTaskList';
+  static const taskEditPageMobile='/taskEditpagemobile';
+  static const createTaskPage='/createTaskPage';
 }
