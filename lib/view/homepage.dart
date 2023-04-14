@@ -115,7 +115,10 @@ class _HomepageState extends State<Homepage> {
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
                             projectController.currentItem.name,
-                            style: TextStyle(fontSize: ControlOptions.instance.sizeXL),
+                            style: TextStyle(
+                              fontSize: width < 700 ? 16 : 24,
+                              fontFamily: 'Inter',
+                            ),
                           ),
                         ),
                       ),
@@ -154,7 +157,7 @@ class _HomepageState extends State<Homepage> {
                         NsgIconButton(
                           padding: const EdgeInsets.all(8),
                           color: ControlOptions.instance.colorMain,
-                          size: 22,
+                          size: 16,
                           icon: Icons.settings,
                           onPressed: () {
                             projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
@@ -167,7 +170,10 @@ class _HomepageState extends State<Homepage> {
                               taskView = false;
                             });
                           },
-                          icon: const Icon(Icons.refresh)),
+                          icon: Icon(
+                            Icons.refresh,
+                            size: width < 700 ? 16 : 24,
+                          )),
 
                       if (width > 700)
                         Flexible(
@@ -219,6 +225,7 @@ class _HomepageState extends State<Homepage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: NsgButton(
+                            borderRadius: 20,
                             width: width > 700 ? 150 : 35,
                             margin: EdgeInsets.zero,
                             padding: EdgeInsets.zero,
@@ -255,7 +262,7 @@ class _HomepageState extends State<Homepage> {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: 35,
+                              height: 30,
                               child: TextField(
                                   controller: textEditController,
                                   decoration: InputDecoration(
@@ -493,7 +500,6 @@ class _HomepageState extends State<Homepage> {
             child: NsgButton(
                 height: 10,
                 borderRadius: 20,
-                width: 100,
                 onPressed: () {
                   serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
 
@@ -1238,7 +1244,7 @@ Widget tasksubPart(tasks) {
           Expanded(
             child: Text(
               tasks.name,
-              maxLines: 2,
+              maxLines: 1,
             ),
           ),
         ],
@@ -1396,7 +1402,7 @@ selectProjectMove(TaskDoc tasks) {
     'Select Project',
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
-      tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
+      tasks.docNumber = Guid.newGuid();
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
@@ -1410,7 +1416,7 @@ selectProjectMove(TaskDoc tasks) {
           Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
         tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
       }
-      await Get.find<TaskCopyMoveController>().postItems([tasks]);
+      await Get.find<TasksController>().postItems([tasks]);
     },
   );
 }
