@@ -99,17 +99,6 @@ class _HomepageState extends State<Homepage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Row(
                     children: [
-                      // NsgIconButton(
-                      //   padding: EdgeInsets.zero,
-                      //   icon: Icons.arrow_back_ios_new,
-                      //   backColor: Colors.transparent,
-                      //   color: ControlOptions.instance.colorMain,
-                      //   size: 22,
-                      //   onPressed: () {
-                      //     serviceC.selectedItem = null;
-                      //     Get.toNamed(Routes.projectListPage);
-                      //   },
-                      // ),
                       projectController.obx(
                         (state) => Padding(
                           padding: const EdgeInsets.only(left: 5),
@@ -301,24 +290,6 @@ class _HomepageState extends State<Homepage> {
                               scaffoldKey.currentState!.openDrawer();
                             },
                           ),
-                          // const SizedBox(width: 10),
-                          // Expanded(
-                          //   child: NsgButton(
-                          //     margin: EdgeInsets.zero,
-                          //   //  height: 30,
-                          //     icon: Icons.add,
-                          //     text: 'Новая Задача',
-                          //     color: Colors.white,
-                          //     backColor: ControlOptions.instance.colorMain,
-                          //     onPressed: () {
-                          //       //   var images = <NsgFilePickerObject>[].clear();
-                          //       // Get.find<TasksController>()
-                          //       //     .newItemPageOpen(pageName: Routes.tasksPage);
-                          //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
-                          //       //  Get.toNamed(Routes.tasksPage);
-                          //     },
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -326,8 +297,6 @@ class _HomepageState extends State<Homepage> {
               //  if (taskBoardController.currentItem.isNotEmpty)
               Expanded(
                 child: Stack(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (taskView)
                       RawScrollbar(
@@ -1214,25 +1183,6 @@ Widget tasksubPart(tasks) {
               maxLines: 1,
             ),
           ),
-          // if (kIsWeb || (Platform.isWindows || Platform.isLinux))
-          //   Flexible(
-          //     child: IconButton(
-          //         onPressed: () {
-          //           if (tasks.isReadByAssignee == false &&
-          //               (Get.find<DataController>().currentUser == tasks.assignee ||
-          //                   Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-          //             tasks.isReadByAssignee = true;
-          //             Get.find<TasksController>().postItems([tasks]);
-          //           }
-
-          //           Get.find<TaskCheckListController>().requestItems();
-          //           Get.find<TasksController>().currentItem = tasks;
-
-          //           Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-          //           Get.find<TasksController>().sendNotify();
-          //         },
-          //         icon: const Icon(Icons.edit)),
-          //   ),
           if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all, color: Color(0xff529FBF))),
         ],
       ),
