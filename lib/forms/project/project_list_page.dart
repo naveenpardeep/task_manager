@@ -159,11 +159,10 @@ class ProjectItemView extends StatelessWidget {
         focusColor: Colors.transparent,
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
-        onTap: () {
-          var taskConstroller = Get.find<TasksController>();
-          taskConstroller.refreshData();
-          Get.find<TaskBoardController>().refreshData();
-          controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
+        onTap: () async {
+          await Get.find<TaskBoardController>().refreshData();
+          await Get.find<TasksController>().refreshData();
+          controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: false);
         },
         onLongPress: () {
           pinDialog(context, project);

@@ -660,8 +660,6 @@ class _HomepageState extends State<Homepage> {
                     taskView = true;
                   });
                 } else {
-                  taskController.currentItem = tasks;
-
                   taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
                 }
                 if (tasks.isReadByAssignee == false &&
