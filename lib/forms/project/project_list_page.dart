@@ -56,16 +56,16 @@ class _ProjectListPageState extends State<ProjectListPage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                   child: Row(
                     children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
+                     Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(
                           'Проекты',
-                          style: TextStyle( fontSize: 16, fontFamily: 'Inter'),
+                          style: TextStyle( fontSize: width>700? 24:16, fontFamily: 'Inter'),
                         ),
                     ),
                       Expanded(
                         child: SizedBox(
-                          height: 35,
+                          height: width>700? 35 : 30,
                           child: TextField(
                               controller: textEditController,
                               decoration: InputDecoration(
@@ -85,9 +85,9 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                       }),
                                       icon: const Icon(Icons.cancel)),
                                   // prefixIcon: Icon(Icons.search),
-                                  hintText: 'Search Project'),
+                                  hintText: 'Search Project...'),
                               textAlignVertical: TextAlignVertical.bottom,
-                              style: TextStyle(color: ControlOptions.instance.colorMainLight),
+                              style: TextStyle(color: ControlOptions.instance.colorMainLight , fontFamily: 'Inter' ,fontSize: width>700?20:16),
                               onChanged: (val) {
                                 setState(() {
                                   searchvalue = val;
