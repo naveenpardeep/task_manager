@@ -7,6 +7,8 @@ import 'package:task_manager_app/forms/user_account/service_object_controller.da
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 
+import '../../view/task_load_controller.dart';
+import '../task_status/task_status_controller.dart';
 import 'task_file_controller.dart';
 
 class TasksController extends NsgDataController<TaskDoc> {
@@ -23,11 +25,25 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
-  Future<List<TaskDoc>> getTasksFromStatus(TaskStatus status, int top, int count) async {
-    var tasks = NsgDataRequest<TaskDoc>(dataItemType: TaskDoc);
-    var filter = NsgDataRequestParams(top: top, count: count);
-    filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
-    return await tasks.requestItems(filter: filter);
+  List<TaskLoadController> taskLoadControllersList = [];
+
+  @override
+  Future refreshData({List<NsgUpdateKey>? keys}) {
+    return super.refreshData(keys: keys);
+  }
+
+  void getTasksControllers() async {
+    var taskController = Get.find<TasksController>();
+    //var taskBoardController = Get.find<TaskBoardController>();
+    var taskStatusTableController = Get.find<TaskStatusTableController>();
+    //await taskBoardController.refreshData();
+    taskController.taskLoadControllersList = [];
+    for (var status in taskStatusTableController.items) {
+      var taskC = TaskLoadController(currentTasksStatus: status.status);
+      taskController.taskLoadControllersList.add(taskC);
+      taskC.getTasks(0, 0);
+    }
+    sendNotify();
   }
 
   @override
@@ -152,9 +168,8 @@ class TasksController extends NsgDataController<TaskDoc> {
     var serviceC = Get.find<ServiceObjectController>();
 
     // Если указан ID пользователя, то фильтруем заявки по пользователю
-   
-  
-   if (serviceC.currentItem.userAccountId.isNotEmpty) {
+
+    if (serviceC.currentItem.userAccountId.isNotEmpty) {
       filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccountId);
     }
     if (projectController.currentItem.id != "") {

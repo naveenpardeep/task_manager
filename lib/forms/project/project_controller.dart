@@ -35,23 +35,12 @@ class ProjectController extends NsgDataController<ProjectItem> {
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as ProjectItem;
 
-    // element.id = Guid.newGuid();
-
-    element.id = Guid.newGuid();
     var orgController = Get.find<OrganizationController>();
     if (orgController.items.length == 1) {
       element.organization = orgController.firstItem;
       element.leader = Get.find<UserAccountController>().items.firstWhere((e) => e.organization == element.organization);
     }
 
-    return element;
-  }
-
-  @override
-  Future<ProjectItem> createNewItemAsync() async {
-    var element = await super.createNewItemAsync();
-
-    // element.date = DateTime.now();
     return element;
   }
 }

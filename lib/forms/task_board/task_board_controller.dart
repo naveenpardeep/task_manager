@@ -8,20 +8,19 @@ import '../../model/generated/task_board.g.dart';
 import '../project/project_controller.dart';
 
 class TaskBoardController extends NsgDataController<TaskBoard> {
-  TaskBoardController()
-      : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+  TaskBoardController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     masterController = Get.find<ProjectController>();
   }
-  
+
   @override
   Future afterRequestItems(List<NsgDataItem> newItemsList) async {
-   if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
+    if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
       currentItem = newItemsList.first as TaskBoard;
-   }
-     Get.find<TasksController>().refreshData();
-     Get.find<ProjectController>().sendNotify();
+    }
+    Get.find<TasksController>().refreshData();
+    Get.find<ProjectController>().sendNotify();
+    Get.find<TasksController>().getTasksControllers();
     return await super.afterRequestItems(newItemsList);
-    
   }
 
   @override
@@ -38,10 +37,7 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
     var cmp = NsgCompare();
     var projectController = Get.find<ProjectController>();
 
-    cmp.add(
-        name: TaskBoardGenerated.nameProjectId,
-        value: projectController.currentItem.id);
+    cmp.add(name: TaskBoardGenerated.nameProjectId, value: projectController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
   }
-
 }

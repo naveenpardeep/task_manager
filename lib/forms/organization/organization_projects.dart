@@ -25,13 +25,11 @@ class OrganizationProject extends GetView<ProjectController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late double width;
 
-
- 
   var scrollController2 = ScrollController();
 
   var orgcon = Get.find<OrganizationController>();
   var orgitemcon = Get.find<OrganizationItemUserTableController>();
- 
+
   var textEditController = TextEditingController();
   String searchvalue = '';
 
@@ -53,8 +51,6 @@ class OrganizationProject extends GetView<ProjectController> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            
-              
               Expanded(child: controller.obx((state) => showProjects(context))),
               if (width < 700) const BottomMenu(),
             ],
@@ -64,7 +60,7 @@ class OrganizationProject extends GetView<ProjectController> {
 
   Widget showProjects(context) {
     List<Widget> list = [];
-    for (var project in controller.items.where((element) => element.isPinned == false && element.organization==orgcon.currentItem)) {
+    for (var project in controller.items.where((element) => element.organization == orgcon.currentItem)) {
       if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -82,11 +78,8 @@ class OrganizationProject extends GetView<ProjectController> {
                       var taskConstroller = Get.find<TasksController>();
                       taskConstroller.refreshData();
                       Get.find<TaskBoardController>().refreshData();
-                    
-                      controller.itemPageOpen(
-                        project,
-                        Routes.homePage,
-                      );
+
+                      controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
                     },
                     onLongPress: () {
                       showAlertDialogPin(context, project);
@@ -110,174 +103,10 @@ class OrganizationProject extends GetView<ProjectController> {
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                               
                                 if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
                                 GestureDetector(
                                   onTapDown: (TapDownDetails details) {
-                                    showPopUpMenu(details.globalPosition, project,context);
-                                  },
-                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Рук.: ${project.leader.name}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
-                                  Text('Организация: ${project.organization}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
-                                  Text('Заказчик: ${project.contractor}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
-                                ],
-                              )),
-                              if (project.numberOfNotifications.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Number of Notifications',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfNotifications.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorBlue,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks Updated In 24Hours',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksUpdatedIn24Hours.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorWarning,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOverdue.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Overdue Tasks',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOverdue.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorError,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOpen.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks open',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOpen.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              ClipOval(
-                                  child: project.photoPath.isEmpty
-                                      ? Container(
-                                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                          width: 32,
-                                          height: 32,
-                                          child: Icon(
-                                            Icons.account_circle,
-                                            size: 20,
-                                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                          ),
-                                        )
-                                      : Image.network(
-                                          TaskFilesController.getFilePath(project.photoPath),
-                                          fit: BoxFit.cover,
-                                          width: 32,
-                                          height: 32,
-                                        )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-      }
-    }
-    List<Widget> pinlist = [];
-    for (var project in controller.items.where((element) => element.isPinned && element.organization==orgcon.currentItem)) {
-      if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-        pinlist.add(Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color(0xffEDEFF3),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      controller.currentItem = project;
-                      var taskConstroller = Get.find<TasksController>();
-                      taskConstroller.refreshData();
-                      Get.find<TaskBoardController>().refreshData();
-                      // Get.toNamed(Routes.homePage);
-                      controller.itemPageOpen(
-                        project,
-                        Routes.homePage,
-                      );
-                    },
-                    onLongPress: () {
-                      showAlertDialogUnpin(context, project);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: SubstringHighlight(
-                                        text: project.name,
-                                        term: searchvalue,
-                                        textStyle: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, color: Colors.black),
-                                        textStyleHighlight: const TextStyle(color: Colors.deepOrange),
-                                      )),
-                                ),
-                                
-                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
-                                GestureDetector(
-                                  onTapDown: (TapDownDetails details) {
-                                    showPopUpMenu(details.globalPosition, project,context);
+                                    showPopUpMenu(details.globalPosition, project, context);
                                   },
                                   child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
                                 ),
@@ -405,10 +234,11 @@ class OrganizationProject extends GetView<ProjectController> {
           child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               controller: scrollController,
-              child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: pinlist + list) : Column(children: pinlist + list))),
+              child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: list) : Column(children: list))),
     );
   }
-  Future<void> showPopUpMenu(Offset globalPosition, project ,context) async {
+
+  Future<void> showPopUpMenu(Offset globalPosition, project, context) async {
     double left = globalPosition.dx;
     double top = globalPosition.dy;
 
@@ -435,7 +265,7 @@ class OrganizationProject extends GetView<ProjectController> {
         const PopupMenuItem(
           value: 2,
           child: Padding(
-            padding:  EdgeInsets.only(left: 0, right: 40),
+            padding: EdgeInsets.only(left: 0, right: 40),
             child: Text(
               "Закрепить",
               style: TextStyle(color: Colors.black),
@@ -493,7 +323,6 @@ class OrganizationProject extends GetView<ProjectController> {
       }
     });
   }
-
 
   showAlertDialogPin(BuildContext context, ProjectItem project) {
     double width = MediaQuery.of(context).size.width;
@@ -568,7 +397,5 @@ class OrganizationProject extends GetView<ProjectController> {
         return alert;
       },
     );
-  
   }
-  
 }

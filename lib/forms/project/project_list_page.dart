@@ -24,14 +24,12 @@ class ProjectListPage extends StatefulWidget {
 
 class _ProjectListPageState extends State<ProjectListPage> {
   var controller = Get.find<ProjectController>();
-  final scrollController = ScrollController();
-  var scrollController2 = ScrollController();
+  ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var orgcon = Get.find<OrganizationController>();
   var orgitemcon = Get.find<OrganizationItemUserTableController>();
   late double width;
   var textEditController = TextEditingController();
-  String searchvalue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +54,16 @@ class _ProjectListPageState extends State<ProjectListPage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                   child: Row(
                     children: [
-                     Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
                           'Проекты',
-                          style: TextStyle( fontSize: width>700? 24:16, fontFamily: 'Inter'),
+                          style: TextStyle(fontSize: width > 700 ? 24 : 16, fontFamily: 'Inter'),
                         ),
-                    ),
+                      ),
                       Expanded(
                         child: SizedBox(
-                          height: width>700? 35 : 30,
+                          height: width > 700 ? 35 : 30,
                           child: TextField(
                               controller: textEditController,
                               decoration: InputDecoration(
@@ -81,18 +79,13 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                       onPressed: (() {
                                         setState(() {});
                                         textEditController.clear();
-                                        searchvalue = '';
                                       }),
                                       icon: const Icon(Icons.cancel)),
                                   // prefixIcon: Icon(Icons.search),
                                   hintText: 'Search Project...'),
                               textAlignVertical: TextAlignVertical.bottom,
-                              style: TextStyle(color: ControlOptions.instance.colorMainLight , fontFamily: 'Inter' ,fontSize: width>700?20:16),
-                              onChanged: (val) {
-                                setState(() {
-                                  searchvalue = val;
-                                });
-                              }),
+                              style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 20 : 16),
+                              onChanged: (val) {}),
                         ),
                       ),
                       NsgButton(
@@ -110,489 +103,239 @@ class _ProjectListPageState extends State<ProjectListPage> {
                       ),
                     ],
                   )),
-              Expanded(child: controller.obx((state) => showProjects(context))),
+              Expanded(
+                  child: RefreshIndicator(
+                onRefresh: () {
+                  return controller.refreshData();
+                },
+                child: RawScrollbar(
+                    thumbVisibility: true,
+                    trackVisibility: true,
+                    controller: scrollController,
+                    thickness: width > 700 ? 10 : 0,
+                    trackBorderColor: ControlOptions.instance.colorGreyLight,
+                    trackColor: ControlOptions.instance.colorGreyLight,
+                    thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                    radius: const Radius.circular(0),
+                    child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: scrollController,
+                        child: controller.obx((state) {
+                          return width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: showProjects()) : Column(children: showProjects());
+                        }))),
+              )),
               if (width < 700) const BottomMenu(),
             ],
           )),
     );
   }
 
-  Widget showProjects(context) {
+  List<Widget> showProjects() {
     List<Widget> list = [];
-    for (var project in controller.items.where((element) => element.isPinned == false)) {
-      if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-        list.add(Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color(0xffEDEFF3),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      controller.currentItem = project;
-                      var taskConstroller = Get.find<TasksController>();
-                      taskConstroller.refreshData();
-                      Get.find<TaskBoardController>().refreshData();
-                      // Get.toNamed(Routes.homePage);
-                      controller.itemPageOpen(
-                        project,
-                        Routes.homePage,
-                      );
-                    },
-                    onLongPress: () {
-                      showAlertDialogPin(context, project);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: SubstringHighlight(
-                                        text: project.name,
-                                        term: searchvalue,
-                                        textStyle: const TextStyle(fontFamily: 'Inter' ,fontSize: 20 , color: Colors.black),
-                                        textStyleHighlight: const TextStyle(color: Colors.deepOrange),
-                                      )),
-                                ),
-                                // if (Get.find<DataController>().currentUser == project.leader ||
-                                //     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                //     Get.find<DataController>().currentUser == project.organization.ceo ||
-                                //     Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
-                                //     Get.find<DataController>().currentUser ==
-                                //         project.organization.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => OrganizationItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser.mainUserAccount ==
-                                //         project.organization.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => OrganizationItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser.mainUserAccount ==
-                                //         project.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => ProjectItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser ==
-                                //         project.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => ProjectItemUserTable(),
-                                //             )
-                                //             .userAccount)
-                                //   Align(
-                                //       alignment: Alignment.topRight,
-                                //       child: Padding(
-                                //         padding: const EdgeInsets.only(right: 8),
-                                //         child: InkWell(
-                                //           onTap: () {
-                                //             //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                                //             //    controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                //             // } else {
-                                //             controller.itemPageOpen(project, Routes.projectMobilePageview);
-                                //             //   }
-                                //           },
-                                //           child: Padding(
-                                //             padding: const EdgeInsets.all(5.0),
-                                //             child: Icon(
-                                //               Icons.edit,
-                                //               color: ControlOptions.instance.colorGrey,
-                                //               size: 24,
-                                //             ),
-                                //           ),
-                                //         ),
-                                //       )),
-                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
-                                GestureDetector(
-                                  onTapDown: (TapDownDetails details) {
-                                    showPopUpMenu(details.globalPosition, project);
-                                  },
-                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Рук.: ${project.leader.name}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                  Text('Организация: ${project.organization}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                  Text('Заказчик: ${project.contractor}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                ],
-                              )),
-                              if (project.numberOfNotifications.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Number of Notifications',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfNotifications.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorBlue,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks Updated In 24Hours',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksUpdatedIn24Hours.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorWarning,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOverdue.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Overdue Tasks',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOverdue.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorError,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOpen.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks open',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOpen.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              ClipOval(
-                                  child: project.photoPath.isEmpty
-                                      ? Container(
-                                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                          width: 32,
-                                          height: 32,
-                                          child: Icon(
-                                            Icons.account_circle,
-                                            size: 20,
-                                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                          ),
-                                        )
-                                      : Image.network(
-                                          TaskFilesController.getFilePath(project.photoPath),
-                                          fit: BoxFit.cover,
-                                          width: 32,
-                                          height: 32,
-                                        )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    for (var project in controller.items) {
+      if (project.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
+        list.add(ProjectItemView(
+          project: project,
+          searchvalue: textEditController.text,
         ));
       }
     }
-    List<Widget> pinlist = [];
-    for (var project in controller.items.where((element) => element.isPinned)) {
-      if (project.name.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-        pinlist.add(Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color(0xffEDEFF3),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      controller.currentItem = project;
-                      var taskConstroller = Get.find<TasksController>();
-                      taskConstroller.refreshData();
-                      Get.find<TaskBoardController>().refreshData();
-                      // Get.toNamed(Routes.homePage);
-                      controller.itemPageOpen(
-                        project,
-                        Routes.homePage,
-                      );
-                    },
-                    onLongPress: () {
-                      showAlertDialogUnpin(context, project);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: SubstringHighlight(
-                                        text: project.name,
-                                        term: searchvalue,
-                                        textStyle: const TextStyle(fontFamily: 'Inter' ,fontSize: 20 , color: Colors.black),
-                                        textStyleHighlight: const TextStyle(color: Colors.deepOrange),
-                                      )),
-                                ),
-                                
-                                if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
-                                GestureDetector(
-                                  onTapDown: (TapDownDetails details) {
-                                    showPopUpMenu(details.globalPosition, project);
-                                  },
-                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                                ),
-                              ],
+    return list;
+  }
+}
+
+class ProjectItemView extends StatelessWidget {
+  ProjectItemView({super.key, required this.project, this.searchvalue});
+
+  final ProjectItem project;
+  final String? searchvalue;
+  final controller = Get.find<ProjectController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: const Color(0xffEDEFF3),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  var taskConstroller = Get.find<TasksController>();
+                  taskConstroller.refreshData();
+                  Get.find<TaskBoardController>().refreshData();
+                  controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: true);
+                },
+                onLongPress: () {
+                  pinDialog(context, project);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: SubstringHighlight(
+                                    text: project.name,
+                                    term: searchvalue,
+                                    textStyle: const TextStyle(fontFamily: 'Inter', fontSize: 20, color: Colors.black),
+                                    textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                                  )),
                             ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
+                            GestureDetector(
+                              onTapDown: (TapDownDetails details) {
+                                showPopUpMenu(details.globalPosition, project, context);
+                              },
+                              child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Рук.: ${project.leader.name}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                  Text('Организация: ${project.organization}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                  Text('Заказчик: ${project.contractor}',
-                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
-                                ],
-                              )),
-                              if (project.numberOfNotifications.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Number of Notifications',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfNotifications.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorBlue,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksUpdatedIn24Hours.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks Updated In 24Hours',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksUpdatedIn24Hours.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorWarning,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOverdue.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Overdue Tasks',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOverdue.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      borderColor: ControlOptions.instance.colorError,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              if (project.numberOfTasksOpen.isGreaterThan(0))
-                                Tooltip(
-                                  message: 'Tasks open',
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: NsgCircle(
-                                      text: project.numberOfTasksOpen.toString(),
-                                      fontSize: 14,
-                                      borderWidth: 1.3,
-                                      color: ControlOptions.instance.colorText,
-                                      shadow: const BoxShadow(),
-                                    ),
-                                  ),
-                                ),
-                              ClipOval(
-                                  child: project.photoPath.isEmpty
-                                      ? Container(
-                                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                          width: 32,
-                                          height: 32,
-                                          child: Icon(
-                                            Icons.account_circle,
-                                            size: 20,
-                                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                          ),
-                                        )
-                                      : Image.network(
-                                          TaskFilesController.getFilePath(project.photoPath),
-                                          fit: BoxFit.cover,
-                                          width: 32,
-                                          height: 32,
-                                        )),
+                              Text('Рук.: ${project.leader.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                              Text('Организация: ${project.organization}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                              Text('Заказчик: ${project.contractor}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
                             ],
-                          ),
+                          )),
+                          if (project.numberOfNotifications > 0)
+                            Tooltip(
+                              message: 'Number of Notifications',
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: NsgCircle(
+                                  text: project.numberOfNotifications.toString(),
+                                  fontSize: 14,
+                                  borderWidth: 1.3,
+                                  color: ControlOptions.instance.colorText,
+                                  borderColor: ControlOptions.instance.colorBlue,
+                                  shadow: const BoxShadow(),
+                                ),
+                              ),
+                            ),
+                          if (project.numberOfTasksUpdatedIn24Hours > 0)
+                            Tooltip(
+                              message: 'Tasks Updated In 24Hours',
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: NsgCircle(
+                                  text: project.numberOfTasksUpdatedIn24Hours.toString(),
+                                  fontSize: 14,
+                                  borderWidth: 1.3,
+                                  color: ControlOptions.instance.colorText,
+                                  borderColor: ControlOptions.instance.colorWarning,
+                                  shadow: const BoxShadow(),
+                                ),
+                              ),
+                            ),
+                          if (project.numberOfTasksOverdue > 0)
+                            Tooltip(
+                              message: 'Overdue Tasks',
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: NsgCircle(
+                                  text: project.numberOfTasksOverdue.toString(),
+                                  fontSize: 14,
+                                  borderWidth: 1.3,
+                                  color: ControlOptions.instance.colorText,
+                                  borderColor: ControlOptions.instance.colorError,
+                                  shadow: const BoxShadow(),
+                                ),
+                              ),
+                            ),
+                          if (project.numberOfTasksOpen > 0)
+                            Tooltip(
+                              message: 'Tasks open',
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: NsgCircle(
+                                  text: project.numberOfTasksOpen.toString(),
+                                  fontSize: 14,
+                                  borderWidth: 1.3,
+                                  color: ControlOptions.instance.colorText,
+                                  shadow: const BoxShadow(),
+                                ),
+                              ),
+                            ),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
+                          ClipOval(
+                              child: project.photoPath.isEmpty
+                                  ? Container(
+                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                      width: 32,
+                                      height: 32,
+                                      child: Icon(
+                                        Icons.account_circle,
+                                        size: 20,
+                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                      ),
+                                    )
+                                  : Image.network(
+                                      TaskFilesController.getFilePath(project.photoPath),
+                                      fit: BoxFit.cover,
+                                      width: 32,
+                                      height: 32,
+                                    )),
                         ],
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ));
-      }
-    }
-    return RefreshIndicator(
-      onRefresh: () {
-        return controller.refreshData();
-      },
-      child: RawScrollbar(
-          thumbVisibility: true,
-          trackVisibility: true,
-          controller: scrollController,
-          thickness: width > 700 ? 10 : 0,
-          trackBorderColor: ControlOptions.instance.colorGreyLight,
-          trackColor: ControlOptions.instance.colorGreyLight,
-          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-          radius: const Radius.circular(0),
-          child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              controller: scrollController,
-              child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: pinlist + list) : Column(children: pinlist + list))),
+          ],
+        ),
+      ),
     );
   }
 
-  showAlertDialogPin(BuildContext context, ProjectItem project) {
+  pinDialog(BuildContext context, ProjectItem project) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    // set up the button
-    Widget pin = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        // elevation: 3,
-        minimumSize: Size(width, height * 0.08),
-      ),
-      child: const Text("Pin"),
-      onPressed: () async {
-        if (controller.items.where((element) => element.isPinned == true).length >= 3) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('You can Pin upto 3 projects in free version')));
-        } else {
-          project.isPinned = true;
-          controller.currentItem = project;
-          await controller.postItems([controller.currentItem]);
-          controller.refreshData();
-        }
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      actions: [pin],
-    );
-
     // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          actions: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                minimumSize: Size(width, height * 0.08),
+              ),
+              child: Text(project.isPinned ? 'Unpin' : 'Pin'),
+              onPressed: () async {
+                project.isPinned = project.isPinned ? false : true;
+                await controller.postItems([project]);
+                controller.refreshData();
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              },
+            )
+          ],
+        );
       },
     );
   }
 
-  showAlertDialogUnpin(BuildContext context, ProjectItem project) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    // set up the button
-
-    Widget unpin = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        // elevation: 3,
-        minimumSize: Size(width, height * 0.08),
-      ),
-      child: const Text("Unpin"),
-      onPressed: () async {
-        project.isPinned = false;
-        controller.currentItem = project;
-        await controller.postItems([controller.currentItem]);
-        controller.refreshData();
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      actions: [unpin],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  Future<void> showPopUpMenu(Offset globalPosition, project) async {
+  Future<void> showPopUpMenu(Offset globalPosition, project, BuildContext context) async {
     double left = globalPosition.dx;
     double top = globalPosition.dy;
 
@@ -619,7 +362,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
         const PopupMenuItem(
           value: 2,
           child: Padding(
-            padding:  EdgeInsets.only(left: 0, right: 40),
+            padding: EdgeInsets.only(left: 0, right: 40),
             child: Text(
               "Закрепить",
               style: TextStyle(color: Colors.black),
@@ -668,12 +411,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
         }
       }
       if (value == 2) {
-        if (project.isPinned == false) {
-          showAlertDialogPin(context, project);
-        }
-        if (project.isPinned) {
-          showAlertDialogUnpin(context, project);
-        }
+        pinDialog(context, project);
       }
     });
   }

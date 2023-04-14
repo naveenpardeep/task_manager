@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
+import 'package:nsg_controls/nsg_simple_progress_bar.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
@@ -21,6 +23,7 @@ import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
+import 'package:task_manager_app/view/task_load_controller.dart';
 import 'package:task_manager_app/view/taskview.dart';
 import '../forms/tasks/task_file_controller.dart';
 import '../forms/user_account/service_object_controller.dart';
@@ -68,15 +71,6 @@ class _HomepageState extends State<Homepage> {
     if (taskCopyMoveController.lateInit) {
       taskCopyMoveController.requestItems();
     }
-    reset();
-    taskView;
-    projectName;
-    searchvalue;
-    searchDate;
-    isDatesearch;
-    textEditController;
-
-    screenName;
   }
 
   @override
@@ -420,50 +414,6 @@ class _HomepageState extends State<Homepage> {
     }
 
     return [
-      // if (width > 700)
-      //   wrapFlexible(
-      //     child: Tooltip(
-      //       message: 'Поиск по тексту задачи, Описание задачи',
-      //       child: SizedBox(
-      //         height: 37,
-      //         child: TextField(
-      //             controller: textEditController,
-      //             decoration: InputDecoration(
-      //                 filled: false,
-      //                 fillColor: ControlOptions.instance.colorMainLight,
-      //                 border: OutlineInputBorder(
-      //                     gapPadding: 1,
-      //                     borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-      //                     borderRadius: const BorderRadius.all(Radius.circular(10))),
-      //                 suffixIcon: IconButton(
-      //                     onPressed: (() {
-      //                       setState(() {
-      //                         textEditController.clear();
-      //                         searchvalue = '';
-      //                       });
-      //                     }),
-      //                     icon: const Icon(Icons.cancel)),
-      //                 // prefixIcon: Icon(Icons.search),
-      //                 hintText: 'Поиск по тексту'),
-      //             onChanged: (val) {
-      //               searchvalue = val;
-      //               taskController.sendNotify();
-      //               taskStatusTableController.sendNotify();
-      //             }),
-      //       ),
-      //     ),
-      //   ),
-      // wrapFlexible(
-      //   child: Tooltip(
-      //     message: 'Поиск задач по дате создания',
-      //     child: NsgPeriodFilter(
-      //       textAlign: TextAlign.left,
-      //       controller: taskController,
-      //       label: 'Поиск по дате',
-      //       // initialTime: DateTime.now(),
-      //     ),
-      //   ),
-      // ),
       if (width < 700)
         wrapFlexible(
             child: NsgButton(
@@ -558,8 +508,7 @@ class _HomepageState extends State<Homepage> {
     List<String> statuses = [];
 
     // var statusList = taskStatusTableController.items.reversed;
-    var statusList = taskStatusTableController.items;
-    for (var status in statusList) {
+    for (var status in taskStatusTableController.items) {
       var scrollController = ScrollController();
       statuses.add(status.status.toString());
       if (width > 1050) {
@@ -589,22 +538,20 @@ class _HomepageState extends State<Homepage> {
                     width: taskStatusTableController.items.length > 4 ? 250 : 300,
                     child: wrapdragTarget(
                       status: status,
-                      child: taskController.obx(
-                        (state) => RawScrollbar(
-                          thumbVisibility: true,
-                          trackVisibility: true,
-                          controller: scrollController,
-                          thickness: width > 700 ? 10 : 0,
-                          trackBorderColor: ControlOptions.instance.colorGreyLight,
-                          trackColor: ControlOptions.instance.colorGreyLight,
-                          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                          radius: const Radius.circular(0),
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              physics: const BouncingScrollPhysics(),
-                              controller: scrollController,
-                              child: taskController.obx((state) => getTaskListForTaskview(status.status))),
-                        ),
+                      child: RawScrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        controller: scrollController,
+                        thickness: width > 700 ? 10 : 0,
+                        trackBorderColor: ControlOptions.instance.colorGreyLight,
+                        trackColor: ControlOptions.instance.colorGreyLight,
+                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                        radius: const Radius.circular(0),
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            physics: const BouncingScrollPhysics(),
+                            controller: scrollController,
+                            child: taskController.obx((state) => getTaskListForTaskview(status.status))),
                       ),
                     ),
                   ),
@@ -613,49 +560,48 @@ class _HomepageState extends State<Homepage> {
             )));
       } else {
         tabsList.add(NsgTabsTab(
-            tab: taskController.obx(
-              (state) => Container(
-                decoration:
-                    BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      status.status.name,
-                      style: TextStyle(
-                        fontSize: ControlOptions.instance.sizeL,
-                        color: status.status.isDone ? Colors.green : Colors.black,
-                      ),
+          tab: taskController.obx(
+            (state) => Container(
+              decoration:
+                  BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(
+                      fontSize: ControlOptions.instance.sizeL,
+                      color: status.status.isDone ? Colors.green : Colors.black,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: getTasklength(status.status),
-                    ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklength(status.status),
+                  ),
+                ],
               ),
             ),
-            tabSelected: taskController.obx(
-              (state) => Container(
-                decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      status.status.name,
-                      style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: getTasklengthForTaskview(status.status),
-                    ),
-                  ],
-                ),
+          ),
+          tabSelected: taskController.obx(
+            (state) => Container(
+              decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklengthForTaskview(status.status),
+                  ),
+                ],
               ),
             ),
-            child: Column(
-              children: [taskController.obx((state) => getTaskListForTaskview(status.status))],
-            )));
+          ),
+          child: getTaskListForTaskview(status.status),
+        ));
       }
     }
 
@@ -688,60 +634,70 @@ class _HomepageState extends State<Homepage> {
 /* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
   Widget getTaskListForTaskview(TaskStatus status) {
     List<Widget> list = [];
+    late TaskLoadController taskLoadC;
 
-    var tasksList = taskController.items;
-    for (var tasks in tasksList) {
-      if (tasks.taskStatus != status) continue;
+    //assert();
+    var taskLoadCFind = taskController.taskLoadControllersList.where((element) => element.currentTaskStatus == status).toList();
+    if (taskLoadCFind.isNotEmpty) {
+      taskLoadC = taskLoadCFind[0];
 
-      if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-          tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-          tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-        list.add(GestureDetector(
-          onTap: () {
-            if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
-              setState(() {
-                Get.find<TaskFilesController>().requestItems();
-                Get.find<TaskCheckListController>().requestItems();
-                taskController
-                    .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
+      return taskLoadC.obx((state) {
+        for (var tasks in taskLoadC.currentStatusTasks) {
+          if (tasks.taskStatus != status) continue;
 
-                taskView = true;
-              });
-            } else {
-              taskController.currentItem = tasks;
+          if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+              tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+              tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+            list.add(GestureDetector(
+              onTap: () {
+                if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
+                  setState(() {
+                    Get.find<TaskFilesController>().requestItems();
+                    Get.find<TaskCheckListController>().requestItems();
+                    taskController
+                        .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
 
-              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-            }
-            if (tasks.isReadByAssignee == false &&
-                (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-              tasks.isReadByAssignee = true;
-              Get.find<TasksController>().postItems([tasks]);
-            }
-          },
-          child: Row(
-            children: [
-              Expanded(
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return DraggableRotatingCard(
-                    tasks: tasks,
-                    constraints: constraints,
-                  );
-                }),
+                    taskView = true;
+                  });
+                } else {
+                  taskController.currentItem = tasks;
+
+                  taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                }
+                if (tasks.isReadByAssignee == false &&
+                    (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                  tasks.isReadByAssignee = true;
+                  Get.find<TasksController>().postItems([tasks]);
+                }
+              },
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return DraggableRotatingCard(
+                        tasks: tasks,
+                        constraints: constraints,
+                      );
+                    }),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
-      }
-    }
+            ));
+          }
+        }
 
-    return SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Column(
-            children: list,
-          ),
-        ));
+        return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                children: list,
+              ),
+            ));
+      }, onLoading: const NsgSimpleProgressBar());
+    } else {
+      return const NsgSimpleProgressBar();
+    }
   }
 
 /* ------------------------------------------------------- Вывод колонок по статусу ------------------------------------------------------- */
@@ -921,7 +877,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  reset() {
+  void reset() {
     setState(() {
       taskBoardController.currentItem.sortBy = ESorting.dateDesc;
       taskBoardController.sendNotify();
