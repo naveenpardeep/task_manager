@@ -26,7 +26,7 @@ class EditChecklistPage extends GetView<TaskCheckListController> {
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
-                  text: 'Task CheckList '.toUpperCase(),
+                  text: 'Пункт чек-листа'.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,

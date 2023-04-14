@@ -18,7 +18,7 @@ class ProjectUserMobile extends StatefulWidget {
 }
 
 class _ProjectpageState extends State<ProjectUserMobile> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<ProjectController>();
   var invitations = Get.find<AccpetController>();
   var textEditController = TextEditingController();

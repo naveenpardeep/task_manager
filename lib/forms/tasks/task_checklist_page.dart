@@ -27,7 +27,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                 NsgAppBar(
                   backColor: Colors.white,
                   color: Colors.black,
-                  text: 'Task CheckList '.toUpperCase(),
+                  text: 'Пункт чек-листа'.toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,
@@ -51,7 +51,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                               minLines: 5,
                               dataItem: controller.currentItem,
                               fieldName: TaskDocCheckListTableGenerated.nameText,
-                              label: 'CheckList',
+                              label: '',
                               infoString: '',
                             ),
                             // NsgInput(

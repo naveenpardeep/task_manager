@@ -30,41 +30,44 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
           (state) => Column(
             children: <Widget>[
               Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context))),
-              Stack(
+            Row(
+              mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
-                    child: RawKeyboardListener(
-                      focusNode: FocusNode(),
-                      autofocus: true,
-                      onKey: (event) async {
-                        if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                          await controller.itemPagePost(goBack: false);
-
-                          await controller.createNewItemAsync();
-                        }
-                      },
-                      child: TTNsgInput(
-                        borderRadius: 10,
-                        dataItem: controller.currentItem,
-                        fieldName: TaskCommentGenerated.nameText,
-                        label: '',
-                        infoString: 'Комментарий',
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(40, 0, 10, 5),
+                      child: RawKeyboardListener(
+                        focusNode: FocusNode(),
+                        autofocus: true,
+                        onKey: (event) async {
+                          if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+                            await controller.itemPagePost(goBack: false);
+                              
+                            await controller.createNewItemAsync();
+                          }
+                        },
+                        child: TTNsgInput(
+                          borderRadius: 100,
+                          dataItem: controller.currentItem,
+                          fieldName: TaskCommentGenerated.nameText,
+                          label: '',
+                          infoString: 'Комментарий',
+                        ),
                       ),
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 20, 0),
+                    child: Container(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),  color: const Color(0xffABF4FF),),
+                    
                       child: IconButton(
                           onPressed: () async {
                             await controller.itemPagePost(goBack: false);
-
+                                
                             await controller.createNewItemAsync();
                           },
-                          icon: const Icon(Icons.send_rounded)),
+                          icon: const Icon(Icons.send_rounded , color: Color(0xff0859FF),size: 15,)),
                     ),
                   )
                 ],
@@ -256,8 +259,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                 child: comment.author.photoName.isEmpty
                     ? Container(
                         decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                        width: 32,
-                        height: 32,
+                        width: 48,
+                        height: 48,
                         child: Icon(
                           Icons.account_circle,
                           size: 20,
@@ -267,8 +270,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                     : Image.network(
                               TaskFilesController.getFilePath(comment.author.photoName),
                               fit: BoxFit.fill,
-                              width: 32,
-                              height: 32,
+                              width: 48,
+                              height: 48,
                             ),
               )),
         ),
@@ -340,8 +343,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                   child: comment.author.photoName.isEmpty
                       ? Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                          width: 32,
-                          height: 32,
+                          width: 48,
+                          height: 48,
                           child: Icon(
                             Icons.account_circle,
                             size: 20,
@@ -351,8 +354,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       : Image.network(
                               TaskFilesController.getFilePath(comment.author.photoName),
                               fit: BoxFit.fill,
-                              width: 32,
-                              height: 32,
+                              width: 48,
+                              height: 48,
                             ),
                 )),
           ),
