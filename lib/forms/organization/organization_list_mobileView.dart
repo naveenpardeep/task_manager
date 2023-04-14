@@ -64,11 +64,11 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.only(right: 4),
                       child: ClipOval(
                         child: organizations.photoPath.isEmpty
                             ? Container(

@@ -103,77 +103,73 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
           onLongPress: () {},
           child: Column(
             children: [
-              Card(
-                // elevation: 3,
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipOval(
-                          child: orguser.userAccount.photoName.isNotEmpty
-                              ? Container(
-                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                  width: 48,
-                                  height: 48,
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    size: 32,
-                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                  ),
-                                )
-                              : Image.network(
-                                  TaskFilesController.getFilePath(orguser.userAccount.photoName),
-                                  fit: BoxFit.cover,
-                                  width: 48,
-                                  height: 48,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: orguser.userAccount.photoName.isNotEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 32,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                 ),
-                        ),
-                      ),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              orguser.userAccount.name,
-                              style: TextStyle(
-                                fontSize: ControlOptions.instance.sizeL,
+                              )
+                            : Image.network(
+                                TaskFilesController.getFilePath(orguser.userAccount.photoName),
+                                fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
                               ),
-                            ),
-                            Text(
-                              orguser.userAccount.phoneNumber,
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
-                            ),
-                          ],
-                        ),
                       ),
-                      if (orguser.isAdmin) const Icon(Icons.admin_panel_settings),
+                    ),
 
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              orguser.userAccount.position,
-                              style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            orguser.userAccount.name,
+                            style: TextStyle(
+                              fontSize: ControlOptions.instance.sizeL,
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            orguser.userAccount.phoneNumber,
+                            style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                          ),
+                        ],
                       ),
-                      // IconButton(
-                      //     onPressed: () {
-                      //       showAlertDialog(context, projectuser);
-                      //     },
-                      //     icon: const Icon(
-                      //       Icons.remove_circle_outline,
-                      //       color: Colors.red,
-                      //     )),
-                      const Icon(Icons.arrow_forward_ios),
-                    ],
-                  ),
+                    ),
+                    if (orguser.isAdmin) const Icon(Icons.admin_panel_settings),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            orguser.userAccount.position,
+                            style: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       showAlertDialog(context, projectuser);
+                    //     },
+                    //     icon: const Icon(
+                    //       Icons.remove_circle_outline,
+                    //       color: Colors.red,
+                    //     )),
+                    const Icon(Icons.arrow_forward_ios),
+                  ],
                 ),
               ),
             ],

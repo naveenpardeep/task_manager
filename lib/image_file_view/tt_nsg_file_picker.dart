@@ -770,7 +770,8 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       return const SizedBox();
     } else {
       return widget.showAsWidget == true
-          ? body()
+          ?
+           body()
           : BodyWrap(
               child: Scaffold(
                 key: scaffoldKey,
