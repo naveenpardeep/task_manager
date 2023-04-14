@@ -145,9 +145,8 @@ class _NsgTabsState extends State<NsgTabs> {
             children: [
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                      color:
-                          ControlOptions.instance.colorMain.withOpacity(0.1)),
+                  decoration: const BoxDecoration(
+                      color : Colors.white),
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: RawScrollbar(
                       thumbVisibility: true,
