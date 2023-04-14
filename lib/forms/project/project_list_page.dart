@@ -85,7 +85,9 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                   hintText: 'Search Project...'),
                               textAlignVertical: TextAlignVertical.bottom,
                               style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 20 : 16),
-                              onChanged: (val) {}),
+                              onChanged: (val) {
+                                setState(() {});
+                              }),
                         ),
                       ),
                       NsgButton(
