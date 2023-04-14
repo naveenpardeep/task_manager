@@ -1574,6 +1574,12 @@ selectProjectCopy(TaskDoc tasks) {
               .userAccount) {
         tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
       }
+       if (tasks.taskStatus !=
+          Get.find<ProjectStatusController>()
+              .items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())
+              ) {
+        tasks.taskStatus ==  Get.find<ProjectStatusController>().items.first;
+      }
       Get.find<TasksController>().currentItem = tasks;
 
       await Get.find<TasksController>().postItems([tasks]);
@@ -1600,6 +1606,12 @@ selectProjectMove(TaskDoc tasks) {
               .firstWhere((element) => element.userAccount == tasks.assignee, orElse: () => ProjectItemUserTable())
               .userAccount) {
         tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
+      }
+       if (tasks.taskStatus !=
+          Get.find<ProjectStatusController>()
+              .items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())
+              ) {
+        tasks.taskStatus ==  Get.find<ProjectStatusController>().items.first;
       }
       await Get.find<TaskCopyMoveController>().postItems([tasks]);
     },
