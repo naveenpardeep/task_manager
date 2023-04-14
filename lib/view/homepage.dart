@@ -157,8 +157,8 @@ class _HomepageState extends State<Homepage> {
                           size: 22,
                           icon: Icons.settings,
                           onPressed: () {
-                              projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
-                             },
+                            projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
+                          },
                         ),
                       IconButton(
                           onPressed: () {
@@ -828,7 +828,7 @@ class _HomepageState extends State<Homepage> {
                             child: SingleChildScrollView(
                                 physics: const BouncingScrollPhysics(),
                                 controller: scrollController,
-                                child: taskController.obx((state) => getTaskList(status.status))),
+                                child: taskController.obx((state) => getTaskListForTaskview(status.status))),
                           ),
                         ),
                       ),
@@ -883,7 +883,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             child: Column(
-              children: [taskController.obx((state) => getTaskList(status.status))],
+              children: [taskController.obx((state) => getTaskListForTaskview(status.status))],
             )));
       }
     }
@@ -912,70 +912,6 @@ class _HomepageState extends State<Homepage> {
       length,
       style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
     );
-  }
-
-/* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
-  Widget getTaskList(TaskStatus status) {
-    List<Widget> list = [];
-
-    var tasksList = taskController.items;
-
-    // var taskstart = tasksList.where((
-    //     (element) => element.taskStatus == taskStatuscontroller.items.ETaskstatus.newtask));
-
-    for (var tasks in tasksList) {
-      if (tasks.taskStatus != status) continue;
-
-      if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-          tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-          tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-        list.add(GestureDetector(
-          onTap: () {
-            if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
-              setState(() {
-                Get.find<TaskFilesController>().requestItems();
-                Get.find<TaskCheckListController>().requestItems();
-                taskController
-                    .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
-
-                taskView = true;
-              });
-            } else {
-              taskController.currentItem = tasks;
-
-              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-            }
-
-            if (tasks.isReadByAssignee == false &&
-                (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-              tasks.isReadByAssignee = true;
-              Get.find<TasksController>().postItems([tasks]);
-            }
-          },
-          child: Row(
-            children: [
-              Expanded(
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return DraggableRotatingCard(
-                    tasks: tasks,
-                    constraints: constraints,
-                  );
-                }),
-              ),
-            ],
-          ),
-        ));
-      }
-    }
-
-    return SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Column(
-            children: list,
-          ),
-        ));
   }
 
   Widget wrapdragTarget({required TaskBoardStatusTable status, required Widget child}) {
@@ -1116,209 +1052,75 @@ changeTaskStatus(TaskDoc tasks) {
   );
 }
 
-changeStatus(TaskDoc tasks) {
-  var form = NsgSelection(
-    selectedElement: tasks.taskStatus,
-    inputType: NsgInputType.reference,
-    controller: Get.find<TaskStatusController>(),
-  );
-  form.selectFromArray(
-    'Смена статуса заявки',
-    (item) async {
-      tasks.taskStatus = item as TaskStatus;
-      await Get.find<TasksController>().postItems([tasks]);
-      Get.find<TasksController>().sendNotify();
-      Get.find<TaskStatusTableController>().sendNotify();
-
-      //Get.find<TaskStatusTableController>().sendNotify();
-      //taskBoardController.sendNotify();*/
-    },
-  );
+Color getTaskPriorityColor(EPriority priority) {
+  switch (priority.value) {
+    //Низкий
+    case 1:
+      return Colors.green;
+    //Средний
+    case 2:
+      return Colors.yellow;
+    //Высокий
+    case 3:
+      return Colors.red;
+    //не назначен
+    default:
+      return Colors.transparent;
+  }
 }
 
 /* -------------------------------------------------------------- Карточка с задачей -------------------------------------------------------------- */
 Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
-  var taskC = Get.find<TasksController>();
   return GestureDetector(
     onLongPress: () {
-      changeStatus(tasks);
+      changeTaskStatus(tasks);
     },
     child: Stack(
       children: [
-        if (tasks.priority == EPriority.high)
-          SizedBox(
-            width: constraints.maxWidth,
-            child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: const Color(0xffEDEFF3),
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          left: BorderSide(color: Colors.red, width: 5),
-                        )),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [tasksubPart(tasks)],
-                          ),
+        SizedBox(
+          width: constraints.maxWidth,
+          child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              color: const Color(0xffEDEFF3),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                        left: BorderSide(color: getTaskPriorityColor(tasks.priority), width: 7),
+                      )),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [tasksubPart(tasks)],
                         ),
                       ),
                     ),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: GestureDetector(
-                            onTapDown: (TapDownDetails details) {
-                              showPopUpMenu(details.globalPosition, tasks, context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(7.0),
-                              child: Icon(
-                                Icons.more_vert,
-                                color: ControlOptions.instance.colorGrey,
-                                size: 24,
-                              ),
+                  ),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: GestureDetector(
+                          onTapDown: (TapDownDetails details) {
+                            showPopUpMenu(details.globalPosition, tasks, context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(7.0),
+                            child: Icon(
+                              Icons.more_vert,
+                              color: ControlOptions.instance.colorGrey,
+                              size: 24,
                             ),
-                          ),
-                        ))
-                  ],
-                )),
-          ),
-        if (tasks.priority == EPriority.medium)
-          SizedBox(
-            width: constraints.maxWidth,
-            child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: const Color(0xffEDEFF3),
-                child: Stack(
-                  children: [
-                   ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          left: BorderSide(color: Colors.yellow, width: 5),
-                        )),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [tasksubPart(tasks)],
                           ),
                         ),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: GestureDetector(
-                            onTapDown: (TapDownDetails details) {
-                              showPopUpMenu(details.globalPosition, tasks, context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(7.0),
-                              child: Icon(
-                                Icons.more_vert,
-                                color: ControlOptions.instance.colorGrey,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ))
-                  ],
-                )),
-          ),
-        if (tasks.priority == EPriority.low)
-          SizedBox(
-            width: constraints.maxWidth,
-            child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: const Color(0xffEDEFF3),
-                child: Stack(
-                  children: [
-                   ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          left: BorderSide(
-                            color: Colors.green,
-                            width: 5,
-                          ),
-                        )),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [tasksubPart(tasks)],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: GestureDetector(
-                            onTapDown: (TapDownDetails details) {
-                              showPopUpMenu(details.globalPosition, tasks, context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(7.0),
-                              child: Icon(
-                                Icons.more_vert,
-                                color: ControlOptions.instance.colorGrey,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ))
-                  ],
-                )),
-          ),
-        if (tasks.priority == EPriority.none)
-          SizedBox(
-            width: constraints.maxWidth,
-            child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: const Color(0xffEDEFF3),
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [tasksubPart(tasks)],
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: GestureDetector(
-                            onTapDown: (TapDownDetails details) {
-                              showPopUpMenu(details.globalPosition, tasks, context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(7.0),
-                              child: Icon(
-                                Icons.more_vert,
-                                color: ControlOptions.instance.colorGrey,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ))
-                  ],
-                )),
-          ),
+                      ))
+                ],
+              )),
+        ),
       ],
     ),
   );
@@ -1425,7 +1227,7 @@ Widget tasksubPart(tasks) {
           //         },
           //         icon: const Icon(Icons.edit)),
           //   ),
-          if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all,color: Color(0xff529FBF))),
+          if (tasks.isReadByAssignee == true) const Tooltip(message: 'Task Seen by User', child: Icon(Icons.done_all, color: Color(0xff529FBF))),
         ],
       ),
     ),
@@ -1448,7 +1250,6 @@ Widget tasksubPart(tasks) {
         Expanded(
           child: Wrap(
             children: [
-             
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: Text(
@@ -1574,11 +1375,9 @@ selectProjectCopy(TaskDoc tasks) {
               .userAccount) {
         tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
       }
-       if (tasks.taskStatus !=
-          Get.find<ProjectStatusController>()
-              .items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())
-              ) {
-        tasks.taskStatus ==  Get.find<ProjectStatusController>().items.first;
+      if (tasks.taskStatus !=
+          Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
+        tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
       }
       Get.find<TasksController>().currentItem = tasks;
 
@@ -1607,11 +1406,9 @@ selectProjectMove(TaskDoc tasks) {
               .userAccount) {
         tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
       }
-       if (tasks.taskStatus !=
-          Get.find<ProjectStatusController>()
-              .items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())
-              ) {
-        tasks.taskStatus ==  Get.find<ProjectStatusController>().items.first;
+      if (tasks.taskStatus !=
+          Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
+        tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
       }
       await Get.find<TaskCopyMoveController>().postItems([tasks]);
     },
