@@ -93,15 +93,13 @@ class _HomepageState extends State<Homepage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Row(
                     children: [
-                      projectController.obx(
-                        (state) => Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            projectController.currentItem.name,
-                            style: TextStyle(
-                              fontSize: width < 700 ? 16 : 24,
-                              fontFamily: 'Inter',
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          projectController.currentItem.name,
+                          style: TextStyle(
+                            fontSize: width < 700 ? 16 : 24,
+                            fontFamily: 'Inter',
                           ),
                         ),
                       ),
@@ -551,7 +549,7 @@ class _HomepageState extends State<Homepage> {
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             controller: scrollController,
-                            child: taskController.obx((state) => getTaskListForTaskview(status.status))),
+                            child: getTaskListForTaskview(status.status)),
                       ),
                     ),
                   ),
@@ -560,44 +558,40 @@ class _HomepageState extends State<Homepage> {
             )));
       } else {
         tabsList.add(NsgTabsTab(
-          tab: taskController.obx(
-            (state) => Container(
-              decoration:
-                  BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  Text(
-                    status.status.name,
-                    style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: status.status.isDone ? Colors.green : Colors.black,
-                    ),
+          tab: Container(
+            decoration:
+                BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
+              children: [
+                Text(
+                  status.status.name,
+                  style: TextStyle(
+                    fontSize: ControlOptions.instance.sizeL,
+                    color: status.status.isDone ? Colors.green : Colors.black,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: getTasklength(status.status),
-                  ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: getTasklength(status.status),
+                ),
+              ],
             ),
           ),
-          tabSelected: taskController.obx(
-            (state) => Container(
-              decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  Text(
-                    status.status.name,
-                    style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: getTasklengthForTaskview(status.status),
-                  ),
-                ],
-              ),
+          tabSelected: Container(
+            decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
+              children: [
+                Text(
+                  status.status.name,
+                  style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: getTasklength(status.status),
+                ),
+              ],
             ),
           ),
           child: getTaskListForTaskview(status.status),
@@ -616,19 +610,6 @@ class _HomepageState extends State<Homepage> {
     } else {
       return NsgTabs(tabs: tabsList);
     }
-  }
-
-  Widget getTasklengthForTaskview(TaskStatus status) {
-    var tasksList = taskController.items;
-    String length = '';
-    var taskLength = tasksList.where(((element) => element.taskStatus == status));
-
-    length = taskLength.length.toString();
-
-    return Text(
-      length,
-      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
-    );
   }
 
 /* ------------------------------------------------------- Список задач в колонке по статусу ------------------------------------------------------ */
@@ -744,21 +725,17 @@ class _HomepageState extends State<Homepage> {
                       width: width,
                       child: wrapdragTarget(
                         status: status,
-                        child: taskController.obx(
-                          (state) => RawScrollbar(
-                            thumbVisibility: true,
-                            trackVisibility: true,
-                            controller: scrollController,
-                            thickness: width > 700 ? 10 : 0,
-                            trackBorderColor: ControlOptions.instance.colorGreyLight,
-                            trackColor: ControlOptions.instance.colorGreyLight,
-                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                            radius: const Radius.circular(0),
-                            child: SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                controller: scrollController,
-                                child: taskController.obx((state) => getTaskListForTaskview(status.status))),
-                          ),
+                        child: RawScrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollController,
+                          thickness: width > 700 ? 10 : 0,
+                          trackBorderColor: ControlOptions.instance.colorGreyLight,
+                          trackColor: ControlOptions.instance.colorGreyLight,
+                          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                          radius: const Radius.circular(0),
+                          child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(), controller: scrollController, child: getTaskListForTaskview(status.status)),
                         ),
                       ),
                     ),
@@ -768,47 +745,43 @@ class _HomepageState extends State<Homepage> {
         ));
       } else {
         tabsList.add(NsgTabsTab(
-            tab: taskController.obx(
-              (state) => Container(
-                decoration:
-                    BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      status.status.name,
-                      style: TextStyle(
-                        fontSize: ControlOptions.instance.sizeL,
-                        color: status.status.isDone ? Colors.green : Colors.black,
-                      ),
+            tab: Container(
+              decoration:
+                  BoxDecoration(border: Border.all(width: 2, color: Colors.transparent), borderRadius: BorderRadius.circular(3), color: Colors.transparent),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(
+                      fontSize: ControlOptions.instance.sizeL,
+                      color: status.status.isDone ? Colors.green : Colors.black,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: getTasklength(status.status),
-                    ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklength(status.status),
+                  ),
+                ],
               ),
             ),
-            tabSelected: taskController.obx(
-              (state) => Container(
-                decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      status.status.name,
-                      style: TextStyle(
-                        fontSize: ControlOptions.instance.sizeL,
-                        color: status.status.isDone ? Colors.green : Colors.black,
-                      ),
+            tabSelected: Container(
+              decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Text(
+                    status.status.name,
+                    style: TextStyle(
+                      fontSize: ControlOptions.instance.sizeL,
+                      color: status.status.isDone ? Colors.green : Colors.black,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: getTasklength(status.status),
-                    ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: getTasklength(status.status),
+                  ),
+                ],
               ),
             ),
             child: Column(
@@ -831,16 +804,27 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget getTasklength(TaskStatus status) {
-    var tasksList = taskController.items;
-    String length = '';
-    var taskLength = tasksList.where(((element) => element.taskStatus == status));
+    late TaskLoadController taskLoadC;
+    var taskLoadCFind = taskController.taskLoadControllersList.where((element) => element.currentTaskStatus == status).toList();
+    if (taskLoadCFind.isNotEmpty) {
+      taskLoadC = taskLoadCFind[0];
 
-    length = taskLength.length.toString();
-
-    return Text(
-      length,
-      style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
-    );
+      return taskLoadC.obx((state) {
+        return Text(
+          taskLoadC.currentStatusTasks.length.toString(),
+          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+        );
+      },
+          onLoading: Text(
+            '...',
+            style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+          ));
+    } else {
+      return Text(
+        '...',
+        style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+      );
+    }
   }
 
   Widget wrapdragTarget({required TaskBoardStatusTable status, required Widget child}) {
