@@ -69,7 +69,9 @@ class TaskIconButton extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: getColor(style)),
             child: Stack(children: [
               Icon(
+                
                 icon,
+                size: 14,
                 color: getColor(style, invert: true),
               ),
               if (nott != 0)

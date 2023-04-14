@@ -56,10 +56,13 @@ class _ProjectListPageState extends State<ProjectListPage> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                   child: Row(
                     children: [
-                      Text(
-                        'Проекты',
-                        style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
-                      ),
+                    const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                          'Проекты',
+                          style: TextStyle( fontSize: 16, fontFamily: 'Inter'),
+                        ),
+                    ),
                       Expanded(
                         child: SizedBox(
                           height: 35,
