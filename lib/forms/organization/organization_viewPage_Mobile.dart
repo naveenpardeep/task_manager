@@ -84,10 +84,13 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
               backgroundColor: Colors.white,
               elevation: 0.0, //Shadow gone
               centerTitle: true,
-              title: controller.obx((state) => Text(
-                    controller.currentItem.name.toString().toUpperCase(),
-                    style: const TextStyle(color: Colors.black),
-                  )),
+              title: Align(
+                alignment: Alignment.topLeft,
+                child: controller.obx((state) => Text(
+                      controller.currentItem.name.toString().toUpperCase(),
+                      style: const TextStyle(color: Colors.black),
+                    )),
+              ),
               bottom: TabBar(
                   onTap: (value) {
                     setState(() {
@@ -165,17 +168,20 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                                   : Image.network(
                                                       TaskFilesController.getFilePath(controller.currentItem.photoPath),
                                                       fit: BoxFit.cover,
-                                                      width: 100,
-                                                      height: 100,
+                                                      width: 120,
+                                                      height: 120,
                                                     ),
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Text(
-                                              ' ${controller.currentItem.name}',
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Expanded(
+                                              child: Text(
+                                                ' ${controller.currentItem.name}',
+                                                style: const TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 14,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -183,7 +189,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Row(
                                         children: [
                                           const Text(
@@ -203,7 +209,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Row(
                                         children: [
                                           const Text(
