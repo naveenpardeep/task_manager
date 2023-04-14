@@ -161,7 +161,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                       child: SubstringHighlight(
                                         text: project.name,
                                         term: searchvalue,
-                                        textStyle: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, color: Colors.black),
+                                        textStyle: const TextStyle(fontFamily: 'Inter' ,fontSize: 20 , color: Colors.black),
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
@@ -237,11 +237,11 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Рук.: ${project.leader.name}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                   Text('Организация: ${project.organization}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                   Text('Заказчик: ${project.contractor}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                 ],
                               )),
                               if (project.numberOfNotifications.isGreaterThan(0))
@@ -377,64 +377,11 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                       child: SubstringHighlight(
                                         text: project.name,
                                         term: searchvalue,
-                                        textStyle: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.bold, color: Colors.black),
+                                        textStyle: const TextStyle(fontFamily: 'Inter' ,fontSize: 20 , color: Colors.black),
                                         textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                                       )),
                                 ),
-                                // if (Get.find<DataController>().currentUser == project.leader ||
-                                //     Get.find<DataController>().currentUser == project.leader.mainUserAccount ||
-                                //     Get.find<DataController>().currentUser == project.organization.ceo ||
-                                //     Get.find<DataController>().currentUser == project.organization.ceo.mainUserAccount ||
-                                //     Get.find<DataController>().currentUser ==
-                                //         project.organization.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => OrganizationItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser.mainUserAccount ==
-                                //         project.organization.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => OrganizationItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser.mainUserAccount ==
-                                //         project.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => ProjectItemUserTable(),
-                                //             )
-                                //             .userAccount ||
-                                //     Get.find<DataController>().currentUser ==
-                                //         project.tableUsers.rows
-                                //             .firstWhere(
-                                //               (element) => element.isAdmin == true,
-                                //               orElse: () => ProjectItemUserTable(),
-                                //             )
-                                //             .userAccount)
-                                //   Align(
-                                //       alignment: Alignment.topRight,
-                                //       child: Padding(
-                                //         padding: const EdgeInsets.only(right: 8),
-                                //         child: InkWell(
-                                //           onTap: () {
-                                //             //  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
-                                //             //    controller.itemPageOpen(project, Routes.projectSettingsPage);
-                                //             // } else {
-                                //             controller.itemPageOpen(project, Routes.projectMobilePageview);
-                                //             //   }
-                                //           },
-                                //           child: Padding(
-                                //             padding: const EdgeInsets.all(5.0),
-                                //             child: Icon(
-                                //               Icons.edit,
-                                //               color: ControlOptions.instance.colorGrey,
-                                //               size: 24,
-                                //             ),
-                                //           ),
-                                //         ),
-                                //       )),
+                                
                                 if (project.isPinned) const Icon(Icons.push_pin, color: Colors.lightBlue),
                                 GestureDetector(
                                   onTapDown: (TapDownDetails details) {
@@ -453,11 +400,11 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Рук.: ${project.leader.name}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                   Text('Организация: ${project.organization}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                   Text('Заказчик: ${project.contractor}',
-                                      style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: const Color(0xff529FBF))),
+                                      style: const TextStyle(fontFamily: 'Inter' ,fontSize: 14 , color:  Color(0xff529FBF))),
                                 ],
                               )),
                               if (project.numberOfNotifications.isGreaterThan(0))

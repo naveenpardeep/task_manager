@@ -1437,7 +1437,8 @@ Widget tasksubPart(tasks) {
           Expanded(
             child: Text(
               tasks.name,
-              maxLines: 2,
+              
+              maxLines: 1,
             ),
           ),
         ],
@@ -1595,7 +1596,7 @@ selectProjectMove(TaskDoc tasks) {
     'Select Project',
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
-      tasks.docNumber = Get.find<ProjectController>().currentItem.projectPrefix;
+      tasks.docNumber = Guid.newGuid();
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
@@ -1609,7 +1610,7 @@ selectProjectMove(TaskDoc tasks) {
           Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
         tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
       }
-      await Get.find<TaskCopyMoveController>().postItems([tasks]);
+      await Get.find<TasksController>().postItems([tasks]);
     },
   );
 }
