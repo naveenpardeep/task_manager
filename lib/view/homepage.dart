@@ -146,9 +146,9 @@ class _HomepageState extends State<Homepage> {
                         ),
                       IconButton(
                           onPressed: () {
-                            Get.find<TasksController>().refreshData();
                             setState(() {
                               taskView = false;
+                              reset();
                             });
                           },
                           icon: Icon(
@@ -308,9 +308,9 @@ class _HomepageState extends State<Homepage> {
                               controller: scrollController,
                               child: SizedBox(
                                 width: width + 450,
-                                child: taskStatusTableController.obx((state) => getStatusListForTaskView()),
+                                child: getStatusListForTaskView(),
                               ))),
-                    if (taskView == false) Container(child: taskStatusTableController.obx((state) => getStatusList())),
+                    if (taskView == false) Container(child: getStatusList()),
                     if (taskView == true)
                       Align(
                         alignment: Alignment.centerRight,
@@ -714,9 +714,7 @@ class _HomepageState extends State<Homepage> {
                           style: TextStyle(color: status.status.isDone ? Colors.green : Colors.black, fontSize: ControlOptions.instance.sizeL),
                         ),
                       ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text(''))),
+                      Padding(padding: const EdgeInsets.only(left: 5), child: searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
                     ],
                   ),
                   const Divider(thickness: 2, height: 20),
@@ -862,7 +860,7 @@ class _HomepageState extends State<Homepage> {
   void reset() {
     setState(() {
       taskBoardController.currentItem.sortBy = ESorting.dateDesc;
-      taskBoardController.sendNotify();
+      taskBoardController.refreshData();
       serviceC.currentItem.userAccountId = '';
       isDatesearch = false;
       searchDate = DateTime.now();

@@ -13,6 +13,12 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
   }
 
   @override
+  void sendNotify({List<NsgUpdateKey>? keys}) {
+    Get.find<TasksController>().getTasksControllers();
+    super.sendNotify(keys: keys);
+  }
+
+  @override
   Future afterRequestItems(List<NsgDataItem> newItemsList) async {
     if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
       currentItem = newItemsList.first as TaskBoard;
@@ -26,7 +32,6 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
   @override
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as TaskBoard;
-    element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
 
     return element;
