@@ -22,8 +22,9 @@ class ProjectController extends NsgDataController<ProjectItem> {
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
-    filter.sorting = "${ProjectItemGenerated.namePriority}-";
-     filter.sorting = "${ProjectItemGenerated.nameIsPinned}-";
+    
+    filter.sorting = "${ProjectItemGenerated.nameIsPinned}- , ${ProjectItemGenerated.namePriority}- ";
+     
     return filter;
   }
 
