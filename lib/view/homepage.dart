@@ -20,6 +20,7 @@ import 'package:task_manager_app/forms/tasks/taskCopyMoveController.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
@@ -79,6 +80,7 @@ class _HomepageState extends State<Homepage> {
     var scrollController = ScrollController();
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return projectController.obx(
       (state) => BodyWrap(
         child: Scaffold(
@@ -279,7 +281,8 @@ class _HomepageState extends State<Homepage> {
                             style: TaskButtonStyle.light,
                             icon: Icons.filter_alt_outlined,
                             onTap: () {
-                              scaffoldKey.currentState!.openDrawer();
+                              // scaffoldKey.currentState!.openDrawer();
+                              showdialogBuilder(context, height, width);
                             },
                           ),
                         ],
@@ -339,6 +342,59 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> showdialogBuilder(BuildContext context, height, width) {
+    return showModalBottomSheet<void>(
+      context: context,
+      constraints: BoxConstraints(maxHeight: height - 30),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+          insetPadding: const EdgeInsets.all(0),
+          child: Column(children: [
+            const Padding(padding: EdgeInsets.only(top: 5)),
+            TTAppBar(
+              title: 'Фильтр',
+              rightIcons: [
+                TTAppBarIcon(
+                  icon: Icons.close,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+              leftIcons: [
+                TTAppBarIcon(
+                  icon: Icons.arrow_back_ios_new,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+            SizedBox(
+              height: height - 100,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: filters(width: width),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ]),
+        );
+      },
     );
   }
 

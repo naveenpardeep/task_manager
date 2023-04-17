@@ -135,7 +135,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             label: 'Название компании',
             infoString: 'Укажите название компании',
           ),
-          //TODO:
+         
           TTNsgInput(
             controller: controller,
             selectionController: Get.find<UserAccountController>(),
