@@ -108,7 +108,7 @@ class OrganizationProject extends GetView<ProjectController> {
                                   onTapDown: (TapDownDetails details) {
                                     showPopUpMenu(details.globalPosition, project, context);
                                   },
-                                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                                  child: const Icon(Icons.more_vert),
                                 ),
                               ],
                             ),
