@@ -36,6 +36,9 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
   @override
   void initState() {
     super.initState();
+    if(controller.lateInit){
+      controller.requestItems();
+    }
 
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_indexSet);
@@ -173,10 +176,10 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                                                     ),
                                             ),
                                           ),
-                                          Padding(
+                                      Expanded(child:    Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Expanded(
-                                              child: Text(
+                                            child: 
+                                               Text(
                                                 ' ${controller.currentItem.name}',
                                                 style: const TextStyle(
                                                   fontFamily: 'Inter',
