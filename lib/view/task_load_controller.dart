@@ -16,6 +16,7 @@ class TaskLoadController extends NsgBaseController {
     getTasks(0, 0);
   }
 
+  ///Текущий статус задач
   TaskStatus get currentTaskStatus => currentTasksStatus;
 
   Future<List<TaskDoc>> _getTasksFromStatus(TaskStatus status, int top, int count) async {
@@ -25,6 +26,7 @@ class TaskLoadController extends NsgBaseController {
     return await tasks.requestItems(filter: filter);
   }
 
+  ///Получение задач по статусу из БД. Если taskStatus == null, то загрузка будет происходить по currentTaskStatus
   getTasks(int top, int count, {TaskStatus? taskStatus}) async {
     taskStatus ??= currentTasksStatus;
     currentStatus = GetStatus<NsgBaseControllerData>.loading();
