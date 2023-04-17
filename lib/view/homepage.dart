@@ -10,6 +10,7 @@ import 'package:nsg_controls/nsg_icon_button.dart';
 import 'package:nsg_controls/nsg_simple_progress_bar.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:resizable_widget/resizable_widget.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -315,13 +316,15 @@ class _HomepageState extends State<Homepage> {
                               ))),
                     if (taskView == false) Container(child: getStatusList()),
                     if (taskView == true)
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SizedBox(
-                          width: 388,
-                          child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                      ResizableWidget(isHorizontalSeparator: false, isDisabledSmartHide: false, separatorColor: Colors.blue, separatorSize: 10, children: [
+                        const SizedBox(),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: SizedBox(
+                            child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                          ),
                         ),
-                      ),
+                      ]),
                     if (taskView)
                       Align(
                         alignment: Alignment.topRight,
@@ -1035,7 +1038,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       changeTaskStatus(tasks);
     },
     onDoubleTap: () {
-       if (tasks.isReadByAssignee == false &&
+      if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;
         Get.find<TasksController>().postItems([tasks]);
@@ -1044,8 +1047,8 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       Get.find<TaskCheckListController>().requestItems();
       Get.find<TasksController>().currentItem = tasks;
 
-      Get.find<TasksController>().itemPageOpen( Get.find<TasksController>().currentItem, Routes.newTaskPage, needRefreshSelectedItem: true);
-    //  Get.find<TasksController>().sendNotify();
+      Get.find<TasksController>().itemPageOpen(Get.find<TasksController>().currentItem, Routes.newTaskPage, needRefreshSelectedItem: true);
+      //  Get.find<TasksController>().sendNotify();
     },
     child: Stack(
       children: [
