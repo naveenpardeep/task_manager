@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -29,22 +30,22 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                NsgAppBar(
-                  color: Colors.black,
-                  backColor: Colors.white,
-                  text: controller.currentItem.userAccount.name,
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  icon2: Icons.check,
-                  onPressed2: () async {
-                    await controller.itemPagePost();
-                    await Get.find<ProjectController>().itemPagePost();
-                  },
-                ),
+                // NsgAppBar(
+                //   color: Colors.black,
+                //   backColor: Colors.white,
+                //   text: controller.currentItem.userAccount.name,
+                //   icon: Icons.arrow_back_ios_new,
+                //   colorsInverted: true,
+                //   bottomCircular: true,
+                //   onPressed: () {
+                //     controller.itemPageCancel();
+                //   },
+                //   icon2: Icons.check,
+                //   onPressed2: () async {
+                //     await controller.itemPagePost();
+                //     await Get.find<ProjectController>().itemPagePost();
+                //   },
+                // ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -56,22 +57,22 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: ClipOval(
-                                    child: controller.currentItem.userAccount.photoFile.isEmpty
+                                    child: controller.currentItem.userAccount.photoName.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                            width: 100,
-                                            height: 100,
+                                            width: 120,
+                                            height: 120,
                                             child: Icon(
                                               Icons.account_circle,
-                                              size: 20,
+                                              size: 50,
                                               color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                             ),
                                           )
-                                        : Image.memory(
-                                            Uint8List.fromList(controller.currentItem.userAccount.photoFile),
-                                            fit: BoxFit.cover,
-                                            width: 100,
-                                            height: 100,
+                                        : Image.network(
+                                            TaskFilesController.getFilePath(controller.currentItem.userAccount.photoName),
+                                            fit: BoxFit.fill,
+                                            width: 120,
+                                            height: 120,
                                           ),
                                   ),
                                 ),
@@ -192,31 +193,27 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                               color: Colors.red,
                               backColor: Colors.transparent,
                               text: 'Исключить из проекта',
-                              onPressed: () async 
-                              {
-                                try{
-                              var dataController = Get.find<DataController>();
-                                var projController = Get.find<ProjectController>();
-                                res = (await dataController.removeUser(projController.currentItem.id, controller.currentItem.userAccountId, '',
-                                        showProgress: true))
-                                    .first;
-                                
-                                
-                                if (res) {
-                                  Get.find<ProjectController>().currentItem.tableUsers.removeRow(Get.find<ProjectItemUserTableController>().currentItem);
+                              onPressed: () async {
+                                try {
+                                  var dataController = Get.find<DataController>();
+                                  var projController = Get.find<ProjectController>();
+                                  res = (await dataController.removeUser(projController.currentItem.id, controller.currentItem.userAccountId, '',
+                                          showProgress: true))
+                                      .first;
 
-                                  Get.back();
-                                  projController.refreshData();
-                                }
-                                if (res == false) {
-                                  //for selecting new user
-                                  controller.refreshData();
-                                  Get.toNamed(Routes.newUserForDeletedUserPage);
-                                  
-                                }
-                                }
-                               on NsgApiException {
-                              throw Get.snackbar( '','Project Leader can not be Deleted');
+                                  if (res) {
+                                    Get.find<ProjectController>().currentItem.tableUsers.removeRow(Get.find<ProjectItemUserTableController>().currentItem);
+
+                                    Get.back();
+                                    projController.refreshData();
+                                  }
+                                  if (res == false) {
+                                    //for selecting new user
+                                    controller.refreshData();
+                                    Get.toNamed(Routes.newUserForDeletedUserPage);
+                                  }
+                                } on NsgApiException {
+                                  throw Get.snackbar('', 'Project Leader can not be Deleted');
                                 }
 
                                 //  showAlertDialog(context, controller.currentItem);

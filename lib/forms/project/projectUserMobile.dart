@@ -8,8 +8,11 @@ import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/project/project_userViewpage.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
+import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
+import 'package:task_manager_app/model/project_item_user_table.dart';
 
 class ProjectUserMobile extends StatefulWidget {
   const ProjectUserMobile({Key? key}) : super(key: key);
@@ -46,7 +49,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-          //  key: GlobalKey(),
+            //  key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -230,6 +233,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
 
   Widget projectUsersList(BuildContext context) {
     List<Widget> list = [];
+    double height = MediaQuery.of(context).size.height;
     //var projectUsertable = Get.find<ProjectItemUserTableController>().items;
 
     for (var projectuser in controller.currentItem.tableUsers.rows) {
@@ -241,7 +245,8 @@ class _ProjectpageState extends State<ProjectUserMobile> {
           child: InkWell(
             onTap: () {
               Get.find<ProjectItemUserTableController>().currentItem = projectuser;
-              Get.toNamed(Routes.projectUserViewPage);
+              //   Get.toNamed(Routes.projectUserViewPage);
+              showdialogBuilder(context, height, projectuser);
             },
             onLongPress: () {},
             child: Column(
@@ -291,7 +296,6 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                 textStyle: TextStyle(fontSize: ControlOptions.instance.sizeM, color: const Color(0xff529FBF)),
                                 textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                               )),
-                          
                         ],
                       ),
                     ),
@@ -320,7 +324,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                     //       Icons.remove_circle_outline,
                     //       color: Colors.red,
                     //     )),
-                   // const Icon(Icons.arrow_forward_ios),
+                    // const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ],
@@ -331,6 +335,48 @@ class _ProjectpageState extends State<ProjectUserMobile> {
     }
 
     return SingleChildScrollView(child: Column(children: list));
+  }
+
+  Future<void> showdialogBuilder(BuildContext context, height, ProjectItemUserTable projectuser) {
+    return showModalBottomSheet<void>(
+      context: context,
+      constraints: BoxConstraints(maxHeight: height - 30),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+          insetPadding: const EdgeInsets.all(0),
+          child: Column(children: [
+            const Padding(padding: EdgeInsets.only(top: 5)),
+            TTAppBar(
+              title: projectuser.userAccount.toString(),
+              rightIcons: [
+                TTAppBarIcon(
+                  icon: Icons.check,
+                  onTap: ()async {
+                     await Get.find<ProjectItemUserTableController>().itemPagePost(goBack: false);
+                    await Get.find<ProjectController>().itemPagePost(goBack: false);
+                    if(context.mounted){
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ],
+              leftIcons: [
+                TTAppBarIcon(
+                  icon: Icons.arrow_back_ios_new,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+            SizedBox(height: height - 100, child: const ProjectUserViewPage()),
+          ]),
+        );
+      },
+    );
   }
 
   showAlertDialog(BuildContext context, user) {
