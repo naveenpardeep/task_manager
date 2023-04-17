@@ -105,7 +105,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                     padding: const EdgeInsets.all(4.0),
                     child: Draggable(
                       data: boardstatus,
-                      childWhenDragging: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                      childWhenDragging: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
                       feedback: SizedBox(
                         height: 60,
                         width: width,
@@ -117,7 +117,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
-                                  child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                                  child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
                                 ),
                                 Expanded(
                                   child: Text(
@@ -140,7 +140,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
                           ),
                         ),
                       ),
-                      child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.reorder_sharp))),
+                      child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
                     ),
                   ),
                   Expanded(

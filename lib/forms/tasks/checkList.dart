@@ -111,7 +111,18 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      SizedBox(
+                    const Icon(Icons.drag_indicator),
+
+                      Expanded(
+                        child: Text(
+                          checkList.text,
+                          style: TextStyle(
+                            color: checkList.isDone==true? const Color(0xff529FBF): ControlOptions.instance.colorMainDark,
+                            fontSize: ControlOptions.instance.sizeL,
+                          ),
+                        ),
+                      ),
+                       SizedBox(
                           width: 30,
                           child: NsgCheckBox(
                               toggleInside: true,
@@ -127,23 +138,14 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                                 Get.find<TasksController>().sendNotify();
                               })),
 
-                      Expanded(
-                        child: Text(
-                          checkList.text,
-                          style: TextStyle(
-                            color: checkList.isDone==true? const Color(0xff529FBF): ControlOptions.instance.colorMainDark,
-                            fontSize: ControlOptions.instance.sizeL,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(context, checkList);
-                          },
-                          icon: const Icon(
-                            Icons.remove_circle_outline,
-                            color: Colors.black,
-                          )),
+                      // IconButton(
+                      //     onPressed: () {
+                      //       showAlertDialog(context, checkList);
+                      //     },
+                      //     icon: const Icon(
+                      //       Icons.remove_circle_outline,
+                      //       color: Colors.black,
+                      //     )),
                      //  const Icon(Icons.arrow_forward_ios),
                     ],
                   ),
