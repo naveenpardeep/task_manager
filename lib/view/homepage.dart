@@ -743,7 +743,6 @@ class _HomepageState extends State<Homepage> {
     List<NsgTabsTab> tabsList = [];
     List<String> statuses = [];
 
-    // var statusList = taskStatusTableController.items.reversed;
     var statusList = taskStatusTableController.items;
     for (var status in statusList) {
       var scrollController = ScrollController();
@@ -759,16 +758,9 @@ class _HomepageState extends State<Homepage> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          // changeStatus(status);
-                          // Get.toNamed(Routes.taskrow);
-                          // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
-                        },
-                        child: Text(
-                          status.status.toString(),
-                          style: TextStyle(color: status.status.isDone ? Colors.green : Colors.black, fontSize: ControlOptions.instance.sizeL),
-                        ),
+                      Text(
+                        status.status.toString(),
+                        style: TextStyle(color: status.status.isDone ? Colors.green : Colors.black, fontSize: ControlOptions.instance.sizeL),
                       ),
                       Padding(padding: const EdgeInsets.only(left: 5), child: searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
                     ],
@@ -1041,6 +1033,19 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   return GestureDetector(
     onLongPress: () {
       changeTaskStatus(tasks);
+    },
+    onDoubleTap: () {
+       if (tasks.isReadByAssignee == false &&
+          (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+        tasks.isReadByAssignee = true;
+        Get.find<TasksController>().postItems([tasks]);
+      }
+
+      Get.find<TaskCheckListController>().requestItems();
+      Get.find<TasksController>().currentItem = tasks;
+
+      Get.find<TasksController>().itemPageOpen( Get.find<TasksController>().currentItem, Routes.newTaskPage, needRefreshSelectedItem: true);
+    //  Get.find<TasksController>().sendNotify();
     },
     child: Stack(
       children: [
