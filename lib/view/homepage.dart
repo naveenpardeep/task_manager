@@ -224,8 +224,6 @@ class _HomepageState extends State<Homepage> {
                               });
                               Get.find<TasksController>().selectedItem == null;
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.createTaskPage);
-                              
-                              
                             },
                           ),
                         ),
@@ -316,26 +314,30 @@ class _HomepageState extends State<Homepage> {
                               ))),
                     if (taskView == false) Container(child: getStatusList()),
                     if (taskView == true)
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: ResizableWidget(
-                                percentages: width > 750 ? [0.65, 0.35] : [0, 1],
-                                isHorizontalSeparator: false,
-                                isDisabledSmartHide: true,
-                                separatorColor: Colors.grey,
-                                separatorSize: width > 750 ? 7 : 0,
-                                children: [
-                                  const SizedBox(),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),
+                      ResizableWidget(
+                          percentages: width > 750 ? [0.65, 0.35, 0] : [0, 1, 0],
+                          isHorizontalSeparator: false,
+                          isDisabledSmartHide: false,
+                          separatorColor: Colors.grey,
+                          separatorSize: width > 750 ? 7 : 0,
+                          children: [
+                            const SizedBox(),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                            ),
+                            if (taskView)
+                              Align(
+                                alignment: AlignmentDirectional.topStart,
+                                child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        taskView = false;
+                                      });
+                                    },
+                                    icon: const Icon(Icons.close)),
+                              ),
+                          ]),
                     if (taskView)
                       Align(
                         alignment: Alignment.topRight,
