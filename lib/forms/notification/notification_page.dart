@@ -165,7 +165,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                             height: 32,
                                             child: Icon(
                                               Icons.add_a_photo,
-                                              size: 32,
+                                              size: 20,
                                               color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                             ),
                                           ),
