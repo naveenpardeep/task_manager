@@ -316,15 +316,33 @@ class _HomepageState extends State<Homepage> {
                               ))),
                     if (taskView == false) Container(child: getStatusList()),
                     if (taskView == true)
-                      ResizableWidget(isHorizontalSeparator: false, isDisabledSmartHide: false, separatorColor: Colors.blue, separatorSize: 10, children: [
-                        const SizedBox(),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: SizedBox(
-                            child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          
+                          Expanded(
+                            child: ResizableWidget(
+                             percentages: width>750? [0.65,0.35,0]: [0,1,0],
+                              isHorizontalSeparator: false, isDisabledSmartHide: false, separatorColor: Colors.blue, separatorSize: 10, children: [
+                                               
+                          
+                              const SizedBox(),
+                              Align(
+                                
+                                alignment: Alignment.centerRight,
+                                child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
+                              ),
+                               ResizableWidget(
+                                      isHorizontalSeparator: true,
+                                      isDisabledSmartHide: true,
+                                      separatorColor: Colors.blue,
+                                      separatorSize: 10,
+                                      children: [ SizedBox() ]),
+                                      
+                            ]),
                           ),
-                        ),
-                      ]),
+                        ],
+                      ),
                     if (taskView)
                       Align(
                         alignment: Alignment.topRight,
