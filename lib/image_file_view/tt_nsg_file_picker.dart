@@ -803,7 +803,7 @@ class NsgImagePickerButton extends StatelessWidget {
     return (!GetPlatform.isAndroid || !GetPlatform.isIOS)
         ? InkWell(
             hoverColor: ControlOptions.instance.colorMain,
-            onTap: onPressed2,
+            onTap: onPressed,
             child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
