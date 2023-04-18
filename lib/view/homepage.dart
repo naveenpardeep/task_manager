@@ -322,7 +322,7 @@ class _HomepageState extends State<Homepage> {
                           
                           Expanded(
                             child: ResizableWidget(
-                             percentages: width>750? [0.65,0.35,0]: [0,1,0],
+                             percentages: width>750? [0.65,0.35]: [0,1],
                               isHorizontalSeparator: false, isDisabledSmartHide: false, separatorColor: Colors.blue, separatorSize: 10, children: [
                                                
                           
@@ -332,12 +332,12 @@ class _HomepageState extends State<Homepage> {
                                 alignment: Alignment.centerRight,
                                 child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
                               ),
-                               ResizableWidget(
-                                      isHorizontalSeparator: true,
-                                      isDisabledSmartHide: true,
-                                      separatorColor: Colors.blue,
-                                      separatorSize: 10,
-                                      children: [ SizedBox() ]),
+                              //  ResizableWidget(
+                              //         isHorizontalSeparator: true,
+                              //         isDisabledSmartHide: true,
+                              //         separatorColor: Colors.blue,
+                              //         separatorSize: 10,
+                              //         children: [ SizedBox() ]),
                                       
                             ]),
                           ),
