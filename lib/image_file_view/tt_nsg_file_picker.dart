@@ -800,7 +800,7 @@ class NsgImagePickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (!GetPlatform.isAndroid || !GetPlatform.isIOS)
+    return (!GetPlatform.isAndroid && !GetPlatform.isIOS)
         ? InkWell(
             hoverColor: ControlOptions.instance.colorMain,
             onTap: onPressed,
