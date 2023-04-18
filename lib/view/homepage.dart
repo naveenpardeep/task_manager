@@ -219,13 +219,13 @@ class _HomepageState extends State<Homepage> {
                             color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
                             backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
                             onPressed: () {
+                              setState(() {
+                                taskView = false;
+                              });
                               Get.find<TasksController>().selectedItem == null;
-                              //  Get.find<TasksController>().createNewItemAsync();
                               Get.find<TasksController>().newItemPageOpen(pageName: Routes.createTaskPage);
-
-                              // Get.find<TasksController>()
-                              //     .newItemPageOpen(pageName: Routes.tasksPage);
-                              //  Get.toNamed(Routes.newTaskPage);
+                              
+                              
                             },
                           ),
                         ),
@@ -325,7 +325,7 @@ class _HomepageState extends State<Homepage> {
                                 isHorizontalSeparator: false,
                                 isDisabledSmartHide: true,
                                 separatorColor: Colors.grey,
-                                separatorSize: width > 750 ? 7 :0,
+                                separatorSize: width > 750 ? 7 : 0,
                                 children: [
                                   const SizedBox(),
                                   Align(
