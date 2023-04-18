@@ -31,7 +31,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   var controller = Get.find<TasksController>();
   var taskfileC = Get.find<TaskFilesController>();
 
-   var commnetController = Get.find<TaskCommentsController>();
+  var commnetController = Get.find<TaskCommentsController>();
   late double height;
   late double width;
   ScrollController scrollController = ScrollController();
@@ -40,11 +40,11 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    if(taskfileC.lateInit){
+    if (taskfileC.lateInit) {
       taskfileC.requestItems();
-        if(commnetController.lateInit){
-      commnetController.requestItems();
-    }
+      if (commnetController.lateInit) {
+        commnetController.requestItems();
+      }
     }
 
     _tabController = TabController(length: 3, vsync: this);
@@ -298,52 +298,56 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Row(
-                                            children: [
-                                              // ignore: prefer_const_constructors
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 82),
-                                                child: Text(
-                                                  'Дедлайн :',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
-                                                ),
-                                              ),
-                                              Expanded(
+                                        if (controller.currentItem.dateDeadline .toString()!= '1754-01-01 00:00:00.000' &&
+                                          controller.currentItem.dateDeadline.toString() != '0001-01-01 00:00:00.000')
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Row(
+                                              children: [
+                                                // ignore: prefer_const_constructors
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right: 82),
                                                   child: Text(
-                                                formateddate.format(controller.currentItem.dateDeadline),
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
+                                                    'Дедлайн :',
+                                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
+                                                  ),
                                                 ),
-                                              ))
-                                            ],
+                                                Expanded(
+                                                    child: Text(
+                                                  formateddate.format(controller.currentItem.dateDeadline),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ))
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Row(
-                                            children: [
-                                              // ignore: prefer_const_constructors
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 5),
-                                                child: Text(
-                                                  'Напомнить о задаче:',
-                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
-                                                ),
-                                              ),
-                                              Expanded(
+                                        if (formateddate.format(controller.currentItem.dateRemind) != '01.01.1754 /00:00' &&
+                                         formateddate.format(controller.currentItem.dateRemind) != '01.01.0001 /00:00')
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Row(
+                                              children: [
+                                                // ignore: prefer_const_constructors
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right: 5),
                                                   child: Text(
-                                                formateddate.format(controller.currentItem.dateRemind),
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
+                                                    'Напомнить о задаче:',
+                                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: ControlOptions.instance.colorMainLight),
+                                                  ),
                                                 ),
-                                              ))
-                                            ],
+                                                Expanded(
+                                                    child: Text(
+                                                  formateddate.format(controller.currentItem.dateRemind),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                  ),
+                                                ))
+                                              ],
+                                            ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                     const Divider(
@@ -367,10 +371,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                           fieldName: TaskDocGenerated.nameDescription,
                                           fileController: Get.find<TaskFilesController>()),
                                     ),
-                                    if (controller.currentItem.name.isNotEmpty)
-                                     SizedBox(
-                                      key: GlobalKey(),
-                                      height: 500, width: 375, child: imageGallery()),
+                                    if (controller.currentItem.name.isNotEmpty) SizedBox(key: GlobalKey(), height: 500, width: 375, child: imageGallery()),
                                   ],
                                 )),
                           )),
