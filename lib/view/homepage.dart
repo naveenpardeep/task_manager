@@ -324,8 +324,8 @@ class _HomepageState extends State<Homepage> {
                                 percentages: width > 750 ? [0.65, 0.35] : [0, 1],
                                 isHorizontalSeparator: false,
                                 isDisabledSmartHide: true,
-                                separatorColor: Colors.blue,
-                                separatorSize: 10,
+                                separatorColor: Colors.grey,
+                                separatorSize: width > 750 ? 7 :0,
                                 children: [
                                   const SizedBox(),
                                   Align(
