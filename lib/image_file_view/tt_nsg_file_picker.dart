@@ -770,8 +770,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       return const SizedBox();
     } else {
       return widget.showAsWidget == true
-          ?
-           body()
+          ? body()
           : BodyWrap(
               child: Scaffold(
                 key: scaffoldKey,
@@ -801,49 +800,77 @@ class NsgImagePickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return (!GetPlatform.isAndroid || !GetPlatform.isIOS)
+        ? InkWell(
+            hoverColor: ControlOptions.instance.colorMain,
+            onTap: onPressed2,
+            child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xffEDEFF3),
+        ),
+        width: 160,
+        height: 159,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.attach_file, color: Color(0xff529FBF)),
+            Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Загрузить файл',
+                  style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
+                ))
+          ],
+        ),
+      ),
+          )
+        :
+    InkWell(
       hoverColor: ControlOptions.instance.colorMain,
       onTap: () {
-        Scaffold.of(context).showBottomSheet(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(50),
+        
+          Scaffold.of(context).showBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(50),
+              ),
             ),
-          ),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          (BuildContext context) {
-            return Card(
-              elevation: 3,
-              child: Container(
-                height: 150,
-                decoration: const BoxDecoration(
-                    color:  Color(0xffEDEFF3), borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.photo),
-                        onPressed: onPressed,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.folder),
-                        onPressed: onPressed2,
-                      ),
-                      if (GetPlatform.isAndroid || GetPlatform.isIOS)
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            (BuildContext context) {
+              return Card(
+                elevation: 3,
+                child: Container(
+                  height: 150,
+                  decoration: const BoxDecoration(
+                      color: Color(0xffEDEFF3), borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.add_a_photo),
-                          onPressed: onPressed3,
+                          icon: const Icon(Icons.photo),
+                          onPressed: onPressed,
                         ),
-                    ],
+                        IconButton(
+                          icon: const Icon(Icons.folder),
+                          onPressed: onPressed2,
+                        ),
+                        if (GetPlatform.isAndroid || GetPlatform.isIOS)
+                          IconButton(
+                            icon: const Icon(Icons.add_a_photo),
+                            onPressed: onPressed3,
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        );
+              );
+            },
+          );
+       
       },
       child: Container(
         decoration: BoxDecoration(
@@ -854,12 +881,14 @@ class NsgImagePickerButton extends StatelessWidget {
         height: 159,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          
           children: const [
-            Icon(Icons.attach_file,  color:  Color(0xff529FBF)),
+            Icon(Icons.attach_file, color: Color(0xff529FBF)),
             Align(
-              alignment: Alignment.center,
-              child: Text('Загрузить файл' ,style: TextStyle(color: Color(0xff529FBF),fontSize: 12),))
+                alignment: Alignment.center,
+                child: Text(
+                  'Загрузить файл',
+                  style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
+                ))
           ],
         ),
       ),
