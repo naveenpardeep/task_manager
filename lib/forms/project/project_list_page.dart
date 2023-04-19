@@ -163,8 +163,9 @@ class ProjectItemView extends StatelessWidget {
         hoverColor: Colors.transparent,
         onTap: () async {
           await Get.find<TaskBoardController>().refreshData();
-          await Get.find<TasksController>().refreshData();
+          //await Get.find<TasksController>().refreshData();
           controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: false);
+          Get.find<TasksController>().getTasksControllers();
         },
         onLongPress: () {
           pinDialog(context, project);
@@ -197,7 +198,7 @@ class ProjectItemView extends StatelessWidget {
                       onTapDown: (TapDownDetails details) {
                         showPopUpMenu(details.globalPosition, project, context);
                       },
-                      child: const  Icon(Icons.more_vert),
+                      child: const Icon(Icons.more_vert),
                     ),
                   ],
                 ),

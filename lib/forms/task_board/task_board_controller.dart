@@ -14,7 +14,7 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
 
   @override
   void sendNotify({List<NsgUpdateKey>? keys}) {
-    Get.find<TasksController>().getTasksControllers();
+    Get.find<TasksController>().refreshAllTasksControllers();
     super.sendNotify(keys: keys);
   }
 
@@ -25,7 +25,6 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
     }
     Get.find<TasksController>().refreshData();
     Get.find<ProjectController>().sendNotify();
-    Get.find<TasksController>().getTasksControllers();
     return await super.afterRequestItems(newItemsList);
   }
 

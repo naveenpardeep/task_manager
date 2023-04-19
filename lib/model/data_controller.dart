@@ -3,6 +3,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../app_pages.dart';
 import '../forms/invitation/invitation_controller.dart';
@@ -42,11 +43,13 @@ class DataController extends DataControllerGenerated {
   Future loadProviderData() async {
     await super.loadProviderData();
 
-    //  await Get.find<OrganizationController>().refreshData();
+    //await Get.find<OrganizationController>().refreshData();
     await Get.find<UserAccountController>().refreshData();
     await Get.find<OrganizationController>().refreshData();
     isLoadFinished = true;
     gotoDone = false;
+    NsgUserSettings.controller = NsgUserSettingsController<UserSettings>();
+    await NsgUserSettings.controller!.requestItems();
     _gotoMainPage();
   }
 

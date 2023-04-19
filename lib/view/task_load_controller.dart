@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 
 import '../forms/project/project_controller.dart';
 import '../forms/task_board/task_board_controller.dart';
@@ -41,6 +42,8 @@ class TaskLoadController extends NsgBaseController {
     taskBoardController.currentItem.statusTable.rows.where((element) => !element.status.isDone).toList().forEach((element) {
       notfinalStatusId.add(element.statusId);
     });
+
+    //Фильтр по времени исполнения задачи
     if (taskBoardController.currentItem.periodOfFinishedTasks == EPeriod.day) {
       notfinalTask.add(name: TaskDocGenerated.nameTaskStatusId, value: notfinalStatusId, comparisonOperator: NsgComparisonOperator.inList);
       finalTasks.add(
@@ -109,30 +112,30 @@ class TaskLoadController extends NsgBaseController {
     var serviceC = Get.find<ServiceObjectController>();
 
     // Если указан ID пользователя, то фильтруем заявки по пользователю
-
     if (serviceC.currentItem.userAccountId.isNotEmpty) {
       filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccountId);
     }
+
+    // Сортировка
     if (projectController.currentItem.id != "") {
       if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) {
-        filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
         filter.sorting = "${TaskDocGenerated.nameDate}+";
       }
       if (taskBoardController.currentItem.sortBy == ESorting.dateDesc) {
-        filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
         filter.sorting = "${TaskDocGenerated.nameDate}-";
       }
       if (taskBoardController.currentItem.sortBy == ESorting.priorityAsc) {
-        filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
         filter.sorting = "${TaskDocGenerated.namePriority}+";
       }
       if (taskBoardController.currentItem.sortBy == ESorting.priorityDesc) {
-        filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
         filter.sorting = "${TaskDocGenerated.namePriority}-";
       }
       filter.compare.add(name: TaskDocGenerated.nameProjectId, value: projectController.currentItem.id);
     }
     filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
+
+    //await NsgUserSettings.controller!.setSettingItem('taskF', filter.toString());
+    //var test = NsgUserSettings.controller!.getSettingItem('taskF');
     return await tasks.requestItems(filter: filter);
   }
 

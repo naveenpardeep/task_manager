@@ -201,7 +201,9 @@ class _HomepageState extends State<Homepage> {
                             onPressed: () {
                               serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
 
-                              Get.find<TasksController>().refreshData();
+                              for (var taskLoadC in Get.find<TasksController>().tasksControllersList) {
+                                taskLoadC.getTasks(0, 0);
+                              }
                             },
                             text: 'My Tasks'),
                       //  if (width > 700)
@@ -492,7 +494,9 @@ class _HomepageState extends State<Homepage> {
                 onPressed: () {
                   serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
 
-                  Get.find<TasksController>().refreshData();
+                  for (var taskLoadC in Get.find<TasksController>().tasksControllersList) {
+                    taskLoadC.getTasks(0, 0);
+                  }
                 },
                 text: 'My Tasks')),
       wrapFlexible(
@@ -690,51 +694,48 @@ class _HomepageState extends State<Homepage> {
     late TaskLoadController taskLoadC;
 
     //assert();
-    var taskLoadCFind = taskController.taskLoadControllersList.where((element) => element.currentTaskStatus == status).toList();
+    var taskLoadCFind = taskController.tasksControllersList.where((element) => element.currentTaskStatus == status).toList();
     if (taskLoadCFind.isNotEmpty) {
       taskLoadC = taskLoadCFind[0];
 
       return taskLoadC.obx((state) {
+        list = [];
         for (var tasks in taskLoadC.currentStatusTasks) {
           if (tasks.taskStatus != status) continue;
 
-          if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-              tasks.description.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
-              tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
-            list.add(GestureDetector(
-              onTap: () {
-                if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
-                  setState(() {
-                    Get.find<TaskFilesController>().requestItems();
-                    Get.find<TaskCheckListController>().requestItems();
-                    taskController
-                        .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
+          list.add(GestureDetector(
+            onTap: () {
+              if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
+                setState(() {
+                  Get.find<TaskFilesController>().requestItems();
+                  Get.find<TaskCheckListController>().requestItems();
+                  taskController
+                      .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
 
-                    taskView = true;
-                  });
-                } else {
-                  taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
-                }
-                if (tasks.isReadByAssignee == false &&
-                    (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                  tasks.isReadByAssignee = true;
-                  Get.find<TasksController>().postItems([tasks]);
-                }
-              },
-              child: Row(
-                children: [
-                  Expanded(
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return DraggableRotatingCard(
-                        tasks: tasks,
-                        constraints: constraints,
-                      );
-                    }),
-                  ),
-                ],
-              ),
-            ));
-          }
+                  taskView = true;
+                });
+              } else {
+                taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+              }
+              if (tasks.isReadByAssignee == false &&
+                  (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                tasks.isReadByAssignee = true;
+                Get.find<TasksController>().postItems([tasks]);
+              }
+            },
+            child: Row(
+              children: [
+                Expanded(
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return DraggableRotatingCard(
+                      tasks: tasks,
+                      constraints: constraints,
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ));
         }
 
         return SingleChildScrollView(
@@ -867,7 +868,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget getTasklength(TaskStatus status) {
     late TaskLoadController taskLoadC;
-    var taskLoadCFind = taskController.taskLoadControllersList.where((element) => element.currentTaskStatus == status).toList();
+    var taskLoadCFind = taskController.tasksControllersList.where((element) => element.currentTaskStatus == status).toList();
     if (taskLoadCFind.isNotEmpty) {
       taskLoadC = taskLoadCFind[0];
 
