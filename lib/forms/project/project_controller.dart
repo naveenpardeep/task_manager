@@ -29,11 +29,6 @@ class ProjectController extends NsgDataController<ProjectItem> {
   }
 
   @override
-  Future itemRemove({bool goBack = true}) {
-    return super.itemRemove();
-  }
-
-  @override
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as ProjectItem;
 
