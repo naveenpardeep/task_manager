@@ -922,7 +922,7 @@ class _HomepageState extends State<Homepage> {
           progress.show();
           await taskController.postItems([taskController.currentItem]);
           progress.hide();
-          taskController.sendNotify();
+          taskController.refreshData();
         }
 
         //  taskController.itemPagePost(goBack: false);
