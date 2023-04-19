@@ -197,11 +197,6 @@ class TaskCopyMoveController extends NsgDataController<TaskDoc> {
     // return NsgDataRequestParams(compare: filter.compare);
   }
 
-  @override
-  Future itemRemove({bool goBack = true}) {
-    return super.itemRemove();
-  }
-
   // @override
   // Future<List<NsgDataItem>> doRequestItems() async {
   //   controllerFilter.isOpen = true;
