@@ -18,10 +18,11 @@ class TaskLoadController extends NsgBaseController {
   TaskStatus currentTasksStatus;
 
   int total = 0;
+  int defaultLoadTaskCount = 100;
 
   set currentTaskStatus(TaskStatus tStat) {
     currentTasksStatus = tStat;
-    getTasks(0, 100);
+    getTasks(0);
   }
 
   ///Текущий статус задач
@@ -144,8 +145,9 @@ class TaskLoadController extends NsgBaseController {
   }
 
   ///Получение задач по статусу из БД. Если taskStatus == null, то загрузка будет происходить по currentTaskStatus
-  getTasks(int top, int count, {TaskStatus? taskStatus}) async {
+  getTasks(int top, {TaskStatus? taskStatus, int? count}) async {
     taskStatus ??= currentTasksStatus;
+    count ??= defaultLoadTaskCount;
     currentStatus = GetStatus<NsgBaseControllerData>.loading();
     sendNotify();
     currentStatusTasks = await _getTasksFromStatus(taskStatus, top, count);

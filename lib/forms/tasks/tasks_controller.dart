@@ -28,7 +28,7 @@ class TasksController extends NsgDataController<TaskDoc> {
   void refreshAllTasksControllers() {
     if (tasksControllersList.isNotEmpty) {
       for (var taskLoadC in tasksControllersList) {
-        taskLoadC.getTasks(0, 100);
+        taskLoadC.getTasks(0);
       }
     }
   }
@@ -48,7 +48,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     for (var status in taskStatusTableController.items) {
       var taskC = TaskLoadController(currentTasksStatus: status.status);
       tasksControllersList.add(taskC);
-      taskC.getTasks(0, 100);
+      taskC.getTasks(0);
     }
     sendNotify();
   }
