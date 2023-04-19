@@ -25,6 +25,7 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
     }
     Get.find<TasksController>().refreshData();
     Get.find<ProjectController>().sendNotify();
+    Get.find<TasksController>().getTasksControllers();
     return await super.afterRequestItems(newItemsList);
   }
 

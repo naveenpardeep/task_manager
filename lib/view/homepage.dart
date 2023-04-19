@@ -530,7 +530,7 @@ class _HomepageState extends State<Homepage> {
                 screenName = serviceC.currentItem.boardId;
                 taskController.refreshData();
                 taskStatusTableController.sendNotify();
-                taskBoardController.sendNotify();
+                taskBoardController.refreshData();
               });
             }),
       ),

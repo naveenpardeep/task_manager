@@ -41,9 +41,9 @@ class TasksController extends NsgDataController<TaskDoc> {
 
   void getTasksControllers() async {
     //var taskController = Get.find<TasksController>();
-    var taskBoardController = Get.find<TaskBoardController>();
+    //var taskBoardController = Get.find<TaskBoardController>();
     var taskStatusTableController = Get.find<TaskStatusTableController>();
-    await taskBoardController.refreshData();
+    //await taskBoardController.refreshData();
     tasksControllersList = [];
     for (var status in taskStatusTableController.items) {
       var taskC = TaskLoadController(currentTasksStatus: status.status);

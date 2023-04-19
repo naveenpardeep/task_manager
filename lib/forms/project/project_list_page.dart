@@ -165,7 +165,7 @@ class ProjectItemView extends StatelessWidget {
           await Get.find<TaskBoardController>().refreshData();
           //await Get.find<TasksController>().refreshData();
           controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: false);
-          Get.find<TasksController>().getTasksControllers();
+          //Get.find<TasksController>().getTasksControllers();
         },
         onLongPress: () {
           pinDialog(context, project);
