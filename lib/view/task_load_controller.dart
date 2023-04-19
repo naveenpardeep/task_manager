@@ -17,9 +17,11 @@ class TaskLoadController extends NsgBaseController {
   List<TaskDoc> currentStatusTasks = [];
   TaskStatus currentTasksStatus;
 
+  int total = 0;
+
   set currentTaskStatus(TaskStatus tStat) {
     currentTasksStatus = tStat;
-    getTasks(0, 0);
+    getTasks(0, 100);
   }
 
   ///Текущий статус задач
@@ -136,7 +138,9 @@ class TaskLoadController extends NsgBaseController {
 
     //await NsgUserSettings.controller!.setSettingItem('taskF', filter.toString());
     //var test = NsgUserSettings.controller!.getSettingItem('taskF');
-    return await tasks.requestItems(filter: filter);
+    List<TaskDoc> ans = await tasks.requestItems(filter: filter);
+    total = tasks.totalCount ?? 0;
+    return ans;
   }
 
   ///Получение задач по статусу из БД. Если taskStatus == null, то загрузка будет происходить по currentTaskStatus
@@ -145,6 +149,15 @@ class TaskLoadController extends NsgBaseController {
     currentStatus = GetStatus<NsgBaseControllerData>.loading();
     sendNotify();
     currentStatusTasks = await _getTasksFromStatus(taskStatus, top, count);
+    currentStatus = GetStatus<NsgBaseControllerData>.success(NsgBaseController.emptyData);
+    sendNotify();
+  }
+
+  void loadMoreTasks(int count, {TaskStatus? taskStatus}) async {
+    taskStatus ??= currentTasksStatus;
+    currentStatus = GetStatus<NsgBaseControllerData>.loading();
+    sendNotify();
+    currentStatusTasks.addAll(await _getTasksFromStatus(taskStatus, currentStatusTasks.length, count));
     currentStatus = GetStatus<NsgBaseControllerData>.success(NsgBaseController.emptyData);
     sendNotify();
   }

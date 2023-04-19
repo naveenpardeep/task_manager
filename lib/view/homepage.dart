@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_icon_button.dart';
 import 'package:nsg_controls/nsg_simple_progress_bar.dart';
+import 'package:nsg_controls/nsg_style_button.dart';
 import 'package:nsg_controls/widgets/nsg_circle.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:resizable_widget/resizable_widget.dart';
@@ -199,11 +200,11 @@ class _HomepageState extends State<Homepage> {
                             borderRadius: 20,
                             width: 100,
                             onPressed: () {
-                              serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
-
-                              for (var taskLoadC in Get.find<TasksController>().tasksControllersList) {
-                                taskLoadC.getTasks(0, 0);
-                              }
+                              var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
+                                  element.organizationId == projectController.currentItem.organizationId &&
+                                  element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
+                              serviceC.currentItem.userAccount = user ?? UserAccount();
+                              taskController.refreshData();
                             },
                             text: 'My Tasks'),
                       //  if (width > 700)
@@ -492,11 +493,11 @@ class _HomepageState extends State<Homepage> {
                 height: 10,
                 borderRadius: 20,
                 onPressed: () {
-                  serviceC.currentItem.userAccount = Get.find<DataController>().currentUser;
-
-                  for (var taskLoadC in Get.find<TasksController>().tasksControllersList) {
-                    taskLoadC.getTasks(0, 0);
-                  }
+                  var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
+                      element.organizationId == projectController.currentItem.organizationId &&
+                      element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
+                  serviceC.currentItem.userAccount = user ?? UserAccount();
+                  taskController.refreshData();
                 },
                 text: 'My Tasks')),
       wrapFlexible(
@@ -670,7 +671,7 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
           ),
-          child: getTaskListForTaskview(status.status),
+          child: SingleChildScrollView(child: getTaskListForTaskview(status.status)),
         ));
       }
     }
@@ -737,15 +738,21 @@ class _HomepageState extends State<Homepage> {
             ),
           ));
         }
+        if (list.length < taskLoadC.total) {
+          list.add(NsgTextButton(
+              text: 'Загрузить еще',
+              color: ControlOptions.instance.colorMain,
+              onTap: () {
+                taskLoadC.loadMoreTasks(3);
+              }));
+        }
 
-        return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Column(
-                children: list,
-              ),
-            ));
+        return Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Column(
+            children: list,
+          ),
+        );
       }, onLoading: const NsgSimpleProgressBar());
     } else {
       return const NsgSimpleProgressBar();
@@ -847,8 +854,10 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
             ),
-            child: Column(
-              children: [taskController.obx((state) => getTaskListForTaskview(status.status))],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [getTaskListForTaskview(status.status)],
+              ),
             )));
       }
     }
@@ -874,7 +883,7 @@ class _HomepageState extends State<Homepage> {
 
       return taskLoadC.obx((state) {
         return Text(
-          taskLoadC.currentStatusTasks.length.toString(),
+          taskLoadC.total.toString(),
           style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
         );
       },
