@@ -113,7 +113,7 @@ class TaskLoadController extends NsgBaseController {
 
     // Если указан ID пользователя, то фильтруем заявки по пользователю
     if (serviceC.currentItem.userAccountId.isNotEmpty) {
-      filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccountId);
+      filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameId}', value: serviceC.currentItem.userAccountId);
     }
 
     // Сортировка
