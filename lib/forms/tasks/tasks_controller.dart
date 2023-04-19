@@ -39,6 +39,12 @@ class TasksController extends NsgDataController<TaskDoc> {
     return super.refreshData(keys: keys);
   }
 
+  @override
+  void sendNotify({List<NsgUpdateKey>? keys}) {
+    refreshAllTasksControllers();
+    super.sendNotify(keys: keys);
+  }
+
   void getTasksControllers() async {
     //var taskController = Get.find<TasksController>();
     //var taskBoardController = Get.find<TaskBoardController>();

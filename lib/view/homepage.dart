@@ -1028,7 +1028,7 @@ changeTaskStatus(TaskDoc tasks) {
       tasks.taskStatus = item as TaskStatus;
       tasks.dateUpdated = DateTime.now();
       await Get.find<TasksController>().postItems([tasks]);
-      Get.find<TasksController>().sendNotify();
+      Get.find<TasksController>().refreshData();
       Get.find<TaskStatusTableController>().sendNotify();
 
       //Get.find<TaskStatusTableController>().sendNotify();
