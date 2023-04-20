@@ -58,7 +58,7 @@ class _HomepageState extends State<Homepage> {
   var taskcommentC = Get.find<TaskCommentsController>();
   var serviceC = Get.find<ServiceObjectController>();
   var textEditController = TextEditingController();
-  
+
   String screenName = '';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
@@ -71,7 +71,6 @@ class _HomepageState extends State<Homepage> {
     if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
     }
-   
   }
 
   @override
@@ -534,26 +533,26 @@ class _HomepageState extends State<Homepage> {
             }),
       ),
       wrapFlexible(
-        child: taskBoardController.obx((state) => TTNsgInput(
-              label: 'Сортировка',
-              dataItem: taskBoardController.currentItem,
-              fieldName: TaskBoardGenerated.nameSortBy,
-              onEditingComplete: (task, name) {
-                taskBoardController.sendNotify();
-                taskController.refreshData();
-              },
-            )),
+        child: TTNsgInput(
+          label: 'Сортировка',
+          dataItem: taskBoardController.currentItem,
+          fieldName: TaskBoardGenerated.nameSortBy,
+          onEditingComplete: (task, name) {
+            taskBoardController.sendNotify();
+            taskController.refreshData();
+          },
+        ),
       ),
       wrapFlexible(
-        child: taskBoardController.obx((state) => TTNsgInput(
-              label: 'Finished Tasks Period',
-              dataItem: taskBoardController.currentItem,
-              fieldName: TaskBoardGenerated.namePeriodOfFinishedTasks,
-              onEditingComplete: (task, name) {
-                taskBoardController.sendNotify();
-                taskController.refreshData();
-              },
-            )),
+        child: TTNsgInput(
+          label: 'Finished Tasks Period',
+          dataItem: taskBoardController.currentItem,
+          fieldName: TaskBoardGenerated.namePeriodOfFinishedTasks,
+          onEditingComplete: (task, name) {
+            taskBoardController.sendNotify();
+            taskController.refreshData();
+          },
+        ),
       ),
       SizedBox(
         height: 40,
@@ -1121,7 +1120,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   );
 }
 
-Future<void> showPopUpMenu(Offset globalPosition,tasks, context) async {
+Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
   double left = globalPosition.dx;
   double top = globalPosition.dy;
 
@@ -1197,9 +1196,9 @@ Future<void> showPopUpMenu(Offset globalPosition,tasks, context) async {
     }
     if (value == 4) {
       tasks.assignee = Get.find<DataController>().currentUser;
-    
+
       Get.find<TasksController>().postItems([tasks]);
-     
+
       Get.find<TasksController>().refreshData();
     }
   });
@@ -1375,7 +1374,6 @@ selectProjectCopy(TaskDoc tasks) {
 
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
-   
     },
   );
 }
@@ -1391,7 +1389,7 @@ selectProjectMove(TaskDoc tasks) {
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.taskNumber = 0;
-       tasks.author = Get.find<DataController>().currentUser;
+      tasks.author = Get.find<DataController>().currentUser;
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
@@ -1407,7 +1405,6 @@ selectProjectMove(TaskDoc tasks) {
       }
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
-   
     },
   );
 }
