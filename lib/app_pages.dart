@@ -41,7 +41,7 @@ import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
 import 'package:task_manager_app/forms/TaskList/taskPageForTaskList.dart';
 import 'package:task_manager_app/forms/tasks/taskEditPageMobile.dart';
 import 'package:task_manager_app/forms/tasks/task_checklist_page.dart';
-import 'package:task_manager_app/forms/tasks/task_comment_page.dart';
+
 import 'package:task_manager_app/forms/user_account/first_time_userAccount.dart';
 import 'package:task_manager_app/forms/user_account/profile_ViewPage.dart';
 import 'package:task_manager_app/forms/user_account/profile_edit_page.dart';
@@ -103,11 +103,7 @@ class AppPages {
       page: () => const ProjectSettings(),
       binding: ProjectBinding(),
     ),
-    GetPage(
-      name: Routes.commentRowPage,
-      page: () => const TasksCommentRowPage(),
-      binding: TasksListBinding(),
-    ),
+   
     GetPage(
       name: Routes.taskStatusPage,
       page: () => const TaskStatusPage(),
