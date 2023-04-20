@@ -169,7 +169,7 @@ class NotificationSettings extends GetView<UserAccountController> {
           //           Get.find<UserNotificationController>()
           //               .currentItem = element;
           //           Get.toNamed(Routes
-          //               .userNotificationNewTaskPage);
+          //               .userNotificationcreateTaskPage);
           //         },
           //         availableButtons: const [
           //           NsgTableMenuButtonType
@@ -201,7 +201,7 @@ class NotificationSettings extends GetView<UserAccountController> {
         child: InkWell(
           onTap: () {
             controller.currentItem = project;
-            Get.toNamed(Routes.userNotificationNewTaskPage);
+            Get.toNamed(Routes.userNotificationcreateTaskPage);
           },
           onLongPress: () {
             // controller.itemPageOpen(project, Routes.projectPage);

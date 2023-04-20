@@ -177,7 +177,7 @@ class TasksCommentRowPage extends GetView<CommentTableTasksController> {
       onPressed: () {
         controller.currentItem.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.newTaskPage);
+        controller.itemPageOpen(comment, Routes.createTaskPage);
         controller.sendNotify();
 
         Navigator.of(context).pop();

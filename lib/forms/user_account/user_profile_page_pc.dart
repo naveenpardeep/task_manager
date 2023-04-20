@@ -257,7 +257,7 @@ class _UserProfileState extends State<UserProfile> {
         child: InkWell(
           onTap: () {
             controller.currentItem = project;
-            Get.toNamed(Routes.userNotificationNewTaskPage);
+            Get.toNamed(Routes.userNotificationcreateTaskPage);
           },
           onLongPress: () {
             // controller.itemPageOpen(project, Routes.projectPage);

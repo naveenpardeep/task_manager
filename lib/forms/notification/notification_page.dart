@@ -33,7 +33,6 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-   
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
@@ -64,7 +63,7 @@ class _NotificationPageState extends State<NotificationPage> {
     List<Widget> list = [];
     var scrollController = ScrollController();
     var tasksList = controller.items.reversed;
-     double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
 
     for (var tasks in tasksList) {
       {
@@ -86,14 +85,14 @@ class _NotificationPageState extends State<NotificationPage> {
             if (tasks.notificationType == ENotificationType.editedTask) {
               Get.find<TasksController>().itemPageOpen(
                 tasks.task,
-                Routes.newTaskPage,
+                Routes.createTaskPage,
               );
             }
             if (tasks.notificationType == ENotificationType.newTask) {
-              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.newTaskPage, needRefreshSelectedItem: true);
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.createTaskPage, needRefreshSelectedItem: true);
             }
             if (tasks.notificationType == ENotificationType.recievedTask) {
-              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.newTaskPage, needRefreshSelectedItem: true);
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.createTaskPage, needRefreshSelectedItem: true);
             }
           },
           child: Row(
@@ -194,7 +193,7 @@ class _NotificationPageState extends State<NotificationPage> {
         thumbVisibility: true,
         trackVisibility: true,
         controller: scrollController,
-        thickness: width>700? 10: 0,
+        thickness: width > 700 ? 10 : 0,
         trackBorderColor: ControlOptions.instance.colorGreyLight,
         trackColor: ControlOptions.instance.colorGreyLight,
         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),

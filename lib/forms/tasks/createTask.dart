@@ -39,7 +39,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
       body: Column(
         children: [
           TTAppBar(
-            title: taskController.currentItem.docNumber.toString(),
+            title: '${taskController.currentItem.taskNumber}',
             leftIcons: [
               TTAppBarIcon(
                 icon: Icons.arrow_back_ios_new,
