@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -33,7 +32,7 @@ class TmTopMenu extends StatelessWidget {
                         Get.find<ProjectController>().refreshData();
 
                         Get.find<ServiceObjectController>().selectedItem = null;
-                        NsgNavigator.instance.toPage(Routes.projectListPage);
+                        Get.offAndToNamed(Routes.projectListPage);
                         // Get.find<ProjectController>()
                         //     .itemPageOpen(Get.find<ProjectController>().currentItem, Routes.projectListPage, needRefreshSelectedItem: true);
                         //  Get.toNamed(Routes.projectListPage);
@@ -49,7 +48,7 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Get.find<TasksController>().refreshData();
-                        Get.toNamed(Routes.tasksListPage);
+                        Get.offAndToNamed(Routes.tasksListPage);
                       },
                       child: Text(
                         'Задачи',
@@ -61,7 +60,7 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.userAccountListPage);
+                        Get.offAndToNamed(Routes.userAccountListPage);
                       },
                       child: Text(
                         'Пользователи',
@@ -73,7 +72,7 @@ class TmTopMenu extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.organizationListMobilePage);
+                        Get.offAndToNamed(Routes.organizationListMobilePage);
                         //  Get.toNamed(Routes.organizationPage);
                         //  Get.find<OrganizationController>().newItemPageOpen(pageName: Routes.organizationPage );
                       },

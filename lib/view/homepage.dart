@@ -70,6 +70,48 @@ class _HomepageState extends State<Homepage> {
     if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
     }
+    if (NsgUserSettings.controller!.getSettingItem('sort_${projectController.currentItem.id}') != null) {
+      taskBoardController.currentItem.sortBy =
+          getSort(int.parse((NsgUserSettings.controller!.getSettingItem('sort_${projectController.currentItem.id}') as UserSettings).settings));
+    }
+    if (NsgUserSettings.controller!.getSettingItem('period_${projectController.currentItem.id}') != null) {
+      taskBoardController.currentItem.periodOfFinishedTasks =
+          getPeriod(int.parse((NsgUserSettings.controller!.getSettingItem('period_${projectController.currentItem.id}') as UserSettings).settings));
+    }
+    if (NsgUserSettings.controller!.getSettingItem('userAcc_${projectController.currentItem.id}') != null) {
+      serviceC.currentItem.userAccountId = (NsgUserSettings.controller!.getSettingItem('userAcc_${projectController.currentItem.id}') as UserSettings).settings;
+    }
+    if (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') != null) {
+      serviceC.currentItem.boardId = (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') as UserSettings).settings;
+    }
+  }
+
+  ESorting getSort(int val) {
+    switch (val) {
+      case 1:
+        return ESorting.dateAsc;
+      case 2:
+        return ESorting.priorityDesc;
+      case 3:
+        return ESorting.priorityAsc;
+      default:
+        return ESorting.dateDesc;
+    }
+  }
+
+  EPeriod getPeriod(int val) {
+    switch (val) {
+      case 1:
+        return EPeriod.day;
+      case 2:
+        return EPeriod.week;
+      case 3:
+        return EPeriod.month;
+      case 4:
+        return EPeriod.year;
+      default:
+        return EPeriod.all;
+    }
   }
 
   @override
@@ -508,6 +550,8 @@ class _HomepageState extends State<Homepage> {
             // setState(() {
             //   searchvalue = serviceC.currentItem.userAccountId;
             // });
+            NsgUserSettings.controller!.setSettingItem('userAcc_${projectController.currentItem.id}', (item as ServiceObject).userAccountId);
+            //var test = NsgUserSettings.controller!.getSettingItem('taskF');
             taskController.refreshData();
             taskStatusTableController.sendNotify();
             taskBoardController.sendNotify();
@@ -524,6 +568,7 @@ class _HomepageState extends State<Homepage> {
             onEditingComplete: (item, field) {
               setState(() {
                 //screenName = taskBoardController.currentItem.name;
+                NsgUserSettings.controller!.setSettingItem('board_${projectController.currentItem.id}', (item as ServiceObject).boardId);
                 screenName = serviceC.currentItem.boardId;
                 taskController.refreshData();
                 taskStatusTableController.sendNotify();
@@ -537,6 +582,7 @@ class _HomepageState extends State<Homepage> {
           dataItem: taskBoardController.currentItem,
           fieldName: TaskBoardGenerated.nameSortBy,
           onEditingComplete: (task, name) {
+            NsgUserSettings.controller!.setSettingItem('sort_${projectController.currentItem.id}', (task as TaskBoard).sortBy.value.toString());
             taskBoardController.sendNotify();
             taskController.refreshData();
           },
@@ -548,6 +594,8 @@ class _HomepageState extends State<Homepage> {
           dataItem: taskBoardController.currentItem,
           fieldName: TaskBoardGenerated.namePeriodOfFinishedTasks,
           onEditingComplete: (task, name) {
+            NsgUserSettings.controller!
+                .setSettingItem('period_${projectController.currentItem.id}', (task as TaskBoard).periodOfFinishedTasks.value.toString());
             taskBoardController.sendNotify();
             taskController.refreshData();
           },
@@ -928,7 +976,7 @@ class _HomepageState extends State<Homepage> {
 
   void reset() {
     setState(() {
-      taskBoardController.currentItem.sortBy = ESorting.dateDesc;
+      //taskBoardController.currentItem.sortBy = ESorting.dateDesc;
       taskBoardController.refreshData();
       serviceC.currentItem.userAccountId = '';
       isDatesearch = false;

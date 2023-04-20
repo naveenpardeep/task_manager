@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -73,13 +72,13 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
     return Expanded(
         child: InkWell(
       onTap: () {
-          Get.find<ServiceObjectController>().selectedItem=null;
+        Get.find<ServiceObjectController>().selectedItem = null;
         if (widget.controller != null) {
           widget.controller!.refreshData();
           if (widget.controller!.currentItem.isNotEmpty) {
-            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true);
+            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, needRefreshSelectedItem: true, offPage: true);
           } else {
-            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link);
+            widget.controller?.itemPageOpen(widget.controller?.currentItem as NsgDataItem, widget.link, offPage: true);
           }
         } else {
           Get.offAndToNamed(widget.link);

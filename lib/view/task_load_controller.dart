@@ -137,8 +137,6 @@ class TaskLoadController extends NsgBaseController {
     }
     filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
 
-    //await NsgUserSettings.controller!.setSettingItem('taskF', filter.toString());
-    //var test = NsgUserSettings.controller!.getSettingItem('taskF');
     List<TaskDoc> ans = await tasks.requestItems(filter: filter);
     total = tasks.totalCount ?? 0;
     return ans;
