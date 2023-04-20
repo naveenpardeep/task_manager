@@ -711,7 +711,7 @@ class _HomepageState extends State<Homepage> {
                   Get.find<TaskFilesController>().requestItems();
                   Get.find<TaskCheckListController>().requestItems();
                   taskController
-                      .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameTableComments, TaskDocGenerated.nameFiles]);
+                      .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
 
                   taskView = true;
                 });
@@ -1373,7 +1373,7 @@ selectProjectMove(TaskDoc tasks) {
     'Select Project',
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
-      tasks.docNumber = Guid.newGuid();
+      tasks.taskNumber = 0;
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
