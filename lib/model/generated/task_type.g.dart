@@ -4,7 +4,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'dart:typed_data';
 import '../data_controller_model.dart';
 
-/// ТипЗадач
+/// ТипЗадачи
 class TaskTypeGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
