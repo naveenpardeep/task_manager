@@ -56,7 +56,6 @@ class TasksController extends NsgDataController<TaskDoc> {
   @override
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as TaskDoc;
-    element.id = Guid.newGuid();
     element.project = Get.find<ProjectController>().currentItem;
     element.date = DateTime.now();
     element.dateUpdated = DateTime.now();

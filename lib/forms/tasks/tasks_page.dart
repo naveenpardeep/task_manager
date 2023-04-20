@@ -161,6 +161,11 @@ class _TasksPageState extends State<TasksPage> {
                                     label: 'Название задачи',
                                     infoString: 'Укажите название задачи',
                                   ),
+                                  TTNsgInput(
+                                      infoString: 'Укажите статус задачи',
+                                      label: 'Статус',
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameTaskStatusId),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                     child: TextFormField(
@@ -178,11 +183,9 @@ class _TasksPageState extends State<TasksPage> {
                                       },
                                     ),
                                   ),
-                                    
                                   if (width > 700)
                                     Row(
                                       children: [
-                                     
                                         Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
@@ -204,7 +207,6 @@ class _TasksPageState extends State<TasksPage> {
                                         ),
                                       ],
                                     ),
-                                     
                                   if (width < 700)
                                     // TTNsgInput(
                                     //   controller: controller,
@@ -231,21 +233,21 @@ class _TasksPageState extends State<TasksPage> {
                                       label: 'Приоритет',
                                       infoString: 'Выберите приоритет задачи',
                                     ),
-                                    Center(
-                                      child: NsgButton(
-                                        borderRadius: 20,
-                                        width: width,
-                                        height: 7,
-                                         backColor: const Color.fromARGB(255, 173, 233, 230),
-                                         color: Colors.black,
-                                         text: 'Assign me',
-                                         onPressed: () {
-                                           controller.currentItem.assignee=Get.find<DataController>().currentUser;
-                                           controller.sendNotify();
-                                         },
-                                         //selectionForm: Routes.userAccountListPage,
-                                       ),
+                                  Center(
+                                    child: NsgButton(
+                                      borderRadius: 20,
+                                      width: width,
+                                      height: 7,
+                                      backColor: const Color.fromARGB(255, 173, 233, 230),
+                                      color: Colors.black,
+                                      text: 'Assign me',
+                                      onPressed: () {
+                                        controller.currentItem.assignee = Get.find<DataController>().currentUser;
+                                        controller.sendNotify();
+                                      },
+                                      //selectionForm: Routes.userAccountListPage,
                                     ),
+                                  ),
                                   NsgRichText(
                                       hint: 'Description',
                                       key: GlobalKey(),
@@ -293,7 +295,6 @@ class _TasksPageState extends State<TasksPage> {
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
                                     ),
-                                 
                                   Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
                                     NsgButton(
@@ -357,10 +358,9 @@ class _TasksPageState extends State<TasksPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (controller.currentItem.state== NsgDataItemState.create)
-               newtaskstatuslist(context),
-                if (controller.currentItem.state== NsgDataItemState.fill) 
-                statuslist(context)],
+              if (controller.currentItem.state == NsgDataItemState.create) newtaskstatuslist(context),
+              if (controller.currentItem.state == NsgDataItemState.fill) statuslist(context)
+            ],
           ),
         ),
       ),

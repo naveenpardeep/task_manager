@@ -16,7 +16,6 @@ import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_page.dart';
 
-
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({super.key});
 
@@ -67,12 +66,14 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () {
-          Get.back();
-        }, ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         actions: [
           if (_tabController.index == 0)
-          
             IconButton(
                 onPressed: () async {
                   if (taskController.currentItem.taskStatus.isEmpty) {
@@ -84,13 +85,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
                     if (taskController.currentItem.assignee.isEmpty) {
                       taskController.currentItem.assignee = Get.find<ProjectController>().currentItem.defaultUser;
                     }
-                    await taskController.itemPagePost(goBack: false);
+                    await taskController.itemPagePost(goBack: true);
                     Get.find<TasksController>().refreshData();
-                    Get.toNamed(Routes.homePage);
-                    Get.find<TasksController>().createNewItemAsync();
                   }
                 },
-                icon: const Icon(Icons.check)) ,
+                icon: const Icon(Icons.check)),
           if (_tabController.index == 1)
             IconButton(
                 onPressed: () async {
@@ -169,9 +168,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
       body: taskController.obx(
         // ignore: prefer_const_literals_to_create_immutables
         (state) => TabBarView(controller: _tabController, children: [
-      
-            const TasksPage() ,
-          Container(key: GlobalKey(),child: const ChecklistPage()),
+          const TasksPage(),
+          Container(key: GlobalKey(), child: const ChecklistPage()),
           commnetController.obx(
               // ignore: prefer_const_literals_to_create_immutables
               (state) => const TasksCommentPage()),
@@ -191,6 +189,4 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
       }
     });
   }
-
- 
 }
