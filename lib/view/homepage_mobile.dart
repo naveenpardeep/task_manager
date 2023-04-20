@@ -140,7 +140,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                           color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
                           backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
                           onPressed: () {
-                            Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                            Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
                             // Get.find<TasksController>()
                             //     .newItemPageOpen(pageName: Routes.tasksPage);
                             // Get.toNamed(Routes.tasksPage);
@@ -216,7 +216,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                         //       //   var images = <NsgFilePickerObject>[].clear();
                         //       // Get.find<TasksController>()
                         //       //     .newItemPageOpen(pageName: Routes.tasksPage);
-                        //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.newTaskPage);
+                        //       Get.find<TasksController>().newItemPageOpen(pageName: Routes.createTaskPage);
                         //       //  Get.toNamed(Routes.tasksPage);
                         //     },
                         //   ),
@@ -506,7 +506,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
-                          thickness:  width>700? 10: 0,
+                          thickness: width > 700 ? 10 : 0,
                           trackBorderColor: ControlOptions.instance.colorGreyLight,
                           trackColor: ControlOptions.instance.colorGreyLight,
                           thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -623,13 +623,13 @@ class _HomepageMobileState extends State<HomepageMobile> {
             } else {
               taskController.currentItem = tasks;
 
-              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+              taskController.itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
             }
 
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
             //   tasks.taskStatus = status;
-            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            // taskController.itemPageOpen(tasks, Routes.createTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
@@ -708,7 +708,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                             thumbVisibility: true,
                             trackVisibility: true,
                             controller: scrollController,
-                            thickness:  width>700? 10: 0,
+                            thickness: width > 700 ? 10 : 0,
                             trackBorderColor: ControlOptions.instance.colorGreyLight,
                             trackColor: ControlOptions.instance.colorGreyLight,
                             thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -828,13 +828,13 @@ class _HomepageMobileState extends State<HomepageMobile> {
             } else {
               taskController.currentItem = tasks;
 
-              taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+              taskController.itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
             }
 
             // taskConstroller.currentItem.taskStatus = status;
             // Get.toNamed(Routes.tasksPage);
             //   tasks.taskStatus = status;
-            // taskController.itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+            // taskController.itemPageOpen(tasks, Routes.createTaskPage, needRefreshSelectedItem: true);
           },
           child: Row(
             children: [
@@ -1084,7 +1084,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 onPressed: () {
                                                   Get.find<TasksController>().currentItem = tasks;
 
-                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
                                                 },
                                                 icon: const Icon(Icons.edit)),
                                           ),
@@ -1254,7 +1254,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 onPressed: () {
                                                   Get.find<TasksController>().currentItem = tasks;
 
-                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
                                                 },
                                                 icon: const Icon(Icons.edit)),
                                           ),
@@ -1424,7 +1424,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                                 onPressed: () {
                                                   Get.find<TasksController>().currentItem = tasks;
 
-                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                                  Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
                                                 },
                                                 icon: const Icon(Icons.edit)),
                                           )
@@ -1588,7 +1588,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                                             onPressed: () {
                                               Get.find<TasksController>().currentItem = tasks;
 
-                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.newTaskPage, needRefreshSelectedItem: true);
+                                              Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
                                             },
                                             icon: const Icon(Icons.edit)),
                                       )

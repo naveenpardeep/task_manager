@@ -58,9 +58,6 @@ class _TasksPageState extends State<TasksPage> {
       isCheckedDeadline = true;
     }
     isCheckedDeadline;
-    if (controller.lateInit) {
-      controller.requestItems();
-    }
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }

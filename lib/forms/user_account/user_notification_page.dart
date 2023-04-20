@@ -6,8 +6,8 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
 import 'package:task_manager_app/model/generated/user_notification_settings.g.dart';
 
-class UserNotifictionNewTaskPage extends GetView<UserNotificationController> {
-  const UserNotifictionNewTaskPage({Key? key}) : super(key: key);
+class UserNotifictioncreateTaskPage extends GetView<UserNotificationController> {
+  const UserNotifictioncreateTaskPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,36 +74,29 @@ class UserNotifictionNewTaskPage extends GetView<UserNotificationController> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              Get.find<UserNotificationController>()
-                                  .currentItem
-                                  .project
-                                  .toString(),
+                              Get.find<UserNotificationController>().currentItem.project.toString(),
                               textScaleFactor: 2,
                             ),
                           ),
                         ),
                         NsgInput(
                           dataItem: controller.currentItem,
-                          fieldName: UserNotificationSettingsGenerated
-                              .nameNotifyNewTasks,
+                          fieldName: UserNotificationSettingsGenerated.nameNotifyNewTasks,
                           label: 'Создана задача с моим участием',
                         ),
                         NsgInput(
                           dataItem: controller.currentItem,
-                          fieldName: UserNotificationSettingsGenerated
-                              .nameNotifyEditedTasks,
+                          fieldName: UserNotificationSettingsGenerated.nameNotifyEditedTasks,
                           label: 'Все изменения в задачах с моим участием',
                         ),
                         NsgInput(
                           dataItem: controller.currentItem,
-                          fieldName: UserNotificationSettingsGenerated
-                              .nameNotifyNewTasksInProjects,
+                          fieldName: UserNotificationSettingsGenerated.nameNotifyNewTasksInProjects,
                           label: 'Новая задача в проекте',
                         ),
                         NsgInput(
                           dataItem: controller.currentItem,
-                          fieldName: UserNotificationSettingsGenerated
-                              .nameNotifyEditedTasksInProjects,
+                          fieldName: UserNotificationSettingsGenerated.nameNotifyEditedTasksInProjects,
                           label: 'Все изменения в задачах проектов',
                         ),
                       ],

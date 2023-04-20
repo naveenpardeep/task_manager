@@ -30,8 +30,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
           (state) => Column(
             children: <Widget>[
               Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context))),
-            Row(
-              mainAxisSize: MainAxisSize.min,
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
                     child: Padding(
@@ -42,7 +42,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         onKey: (event) async {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
                             await controller.itemPagePost(goBack: false);
-                              
+
                             await controller.createNewItemAsync();
                           }
                         },
@@ -59,15 +59,21 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 20, 0),
                     child: Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),  color: const Color(0xffABF4FF),),
-                    
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xffABF4FF),
+                      ),
                       child: IconButton(
                           onPressed: () async {
                             await controller.itemPagePost(goBack: false);
-                                
+
                             await controller.createNewItemAsync();
                           },
-                          icon: const Icon(Icons.send_rounded , color: Color(0xff0859FF),size: 15,)),
+                          icon: const Icon(
+                            Icons.send_rounded,
+                            color: Color(0xff0859FF),
+                            size: 15,
+                          )),
                     ),
                   )
                 ],
@@ -148,7 +154,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
       onPressed: () {
         controller.currentItem.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.newTaskPage);
+        controller.itemPageOpen(comment, Routes.taskEditPage);
         controller.sendNotify();
 
         Navigator.of(context).pop();
@@ -268,11 +274,11 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         ),
                       )
                     : Image.network(
-                              TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.fill,
-                              width: 48,
-                              height: 48,
-                            ),
+                        TaskFilesController.getFilePath(comment.author.photoName),
+                        fit: BoxFit.fill,
+                        width: 48,
+                        height: 48,
+                      ),
               )),
         ),
         const SizedBox(
@@ -283,8 +289,6 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
   }
 
   showuser(BuildContext context, TaskComment comment) {
-
-
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(comment.author.toString()),
@@ -293,24 +297,25 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
         child: Column(
           children: [
             Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: comment.author.photoName.isEmpty
-                    ? Container(
-                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                        width: 100,
-                        height: 100,
-                        child: Icon(
-                          Icons.account_circle,
-                          size: 20,
-                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                        ),
-                      )
-                    : Image.network(
-                              TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.fill,
-                              width: 120,
-                              height: 120,
-                            ),),
+              padding: const EdgeInsets.all(4.0),
+              child: comment.author.photoName.isEmpty
+                  ? Container(
+                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                      width: 100,
+                      height: 100,
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 20,
+                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                      ),
+                    )
+                  : Image.network(
+                      TaskFilesController.getFilePath(comment.author.photoName),
+                      fit: BoxFit.fill,
+                      width: 120,
+                      height: 120,
+                    ),
+            ),
             SelectableText(comment.author.phoneNumber),
             SelectableText(comment.author.email)
           ],
@@ -352,11 +357,11 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                           ),
                         )
                       : Image.network(
-                              TaskFilesController.getFilePath(comment.author.photoName),
-                              fit: BoxFit.fill,
-                              width: 48,
-                              height: 48,
-                            ),
+                          TaskFilesController.getFilePath(comment.author.photoName),
+                          fit: BoxFit.fill,
+                          width: 48,
+                          height: 48,
+                        ),
                 )),
           ),
           Flexible(

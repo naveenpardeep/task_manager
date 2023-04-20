@@ -12,14 +12,14 @@ import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 
 import '../widgets/tt_tabs.dart';
 
-class CreateTaskPage extends StatefulWidget {
-  const CreateTaskPage({super.key});
+class TaskEditPage extends StatefulWidget {
+  const TaskEditPage({super.key});
 
   @override
-  State<CreateTaskPage> createState() => _CreateTaskPageState();
+  State<TaskEditPage> createState() => _TaskEditPageState();
 }
 
-class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStateMixin {
+class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMixin {
   TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
   var taskController = Get.find<TasksController>();
   var commnetController = Get.find<TaskCommentsController>();
@@ -39,7 +39,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> with TickerProviderStat
       body: Column(
         children: [
           TTAppBar(
-            title: taskController.currentItem.docNumber.toString(),
+            title: taskController.currentItem.docNumber.isEmpty ? 'Новая задача' : taskController.currentItem.docNumber,
             leftIcons: [
               TTAppBarIcon(
                 icon: Icons.arrow_back_ios_new,

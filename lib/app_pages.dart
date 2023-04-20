@@ -34,10 +34,9 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
-import 'package:task_manager_app/forms/tasks/createTask.dart';
+import 'package:task_manager_app/forms/tasks/task_edit_page.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
-import 'package:task_manager_app/forms/tasks/new_task_page.dart';
 import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
 import 'package:task_manager_app/forms/TaskList/taskPageForTaskList.dart';
 import 'package:task_manager_app/forms/tasks/taskEditPageMobile.dart';
@@ -171,8 +170,8 @@ class AppPages {
       binding: ProjectBinding(),
     ),
     GetPage(
-      name: Routes.userNotificationNewTaskPage,
-      page: () => const UserNotifictionNewTaskPage(),
+      name: Routes.userNotificationcreateTaskPage,
+      page: () => const UserNotifictioncreateTaskPage(),
       binding: ProjectBinding(),
     ),
     GetPage(
@@ -229,11 +228,6 @@ class AppPages {
       name: Routes.taskChecklistPage,
       page: () => const TaskChecklistPage(),
       binding: ProjectBinding(),
-    ),
-    GetPage(
-      name: Routes.newTaskPage,
-      page: () => const NewTaskPage(),
-      binding: TasksListBinding(),
     ),
     GetPage(
       name: Routes.checkListPage,
@@ -337,22 +331,22 @@ class AppPages {
       page: () => const NotificationTasksPage(),
       binding: TasksListBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskcommentpage,
       page: () => const TasksCommentPage(),
       binding: TaskCommentBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.newUserForDeletedUserPage,
-      page: () =>const NewUserForDeletedUserPage(),
+      page: () => const NewUserForDeletedUserPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.newOrgUserForDeletedUserPage,
-      page: () =>const NewOrgUserForDeletedUserPage(),
+      page: () => const NewOrgUserForDeletedUserPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskPageFortaskList,
       page: () => const TaskPageForTaskList(),
       binding: TasksListBinding(),
@@ -362,14 +356,14 @@ class AppPages {
       page: () => const TaskopenForTaskList(),
       binding: TasksListBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskEditPageMobile,
       page: () => const TaskEditPageMobile(),
       binding: TasksListBinding(),
     ),
     GetPage(
-      name: Routes.createTaskPage,
-      page: () => const CreateTaskPage(),
+      name: Routes.taskEditPage,
+      page: () => const TaskEditPage(),
       binding: TasksListBinding(),
     ),
   ];
@@ -396,7 +390,7 @@ abstract class Routes {
   static const userProfilePage = '/userProfilePage';
   static const firstStartPage = '/firstStartPage';
   static const notificationPage = '/notificationPage';
-  static const userNotificationNewTaskPage = '/userNotificationNewTaskPage';
+  static const userNotificationcreateTaskPage = '/userNotificationcreateTaskPage';
   static const userProjectListPage = '/userProjectListPage';
   static const createInvitationUser = '/createInvitationUser';
   static const organizationListPage = '/organizationListPage';
@@ -408,7 +402,6 @@ abstract class Routes {
   static const addUserToProjectPage = '/addUserToProjectPage';
   static const editCommentPage = '/editCommentPage';
   static const taskChecklistPage = '/TaskChecklistPage';
-  static const newTaskPage = '/newTaskPage';
   static const checkListPage = '/checkListPage';
   static const taskViewPage = '/taskViewPage';
   static const editChecklistPage = '/editCHecklistPage';
@@ -432,11 +425,11 @@ abstract class Routes {
   static const profileViewPage = '/profileViewPage';
   static const profileEditPage = '/profile-edit-page';
   static const notificationTaskPage = '/notificationTaskPage';
-  static const taskcommentpage='/taskcommetpage';
-  static const newUserForDeletedUserPage='/newUserForDeletedUserPage';
-  static const newOrgUserForDeletedUserPage='/newOrgUserForDeletedUserPage';
-  static const taskPageFortaskList='/TaskPageforTaskList';
-  static const taskopenForTaskList='/taskopenForTaskList';
-  static const taskEditPageMobile='/taskEditpagemobile';
-  static const createTaskPage='/createTaskPage';
+  static const taskcommentpage = '/taskcommetpage';
+  static const newUserForDeletedUserPage = '/newUserForDeletedUserPage';
+  static const newOrgUserForDeletedUserPage = '/newOrgUserForDeletedUserPage';
+  static const taskPageFortaskList = '/TaskPageforTaskList';
+  static const taskopenForTaskList = '/taskopenForTaskList';
+  static const taskEditPageMobile = '/taskEditpagemobile';
+  static const taskEditPage = '/task-edit-page';
 }
