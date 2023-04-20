@@ -226,7 +226,7 @@ class _HomepageState extends State<Homepage> {
                                 taskView = false;
                               });
                               Get.find<TasksController>().selectedItem == null;
-                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.createTaskPage);
+                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
                             },
                           ),
                         ),
@@ -710,13 +710,12 @@ class _HomepageState extends State<Homepage> {
                 setState(() {
                   Get.find<TaskFilesController>().requestItems();
                   Get.find<TaskCheckListController>().requestItems();
-                  taskController
-                      .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
+                  taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
 
                   taskView = true;
                 });
               } else {
-                taskController.itemPageOpen(tasks, Routes.createTaskPage, needRefreshSelectedItem: true);
+                taskController.itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
               }
               if (tasks.isReadByAssignee == false &&
                   (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
@@ -1070,7 +1069,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       Get.find<TaskCheckListController>().requestItems();
       Get.find<TasksController>().currentItem = tasks;
 
-      Get.find<TasksController>().itemPageOpen(Get.find<TasksController>().currentItem, Routes.createTaskPage, needRefreshSelectedItem: true);
+      Get.find<TasksController>().itemPageOpen(Get.find<TasksController>().currentItem, Routes.taskEditPage, needRefreshSelectedItem: true);
       //  Get.find<TasksController>().sendNotify();
     },
     child: Stack(
@@ -1179,7 +1178,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       }
 
       Get.find<TaskCheckListController>().requestItems();
-      Get.find<TasksController>().itemPageOpen(tasks, Routes.createTaskPage, needRefreshSelectedItem: true);
+      Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
       Get.find<TasksController>().sendNotify();
     }
     if (value == 2) {

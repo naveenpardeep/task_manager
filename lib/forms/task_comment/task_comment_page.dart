@@ -154,7 +154,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
       onPressed: () {
         controller.currentItem.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.createTaskPage);
+        controller.itemPageOpen(comment, Routes.taskEditPage);
         controller.sendNotify();
 
         Navigator.of(context).pop();

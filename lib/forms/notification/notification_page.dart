@@ -85,14 +85,14 @@ class _NotificationPageState extends State<NotificationPage> {
             if (tasks.notificationType == ENotificationType.editedTask) {
               Get.find<TasksController>().itemPageOpen(
                 tasks.task,
-                Routes.createTaskPage,
+                Routes.taskEditPage,
               );
             }
             if (tasks.notificationType == ENotificationType.newTask) {
-              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.createTaskPage, needRefreshSelectedItem: true);
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.taskEditPage, needRefreshSelectedItem: true);
             }
             if (tasks.notificationType == ENotificationType.recievedTask) {
-              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.createTaskPage, needRefreshSelectedItem: true);
+              Get.find<TasksController>().itemPageOpen(tasks.task, Routes.taskEditPage, needRefreshSelectedItem: true);
             }
           },
           child: Row(

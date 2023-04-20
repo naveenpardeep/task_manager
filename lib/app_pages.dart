@@ -34,7 +34,7 @@ import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/task_status/task_status_row_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
-import 'package:task_manager_app/forms/tasks/createTask.dart';
+import 'package:task_manager_app/forms/tasks/task_edit_page.dart';
 import 'package:task_manager_app/forms/tasks/edit_checklist.dart';
 import 'package:task_manager_app/forms/tasks/edit_commentPage.dart';
 import 'package:task_manager_app/forms/tasks/notification_TaskPage.dart';
@@ -362,8 +362,8 @@ class AppPages {
       binding: TasksListBinding(),
     ),
     GetPage(
-      name: Routes.createTaskPage,
-      page: () => const CreateTaskPage(),
+      name: Routes.taskEditPage,
+      page: () => const TaskEditPage(),
       binding: TasksListBinding(),
     ),
   ];
@@ -431,5 +431,5 @@ abstract class Routes {
   static const taskPageFortaskList = '/TaskPageforTaskList';
   static const taskopenForTaskList = '/taskopenForTaskList';
   static const taskEditPageMobile = '/taskEditpagemobile';
-  static const createTaskPage = '/createTaskPage';
+  static const taskEditPage = '/task-edit-page';
 }
