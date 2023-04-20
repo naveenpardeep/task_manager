@@ -1374,6 +1374,8 @@ selectProjectCopy(TaskDoc tasks) {
       Get.find<TasksController>().currentItem = tasks;
 
       await Get.find<TasksController>().postItems([tasks]);
+      Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
+   
     },
   );
 }
@@ -1404,6 +1406,8 @@ selectProjectMove(TaskDoc tasks) {
         tasks.taskStatus = Get.find<ProjectStatusController>().items.first;
       }
       await Get.find<TasksController>().postItems([tasks]);
+      Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
+   
     },
   );
 }
