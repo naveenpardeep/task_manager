@@ -18,7 +18,7 @@ import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
-import 'package:task_manager_app/forms/tasks/taskCopyMoveController.dart';
+
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
@@ -58,7 +58,7 @@ class _HomepageState extends State<Homepage> {
   var taskcommentC = Get.find<TaskCommentsController>();
   var serviceC = Get.find<ServiceObjectController>();
   var textEditController = TextEditingController();
-  var taskCopyMoveController = Get.find<TaskCopyMoveController>();
+  
   String screenName = '';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
@@ -71,9 +71,7 @@ class _HomepageState extends State<Homepage> {
     if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
     }
-    if (taskCopyMoveController.lateInit) {
-      taskCopyMoveController.requestItems();
-    }
+   
   }
 
   @override
@@ -710,8 +708,7 @@ class _HomepageState extends State<Homepage> {
                 setState(() {
                   Get.find<TaskFilesController>().requestItems();
                   Get.find<TaskCheckListController>().requestItems();
-                  taskController
-                      .setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
+                  taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
 
                   taskView = true;
                 });
@@ -1124,7 +1121,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   );
 }
 
-Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
+Future<void> showPopUpMenu(Offset globalPosition,tasks, context) async {
   double left = globalPosition.dx;
   double top = globalPosition.dy;
 
@@ -1168,6 +1165,16 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
           ),
         ),
       ),
+      const PopupMenuItem(
+        value: 4,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 0),
+          child: Text(
+            "Assign me",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
     ],
     elevation: 8.0,
   ).then((value) {
@@ -1189,6 +1196,13 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
     }
     if (value == 3) {
       selectProjectCopy(tasks);
+    }
+    if (value == 4) {
+      tasks.assignee = Get.find<DataController>().currentUser;
+    
+      Get.find<TasksController>().postItems([tasks]);
+     
+      Get.find<TasksController>().refreshData();
     }
   });
 }
@@ -1345,6 +1359,7 @@ selectProjectCopy(TaskDoc tasks) {
       tasks.state = NsgDataItemState.create;
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.id = Guid.newGuid();
+      tasks.author = Get.find<DataController>().currentUser;
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
@@ -1352,11 +1367,11 @@ selectProjectCopy(TaskDoc tasks) {
               .rows
               .firstWhere((element) => element.userAccount == tasks.assignee, orElse: () => ProjectItemUserTable())
               .userAccount) {
-        tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
+        tasks.assignee = Get.find<ProjectController>().currentItem.defaultUser;
       }
       if (tasks.taskStatus !=
           Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
-        tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
+        tasks.taskStatus = Get.find<ProjectStatusController>().items.first;
       }
       Get.find<TasksController>().currentItem = tasks;
 
@@ -1376,6 +1391,7 @@ selectProjectMove(TaskDoc tasks) {
     (item) async {
       tasks.projectId = Get.find<ProjectController>().currentItem.id;
       tasks.taskNumber = 0;
+       tasks.author = Get.find<DataController>().currentUser;
       if (tasks.assignee !=
           Get.find<ProjectController>()
               .currentItem
@@ -1383,11 +1399,11 @@ selectProjectMove(TaskDoc tasks) {
               .rows
               .firstWhere((element) => element.userAccount == tasks.assignee, orElse: () => ProjectItemUserTable())
               .userAccount) {
-        tasks.assignee == Get.find<ProjectController>().currentItem.defaultUser;
+        tasks.assignee = Get.find<ProjectController>().currentItem.defaultUser;
       }
       if (tasks.taskStatus !=
           Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
-        tasks.taskStatus == Get.find<ProjectStatusController>().items.first;
+        tasks.taskStatus = Get.find<ProjectStatusController>().items.first;
       }
       await Get.find<TasksController>().postItems([tasks]);
     },
