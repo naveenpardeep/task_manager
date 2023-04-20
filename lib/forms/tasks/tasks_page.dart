@@ -93,40 +93,6 @@ class _TasksPageState extends State<TasksPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // NsgAppBar(
-                //   backColor: const Color(0xff7876D9),
-                //   text: controller.currentItem.isEmpty
-                //       ? 'Новая задача'.toUpperCase()
-                //       : controller.currentItem.name.toString().toUpperCase(),
-                //   icon: Icons.arrow_back_ios_new,
-                //   color: Colors.white,
-
-                //   colorsInverted: true,
-                //   // bottomCircular: true,
-                //   onPressed: () {
-                //     controller.itemPageCancel();
-                //   },
-                //   icon2: Icons.check,
-                //   onPressed2: () async {
-                //     if (controller.currentItem.taskStatus.isEmpty) {
-                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                //           content: Text('Пожалуйста, выберите статус задачи')));
-                //     } else if (controller.currentItem.name.isEmpty) {
-                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                //           content:
-                //               Text('пожалуйста, введите название задачи')));
-                //     } else {
-                //       controller.currentItem.dateUpdated = DateTime.now();
-                //       // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
-                //       // notificationController.currentItem.task.name=controller.currentItem.name;
-                //       // notificationController.currentItem.task.date=todaydate;
-                //       // notificationController.itemPagePost();
-                //       await controller.itemPagePost();
-                //       Get.find<TasksController>().refreshData();
-                //       Get.toNamed(Routes.homePage);
-                //     }
-                //   },
-                // ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -162,10 +128,13 @@ class _TasksPageState extends State<TasksPage> {
                                     infoString: 'Укажите название задачи',
                                   ),
                                   TTNsgInput(
-                                      infoString: 'Укажите статус задачи',
-                                      label: 'Статус',
-                                      dataItem: controller.currentItem,
-                                      fieldName: TaskDocGenerated.nameTaskStatusId),
+                                    controller: controller,
+                                    selectionController: Get.find<NewTaskStatusController>(),
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameTaskStatusId,
+                                    label: 'Статус',
+                                    infoString: 'Укажите статус задачи',
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                     child: TextFormField(
@@ -208,24 +177,15 @@ class _TasksPageState extends State<TasksPage> {
                                       ],
                                     ),
                                   if (width < 700)
-                                    // TTNsgInput(
-                                    //   controller: controller,
-                                    //   selectionController: Get.find<NewTaskStatusController>(),
-                                    //   dataItem: controller.currentItem,
-                                    //   fieldName: TaskDocGenerated.nameTaskStatusId,
-                                    //   label: 'Статус',
-                                    //   infoString: 'Укажите статус задачи',
-                                    // ),
-                                    if (width < 700)
-                                      TTNsgInput(
-                                        controller: controller,
-                                        label: 'Исполнитель',
-                                        infoString: 'Выберите исполнителя задачи',
-                                        selectionController: Get.find<TaskUserAccountController>(),
-                                        dataItem: controller.currentItem,
-                                        fieldName: TaskDocGenerated.nameAssigneeId,
-                                        //selectionForm: Routes.userAccountListPage,
-                                      ),
+                                    TTNsgInput(
+                                      controller: controller,
+                                      label: 'Исполнитель',
+                                      infoString: 'Выберите исполнителя задачи',
+                                      selectionController: Get.find<TaskUserAccountController>(),
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.nameAssigneeId,
+                                      //selectionForm: Routes.userAccountListPage,
+                                    ),
                                   if (width < 700)
                                     TTNsgInput(
                                       dataItem: controller.currentItem,
@@ -358,8 +318,8 @@ class _TasksPageState extends State<TasksPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (controller.currentItem.state == NsgDataItemState.create) newtaskstatuslist(context),
-              if (controller.currentItem.state == NsgDataItemState.fill) statuslist(context)
+              if (controller.currentItem.state == NsgDataItemState.fill || controller.currentItem.state == NsgDataItemState.create)
+                statuslist(context, controller.currentItem.state == NsgDataItemState.create)
             ],
           ),
         ),
@@ -375,37 +335,12 @@ class _TasksPageState extends State<TasksPage> {
     );
   }
 
-  Widget statuslist(context) {
+  Widget statuslist(context, bool isNewStatus) {
     List<Widget> list = [];
     var taskboardstaus = Get.find<TaskBoardController>().currentItem;
-    var stsList = Get.find<NewTaskStatusController>().items;
 
-    for (var status in stsList) {
-      list.add(Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-          child: InkWell(
-              onTap: () {
-                controller.currentItem.taskStatus = status;
-                controller.sendNotify();
-                Navigator.of(context).pop();
-              },
-              onLongPress: () {},
-              child: Column(children: [
-                Text(
-                  status.name,
-                  style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
-                ),
-              ]))));
-    }
-    return SingleChildScrollView(child: Column(children: list));
-  }
-
-  Widget newtaskstatuslist(context) {
-    List<Widget> list = [];
-    var taskboardstaus = Get.find<TaskBoardController>().currentItem;
-    var stsList = Get.find<NewTaskStatusController>().items.where((element) => element.isDone == false);
+    var stsList =
+        isNewStatus ? Get.find<NewTaskStatusController>().items.where((element) => element.isDone == false) : Get.find<NewTaskStatusController>().items;
 
     for (var status in stsList) {
       list.add(Padding(
@@ -442,49 +377,32 @@ class _TasksPageState extends State<TasksPage> {
       ),
     );
   }
-  // Widget imageGallery() {
-
-  //   return Get.find<TaskFilesController>().obx(
-  //     (state) => NsgFilePicker(
-  //       useFilePicker: true,
-  //       showAsWidget: true,
-  //       callback: (value) async {},
-  //       objectsList: Get.find<TaskImageController>().images,
-  //       objectsList: Get.find<TaskFilesController>().files,
-  //       allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
-  //     ),
-  //   );
-  // }
 
   showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = ElevatedButton(
-      child: const Text("Yes"),
-      onPressed: () async {
-        await controller.deleteItems([controller.currentItem]);
-        Get.back();
-        controller.refreshData();
-        // Navigator.of(context).pop();
-      },
-    );
-    Widget noButton = ElevatedButton(
-      child: const Text("No"),
-      onPressed: () {
-        Navigator.of(context).pop(); // dismiss dialog
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: const Text("Do you want to Delete?"),
-      actions: [okButton, noButton],
-    );
-
     // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          title: const Text("Do you want to Delete?"),
+          actions: [
+            ElevatedButton(
+              child: const Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop(); // dismiss dialog
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Yes"),
+              onPressed: () async {
+                await controller.deleteItems([controller.currentItem]);
+                Get.back();
+                controller.refreshData();
+                // Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
       },
     );
   }
