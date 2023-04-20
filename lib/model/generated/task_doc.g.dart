@@ -29,6 +29,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameAssigneeId = 'assigneeId';
   static const nameIsReadByAssignee = 'isReadByAssignee';
   static const namePriority = 'priority';
+  static const nameTotalComments = 'totalComments';
 
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
@@ -70,6 +71,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<UserAccount>(nameAssigneeId), primaryKey: false);
     addField(NsgDataBoolField(nameIsReadByAssignee), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
+    addField(NsgDataIntField(nameTotalComments), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
     fieldList.fields[nameTaskNumber]?.presentation = 'Номер задачи';
@@ -232,6 +234,11 @@ class TaskDocGenerated extends NsgDataItem {
   EPriority get priority => NsgEnum.fromValue(EPriority, getFieldValue(namePriority)) as EPriority;
 
   set priority(EPriority value) => setFieldValue(namePriority, value);
+
+  /// Всего комментариев
+  int get totalComments => getFieldValue(nameTotalComments) as int;
+
+  set totalComments(int value) => setFieldValue(nameTotalComments, value);
 
   @override
   String get apiRequestItems {
