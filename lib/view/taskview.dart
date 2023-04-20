@@ -12,6 +12,7 @@ import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
 import 'package:task_manager_app/forms/tasks/checkList.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/generated/task_doc.g.dart';
 
 import '../forms/tasks/task_file_controller.dart';
@@ -272,6 +273,15 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                                   ),
                                                 ),
                                               ),
+                                              TextButton(
+                                                  onPressed: () async {
+                                                    controller.currentItem.assignee = Get.find<DataController>().currentUser;
+
+                                                    await Get.find<TasksController>().postItems([controller.currentItem]);
+
+                                                    Get.find<TasksController>().sendNotify();
+                                                  },
+                                                  child: const Text('Assign me'))
                                             ],
                                           ),
                                         ),
@@ -298,8 +308,8 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                             ],
                                           ),
                                         ),
-                                        if (controller.currentItem.dateDeadline .toString()!= '1754-01-01 00:00:00.000' &&
-                                          controller.currentItem.dateDeadline.toString() != '0001-01-01 00:00:00.000')
+                                        if (controller.currentItem.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+                                            controller.currentItem.dateDeadline.toString() != '0001-01-01 00:00:00.000')
                                           Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Row(
@@ -324,7 +334,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                             ),
                                           ),
                                         if (formateddate.format(controller.currentItem.dateRemind) != '01.01.1754 /00:00' &&
-                                         formateddate.format(controller.currentItem.dateRemind) != '01.01.0001 /00:00')
+                                            formateddate.format(controller.currentItem.dateRemind) != '01.01.0001 /00:00')
                                           Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Row(
