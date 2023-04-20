@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -81,7 +83,7 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
     double width = MediaQuery.of(context).size.width;
     // String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
     // String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
       //  key: scaffoldKey,

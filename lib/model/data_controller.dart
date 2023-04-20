@@ -12,7 +12,6 @@ import '../login/registration_page.dart';
 import '../login/verification_page.dart';
 import 'generated/data_controller.g.dart';
 import 'options/server_options.dart';
-import 'user_account.dart';
 
 class DataController extends DataControllerGenerated {
   //NsgPushNotificationService? nsgFirebase;

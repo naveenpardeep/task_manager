@@ -7,10 +7,6 @@ import '../forms/task_board/task_board_controller.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../model/enums/e_period.dart';
 import '../model/enums/e_sorting.dart';
-import '../model/generated/task_doc.g.dart';
-import '../model/generated/user_account.g.dart';
-import '../model/task_doc.dart';
-import '../model/task_status.dart';
 
 class TaskLoadController extends NsgBaseController {
   TaskLoadController({required this.currentTasksStatus});

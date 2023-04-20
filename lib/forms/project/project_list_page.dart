@@ -12,7 +12,6 @@ import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../../app_pages.dart';
 import '../task_board/task_board_controller.dart';
-import '../tasks/tasks_controller.dart';
 import '../widgets/top_menu.dart';
 
 // ignore: must_be_immutable

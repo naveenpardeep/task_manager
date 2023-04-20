@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';

@@ -2,11 +2,9 @@ import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import 'package:task_manager_app/model/task_board.dart';
 
 import '../../model/enums/e_period.dart';
 import '../../model/enums/e_sorting.dart';
-import '../../model/generated/task_board.g.dart';
 
 import '../project/project_controller.dart';
 
