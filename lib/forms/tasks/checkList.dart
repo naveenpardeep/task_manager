@@ -171,9 +171,9 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                               checkList.isDone = currentValue;
 
                               await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
-                              controller.sendNotify();
+                              controller.refreshData();
 
-                              Get.find<TasksController>().sendNotify();
+                              Get.find<TasksController>().refreshData();
                             })),
                   ],
                 ),
@@ -185,8 +185,6 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     }
     return SingleChildScrollView(child: Column(children: list));
   }
-
- 
 
   showAlertDialog(BuildContext context, checkList) {
     // set up the button
@@ -239,7 +237,6 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         int newPosition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(checkList);
         moveRow(data, newPosition);
 
-      
         Get.find<TasksController>().refreshData();
         controller.refreshData();
       },
@@ -255,6 +252,5 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     Get.find<TasksController>().currentItem.checkList.rows.remove(row);
 
     Get.find<TasksController>().currentItem.checkList.rows.insert(newPosition, row);
-    
   }
 }
