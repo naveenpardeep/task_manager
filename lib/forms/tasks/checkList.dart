@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+import 'package:task_manager_app/model/task_doc_check_list_table.dart';
 
 class ChecklistPage extends GetView<TaskCheckListController> {
   const ChecklistPage({Key? key}) : super(key: key);
@@ -93,71 +94,99 @@ class ChecklistPage extends GetView<TaskCheckListController> {
 
   Widget checkList(BuildContext context) {
     List<Widget> list = [];
-    for (var checkList in controller.items) {
-      list.add(Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: InkWell(
-          onTap: () {
-             controller.currentItem = checkList;
-             Get.toNamed(Routes.taskChecklistPage);
-          },
-          onLongPress: () {},
-          child: Column(
-            children: [
-              Card(
-                // elevation: 3,
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                    const Icon(Icons.drag_indicator),
+    double width = MediaQuery.of(context).size.width;
 
-                      Expanded(
-                        child: Text(
-                          checkList.text,
-                          style: TextStyle(
-                            color: checkList.isDone==true? const Color(0xff529FBF): ControlOptions.instance.colorMainDark,
-                            fontSize: ControlOptions.instance.sizeL,
+    for (var checkList in controller.items) {
+      list.add(wrapdragTarget(
+        checkList: checkList,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+          child: InkWell(
+            onTap: () {
+              controller.currentItem = checkList;
+              Get.toNamed(Routes.taskChecklistPage);
+            },
+            child: Card(
+              margin: EdgeInsets.zero,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Draggable(
+                        data: checkList,
+                        childWhenDragging: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
+                        feedback: SizedBox(
+                          height: 60,
+                          width: width,
+                          child: Card(
+                            margin: EdgeInsets.zero,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      checkList.text,
+                                      style: TextStyle(
+                                        color: checkList.isDone == true ? const Color(0xff529FBF) : ControlOptions.instance.colorMainDark,
+                                        fontSize: ControlOptions.instance.sizeL,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width: 30,
+                                      child: NsgCheckBox(
+                                          toggleInside: true, key: GlobalKey(), label: '', value: checkList.isDone, onPressed: (currentValue) async {})),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
+                        child: SizedBox(width: 30, child: IconButton(onPressed: () {}, icon: const Icon(Icons.drag_indicator))),
                       ),
-                       SizedBox(
-                          width: 30,
-                          child: NsgCheckBox(
-                              toggleInside: true,
-                              key: GlobalKey(),
-                              label: '',
-                              value: checkList.isDone,
-                              onPressed: (currentValue) async {
-                                checkList.isDone = currentValue;
+                    ),
+                    Expanded(
+                      child: Text(
+                        checkList.text,
+                        style: TextStyle(
+                          color: checkList.isDone == true ? const Color(0xff529FBF) : ControlOptions.instance.colorMainDark,
+                          fontSize: ControlOptions.instance.sizeL,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        width: 30,
+                        child: NsgCheckBox(
+                            toggleInside: true,
+                            key: GlobalKey(),
+                            label: '',
+                            value: checkList.isDone,
+                            onPressed: (currentValue) async {
+                              checkList.isDone = currentValue;
 
-                                await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
-                                controller.sendNotify();
+                              await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
+                              controller.sendNotify();
 
-                                Get.find<TasksController>().sendNotify();
-                              })),
-
-                      // IconButton(
-                      //     onPressed: () {
-                      //       showAlertDialog(context, checkList);
-                      //     },
-                      //     icon: const Icon(
-                      //       Icons.remove_circle_outline,
-                      //       color: Colors.black,
-                      //     )),
-                     //  const Icon(Icons.arrow_forward_ios),
-                    ],
-                  ),
+                              Get.find<TasksController>().sendNotify();
+                            })),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ));
     }
     return SingleChildScrollView(child: Column(children: list));
   }
+
+ 
 
   showAlertDialog(BuildContext context, checkList) {
     // set up the button
@@ -191,5 +220,41 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         return alert;
       },
     );
+  }
+
+  Widget wrapdragTarget({required Widget child, required TaskDocCheckListTable checkList}) {
+    return DragTarget<TaskDocCheckListTable>(
+      builder: (context, accepted, rejected) {
+        return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: accepted.isNotEmpty ? ControlOptions.instance.colorMain.withOpacity(0.4) : Colors.transparent,
+            ),
+            child: child);
+      },
+      onWillAccept: (data) {
+        return true;
+      },
+      onAccept: (data) async {
+        int newPosition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(checkList);
+        moveRow(data, newPosition);
+
+      
+        Get.find<TasksController>().refreshData();
+        controller.refreshData();
+      },
+    );
+  }
+
+  void moveRow(TaskDocCheckListTable row, int newPosition) {
+    var oldPostition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(row);
+    if (oldPostition < newPosition) {
+      newPosition--;
+    }
+
+    Get.find<TasksController>().currentItem.checkList.rows.remove(row);
+
+    Get.find<TasksController>().currentItem.checkList.rows.insert(newPosition, row);
+    
   }
 }
