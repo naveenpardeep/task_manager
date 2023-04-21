@@ -190,15 +190,18 @@ class _HomepageState extends State<Homepage> {
                                 textAlignVertical: TextAlignVertical.bottom,
                                 style: TextStyle(color: ControlOptions.instance.colorMainLight),
                                 onChanged: (val) {
+                                  setState(() {
+                                    taskView = false;
+                                  });
                                   searchvalue = val;
-                                  taskController.sendNotify();
+                                  taskController.refreshData();
                                   taskStatusTableController.sendNotify();
                                 }),
                           ),
                         ),
                       if (width > 700)
                         NsgButton(
-                          color: ControlOptions.instance.colorWhite,
+                            color: ControlOptions.instance.colorWhite,
                             height: 10,
                             borderRadius: 20,
                             width: 100,
@@ -275,8 +278,11 @@ class _HomepageState extends State<Homepage> {
                                   textAlignVertical: TextAlignVertical.bottom,
                                   style: TextStyle(color: ControlOptions.instance.colorMainLight),
                                   onChanged: (val) {
+                                    setState(() {
+                                      taskView = false;
+                                    });
                                     searchvalue = val;
-                                    taskController.sendNotify();
+                                    taskController.refreshData();
                                     taskStatusTableController.sendNotify();
                                   }),
                             ),
@@ -493,7 +499,7 @@ class _HomepageState extends State<Homepage> {
       if (width < 700)
         wrapFlexible(
             child: NsgButton(
-              color: ControlOptions.instance.colorWhite,
+                color: ControlOptions.instance.colorWhite,
                 height: 10,
                 borderRadius: 20,
                 onPressed: () {
@@ -502,6 +508,9 @@ class _HomepageState extends State<Homepage> {
                       element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
                   serviceC.currentItem.userAccount = user ?? UserAccount();
                   taskController.refreshData();
+                  setState(() {
+                    taskView = false;
+                  });
                 },
                 text: 'My Tasks')),
       wrapFlexible(
@@ -521,6 +530,9 @@ class _HomepageState extends State<Homepage> {
             taskController.refreshData();
             taskStatusTableController.sendNotify();
             taskBoardController.sendNotify();
+            setState(() {
+              taskView = false;
+            });
           },
         ),
       ),
@@ -539,6 +551,8 @@ class _HomepageState extends State<Homepage> {
                 taskController.refreshData();
                 taskStatusTableController.sendNotify();
                 taskBoardController.refreshData();
+
+                taskView = false;
               });
             }),
       ),
@@ -551,6 +565,9 @@ class _HomepageState extends State<Homepage> {
             NsgUserSettings.controller!.setSettingItem('sort_${projectController.currentItem.id}', (task as TaskBoard).sortBy.value.toString());
             taskBoardController.sendNotify();
             taskController.refreshData();
+            setState(() {
+              taskView = false;
+            });
           },
         ),
       ),
@@ -564,6 +581,9 @@ class _HomepageState extends State<Homepage> {
                 .setSettingItem('period_${projectController.currentItem.id}', (task as TaskBoard).periodOfFinishedTasks.value.toString());
             taskBoardController.sendNotify();
             taskController.refreshData();
+            setState(() {
+              taskView = false;
+            });
           },
         ),
       ),
@@ -713,39 +733,42 @@ class _HomepageState extends State<Homepage> {
         list = [];
         for (var tasks in taskLoadC.currentStatusTasks) {
           if (tasks.taskStatus != status) continue;
+          if (tasks.name.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+              tasks.assignee.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
+              tasks.taskNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
+            list.add(GestureDetector(
+              onTap: () {
+                if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
+                  setState(() {
+                    Get.find<TaskFilesController>().requestItems();
+                    Get.find<TaskCheckListController>().requestItems();
+                    taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
 
-          list.add(GestureDetector(
-            onTap: () {
-              if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
-                setState(() {
-                  Get.find<TaskFilesController>().requestItems();
-                  Get.find<TaskCheckListController>().requestItems();
-                  taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
-
-                  taskView = true;
-                });
-              } else {
-                taskController.itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
-              }
-              if (tasks.isReadByAssignee == false &&
-                  (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
-                tasks.isReadByAssignee = true;
-                Get.find<TasksController>().postItems([tasks]);
-              }
-            },
-            child: Row(
-              children: [
-                Expanded(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return DraggableRotatingCard(
-                      tasks: tasks,
-                      constraints: constraints,
-                    );
-                  }),
-                ),
-              ],
-            ),
-          ));
+                    taskView = true;
+                  });
+                } else {
+                  taskController.itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
+                }
+                if (tasks.isReadByAssignee == false &&
+                    (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
+                  tasks.isReadByAssignee = true;
+                  Get.find<TasksController>().postItems([tasks]);
+                }
+              },
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return DraggableRotatingCard(
+                        tasks: tasks,
+                        constraints: constraints,
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ));
+          }
         }
         if (list.length < taskLoadC.total) {
           list.add(NsgTextButton(
