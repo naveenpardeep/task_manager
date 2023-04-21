@@ -198,6 +198,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       if (width > 700)
                         NsgButton(
+                          color: ControlOptions.instance.colorWhite,
                             height: 10,
                             borderRadius: 20,
                             width: 100,
@@ -492,6 +493,7 @@ class _HomepageState extends State<Homepage> {
       if (width < 700)
         wrapFlexible(
             child: NsgButton(
+              color: ControlOptions.instance.colorWhite,
                 height: 10,
                 borderRadius: 20,
                 onPressed: () {

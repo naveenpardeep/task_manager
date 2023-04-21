@@ -38,7 +38,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Проекты',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -51,7 +51,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Задачи',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -63,7 +63,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Пользователи',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color:ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -77,7 +77,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Организации',
-                        style: TextStyle(color: ControlOptions.instance.colorMainText, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -107,7 +107,7 @@ class TmTopMenu extends StatelessWidget {
                         },
                         child: Icon(
                           Icons.insert_invitation_sharp,
-                          color: ControlOptions.instance.colorMainText,
+                          color: ControlOptions.instance.colorWhite,
                         ),
                       ),
                     ),
@@ -122,7 +122,7 @@ class TmTopMenu extends StatelessWidget {
                         },
                         child: Icon(
                           Icons.list_alt,
-                          color: ControlOptions.instance.colorMainText,
+                          color: ControlOptions.instance.colorWhite,
                         ),
                       ),
                     ),
