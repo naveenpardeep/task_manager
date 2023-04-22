@@ -1141,7 +1141,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
                             child: Icon(
-                              Icons.more_vert,
+                              Icons.more_horiz,
                               color: ControlOptions.instance.colorGrey,
                               size: 24,
                             ),
@@ -1264,7 +1264,7 @@ Widget tasksubPart(tasks) {
           Expanded(
             child: Text(
               tasks.name,
-              maxLines: 1,
+              maxLines: 2,
             ),
           ),
         ],
