@@ -76,6 +76,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                     }
                     await taskController.itemPagePost(goBack: true);
                     Get.find<TasksController>().refreshData();
+                    Get.back();
                   }
                 },
               )
