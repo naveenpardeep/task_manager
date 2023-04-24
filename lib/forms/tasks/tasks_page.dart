@@ -124,14 +124,14 @@ class _TasksPageState extends State<TasksPage> {
                                     label: 'Название задачи',
                                     infoString: 'Укажите название задачи',
                                   ),
-                                  TTNsgInput(
-                                    controller: controller,
-                                    selectionController: Get.find<NewTaskStatusController>(),
-                                    dataItem: controller.currentItem,
-                                    fieldName: TaskDocGenerated.nameTaskStatusId,
-                                    label: 'Статус',
-                                    infoString: 'Укажите статус задачи',
-                                  ),
+                                  // TTNsgInput(
+                                  //   controller: controller,
+                                  //   selectionController: Get.find<NewTaskStatusController>(),
+                                  //   dataItem: controller.currentItem,
+                                  //   fieldName: TaskDocGenerated.nameTaskStatusId,
+                                  //   label: 'Статус',
+                                  //   infoString: 'Укажите статус задачи',
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                     child: TextFormField(

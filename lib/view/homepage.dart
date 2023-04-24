@@ -1052,7 +1052,7 @@ changeTaskStatus(TaskDoc tasks) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
-    controller: Get.find<ProjectStatusController>(),
+    controller: Get.find<TaskStatusTableController>(),
   );
   form.selectFromArray(
     'Смена статуса заявки',
@@ -1181,12 +1181,12 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
           ),
         ),
       ),
-      const PopupMenuItem(
+       const PopupMenuItem(
         value: 2,
         child: Padding(
-          padding: EdgeInsets.only(left: 0, right: 0),
+          padding: EdgeInsets.only(left: 0, right: 20),
           child: Text(
-            "Перенести в другой проект",
+            "Изменить статус задачи",
             style: TextStyle(color: Colors.black),
           ),
         ),
@@ -1196,13 +1196,23 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
         child: Padding(
           padding: EdgeInsets.only(left: 0, right: 0),
           child: Text(
-            "Скопировать в другой проект",
+            "Перенести в другой проект",
             style: TextStyle(color: Colors.black),
           ),
         ),
       ),
       const PopupMenuItem(
         value: 4,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 0),
+          child: Text(
+            "Скопировать в другой проект",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      const PopupMenuItem(
+        value: 5,
         child: Padding(
           padding: EdgeInsets.only(left: 0, right: 0),
           child: Text(
@@ -1225,13 +1235,16 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
       Get.find<TasksController>().sendNotify();
     }
-    if (value == 2) {
-      selectProjectMove(tasks);
+     if (value == 2) {
+      changeTaskStatus(tasks);
     }
     if (value == 3) {
-      selectProjectCopy(tasks);
+      selectProjectMove(tasks);
     }
     if (value == 4) {
+      selectProjectCopy(tasks);
+    }
+    if (value == 5) {
       tasks.assignee = Get.find<DataController>().currentUser;
 
       Get.find<TasksController>().postItems([tasks]);
