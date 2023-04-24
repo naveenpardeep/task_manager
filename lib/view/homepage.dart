@@ -1109,6 +1109,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       children: [
         SizedBox(
           width: constraints.maxWidth,
+          height: 135,
           child: Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               color: const Color(0xffEDEFF3),
@@ -1262,9 +1263,13 @@ Widget tasksubPart(tasks) {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              tasks.name,
-              maxLines: 2,
+            child: SizedBox(
+              height: 38,
+              child: Text(
+                
+                tasks.name,
+                maxLines: 2,
+              ),
             ),
           ),
         ],
