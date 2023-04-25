@@ -134,19 +134,30 @@ class _TasksPageState extends State<TasksPage> {
                                   // ),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
-                                    child: TextFormField(
-                                      initialValue: controller.currentItem.taskStatus.toString(),
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        label: const Text('Статус'),
-                                        border: OutlineInputBorder(
-                                            gapPadding: 1,
-                                            borderSide: BorderSide(color: ControlOptions.instance.colorMain),
-                                            borderRadius: const BorderRadius.all(Radius.circular(10))),
-                                      ),
-                                      onTap: () {
-                                        taskStatus(context);
-                                      },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                          child: Text('Статус', style: TextStyle(fontSize: ControlOptions.instance.sizeS, color: Colors.black)),
+                                        ),
+                                        TextFormField(
+                                          initialValue: controller.currentItem.taskStatus.toString(),
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.fromLTRB(10, 14, 25, 14),
+                                            isDense: true,
+                                            border: OutlineInputBorder(
+                                                gapPadding: 1,
+                                                borderSide: BorderSide(color: ControlOptions.instance.colorMain),
+                                                borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                          ),
+                                           style: TextStyle(color: ControlOptions.instance.colorText, fontSize: 14),
+                              
+                                          onTap: () {
+                                            taskStatus(context);
+                                          },
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   if (width > 700)
