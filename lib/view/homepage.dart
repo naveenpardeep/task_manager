@@ -631,10 +631,11 @@ class _HomepageState extends State<Homepage> {
                   },
                   child: Text(
                     status.status.toString(),
-                    style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: status.status.isDone ? Colors.green : Colors.black,
-                    ),
+                   style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                           ),
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
@@ -673,10 +674,11 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Text(
                   status.status.name,
-                  style: TextStyle(
-                    fontSize: ControlOptions.instance.sizeL,
-                    color: status.status.isDone ? Colors.green : Colors.black,
-                  ),
+                 style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                           ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
@@ -692,8 +694,11 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Text(
                   status.status.name,
-                  style: TextStyle(fontSize: ControlOptions.instance.sizeL, color: status.status.isDone ? Colors.green : Colors.black),
-                ),
+                 style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                           ),   ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: getTasklength(status.status),
@@ -816,7 +821,11 @@ class _HomepageState extends State<Homepage> {
                     children: [
                       Text(
                         status.status.toString(),
-                        style: TextStyle(color: status.status.isDone ? Colors.green : Colors.black, fontSize: ControlOptions.instance.sizeL),
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                           ),
                       ),
                       Padding(padding: const EdgeInsets.only(left: 5), child: searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
                     ],
@@ -856,8 +865,9 @@ class _HomepageState extends State<Homepage> {
                   Text(
                     status.status.name,
                     style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: status.status.isDone ? Colors.green : Colors.black,
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
                     ),
                   ),
                   Padding(
@@ -868,15 +878,15 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             tabSelected: Container(
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(width: 2, color: ControlOptions.instance.colorMain))),
+              decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 2, color: ControlOptions.instance.colorMain))),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 children: [
                   Text(
                     status.status.name,
                     style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
+                      fontFamily: 'Inter',
+                      fontSize: 16,
                       color: status.status.isDone ? Colors.green : ControlOptions.instance.colorMain,
                     ),
                   ),
@@ -917,7 +927,7 @@ class _HomepageState extends State<Homepage> {
       return taskLoadC.obx((state) {
         return Text(
           taskLoadC.total.toString(),
-          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600 ),
+          style: const TextStyle(fontFamily: 'Inter', fontSize: 16, color: Color(0xff529FBF)),
         );
       },
           onLoading: Text(
@@ -1182,7 +1192,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
           ),
         ),
       ),
-       const PopupMenuItem(
+      const PopupMenuItem(
         value: 2,
         child: Padding(
           padding: EdgeInsets.only(left: 0, right: 20),
@@ -1236,7 +1246,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
       Get.find<TasksController>().sendNotify();
     }
-     if (value == 2) {
+    if (value == 2) {
       changeTaskStatus(tasks);
     }
     if (value == 3) {
@@ -1280,7 +1290,6 @@ Widget tasksubPart(tasks) {
             child: SizedBox(
               height: 38,
               child: Text(
-                
                 tasks.name,
                 maxLines: 2,
               ),
