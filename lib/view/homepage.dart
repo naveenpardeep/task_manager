@@ -877,7 +877,7 @@ class _HomepageState extends State<Homepage> {
                     status.status.name,
                     style: TextStyle(
                       fontSize: ControlOptions.instance.sizeL,
-                      color: status.status.isDone ? Colors.green : Colors.black,
+                      color: status.status.isDone ? Colors.green : ControlOptions.instance.colorMain,
                     ),
                   ),
                   Padding(
@@ -917,7 +917,7 @@ class _HomepageState extends State<Homepage> {
       return taskLoadC.obx((state) {
         return Text(
           taskLoadC.total.toString(),
-          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w600 ),
         );
       },
           onLoading: Text(
