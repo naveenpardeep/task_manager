@@ -868,7 +868,8 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             tabSelected: Container(
-              decoration: BoxDecoration(border: Border.all(width: 2, color: ControlOptions.instance.colorMain), borderRadius: BorderRadius.circular(3)),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 2, color: ControlOptions.instance.colorMain))),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 children: [
