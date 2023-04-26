@@ -1059,11 +1059,11 @@ class RotatingCardState extends State<RotatingCard> {
   }
 }
 
-changeTaskStatus(TaskDoc tasks) {
+changeTaskStatus(TaskDoc tasks, [int? value]) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
-    controller: Get.find<TaskStatusTableController>(),
+    controller: value==2? Get.find<TaskStatusTableController>(): Get.find<ProjectStatusController>(),
   );
   form.selectFromArray(
     'Смена статуса заявки',
@@ -1232,6 +1232,16 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
           ),
         ),
       ),
+      const PopupMenuItem(
+        value: 6,
+        child: Padding(
+          padding: EdgeInsets.only(left: 0, right: 20),
+          child: Text(
+            "Измените статус из списка статусов проекта",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
     ],
     elevation: 8.0,
   ).then((value) {
@@ -1247,7 +1257,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       Get.find<TasksController>().sendNotify();
     }
     if (value == 2) {
-      changeTaskStatus(tasks);
+      changeTaskStatus(tasks, value);
     }
     if (value == 3) {
       selectProjectMove(tasks);
@@ -1261,6 +1271,9 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       Get.find<TasksController>().postItems([tasks]);
 
       Get.find<TasksController>().refreshData();
+    }
+    if (value == 6) {
+      changeTaskStatus(tasks, value);
     }
   });
 }
