@@ -23,6 +23,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
   TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
   var taskController = Get.find<TasksController>();
   var commnetController = Get.find<TaskCommentsController>();
+  var checkcontroller = Get.find<TaskCheckListController>();
 
   @override
   void initState() {
@@ -34,6 +35,15 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    double totalChecklist = checkcontroller.items.length.toDouble();
+    double isDone = checkcontroller.items.where((element) => element.isDone == true).length.toDouble();
+
+    late double donePercent;
+    if (isDone != 0) {
+      donePercent = (isDone / totalChecklist) * 100;
+    } else {
+      donePercent = 0.0;
+    }
     return SafeArea(
         child: Scaffold(
       body: Column(
@@ -49,7 +59,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
               )
             ],
             rightIcons: [
-              if (currentTab.name == 'Чек-лиск')
+              if (currentTab.name == 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)' || currentTab.name == 'Чек-лиск')
                 TTAppBarIcon(
                   icon: Icons.add,
                   onTap: () async {
@@ -92,7 +102,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                     setState(() {});
                   }),
               TTTabsTab(
-                  name: 'Чек-лиск',
+                  name: checkcontroller.items.isEmpty ? 'Чек-лиск' : 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)',
                   onTap: (v) {
                     currentTab = v;
                     setState(() {});
@@ -105,17 +115,17 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                   })
             ],
           ),
-          Expanded(child: content()),
+          Expanded(child: content(donePercent)),
         ],
       ),
     ));
   }
 
-  Widget content() {
+  Widget content(donePercent) {
     if (currentTab.name == 'Основное') {
       return taskController.obx((state) => const TasksPage());
     }
-    if (currentTab.name == 'Чек-лиск') {
+    if (currentTab.name == 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)' || currentTab.name == 'Чек-лиск') {
       return taskController.obx((state) => const ChecklistPage());
     }
     return commnetController.obx((state) => const TasksCommentPage());
