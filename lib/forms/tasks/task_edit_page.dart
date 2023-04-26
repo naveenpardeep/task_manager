@@ -59,7 +59,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
               )
             ],
             rightIcons: [
-              if (currentTab.name == 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)' || currentTab.name == 'Чек-лиск')
+              if (currentTab.name == 'Чеклист${donePercent.toStringAsFixed(1)}%' || currentTab.name == 'Чеклист')
                 TTAppBarIcon(
                   icon: Icons.add,
                   onTap: () async {
@@ -102,7 +102,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                     setState(() {});
                   }),
               TTTabsTab(
-                  name: checkcontroller.items.isEmpty ? 'Чек-лиск' : 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)',
+                  name: checkcontroller.items.isEmpty ? 'Чеклист' : 'Чеклист${donePercent.toStringAsFixed(1)}%',
                   onTap: (v) {
                     currentTab = v;
                     setState(() {});
@@ -125,7 +125,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
     if (currentTab.name == 'Основное') {
       return taskController.obx((state) => const TasksPage());
     }
-    if (currentTab.name == 'Чек-лиск \t (${donePercent.toStringAsFixed(2)}%)' || currentTab.name == 'Чек-лиск') {
+    if (currentTab.name == 'Чеклист${donePercent.toStringAsFixed(1)}%' || currentTab.name == 'Чеклист') {
       return taskController.obx((state) => const ChecklistPage());
     }
     return commnetController.obx((state) => const TasksCommentPage());
