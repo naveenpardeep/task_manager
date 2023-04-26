@@ -75,23 +75,25 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                                           ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        ' ${controller.currentItem.userAccount.name}',
-                                        style: const TextStyle(fontFamily: 'Inter', fontSize: 21),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Text(
-                                          ' ${controller.currentItem.userAccount.position}',
-                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          ' ${controller.currentItem.userAccount.name}',
+                                          style: const TextStyle(fontFamily: 'Inter', fontSize: 21),
                                         ),
-                                      ),
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            ' ${controller.currentItem.userAccount.position}',
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
