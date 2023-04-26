@@ -23,7 +23,7 @@ void main() {
       colorMainDark: const Color.fromARGB(255, 61, 60, 107),
       colorMainLight: const Color(0xff529FBF),
       colorMainLighter: const Color.fromARGB(255, 171, 244, 255),
-      colorMainText: const Color.fromARGB(255, 10, 0, 0),
+      colorMainText: const Color.fromARGB(255, 252, 249, 249),
       colorText: const Color.fromRGBO(30, 30, 30, 1),
       colorInverted: const Color.fromRGBO(255, 255, 255, 1),
       colorSecondary: const Color.fromRGBO(123, 181, 0, 1),
