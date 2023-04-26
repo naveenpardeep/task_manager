@@ -193,25 +193,9 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
           orguser.userAccount.email.toString().toLowerCase().contains(searchvalue.toLowerCase()) ||
           orguser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
+          clipBehavior: Clip.none,
           children: [
-            Positioned(
-              right: 10,
-              child: Container(
-                  decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
-                  child: IconButton(
-                      onPressed: () async {
-                        controller.currentItem.tableUsers.removeRow(orguser);
-
-                        await controller.itemPagePost(goBack: false);
-                        //  Get.find<OrganizationItemUserTableController>().orgUsersList.add(orguser);
-                       
-                        controller.sendNotify();
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Color(0xff529FBF),
-                      ))),
-            ),
+            
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
               child: Padding(
@@ -246,6 +230,30 @@ class _OrganizationUserAddPageState extends State<OrganizationUserAddPage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Positioned(
+             
+              right: 10,
+              child: ClipOval(
+                child: Container(
+                 height: 40,
+                 width: 40,
+                   decoration: const BoxDecoration(color: Color(0xffEDEFF3), ),
+                    child: IconButton(
+                      alignment: AlignmentDirectional.topCenter,
+                        onPressed: () async {
+                          controller.currentItem.tableUsers.removeRow(orguser);
+                    
+                          await controller.itemPagePost(goBack: false);
+                          //  Get.find<OrganizationItemUserTableController>().orgUsersList.add(orguser);
+                         
+                          controller.sendNotify();
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Color(0xff529FBF),
+                        ))),
               ),
             ),
           ],

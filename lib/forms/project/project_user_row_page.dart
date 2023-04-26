@@ -320,23 +320,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
           projectuser.userAccount.phoneNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
         list.add(Stack(
           children: [
-            Positioned(
-              right: 10,
-              child: Container(
-                  decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
-                  child: IconButton(
-                      onPressed: () async {
-                        controller.currentItem.tableUsers.removeRow(projectuser);
-
-                        await controller.itemPagePost(goBack: false);
-                        Get.find<ProjectItemUserTableController>().projectUsersList.add(projectuser);
-                        controller.sendNotify();
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Color(0xff529FBF),
-                      ))),
-            ),
+           
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
               child: Padding(
@@ -371,6 +355,28 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+             Positioned(
+              right: 10,
+              child: ClipOval(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                    decoration: const BoxDecoration(color: Color(0xffEDEFF3), shape: BoxShape.circle),
+                    child: IconButton(
+                      alignment: AlignmentDirectional.topCenter,
+                        onPressed: () async {
+                          controller.currentItem.tableUsers.removeRow(projectuser);
+              
+                          await controller.itemPagePost(goBack: false);
+                          Get.find<ProjectItemUserTableController>().projectUsersList.add(projectuser);
+                          controller.sendNotify();
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Color(0xff529FBF),
+                        ))),
               ),
             ),
           ],
