@@ -2,19 +2,23 @@ import 'dart:io';
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:path/path.dart';
 import 'package:task_manager_app/image_file_view/image_file.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player_win/video_player_win.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'package:file_selector/file_selector.dart' as file;
 import 'package:dio/dio.dart' as dio;
+
+import '../forms/tasks/task_file_controller.dart';
 
 /// Пикер и загрузчик изображений и файлов заданных форматов
 class TTNsgFilePicker extends StatefulWidget {
@@ -516,37 +520,71 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   }
 
   Future saveFile(NsgFilePickerObject fileObject) async {
-    FileType fileType = FileType.any;
-    switch (fileObject.fileType) {
-      case NsgFilePickerObjectType.image:
-        fileType = FileType.image;
-        break;
-      case NsgFilePickerObjectType.video:
-        fileType = FileType.video;
-        break;
-      case NsgFilePickerObjectType.pdf:
-        fileType = FileType.any;
-        break;
-      default:
-        fileType = FileType.any;
-    }
-    var fileName = await FilePicker.platform
-        .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
-    if (fileName == null) return;
-    var ext = extension(fileName);
-    if (ext.isEmpty) {
-      fileName += extension(fileObject.filePath);
-    }
+    if (GetPlatform.isAndroid || GetPlatform.isIOS) {
+      String? message;
+      String imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
+
+      try {
+        // Download image
+        final http.Response response = await http.get(Uri.parse(imagepath));
+
+        // Get temporary directory
+        final dir = await getTemporaryDirectory();
+
+        // Create an image name
+        var filename = '${dir.path}/filename';
+
+        // Save to filesystem
+        final file = File(filename);
+        await file.writeAsBytes(response.bodyBytes);
+
+        final params = SaveFileDialogParams(sourceFilePath: file.path);
+        final finalPath = await FlutterFileDialog.saveFile(params: params);
+
+        if (finalPath != null) {
+          message = 'Image saved';
+        }
+      } catch (e) {
+        message = 'An error occurred while saving the image';
+      }
+
+      if (message != null) {
+        Get.snackbar('', message);
+      }
+    } else {
+      FileType fileType = FileType.any;
+
+      switch (fileObject.fileType) {
+        case NsgFilePickerObjectType.image:
+          fileType = FileType.image;
+          break;
+        case NsgFilePickerObjectType.video:
+          fileType = FileType.video;
+          break;
+        case NsgFilePickerObjectType.pdf:
+          fileType = FileType.any;
+          break;
+        default:
+          fileType = FileType.any;
+      }
+      var fileName = await FilePicker.platform
+          .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
+      if (fileName == null) return;
+      var ext = extension(fileName);
+      if (ext.isEmpty) {
+        fileName += extension(fileObject.filePath);
+      }
 
 //TODO: add progress
-    dio.Dio io = dio.Dio();
-    await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
+      dio.Dio io = dio.Dio();
+      await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
 //setState(() {
 // downloading = true;
 // progress =
 // ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
-    });
-    await launchUrlString('file:$fileName');
+      });
+      await launchUrlString('file:$fileName');
+    }
   }
 
   /// Вывод галереи на экран
@@ -805,93 +843,90 @@ class NsgImagePickerButton extends StatelessWidget {
             hoverColor: ControlOptions.instance.colorMain,
             onTap: onPressed,
             child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xffEDEFF3),
-        ),
-        width: 160,
-        height: 159,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.attach_file, color: Color(0xff529FBF)),
-            Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Загрузить файл',
-                  style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
-                ))
-          ],
-        ),
-      ),
-          )
-        :
-    InkWell(
-      hoverColor: ControlOptions.instance.colorMain,
-      onTap: () {
-        
-          Scaffold.of(context).showBottomSheet(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(50),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xffEDEFF3),
+              ),
+              width: 160,
+              height: 159,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.attach_file, color: Color(0xff529FBF)),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Загрузить файл',
+                        style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
+                      ))
+                ],
               ),
             ),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            (BuildContext context) {
-              return Card(
-                elevation: 3,
-                child: Container(
-                  height: 150,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffEDEFF3), borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        IconButton(
-                          icon: const Icon(Icons.photo),
-                          onPressed: onPressed,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.folder),
-                          onPressed: onPressed2,
-                        ),
-                        if (GetPlatform.isAndroid || GetPlatform.isIOS)
-                          IconButton(
-                            icon: const Icon(Icons.add_a_photo),
-                            onPressed: onPressed3,
-                          ),
-                      ],
-                    ),
+          )
+        : InkWell(
+            hoverColor: ControlOptions.instance.colorMain,
+            onTap: () {
+              Scaffold.of(context).showBottomSheet(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(50),
                   ),
                 ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                (BuildContext context) {
+                  return Card(
+                    elevation: 3,
+                    child: Container(
+                      height: 150,
+                      decoration: const BoxDecoration(
+                          color: Color(0xffEDEFF3), borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              icon: const Icon(Icons.photo),
+                              onPressed: onPressed,
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.folder),
+                              onPressed: onPressed2,
+                            ),
+                            if (GetPlatform.isAndroid || GetPlatform.isIOS)
+                              IconButton(
+                                icon: const Icon(Icons.add_a_photo),
+                                onPressed: onPressed3,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
               );
             },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xffEDEFF3),
+              ),
+              width: 160,
+              height: 159,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.attach_file, color: Color(0xff529FBF)),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Загрузить файл',
+                        style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
+                      ))
+                ],
+              ),
+            ),
           );
-       
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xffEDEFF3),
-        ),
-        width: 160,
-        height: 159,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.attach_file, color: Color(0xff529FBF)),
-            Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Загрузить файл',
-                  style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
-                ))
-          ],
-        ),
-      ),
-    );
   }
 }
