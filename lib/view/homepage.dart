@@ -1063,11 +1063,12 @@ changeTaskStatus(TaskDoc tasks, [int? value]) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
-    controller: value==2? Get.find<TaskStatusTableController>(): Get.find<ProjectStatusController>(),
+    controller: value==2? Get.find<TaskStatusController>(): Get.find<ProjectStatusController>(),
   );
   form.selectFromArray(
     'Смена статуса заявки',
     (item) async {
+    
       tasks.taskStatus = item as TaskStatus;
       tasks.dateUpdated = DateTime.now();
       await Get.find<TasksController>().postItems([tasks]);
