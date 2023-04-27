@@ -105,10 +105,12 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
     for (var comment in comments) {
       {
         list.add(GestureDetector(
-          child: InkWell(
-            onTap: () {
+          child: GestureDetector(
+            onTapDown: (TapDownDetails details) {
               if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
-                showEditDelete(context, comment);
+                showPopUpMenu(details.globalPosition, comment, context);
+
+               // showEditDelete(context, comment);
               }
             },
             child: Stack(
@@ -142,6 +144,58 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                 children: list,
               ),
             )));
+  }
+
+  Future<void> showPopUpMenu(Offset globalPosition, comment, BuildContext context) async {
+    double left = globalPosition.dx;
+    double top = globalPosition.dy;
+
+    await showMenu(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.0),
+        ),
+      ),
+      color: const Color(0xffEDEFF3),
+      context: context,
+      position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
+      items: [
+        const PopupMenuItem(
+          value: 1,
+          child: Padding(
+            padding: EdgeInsets.only(left: 0, right: 40),
+            child: Text(
+              "Edit",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+        const PopupMenuItem(
+          value: 2,
+          child: Padding(
+            padding: EdgeInsets.only(left: 0, right: 40),
+            child: Text(
+              "Delete",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+      elevation: 8.0,
+    ).then((value) {
+      if (value == 1) {
+        controller.currentItem.text = comment.text;
+
+        controller.itemPageOpen(comment, Routes.taskEditPage);
+        controller.sendNotify();
+      }
+      if (value == 2) {
+        controller.currentItem = comment;
+        controller.deleteItems([controller.currentItem]);
+
+        controller.refreshData();
+      }
+    });
   }
 
   showEditDelete(BuildContext context, TaskComment comment) {
