@@ -42,6 +42,8 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         autofocus: true,
                         onKey: (event) async {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+                            controller.currentItem.ownerId = Get.find<TasksController>().currentItem.id;
+
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
@@ -66,7 +68,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       ),
                       child: IconButton(
                           onPressed: () async {
-                            controller.currentItem.ownerId=Get.find<TasksController>().currentItem.id;
+                            controller.currentItem.ownerId = Get.find<TasksController>().currentItem.id;
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
