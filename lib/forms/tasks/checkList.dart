@@ -236,9 +236,10 @@ class ChecklistPage extends GetView<TaskCheckListController> {
       onAccept: (data) async {
         int newPosition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(checkList);
         moveRow(data, newPosition);
-
-        Get.find<TasksController>().refreshData();
-        controller.refreshData();
+        if (data != checkList) {
+          Get.find<TasksController>().refreshData();
+          controller.refreshData();
+        }
       },
     );
   }

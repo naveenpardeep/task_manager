@@ -1115,7 +1115,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       Get.find<TasksController>().currentItem = tasks;
 
       Get.find<TasksController>().itemPageOpen(Get.find<TasksController>().currentItem, Routes.taskEditPage, needRefreshSelectedItem: true);
-      //  Get.find<TasksController>().sendNotify();
+     
     },
     child: Stack(
       children: [
