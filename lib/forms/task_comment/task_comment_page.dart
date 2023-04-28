@@ -351,32 +351,34 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
     AlertDialog alert = AlertDialog(
       title: Text(comment.author.toString()),
       content: SizedBox(
-        height: 200,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: comment.author.photoName.isEmpty
-                  ? Container(
-                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                      width: 100,
-                      height: 100,
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 20,
-                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
+        height: 250,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: comment.author.photoName.isEmpty
+                    ? Container(
+                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                        width: 100,
+                        height: 100,
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 20,
+                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                        ),
+                      )
+                    : Image.network(
+                        TaskFilesController.getFilePath(comment.author.photoName),
+                        fit: BoxFit.fill,
+                        width: 200,
+                        height: 200,
                       ),
-                    )
-                  : Image.network(
-                      TaskFilesController.getFilePath(comment.author.photoName),
-                      fit: BoxFit.fill,
-                      width: 120,
-                      height: 120,
-                    ),
-            ),
-            SelectableText(comment.author.phoneNumber),
-            SelectableText(comment.author.email)
-          ],
+              ),
+              SelectableText(comment.author.phoneNumber),
+              SelectableText(comment.author.email)
+            ],
+          ),
         ),
       ),
     );
