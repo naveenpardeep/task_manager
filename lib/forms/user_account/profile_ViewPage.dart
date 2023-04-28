@@ -68,121 +68,123 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
-        child: NsgDialogBody(
-            controller: nsgDialogBodyController,
-            key: scaffoldKey,
-
-            /*appBar: AppBar(
-                actions: [
-                  if (_tabController.index == 0)
-                    IconButton(
-                        onPressed: () {
-                          if (_tabController.index == 0) {
-                            controller.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
-                          }
-
-                          if (_tabController.index == 2) {}
-                        },
-                        icon: const Icon(Icons.edit)),
-                ],
-
-                backgroundColor: Colors.white,
-                elevation: 0.0, //Shadow gone
-                centerTitle: true,
-                title: controller.obx((state) => Text(
-                      controller.currentItem.name.toString().toUpperCase(),
-                      style: const TextStyle(color: Colors.black),
-                    )),
-                bottom: TabBar(
-                    onTap: (value) {
-                      setState(() {
-                        if (_tabController.index == 0) {
-                          _tabController.index = 0;
-                        } else if (_tabController.index == 1) {
-                          _tabController.index = 1;
-                        } else if (_tabController.index == 2) {
-                          _tabController.index = 2;
-                        }
-                      });
-                    },
-                    controller: _tabController,
-                    tabs: <Widget>[
-                      Tab(
-                        child: Text(
-                          'Основное',
-                          style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                        ),
-                      ),
-                      Tab(
-                          child: Text(
-                        'Приглашения',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                      )),
-                      Tab(
-                          child: Text(
-                        'Список приглашений',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
-                      )),
-                    ]),
-              ),*/
-
-            child: Column(
-              children: [
-                if (width > 700) const TmTopMenu(),
-                if (width <= 700)
-                  TTAppBar(
-                    title: 'Аккаунт',
-                    rightIcons: [
-                      if (currentTab.name == 'Профиль')
-                        TTAppBarIcon(
-                          icon: Icons.edit_outlined,
-                          onTap: () {
-                            var userAcC = Get.find<UserAccountController>();
-                            userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+        child: Scaffold(
+          body: NsgDialogBody(
+              controller: nsgDialogBodyController,
+              key: scaffoldKey,
+        
+              /*appBar: AppBar(
+                  actions: [
+                    if (_tabController.index == 0)
+                      IconButton(
+                          onPressed: () {
+                            if (_tabController.index == 0) {
+                              controller.itemPageOpen(Get.find<DataController>().currentUser, Routes.userAccount);
+                            }
+        
+                            if (_tabController.index == 2) {}
                           },
+                          icon: const Icon(Icons.edit)),
+                  ],
+        
+                  backgroundColor: Colors.white,
+                  elevation: 0.0, //Shadow gone
+                  centerTitle: true,
+                  title: controller.obx((state) => Text(
+                        controller.currentItem.name.toString().toUpperCase(),
+                        style: const TextStyle(color: Colors.black),
+                      )),
+                  bottom: TabBar(
+                      onTap: (value) {
+                        setState(() {
+                          if (_tabController.index == 0) {
+                            _tabController.index = 0;
+                          } else if (_tabController.index == 1) {
+                            _tabController.index = 1;
+                          } else if (_tabController.index == 2) {
+                            _tabController.index = 2;
+                          }
+                        });
+                      },
+                      controller: _tabController,
+                      tabs: <Widget>[
+                        Tab(
+                          child: Text(
+                            'Основное',
+                            style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                          ),
                         ),
-                      TTAppBarIcon(
-                        icon: Icons.notifications_outlined,
-                        nott: 1,
-                        onTap: (() {
-                          notifC.refreshData();
-                          nsgDialogBodyController.openDialog(dialogBody());
-                          //NsgDialog().showNsgBottomDialog(context, dialogBody());
-                          //_dialogBuilder(context);
-                        }),
-                      )
+                        Tab(
+                            child: Text(
+                          'Приглашения',
+                          style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                        )),
+                        Tab(
+                            child: Text(
+                          'Список приглашений',
+                          style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 10 : 15),
+                        )),
+                      ]),
+                ),*/
+        
+              child: Column(
+                children: [
+                  if (width > 700) const TmTopMenu(),
+                  if (width <= 700)
+                    TTAppBar(
+                      title: 'Аккаунт',
+                      rightIcons: [
+                        if (currentTab.name == 'Профиль')
+                          TTAppBarIcon(
+                            icon: Icons.edit_outlined,
+                            onTap: () {
+                              var userAcC = Get.find<UserAccountController>();
+                              userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+                            },
+                          ),
+                        TTAppBarIcon(
+                          icon: Icons.notifications_outlined,
+                          nott: 1,
+                          onTap: (() {
+                            notifC.refreshData();
+                            nsgDialogBodyController.openDialog(dialogBody());
+                            //NsgDialog().showNsgBottomDialog(context, dialogBody());
+                            //_dialogBuilder(context);
+                          }),
+                        )
+                      ],
+                    ),
+                  TTTabs(
+                    currentTab: currentTab,
+                    tabs: [
+                      TTTabsTab(
+                          name: 'Профиль',
+                          onTap: (v) {
+                            currentTab = v;
+                            setState(() {});
+                          }),
+                      TTTabsTab(
+                          name: 'Уведомления',
+                          onTap: (v) {
+                            currentTab = v;
+                            Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
+                            setState(() {});
+                          }),
+                      TTTabsTab(
+                          name: 'Приглашения',
+                          onTap: (v) {
+                            currentTab = v;
+                            setState(() {});
+                          })
                     ],
                   ),
-                TTTabs(
-                  currentTab: currentTab,
-                  tabs: [
-                    TTTabsTab(
-                        name: 'Профиль',
-                        onTap: (v) {
-                          currentTab = v;
-                          setState(() {});
-                        }),
-                    TTTabsTab(
-                        name: 'Уведомления',
-                        onTap: (v) {
-                          currentTab = v;
-                          Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
-                          setState(() {});
-                        }),
-                    TTTabsTab(
-                        name: 'Приглашения',
-                        onTap: (v) {
-                          currentTab = v;
-                          setState(() {});
-                        })
-                  ],
-                ),
-                Expanded(child: controller.obx((state) => content())),
-                if (width < 700)
-                  //  const BottomMenu()
-                  const BottomMenu()
-              ],
-            ))
+                  Expanded(child: controller.obx((state) => content())),
+                  if (width < 700)
+                    //  const BottomMenu()
+                    const BottomMenu()
+                ],
+              )),
+        )
 
         /*TabBarView(controller: _tabController, children: [
               Container(key: GlobalKey(), child: const UserProfile()),
