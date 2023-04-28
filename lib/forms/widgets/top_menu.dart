@@ -142,7 +142,7 @@ class TmTopMenu extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        right: 1,
+                        right: 2,
                         top: 1,
                         child: Container(
                           padding: const EdgeInsets.all(2),
@@ -151,8 +151,8 @@ class TmTopMenu extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           constraints: const BoxConstraints(
-                            minWidth: 15,
-                            minHeight: 15,
+                            minWidth: 9,
+                            minHeight: 9,
                           ),
                         ),
                       )

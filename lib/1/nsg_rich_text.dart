@@ -211,7 +211,7 @@ class _NsgRichTextState extends State<NsgRichText> {
                 showCursor: !widget.disabled,
                 scrollable: true,
                 padding: EdgeInsets.zero,
-                autoFocus: true,
+                autoFocus: false,
                 expands: false,
                 embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
               ),

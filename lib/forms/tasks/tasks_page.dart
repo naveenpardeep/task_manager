@@ -85,7 +85,7 @@ class _TasksPageState extends State<TasksPage> {
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-            key: GlobalKey(),
+          //  key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -97,7 +97,7 @@ class _TasksPageState extends State<TasksPage> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: 10,
+                        thickness: width>700? 10 :0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
