@@ -265,7 +265,7 @@ class TaskBoardPage extends GetView<TaskBoardController> {
   void moveRow(TaskBoardStatusTable row, int newPosition) {
     var oldPostition=controller.currentItem.statusTable.rows.indexOf(row);
     if(oldPostition<newPosition){
-      newPosition--;
+      oldPostition++;
     }
    
     

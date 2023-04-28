@@ -237,7 +237,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         int newPosition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(checkList);
         moveRow(data, newPosition);
         if (data != checkList) {
-          Get.find<TasksController>().refreshData();
+          Get.find<TasksController>().sendNotify();
           controller.refreshData();
         }
       },
@@ -247,7 +247,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
   void moveRow(TaskDocCheckListTable row, int newPosition) {
     var oldPostition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(row);
     if (oldPostition < newPosition) {
-      newPosition--;
+      oldPostition++;
     }
 
     Get.find<TasksController>().currentItem.checkList.rows.remove(row);
