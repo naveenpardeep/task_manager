@@ -19,8 +19,8 @@ class TasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameAssigneeId,
       //  TaskDocGenerated.nameTableComments,
       //TODO: Дочитывать эти поля только при необходимости
-      TaskDocGenerated.nameCheckList,
-      TaskDocGenerated.nameFiles
+      // TaskDocGenerated.nameCheckList,
+      // TaskDocGenerated.nameFiles
     ];
   }
 
@@ -38,6 +38,12 @@ class TasksController extends NsgDataController<TaskDoc> {
   Future refreshData({List<NsgUpdateKey>? keys}) {
     refreshAllTasksControllers();
     return super.refreshData(keys: keys);
+  }
+
+  @override
+  Future<List<NsgDataItem>> doRequestItems() async {
+    //Запрос данных через этот контроллер потерял смысл: так как запрос задач идет через контроллеры статусов
+    return [];
   }
 
   void getTasksControllers() async {
