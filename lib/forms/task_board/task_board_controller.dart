@@ -7,6 +7,7 @@ import '../../model/enums/e_period.dart';
 import '../../model/enums/e_sorting.dart';
 
 import '../project/project_controller.dart';
+import '../user_account/service_object_controller.dart';
 
 class TaskBoardController extends NsgDataController<TaskBoard> {
   TaskBoardController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
@@ -23,7 +24,11 @@ class TaskBoardController extends NsgDataController<TaskBoard> {
   Future afterRequestItems(List<NsgDataItem> newItemsList) async {
     var projectController = Get.find<ProjectController>();
     if (!newItemsList.contains(currentItem) && newItemsList.isNotEmpty) {
-      currentItem = newItemsList.first as TaskBoard;
+      var serviceC = Get.find<ServiceObjectController>();
+      if (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') != null) {
+        serviceC.currentItem.boardId = (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') as UserSettings).settings;
+      }
+      currentItem = newItemsList.firstWhere((e) => e.id == serviceC.currentItem.boardId, orElse: () => newItemsList.first) as TaskBoard;
     }
     if (NsgUserSettings.controller!.getSettingItem('sort_${projectController.currentItem.id}') != null) {
       currentItem.sortBy =
