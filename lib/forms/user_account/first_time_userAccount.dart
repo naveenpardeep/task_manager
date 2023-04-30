@@ -96,15 +96,6 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                   ],
                                 )
                               ]),
-                              // NsgInput(
-                              //   selectionController:
-                              //       Get.find<OrganizationController>(),
-                              //   dataItem: controller.currentItem,
-                              //   fieldName:
-                              //       UserAccountGenerated.nameOrganizationId,
-                              //   label: 'Организация',
-                              // ),
-
                               TTNsgInput(
                                 dataItem: controller.currentItem,
                                 fieldName: UserAccountGenerated.nameName,
@@ -142,58 +133,6 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                                 label: 'Электронная почта',
                                 infoString: 'e-mail@mail.org',
                               ),
-                              //Должность тоже нужна только внутри организации
-                              // NsgInput(
-                              //   dataItem: controller.currentItem,
-                              //   fieldName: UserAccountGenerated.namePosition,
-                              //   label: 'Должность',
-                              // ),
-                              //Думаю, что при первоначальном заполнении профиля не нужны настройки уведомлений
-                              /*NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByPush,
-                                label: 'Показывать push-уведомления',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyByEmail,
-                                label: 'Отправлять уведомления на почту',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasks,
-                                label: 'Создана задача с моим участием',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasks,
-                                label:
-                                    'Все изменения в задачах с моим участием',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyNewTasksInProjects,
-                                label: 'Новая задача в проекте',
-                              ),
-                              NsgInput(
-                                dataItem: controller.currentItem,
-                                fieldName: UserAccountGenerated
-                                    .nameSettingNotifyEditedTasksInProjects,
-                                label: 'Все изменения в задачах проектов',
-                              ),*/
-
-                              // NsgButton(
-                              //   text: 'Список пользователей',
-                              //   color: Colors.white,
-                              //   onPressed: () {
-                              //     Get.toNamed(Routes.userAccountListPage);
-                              //   },
-                              // )
                             ],
                           ),
                         )),
