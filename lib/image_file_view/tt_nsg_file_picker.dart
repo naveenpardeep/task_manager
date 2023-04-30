@@ -117,7 +117,7 @@ class TTNsgFilePicker extends StatefulWidget {
   static List<String> globalAllowedVideoFormats = const ['mp4'];
   static List<String> globalAllowedFileFormats = const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf', 'rtf', 'csv'];
 
-  static NsgFilePickerObjectType getFileType(String ext) {
+  static NsgFilePickerObjectType getFileTypeByExtension(String ext) {
     if (globalAllowedImageFormats.contains(ext)) {
       return NsgFilePickerObjectType.image;
     }
@@ -133,6 +133,11 @@ class TTNsgFilePicker extends StatefulWidget {
     }
 
     return NsgFilePickerObjectType.unknown;
+  }
+
+  static NsgFilePickerObjectType getFileTypeByPath(String path) {
+    var ext = extension(path).replaceAll('.', '').toLowerCase();
+    return getFileTypeByExtension(ext);
   }
 }
 
@@ -173,7 +178,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         for (var element in result.files) {
           Uint8List? fileBytes = element.bytes;
           String fileName = element.name;
-          var fileType = TTNsgFilePicker.getFileType(extension(fileName).replaceAll('.', '').toLowerCase());
+          var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
 
 // var file = File(element.name);
 
@@ -217,7 +222,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         galleryPage = true;
 
         for (var element in result.files) {
-          var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
+          var fileType = TTNsgFilePicker.getFileTypeByPath(element.name);
 
           if (!GetPlatform.isLinux) {
             var file = File(element.name);
@@ -305,7 +310,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           widget.objectsList.clear();
         }
         for (var element in result) {
-          var fileType = TTNsgFilePicker.getFileType(extension(element.path).replaceAll('.', ''));
+          var fileType = TTNsgFilePicker.getFileTypeByPath(element.path);
 
           if (fileType == NsgFilePickerObjectType.image) {
             widget.objectsList.add(NsgFilePickerObject(
@@ -348,7 +353,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         widget.objectsList.clear();
       }
       for (var element in result) {
-        var fileType = TTNsgFilePicker.getFileType(extension(element.path).replaceAll('.', ''));
+        var fileType = TTNsgFilePicker.getFileTypeByPath(element.path);
 
         if (fileType == NsgFilePickerObjectType.image) {
           widget.objectsList.add(NsgFilePickerObject(
@@ -386,7 +391,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
     if (result != null) {
       galleryPage = true;
       for (var element in result.files) {
-        var fileType = TTNsgFilePicker.getFileType(extension(element.name).replaceAll('.', '').toLowerCase());
+        var fileType = TTNsgFilePicker.getFileTypeByPath(element.name);
 
         if (kIsWeb) {
           var file = File(element.bytes.toString());
@@ -662,6 +667,9 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
               child: InkWell(
 //hoverColor: ControlOptions.instance.colorMain,
                 onTap: () {
+                  if (element.fileType == NsgFilePickerObjectType.unknown) {
+                    element.fileType = TTNsgFilePicker.getFileTypeByPath(element.filePath);
+                  }
                   if (element.fileType != NsgFilePickerObjectType.other && element.fileType != NsgFilePickerObjectType.unknown) {
                     List<NsgFilePickerObject> imagesList = [];
                     for (var el in widget.objectsList) {
