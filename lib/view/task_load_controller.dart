@@ -9,7 +9,13 @@ import '../model/enums/e_period.dart';
 import '../model/enums/e_sorting.dart';
 
 class TaskLoadController extends NsgBaseController {
-  TaskLoadController({required this.currentTasksStatus});
+  TaskLoadController({required this.currentTasksStatus}) {
+    referenceList = [
+      TaskDocGenerated.nameProjectId,
+      TaskDocGenerated.nameTaskStatusId,
+      TaskDocGenerated.nameAssigneeId,
+    ];
+  }
   List<TaskDoc> currentStatusTasks = [];
   TaskStatus currentTasksStatus;
 
@@ -133,7 +139,7 @@ class TaskLoadController extends NsgBaseController {
     }
     filter.compare.add(name: TaskDocGenerated.nameTaskStatusId, value: status);
 
-    List<TaskDoc> ans = await tasks.requestItems(filter: filter);
+    List<TaskDoc> ans = await tasks.requestItems(filter: filter, loadReference: referenceList);
     total = tasks.totalCount ?? 0;
     return ans;
   }
