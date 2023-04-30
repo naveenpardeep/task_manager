@@ -199,6 +199,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             widget.objectsList.add(NsgFilePickerObject(
                 isNew: true,
                 file: File(fileBytes.toString()),
+                fileContent: fileBytes,
                 image: null,
                 description: basenameWithoutExtension(fileName),
                 fileType: fileType,

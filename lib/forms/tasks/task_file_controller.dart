@@ -18,7 +18,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     editModeAllowed = true;
     requestOnInit = true;
   }
-   @override
+  @override
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
 
@@ -50,6 +50,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     pic.name = '${fileObject.description}.${extension(fileObject.filePath).replaceAll('.', '')}';
     pic.ownerId = Get.find<TasksController>().currentItem.id;
     if (kIsWeb) {
+      assert(fileObject.fileContent != null, '${pic.name} - Файл пустой');
       pic.file = fileObject.fileContent!;
     } else {
       pic.file = await imageFile.readAsBytes();
