@@ -209,7 +209,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           setState(() {});
         }
       }
-    } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
+    } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isAndroid || GetPlatform.isIOS ) {
       FilePickerResult? result = await FilePicker.platform
           .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
 
@@ -222,11 +222,11 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           if (!GetPlatform.isLinux) {
             var file = File(element.name);
 
-            if ((await file.length()) > widget.fileMaxSize) {
-              error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-              setState(() {});
-              return;
-            }
+            // if ((await file.length()) > widget.fileMaxSize) {
+            //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+            //   setState(() {});
+            //   return;
+            // }
             if (fileType == NsgFilePickerObjectType.image) {
               widget.objectsList.add(NsgFilePickerObject(
                   isNew: true,
@@ -250,11 +250,11 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           if (GetPlatform.isLinux) {
             File file = File(element.path.toString());
 
-            if ((await file.length()) > widget.fileMaxSize) {
-              error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-              setState(() {});
-              return;
-            }
+            // if ((await file.length()) > widget.fileMaxSize) {
+            //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+            //   setState(() {});
+            //   return;
+            // }
             if (fileType == NsgFilePickerObjectType.image) {
               widget.objectsList.add(NsgFilePickerObject(
                   isNew: true,
@@ -445,14 +445,14 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             setState(() {});
           }
         }
-        if (GetPlatform.isLinux || GetPlatform.isAndroid) {
+        if (GetPlatform.isLinux || GetPlatform.isAndroid || GetPlatform.isIOS) {
           File file = File(element.path.toString());
 
-          if ((await file.length()) > widget.fileMaxSize) {
-            error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
-            setState(() {});
-            return;
-          }
+          // if ((await file.length()) > widget.fileMaxSize) {
+          //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
+          //   setState(() {});
+          //   return;
+          // }
           if (fileType == NsgFilePickerObjectType.image) {
             widget.objectsList.add(NsgFilePickerObject(
                 isNew: true,
@@ -520,10 +520,11 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   }
 
   Future saveFile(NsgFilePickerObject fileObject) async {
-    if (GetPlatform.isAndroid || GetPlatform.isIOS) {
+    if ( GetPlatform.isIOS || GetPlatform.isAndroid ) {
       String? message;
-      String imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
+     String? imagepath=TaskFilesController.getFilePath(fileObject.image.toString());
 
+     
       try {
         // Download image
         final http.Response response = await http.get(Uri.parse(imagepath));
