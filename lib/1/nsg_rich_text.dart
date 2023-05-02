@@ -161,14 +161,16 @@ class _NsgRichTextState extends State<NsgRichText> {
 /* --------------------------------------------------------------------- BUILD -------------------------------------------------------------------- */
   @override
   Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
     return Container(
         padding: const EdgeInsets.fromLTRB(0, 4, 0, 2),
         alignment: Alignment.center,
         //height: widget.maxLines > 1 ? null : 24 * textScaleFactor,
         decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: ControlOptions.instance.colorMain))),
         child: Column(children: [
-          if (!widget.disabled)
+          if (!widget.disabled && width>700)
             quil.QuillToolbar.basic(
+              
               showDividers: widget.availableButtons.contains(AvailableButtons.showDividers),
               showFontFamily: widget.availableButtons.contains(AvailableButtons.showFontFamily),
               showFontSize: widget.availableButtons.contains(AvailableButtons.showFontSize),
@@ -202,7 +204,7 @@ class _NsgRichTextState extends State<NsgRichText> {
             ),
           if (!widget.disabled)
             SizedBox(
-              height: 500,
+              height: width>700? 500: 180,
               child: quil.QuillEditor(
                 focusNode: focus,
                 scrollController: scrollController,
@@ -215,6 +217,40 @@ class _NsgRichTextState extends State<NsgRichText> {
                 expands: false,
                 embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
               ),
+            ),
+             if (!widget.disabled && width<700)
+            quil.QuillToolbar.basic(
+              
+              showDividers: widget.availableButtons.contains(AvailableButtons.showDividers),
+              showFontFamily: widget.availableButtons.contains(AvailableButtons.showFontFamily),
+              showFontSize: widget.availableButtons.contains(AvailableButtons.showFontSize),
+              showBoldButton: widget.availableButtons.contains(AvailableButtons.showBoldButton),
+              showItalicButton: widget.availableButtons.contains(AvailableButtons.showItalicButton),
+              showUnderLineButton: widget.availableButtons.contains(AvailableButtons.showUnderLineButton),
+              showStrikeThrough: widget.availableButtons.contains(AvailableButtons.showStrikeThrough),
+              showInlineCode: widget.availableButtons.contains(AvailableButtons.showInlineCode),
+              showColorButton: widget.availableButtons.contains(AvailableButtons.showColorButton),
+              showBackgroundColorButton: widget.availableButtons.contains(AvailableButtons.showBackgroundColorButton),
+              showClearFormat: widget.availableButtons.contains(AvailableButtons.showClearFormat),
+              showLeftAlignment: widget.availableButtons.contains(AvailableButtons.showLeftAlignment),
+              showCenterAlignment: widget.availableButtons.contains(AvailableButtons.showCenterAlignment),
+              showRightAlignment: widget.availableButtons.contains(AvailableButtons.showRightAlignment),
+              showJustifyAlignment: widget.availableButtons.contains(AvailableButtons.showJustifyAlignment),
+              showHeaderStyle: widget.availableButtons.contains(AvailableButtons.showHeaderStyle),
+              showListNumbers: widget.availableButtons.contains(AvailableButtons.showListNumbers),
+              showListBullets: widget.availableButtons.contains(AvailableButtons.showListBullets),
+              showListCheck: widget.availableButtons.contains(AvailableButtons.showListCheck),
+              showCodeBlock: widget.availableButtons.contains(AvailableButtons.showCodeBlock),
+              showQuote: widget.availableButtons.contains(AvailableButtons.showQuote),
+              showIndent: widget.availableButtons.contains(AvailableButtons.showIndent),
+              showLink: widget.availableButtons.contains(AvailableButtons.showLink),
+              showUndo: widget.availableButtons.contains(AvailableButtons.showUndo),
+              showRedo: widget.availableButtons.contains(AvailableButtons.showRedo),
+              multiRowsDisplay: widget.availableButtons.contains(AvailableButtons.multiRowsDisplay),
+              showSearchButton: widget.availableButtons.contains(AvailableButtons.showSearchButton),
+              controller: quillController,
+              afterButtonPressed: () {},
+              customButtons: [quil.QuillCustomButton(icon: Icons.image_sharp, onTap: addImage)],
             ),
           if (widget.disabled)
             SizedBox(
