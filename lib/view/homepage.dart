@@ -95,6 +95,7 @@ class _HomepageState extends State<Homepage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (width > 700) const TmTopMenu(),
+              if (width > 700) const Divider(),
               Padding(
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Row(
