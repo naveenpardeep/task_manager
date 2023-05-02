@@ -220,7 +220,8 @@ class _NsgRichTextState extends State<NsgRichText> {
             ),
              if (!widget.disabled && width<700)
             quil.QuillToolbar.basic(
-              
+              axis: Axis.horizontal,
+              toolbarIconAlignment: WrapAlignment.spaceEvenly,
               showDividers: widget.availableButtons.contains(AvailableButtons.showDividers),
               showFontFamily: widget.availableButtons.contains(AvailableButtons.showFontFamily),
               showFontSize: widget.availableButtons.contains(AvailableButtons.showFontSize),
