@@ -150,7 +150,9 @@ class _HomepageState extends State<Homepage> {
                             projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
                           },
                         ),
+                        if(width>700)
                       IconButton(
+                        hoverColor: Colors.transparent,
                           onPressed: () {
                             setState(() {
                               taskView = false;
@@ -177,6 +179,7 @@ class _HomepageState extends State<Homepage> {
                                         borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
                                         borderRadius: const BorderRadius.all(Radius.circular(20))),
                                     suffixIcon: IconButton(
+                                      hoverColor: Colors.transparent,
                                         padding: const EdgeInsets.only(bottom: 0),
                                         onPressed: (() {
                                           setState(() {
@@ -201,6 +204,8 @@ class _HomepageState extends State<Homepage> {
                         ),
                       if (width > 700)
                         NsgButton(
+                          
+                          backHoverColor: Colors.transparent,
                             color: ControlOptions.instance.colorWhite,
                             height: 10,
                             borderRadius: 20,
@@ -591,6 +596,7 @@ class _HomepageState extends State<Homepage> {
         height: 40,
         width: 150,
         child: NsgButton(
+          backHoverColor: Colors.transparent,
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
           text: 'Очистить Фильтры',

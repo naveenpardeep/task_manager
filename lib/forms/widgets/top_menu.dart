@@ -15,7 +15,7 @@ class TmTopMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: ControlOptions.instance.colorMain),
+      decoration: const BoxDecoration(color: Colors.transparent),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Row(
         children: [
@@ -38,7 +38,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Проекты',
-                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -51,7 +51,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Задачи',
-                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -63,7 +63,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Пользователи',
-                        style: TextStyle(color:ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color:const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -77,7 +77,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Организации',
-                        style: TextStyle(color: ControlOptions.instance.colorWhite, fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -105,9 +105,9 @@ class TmTopMenu extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(Routes.invitationAcceptNew);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.insert_invitation_sharp,
-                          color: ControlOptions.instance.colorWhite,
+                          color:  Color(0xff529FBF),
                         ),
                       ),
                     ),
@@ -120,9 +120,9 @@ class TmTopMenu extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(Routes.acceptRejectListPage);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.list_alt,
-                          color: ControlOptions.instance.colorWhite,
+                          color:  Color(0xff529FBF),
                         ),
                       ),
                     ),
@@ -135,9 +135,9 @@ class TmTopMenu extends StatelessWidget {
                           //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
                           // );
                         },
-                        child: Icon(
+                        child:const  Icon(
                           Icons.notifications,
-                          color: ControlOptions.instance.colorWhite,
+                          color:  Color(0xff529FBF),
                           size: 32,
                         ),
                       ),
