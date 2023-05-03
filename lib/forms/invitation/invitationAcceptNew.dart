@@ -105,7 +105,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                                 Flexible(
                                   child: NsgButton(
                                     height: 40,
-                                    width: 100,
+                                    width: 200,
                                     borderRadius: 20,
                                     borderColor: ControlOptions.instance.colorBlue,
                                     backColor: Colors.transparent,
@@ -128,7 +128,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                                   child: NsgButton(
                                     borderRadius: 20,
                                     height: 40,
-                                    width: 100,
+                                    width: 200,
                                     text: 'Принять приглашение',
                                     onPressed: () async {
                                       Get.find<InvitationController>().currentItem = invitation;

@@ -83,7 +83,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
         {
           list.add(GestureDetector(
             child: Container(
-              color: const Color(0xff3ea8ab),
+              color:const Color.fromARGB(255, 237, 241, 241),
               child: Row(
                 children: [
                   if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
@@ -124,7 +124,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                 Flexible(
                                   child: NsgButton(
                                     height: 40,
-                                    width: 100,
+                                    width: 200,
                                     borderRadius: 20,
                                     borderColor: ControlOptions.instance.colorBlue,
                                     backColor: Colors.transparent,
@@ -147,7 +147,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
                                   child: NsgButton(
                                     borderRadius: 20,
                                     height: 40,
-                                    width: 100,
+                                    width: 200,
                                     text: 'Принять приглашение',
                                     onPressed: () async {
                                       Get.find<InvitationController>().currentItem = invitation;
