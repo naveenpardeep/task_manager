@@ -217,11 +217,11 @@ class _TasksPageState extends State<TasksPage> {
                                     ),
                                   ),
                                 const  Padding(
-                                    padding:  EdgeInsets.fromLTRB(5, 4, 0, 0),
+                                    padding:  EdgeInsets.fromLTRB(5, 4, 0, 4),
                                     child: Text('Описание задачи' , style: TextStyle(fontFamily: 'Inter', fontSize: 12),),
                                   ),
                                 Padding(
-                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 4),
                                     child: Container(
                                       decoration: BoxDecoration(border: Border.all(width: 1)),
                                       child: NsgRichText(
