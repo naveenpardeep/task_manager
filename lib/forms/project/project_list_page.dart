@@ -58,12 +58,12 @@ class _ProjectListPageState extends State<ProjectListPage> {
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
                             'Проекты',
-                            style: TextStyle(fontSize: width > 700 ? 24 : 16, fontFamily: 'Inter'),
+                            style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
                           ),
                         ),
                         Expanded(
                           child: SizedBox(
-                            height: width > 700 ? 35 : 30,
+                            height: width > 700 ? 30 : 30,
                             child: TextField(
                                 controller: textEditController,
                                 decoration: InputDecoration(
@@ -75,6 +75,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                         borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
                                         borderRadius: const BorderRadius.all(Radius.circular(20))),
                                     suffixIcon: IconButton(
+                                        hoverColor: Colors.transparent,
                                         padding: const EdgeInsets.only(bottom: 0),
                                         onPressed: (() {
                                           setState(() {});
@@ -84,24 +85,30 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                     // prefixIcon: Icon(Icons.search),
                                     hintText: 'Search Project...'),
                                 textAlignVertical: TextAlignVertical.bottom,
-                                style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 20 : 16),
+                                style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
                                 onChanged: (val) {
                                   setState(() {});
                                 }),
                           ),
                         ),
-                        NsgButton(
+                        SizedBox(
                           width: width < 700 ? 50 : 150,
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.zero,
                           height: 30,
-                          icon: Icons.add,
-                          text: width < 700 ? '' : 'Создать проект',
-                          color: Colors.black,
-                          backColor: Colors.transparent,
-                          onPressed: () {
-                            Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
-                          },
+                          child: IconButton(
+                            iconSize: 30,
+                            hoverColor: Colors.transparent,
+                            padding: EdgeInsets.zero,
+                            icon: width < 700
+                                ? const Icon(Icons.add,size: 24,)
+                                : const Text(
+                                    '+ Создать проект',
+                                    style: TextStyle(fontFamily: 'Inter', fontSize: 16),
+                                  ),
+                            color: Colors.black,
+                            onPressed: () {
+                              Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
+                            },
+                          ),
                         ),
                       ],
                     )),
@@ -190,7 +197,7 @@ class ProjectItemView extends StatelessWidget {
                           child: SubstringHighlight(
                             text: project.name,
                             term: searchvalue,
-                            textStyle: const TextStyle(fontFamily: 'Inter', fontSize: 20, color: Colors.black),
+                            textStyle: const TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.black),
                             textStyleHighlight: const TextStyle(color: Colors.deepOrange),
                           )),
                     ),
@@ -211,9 +218,9 @@ class ProjectItemView extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Рук.: ${project.leader.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                      Text('Организация: ${project.organization}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                      Text('Заказчик: ${project.contractor}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                      Text('Рук.: ${project.leader.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                      Text('Организация: ${project.organization}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                      Text('Заказчик: ${project.contractor}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                     ],
                   )),
                   if (project.numberOfNotifications > 0)
@@ -343,7 +350,7 @@ class ProjectItemView extends StatelessWidget {
           Radius.circular(12.0),
         ),
       ),
-      color: const Color(0xffEDEFF3),
+      color: const Color(0xffEDEFF3).withOpacity(0.8),
       context: context,
       position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
       items: [
