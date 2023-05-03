@@ -8,6 +8,7 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 class InvitationAcceptNew extends GetView<InvitationController> {
@@ -53,7 +54,6 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         child: Column(
                           children: [
                             invitationList(),
-                         
                           ],
                         ),
                       )),
@@ -81,25 +81,59 @@ class InvitationAcceptNew extends GetView<InvitationController> {
               color: const Color.fromARGB(239, 248, 250, 252),
               child: Row(
                 children: [
-                  if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
+                 if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Организация:  ${invitation.organization}',
-                                style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                            Text('Проект:  ${invitation.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                            Text('Author Name:  ${invitation.author}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                            Text('Invited User:  ${invitation.invitedUser}',
-                                style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
-                            Text(
-                              'создано: ${formateddate.format(invitation.date)}',
-                              maxLines: 1,
-                              textScaleFactor: 0.8,
-                              style: const TextStyle(color: Color(0xff10051C)),
+                            Row(
+                              children: [
+                                ClipOval(
+                      child: invitation.project.photoPath.isEmpty
+                          ? Container(
+                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                              width: 120,
+                              height: 120,
+                              child: Icon(
+                                Icons.account_circle,
+                                size: 20,
+                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                              ),
+                            )
+                          : Image.network(
+                              TaskFilesController.getFilePath(invitation.project.photoPath),
+                              fit: BoxFit.cover,
+                              width: 120,
+                              height: 120,
+                            )),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('${invitation.organization}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                                        Text('${invitation.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Colors.black)),
+                                     const SizedBox(height: 10,),
+                                      const  Text('Пригласил',
+                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF))),
+                                      
+                                        Text('${invitation.author}',
+                                            style: const TextStyle(fontFamily: 'Inter', fontSize: 14, color: Colors.black)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
+                            // Text(
+                            //   'создано: ${formateddate.format(invitation.date)}',
+                            //   maxLines: 1,
+                            //   textScaleFactor: 0.8,
+                            //   style: const TextStyle(color: Color(0xff10051C)),
+                            // ),
                             Row(
                               children: [
                                 Flexible(
@@ -110,7 +144,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                                     borderColor: ControlOptions.instance.colorBlue,
                                     backColor: Colors.transparent,
                                     color: Colors.black,
-                                    text: 'Отклонить приглашение',
+                                    text: 'Отклонить',
                                     onPressed: () async {
                                       Get.find<InvitationController>().currentItem = invitation;
                                       var dataController = Get.find<DataController>();
@@ -129,7 +163,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                                     borderRadius: 20,
                                     height: 40,
                                     width: 200,
-                                    text: 'Принять приглашение',
+                                    text: 'Принять',
                                     onPressed: () async {
                                       Get.find<InvitationController>().currentItem = invitation;
                                       var dataController = Get.find<DataController>();
@@ -169,7 +203,4 @@ class InvitationAcceptNew extends GetView<InvitationController> {
       ),
     ));
   }
-
- 
-  
 }
