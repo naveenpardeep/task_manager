@@ -554,8 +554,8 @@ class _HomepageState extends State<Homepage> {
                 NsgUserSettings.controller!.setSettingItem('board_${projectController.currentItem.id}', (item as ServiceObject).boardId);
                 screenName = serviceC.currentItem.boardId;
                 taskController.refreshData();
-                taskStatusTableController.sendNotify();
-                taskBoardController.refreshData();
+             //   taskStatusTableController.sendNotify();
+             //   taskBoardController.refreshData();
 
                 taskView = false;
               });

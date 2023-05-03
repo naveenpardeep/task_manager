@@ -864,7 +864,7 @@ class NsgImagePickerButton extends StatelessWidget {
                 image: Image.file(File(bytes.toString())),
                 description: basenameWithoutExtension(bytes.toString()),
                 
-                filePath: bytes.toString() ?? '');
+                filePath: bytes.toString() );
                   
                  
               
