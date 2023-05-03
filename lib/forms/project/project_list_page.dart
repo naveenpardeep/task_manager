@@ -42,92 +42,94 @@ class _ProjectListPageState extends State<ProjectListPage> {
       orgitemcon.requestItems();
     }
     width = MediaQuery.of(context).size.width;
-    return BodyWrap(
-      child: Scaffold(
-          key: scaffoldKey,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (width > 700) const TmTopMenu(),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(
-                          'Проекты',
-                          style: TextStyle(fontSize: width > 700 ? 24 : 16, fontFamily: 'Inter'),
+    return SafeArea(
+      child: BodyWrap(
+        child: Scaffold(
+            key: scaffoldKey,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (width > 700) const TmTopMenu(),
+                Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            'Проекты',
+                            style: TextStyle(fontSize: width > 700 ? 24 : 16, fontFamily: 'Inter'),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: width > 700 ? 35 : 30,
-                          child: TextField(
-                              controller: textEditController,
-                              decoration: InputDecoration(
-                                  filled: false,
-                                  fillColor: ControlOptions.instance.colorMainLight,
-                                  prefixIcon: width > 700 ? const Icon(Icons.search) : null,
-                                  border: OutlineInputBorder(
-                                      gapPadding: 1,
-                                      borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                  suffixIcon: IconButton(
-                                      padding: const EdgeInsets.only(bottom: 0),
-                                      onPressed: (() {
-                                        setState(() {});
-                                        textEditController.clear();
-                                      }),
-                                      icon: const Icon(Icons.cancel)),
-                                  // prefixIcon: Icon(Icons.search),
-                                  hintText: 'Search Project...'),
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 20 : 16),
-                              onChanged: (val) {
-                                setState(() {});
-                              }),
+                        Expanded(
+                          child: SizedBox(
+                            height: width > 700 ? 35 : 30,
+                            child: TextField(
+                                controller: textEditController,
+                                decoration: InputDecoration(
+                                    filled: false,
+                                    fillColor: ControlOptions.instance.colorMainLight,
+                                    prefixIcon: width > 700 ? const Icon(Icons.search) : null,
+                                    border: OutlineInputBorder(
+                                        gapPadding: 1,
+                                        borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                    suffixIcon: IconButton(
+                                        padding: const EdgeInsets.only(bottom: 0),
+                                        onPressed: (() {
+                                          setState(() {});
+                                          textEditController.clear();
+                                        }),
+                                        icon: const Icon(Icons.cancel)),
+                                    // prefixIcon: Icon(Icons.search),
+                                    hintText: 'Search Project...'),
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 20 : 16),
+                                onChanged: (val) {
+                                  setState(() {});
+                                }),
+                          ),
                         ),
-                      ),
-                      NsgButton(
-                        width: width < 700 ? 50 : 150,
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
-                        height: 30,
-                        icon: Icons.add,
-                        text: width < 700 ? '' : 'Создать проект',
-                        color: Colors.black,
-                        backColor: Colors.transparent,
-                        onPressed: () {
-                          Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
-                        },
-                      ),
-                    ],
-                  )),
-              Expanded(
-                  child: RefreshIndicator(
-                onRefresh: () {
-                  return controller.refreshData();
-                },
-                child: RawScrollbar(
-                    thumbVisibility: true,
-                    trackVisibility: true,
-                    controller: scrollController,
-                    thickness: width > 700 ? 10 : 0,
-                    trackBorderColor: ControlOptions.instance.colorGreyLight,
-                    trackColor: ControlOptions.instance.colorGreyLight,
-                    thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                    radius: const Radius.circular(0),
-                    child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        controller: scrollController,
-                        child: controller.obx((state) {
-                          return width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: showProjects()) : Column(children: showProjects());
-                        }))),
-              )),
-              if (width < 700) const BottomMenu(),
-            ],
-          )),
+                        NsgButton(
+                          width: width < 700 ? 50 : 150,
+                          margin: EdgeInsets.zero,
+                          padding: EdgeInsets.zero,
+                          height: 30,
+                          icon: Icons.add,
+                          text: width < 700 ? '' : 'Создать проект',
+                          color: Colors.black,
+                          backColor: Colors.transparent,
+                          onPressed: () {
+                            Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
+                          },
+                        ),
+                      ],
+                    )),
+                Expanded(
+                    child: RefreshIndicator(
+                  onRefresh: () {
+                    return controller.refreshData();
+                  },
+                  child: RawScrollbar(
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      controller: scrollController,
+                      thickness: width > 700 ? 10 : 0,
+                      trackBorderColor: ControlOptions.instance.colorGreyLight,
+                      trackColor: ControlOptions.instance.colorGreyLight,
+                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                      radius: const Radius.circular(0),
+                      child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          controller: scrollController,
+                          child: controller.obx((state) {
+                            return width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: showProjects()) : Column(children: showProjects());
+                          }))),
+                )),
+                if (width < 700) const BottomMenu(),
+              ],
+            )),
+      ),
     );
   }
 
