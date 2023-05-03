@@ -1181,12 +1181,13 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
   double top = globalPosition.dy;
 
   await showMenu(
+   elevation: 10,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(12.0),
       ),
     ),
-    color: const Color(0xffEDEFF3),
+    color: const Color(0xffEDEFF3).withOpacity(0.8),
     context: context,
     position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
     items: [
@@ -1251,7 +1252,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
         ),
       ),
     ],
-    elevation: 8.0,
+    
   ).then((value) {
     if (value == 1) {
       if (tasks.isReadByAssignee == false &&

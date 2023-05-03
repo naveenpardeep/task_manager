@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glass/glass.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
@@ -46,7 +47,7 @@ class BottomMenu extends StatelessWidget {
           controller: Get.find<UserAccountController>(),
         ),
       ],
-    );
+    ).asGlass(blurX: 40,blurY: 40);
   }
 }
 
@@ -88,8 +89,8 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         //
       },
       child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
+          decoration:  BoxDecoration(
+            color: Colors.white.withOpacity(0.9),
           ),
           height: 65,
           child: Stack(
