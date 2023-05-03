@@ -77,6 +77,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
+                              if (controller.currentItem.name.isNotEmpty)
                               SizedBox(
                                 height: 35,
                                 child: TextField(
@@ -114,6 +115,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                         ),
                       )),
                 )),
+                if (controller.currentItem.name.isNotEmpty)
                 NsgButton(
                   borderRadius: 30,
                   color: Colors.white,

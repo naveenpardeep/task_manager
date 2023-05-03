@@ -96,6 +96,7 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //   ],
                                 // ),
                                 getProjectBoard(context),
+                                if (controller.currentItem.name.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: NsgTable(
