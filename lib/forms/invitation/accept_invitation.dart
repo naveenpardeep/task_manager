@@ -87,7 +87,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
               color:const Color.fromARGB(255, 237, 241, 241),
               child: Row(
                 children: [
-                 if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
+              //   if (Get.find<DataController>().currentUser == invitation.invitedUser.mainUserAccount)
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
