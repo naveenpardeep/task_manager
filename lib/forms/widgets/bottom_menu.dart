@@ -89,8 +89,8 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         //
       },
       child: Container(
-          decoration:  BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
+          decoration:  const BoxDecoration(
+            color: Color.fromRGBO(255, 255, 255, 0.48),
           ),
           height: 65,
           child: Stack(
