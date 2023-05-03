@@ -206,6 +206,7 @@ class _NsgRichTextState extends State<NsgRichText> {
             SizedBox(
               height: width>700? 500: 180,
               child: quil.QuillEditor(
+                
                 focusNode: focus,
                 scrollController: scrollController,
                 controller: quillController,
@@ -218,7 +219,7 @@ class _NsgRichTextState extends State<NsgRichText> {
                 embedBuilders: [NsgRichTextFileBuilder(addEditBlock: addEditBlock)],
               ),
             ),
-             if (!widget.disabled && width<700)
+             if (!widget.disabled && width<700 && focus.hasFocus)
             quil.QuillToolbar.basic(
               axis: Axis.horizontal,
               toolbarIconAlignment: WrapAlignment.spaceEvenly,

@@ -216,12 +216,22 @@ class _TasksPageState extends State<TasksPage> {
                                       //selectionForm: Routes.userAccountListPage,
                                     ),
                                   ),
-                                  NsgRichText(
-                                      hint: 'Description',
-                                      key: GlobalKey(),
-                                      dataItem: controller.currentItem,
-                                      fieldName: TaskDocGenerated.nameDescription,
-                                      fileController: Get.find<TaskFilesController>()),
+                                const  Padding(
+                                    padding:  EdgeInsets.fromLTRB(5, 4, 0, 0),
+                                    child: Text('Описание задачи' , style: TextStyle(fontFamily: 'Inter', fontSize: 12),),
+                                  ),
+                                Padding(
+                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    child: Container(
+                                      decoration: BoxDecoration(border: Border.all(width: 1)),
+                                      child: NsgRichText(
+                                          hint: 'Description',
+                                          key: GlobalKey(),
+                                          dataItem: controller.currentItem,
+                                          fieldName: TaskDocGenerated.nameDescription,
+                                          fileController: Get.find<TaskFilesController>()),
+                                    ),
+                                  ),
                                   TTNsgInput(
                                     dataItem: controller.currentItem,
                                     fieldName: TaskDocGenerated.nameFootnote,
