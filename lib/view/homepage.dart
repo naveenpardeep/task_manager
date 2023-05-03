@@ -105,7 +105,7 @@ class _HomepageState extends State<Homepage> {
                         child: Text(
                           projectController.currentItem.name,
                           style: TextStyle(
-                            fontSize: width < 700 ? 16 : 24,
+                            fontSize: width < 700 ? 16 : 20,
                             fontFamily: 'Inter',
                           ),
                         ),

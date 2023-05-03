@@ -223,7 +223,7 @@ class _TasksPageState extends State<TasksPage> {
                                 Padding(
                                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 4),
                                     child: Container(
-                                      decoration: BoxDecoration(border: Border.all(width: 1)),
+                                      decoration: BoxDecoration(border: Border.all(width: 1),),
                                       child: NsgRichText(
                                           hint: 'Description',
                                           key: GlobalKey(),

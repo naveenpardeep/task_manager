@@ -53,7 +53,7 @@ class InvitationAcceptNew extends GetView<InvitationController> {
                         child: Column(
                           children: [
                             invitationList(),
-                            if (controller.items.isEmpty) createEmpty(),
+                         
                           ],
                         ),
                       )),
@@ -170,10 +170,6 @@ class InvitationAcceptNew extends GetView<InvitationController> {
     ));
   }
 
-  Widget createEmpty() {
-    return const Center(
-        child: SizedBox(
-      child: Text('No Invitation Yet'),
-    ));
-  }
+ 
+  
 }

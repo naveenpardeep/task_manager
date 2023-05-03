@@ -65,6 +65,7 @@ dependencies:
   flutter_file_dialog: ^3.0.0
   path_provider: ^2.0.14
   glass: ^1.0.1+1
+  pasteboard: ^0.2.0
  
 
 dev_dependencies:

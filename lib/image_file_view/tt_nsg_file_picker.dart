@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:path/path.dart';
@@ -842,16 +843,32 @@ class NsgImagePickerButton extends StatelessWidget {
   final void Function() onPressed;
   final void Function() onPressed2;
   final void Function() onPressed3;
+  
   final String textChooseFile;
   const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2, required this.onPressed3, required this.textChooseFile})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+  
     return (!GetPlatform.isAndroid && !GetPlatform.isIOS)
         ? InkWell(
             hoverColor: ControlOptions.instance.colorMain,
             onTap: onPressed,
+            onLongPress: () async{
+              
+                  final bytes = await Pasteboard.image;
+
+                 NsgFilePickerObject(
+                isNew: true,
+                image: Image.file(File(bytes.toString())),
+                description: basenameWithoutExtension(bytes.toString()),
+                
+                filePath: bytes.toString() ?? '');
+                  
+                 
+              
+            },
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
