@@ -27,6 +27,7 @@ class TmTopMenu extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
+                      hoverColor: Colors.transparent,
                       onTap: () {
                         Get.find<ProjectController>().refreshData();
 
@@ -45,6 +46,7 @@ class TmTopMenu extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
+                      hoverColor: Colors.transparent,
                       onTap: () {
                         Get.find<TasksController>().refreshData();
                         Get.offAndToNamed(Routes.tasksListPage);
@@ -58,6 +60,7 @@ class TmTopMenu extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
+                      hoverColor: Colors.transparent,
                       onTap: () {
                         Get.offAndToNamed(Routes.userAccountListPage);
                       },
@@ -70,6 +73,7 @@ class TmTopMenu extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: InkWell(
+                      hoverColor: Colors.transparent,
                       onTap: () {
                         Get.offAndToNamed(Routes.organizationListMobilePage);
                         //  Get.toNamed(Routes.organizationPage);
@@ -102,6 +106,7 @@ class TmTopMenu extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: InkWell(
+                        hoverColor: Colors.transparent,
                         onTap: () {
                           Get.toNamed(Routes.invitationAcceptNew);
                         },
@@ -117,6 +122,7 @@ class TmTopMenu extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: InkWell(
+                        hoverColor: Colors.transparent,
                         onTap: () {
                           Get.toNamed(Routes.acceptRejectListPage);
                         },
@@ -130,6 +136,7 @@ class TmTopMenu extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       InkWell(
+                        hoverColor: Colors.transparent,
                         onTap: () {
                           Get.toNamed(Routes.notificationPage);
                           //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
@@ -166,6 +173,7 @@ class TmTopMenu extends StatelessWidget {
             margin: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 2, color: ControlOptions.instance.colorMainText)),
             child: InkWell(
+              hoverColor: Colors.transparent,
               onTap: () {
                 Get.find<UserAccountController>().itemPageOpen(Get.find<DataController>().currentUser, Routes.profileViewPage, needRefreshSelectedItem: true);
               },

@@ -151,19 +151,19 @@ class _HomepageState extends State<Homepage> {
                             projectController.itemPageOpen(projectController.currentItem, Routes.projectMobilePageview);
                           },
                         ),
-                        if(width>700)
-                      IconButton(
-                        hoverColor: Colors.transparent,
-                          onPressed: () {
-                            setState(() {
-                              taskView = false;
-                              reset();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.refresh,
-                            size: width < 700 ? 16 : 24,
-                          )),
+                      if (width > 700)
+                        IconButton(
+                            hoverColor: Colors.transparent,
+                            onPressed: () {
+                              setState(() {
+                                taskView = false;
+                                reset();
+                              });
+                            },
+                            icon: Icon(
+                              Icons.refresh,
+                              size: width < 700 ? 16 : 24,
+                            )),
 
                       if (width > 700)
                         Flexible(
@@ -180,7 +180,7 @@ class _HomepageState extends State<Homepage> {
                                         borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
                                         borderRadius: const BorderRadius.all(Radius.circular(20))),
                                     suffixIcon: IconButton(
-                                      hoverColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
                                         padding: const EdgeInsets.only(bottom: 0),
                                         onPressed: (() {
                                           setState(() {
@@ -205,11 +205,10 @@ class _HomepageState extends State<Homepage> {
                         ),
                       if (width > 700)
                         NsgButton(
-                          
-                          backHoverColor: Colors.transparent,
+                            backHoverColor: Colors.transparent,
                             color: ControlOptions.instance.colorWhite,
                             height: 10,
-                            borderRadius: 20,
+                            borderRadius: 10,
                             width: 100,
                             onPressed: () {
                               var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
@@ -224,7 +223,7 @@ class _HomepageState extends State<Homepage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: NsgButton(
-                            borderRadius: 20,
+                            borderRadius: 10,
                             width: width > 700 ? 150 : 35,
                             margin: EdgeInsets.zero,
                             padding: EdgeInsets.zero,
@@ -596,12 +595,10 @@ class _HomepageState extends State<Homepage> {
       SizedBox(
         height: 40,
         width: 150,
-        child: NsgButton(
-          backHoverColor: Colors.transparent,
-          margin: EdgeInsets.zero,
+        child: IconButton(
+          hoverColor: Colors.transparent,
           padding: EdgeInsets.zero,
-          text: 'Очистить Фильтры',
-          backColor: Colors.transparent,
+          icon: const Text('Очистить Фильтры'),
           color: ControlOptions.instance.colorMain,
           onPressed: () {
             reset();
@@ -638,11 +635,11 @@ class _HomepageState extends State<Homepage> {
                   },
                   child: Text(
                     status.status.toString(),
-                   style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
-                           ),
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                    ),
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
@@ -681,11 +678,11 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Text(
                   status.status.name,
-                 style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
-                           ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
@@ -701,11 +698,12 @@ class _HomepageState extends State<Homepage> {
               children: [
                 Text(
                   status.status.name,
-                 style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
-                           ),   ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: getTasklength(status.status),
@@ -829,10 +827,10 @@ class _HomepageState extends State<Homepage> {
                       Text(
                         status.status.toString(),
                         style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
-                           ),
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                          color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
+                        ),
                       ),
                       Padding(padding: const EdgeInsets.only(left: 5), child: searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
                     ],
@@ -1070,12 +1068,11 @@ changeTaskStatus(TaskDoc tasks, [int? value]) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
-    controller: value==2? Get.find<TaskStatusController>(): Get.find<ProjectStatusController>(),
+    controller: value == 2 ? Get.find<TaskStatusController>() : Get.find<ProjectStatusController>(),
   );
   form.selectFromArray(
     'Смена статуса заявки',
     (item) async {
-    
       tasks.taskStatus = item as TaskStatus;
       tasks.dateUpdated = DateTime.now();
       await Get.find<TasksController>().postItems([tasks]);
@@ -1122,7 +1119,6 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       Get.find<TasksController>().currentItem = tasks;
 
       Get.find<TasksController>().itemPageOpen(Get.find<TasksController>().currentItem, Routes.taskEditPage, needRefreshSelectedItem: true);
-     
     },
     child: Stack(
       children: [
@@ -1181,7 +1177,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
   double top = globalPosition.dy;
 
   await showMenu(
-   elevation: 10,
+    elevation: 10,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(12.0),
@@ -1252,7 +1248,6 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
         ),
       ),
     ],
-    
   ).then((value) {
     if (value == 1) {
       if (tasks.isReadByAssignee == false &&

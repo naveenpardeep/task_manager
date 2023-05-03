@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_control_options.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
 class NsgTabsTab {
   Widget tab;
@@ -148,27 +150,33 @@ class _NsgTabsState extends State<NsgTabs> {
                   decoration: const BoxDecoration(
                       color : Colors.white),
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
-                  child: RawScrollbar(
-                      thumbVisibility: true,
-                      trackVisibility: true,
-                      controller: scrollControllers[key],
-                      thickness: width>700?10:0,
-                      trackBorderColor: ControlOptions.instance.colorGreyLight,
-                      trackColor: ControlOptions.instance.colorGreyLight,
-                      thumbColor:
-                          ControlOptions.instance.colorMain.withOpacity(0.2),
-                      radius: const Radius.circular(0),
-                      child: SingleChildScrollView(
+                  child: RefreshIndicator(
+                  onRefresh: () {
+                    return Get.find<TasksController>().refreshData();
+                  },
+              
+                    child: RawScrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
                         controller: scrollControllers[key],
-                        child: SizedBox(
-                          width: width,
-                          child: Row(
-                            children: [
-                              Expanded(child: tab.child),
-                            ],
+                        thickness: width>700?10:0,
+                        trackBorderColor: ControlOptions.instance.colorGreyLight,
+                        trackColor: ControlOptions.instance.colorGreyLight,
+                        thumbColor:
+                            ControlOptions.instance.colorMain.withOpacity(0.2),
+                        radius: const Radius.circular(0),
+                        child: SingleChildScrollView(
+                          controller: scrollControllers[key],
+                          child: SizedBox(
+                            width: width,
+                            child: Row(
+                              children: [
+                                Expanded(child: tab.child),
+                              ],
+                            ),
                           ),
-                        ),
-                      )),
+                        )),
+                  ),
                 ),
               ),
             ],
