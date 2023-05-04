@@ -22,55 +22,60 @@ class NottItem extends StatelessWidget {
       contextMenu: ContextMenu(
         menuItems: [ContextMenuItem(text: 'Проверка', onTap: () {}), ContextMenuItem(onTap: () {})],
       ),
-      child: Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ControlOptions.instance.colorGreyLight),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(child: Text(getName(), style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter'))), //ОС
-                  InkWell(
-                    onTap: () {
-                      _dialogBuilder(context);
-                    },
-                    child: Icon(Icons.more_vert, color: ControlOptions.instance.colorMainLight),
-                  ),
-                ],
-              ),
-              Flexible(
-                  child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
-                //Вы были добавлены в новый проект
-              )),
-              IntrinsicHeight(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        getAuthor(),
-                        style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
-                      ), //Леонид Павлов
-                      Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
-                          style: TextStyle(
-                              color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter')) //01.01.2023 / 9:43
-                    ],
-                  ),
-                  ClipOval(
-                    child: Material(child: getPhoto()),
-                  )
-                ],
-              ))
-            ],
-          )),
+      child: InkWell(
+        onTap: goToPage,
+        child: Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ControlOptions.instance.colorGreyLight),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(child: Text(getName(), style: TextStyle(fontSize: ControlOptions.instance.sizeL, fontFamily: 'Inter'))), //ОС
+                    InkWell(
+                      onTap: () {
+                        _dialogBuilder(context);
+                      },
+                      child: Icon(Icons.more_vert, color: ControlOptions.instance.colorMainLight),
+                    ),
+                  ],
+                ),
+                Flexible(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(children: [Flexible(child: Text(getData(), style: TextStyle(fontSize: ControlOptions.instance.sizeM, fontFamily: 'Inter')))]),
+                  //Вы были добавлены в новый проект
+                )),
+                IntrinsicHeight(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          getAuthor(),
+                          style: TextStyle(color: ControlOptions.instance.colorMainLight, fontSize: ControlOptions.instance.sizeS, fontFamily: 'Inter'),
+                        ), //Леонид Павлов
+                        Text(NsgDateFormat.dateFormat(notification.date, format: "dd.MM.yyyy / HH:mm"),
+                            style: TextStyle(
+                                color: ControlOptions.instance.colorMainLight,
+                                fontSize: ControlOptions.instance.sizeS,
+                                fontFamily: 'Inter')) //01.01.2023 / 9:43
+                      ],
+                    ),
+                    ClipOval(
+                      child: Material(child: getPhoto()),
+                    )
+                  ],
+                ))
+              ],
+            )),
+      ),
     );
   }
 
