@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -11,6 +13,7 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:path/path.dart';
+import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/image_file_view/image_file.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player_win/video_player_win.dart';
@@ -216,7 +219,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           setState(() {});
         }
       }
-    } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isAndroid || GetPlatform.isIOS ) {
+    } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isAndroid || GetPlatform.isIOS) {
       FilePickerResult? result = await FilePicker.platform
           .pickFiles(type: FileType.custom, allowedExtensions: [...widget.allowedFileFormats, ...widget.allowedImageFormats, ...widget.allowedVideoFormats]);
 
@@ -527,11 +530,10 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   }
 
   Future saveFile(NsgFilePickerObject fileObject) async {
-    if ( GetPlatform.isIOS || GetPlatform.isAndroid ) {
+    if (GetPlatform.isIOS || GetPlatform.isAndroid) {
       String? message;
-     String? imagepath=TaskFilesController.getFilePath(fileObject.image.toString());
+      String? imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
 
-     
       try {
         // Download image
         final http.Response response = await http.get(Uri.parse(imagepath));
@@ -751,6 +753,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       onPressed3: () {
         cameraImage();
       },
+      objectsList1: widget.objectsList,
     ));
 
     return RawScrollbar(
@@ -843,31 +846,37 @@ class NsgImagePickerButton extends StatelessWidget {
   final void Function() onPressed;
   final void Function() onPressed2;
   final void Function() onPressed3;
-  
+  final List<NsgFilePickerObject> objectsList1;
   final String textChooseFile;
-  const NsgImagePickerButton({Key? key, required this.onPressed, required this.onPressed2, required this.onPressed3, required this.textChooseFile})
+  const NsgImagePickerButton(
+      {Key? key, required this.onPressed, required this.onPressed2, required this.onPressed3, required this.textChooseFile, required this.objectsList1})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-  
     return (!GetPlatform.isAndroid && !GetPlatform.isIOS)
         ? InkWell(
             hoverColor: ControlOptions.instance.colorMain,
             onTap: onPressed,
-            onLongPress: () async{
-              
-                  final bytes = await Pasteboard.image;
+            onLongPress: () async {
+              final bytes = await Pasteboard.image;
 
-                 NsgFilePickerObject(
-                isNew: true,
-                image: Image.file(File(bytes.toString())),
-                description: basenameWithoutExtension(bytes.toString()),
-                
-                filePath: bytes.toString() );
-                  
-                 
-              
+              //   var length=bytes?.length ?? 0;
+              try {
+                if (Pasteboard.image.isBlank == false) {
+                  objectsList1.add(
+                    NsgFilePickerObject(
+                      isNew: true,
+                      image: Image.memory(bytes!),
+                      fileType: NsgFilePickerObjectType.image,
+                    ),
+                  );
+
+                  Get.find<TasksController>().sendNotify();
+                }
+              } catch (e) {
+                Get.snackbar('', 'Clipboard empty');
+              }
             },
             child: Container(
               decoration: BoxDecoration(
@@ -885,7 +894,8 @@ class NsgImagePickerButton extends StatelessWidget {
                       child: Text(
                         'Загрузить файл',
                         style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
-                      ))
+                      )),
+                  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
                 ],
               ),
             ),
