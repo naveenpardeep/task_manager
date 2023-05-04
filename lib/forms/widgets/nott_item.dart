@@ -161,7 +161,7 @@ class NottItem extends StatelessWidget {
         width: 40,
         height: 40,
         child: Icon(
-          Icons.error,
+          Icons.add_a_photo,
           size: 20,
           color: ControlOptions.instance.colorMain.withOpacity(0.4),
         ),
