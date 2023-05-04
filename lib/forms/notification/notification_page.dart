@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_light_app_bar.dart';
 import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
@@ -43,16 +44,16 @@ class _NotificationPageState extends State<NotificationPage> {
               key: GlobalKey(),
               decoration: const BoxDecoration(color: Colors.white),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                NsgAppBar(
-                  backColor: Colors.white,
-                  color: Colors.black,
-                  text: 'Уведомления'.toUpperCase(),
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
+                NsgLightAppBar(
+                  title: 'Уведомления'.toUpperCase(),
+                  leftIcons: [
+                    NsgLigthAppBarIcon(
+                      icon: Icons.arrow_back_ios_new,
+                      onTap: () {
+                        controller.itemPageCancel();
+                      },
+                    )
+                  ],
                 ),
                 Expanded(child: getNotificationList()),
               ])))),

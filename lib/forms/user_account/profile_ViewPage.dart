@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/widgets/nsg_dialog.dart';
+import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/invitation/invitationAcceptNew.dart';
@@ -69,11 +71,11 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
 
     return SafeArea(
         child: Scaffold(
-          body: NsgDialogBody(
-              controller: nsgDialogBodyController,
-              key: scaffoldKey,
-        
-              /*appBar: AppBar(
+      body: NsgDialogBody(
+          controller: nsgDialogBodyController,
+          key: scaffoldKey,
+
+          /*appBar: AppBar(
                   actions: [
                     if (_tabController.index == 0)
                       IconButton(
@@ -126,65 +128,65 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
                         )),
                       ]),
                 ),*/
-        
-              child: Column(
-                children: [
-                  if (width > 700) const TmTopMenu(),
-                  if (width <= 700)
-                    TTAppBar(
-                      title: 'Аккаунт',
-                      rightIcons: [
-                        if (currentTab.name == 'Профиль')
-                          TTAppBarIcon(
-                            icon: Icons.edit_outlined,
-                            onTap: () {
-                              var userAcC = Get.find<UserAccountController>();
-                              userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
-                            },
-                          ),
-                        TTAppBarIcon(
-                          icon: Icons.notifications_outlined,
-                          nott: 1,
-                          onTap: (() {
-                            notifC.refreshData();
-                            nsgDialogBodyController.openDialog(dialogBody());
-                            //NsgDialog().showNsgBottomDialog(context, dialogBody());
-                            //_dialogBuilder(context);
-                          }),
-                        )
-                      ],
-                    ),
-                  TTTabs(
-                    currentTab: currentTab,
-                    tabs: [
-                      TTTabsTab(
-                          name: 'Профиль',
-                          onTap: (v) {
-                            currentTab = v;
-                            setState(() {});
-                          }),
-                      TTTabsTab(
-                          name: 'Уведомления',
-                          onTap: (v) {
-                            currentTab = v;
-                            Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
-                            setState(() {});
-                          }),
-                      TTTabsTab(
-                          name: 'Приглашения',
-                          onTap: (v) {
-                            currentTab = v;
-                            setState(() {});
-                          })
-                    ],
-                  ),
-                  Expanded(child: controller.obx((state) => content())),
-                  if (width < 700)
-                    //  const BottomMenu()
-                    const BottomMenu()
+
+          child: Column(
+            children: [
+              if (width > 700) const TmTopMenu(),
+              if (width <= 700)
+                TTAppBar(
+                  title: 'Аккаунт',
+                  rightIcons: [
+                    if (currentTab.name == 'Профиль')
+                      TTAppBarIcon(
+                        icon: Icons.edit_outlined,
+                        onTap: () {
+                          var userAcC = Get.find<UserAccountController>();
+                          userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+                        },
+                      ),
+                    TTAppBarIcon(
+                      icon: Icons.notifications_outlined,
+                      nott: 1,
+                      onTap: (() {
+                        notifC.refreshData();
+                        nsgDialogBodyController.openDialog(dialogBody());
+                        //NsgDialog().showNsgBottomDialog(context, dialogBody());
+                        //_dialogBuilder(context);
+                      }),
+                    )
+                  ],
+                ),
+              TTTabs(
+                currentTab: currentTab,
+                tabs: [
+                  TTTabsTab(
+                      name: 'Профиль',
+                      onTap: (v) {
+                        currentTab = v;
+                        setState(() {});
+                      }),
+                  TTTabsTab(
+                      name: 'Уведомления',
+                      onTap: (v) {
+                        currentTab = v;
+                        Get.find<UserAccountController>().saveBackup(Get.find<DataController>().mainProfile);
+                        setState(() {});
+                      }),
+                  TTTabsTab(
+                      name: 'Приглашения',
+                      onTap: (v) {
+                        currentTab = v;
+                        setState(() {});
+                      })
                 ],
-              )),
-        )
+              ),
+              Expanded(child: controller.obx((state) => content())),
+              if (width < 700)
+                //  const BottomMenu()
+                const BottomMenu()
+            ],
+          )),
+    )
 
         /*TabBarView(controller: _tabController, children: [
               Container(key: GlobalKey(), child: const UserProfile()),
@@ -289,10 +291,75 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
     );
   }
 
-  List<NottItem> getNotifications() {
-    List<NottItem> list = [];
+  List<Widget> getNotifications() {
+    List<Widget> list = [];
 
+    DateTime currentDate = DateTime.utc(0);
     for (var notif in notifC.items) {
+      if (!(currentDate.day == notif.date.day && currentDate.month == notif.date.month && currentDate.year == notif.date.year)) {
+        currentDate = notif.date;
+        var dateNow = DateTime.now();
+
+        if (currentDate.day == dateNow.day && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
+          list.add(Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  'Сегодня',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ));
+        } else if (currentDate.day == dateNow.day - 1 && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
+          list.add(Row(children: const [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Divider(),
+              ),
+            )
+          ]));
+          list.add(
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'Вчера',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else {
+          list.add(Row(children: const [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Divider(),
+              ),
+            )
+          ]));
+          list.add(Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  NsgDateFormat.dateFormat(currentDate, format: 'dd.MM.yy'),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ));
+        }
+      }
+
       list.add(NottItem(notification: notif));
     }
 
