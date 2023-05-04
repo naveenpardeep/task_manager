@@ -97,7 +97,7 @@ class _HomepageState extends State<Homepage> {
               if (width > 700) const TmTopMenu(),
               if (width > 700) const Divider(),
               Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
                   child: Row(
                     children: [
                       Padding(
@@ -143,7 +143,7 @@ class _HomepageState extends State<Homepage> {
                                   )
                                   .userAccount)
                         NsgIconButton(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                           color: ControlOptions.instance.colorMain,
                           size: 16,
                           icon: Icons.settings,
@@ -204,41 +204,45 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                       if (width > 700)
-                        NsgButton(
-                            backHoverColor: Colors.transparent,
-                            color: ControlOptions.instance.colorWhite,
-                            height: 10,
-                            borderRadius: 10,
-                            width: 100,
-                            onPressed: () {
-                              var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
-                                  element.organizationId == projectController.currentItem.organizationId &&
-                                  element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
-                              serviceC.currentItem.userAccount = user ?? UserAccount();
-                              taskController.refreshData();
-                            },
-                            text: 'My Tasks'),
+                        SizedBox(
+                          height: 40,
+                          child: NsgButton(
+                              backHoverColor: Colors.transparent,
+                              color: ControlOptions.instance.colorWhite,
+                              borderRadius: 10,
+                              width: 100,
+                              onPressed: () {
+                                var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
+                                    element.organizationId == projectController.currentItem.organizationId &&
+                                    element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
+                                serviceC.currentItem.userAccount = user ?? UserAccount();
+                                taskController.refreshData();
+                              },
+                              text: 'My Tasks'),
+                        ),
                       //  if (width > 700)
                       Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: NsgButton(
-                            borderRadius: 10,
-                            width: width > 700 ? 150 : 35,
-                            margin: EdgeInsets.zero,
-                            padding: EdgeInsets.zero,
-                            height: 10,
-                            icon: Icons.add,
-                            text: width > 700 ? 'Новая Задача' : '',
-                            color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
-                            backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
-                            onPressed: () {
-                              setState(() {
-                                taskView = false;
-                              });
-                              Get.find<TasksController>().selectedItem == null;
-                              Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
-                            },
+                        child: SizedBox(
+                          height: 30,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: NsgButton(
+                              borderRadius: 10,
+                              width: width > 700 ? 150 : 35,
+                              margin: EdgeInsets.zero,
+                              padding: EdgeInsets.zero,
+                              icon: Icons.add,
+                              text: width > 700 ? 'Новая Задача' : '',
+                              color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
+                              backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                              onPressed: () {
+                                setState(() {
+                                  taskView = false;
+                                });
+                                Get.find<TasksController>().selectedItem == null;
+                                Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
+                              },
+                            ),
                           ),
                         ),
                       ),
