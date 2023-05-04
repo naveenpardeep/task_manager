@@ -862,17 +862,20 @@ class NsgImagePickerButton extends StatelessWidget {
               final bytes = await Pasteboard.image;
 
               //   var length=bytes?.length ?? 0;
+              try {
+                if (Pasteboard.image.isBlank == false) {
+                  objectsList1.add(
+                    NsgFilePickerObject(
+                      isNew: true,
+                      image: Image.memory(bytes!),
+                      fileType: NsgFilePickerObjectType.image,
+                    ),
+                  );
 
-              if (Pasteboard.image.isBlank == false) {
-                objectsList1.add(
-                  NsgFilePickerObject(
-                    isNew: true,
-                    image: Image.memory(bytes!),
-                    fileType: NsgFilePickerObjectType.image,
-                  ),
-                );
-
-                Get.find<TasksController>().sendNotify();
+                  Get.find<TasksController>().sendNotify();
+                }
+              } catch (e) {
+                Get.snackbar('', 'Clipboard empty');
               }
             },
             child: Container(
