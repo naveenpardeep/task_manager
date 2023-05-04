@@ -790,7 +790,7 @@ class _HomepageState extends State<Homepage> {
         }
 
         return Padding(
-          padding: const EdgeInsets.only(right: 10),
+          padding: const EdgeInsets.fromLTRB(0, 0, 10, 30),
           child: Column(
             children: list,
           ),
