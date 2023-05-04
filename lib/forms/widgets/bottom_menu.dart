@@ -47,7 +47,7 @@ class BottomMenu extends StatelessWidget {
           controller: Get.find<UserAccountController>(),
         ),
       ],
-    ).asGlass(blurX: 40,blurY: 40);
+    ).asGlass(blurX: 40, blurY: 40);
   }
 }
 
@@ -89,7 +89,7 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
         //
       },
       child: Container(
-          decoration:  const BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromRGBO(255, 255, 255, 0.48),
           ),
           height: 65,
@@ -136,11 +136,10 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
   }
 
   Widget getPhoto() {
-    //Get.find<DataController>().currentUser;
     var userAccountController = Get.find<UserAccountController>();
-    if (userAccountController.currentItem.photoName.isNotEmpty) {
+    if (Get.find<DataController>().mainProfile.photoName.isNotEmpty) {
       return Image.network(
-        DataController.getFilePath(userAccountController.currentItem.photoName),
+        DataController.getFilePath(Get.find<DataController>().mainProfile.photoName),
         width: 32,
         height: 32,
         fit: BoxFit.cover,
