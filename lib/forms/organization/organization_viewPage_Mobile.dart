@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_light_app_bar.dart';
 import 'package:nsg_data/nsg_data.dart';
 
 import 'package:task_manager_app/app_pages.dart';
@@ -12,6 +13,8 @@ import 'package:task_manager_app/forms/organization/organization_projects.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+
+import '../widgets/tt_tabs.dart';
 
 class OrganizationViewPageMobile extends StatefulWidget {
   const OrganizationViewPageMobile({
@@ -25,6 +28,7 @@ class OrganizationViewPageMobile extends StatefulWidget {
 class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile> with TickerProviderStateMixin {
   DateFormat formateddate = DateFormat("dd.MM.yyyy /HH:mm");
   late TabController _tabController;
+  TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
   var controller = Get.find<OrganizationController>();
   var orgTable = Get.find<OrganizationItemUserTableController>().items;
 
@@ -36,7 +40,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
   @override
   void initState() {
     super.initState();
-    if(controller.lateInit){
+    if (controller.lateInit) {
       controller.requestItems();
     }
 
@@ -52,8 +56,6 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
 
   @override
   Widget build(BuildContext context) {
-    var scrollController = ScrollController();
-    //var newscrollController = ScrollController();
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -61,190 +63,176 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
     return controller.obx((state) => SafeArea(
           child: Scaffold(
             key: scaffoldKey,
-            appBar: AppBar(
-               leading: IconButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.organizationListMobilePage);
-                  },
-                  icon: const Icon(Icons.arrow_back_ios)),
-              actions: [
-                if (_tabController.index == 0)
-                  IconButton(
-                      onPressed: () {
-                        if (_tabController.index == 0) {
-                          controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage, needRefreshSelectedItem: true);
-                        }
-
-                        if (_tabController.index == 2) {}
-                      },
-                      icon: const Icon(Icons.edit)),
-                // if (_tabController.index == 1) IconButton(onPressed: () {
-                //  //  Get.find<TaskBoardController>().newItemPageOpen(pageName: Routes.taskBoard);
-
-                // }, icon: const Icon(Icons.add))
-              ],
-
-              backgroundColor: Colors.white,
-              elevation: 0.0, //Shadow gone
-              centerTitle: true,
-              title: Align(
-                alignment: Alignment.topLeft,
-                child: controller.obx((state) => Text(
-                      controller.currentItem.name.toString().toUpperCase(),
-                      style: const TextStyle(color: Colors.black),
+            body: Column(
+              children: [
+                controller.obx((state) => NsgLightAppBar(
+                      title: controller.currentItem.name.toString().toUpperCase(),
+                      leftIcons: [
+                        NsgLigthAppBarIcon(
+                            onTap: () {
+                              Get.toNamed(Routes.organizationListMobilePage);
+                            },
+                            icon: Icons.arrow_back_ios)
+                      ],
+                      rightIcons: [
+                        if (currentTab.name == 'Основное')
+                          NsgLigthAppBarIcon(
+                              onTap: () {
+                                controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage, needRefreshSelectedItem: true);
+                              },
+                              icon: Icons.edit),
+                      ],
                     )),
-              ),
-              bottom: TabBar(
-                  onTap: (value) {
-                    setState(() {
-                      if (_tabController.index == 0) {
-                        _tabController.index = 0;
-                      } else if (_tabController.index == 1) {
-                        _tabController.index = 1;
-                      } else if (_tabController.index == 2) {
-                        _tabController.index = 2;
-                      }
-                    });
-                  },
-                  controller: _tabController,
-                  tabs: <Widget>[
-                    Tab(
-                      child: Text(
-                        'Основное',
-                        style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
-                      ),
-                    ),
-                    Tab(
-                        child: Text(
-                      'Сотрудники',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
-                    )),
-                    Tab(
-                        child: Text(
-                      'Проекты',
-                      style: TextStyle(color: const Color(0xff3EA8AB), fontSize: width < 700 ? 12 : 15),
-                    )),
-                  ]),
-            ),
-            body: TabBarView(controller: _tabController, children: [
-              Container(
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
-                          child: RawScrollbar(
-                            thumbVisibility: true,
-                            trackVisibility: true,
-                            controller: scrollController,
-                            thickness:  width>700? 10: 0,
-                            trackBorderColor: ControlOptions.instance.colorGreyLight,
-                            trackColor: ControlOptions.instance.colorGreyLight,
-                            thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                            radius: const Radius.circular(0),
-                            child: SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                controller: scrollController,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: ClipOval(
-                                              child: controller.currentItem.photoPath.isEmpty
-                                                  ? Container(
-                                                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                                      width: 120,
-                                                      height: 120,
-                                                      child: Icon(
-                                                        Icons.account_circle,
-                                                        size: 20,
-                                                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                                                      ),
-                                                    )
-                                                  : Image.network(
-                                                      TaskFilesController.getFilePath(controller.currentItem.photoPath),
-                                                      fit: BoxFit.cover,
-                                                      width: 120,
-                                                      height: 120,
-                                                    ),
-                                            ),
-                                          ),
-                                      Expanded(child:    Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: 
-                                               Text(
-                                                ' ${controller.currentItem.name}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Администратор        ',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              controller.currentItem.ceo.toString(),
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Дата создания          ',
-                                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              getCreatedDay(),
-                                              style: const TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          )),
-                    ),
-                    if (width < 700) const BottomMenu(),
-                    //const TmMobileMenu()
+                TTTabs(
+                  currentTab: currentTab,
+                  tabs: [
+                    TTTabsTab(
+                        name: 'Основное',
+                        onTap: (v) {
+                          currentTab = v;
+                          setState(() {});
+                        }),
+                    TTTabsTab(
+                        name: 'Сотрудники',
+                        onTap: (v) {
+                          currentTab = v;
+                          setState(() {});
+                        }),
+                    TTTabsTab(
+                        name: 'Проекты',
+                        onTap: (v) {
+                          currentTab = v;
+                          setState(() {});
+                        })
                   ],
                 ),
-              ),
-              Container(key: GlobalKey(), child: const OrganizationUsersMobilePage()),
-              Container(key: GlobalKey(), child: OrganizationProject()),
-            ]),
+                Expanded(child: controller.obx((state) => getContent())),
+              ],
+            ),
           ),
         ));
+  }
+
+  Widget getContent() {
+    if (currentTab.name == 'Основное') {
+      return Container(
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
+                  child: RawScrollbar(
+                    thumbVisibility: true,
+                    trackVisibility: true,
+                    controller: scrollController,
+                    thickness: width > 700 ? 10 : 0,
+                    trackBorderColor: ControlOptions.instance.colorGreyLight,
+                    trackColor: ControlOptions.instance.colorGreyLight,
+                    thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                    radius: const Radius.circular(0),
+                    child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: scrollController,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: ClipOval(
+                                      child: controller.currentItem.photoPath.isEmpty
+                                          ? Container(
+                                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                              width: 120,
+                                              height: 120,
+                                              child: Icon(
+                                                Icons.account_circle,
+                                                size: 20,
+                                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                              ),
+                                            )
+                                          : Image.network(
+                                              TaskFilesController.getFilePath(controller.currentItem.photoPath),
+                                              fit: BoxFit.cover,
+                                              width: 120,
+                                              height: 120,
+                                            ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        ' ${controller.currentItem.name}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Inter',
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Администратор        ',
+                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      controller.currentItem.ceo.toString(),
+                                      style: const TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Дата создания          ',
+                                    style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Color(0xff529FBF)),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getCreatedDay(),
+                                      style: const TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                  )),
+            ),
+            if (width < 700) const BottomMenu(),
+            //const TmMobileMenu()
+          ],
+        ),
+      );
+    }
+    if (currentTab.name == 'Сотрудники') {
+      return Container(key: GlobalKey(), child: const OrganizationUsersMobilePage());
+    }
+    return Container(key: GlobalKey(), child: OrganizationProject());
   }
 
   String getCreatedDay() {
