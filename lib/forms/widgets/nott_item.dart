@@ -7,7 +7,9 @@ import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/enums/e_notification_type.dart';
 
+import '../../app_pages.dart';
 import '../../model/notification_doc.dart';
+import '../tasks/tasks_controller.dart';
 
 class NottItem extends StatelessWidget {
   const NottItem({super.key, required this.notification});
@@ -73,20 +75,31 @@ class NottItem extends StatelessWidget {
   }
 
   void goToPage() {
+    var controller = Get.find<TasksController>();
+    if (notification.notificationType == ENotificationType.invitationAccepted) {
+      controller.itemPageOpen(
+        notification,
+        Routes.acceptRejectListPage,
+      );
+    }
+
+    if (notification.notificationType == ENotificationType.invitationRejected) {
+      controller.itemPageOpen(
+        notification,
+        Routes.acceptRejectListPage,
+      );
+    }
     if (notification.notificationType == ENotificationType.editedTask) {
-      //
-    } else if (notification.notificationType == ENotificationType.invitationAccepted) {
-      //
-    } else if (notification.notificationType == ENotificationType.invitationRejected) {
-      //
-    } else if (notification.notificationType == ENotificationType.newTask) {
-      //
-    } else if (notification.notificationType == ENotificationType.recievedTask) {
-      //
-    } else if (notification.notificationType == ENotificationType.userAdded) {
-      //
-    } else {
-      //TODO: показывать AlertDialog!
+      Get.find<TasksController>().itemPageOpen(
+        notification.task,
+        Routes.taskEditPage,
+      );
+    }
+    if (notification.notificationType == ENotificationType.newTask) {
+      Get.find<TasksController>().itemPageOpen(notification.task, Routes.taskEditPage, needRefreshSelectedItem: true);
+    }
+    if (notification.notificationType == ENotificationType.recievedTask) {
+      Get.find<TasksController>().itemPageOpen(notification.task, Routes.taskEditPage, needRefreshSelectedItem: true);
     }
   }
 
