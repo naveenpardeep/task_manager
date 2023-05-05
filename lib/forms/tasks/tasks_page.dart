@@ -368,6 +368,9 @@ class _TasksPageState extends State<TasksPage> {
                 controller.currentItem.taskStatus = status;
                 controller.sendNotify();
                 Navigator.of(context).pop();
+                setState(() {
+                  
+                });
               },
               onLongPress: () {},
               child: Column(children: [
