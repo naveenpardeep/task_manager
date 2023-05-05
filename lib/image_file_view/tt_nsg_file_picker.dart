@@ -4,17 +4,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:path/path.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/image_file_view/image_file.dart';
+
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player_win/video_player_win.dart';
 import 'package:http/http.dart' as http;
@@ -895,7 +897,7 @@ class NsgImagePickerButton extends StatelessWidget {
                         'Загрузить файл',
                         style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
                       )),
-                  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
+                //  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
                 ],
               ),
             ),
