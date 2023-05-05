@@ -63,10 +63,74 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget getNotificationList() {
     List<Widget> list = [];
     var scrollController = ScrollController();
-    var tasksList = controller.items.reversed;
+    var tasksList = controller.items;
     double width = MediaQuery.of(context).size.width;
+     DateTime currentDate = DateTime.utc(0);
 
     for (var tasks in tasksList) {
+      if (!(currentDate.day == tasks.date.day && currentDate.month == tasks.date.month && currentDate.year == tasks.date.year)) {
+        currentDate = tasks.date;
+        var dateNow = DateTime.now();
+
+        if (currentDate.day == dateNow.day && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
+          list.add(Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  'Сегодня',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ));
+        } else if (currentDate.day == dateNow.day - 1 && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
+          list.add(Row(children: const [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Divider(),
+              ),
+            )
+          ]));
+          list.add(
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'Вчера',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else {
+          list.add(Row(children: const [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Divider(),
+              ),
+            )
+          ]));
+          list.add(Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  NsgDateFormat.dateFormat(currentDate, format: 'dd.MM.yy'),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'Inter', fontSize: ControlOptions.instance.sizeL, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ));
+        }
+      }
       {
         list.add(GestureDetector(
           onTap: () {
@@ -114,36 +178,36 @@ class _NotificationPageState extends State<NotificationPage> {
                               Text(
                                 tasks.comment,
                               ),
-                              if (tasks.notificationType == ENotificationType.invitationAccepted)
-                                Text(
-                                  '${tasks.invitation.invitedUser}',
-                                  maxLines: 1,
-                                ),
-                              if (tasks.notificationType == ENotificationType.invitationRejected)
-                                Text(
-                                  '${tasks.invitation.invitedUser}',
-                                  maxLines: 1,
-                                ),
-                              if (tasks.notificationType == ENotificationType.editedTask)
-                                Text(
-                                  tasks.task.name,
-                                  maxLines: 1,
-                                ),
-                              if (tasks.notificationType == ENotificationType.newTask)
-                                Text(
-                                  tasks.task.name,
-                                  maxLines: 1,
-                                ),
-                              if (tasks.notificationType == ENotificationType.recievedTask)
-                                Text(
-                                  tasks.task.name,
-                                  maxLines: 1,
-                                ),
-                              if (tasks.notificationType == ENotificationType.userAdded)
-                                Text(
-                                  tasks.userAccount.toString(),
-                                  maxLines: 1,
-                                ),
+                              // if (tasks.notificationType == ENotificationType.invitationAccepted)
+                              //   Text(
+                              //     '${tasks.invitation.invitedUser}',
+                              //     maxLines: 1,
+                              //   ),
+                              // if (tasks.notificationType == ENotificationType.invitationRejected)
+                              //   Text(
+                              //     '${tasks.invitation.invitedUser}',
+                              //     maxLines: 1,
+                              //   ),
+                              // if (tasks.notificationType == ENotificationType.editedTask)
+                              //   Text(
+                              //     tasks.task.author.toString(),
+                              //     maxLines: 1,
+                              //   ),
+                              // if (tasks.notificationType == ENotificationType.newTask)
+                              //   Text(
+                              //     tasks.task.author.toString(),
+                              //     maxLines: 1,
+                              //   ),
+                              // if (tasks.notificationType == ENotificationType.recievedTask)
+                              //   Text(
+                              //     tasks.task.author.toString(),
+                              //     maxLines: 1,
+                              //   ),
+                              // if (tasks.notificationType == ENotificationType.userAdded)
+                              //   Text(
+                              //     tasks.userAccount.toString(),
+                              //     maxLines: 1,
+                              //   ),
                               Row(
                                 children: [
                                   const Icon(
