@@ -44,7 +44,7 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
   Future checkImagesInRichText() async {}
 
   @override
-  Future<TaskDocFilesTable> fileObjectToDataItem(NsgFilePickerObject fileObject, File imageFile) async {
+  Future<TaskDocFilesTable> fileObjectToDataItem(NsgFilePickerObject fileObject, File? imageFile) async {
     var pic = TaskDocFilesTable();
     pic.id = fileObject.id;
     pic.name = '${fileObject.description}.${extension(fileObject.filePath).replaceAll('.', '')}';
@@ -52,7 +52,11 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     if (kIsWeb) {
       assert(fileObject.fileContent != null, '${pic.name} - Файл пустой');
       pic.file = fileObject.fileContent!;
-    } else {
+    } 
+    else if(imageFile == null){
+             pic.file = fileObject.fileContent!;
+    }
+    else {
       pic.file = await imageFile.readAsBytes();
     }
     return pic;

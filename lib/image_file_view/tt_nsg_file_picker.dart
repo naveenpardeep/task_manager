@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
+import 'package:nsg_data/nsg_data.dart';
 
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
@@ -870,10 +871,12 @@ class NsgImagePickerButton extends StatelessWidget {
                     NsgFilePickerObject(
                       isNew: true,
                       image: Image.memory(bytes!),
-                      fileType: NsgFilePickerObjectType.image,
+                      description: Guid.newGuid(),
+                      fileContent: Uint8List(bytes.length),
+                      fileType: NsgFilePickerObjectType.image
+                      
                     ),
                   );
-
                   Get.find<TasksController>().sendNotify();
                 }
               } catch (e) {
@@ -897,7 +900,7 @@ class NsgImagePickerButton extends StatelessWidget {
                         'Загрузить файл',
                         style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
                       )),
-                //  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
+                  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
                 ],
               ),
             ),
