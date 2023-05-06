@@ -866,18 +866,41 @@ class NsgImagePickerButton extends StatelessWidget {
 
               //   var length=bytes?.length ?? 0;
               try {
-                if (Pasteboard.image.isBlank == false) {
+                if ((Pasteboard.image.isBlank == null || !Pasteboard.image.isBlank!) && bytes != null) {
                   objectsList1.add(
                     NsgFilePickerObject(
-                      isNew: true,
-                      image: Image.memory(bytes!),
-                      description: Guid.newGuid(),
-                      fileContent: Uint8List(bytes.length),
-                      fileType: NsgFilePickerObjectType.image
-                      
-                    ),
+                        isNew: true,
+                        image: Image.memory(bytes),
+                        //TODO: convert image to jpg and check max size
+                        description: "${Guid.newGuid()}.jpg",
+                        fileContent: Uint8List.fromList(bytes),
+                        fileType: NsgFilePickerObjectType.image),
                   );
                   Get.find<TasksController>().sendNotify();
+                } else {
+                  var files = await Pasteboard.files();
+                  if (files.isEmpty) {
+                    Get.snackbar('', 'Clipboard empty');
+                  } else {
+                    for (var fileName in files) {
+                      var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
+                      if (fileType == NsgFilePickerObjectType.unknown) {
+                        Get.snackbar('', 'File format doesn' 't supported $fileName');
+                        continue;
+                      }
+                      var file = File(fileName);
+                      objectsList1.add(NsgFilePickerObject(
+                        isNew: true,
+                        image: (fileType == NsgFilePickerObjectType.image ? Image.file(file) : null),
+                        description: fileName,
+                        filePath: fileName,
+                        file: file,
+                        //fileContent: Uint8List.fromList(bytes),
+                        fileType: fileType,
+                      ));
+                    }
+                    Get.find<TasksController>().sendNotify();
+                  }
                 }
               } catch (e) {
                 Get.snackbar('', 'Clipboard empty');

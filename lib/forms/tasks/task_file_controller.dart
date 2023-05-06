@@ -52,11 +52,9 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     if (kIsWeb) {
       assert(fileObject.fileContent != null, '${pic.name} - Файл пустой');
       pic.file = fileObject.fileContent!;
-    } 
-    else if(imageFile == null){
-             pic.file = fileObject.fileContent!;
-    }
-    else {
+    } else if (imageFile == null) {
+      pic.file = fileObject.fileContent!;
+    } else {
       pic.file = await imageFile.readAsBytes();
     }
     return pic;
