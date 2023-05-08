@@ -495,6 +495,52 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
     }
   }
 
+ Future galleryImageMobile() async {
+   {
+      var result = await ImagePicker().pickMultiImage(
+        imageQuality: widget.imageQuality,
+        maxWidth: widget.imageMaxWidth,
+        maxHeight: widget.imageMaxHeight,
+      );
+
+      galleryPage = true;
+
+      /// Если стоит ограничение на 1 файл
+      if (widget.oneFile) {
+        if (result.isNotEmpty) result = [result[0]];
+       widget.objectsList.clear();
+      }
+      for (var element in result) {
+        var fileType = NsgFilePicker.getFileType(extension(element.path).replaceAll('.', ''));
+
+        if (fileType == NsgFilePickerObjectType.image) {
+         widget.objectsList.add(NsgFilePickerObject(
+              isNew: true,
+              image: Image.file(File(element.path)),
+              description: basenameWithoutExtension(element.path),
+              fileType: fileType,
+              filePath: element.path));
+        } else if (fileType != NsgFilePickerObjectType.unknown) {
+          widget.objectsList.add(NsgFilePickerObject(
+              isNew: true,
+              file: File(element.path),
+              image: null,
+              description: basenameWithoutExtension(element.path),
+              fileType: fileType,
+              filePath: element.path));
+        } else {
+          error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
+          setState(() {});
+        }
+      }
+
+      if (widget.skipInterface) {
+        widget.callback(widget.objectsList);
+      } else {
+        setState(() {});
+      }
+    }
+  }
   /// Capture a photo
   Future cameraImage() async {
     final ImagePicker picker = ImagePicker();
@@ -747,7 +793,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
           pickFile();
         } else {
-          galleryImage();
+          galleryImageMobile();
         }
       },
       onPressed2: () {
@@ -820,7 +866,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           galleryImage();
         }
       } else {
-        galleryImage();
+        galleryImageMobile();
       }
       return const SizedBox();
     } else {
