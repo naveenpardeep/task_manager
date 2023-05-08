@@ -428,9 +428,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             error = '${fileType.toString().toUpperCase()} - неподдерживаемый формат';
             setState(() {});
           }
-        }
-
-        if (!kIsWeb && GetPlatform.isWindows) {
+        } else if (GetPlatform.isWindows) {
           var file = File(element.name);
 
           if ((await file.length()) > widget.fileMaxSize) {
@@ -458,7 +456,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             setState(() {});
           }
         }
-        if (GetPlatform.isLinux || GetPlatform.isAndroid || GetPlatform.isIOS) {
+        if (GetPlatform.isLinux || GetPlatform.isMacOS || GetPlatform.isAndroid || GetPlatform.isIOS) {
           File file = File(element.path.toString());
 
           // if ((await file.length()) > widget.fileMaxSize) {
@@ -495,8 +493,8 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
     }
   }
 
- Future galleryImageMobile() async {
-   {
+  Future galleryImageMobile() async {
+    {
       var result = await ImagePicker().pickMultiImage(
         imageQuality: widget.imageQuality,
         maxWidth: widget.imageMaxWidth,
@@ -508,13 +506,13 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       /// Если стоит ограничение на 1 файл
       if (widget.oneFile) {
         if (result.isNotEmpty) result = [result[0]];
-       widget.objectsList.clear();
+        widget.objectsList.clear();
       }
       for (var element in result) {
         var fileType = NsgFilePicker.getFileType(extension(element.path).replaceAll('.', ''));
 
         if (fileType == NsgFilePickerObjectType.image) {
-         widget.objectsList.add(NsgFilePickerObject(
+          widget.objectsList.add(NsgFilePickerObject(
               isNew: true,
               image: Image.file(File(element.path)),
               description: basenameWithoutExtension(element.path),
@@ -541,6 +539,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       }
     }
   }
+
   /// Capture a photo
   Future cameraImage() async {
     final ImagePicker picker = ImagePicker();
@@ -790,7 +789,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       onPressed: () {
         if (kIsWeb) {
           galleryImage();
-        } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
+        } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS) {
           pickFile();
         } else {
           galleryImageMobile();
@@ -859,7 +858,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         } else {
           galleryImage();
         }
-      } else if (GetPlatform.isWindows || GetPlatform.isLinux) {
+      } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS) {
         if (widget.useFilePicker) {
           pickFile();
         } else {
