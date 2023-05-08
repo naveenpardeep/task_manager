@@ -606,6 +606,8 @@ class _HomepageState extends State<Homepage> {
           color: ControlOptions.instance.colorMain,
           onPressed: () {
             reset();
+            Navigator.of(context).pop();
+           
           },
         ),
       )
