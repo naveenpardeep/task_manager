@@ -1106,8 +1106,9 @@ Widget statuslist(context, TaskDoc taskDoc) {
         child: InkWell(
             onTap: () async {
               taskDoc.taskStatus = status;
-              await await Get.find<TasksController>().postItems([taskDoc]);
               Navigator.of(context).pop();
+              await Get.find<TasksController>().postItems([taskDoc]);
+              
 
               Get.find<TasksController>().refreshData();
             },
