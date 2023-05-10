@@ -1166,7 +1166,7 @@ Color getTaskPriorityColor(EPriority priority) {
 Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   return GestureDetector(
     onLongPress: () {
-      changeTaskStatus(tasks, 2);
+      taskStatus(context, tasks);
     },
     onDoubleTap: () async {
       if (tasks.isReadByAssignee == false &&
