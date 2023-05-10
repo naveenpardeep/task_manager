@@ -27,6 +27,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 import 'package:task_manager_app/model/enums.dart';
 import 'package:task_manager_app/view/task_load_controller.dart';
 import 'package:task_manager_app/view/taskview.dart';
+import '../forms/task_status/new_task_status_controller.dart';
 import '../forms/tasks/task_file_controller.dart';
 import '../forms/user_account/service_object_controller.dart';
 import '../forms/widgets/nsg_tabs.dart';
@@ -1071,6 +1072,58 @@ class RotatingCardState extends State<RotatingCard> {
   }
 }
 
+taskStatus(BuildContext context, tasks) {
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Center(child: Text('Смена статуса заявки')),
+    content: SizedBox(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [statuslist(context, tasks)],
+        ),
+      ),
+    ),
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+Widget statuslist(context, TaskDoc taskDoc) {
+  List<Widget> list = [];
+  var taskboardstaus = Get.find<TaskBoardController>().currentItem;
+
+  var stsList = Get.find<ProjectStatusController>().items;
+
+  for (var status in stsList) {
+    list.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: InkWell(
+            onTap: () async {
+              taskDoc.taskStatus = status;
+              await await Get.find<TasksController>().postItems([taskDoc]);
+              Navigator.of(context).pop();
+
+              Get.find<TasksController>().refreshData();
+            },
+            onLongPress: () {},
+            child: Column(children: [
+              Text(
+                status.name,
+                style: TextStyle(
+                    fontSize: ControlOptions.instance.sizeL,
+                    color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+              ),
+            ]))));
+  }
+  return SingleChildScrollView(child: Column(children: list));
+}
+
 changeTaskStatus(TaskDoc tasks, [int? value]) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
@@ -1244,16 +1297,16 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
           ),
         ),
       ),
-      const PopupMenuItem(
-        value: 6,
-        child: Padding(
-          padding: EdgeInsets.only(left: 0, right: 20),
-          child: Text(
-            "Измените статус из списка статусов проекта",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      ),
+      // const PopupMenuItem(
+      //   value: 6,
+      //   child: Padding(
+      //     padding: EdgeInsets.only(left: 0, right: 20),
+      //     child: Text(
+      //       "Измените статус из списка статусов проекта",
+      //       style: TextStyle(color: Colors.black),
+      //     ),
+      //   ),
+      // ),
     ],
   ).then((value) async {
     if (value == 1) {
@@ -1269,7 +1322,8 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       Get.find<TasksController>().sendNotify();
     }
     if (value == 2) {
-      changeTaskStatus(tasks, value);
+      //   changeTaskStatus(tasks, value);
+      taskStatus(context, tasks);
     }
     if (value == 3) {
       selectProjectMove(tasks);
@@ -1284,9 +1338,9 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
 
       Get.find<TasksController>().refreshData();
     }
-    if (value == 6) {
-      changeTaskStatus(tasks, value);
-    }
+    // if (value == 6) {
+    //   changeTaskStatus(tasks, value);
+    // }
   });
 }
 
