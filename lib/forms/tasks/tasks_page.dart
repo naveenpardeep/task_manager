@@ -85,7 +85,7 @@ class _TasksPageState extends State<TasksPage> {
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-          //  key: GlobalKey(),
+            //  key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -97,7 +97,7 @@ class _TasksPageState extends State<TasksPage> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: width>700? 10 :0,
+                        thickness: width > 700 ? 10 : 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -151,8 +151,7 @@ class _TasksPageState extends State<TasksPage> {
                                                 borderSide: BorderSide(color: ControlOptions.instance.colorMain),
                                                 borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           ),
-                                           style: TextStyle(color: ControlOptions.instance.colorText, fontSize: 14),
-                              
+                                          style: TextStyle(color: ControlOptions.instance.colorText, fontSize: 14),
                                           onTap: () {
                                             taskStatus(context);
                                           },
@@ -216,14 +215,19 @@ class _TasksPageState extends State<TasksPage> {
                                       //selectionForm: Routes.userAccountListPage,
                                     ),
                                   ),
-                                const  Padding(
-                                    padding:  EdgeInsets.fromLTRB(5, 4, 0, 4),
-                                    child: Text('Описание задачи' , style: TextStyle(fontFamily: 'Inter', fontSize: 12),),
+                                  const Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 4, 0, 4),
+                                    child: Text(
+                                      'Описание задачи',
+                                      style: TextStyle(fontFamily: 'Inter', fontSize: 12),
+                                    ),
                                   ),
-                                Padding(
+                                  Padding(
                                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 4),
                                     child: Container(
-                                      decoration: BoxDecoration(border: Border.all(width: 1),),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1),
+                                      ),
                                       child: NsgRichText(
                                           hint: 'Description',
                                           key: GlobalKey(),
@@ -355,6 +359,7 @@ class _TasksPageState extends State<TasksPage> {
 
   Widget statuslist(context, bool isNewStatus) {
     List<Widget> list = [];
+    double width = MediaQuery.of(context).size.width;
     var taskboardstaus = Get.find<TaskBoardController>().currentItem;
 
     var stsList =
@@ -368,17 +373,19 @@ class _TasksPageState extends State<TasksPage> {
                 controller.currentItem.taskStatus = status;
                 controller.sendNotify();
                 Navigator.of(context).pop();
-                setState(() {
-                  
-                });
+                setState(() {});
               },
               onLongPress: () {},
               child: Column(children: [
-                Text(
-                  status.name,
-                  style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+                Container(
+                  width: width / 2,
+                  color: controller.currentItem.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
+                  child: Text(
+                    status.name,
+                    style: TextStyle(
+                        fontSize: ControlOptions.instance.sizeL,
+                        color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+                  ),
                 ),
               ]))));
     }
