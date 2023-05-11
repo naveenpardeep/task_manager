@@ -378,7 +378,7 @@ class _TasksPageState extends State<TasksPage> {
               onLongPress: () {},
               child: Column(children: [
                 Container(
-                  width: width / 2,
+                  width: width>700? width / 2: width,
                   color: controller.currentItem.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
                   child: Center(
                     child: Text(

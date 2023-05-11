@@ -1115,7 +1115,7 @@ Widget statuslist(context, TaskDoc taskDoc) {
             onLongPress: () {},
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                width: width / 2,
+                width: width>700? width / 2: width,
                 color: taskDoc.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
                 child: Center(
                   child: Text(
