@@ -1120,11 +1120,13 @@ Widget statuslist(context, TaskDoc taskDoc) {
               Container(
                 width: width/2,
                 color: taskDoc.taskStatus==status? const Color.fromARGB(255, 208, 243, 209): Colors.white,
-                child: Text(
-                  status.name,
-                  style: TextStyle(
-                      fontSize: ControlOptions.instance.sizeL,
-                      color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+                child: Center(
+                  child: Text(
+                    status.name,
+                    style: TextStyle(
+                        fontSize: ControlOptions.instance.sizeL,
+                        color: taskboardstaus.statusTable.rows.where((element) => element.status.name == status.name).isNotEmpty ? Colors.black : Colors.red),
+                  ),
                 ),
               ),
             ]))));
