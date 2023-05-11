@@ -350,7 +350,7 @@ class ProjectItemView extends StatelessWidget {
           Radius.circular(12.0),
         ),
       ),
-      color: const Color(0xffEDEFF3).withOpacity(0.8),
+      color: const Color(0xffEDEFF3).withOpacity(0.9),
       context: context,
       position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
       items: [
