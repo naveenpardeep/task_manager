@@ -989,8 +989,8 @@ class _HomepageState extends State<Homepage> {
 
   void reset() {
     setState(() {
-      //taskBoardController.currentItem.sortBy = ESorting.dateDesc;
-      taskBoardController.refreshData();
+      taskBoardController.currentItem.sortBy = ESorting.dateDesc;
+      taskBoardController.currentItem.periodOfFinishedTasks=EPeriod.all;
       serviceC.currentItem.userAccountId = '';
       isDatesearch = false;
       searchDate = DateTime.now();
