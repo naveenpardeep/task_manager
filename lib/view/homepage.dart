@@ -1096,7 +1096,7 @@ taskStatus(BuildContext context, tasks) {
 
 Widget statuslist(context, TaskDoc taskDoc) {
   List<Widget> list = [];
-  double width=MediaQuery.of(context).size.width;
+  double width = MediaQuery.of(context).size.width;
   var taskboardstaus = Get.find<TaskBoardController>().currentItem;
 
   var stsList = Get.find<ProjectStatusController>().items;
@@ -1109,17 +1109,14 @@ Widget statuslist(context, TaskDoc taskDoc) {
               taskDoc.taskStatus = status;
               Navigator.of(context).pop();
               await Get.find<TasksController>().postItems([taskDoc]);
-              
 
               Get.find<TasksController>().refreshData();
             },
             onLongPress: () {},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                width: width/2,
-                color: taskDoc.taskStatus==status? const Color.fromARGB(255, 208, 243, 209): Colors.white,
+                width: width / 2,
+                color: taskDoc.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
                 child: Center(
                   child: Text(
                     status.name,
@@ -1554,7 +1551,7 @@ selectProjectMove(TaskDoc tasks) {
       }
       if (tasks.taskStatus !=
           Get.find<ProjectStatusController>().items.firstWhere((element) => element.name == tasks.taskStatus.name, orElse: () => TaskStatus())) {
-        tasks.taskStatus = Get.find<ProjectStatusController>().items.first;
+        tasks.taskStatus = Get.find<ProjectStatusController>().items.last;
       }
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -65,7 +66,7 @@ class _NotificationPageState extends State<NotificationPage> {
     var scrollController = ScrollController();
     var tasksList = controller.items;
     double width = MediaQuery.of(context).size.width;
-     DateTime currentDate = DateTime.utc(0);
+    DateTime currentDate = DateTime.utc(0);
 
     for (var tasks in tasksList) {
       if (!(currentDate.day == tasks.date.day && currentDate.month == tasks.date.month && currentDate.year == tasks.date.year)) {
@@ -176,7 +177,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                 maxLines: 1,
                               ),
                               Text(
-                                tasks.comment,
+                                tasks.comment.replaceAll('<h3>', '').replaceAll('</h3>', '').replaceAll('<br>', '').replaceAll('<br/>', ''),
                               ),
                               // if (tasks.notificationType == ENotificationType.invitationAccepted)
                               //   Text(
