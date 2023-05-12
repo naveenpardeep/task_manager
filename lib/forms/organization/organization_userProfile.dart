@@ -7,6 +7,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsgApiException.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -16,35 +17,38 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
 
   @override
   Widget build(BuildContext context) {
+    if(controller.lateInit){
+      controller.requestItems();
+    }
     bool res;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        body: controller.obx(
-          (state) => Container(
+        body:  Container(
             key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                NsgAppBar(
-                  color: Colors.black,
-                  backColor: Colors.white,
-                  text: controller.currentItem.userAccount.name,
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  icon2: Icons.check,
-                  onPressed2: () async {
-                    await controller.itemPagePost();
-                    await Get.find<OrganizationController>().itemPagePost();
-                  },
-                ),
+                // NsgAppBar(
+                //   color: Colors.black,
+                //   backColor: Colors.white,
+                //   text: controller.currentItem.userAccount.name,
+                //   icon: Icons.arrow_back_ios_new,
+                //   colorsInverted: true,
+                //   bottomCircular: true,
+                //   onPressed: () {
+                //     controller.itemPageCancel();
+                //   },
+                //   icon2: Icons.check,
+                //   onPressed2: () async {
+                    
+
+                //     await Get.find<OrganizationController>().postItems([controller.currentItem]);
+                //   },
+                // ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
@@ -56,22 +60,22 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: ClipOval(
-                                    child: controller.currentItem.userAccount.photoFile.isEmpty
+                                    child: controller.currentItem.userAccount.photoName.isEmpty
                                         ? Container(
                                             decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                            width: 100,
-                                            height: 100,
+                                            width: 120,
+                                            height: 120,
                                             child: Icon(
                                               Icons.account_circle,
                                               size: 20,
                                               color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                             ),
                                           )
-                                        : Image.memory(
-                                            Uint8List.fromList(controller.currentItem.userAccount.photoFile),
+                                        : Image.network(
+                                            TaskFilesController.getFilePath(controller.currentItem.userAccount.photoName),
                                             fit: BoxFit.cover,
-                                            width: 100,
-                                            height: 100,
+                                            width: 120,
+                                            height: 120,
                                           ),
                                   ),
                                 ),
@@ -176,9 +180,9 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
                                 try {
                                   var dataController = Get.find<DataController>();
                                   var orgController = Get.find<OrganizationController>();
-                                  res = (await dataController.removeUser(orgController.currentItem.id, controller.currentItem.userAccountId, '',
+                                 res = (await dataController.removeUser(orgController.currentItem.id, controller.currentItem.userAccountId, '',
                                           showProgress: true))
-                                      .first;
+                                     .first;
 
                                   if (res) {
                                     Get.find<OrganizationController>().currentItem.tableUsers.removeRow(controller.currentItem);
@@ -204,7 +208,7 @@ class OrganizationUserProfile extends GetView<OrganizationItemUserTableControlle
             ),
           ),
         ),
-      ),
+      
     );
   }
 

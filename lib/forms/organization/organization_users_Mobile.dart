@@ -1,14 +1,17 @@
 // ignore_for_file: file_names
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/organization/organization_userProfile.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
+import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
+
+import '../../model/organization_item_user_table.dart';
 
 class OrganizationUsersMobilePage extends StatefulWidget {
   const OrganizationUsersMobilePage({Key? key}) : super(key: key);
@@ -19,11 +22,15 @@ class OrganizationUsersMobilePage extends StatefulWidget {
 class _ProjectpageState extends State<OrganizationUsersMobilePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var controller = Get.find<OrganizationController>();
+  var orgtable = Get.find<OrganizationItemUserTableController>();
 
   @override
   void initState() {
     super.initState();
     scaffoldKey;
+    if (orgtable.lateInit) {
+      orgtable.requestItems();
+    }
   }
 
   @override
@@ -50,7 +57,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness:  width>700? 10: 0,
+                        thickness: width > 700 ? 10 : 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -90,6 +97,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
 
   Widget organizationUsersList(BuildContext context) {
     List<Widget> list = [];
+    double height = MediaQuery.of(context).size.height;
     //var orgUsertable = Get.find<OrganizationItemUserTableController>().items;
 
     for (var orguser in controller.currentItem.tableUsers.rows) {
@@ -98,7 +106,9 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
         child: InkWell(
           onTap: () {
             Get.find<OrganizationItemUserTableController>().currentItem = orguser;
-            Get.toNamed(Routes.organizationUserProfile);
+            // Get.find<OrganizationItemUserTableController>().itemPageOpen(orguser, Routes.organizationUserProfile);
+            //   Get.toNamed(Routes.organizationUserProfile);
+            showdialogBuilder(context, height, orguser);
           },
           onLongPress: () {},
           child: Column(
@@ -108,7 +118,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: ClipOval(
-                      child: orguser.userAccount.photoName.isNotEmpty
+                      child: orguser.userAccount.photoName.isEmpty
                           ? Container(
                               decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                               width: 48,
@@ -166,7 +176,7 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
                   //       Icons.remove_circle_outline,
                   //       color: Colors.red,
                   //     )),
-               //   const Icon(Icons.arrow_forward_ios),
+                  //   const Icon(Icons.arrow_forward_ios),
                 ],
               ),
             ],
@@ -175,6 +185,49 @@ class _ProjectpageState extends State<OrganizationUsersMobilePage> {
       ));
     }
     return SingleChildScrollView(child: Column(children: list));
+  }
+
+  Future<void> showdialogBuilder(BuildContext context, height, OrganizationItemUserTable orguser) {
+    return showModalBottomSheet<void>(
+      context: context,
+      constraints: BoxConstraints(maxHeight: height - 30),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+          insetPadding: const EdgeInsets.all(0),
+          child: Column(children: [
+            const Padding(padding: EdgeInsets.only(top: 5)),
+            TTAppBar(
+              title: orguser.userAccount.toString(),
+              rightIcons: [
+                TTAppBarIcon(
+                  icon: Icons.check,
+                  onTap: () async {
+                 
+                    await controller.postItems([controller.currentItem]);
+                    controller.refreshData();
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ],
+              leftIcons: [
+                TTAppBarIcon(
+                  icon: Icons.arrow_back_ios_new,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+            SizedBox(height: height - 100, child: const OrganizationUserProfile()),
+          ]),
+        );
+      },
+    );
   }
 
   // showAlertDialog(BuildContext context, user) {
