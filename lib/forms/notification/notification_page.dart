@@ -177,7 +177,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                 maxLines: 1,
                               ),
                               Text(
-                                tasks.comment.replaceAll('<h3>', '').replaceAll('</h3>', '').replaceAll('<br>', '').replaceAll('<br/>', ''),
+                                tasks.comment.replaceAll('<h3>', '').replaceAll('</h3>', '').replaceAll('<br>', '').replaceAll('<br/>', '').replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('<h2>', '').replaceAll('</h2>', '').replaceAll('<h1>', '').replaceAll('</h1>', '').replaceAll('<div>', '').replaceAll('</div>', ''),
                               ),
                               // if (tasks.notificationType == ENotificationType.invitationAccepted)
                               //   Text(
