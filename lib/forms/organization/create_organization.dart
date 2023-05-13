@@ -16,7 +16,6 @@ import 'package:task_manager_app/image_file_view/tt_nsg_file_picker.dart';
 import 'package:task_manager_app/model/generated/organization_item.g.dart';
 
 import '../user_account/user_account_controller.dart';
-import '../widgets/tabs.dart';
 
 // ignore: must_be_immutable
 class CreateOrganizationPage extends GetView<OrganizationController> {
@@ -73,13 +72,13 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                     rightIcons: [
                       TTAppBarIcon(
                         icon: Icons.check,
-                        onTap: () async{
+                        onTap: () async {
                           await controller.itemPagePost();
                         },
                       )
                     ],
                   ),
-                  Expanded(child: IconsTabs(tabs: getTabs(context))),
+                  Expanded(child: getTabs(context)),
                   Row(
                     children: [
                       Expanded(
@@ -97,10 +96,10 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                           await controller.itemPagePost();
                           //При создании новой организации, должен автоматически создастся профиль для нее
                           //Соотвественно, надо перечитать профили
-                        //  await Get.find<UserAccountController>().requestItems();
-                         // var projectC = Get.find<ProjectController>();
-                        //  projectC.refreshData();
-                        //  NsgNavigator.instance.offAndToPage(Routes.projectListPage);
+                          //  await Get.find<UserAccountController>().requestItems();
+                          // var projectC = Get.find<ProjectController>();
+                          //  projectC.refreshData();
+                          //  NsgNavigator.instance.offAndToPage(Routes.projectListPage);
                           // projectC.itemPageOpen(
                           //     Get.find<ProjectController>().currentItem,
                           //     Routes.projectListPage);
@@ -114,12 +113,10 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
                 ])))));
   }
 
-  List<IconsTabsTab> getTabs(context) {
-    List<IconsTabsTab> list = [];
+  Widget getTabs(context) {
+    return getOrgSettings(context); //, icon: Icons.apartment), IconsTabsTab(page: getProfileSettings(), icon: Icons.person)]);
 
-    list.addAll([IconsTabsTab(page: getOrgSettings(context), icon: Icons.apartment), IconsTabsTab(page: getProfileSettings(), icon: Icons.person)]);
-
-    return list;
+    //return list;
   }
 
   Widget getOrgSettings(BuildContext context) {
@@ -135,7 +132,7 @@ class CreateOrganizationPage extends GetView<OrganizationController> {
             label: 'Название компании',
             infoString: 'Укажите название компании',
           ),
-         
+
           TTNsgInput(
             controller: controller,
             selectionController: Get.find<UserAccountController>(),
