@@ -64,54 +64,67 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
   @override
   String get key => NsgRichTextFile.blockType;
 
+  // @override
+  // Widget build(BuildContext context, quil.QuillController controller, quil.Embed node, bool readOnly, bool inline) {
+  //   {
+  //     assert(controller is NsgQuillController);
+  //     NsgFilePickerObject? fileObject;
+  //     if (block.value.data is Map && (block.value.data as Map).containsKey('id')) {
+  //       var id = block.value.data['id'].toString();
+  //       fileObject = (controller as NsgQuillController)
+  //           .fileController
+  //           .files
+  //           .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
+  //     }
+
+  //     //final notes = NsgRichTextFile.fromMap(block.value.data);
+
+  //     return Container(
+  //         constraints: const BoxConstraints(minWidth: 100, maxWidth: 100, minHeight: 100, maxHeight: 100),
+  //         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+  //         child: GestureDetector(
+  //           child: (fileObject != null && fileObject.image != null)
+  //               ? Column(children: [
+  //                   Flexible(child: fileObject.image!),
+  //                   Text(
+  //                     fileObject.description,
+  //                     overflow: TextOverflow.clip,
+  //                     style: const TextStyle(fontSize: 9),
+  //                     maxLines: 1,
+  //                   )
+  //                 ])
+  //               : (fileObject != null)
+  //                   ? Column(children: [
+  //                       const Flexible(child: Text('PDF')),
+  //                       Text(
+  //                         fileObject.description,
+  //                         overflow: TextOverflow.clip,
+  //                         style: const TextStyle(fontSize: 9),
+  //                         maxLines: 1,
+  //                       )
+  //                     ])
+  //                   : const Icon(
+  //                       Icons.picture_in_picture,
+  //                       size: 50,
+  //                     ),
+  //           onTap: () => (controller as NsgQuillController).fileController.tapFile(fileObject),
+  //         ));
+  //   }
+  // }
+
   @override
-  Widget build(
-    BuildContext context,
-    quil.QuillController controller,
-    quil.Embed block,
-    bool readOnly,
-  ) {
-    assert(controller is NsgQuillController);
-    NsgFilePickerObject? fileObject;
-    if (block.value.data is Map && (block.value.data as Map).containsKey('id')) {
-      var id = block.value.data['id'].toString();
-      fileObject = (controller as NsgQuillController)
-          .fileController
-          .files
-          .firstWhere((e) => e.id == id, orElse: () => NsgFilePickerObject(id: id, description: '', isNew: false));
-    }
+  WidgetSpan buildWidgetSpan(Widget widget) {
+    // TODO: implement buildWidgetSpan
+    throw UnimplementedError();
+  }
 
-    //final notes = NsgRichTextFile.fromMap(block.value.data);
+  @override
+  // TODO: implement expanded
+  bool get expanded => throw UnimplementedError();
 
-    return Container(
-        constraints: const BoxConstraints(minWidth: 100, maxWidth: 100, minHeight: 100, maxHeight: 100),
-        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-        child: GestureDetector(
-          child: (fileObject != null && fileObject.image != null)
-              ? Column(children: [
-                  Flexible(child: fileObject.image!),
-                  Text(
-                    fileObject.description,
-                    overflow: TextOverflow.clip,
-                    style: const TextStyle(fontSize: 9),
-                    maxLines: 1,
-                  )
-                ])
-              : (fileObject != null)
-                  ? Column(children: [
-                      const Flexible(child: Text('PDF')),
-                      Text(
-                        fileObject.description,
-                        overflow: TextOverflow.clip,
-                        style: const TextStyle(fontSize: 9),
-                        maxLines: 1,
-                      )
-                    ])
-                  : const Icon(
-                      Icons.picture_in_picture,
-                      size: 50,
-                    ),
-          onTap: () => (controller as NsgQuillController).fileController.tapFile(fileObject),
-        ));
+  @override
+  Widget build(BuildContext context, quil.QuillController controller, quil.Embed node, bool readOnly, bool inline) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
