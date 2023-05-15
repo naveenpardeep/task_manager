@@ -128,7 +128,7 @@ class NottItem extends StatelessWidget {
   }
 
   String getData() {
-    return notification.comment;
+    return notification.comment.replaceAll('<h3>', '').replaceAll('</h3>', '').replaceAll('<br>', '').replaceAll('<br/>', '').replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('<h2>', '').replaceAll('</h2>', '').replaceAll('<h1>', '').replaceAll('</h1>', '').replaceAll('<div>', '').replaceAll('</div>', '');
   }
 
   String getAuthor() {
