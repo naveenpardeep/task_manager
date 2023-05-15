@@ -6,6 +6,7 @@ import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 
 import '../user_account/user_account_controller.dart';
 
@@ -160,7 +161,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: ClipOval(
-                  child: projectuser.userAccount.photoFile.isEmpty
+                  child: projectuser.userAccount.photoName.isEmpty
                       ? Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                           width: 48,
@@ -171,8 +172,8 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                             color: ControlOptions.instance.colorMain.withOpacity(0.4),
                           ),
                         )
-                      : Image.memory(
-                          Uint8List.fromList(projectuser.userAccount.photoFile),
+                      : Image.network(
+                          TaskFilesController.getFilePath(projectuser.userAccount.photoName),
                           fit: BoxFit.cover,
                           width: 48,
                           height: 48,
@@ -252,7 +253,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: ClipOval(
-                  child: projectuser.userAccount.photoFile.isEmpty
+                  child: projectuser.userAccount.photoName.isEmpty
                       ? Container(
                           decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                           width: 48,
@@ -263,8 +264,8 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                             color: ControlOptions.instance.colorMain.withOpacity(0.4),
                           ),
                         )
-                      : Image.memory(
-                          Uint8List.fromList(projectuser.userAccount.photoFile),
+                      : Image.network(
+                          TaskFilesController.getFilePath(projectuser.userAccount.photoName),
                           fit: BoxFit.cover,
                           width: 48,
                           height: 48,
@@ -330,7 +331,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: ClipOval(
-                        child: projectuser.userAccount.photoFile.isEmpty
+                        child: projectuser.userAccount.photoName.isEmpty
                             ? Container(
                                 decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
                                 width: 48,
@@ -341,12 +342,12 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                                   color: ControlOptions.instance.colorMain.withOpacity(0.4),
                                 ),
                               )
-                            : Image.memory(
-                                Uint8List.fromList(projectuser.userAccount.photoFile),
-                                fit: BoxFit.cover,
-                                width: 48,
-                                height: 48,
-                              ),
+                            : Image.network(
+                          TaskFilesController.getFilePath(projectuser.userAccount.photoName),
+                          fit: BoxFit.cover,
+                          width: 48,
+                          height: 48,
+                        ),
                       ),
                     ),
                     Text(
