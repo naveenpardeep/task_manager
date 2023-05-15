@@ -16,6 +16,7 @@ class ServiceObjectGenerated extends NsgDataItem {
   static const nameFiles = 'files';
   static const namePriority = 'priority';
   static const nameBoardId = 'boardId';
+  static const nameTaskTypeId = 'taskTypeId';
   static const nameUserAccountId = 'userAccountId';
 
   static final Map<String, String> fieldNameDict = {
@@ -35,6 +36,7 @@ class ServiceObjectGenerated extends NsgDataItem {
     addField(NsgDataReferenceListField<TaskDocFilesTable>(nameFiles), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     addField(NsgDataReferenceField<TaskBoard>(nameBoardId), primaryKey: false);
+    addField(NsgDataReferenceField<TaskType>(nameTaskTypeId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
   }
 
@@ -108,6 +110,17 @@ class ServiceObjectGenerated extends NsgDataItem {
   set boardId(String value) => setFieldValue(nameBoardId, value);
   set board(TaskBoard value) =>
     setFieldValue(nameBoardId, value.id);
+
+  /// Доска
+  String get taskTypeId => getFieldValue(nameTaskTypeId).toString();
+  TaskType get taskType => getReferent<TaskType>(nameTaskTypeId);
+  Future<TaskType> taskTypeAsync() async {
+   return await getReferentAsync<TaskType>(nameTaskTypeId);
+  }
+
+  set taskTypeId(String value) => setFieldValue(nameTaskTypeId, value);
+  set taskType(TaskType value) =>
+    setFieldValue(nameTaskTypeId, value.id);
 
   /// АккаунтПользователя
   String get userAccountId => getFieldValue(nameUserAccountId).toString();
