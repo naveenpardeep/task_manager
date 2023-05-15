@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+//import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -87,7 +87,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ],
           ));
         } else if (currentDate.day == dateNow.day - 1 && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
-          list.add(Row(children: const [
+          list.add(const Row(children: [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),
@@ -110,7 +110,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
           );
         } else {
-          list.add(Row(children: const [
+          list.add(const Row(children: [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),

@@ -136,7 +136,7 @@ class _NsgBottomMenuItemState extends State<NsgBottomMenuItem> {
   }
 
   Widget getPhoto() {
-    var userAccountController = Get.find<UserAccountController>();
+    //var userAccountController = Get.find<UserAccountController>();
     if (Get.find<DataController>().mainProfile.photoName.isNotEmpty) {
       return Image.network(
         DataController.getFilePath(Get.find<DataController>().mainProfile.photoName),

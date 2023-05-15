@@ -106,9 +106,9 @@ class _UserProfileState extends State<UserProfile> {
                           },
                         ),
                         if(width>700)
-                        TextButton(child:Row(
+                        TextButton(child:const Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                              Text('Edit Profile'),
                              Icon(Icons.edit)
                           ],

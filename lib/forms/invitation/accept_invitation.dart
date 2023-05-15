@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
@@ -74,7 +73,7 @@ class AcceptInvitationPage extends GetView<InvitationController> {
   }
 
   Widget invitationList() {
-    DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
+    //DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
 
     var invitations = controller.items.reversed;

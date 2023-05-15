@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:task_manager_app/1/nsg_quill_controller.dart';
 
 class NsgRichTextFile extends quil.CustomBlockEmbed {
   late NsgFilePickerObject filePickerObject;
