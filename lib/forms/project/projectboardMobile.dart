@@ -7,12 +7,15 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_list.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 
 import 'package:task_manager_app/model/task_board.dart';
 
 import '../../model/generated/task_status.g.dart';
+import '../../model/generated/task_type.g.dart';
 import '../task_status/project_status_controller.dart';
 
 class ProjectBoardMobile extends StatefulWidget {
@@ -96,24 +99,42 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //   ],
                                 // ),
                                 getProjectBoard(context),
-                                if (controller.currentItem.name.isNotEmpty)
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: NsgTable(
-                                  showIconFalse: false,
-                                  controller: Get.find<ProjectStatusController>(),
-                                  elementEditPageName: Routes.taskStatusPage,
-                                  availableButtons: const [
-                                    NsgTableMenuButtonType.createNewElement,
-                                    NsgTableMenuButtonType.editElement,
-                                    NsgTableMenuButtonType.removeElement
-                                  ],
-                                  columns: [
-                                    NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
-                                    NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
-                                  ],
+                              if (controller.currentItem.name.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: NsgTable(
+                                    showIconFalse: false,
+                                    controller: Get.find<ProjectStatusController>(),
+                                    elementEditPageName: Routes.taskStatusPage,
+                                    availableButtons: const [
+                                      NsgTableMenuButtonType.createNewElement,
+                                      NsgTableMenuButtonType.editElement,
+                                      NsgTableMenuButtonType.removeElement
+                                    ],
+                                    columns: [
+                                      NsgTableColumn(name: TaskStatusGenerated.nameName, expanded: true, presentation: 'Статусы'),
+                                      NsgTableColumn(name: TaskStatusGenerated.nameIsDone, width: 100, presentation: 'Финальный'),
+                                    ],
+                                  ),
                                 ),
-                              )
+                              if (controller.currentItem.name.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: NsgTable(
+                                    showIconFalse: false,
+                                    controller: Get.find<TaskTypeController>(),
+                                    elementEditPageName: Routes.taskTypePage,
+                                    availableButtons: const [
+                                      NsgTableMenuButtonType.createNewElement,
+                                      NsgTableMenuButtonType.editElement,
+                                      NsgTableMenuButtonType.removeElement
+                                    ],
+                                    columns: [
+                                      NsgTableColumn(name: TaskTypeGenerated.nameName, expanded: true, presentation: 'Task Type'),
+                                    ],
+                                  ),
+                                ),
+                                
                             ],
                           ),
                         ),

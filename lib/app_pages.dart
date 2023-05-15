@@ -29,6 +29,9 @@ import 'package:task_manager_app/forms/project/project_userViewpage.dart';
 import 'package:task_manager_app/forms/project/project_user_row_page.dart';
 import 'package:task_manager_app/forms/project/project_Mobileview_page.dart';
 import 'package:task_manager_app/forms/project/projectboardMobile.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_list.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_page.dart';
 import 'package:task_manager_app/forms/task_board/taskBoard_status.dart';
 import 'package:task_manager_app/forms/task_board/task_board_page.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
@@ -51,6 +54,7 @@ import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
+import 'package:task_manager_app/model/task_type.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -362,6 +366,16 @@ class AppPages {
       page: () => const TaskEditPage(),
       binding: TasksListBinding(),
     ),
+    GetPage(
+      name: Routes.taskTypePage,
+      page: () => const TaskTypePage(),
+      binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.taskTypeListPage,
+      page: () =>  TaskTypeListPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -428,4 +442,6 @@ abstract class Routes {
   static const taskopenForTaskList = '/taskopenForTaskList';
   static const taskEditPageMobile = '/taskEditpagemobile';
   static const taskEditPage = '/task-edit-page';
+  static const taskTypePage='/taskTypePage';
+  static const taskTypeListPage='/taskTypeListPage';
 }

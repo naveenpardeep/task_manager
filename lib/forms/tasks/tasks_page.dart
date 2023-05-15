@@ -7,6 +7,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 
@@ -123,6 +124,13 @@ class _TasksPageState extends State<TasksPage> {
                                     fieldName: TaskDocGenerated.nameName,
                                     label: 'Название задачи',
                                     infoString: 'Укажите название задачи',
+                                  ),
+                                   TTNsgInput(
+                                    selectionController: Get.find<TaskTypeController>(),
+                                    dataItem: controller.currentItem,
+                                    fieldName: TaskDocGenerated.nameTaskTypeId,
+                                    label: 'Тип задачи',
+                                    infoString: 'Выберите тип задачи',
                                   ),
                                   // TTNsgInput(
                                   //   controller: controller,
