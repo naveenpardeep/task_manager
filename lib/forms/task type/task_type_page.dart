@@ -23,7 +23,7 @@ class TaskTypePage extends GetView<TaskTypeController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 NsgAppBar(
-                  text: controller.currentItem.isEmpty ? 'Task type'.toUpperCase() : controller.currentItem.name.toUpperCase(),
+                  text: 'Тип задачи' ,
                   icon: Icons.arrow_back_ios_new,
                   colorsInverted: true,
                   bottomCircular: true,

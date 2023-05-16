@@ -129,7 +129,8 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                       NsgTableMenuButtonType.removeElement
                                     ],
                                     columns: [
-                                      NsgTableColumn(name: TaskTypeGenerated.nameName, expanded: true, presentation: 'Task Type'),
+                                      NsgTableColumn(name: TaskTypeGenerated.nameName,
+                                       expanded: true, presentation: 'Тип задачи'),
                                     ],
                                   ),
                                 ),

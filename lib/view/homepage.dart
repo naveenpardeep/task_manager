@@ -555,21 +555,18 @@ class _HomepageState extends State<Homepage> {
             fieldName: ServiceObjectGenerated.nameBoardId,
             onEditingComplete: (item, field) {
               setState(() {
-               
                 //screenName = taskBoardController.currentItem.name;
                 NsgUserSettings.controller!.setSettingItem('board_${projectController.currentItem.id}', (item as ServiceObject).boardId);
                 screenName = serviceC.currentItem.boardId;
-               
+
                 taskController.refreshData();
                 taskStatusTableController.refreshData();
                 taskBoardController.refreshData();
-             
-            
-               
                 taskView = false;
               });
             }),
       ),
+
       wrapFlexible(
         child: TTNsgInput(
             label: 'Тип задачи',
@@ -579,7 +576,6 @@ class _HomepageState extends State<Homepage> {
             fieldName: ServiceObjectGenerated.nameTaskTypeId,
             onEditingComplete: (item, field) {
               setState(() {
-               // serviceC.currentItem.taskTypeId = serviceC.currentItem.taskTypeId;
                 taskController.refreshData();
 
                 taskView = false;
@@ -758,8 +754,8 @@ class _HomepageState extends State<Homepage> {
     var taskLoadCFind = taskController.tasksControllersList.where((element) => element.currentTaskStatus == status).toList();
     if (taskLoadCFind.isNotEmpty) {
       taskLoadC = taskLoadCFind[0];
-    //  var tasktypes = serviceC.currentItem.taskTypeId == ''
-     //     ? taskLoadC.currentStatusTasks
+      //  var tasktypes = serviceC.currentItem.taskTypeId == ''
+      //     ? taskLoadC.currentStatusTasks
       //    : taskLoadC.currentStatusTasks.where((element) => element.taskTypeId == serviceC.currentItem.taskTypeId);
       return taskLoadC.obx((state) {
         list = [];
