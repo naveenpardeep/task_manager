@@ -314,7 +314,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
             ],
           ));
         } else if (currentDate.day == dateNow.day - 1 && currentDate.month == dateNow.month && currentDate.year == dateNow.year) {
-          list.add(Row(children: const [
+          list.add(const Row(children: [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),
@@ -337,7 +337,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with TickerProviderSt
             ),
           );
         } else {
-          list.add(Row(children: const [
+          list.add(const Row(children: [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),

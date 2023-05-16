@@ -8,7 +8,6 @@ import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
-import 'package:task_manager_app/forms/task%20type/task_type_list.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 

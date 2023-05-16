@@ -233,7 +233,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           var fileType = TTNsgFilePicker.getFileTypeByPath(element.name);
 
           if (!GetPlatform.isLinux) {
-            var file = File(element.name);
+            //var file = File(element.name);
 
             // if ((await file.length()) > widget.fileMaxSize) {
             //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
@@ -261,7 +261,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             }
           }
           if (GetPlatform.isLinux) {
-            File file = File(element.path.toString());
+            //File file = File(element.path.toString());
 
             // if ((await file.length()) > widget.fileMaxSize) {
             //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
@@ -457,7 +457,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
           }
         }
         if (GetPlatform.isLinux || GetPlatform.isMacOS || GetPlatform.isAndroid || GetPlatform.isIOS) {
-          File file = File(element.path.toString());
+          //File file = File(element.path.toString());
 
           // if ((await file.length()) > widget.fileMaxSize) {
           //   error = 'Превышен максимальный размер файла ${(widget.fileMaxSize / 1024).toString()} кБайт';
