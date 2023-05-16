@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
@@ -33,8 +34,8 @@ class _TaskopenForTaskListState extends State<TaskopenForTaskList> {
   var nsgMultiImagePickerController = NsgMultiImagePickerController();
   var notificationController = Get.find<NotificationController>();
   var controller = Get.find<TaskListController>();
-  var imageCont = Get.find<TaskFilesController>();
-  var fileController = Get.find<TaskFilesController>();
+ 
+  var fileController = Get.find<TaskListFilesController>();
   var statuscon = Get.find<NewTaskStatusController>();
   late bool isCheckeddateRemind;
   late bool isCheckedDeadline;
@@ -65,9 +66,7 @@ class _TaskopenForTaskListState extends State<TaskopenForTaskList> {
     if (notificationController.lateInit) {
       notificationController.requestItems();
     }
-    if (imageCont.lateInit) {
-      imageCont.requestItems();
-    }
+   
     if (fileController.lateInit) {
       fileController.requestItems();
     }
@@ -423,31 +422,19 @@ class _TaskopenForTaskListState extends State<TaskopenForTaskList> {
   }
 
   Widget imageGallery() {
-    // return Get.find<TaskImageController>().obx((state) =>
-    return Get.find<TaskFilesController>().obx(
+  
+    return Get.find<TaskListFilesController>().obx(
       (state) => TTNsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
         callback: (value) async {},
-        // objectsList: Get.find<TaskImageController>().images,
-        objectsList: Get.find<TaskFilesController>().files,
-        //allowedFileFormats: const [],
+       
+        objectsList: Get.find<TaskListFilesController>().files,
+     
       ),
     );
   }
-  // Widget imageGallery() {
-
-  //   return Get.find<TaskFilesController>().obx(
-  //     (state) => NsgFilePicker(
-  //       useFilePicker: true,
-  //       showAsWidget: true,
-  //       callback: (value) async {},
-  //       objectsList: Get.find<TaskImageController>().images,
-  //       objectsList: Get.find<TaskFilesController>().files,
-  //       allowedFileFormats: const ['doc', 'docx', 'rtf', 'xls', 'xlsx', 'pdf'],
-  //     ),
-  //   );
-  // }
+  
 
   showAlertDialog(BuildContext context) {
     // set up the button
