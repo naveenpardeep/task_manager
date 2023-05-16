@@ -13,6 +13,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
@@ -58,7 +59,7 @@ class _HomepageState extends State<Homepage> {
   var taskcommentC = Get.find<TaskCommentsController>();
   var serviceC = Get.find<ServiceObjectController>();
   var textEditController = TextEditingController();
-
+  String tasktypeName = '';
   String screenName = '';
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
@@ -68,6 +69,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
+    tasktypeName;
     if (taskcommentC.lateInit) {
       taskcommentC.requestItems();
     }
@@ -555,12 +557,32 @@ class _HomepageState extends State<Homepage> {
             fieldName: ServiceObjectGenerated.nameBoardId,
             onEditingComplete: (item, field) {
               setState(() {
+               
                 //screenName = taskBoardController.currentItem.name;
                 NsgUserSettings.controller!.setSettingItem('board_${projectController.currentItem.id}', (item as ServiceObject).boardId);
                 screenName = serviceC.currentItem.boardId;
+               
                 taskController.refreshData();
-                taskStatusTableController.sendNotify();
+                taskStatusTableController.refreshData();
                 taskBoardController.refreshData();
+             
+            
+               
+                taskView = false;
+              });
+            }),
+      ),
+      wrapFlexible(
+        child: TTNsgInput(
+            label: 'Тип задачи',
+            infoString: 'Выберите тип задачи',
+            selectionController: Get.find<TaskTypeController>(),
+            dataItem: serviceC.currentItem,
+            fieldName: ServiceObjectGenerated.nameTaskTypeId,
+            onEditingComplete: (item, field) {
+              setState(() {
+               // serviceC.currentItem.taskTypeId = serviceC.currentItem.taskTypeId;
+                taskController.refreshData();
 
                 taskView = false;
               });
@@ -624,7 +646,6 @@ class _HomepageState extends State<Homepage> {
     List<NsgTabsTab> tabsList = [];
     List<String> statuses = [];
 
-    // var statusList = taskStatusTableController.items.reversed;
     for (var status in taskStatusTableController.items) {
       var scrollController = ScrollController();
       statuses.add(status.status.toString());
@@ -635,19 +656,12 @@ class _HomepageState extends State<Homepage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                InkWell(
-                  onTap: () {
-                    // changeStatus(status);
-                    // Get.toNamed(Routes.taskrow);
-                    // taskStatusTableController.itemPageOpen(status, Routes.taskrow);
-                  },
-                  child: Text(
-                    status.status.toString(),
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
-                    ),
+                Text(
+                  status.status.toString(),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    color: status.status.isDone ? Colors.green : const Color(0xff529FBF),
                   ),
                 ),
                 taskController.obx((state) => searchvalue.isEmpty ? getTasklength(status.status) : const Text('')),
@@ -746,7 +760,9 @@ class _HomepageState extends State<Homepage> {
     var taskLoadCFind = taskController.tasksControllersList.where((element) => element.currentTaskStatus == status).toList();
     if (taskLoadCFind.isNotEmpty) {
       taskLoadC = taskLoadCFind[0];
-
+    //  var tasktypes = serviceC.currentItem.taskTypeId == ''
+     //     ? taskLoadC.currentStatusTasks
+      //    : taskLoadC.currentStatusTasks.where((element) => element.taskTypeId == serviceC.currentItem.taskTypeId);
       return taskLoadC.obx((state) {
         list = [];
         for (var tasks in taskLoadC.currentStatusTasks) {
@@ -989,8 +1005,9 @@ class _HomepageState extends State<Homepage> {
 
   void reset() {
     setState(() {
+      serviceC.currentItem.taskTypeId = '';
       taskBoardController.currentItem.sortBy = ESorting.dateDesc;
-      taskBoardController.currentItem.periodOfFinishedTasks=EPeriod.all;
+      taskBoardController.currentItem.periodOfFinishedTasks = EPeriod.all;
       serviceC.currentItem.userAccountId = '';
       isDatesearch = false;
       searchDate = DateTime.now();
@@ -1115,7 +1132,7 @@ Widget statuslist(context, TaskDoc taskDoc) {
             onLongPress: () {},
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                width: width>700? width / 2: width,
+                width: width > 700 ? width / 2 : width,
                 color: taskDoc.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
                 child: Center(
                   child: Text(

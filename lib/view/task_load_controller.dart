@@ -120,7 +120,9 @@ class TaskLoadController extends NsgBaseController {
     if (serviceC.currentItem.userAccountId.isNotEmpty) {
       filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameId}', value: serviceC.currentItem.userAccountId);
     }
-
+ if (serviceC.currentItem.taskTypeId.isNotEmpty) {
+      filter.compare.add(name: TaskDocGenerated.nameTaskTypeId, value: serviceC.currentItem.taskTypeId);
+    }
     // Сортировка
     if (projectController.currentItem.id != "") {
       if (taskBoardController.currentItem.sortBy == ESorting.dateAsc) {
