@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/TaskList/tasklist_checkList.dart';
 import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
+import 'package:task_manager_app/forms/TaskList/taskslist_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
@@ -347,12 +349,12 @@ class AppPages {
     GetPage(
       name: Routes.taskPageFortaskList,
       page: () => const TaskPageForTaskList(),
-      binding: TasksListBinding(),
+      binding: TaskListBinding(),
     ),
     GetPage(
       name: Routes.taskopenForTaskList,
       page: () => const TaskopenForTaskList(),
-      binding: TasksListBinding(),
+      binding: TaskListBinding(),
     ),
     GetPage(
       name: Routes.taskEditPageMobile,
@@ -373,6 +375,11 @@ class AppPages {
       name: Routes.taskTypeListPage,
       page: () =>  TaskTypeListPage(),
       binding: ProjectBinding(),
+    ),
+     GetPage(
+      name: Routes.tasklistchecklist,
+      page: () => const TasklistChecklistPage(),
+      binding: TaskListBinding(),
     ),
   ];
 }
@@ -442,4 +449,5 @@ abstract class Routes {
   static const taskEditPage = '/task-edit-page';
   static const taskTypePage='/taskTypePage';
   static const taskTypeListPage='/taskTypeListPage';
+  static const tasklistchecklist='/tasklistchecklist';
 }

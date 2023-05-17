@@ -11,7 +11,6 @@ import '../../app_pages.dart';
 import '../user_account/service_object_controller.dart';
 import '../widgets/top_menu.dart';
 
-
 class TasksListPage extends GetView<TaskListController> {
   TasksListPage({Key? key}) : super(key: key);
 
@@ -26,66 +25,63 @@ class TasksListPage extends GetView<TaskListController> {
       controller.requestItems();
     }
     double width = MediaQuery.of(context).size.width;
-    return BodyWrap(
-      child: Scaffold(
-        body: Column(
-          children: [
-            if (width > 700) const TmTopMenu(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                child: NsgListPage(
-                    appBar: Row(
-                      children: [
-                        // Text(
-                        //   'Все задачи',
-                        //   style: TextStyle(color: ControlOptions.instance.colorText, fontSize: ControlOptions.instance.sizeXL),
-                        // ),
-                        Expanded(
-                          child: SizedBox(
-                            width: 150,
-                            child: TTNsgInput(
-                              label: 'Project',
-                              infoString: 'Select Project',
-                              selectionController: Get.find<ProjectController>(),
-                              dataItem: serviceC.currentItem
-                            , fieldName: ServiceObjectGenerated.nameProjectId,
-                            onEditingComplete: (p0, p1) {
-                              controller.refreshData();
-                            },),
-                          ),
-                        )
+    return controller.obx(
+      (state) => BodyWrap(
+        child: Scaffold(
+          body: Column(
+            children: [
+              if (width > 700) const TmTopMenu(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  child: NsgListPage(
+                      appBar: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              width: 150,
+                              child: TTNsgInput(
+                                label: 'Project',
+                                infoString: 'Select Project',
+                                selectionController: Get.find<ProjectController>(),
+                                dataItem: serviceC.currentItem,
+                                fieldName: ServiceObjectGenerated.nameProjectId,
+                                onEditingComplete: (p0, p1) {
+                                  controller.top=0;
+                                  controller.refreshData();
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      type: NsgListPageMode.table,
+                      controller: controller,
+                      title: _textTitle,
+                      textNoItems: _textNoItems,
+                      elementEditPage: _elementPage,
+                      availableButtons: const [
+                        NsgTableMenuButtonType.editElement,
+                        NsgTableMenuButtonType.filterPeriod,
+                        NsgTableMenuButtonType.filterPeriod,
+                        NsgTableMenuButtonType.filterText,
+                        NsgTableMenuButtonType.refreshTable,
+                        NsgTableMenuButtonType.removeElement
                       ],
-                    ),
-                    type: NsgListPageMode.table,
-                    controller: controller,
-                    title: _textTitle,
-                    textNoItems: _textNoItems,
-                    elementEditPage: _elementPage,
-                    availableButtons: const [
-                      NsgTableMenuButtonType.editElement,
-                      NsgTableMenuButtonType.filterPeriod,
-                      NsgTableMenuButtonType.filterPeriod,
-                      NsgTableMenuButtonType.filterText,
-                      NsgTableMenuButtonType.refreshTable,
-                      NsgTableMenuButtonType.removeElement
-                    ],
-                    columns: [
-                      NsgTableColumn(name: TaskDocGenerated.nameProjectId, expanded: true, presentation: 'Проект'),
-                      NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
-
-                      NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
-                      if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
-                      if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameAssigneeId, width: 100, presentation: 'Исполнитель', expanded: true),
-                      NsgTableColumn(name: TaskDocGenerated.nameTaskStatusId, expanded: true, presentation: 'Статус'),
-
-                    ]),
+                      columns: [
+                        NsgTableColumn(name: TaskDocGenerated.nameProjectId, expanded: true, presentation: 'Проект'),
+                        NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
+                        NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
+                        if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameDescription, presentation: 'Описание', expanded: true),
+                        if (width > 700) NsgTableColumn(name: TaskDocGenerated.nameAssigneeId, width: 100, presentation: 'Исполнитель', expanded: true),
+                        NsgTableColumn(name: TaskDocGenerated.nameTaskStatusId, expanded: true, presentation: 'Статус'),
+                      ]),
+                ),
               ),
-            ),
-          
-            if (width < 700) const BottomMenu(),
-          
-          ],
+              controller.obx((state) => controller.pagination(), onLoading: const SizedBox()),
+              if (width < 700) const BottomMenu(),
+            ],
+          ),
         ),
       ),
     );

@@ -3,15 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:task_manager_app/app_pages.dart';
+
+import 'package:task_manager_app/forms/TaskList/tasklist_checkList.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
-import 'package:task_manager_app/forms/project/project_controller.dart';
+
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
-import 'package:task_manager_app/forms/tasks/checkList.dart';
 
-import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
+
 
 class TaskPageForTaskList extends StatefulWidget {
   const TaskPageForTaskList({super.key});
@@ -163,9 +163,9 @@ class _TaskPageForTaskListState extends State<TaskPageForTaskList> with TickerPr
               ]),
         ),
         body: TabBarView(controller: _tabController, children: [
-          const TaskopenForTaskList(),
-          const ChecklistPage(),
-          commnetController.obx((state) => const TasksCommentPage()),
+       taskController.obx((state) =>   const TaskopenForTaskList()),
+       taskController.obx((state) =>   const TasklistChecklistPage()),
+       commnetController.obx((state) => const TasksCommentPage()),
         ]),
       ),
     );
