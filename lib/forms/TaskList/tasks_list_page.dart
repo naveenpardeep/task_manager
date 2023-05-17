@@ -79,6 +79,7 @@ class TasksListPage extends GetView<TaskListController> {
                 ),
               ),
               controller.obx((state) => controller.pagination(), onLoading: const SizedBox()),
+              Center(child: Text('Total Tasks: ${controller.totalCount}')),
               if (width < 700) const BottomMenu(),
             ],
           ),
