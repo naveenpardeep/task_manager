@@ -8,7 +8,7 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 class TaskListController extends NsgDataController<TaskDoc> {
   TaskListController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-    referenceList = [TaskDocGenerated.nameProjectId, TaskDocGenerated.nameTaskStatusId, TaskDocGenerated.nameAssigneeId, TaskDocGenerated.nameFiles];
+    referenceList = [TaskDocGenerated.nameProjectId, TaskDocGenerated.nameTaskStatusId, TaskDocGenerated.nameAssigneeId,];
   }
   var totalcounttask=100;
    int currentPage = 0;
