@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
+import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
@@ -191,10 +192,10 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
   }
 
   Widget userImage() {
-    if (userAccountController.currentItem.photoFile.isNotEmpty) {
-      return Image.memory(
-        Uint8List.fromList(
-          userAccountController.currentItem.photoFile,
+    if (userAccountController.currentItem.photoName.isNotEmpty) {
+      return Image.network(
+        TaskFilesController.getFilePath(
+          userAccountController.currentItem.photoName,
         ),
         width: 100,
         height: 100,
@@ -227,7 +228,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
     //);
   }
 
-  //TODO: show image "no image"
+
 
   Widget getHeader() {
     return Padding(

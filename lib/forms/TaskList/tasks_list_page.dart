@@ -33,7 +33,7 @@ class TasksListPage extends GetView<TaskListController> {
               if (width > 700) const TmTopMenu(),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: NsgListPage(
                       appBar: Row(
                         children: [
