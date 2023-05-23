@@ -5,30 +5,30 @@ import 'dart:typed_data';
 import '../data_controller_model.dart';
 
 /// Таблица
-class ProjectItemUserTableGenerated extends NsgDataItem {
+class UserRoleGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
   static const nameUserAccountId = 'userAccountId';
-  static const nameRoleId = 'roleId';
   static const nameIsAdmin = 'isAdmin';
+  static const nameOnlyShowOwnTasks = 'onlyShowOwnTasks';
 
   static final Map<String, String> fieldNameDict = {
   };
 
   @override
-  String get typeName => 'ProjectItemUserTable';
+  String get typeName => 'UserRole';
 
   @override
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<ProjectItem>(nameOwnerId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
-    addField(NsgDataReferenceField<UserRole>(nameRoleId), primaryKey: false);
     addField(NsgDataBoolField(nameIsAdmin), primaryKey: false);
+    addField(NsgDataBoolField(nameOnlyShowOwnTasks), primaryKey: false);
   }
 
   @override
-  NsgDataItem getNewObject() => ProjectItemUserTable();
+  NsgDataItem getNewObject() => UserRole();
 
   /// Идентификатор
   @override
@@ -61,24 +61,18 @@ class ProjectItemUserTableGenerated extends NsgDataItem {
   set userAccount(UserAccount value) =>
     setFieldValue(nameUserAccountId, value.id);
 
-  /// Роль
-  String get roleId => getFieldValue(nameRoleId).toString();
-  UserRole get role => getReferent<UserRole>(nameRoleId);
-  Future<UserRole> roleAsync() async {
-   return await getReferentAsync<UserRole>(nameRoleId);
-  }
-
-  set roleId(String value) => setFieldValue(nameRoleId, value);
-  set role(UserRole value) =>
-    setFieldValue(nameRoleId, value.id);
-
   /// ЭтоАдминистратор
   bool get isAdmin => getFieldValue(nameIsAdmin) as bool;
 
   set isAdmin(bool value) => setFieldValue(nameIsAdmin, value);
 
+  /// ВидитТолькоСвоиЗадачи
+  bool get onlyShowOwnTasks => getFieldValue(nameOnlyShowOwnTasks) as bool;
+
+  set onlyShowOwnTasks(bool value) => setFieldValue(nameOnlyShowOwnTasks, value);
+
   @override
   String get apiRequestItems {
-    return '/Data/ProjectItemUserTable';
+    return '/Data/UserRole';
   }
 }
