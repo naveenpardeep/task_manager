@@ -981,12 +981,17 @@ class NsgImagePickerButton extends StatelessWidget {
                   onDragDone: (detail) {
                     List<XFile> file = detail.files;
                     for (var listfile in file) {
+                     
+                      var fileType = TTNsgFilePicker.getFileTypeByPath(listfile.name);
                       objectsList1.add(NsgFilePickerObject(
                         isNew: true,
-                        image: null,
-                        description: listfile.name,
-                        filePath: listfile.path,
-                        file: File(listfile.path),
+                        description: GetPlatform.isWeb ? basenameWithoutExtension(listfile.readAsBytes().toString()) : listfile.name,
+                        filePath:  listfile.path,
+                        file: GetPlatform.isWeb
+                            ? File(listfile.readAsBytes().toString())
+                            : File(listfile.path),
+                        fileType: fileType,
+                       
                       ));
                     }
 
