@@ -48,6 +48,8 @@ export 'user_project_settings.dart';
 export 'generated/user_project_settings.g.dart';
 export 'user_account.dart';
 export 'generated/user_account.g.dart';
+export 'user_role.dart';
+export 'generated/user_role.g.dart';
 export 'user_settings.dart';
 export 'generated/user_settings.g.dart';
 export 'service_object.dart';
