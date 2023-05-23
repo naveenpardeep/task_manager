@@ -981,17 +981,16 @@ class NsgImagePickerButton extends StatelessWidget {
                   onDragDone: (detail) {
                     List<XFile> file = detail.files;
                     for (var listfile in file) {
-                     
-                      var fileType = TTNsgFilePicker.getFileTypeByPath(listfile.name);
+                      Future<Uint8List> fileBytes = listfile.readAsBytes();
+                      String fileName = listfile.name;
+                      var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
+
                       objectsList1.add(NsgFilePickerObject(
                         isNew: true,
-                        description: GetPlatform.isWeb ? basenameWithoutExtension(listfile.readAsBytes().toString()) : listfile.name,
-                        filePath:  listfile.path,
-                        file: GetPlatform.isWeb
-                            ? File(listfile.readAsBytes().toString())
-                            : File(listfile.path),
+                        description: GetPlatform.isWeb ? basenameWithoutExtension(fileName) : listfile.name,
+                        filePath: GetPlatform.isWeb ? fileName : listfile.path,
+                        file: GetPlatform.isWeb ? File(fileBytes.toString()) : File(listfile.path),
                         fileType: fileType,
-                       
                       ));
                     }
 
@@ -1019,7 +1018,7 @@ class NsgImagePickerButton extends StatelessWidget {
         : InkWell(
             hoverColor: ControlOptions.instance.colorMain,
             onTap: () {
-              Scaffold.of(context).showBottomSheet(
+              Scaffold.of(context as BuildContext).showBottomSheet(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(50),
