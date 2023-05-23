@@ -987,9 +987,9 @@ class NsgImagePickerButton extends StatelessWidget {
 
                       objectsList1.add(NsgFilePickerObject(
                         isNew: true,
-                        description: GetPlatform.isWeb ? basenameWithoutExtension(fileName) : listfile.name,
-                        filePath: GetPlatform.isWeb ? fileName : listfile.path,
-                        file: GetPlatform.isWeb ? File(fileBytes.toString()) : File(listfile.path),
+                        description:  basenameWithoutExtension(fileName) ,
+                        filePath: kIsWeb ? '' : listfile.path,
+                        file: kIsWeb ? File(fileName) : File(listfile.path),
                         fileType: fileType,
                       ));
                     }
