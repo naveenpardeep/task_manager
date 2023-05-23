@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -951,26 +952,63 @@ class NsgImagePickerButton extends StatelessWidget {
                 Get.snackbar('', 'Clipboard empty');
               }
             },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xffEDEFF3),
-              ),
-              width: 160,
-              height: 159,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.attach_file, color: Color(0xff529FBF)),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Загрузить файл',
-                        style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
-                      )),
-                  Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
-                ],
-              ),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xffEDEFF3),
+                  ),
+                  width: 160,
+                  height: 100,
+                  child: const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.attach_file, color: Color(0xff529FBF)),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Загрузить файл',
+                            style: TextStyle(color: Color(0xff529FBF), fontSize: 12),
+                          )),
+                      Tooltip(message: 'Longpress to paste photo from Clipboard', child: Icon(Icons.info, color: Color(0xff529FBF)))
+                    ],
+                  ),
+                ),
+                const Text('or'),
+                DropTarget(
+                  onDragDone: (detail) {
+                    List<XFile> file = detail.files;
+                    for (var listfile in file) {
+                      objectsList1.add(NsgFilePickerObject(
+                        isNew: true,
+                        image: null,
+                        description: listfile.name,
+                        filePath: listfile.path,
+                        file: File(listfile.path),
+                      ));
+                    }
+
+                    Get.find<TasksController>().sendNotify();
+                  },
+                  onDragEntered: (detail) {},
+                  onDragExited: (detail) {},
+                  child: Container(
+                    height: 100,
+                    width: 160,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xffEDEFF3)),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.file_upload_rounded),
+                        Center(child: Text("Drop files here")),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           )
         : InkWell(
@@ -1071,9 +1109,9 @@ class NsgImagePickerButton extends StatelessWidget {
               ),
               width: 160,
               height: 159,
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.attach_file, color: Color(0xff529FBF)),
                   Align(
                       alignment: Alignment.center,

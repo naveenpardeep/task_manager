@@ -69,6 +69,7 @@ dependencies:
   video_player_win: ^2.2.0
   video_player: ^2.6.0
   url_launcher: ^6.1.10
+  desktop_drop: ^0.4.1
   
   
   flutter_reorderable_grid_view: ^3.1.3
