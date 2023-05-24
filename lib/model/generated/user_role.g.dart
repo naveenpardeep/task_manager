@@ -8,7 +8,7 @@ import '../data_controller_model.dart';
 class UserRoleGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
-  static const nameUserAccountId = 'userAccountId';
+  static const nameName = 'name';
   static const nameIsAdmin = 'isAdmin';
   static const nameOnlyShowOwnTasks = 'onlyShowOwnTasks';
 
@@ -22,10 +22,13 @@ class UserRoleGenerated extends NsgDataItem {
   void initialize() {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<ProjectItem>(nameOwnerId), primaryKey: false);
-    addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
+    addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataBoolField(nameIsAdmin), primaryKey: false);
     addField(NsgDataBoolField(nameOnlyShowOwnTasks), primaryKey: false);
   }
+
+  @override
+  String toString() => name;
 
   @override
   NsgDataItem getNewObject() => UserRole();
@@ -50,16 +53,10 @@ class UserRoleGenerated extends NsgDataItem {
   set owner(ProjectItem value) =>
     setFieldValue(nameOwnerId, value.id);
 
-  /// АккаунтПользователя
-  String get userAccountId => getFieldValue(nameUserAccountId).toString();
-  UserAccount get userAccount => getReferent<UserAccount>(nameUserAccountId);
-  Future<UserAccount> userAccountAsync() async {
-   return await getReferentAsync<UserAccount>(nameUserAccountId);
-  }
+  /// Наименование
+  String get name => getFieldValue(nameName).toString();
 
-  set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
-  set userAccount(UserAccount value) =>
-    setFieldValue(nameUserAccountId, value.id);
+  set name(String value) => setFieldValue(nameName, value);
 
   /// ЭтоАдминистратор
   bool get isAdmin => getFieldValue(nameIsAdmin) as bool;
