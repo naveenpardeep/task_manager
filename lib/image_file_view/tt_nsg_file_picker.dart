@@ -978,25 +978,21 @@ class NsgImagePickerButton extends StatelessWidget {
                 ),
                 const Text('or'),
                 DropTarget(
-                  onDragDone: (detail)  {
+                  onDragDone: (detail) {
                     List<XFile> file = detail.files;
                     for (var listfile in file) {
-                      //  PickedFile localFile = PickedFile(listfile.path);
-                      //  Uint8List bytes = localFile.readAsBytes();
-                     
-
                       String fileName = listfile.name;
                       var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
 
                       objectsList1.add(NsgFilePickerObject(
-                        isNew: true,
-                        image: kIsWeb ? null : ((fileType == NsgFilePickerObjectType.image) ? Image.file(File(listfile.path)) : null),
-                        description: fileName,
-                        filePath: kIsWeb ? '' : listfile.path,
-                        file: kIsWeb ? null : File(listfile.path),
-                        fileType: fileType,
-                        // fileContent: kIsWeb ? fileBytes : null
-                      ));
+                          isNew: true,
+                          image: kIsWeb ? null : ((fileType == NsgFilePickerObjectType.image) ? Image.file(File(listfile.path)) : null),
+                          description: fileName,
+                          filePath: kIsWeb ? '' : listfile.path,
+                          file: kIsWeb ? null : File(listfile.path),
+                          fileType: fileType,
+                         // fileContent: Uint8List.fromList(listfile.name.codeUnits)
+                         ));
                     }
 
                     Get.find<TasksController>().sendNotify();
