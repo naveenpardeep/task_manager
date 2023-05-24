@@ -978,23 +978,24 @@ class NsgImagePickerButton extends StatelessWidget {
                 ),
                 const Text('or'),
                 DropTarget(
-                  onDragDone: (detail) async{
+                  onDragDone: (detail)  {
                     List<XFile> file = detail.files;
                     for (var listfile in file) {
-                    //  PickedFile localFile = PickedFile(listfile.path);
-                    //  Uint8List bytes = await localFile.readAsBytes();
-                   // Uint8List? fileBytes = listfile.bytes;
-                      File webfile = File(listfile.path);
+                      //  PickedFile localFile = PickedFile(listfile.path);
+                      //  Uint8List bytes = localFile.readAsBytes();
+                     
+
                       String fileName = listfile.name;
                       var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
 
                       objectsList1.add(NsgFilePickerObject(
                         isNew: true,
+                        image: kIsWeb ? null : ((fileType == NsgFilePickerObjectType.image) ? Image.file(File(listfile.path)) : null),
                         description: fileName,
                         filePath: kIsWeb ? '' : listfile.path,
                         file: kIsWeb ? null : File(listfile.path),
                         fileType: fileType,
-                        fileContent: kIsWeb ? Uint8List.fromList(webfile.readAsBytesSync()) : null
+                        // fileContent: kIsWeb ? fileBytes : null
                       ));
                     }
 
