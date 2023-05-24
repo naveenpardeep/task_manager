@@ -86,13 +86,13 @@ class _NsgCarouselState extends State<NsgCarousel> {
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(10),
-                          color: widget.currentTab == entry.key ? ControlOptions.instance.colorMain : ControlOptions.instance.colorGrey,
+                          color: widget.currentTab == entry.key ? ControlOptions.instance.colorPrimary : ControlOptions.instance.colorGrey,
                         )));
               }).toList(),
             )
           : Text(
               '${widget.currentTab + 1}/${widget.widgetList.length}',
-              style: TextStyle(color: ControlOptions.instance.colorMain, fontFamily: 'Inter', fontWeight: FontWeight.w400),
+              style: TextStyle(color: ControlOptions.instance.colorPrimary , fontFamily: 'Inter', fontWeight: FontWeight.w400),
             ),
     ];
   }
