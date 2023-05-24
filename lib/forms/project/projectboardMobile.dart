@@ -10,6 +10,8 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
 
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/forms/user_role/user_role_controller.dart';
+import 'package:task_manager_app/model/generated/user_role.g.dart';
 
 import 'package:task_manager_app/model/task_board.dart';
 
@@ -98,6 +100,24 @@ class _ProjectpageState extends State<ProjectBoardMobile> {
                                 //   ],
                                 // ),
                                 getProjectBoard(context),
+                                if (controller.currentItem.name.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: NsgTable(
+                                    showIconFalse: false,
+                                    controller: Get.find<UserRoleController>(),
+                                    elementEditPageName: Routes.userRolePage,
+                                    availableButtons: const [
+                                      NsgTableMenuButtonType.createNewElement,
+                                      NsgTableMenuButtonType.editElement,
+                                      NsgTableMenuButtonType.removeElement
+                                    ],
+                                    columns: [
+                                      NsgTableColumn(name: UserRoleGenerated.nameName,
+                                       expanded: true, presentation: 'User Role'),
+                                    ],
+                                  ),
+                                ),
                               if (controller.currentItem.name.isNotEmpty)
                                 Padding(
                                   padding: const EdgeInsets.all(15.0),

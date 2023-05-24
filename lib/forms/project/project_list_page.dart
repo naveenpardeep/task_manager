@@ -124,7 +124,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                       thickness: width > 700 ? 10 : 0,
                       trackBorderColor: ControlOptions.instance.colorGreyLight,
                       trackColor: ControlOptions.instance.colorGreyLight,
-                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                      thumbColor: ControlOptions.instance.colorPrimary .withOpacity(0.2),
                       radius: const Radius.circular(0),
                       child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),

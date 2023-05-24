@@ -338,7 +338,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                                 child: Icon(
                                   Icons.account_circle,
                                   size: 48,
-                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                  color: ControlOptions.instance.colorPrimary.withOpacity(0.4),
                                 ),
                               )
                             : Image.network(

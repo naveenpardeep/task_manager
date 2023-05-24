@@ -53,6 +53,7 @@ import 'package:task_manager_app/forms/user_account/user_account_page.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_page.dart';
 import 'package:task_manager_app/forms/user_account/user_profile_page.dart';
 import 'package:task_manager_app/forms/user_account/user_project_list_page.dart';
+import 'package:task_manager_app/forms/user_role/user_role_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
@@ -381,6 +382,11 @@ class AppPages {
       page: () => const TasklistChecklistPage(),
       binding: TaskListBinding(),
     ),
+    GetPage(
+      name: Routes.userRolePage,
+      page: () => const UserRolePage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -450,4 +456,5 @@ abstract class Routes {
   static const taskTypePage='/taskTypePage';
   static const taskTypeListPage='/taskTypeListPage';
   static const tasklistchecklist='/tasklistchecklist';
+  static const userRolePage='/userRolePage';
 }

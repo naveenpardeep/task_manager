@@ -7,9 +7,12 @@ import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
+import 'package:task_manager_app/forms/user_role/user_role_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
+
+import '../widgets/tt_nsg_input.dart';
 
 class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
   const ProjectUserViewPage({Key? key}) : super(key: key);
@@ -185,10 +188,11 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
                               height: 5,
                               indent: 4,
                             ),
-                            NsgInput(
+                            TTNsgInput(
+                              selectionController: Get.find<UserRoleController>(),
                               dataItem: controller.currentItem,
-                              fieldName: ProjectItemUserTableGenerated.nameIsAdmin,
-                              label: 'Admin',
+                              fieldName: ProjectItemUserTableGenerated.nameRoleId,
+                              label: 'User Role',
                             ),
                             NsgButton(
                               color: Colors.red,

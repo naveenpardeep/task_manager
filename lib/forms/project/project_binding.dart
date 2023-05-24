@@ -15,6 +15,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_notification_controller.dart';
+import 'package:task_manager_app/forms/user_role/user_role_controller.dart';
 
 import '../task_status/project_status_controller.dart';
 import '../tasks/task_file_controller.dart';
@@ -51,6 +52,7 @@ class ProjectBinding extends Bindings {
     Get.put(TaskFilesController());
     Get.put(TaskCommentsController());
     Get.put(TaskTypeController());
+    Get.put(UserRoleController());
 
    
   }
