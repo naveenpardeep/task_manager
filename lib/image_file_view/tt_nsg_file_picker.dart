@@ -979,6 +979,7 @@ class NsgImagePickerButton extends StatelessWidget {
                 const Text('or'),
                 DropTarget(
                   onDragDone: (detail) {
+                    
                     List<XFile> file = detail.files;
                     for (var listfile in file) {
                       Future<Uint8List> fileBytes = listfile.readAsBytes();

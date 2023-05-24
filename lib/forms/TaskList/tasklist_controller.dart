@@ -18,9 +18,9 @@ class TaskListController extends NsgDataController<TaskDoc> {
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
     filter.count = totalcounttask;
-
+ 
     var serviceC = Get.find<ServiceObjectController>();
-
+    filter.sorting = "${TaskDocGenerated.nameDate}-";
     if (serviceC.currentItem.projectId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameProjectId, value: serviceC.currentItem.projectId);
     }
