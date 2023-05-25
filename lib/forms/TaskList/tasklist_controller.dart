@@ -12,6 +12,7 @@ class TaskListController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameProjectId,
       TaskDocGenerated.nameTaskStatusId,
       TaskDocGenerated.nameAssigneeId,
+     
     ];
   }
   var totalcounttask = 100;

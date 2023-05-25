@@ -4,6 +4,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
@@ -26,11 +27,14 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late double width;
   var textEditController = TextEditingController();
-
+   var tasklistfilecon=Get.find<TaskListFilesController>();
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
+    }
+    if (tasklistfilecon.lateInit) {
+      tasklistfilecon.requestItems();
     }
 
     width = MediaQuery.of(context).size.width;
@@ -160,7 +164,9 @@ class TaskItemView extends StatelessWidget {
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
-          controller.itemPageOpen(task, Routes.taskPageFortaskList);
+          Get.find<TaskFilesController>().requestItems();
+          controller.setAndRefreshSelectedItem(task, [TaskDocGenerated.nameFiles]);
+          controller.itemPageOpen(task, Routes.taskPageFortaskList,needRefreshSelectedItem: true);
         },
         child: Container(
           padding: const EdgeInsets.all(10),
