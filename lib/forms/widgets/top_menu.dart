@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -48,11 +49,25 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () {
-                        Get.find<TasksController>().refreshData();
+                        Get.find<TaskListController>().refreshData();
                         Get.offAndToNamed(Routes.tasksListPage);
                       },
                       child: Text(
                         'Задачи',
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: () {
+                        Get.find<TaskListController>().refreshData();
+                        Get.offAndToNamed(Routes.newTasklistPage);
+                      },
+                      child: Text(
+                        'Tasklist',
                         style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),

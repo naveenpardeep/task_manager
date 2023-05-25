@@ -8,17 +8,20 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 class TaskListController extends NsgDataController<TaskDoc> {
   TaskListController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-    referenceList = [TaskDocGenerated.nameProjectId, TaskDocGenerated.nameTaskStatusId, TaskDocGenerated.nameAssigneeId,];
+    referenceList = [
+      TaskDocGenerated.nameProjectId,
+      TaskDocGenerated.nameTaskStatusId,
+      TaskDocGenerated.nameAssigneeId,
+    ];
   }
-  var totalcounttask=100;
-   int currentPage = 0;
-  
+  var totalcounttask = 100;
+  int currentPage = 0;
 
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
     filter.count = totalcounttask;
- 
+
     var serviceC = Get.find<ServiceObjectController>();
     filter.sorting = "${TaskDocGenerated.nameDate}-";
     if (serviceC.currentItem.projectId.isNotEmpty) {
@@ -27,9 +30,10 @@ class TaskListController extends NsgDataController<TaskDoc> {
 
     return filter;
   }
+
   Widget pagination() {
     List<Widget> list = [];
-   
+
     int pagesCount = totalCount! ~/ totalcounttask;
     int startPage = pagesCount > 10 && currentPage > 5 ? currentPage - 5 : 0;
     int count = 0;
@@ -39,7 +43,7 @@ class TaskListController extends NsgDataController<TaskDoc> {
           onTap: () async {
             currentPage = i;
             top = currentPage * totalcounttask;
-        //    pageScrollController.jumpTo(0);
+            //    pageScrollController.jumpTo(0);
             await refreshData();
           },
           child: Container(
@@ -96,29 +100,30 @@ class TaskListController extends NsgDataController<TaskDoc> {
             ),
           );
   }
-  
+
   void prevDataPage() async {
-      totalCount ??= 0;
+    totalCount ??= 0;
     if (totalCount! <= totalcounttask) return;
     if (currentPage == 0) return;
     currentPage--;
     top = currentPage * totalcounttask;
-   // pageScrollController.jumpTo(0);
+    // pageScrollController.jumpTo(0);
     await refreshData();
   }
-  
-  void nextDataPage() async{
-        totalCount ??= 0;
+
+  void nextDataPage() async {
+    totalCount ??= 0;
     if (totalCount! <= totalcounttask) return;
     var totalPages = (totalCount! / totalcounttask).ceil();
     if (currentPage >= totalPages) return;
     currentPage++;
     top = currentPage * totalcounttask;
-   // pageScrollController.jumpTo(0);
+    // pageScrollController.jumpTo(0);
     await refreshData();
   }
-}
 
+  
+}
 
 class TasklistTaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
   TasklistTaskCheckListController() : super(masterController: Get.find<TaskListController>(), tableFieldName: TaskDocGenerated.nameCheckList) {

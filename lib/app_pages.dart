@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_manager_app/forms/TaskList/new_tasklistPage.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_checkList.dart';
 import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
 import 'package:task_manager_app/forms/TaskList/taskslist_binding.dart';
@@ -387,6 +388,11 @@ class AppPages {
       page: () => const UserRolePage(),
       binding: ProjectBinding(),
     ),
+    GetPage(
+      name: Routes.newTasklistPage,
+      page: () => const NewTasklistPage(),
+      binding: TaskListBinding(),
+    ),
   ];
 }
 
@@ -457,4 +463,5 @@ abstract class Routes {
   static const taskTypeListPage='/taskTypeListPage';
   static const tasklistchecklist='/tasklistchecklist';
   static const userRolePage='/userRolePage';
+  static const newTasklistPage='/newTasklistpage';
 }
