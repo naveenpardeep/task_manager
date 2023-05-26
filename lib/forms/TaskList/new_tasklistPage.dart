@@ -184,7 +184,7 @@ class TaskItemView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 35,
+                        height: 40,
                         child: Directionality(
                             textDirection: TextDirection.ltr,
                             child: SubstringHighlight(
