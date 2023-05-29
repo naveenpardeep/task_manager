@@ -72,7 +72,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
               backgroundColor: Colors.white,
               elevation: 0.0, //Shadow gone
               centerTitle: true,
-              title: controller.obx((state) => Text(
+              title: controller.obx((state) => SelectableText(
                     controller.currentItem.isEmpty ? 'Новая задача'.toUpperCase() : controller.currentItem.docNumber.toString().toUpperCase(),
                     style: const TextStyle(color: Colors.black),
                   )),
@@ -109,7 +109,9 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                     ),
                   ]),
             ),
-            body: TabBarView(controller: _tabController, children: [
+            body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _tabController, children: [
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(
@@ -135,7 +137,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(12),
-                                      child: Text(
+                                      child: SelectableText(
                                         ' ${controller.currentItem.name}',
                                       ),
                                     ),
@@ -399,6 +401,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   Widget imageGallery() {
     return Get.find<TaskFilesController>().obx(
       (state) => TTNsgFilePicker(
+       
         useFilePicker: false,
         showAsWidget: false,
         callback: (value) async {},

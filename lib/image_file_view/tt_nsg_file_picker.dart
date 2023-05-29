@@ -677,7 +677,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                   child: Material(
                     color: ControlOptions.instance.colorMain.withOpacity(0),
                     child: InkWell(
-                      hoverColor: ControlOptions.instance.colorMainDark,
+                      //   hoverColor: ControlOptions.instance.colorMainDark,
                       onTap: () {
                         saveFile(element);
                       },
@@ -706,11 +706,13 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                           },
                         ));
                       },
-                      child: Container(
-                        height: 38,
-                        padding: const EdgeInsets.all(5),
-                        child: Icon(Icons.close, size: 18, color: ControlOptions.instance.colorInverted),
-                      ),
+                      child: widget.showAsWidget == false
+                          ? const SizedBox()
+                          : Container(
+                              height: 38,
+                              padding: const EdgeInsets.all(5),
+                              child: Icon(Icons.close, size: 18, color: ControlOptions.instance.colorInverted),
+                            ),
                     ),
                   ),
                 ),
@@ -719,7 +721,6 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
             Material(
               color: Colors.transparent,
               child: InkWell(
-//hoverColor: ControlOptions.instance.colorMain,
                 onTap: () {
                   if (element.fileType == NsgFilePickerObjectType.unknown) {
                     element.fileType = TTNsgFilePicker.getFileTypeByPath(element.filePath);
@@ -785,25 +786,27 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       ));
     }
     List<Widget> listWithPlus = list;
-    listWithPlus.add(NsgImagePickerButton(
-      textChooseFile: widget.textChooseFile,
-      onPressed: () {
-        if (kIsWeb) {
-          galleryImage();
-        } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS) {
+    if (widget.showAsWidget) {
+      listWithPlus.add(NsgImagePickerButton(
+        textChooseFile: widget.textChooseFile,
+        onPressed: () {
+          if (kIsWeb) {
+            galleryImage();
+          } else if (GetPlatform.isWindows || GetPlatform.isLinux || GetPlatform.isMacOS) {
+            pickFile();
+          } else {
+            galleryImageMobile();
+          }
+        },
+        onPressed2: () {
           pickFile();
-        } else {
-          galleryImageMobile();
-        }
-      },
-      onPressed2: () {
-        pickFile();
-      },
-      onPressed3: () {
-        cameraImage();
-      },
-      objectsList1: widget.objectsList,
-    ));
+        },
+        onPressed3: () {
+          cameraImage();
+        },
+        objectsList1: widget.objectsList,
+      ));
+    }
 
     return RawScrollbar(
         minOverscrollLength: 100,
@@ -879,10 +882,8 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    //  _appBar(),
-                    Expanded(
-                      child: body(),
-                    ),
+                    //    _appBar(),
+                    Expanded(child: body()),
                   ],
                 ),
               ),
@@ -985,14 +986,14 @@ class NsgImagePickerButton extends StatelessWidget {
                       var fileType = TTNsgFilePicker.getFileTypeByPath(fileName);
 
                       objectsList1.add(NsgFilePickerObject(
-                          isNew: true,
-                          image: kIsWeb ? null : ((fileType == NsgFilePickerObjectType.image) ? Image.file(File(listfile.path)) : null),
-                          description: fileName,
-                          filePath: kIsWeb ? '' : listfile.path,
-                          file: kIsWeb ? null : File(listfile.path),
-                          fileType: fileType,
-                         // fileContent: Uint8List.fromList(listfile.name.codeUnits)
-                         ));
+                        isNew: true,
+                        image: kIsWeb ? null : ((fileType == NsgFilePickerObjectType.image) ? Image.file(File(listfile.path)) : null),
+                        description: fileName,
+                        filePath: kIsWeb ? '' : listfile.path,
+                        file: kIsWeb ? null : File(listfile.path),
+                        fileType: fileType,
+                        
+                      ));
                     }
 
                     Get.find<TasksController>().sendNotify();
