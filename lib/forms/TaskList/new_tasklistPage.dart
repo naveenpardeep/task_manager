@@ -106,6 +106,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                                 .items
                                 .firstWhere((element) => element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
                             Get.find<ServiceObjectController>().currentItem.userAccount = user;
+                            controller.top = 0;
                             controller.refreshData();
                           },
                           text: 'My Tasks'),
