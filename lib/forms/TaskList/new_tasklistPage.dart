@@ -5,14 +5,16 @@ import 'package:nsg_controls/nsg_grid.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
+import 'package:task_manager_app/forms/TaskList/task_type_tasklist_controller.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
+import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import '../task_board/task_board_controller.dart';
 import '../widgets/top_menu.dart';
 
 class NewTasklistPage extends StatefulWidget {
@@ -23,11 +25,22 @@ class NewTasklistPage extends StatefulWidget {
 
 class _NewTasklistPageState extends State<NewTasklistPage> {
   var controller = Get.find<TaskListController>();
+  var serviceC = Get.find<ServiceObjectController>();
   ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late double width;
   var textEditController = TextEditingController();
-   var tasklistfilecon=Get.find<TaskListFilesController>();
+  var tasklistfilecon = Get.find<TaskListFilesController>();
+  var author = '';
+  var assignee = '';
+
+  @override
+  void initState() {
+    super.initState();
+    author;
+    assignee;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
@@ -46,17 +59,69 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (width > 700) const TmTopMenu(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: SizedBox(
+                          height: 30,
+                          child: TextField(
+                              controller: textEditController,
+                              decoration: InputDecoration(
+                                  filled: false,
+                                  fillColor: ControlOptions.instance.colorMainLight,
+                                  prefixIcon: width > 700 ? const Icon(Icons.search) : null,
+                                  border: OutlineInputBorder(
+                                      gapPadding: 1,
+                                      borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                      borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                  suffixIcon: IconButton(
+                                      hoverColor: Colors.transparent,
+                                      padding: const EdgeInsets.only(bottom: 0),
+                                      onPressed: (() {
+                                        setState(() {});
+                                        textEditController.clear();
+                                      }),
+                                      icon: const Icon(Icons.cancel)),
+                                  // prefixIcon: Icon(Icons.search),
+                                  hintText: 'Search Tasks...'),
+                              textAlignVertical: TextAlignVertical.bottom,
+                              style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
+                              onChanged: (val) {
+                                setState(() {});
+                              }),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: NsgButton(
+                          backHoverColor: Colors.transparent,
+                          color: ControlOptions.instance.colorWhite,
+                          borderRadius: 10,
+                          width: 100,
+                          onPressed: () {
+                            var user = Get.find<UserAccountController>()
+                                .items
+                                .firstWhere((element) => element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
+                            Get.find<ServiceObjectController>().currentItem.userAccount = user;
+                            controller.refreshData();
+                          },
+                          text: 'My Tasks'),
+                    ),
+                  ],
+                ),
                 Padding(
                     padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
                     child: Row(
-                   mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Align(
                             alignment: AlignmentDirectional.topStart,
                             child: SizedBox(
-                             
                               child: TTNsgInput(
                                 infoString: 'Select Project',
                                 selectionController: Get.find<ProjectController>(),
@@ -64,6 +129,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                                 fieldName: ServiceObjectGenerated.nameProjectId,
                                 onEditingComplete: (p0, p1) {
                                   controller.top = 0;
+
                                   controller.refreshData();
                                 },
                               ),
@@ -71,37 +137,30 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                           ),
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: SizedBox(
-                             height: 37,
-                              child: TextField(
-                                  controller: textEditController,
-                                  decoration: InputDecoration(
-                                      filled: false,
-                                      fillColor: ControlOptions.instance.colorMainLight,
-                                      prefixIcon: width > 700 ? const Icon(Icons.search) : null,
-                                      border: OutlineInputBorder(
-                                          gapPadding: 1,
-                                          borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                          borderRadius: const BorderRadius.all(Radius.circular(10))),
-                                      suffixIcon: IconButton(
-                                          hoverColor: Colors.transparent,
-                                          //padding: const EdgeInsets.only(bottom: 0),
-                                          onPressed: (() {
-                                            setState(() {});
-                                            textEditController.clear();
-                                          }),
-                                          icon: const Icon(Icons.cancel)),
-                                      // prefixIcon: Icon(Icons.search),
-                                      hintText: 'Search Tasks...'),
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
-                                  onChanged: (val) {
-                                    setState(() {});
-                                  }),
-                            ),
+                          child: TTNsgInput(
+                            label: 'Исполнитель',
+                            infoString: 'Выберите исполнителя',
+                            selectionController: Get.find<UserAccountController>(),
+                            dataItem: Get.find<ServiceObjectController>().currentItem,
+                            fieldName: ServiceObjectGenerated.nameUserAccountId,
+                            selectionForm: Routes.userAccountListPage,
+                            onEditingComplete: (item, field) {
+                              controller.refreshData();
+                            },
                           ),
+                        ),
+                        Expanded(
+                          child: TTNsgInput(
+                              label: 'Тип задачи',
+                              infoString: 'Выберите тип задачи',
+                              selectionController: Get.find<TaskTypeTaskListController>(),
+                              dataItem: serviceC.currentItem,
+                              fieldName: ServiceObjectGenerated.nameTaskTypeId,
+                              onEditingComplete: (item, field) {
+                                setState(() {
+                                  controller.refreshData();
+                                });
+                              }),
                         ),
                       ],
                     )),
@@ -166,7 +225,7 @@ class TaskItemView extends StatelessWidget {
         onTap: () {
           Get.find<TaskFilesController>().requestItems();
           controller.setAndRefreshSelectedItem(task, [TaskDocGenerated.nameFiles]);
-          controller.itemPageOpen(task, Routes.taskPageFortaskList,needRefreshSelectedItem: true);
+          controller.itemPageOpen(task, Routes.taskPageFortaskList, needRefreshSelectedItem: true);
         },
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -207,11 +266,10 @@ class TaskItemView extends StatelessWidget {
                   ],
                 ),
               ),
-              
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                   Expanded(
+                  Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

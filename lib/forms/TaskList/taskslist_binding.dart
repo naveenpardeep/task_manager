@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
+import 'package:task_manager_app/forms/TaskList/task_type_tasklist_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
-import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
-import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
+
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 
@@ -32,6 +32,7 @@ class TaskListBinding extends Bindings {
     Get.put(NewTaskStatusController());
     Get.put(TaskUserAccountController());
     Get.put(TaskFilesController());
+    Get.put(TaskTypeTaskListController());
   
     
   }

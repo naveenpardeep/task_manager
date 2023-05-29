@@ -28,7 +28,15 @@ class TaskListController extends NsgDataController<TaskDoc> {
     if (serviceC.currentItem.projectId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameProjectId, value: serviceC.currentItem.projectId);
     }
-
+   
+    if (serviceC.currentItem.userAccountId.isNotEmpty) {
+      filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccount.mainUserAccountId);
+    }
+    if (serviceC.currentItem.taskTypeId.isNotEmpty) {
+      filter.compare.add(name: TaskDocGenerated.nameTaskTypeId, value: serviceC.currentItem.taskTypeId);
+    }    
+   
+    
     return filter;
   }
 
