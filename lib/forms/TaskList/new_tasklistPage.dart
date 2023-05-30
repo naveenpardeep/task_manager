@@ -125,6 +125,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                             alignment: AlignmentDirectional.topStart,
                             child: SizedBox(
                               child: TTNsgInput(
+                                label: 'Project',
                                 infoString: 'Select Project',
                                 selectionController: Get.find<ProjectController>(),
                                 dataItem: Get.find<ServiceObjectController>().currentItem,
