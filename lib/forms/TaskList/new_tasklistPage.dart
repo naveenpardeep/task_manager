@@ -108,6 +108,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                             Get.find<ServiceObjectController>().currentItem.userAccount = user;
                             controller.top = 0;
                             controller.refreshData();
+                            setState(() {});
                           },
                           text: 'My Tasks'),
                     ),
@@ -163,6 +164,25 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                                 });
                               }),
                         ),
+                        SizedBox(
+                          height: 40,
+                          width: 150,
+                          child: IconButton(
+                            hoverColor: Colors.transparent,
+                            padding: EdgeInsets.zero,
+                            icon: const Text('Очистить Фильтры'),
+                            color: ControlOptions.instance.colorMain,
+                            onPressed: () {
+                              serviceC.currentItem.taskTypeId = '';
+                              serviceC.currentItem.projectId = '';
+                              serviceC.currentItem.userAccountId = '';
+
+                              textEditController.clear();
+                              setState(() {});
+                              controller.refreshData();
+                            },
+                          ),
+                        )
                       ],
                     )),
                 Expanded(
@@ -274,7 +294,6 @@ class TaskItemView extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     
                       Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                       Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                       Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
