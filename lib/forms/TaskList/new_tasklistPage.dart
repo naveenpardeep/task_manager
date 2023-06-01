@@ -16,6 +16,7 @@ import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums/e_priority.dart';
 import 'package:task_manager_app/model/enums/e_sorting.dart';
 import '../widgets/top_menu.dart';
 
@@ -190,7 +191,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                               serviceC.currentItem.taskTypeId = '';
                               serviceC.currentItem.projectId = '';
                               serviceC.currentItem.userAccountId = '';
-                              serviceC.currentItem.sortTasksBy=ESorting.dateDesc;
+                              serviceC.currentItem.sortTasksBy = ESorting.dateDesc;
                               textEditController.clear();
                               setState(() {});
                               controller.refreshData();
@@ -242,6 +243,23 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
   }
 }
 
+Color getTaskPriorityColor(EPriority priority) {
+  switch (priority.value) {
+    //Низкий
+    case 1:
+      return Colors.green;
+    //Средний
+    case 2:
+      return Colors.yellow;
+    //Высокий
+    case 3:
+      return Colors.red;
+    //не назначен
+    default:
+      return Colors.transparent;
+  }
+}
+
 class TaskItemView extends StatelessWidget {
   TaskItemView({super.key, required this.task, this.searchvalue});
 
@@ -262,80 +280,89 @@ class TaskItemView extends StatelessWidget {
           controller.setAndRefreshSelectedItem(task, [TaskDocGenerated.nameFiles]);
           controller.itemPageOpen(task, Routes.taskPageFortaskList, needRefreshSelectedItem: true);
         },
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: const Color(0xffEDEFF3),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 40,
-                        child: Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: SubstringHighlight(
-                              maxLines: 2,
-                              text: task.name,
-                              term: searchvalue,
-                              textStyle: const TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.black),
-                              textStyleHighlight: const TextStyle(color: Colors.deepOrange),
-                            )),
-                      ),
-                    ),
-
-                    // Align(
-                    //   alignment: AlignmentDirectional.topEnd,
-                    //   child: GestureDetector(
-                    //     onTapDown: (TapDownDetails details) {},
-                    //     child: const Icon(Icons.more_vert),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                      Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                      Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                    ],
-                  )),
-                  const Padding(padding: EdgeInsets.only(left: 10)),
-                  ClipOval(
-                      child: task.assignee.photoName.isEmpty
-                          ? Container(
-                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                              width: 32,
-                              height: 32,
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 20,
-                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xffEDEFF3),
+                      border: Border(
+                        left: BorderSide(color: getTaskPriorityColor(task.priority), width: 7),
+                      )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  height: 40,
+                                  child: Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: SubstringHighlight(
+                                        maxLines: 2,
+                                        text: task.name,
+                                        term: searchvalue,
+                                        textStyle: const TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.black),
+                                        textStyleHighlight: const TextStyle(color: Colors.deepOrange),
+                                      )),
+                                ),
                               ),
-                            )
-                          : Image.network(
-                              TaskFilesController.getFilePath(task.assignee.photoName),
-                              fit: BoxFit.cover,
-                              width: 32,
-                              height: 32,
+
+                              // Align(
+                              //   alignment: AlignmentDirectional.topEnd,
+                              //   child: GestureDetector(
+                              //     onTapDown: (TapDownDetails details) {},
+                              //     child: const Icon(Icons.more_vert),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                                Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                                Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                              ],
                             )),
-                ],
-              ),
-            ],
-          ),
+                            const Padding(padding: EdgeInsets.only(left: 10)),
+                            ClipOval(
+                                child: task.assignee.photoName.isEmpty
+                                    ? Container(
+                                        decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                        width: 32,
+                                        height: 32,
+                                        child: Icon(
+                                          Icons.account_circle,
+                                          size: 20,
+                                          color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                        ),
+                                      )
+                                    : Image.network(
+                                        TaskFilesController.getFilePath(task.assignee.photoName),
+                                        fit: BoxFit.cover,
+                                        width: 32,
+                                        height: 32,
+                                      )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
         ),
       ),
     );
