@@ -16,6 +16,7 @@ import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums/e_sorting.dart';
 import '../widgets/top_menu.dart';
 
 class NewTasklistPage extends StatefulWidget {
@@ -189,7 +190,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                               serviceC.currentItem.taskTypeId = '';
                               serviceC.currentItem.projectId = '';
                               serviceC.currentItem.userAccountId = '';
-
+                              serviceC.currentItem.sortTasksBy=ESorting.dateDesc;
                               textEditController.clear();
                               setState(() {});
                               controller.refreshData();
