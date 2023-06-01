@@ -4,7 +4,7 @@ import 'package:nsg_data/nsg_data.dart';
 import 'dart:typed_data';
 import '../data_controller_model.dart';
 
-/// Таблица
+/// РолиПользователя
 class UserRoleGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';

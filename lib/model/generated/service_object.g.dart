@@ -18,6 +18,7 @@ class ServiceObjectGenerated extends NsgDataItem {
   static const nameBoardId = 'boardId';
   static const nameTaskTypeId = 'taskTypeId';
   static const nameUserAccountId = 'userAccountId';
+  static const nameSortTasksBy = 'sortTasksBy';
 
   static final Map<String, String> fieldNameDict = {
   };
@@ -38,6 +39,7 @@ class ServiceObjectGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskBoard>(nameBoardId), primaryKey: false);
     addField(NsgDataReferenceField<TaskType>(nameTaskTypeId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
+    addField(NsgDataEnumReferenceField<ESorting>(nameSortTasksBy), primaryKey: false);
   }
 
   @override
@@ -111,7 +113,7 @@ class ServiceObjectGenerated extends NsgDataItem {
   set board(TaskBoard value) =>
     setFieldValue(nameBoardId, value.id);
 
-  /// Доска
+  /// ТипЗадачи
   String get taskTypeId => getFieldValue(nameTaskTypeId).toString();
   TaskType get taskType => getReferent<TaskType>(nameTaskTypeId);
   Future<TaskType> taskTypeAsync() async {
@@ -132,6 +134,11 @@ class ServiceObjectGenerated extends NsgDataItem {
   set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
   set userAccount(UserAccount value) =>
     setFieldValue(nameUserAccountId, value.id);
+
+  /// СортировкаЗадач
+  ESorting get sortTasksBy => NsgEnum.fromValue(ESorting, getFieldValue(nameSortTasksBy)) as ESorting;
+
+  set sortTasksBy(ESorting value) => setFieldValue(nameSortTasksBy, value);
 
   @override
   String get apiRequestItems {
