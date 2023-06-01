@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_control_options.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
+import 'package:task_manager_app/model/enums/e_sorting.dart';
 
 class TaskListController extends NsgDataController<TaskDoc> {
   TaskListController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
@@ -24,7 +26,7 @@ class TaskListController extends NsgDataController<TaskDoc> {
     filter.count = totalcounttask;
 
     var serviceC = Get.find<ServiceObjectController>();
-    filter.sorting = "${TaskDocGenerated.nameDate}-";
+   // filter.sorting = "${TaskDocGenerated.nameDate}-";
     if (serviceC.currentItem.projectId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameProjectId, value: serviceC.currentItem.projectId);
     }
@@ -35,6 +37,18 @@ class TaskListController extends NsgDataController<TaskDoc> {
     if (serviceC.currentItem.taskTypeId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameTaskTypeId, value: serviceC.currentItem.taskTypeId);
     }    
+    if (serviceC.currentItem.sortTasksBy == ESorting.dateAsc) {
+        filter.sorting = "${TaskDocGenerated.nameDate}+";
+      }
+      if (serviceC.currentItem.sortTasksBy == ESorting.dateDesc) {
+        filter.sorting = "${TaskDocGenerated.nameDate}-";
+      }
+      if (serviceC.currentItem.sortTasksBy == ESorting.priorityAsc) {
+        filter.sorting = "${TaskDocGenerated.namePriority}+";
+      }
+      if (serviceC.currentItem.sortTasksBy == ESorting.priorityDesc) {
+        filter.sorting = "${TaskDocGenerated.namePriority}-";
+      }
    
     
     return filter;

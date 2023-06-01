@@ -8,6 +8,7 @@ import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
 import 'package:task_manager_app/forms/TaskList/task_type_tasklist_controller.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -164,6 +165,17 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                                   controller.refreshData();
                                 });
                               }),
+                        ),
+                        Expanded(
+                          child: TTNsgInput(
+                            label: 'Сортировка',
+                            dataItem: serviceC.currentItem,
+                            fieldName: ServiceObjectGenerated.nameSortTasksBy,
+                            onEditingComplete: (task, name) {
+                              controller.refreshData();
+                              setState(() {});
+                            },
+                          ),
                         ),
                         SizedBox(
                           height: 40,
