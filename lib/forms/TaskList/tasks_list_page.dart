@@ -69,6 +69,7 @@ class TasksListPage extends GetView<TaskListController> {
                         NsgTableMenuButtonType.removeElement
                       ],
                       columns: [
+                        NsgTableColumn(name: TaskDocGenerated.nameDocNumber, expanded: true, width: 50, presentation: 'Номер'),
                         NsgTableColumn(name: TaskDocGenerated.nameProjectId, expanded: true, presentation: 'Проект'),
                         NsgTableColumn(name: TaskDocGenerated.nameDate, expanded: true, presentation: 'Дата'),
                         NsgTableColumn(name: TaskDocGenerated.nameName, expanded: true, presentation: 'Название задачи'),
