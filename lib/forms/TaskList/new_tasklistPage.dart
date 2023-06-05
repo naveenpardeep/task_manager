@@ -218,7 +218,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: controller.obx((state) {
-                            return width > 500 ? NsgGrid(crossAxisCount: width ~/ 200, children: showTasks()) : Column(children: showTasks());
+                           return width > 500 ? NsgGrid(crossAxisCount: width ~/ 200, children: showTasks()) : Column(children: showTasks());
                           }))),
                 )),
                 Center(child: controller.obx((state) => controller.pagination(), onLoading: const SizedBox())),

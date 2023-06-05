@@ -566,7 +566,6 @@ class _HomepageState extends State<Homepage> {
               });
             }),
       ),
-
       wrapFlexible(
         child: TTNsgInput(
             label: 'Тип задачи',
@@ -979,20 +978,32 @@ class _HomepageState extends State<Homepage> {
         return true;
       },
       onAccept: (data) async {
+        late TaskLoadController taskLoadC;
+        late TaskLoadController taskLoadC1;
+        var taskLoadforcurrent = taskController.tasksControllersList.where((element) => element.currentTaskStatus == status.status).toList();
+        var taskLoadforanotherstatus = taskController.tasksControllersList.where((element) => element.currentTaskStatus == data.taskStatus).toList();
+
         if (status.status != data.taskStatus) {
+         
           data.taskStatus = status.status;
           taskController.currentItem = data;
           taskController.currentItem.dateUpdated = DateTime.now();
+
           NsgProgressDialog progress = NsgProgressDialog(textDialog: 'Сохранение данных на сервере', canStopped: false);
 
           progress.show();
           await taskController.postItems([taskController.currentItem]);
-          progress.hide();
-          taskController.refreshData();
-        }
 
-        //  taskController.itemPagePost(goBack: false);
-        //
+          progress.hide();
+         
+          taskLoadC = taskLoadforcurrent[0];
+          taskLoadC1 = taskLoadforanotherstatus[0];
+          taskLoadC.loadMoreTasks(1,);
+          taskLoadC1.loadMoreTasks(1,);
+        //  taskController.refreshData();
+      
+        
+        }
       },
     );
   }
