@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_image_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -16,8 +17,10 @@ class UserAccountController extends NsgDataController<UserAccount> {
   Future<UserAccount> createNewItemAsync() async {
     var element = await super.createNewItemAsync();
     var proController = Get.find<ProjectController>();
-
     element.inviteProject = proController.currentItem;
+
+    var orgController = Get.find<OrganizationController>();
+    element.organization = orgController.currentItem;
 
     return element;
   }
@@ -48,8 +51,10 @@ class UserAccountController extends NsgDataController<UserAccount> {
 
     element.id = Guid.newGuid();
     var proController = Get.find<ProjectController>();
-
     element.inviteProject = proController.currentItem;
+
+    var orgController = Get.find<OrganizationController>();
+    element.organization = orgController.currentItem;
 
     return element;
   }
