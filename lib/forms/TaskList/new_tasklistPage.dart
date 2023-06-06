@@ -62,67 +62,46 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (width > 700) const TmTopMenu(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10, left: 10),
-                        child: SizedBox(
-                          height: 30,
-                          child: TextField(
-                              controller: textEditController,
-                              decoration: InputDecoration(
-                                  filled: false,
-                                  fillColor: ControlOptions.instance.colorMainLight,
-                                  prefixIcon: width > 700 ? const Icon(Icons.search) : null,
-                                  border: OutlineInputBorder(
-                                      gapPadding: 1,
-                                      borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                      borderRadius: const BorderRadius.all(Radius.circular(10))),
-                                  suffixIcon: IconButton(
-                                      hoverColor: Colors.transparent,
-                                      padding: const EdgeInsets.only(bottom: 0),
-                                      onPressed: (() {
-                                        setState(() {});
-                                        textEditController.clear();
-                                      }),
-                                      icon: const Icon(Icons.cancel)),
-                                  // prefixIcon: Icon(Icons.search),
-                                  hintText: 'Search Tasks...'),
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
-                              onChanged: (val) {
-                                setState(() {});
-                              }),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: NsgButton(
-                          backHoverColor: Colors.transparent,
-                          color: ControlOptions.instance.colorWhite,
-                          borderRadius: 10,
-                          width: 100,
-                          onPressed: () {
-                            var user = Get.find<UserAccountController>()
-                                .items
-                                .firstWhere((element) => element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
-                            Get.find<ServiceObjectController>().currentItem.userAccount = user;
-                            controller.top = 0;
-                            controller.refreshData();
-                            setState(() {});
-                          },
-                          text: 'My Tasks'),
-                    ),
-                  ],
-                ),
+
                 Padding(
                     padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15, right: 10, left: 10),
+                            child: SizedBox(
+                              height: 35,
+                              child: TextField(
+                                  controller: textEditController,
+                                  decoration: InputDecoration(
+                                      filled: false,
+                                      fillColor: ControlOptions.instance.colorMainLight,
+                                      prefixIcon: width > 700 ? const Icon(Icons.search) : null,
+                                      border: OutlineInputBorder(
+                                          gapPadding: 1,
+                                          borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                          borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                      suffixIcon: IconButton(
+                                          hoverColor: Colors.transparent,
+                                          padding: const EdgeInsets.only(bottom: 0),
+                                          onPressed: (() {
+                                            setState(() {});
+                                            textEditController.clear();
+                                          }),
+                                          icon: const Icon(Icons.cancel)),
+                                      // prefixIcon: Icon(Icons.search),
+                                      hintText: 'Search Tasks...'),
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
+                                  onChanged: (val) {
+                                    setState(() {});
+                                  }),
+                            ),
+                          ),
+                        ),
                         Expanded(
                           child: Align(
                             alignment: AlignmentDirectional.topStart,
@@ -142,19 +121,19 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: TTNsgInput(
-                            label: 'Исполнитель',
-                            infoString: 'Выберите исполнителя',
-                            selectionController: Get.find<UserAccountController>(),
-                            dataItem: Get.find<ServiceObjectController>().currentItem,
-                            fieldName: ServiceObjectGenerated.nameUserAccountId,
-                            selectionForm: Routes.userAccountListPage,
-                            onEditingComplete: (item, field) {
-                              controller.refreshData();
-                            },
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: TTNsgInput(
+                        //     label: 'Исполнитель',
+                        //     infoString: 'Выберите исполнителя',
+                        //     selectionController: Get.find<UserAccountController>(),
+                        //     dataItem: Get.find<ServiceObjectController>().currentItem,
+                        //     fieldName: ServiceObjectGenerated.nameUserAccountId,
+                        //     selectionForm: Routes.userAccountListPage,
+                        //     onEditingComplete: (item, field) {
+                        //       controller.refreshData();
+                        //     },
+                        //   ),
+                        // ),
                         Expanded(
                           child: TTNsgInput(
                               label: 'Тип задачи',
@@ -200,28 +179,30 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         )
                       ],
                     )),
-                Expanded(
-                    child: RefreshIndicator(
-                  onRefresh: () {
-                    return controller.refreshData();
-                  },
-                  child: RawScrollbar(
-                      thumbVisibility: true,
-                      trackVisibility: true,
-                      controller: scrollController,
-                      thickness: width > 700 ? 10 : 0,
-                      trackBorderColor: ControlOptions.instance.colorGreyLight,
-                      trackColor: ControlOptions.instance.colorGreyLight,
-                      thumbColor: ControlOptions.instance.colorPrimary.withOpacity(0.2),
-                      radius: const Radius.circular(0),
-                      child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          controller: scrollController,
-                          child: controller.obx((state) {
-                           return width > 500 ? NsgGrid(crossAxisCount: width ~/ 200, children: showTasks()) : Column(children: showTasks());
-                          }))),
-                )),
-                Center(child: controller.obx((state) => controller.pagination(), onLoading: const SizedBox())),
+                // Expanded(
+                //     child: RefreshIndicator(
+                //   onRefresh: () {
+                //     return controller.refreshData();
+                //   },
+                //   child: RawScrollbar(
+                //       thumbVisibility: true,
+                //       trackVisibility: true,
+                //       controller: scrollController,
+                //       thickness: width > 700 ? 10 : 0,
+                //       trackBorderColor: ControlOptions.instance.colorGreyLight,
+                //       trackColor: ControlOptions.instance.colorGreyLight,
+                //       thumbColor: ControlOptions.instance.colorPrimary.withOpacity(0.2),
+                //       radius: const Radius.circular(0),
+                //       child: SingleChildScrollView(
+                //           physics: const BouncingScrollPhysics(),
+                //           controller: scrollController,
+                //           child: controller.obx((state) {
+                //          //  return width > 500 ? NsgGrid(crossAxisCount: width ~/ 200, children: showTasks()) : Column(children: showTasks());
+                //
+                //           }))),
+                // )),
+                controller.obx((state) => Expanded(child: getTaskList())),
+
                 if (width < 700) const BottomMenu(),
               ],
             )),
@@ -229,9 +210,99 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
     );
   }
 
-  List<Widget> showTasks() {
+  Widget getTaskList() {
+    double width = MediaQuery.of(context).size.width;
+
     List<Widget> list = [];
-    for (var task in controller.items) {
+
+    List<String> taskColumns = [];
+
+    var taskColumnName = controller.taskColumns;
+    for (var columnName in taskColumnName) {
+      var scrollController = ScrollController();
+      taskColumns.add(columnName);
+
+      list.add(Expanded(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Tooltip(
+                      message: columnName == 'My New Tasks' ? 'Not seen tasks' : '',
+                      child: Text(
+                        columnName,
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    //  Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
+                  ],
+                ),
+                const Divider(thickness: 2, height: 20),
+                Expanded(
+                  child: SizedBox(
+                    width: width,
+                    child: RawScrollbar(
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      controller: scrollController,
+                      thickness: width > 700 ? 10 : 0,
+                      trackBorderColor: ControlOptions.instance.colorGreyLight,
+                      trackColor: ControlOptions.instance.colorGreyLight,
+                      thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                      radius: const Radius.circular(0),
+                      child: SingleChildScrollView(physics: const BouncingScrollPhysics(), controller: scrollController, child: getTaskListView(columnName)),
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ));
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: list,
+      ),
+    );
+  }
+
+  Widget getTaskListView(String columnName) {
+    var user = Get.find<UserAccountController>().items.firstWhere((element) => element.mainUserAccountId == Get.find<DataController>().currentUser.id);
+    serviceC.currentItem.userAccount = user;
+    List<Widget> list = [];
+    var tasklist;
+    if (columnName == 'My New Tasks') {
+      tasklist = controller.items.where((element) => element.assignee == serviceC.currentItem.userAccount && element.isReadByAssignee == false);
+    }
+    if (columnName == 'My Tasks') {
+      tasklist = controller.items.where((element) => element.assignee == serviceC.currentItem.userAccount && element.taskStatus.isDone == false);
+    }
+    if (columnName == 'My Created Tasks') {
+      tasklist = controller.items.where((element) => element.author == serviceC.currentItem.userAccount && element.taskStatus.isDone == false);
+    }
+    if (columnName == 'Deadline') {
+      tasklist = controller.items.where((element) =>
+          element.assignee == serviceC.currentItem.userAccount &&
+          ((element.dateDeadline.isBefore(DateTime.now())) ||
+              element.dateDeadline.day == DateTime.now().day ||
+              element.dateDeadline.day == DateTime.now().day + 1 ||
+              element.dateDeadline.day == DateTime.now().day + 2 ||
+              element.dateDeadline.day == DateTime.now().day + 3) &&
+          element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+          element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
+          !element.taskStatus.isDone);
+    }
+    for (var task in tasklist) {
       if (task.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
         list.add(TaskItemView(
           task: task,
@@ -239,7 +310,44 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
         ));
       }
     }
-    return list;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 10, 30),
+      child: Column(
+        children: list,
+      ),
+    );
+  }
+
+  getTasklength(String columnName) {
+    var tasklist;
+    if (columnName == 'My New Tasks') {
+      tasklist = controller.items.where((element) => element.assignee == serviceC.currentItem.userAccount && element.isReadByAssignee == false).length;
+    }
+    if (columnName == 'My Tasks') {
+      tasklist = controller.items.where((element) => element.assignee == serviceC.currentItem.userAccount && element.taskStatus.isDone == false).length;
+    }
+    if (columnName == 'My Created Tasks') {
+      tasklist = controller.items.where((element) => element.author == serviceC.currentItem.userAccount && element.taskStatus.isDone == false).length;
+    }
+    if (columnName == 'Deadline') {
+      tasklist = controller.items
+          .where((element) =>
+              element.assignee == serviceC.currentItem.userAccount &&
+              ((element.dateDeadline.isBefore(DateTime.now())) ||
+                  element.dateDeadline.day == DateTime.now().day ||
+                  element.dateDeadline.day == DateTime.now().day + 1 ||
+                  element.dateDeadline.day == DateTime.now().day + 2 ||
+                  element.dateDeadline.day == DateTime.now().day + 3) &&
+              element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+              element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
+              !element.taskStatus.isDone)
+          .length;
+    }
+
+    return Text(
+      tasklist.toString(),
+      style: const TextStyle(fontFamily: 'Inter', fontSize: 16, color: Color(0xff529FBF)),
+    );
   }
 }
 
@@ -332,6 +440,7 @@ class TaskItemView extends StatelessWidget {
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Text('Status: ${task.taskStatus}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                                 Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                                 Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
                                 Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
