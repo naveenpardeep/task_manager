@@ -242,7 +242,8 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         ),
                       ),
                     ),
-                    //  Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
+                    if(columnName!='My New Tasks')
+                      Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
                   ],
                 ),
                 const Divider(thickness: 2, height: 20),
