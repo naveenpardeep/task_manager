@@ -19,12 +19,12 @@ class TaskListController extends NsgDataController<TaskDoc> {
   }
   var totalcounttask = 100;
   int currentPage = 0;
-  List<String> taskColumns=['My New Tasks','My Tasks','My Created Tasks','Deadline' ];
+  List<String> taskColumns=['My New Tasks','My Tasks','Created New','My Created Tasks','Deadline' ];
 
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
-  //  filter.count = totalcounttask;
+    filter.count = totalcounttask;
 
     var serviceC = Get.find<ServiceObjectController>();
     if (serviceC.currentItem.sortTasksBy.isEmpty) {
