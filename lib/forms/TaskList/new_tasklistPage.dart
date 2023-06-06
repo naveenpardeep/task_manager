@@ -292,7 +292,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
       tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
     }
     if (columnName == 'My Created Tasks') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false);
+      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee);
     }
     if (columnName == 'Deadline') {
       tasklist = controller.items.where((element) =>
@@ -334,7 +334,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
       tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false).length;
     }
     if (columnName == 'My Created Tasks') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false).length;
+      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee).length;
     }
     if (columnName == 'Deadline') {
       tasklist = controller.items
