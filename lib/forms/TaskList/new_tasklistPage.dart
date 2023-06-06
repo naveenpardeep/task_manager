@@ -286,7 +286,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
       tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
     }
     if (columnName == 'My Tasks') {
-      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false);
+      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee);
     }
     if (columnName == 'Created New') {
       tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
