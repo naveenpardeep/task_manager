@@ -307,6 +307,18 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
           element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
           !element.taskStatus.isDone);
     }
+    if (columnName == 'Deadline created') {
+      tasklist = controller.items.where((element) =>
+          element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+          ((element.dateDeadline.isBefore(DateTime.now())) ||
+              element.dateDeadline.day == DateTime.now().day ||
+              element.dateDeadline.day == DateTime.now().day + 1 ||
+              element.dateDeadline.day == DateTime.now().day + 2 ||
+              element.dateDeadline.day == DateTime.now().day + 3) &&
+          element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+          element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
+          !element.taskStatus.isDone);
+    }
     for (var task in tasklist) {
       if (task.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
         list.add(TaskItemView(
@@ -350,6 +362,18 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
               element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
               !element.taskStatus.isDone)
           .length;
+    }
+     if (columnName == 'Deadline created') {
+      tasklist = controller.items.where((element) =>
+          element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+          ((element.dateDeadline.isBefore(DateTime.now())) ||
+              element.dateDeadline.day == DateTime.now().day ||
+              element.dateDeadline.day == DateTime.now().day + 1 ||
+              element.dateDeadline.day == DateTime.now().day + 2 ||
+              element.dateDeadline.day == DateTime.now().day + 3) &&
+          element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+          element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
+          !element.taskStatus.isDone).length;
     }
 
     return Text(
