@@ -30,6 +30,13 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameIsReadByAssignee = 'isReadByAssignee';
   static const namePriority = 'priority';
   static const nameTotalComments = 'totalComments';
+  static const nameIsPeriodic = 'isPeriodic';
+  static const namePeriodicInterval = 'periodicInterval';
+  static const namePeriodicIntervalUnit = 'periodicIntervalUnit';
+  static const namePeriodicNumberOfIterations = 'periodicNumberOfIterations';
+  static const namePeriodicActualUntil = 'periodicActualUntil';
+  static const namePeriodicTimeLimit = 'periodicTimeLimit';
+  static const namePeriodicTimeLimitlUnit = 'periodicTimeLimitlUnit';
 
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
@@ -72,6 +79,13 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataBoolField(nameIsReadByAssignee), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     addField(NsgDataIntField(nameTotalComments), primaryKey: false);
+    addField(NsgDataBoolField(nameIsPeriodic), primaryKey: false);
+    addField(NsgDataIntField(namePeriodicInterval), primaryKey: false);
+    addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicIntervalUnit), primaryKey: false);
+    addField(NsgDataIntField(namePeriodicNumberOfIterations), primaryKey: false);
+    addField(NsgDataDateField(namePeriodicActualUntil), primaryKey: false);
+    addField(NsgDataIntField(namePeriodicTimeLimit), primaryKey: false);
+    addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicTimeLimitlUnit), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
     fieldList.fields[nameTaskNumber]?.presentation = 'Номер задачи';
@@ -239,6 +253,41 @@ class TaskDocGenerated extends NsgDataItem {
   int get totalComments => getFieldValue(nameTotalComments) as int;
 
   set totalComments(int value) => setFieldValue(nameTotalComments, value);
+
+  /// Периодическая
+  bool get isPeriodic => getFieldValue(nameIsPeriodic) as bool;
+
+  set isPeriodic(bool value) => setFieldValue(nameIsPeriodic, value);
+
+  /// ПериодическаяИнтервал
+  int get periodicInterval => getFieldValue(namePeriodicInterval) as int;
+
+  set periodicInterval(int value) => setFieldValue(namePeriodicInterval, value);
+
+  /// ПериодическаяИнтервалЕдиница
+  ETaskPeriodicity get periodicIntervalUnit => NsgEnum.fromValue(ETaskPeriodicity, getFieldValue(namePeriodicIntervalUnit)) as ETaskPeriodicity;
+
+  set periodicIntervalUnit(ETaskPeriodicity value) => setFieldValue(namePeriodicIntervalUnit, value);
+
+  /// ПериодическаяКоличествоПовторений
+  int get periodicNumberOfIterations => getFieldValue(namePeriodicNumberOfIterations) as int;
+
+  set periodicNumberOfIterations(int value) => setFieldValue(namePeriodicNumberOfIterations, value);
+
+  /// ПериодическаяАктуальнаДо
+  DateTime get periodicActualUntil => getFieldValue(namePeriodicActualUntil) as DateTime;
+
+  set periodicActualUntil(DateTime value) => setFieldValue(namePeriodicActualUntil, value);
+
+  /// ПериодическаяОтведенноеВремяМакс
+  int get periodicTimeLimit => getFieldValue(namePeriodicTimeLimit) as int;
+
+  set periodicTimeLimit(int value) => setFieldValue(namePeriodicTimeLimit, value);
+
+  /// ПериодическаяОтведенноеВремяМаксЕдиница
+  ETaskPeriodicity get periodicTimeLimitlUnit => NsgEnum.fromValue(ETaskPeriodicity, getFieldValue(namePeriodicTimeLimitlUnit)) as ETaskPeriodicity;
+
+  set periodicTimeLimitlUnit(ETaskPeriodicity value) => setFieldValue(namePeriodicTimeLimitlUnit, value);
 
   @override
   String get apiRequestItems {
