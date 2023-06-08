@@ -30,11 +30,13 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameIsReadByAssignee = 'isReadByAssignee';
   static const namePriority = 'priority';
   static const nameTotalComments = 'totalComments';
+  static const nameBaseDocumentId = 'baseDocumentId';
   static const nameIsPeriodic = 'isPeriodic';
   static const namePeriodicInterval = 'periodicInterval';
   static const namePeriodicIntervalUnit = 'periodicIntervalUnit';
   static const namePeriodicNumberOfIterations = 'periodicNumberOfIterations';
   static const namePeriodicActualUntil = 'periodicActualUntil';
+  static const namePeriodicLastOpened = 'periodicLastOpened';
   static const namePeriodicTimeLimit = 'periodicTimeLimit';
   static const namePeriodicTimeLimitlUnit = 'periodicTimeLimitlUnit';
 
@@ -79,11 +81,13 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataBoolField(nameIsReadByAssignee), primaryKey: false);
     addField(NsgDataEnumReferenceField<EPriority>(namePriority), primaryKey: false);
     addField(NsgDataIntField(nameTotalComments), primaryKey: false);
+    addField(NsgDataReferenceField<TaskDoc>(nameBaseDocumentId), primaryKey: false);
     addField(NsgDataBoolField(nameIsPeriodic), primaryKey: false);
     addField(NsgDataIntField(namePeriodicInterval), primaryKey: false);
     addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicIntervalUnit), primaryKey: false);
     addField(NsgDataIntField(namePeriodicNumberOfIterations), primaryKey: false);
     addField(NsgDataDateField(namePeriodicActualUntil), primaryKey: false);
+    addField(NsgDataDateField(namePeriodicLastOpened), primaryKey: false);
     addField(NsgDataIntField(namePeriodicTimeLimit), primaryKey: false);
     addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicTimeLimitlUnit), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
@@ -254,6 +258,17 @@ class TaskDocGenerated extends NsgDataItem {
 
   set totalComments(int value) => setFieldValue(nameTotalComments, value);
 
+  /// Если задача - часть периодической, ссылка на периодическую
+  String get baseDocumentId => getFieldValue(nameBaseDocumentId).toString();
+  TaskDoc get baseDocument => getReferent<TaskDoc>(nameBaseDocumentId);
+  Future<TaskDoc> baseDocumentAsync() async {
+   return await getReferentAsync<TaskDoc>(nameBaseDocumentId);
+  }
+
+  set baseDocumentId(String value) => setFieldValue(nameBaseDocumentId, value);
+  set baseDocument(TaskDoc value) =>
+    setFieldValue(nameBaseDocumentId, value.id);
+
   /// Периодическая
   bool get isPeriodic => getFieldValue(nameIsPeriodic) as bool;
 
@@ -278,6 +293,11 @@ class TaskDocGenerated extends NsgDataItem {
   DateTime get periodicActualUntil => getFieldValue(namePeriodicActualUntil) as DateTime;
 
   set periodicActualUntil(DateTime value) => setFieldValue(namePeriodicActualUntil, value);
+
+  /// ПериодическаяАктуальнаДо
+  DateTime get periodicLastOpened => getFieldValue(namePeriodicLastOpened) as DateTime;
+
+  set periodicLastOpened(DateTime value) => setFieldValue(namePeriodicLastOpened, value);
 
   /// ПериодическаяОтведенноеВремяМакс
   int get periodicTimeLimit => getFieldValue(namePeriodicTimeLimit) as int;
