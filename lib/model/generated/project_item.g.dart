@@ -25,6 +25,7 @@ class ProjectItemGenerated extends NsgDataItem {
   static const nameNumberOfNotifications = 'numberOfNotifications';
   static const nameIsPinned = 'isPinned';
   static const namePriority = 'priority';
+  static const nameIsArchived = 'isArchived';
   static const nameTableUsers = 'tableUsers';
 
   static final Map<String, String> fieldNameDict = {
@@ -56,6 +57,7 @@ class ProjectItemGenerated extends NsgDataItem {
     addField(NsgDataIntField(nameNumberOfNotifications), primaryKey: false);
     addField(NsgDataBoolField(nameIsPinned), primaryKey: false);
     addField(NsgDataIntField(namePriority), primaryKey: false);
+    addField(NsgDataBoolField(nameIsArchived), primaryKey: false);
     addField(NsgDataReferenceListField<ProjectItemUserTable>(nameTableUsers), primaryKey: false);
     fieldList.fields[nameName]?.presentation = 'Наименование';
     fieldList.fields[nameDate]?.presentation = 'Дата создания';
@@ -201,6 +203,11 @@ class ProjectItemGenerated extends NsgDataItem {
   int get priority => getFieldValue(namePriority) as int;
 
   set priority(int value) => setFieldValue(namePriority, value);
+
+  /// Архивный
+  bool get isArchived => getFieldValue(nameIsArchived) as bool;
+
+  set isArchived(bool value) => setFieldValue(nameIsArchived, value);
 
   /// ТаблицаПользователи
   NsgDataTable<ProjectItemUserTable> get tableUsers => NsgDataTable<ProjectItemUserTable>(owner: this, fieldName: nameTableUsers);
