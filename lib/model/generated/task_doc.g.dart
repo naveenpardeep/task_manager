@@ -36,7 +36,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const namePeriodicIntervalUnit = 'periodicIntervalUnit';
   static const namePeriodicNumberOfIterations = 'periodicNumberOfIterations';
   static const namePeriodicActualUntil = 'periodicActualUntil';
-  static const namePeriodicLastOpened = 'periodicLastOpened';
+  static const namePeriodicLastClosed = 'periodicLastClosed';
   static const namePeriodicTimeLimit = 'periodicTimeLimit';
   static const namePeriodicTimeLimitlUnit = 'periodicTimeLimitlUnit';
 
@@ -87,7 +87,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicIntervalUnit), primaryKey: false);
     addField(NsgDataIntField(namePeriodicNumberOfIterations), primaryKey: false);
     addField(NsgDataDateField(namePeriodicActualUntil), primaryKey: false);
-    addField(NsgDataDateField(namePeriodicLastOpened), primaryKey: false);
+    addField(NsgDataDateField(namePeriodicLastClosed), primaryKey: false);
     addField(NsgDataIntField(namePeriodicTimeLimit), primaryKey: false);
     addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicTimeLimitlUnit), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
@@ -294,10 +294,10 @@ class TaskDocGenerated extends NsgDataItem {
 
   set periodicActualUntil(DateTime value) => setFieldValue(namePeriodicActualUntil, value);
 
-  /// ПериодическаяАктуальнаДо
-  DateTime get periodicLastOpened => getFieldValue(namePeriodicLastOpened) as DateTime;
+  /// ПериодическаяДатаПоследнегоЗакрытия
+  DateTime get periodicLastClosed => getFieldValue(namePeriodicLastClosed) as DateTime;
 
-  set periodicLastOpened(DateTime value) => setFieldValue(namePeriodicLastOpened, value);
+  set periodicLastClosed(DateTime value) => setFieldValue(namePeriodicLastClosed, value);
 
   /// ПериодическаяОтведенноеВремяМакс
   int get periodicTimeLimit => getFieldValue(namePeriodicTimeLimit) as int;
