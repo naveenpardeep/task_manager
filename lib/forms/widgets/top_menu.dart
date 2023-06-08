@@ -63,8 +63,12 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () {
-                        Get.find<TaskListController>().refreshData();
-                        Get.offAndToNamed(Routes.newTasklistPage);
+                      //  Get.find<TaskListController>().refreshData();
+                      // Get.offAndToNamed(Routes.newTasklistPage);
+                        Get.find<TaskListController>()
+                             .itemNewPageOpen( Routes.newTasklistPage);
+                             Get.find<TaskListController>().refreshData();
+                      
                       },
                       child: Text(
                         'Tasklist',

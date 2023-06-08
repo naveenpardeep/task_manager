@@ -169,7 +169,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                             onPressed: () {
                               serviceC.currentItem.taskTypeId = '';
                               serviceC.currentItem.projectId = '';
-                              serviceC.currentItem.userAccountId = '';
+                       
                               serviceC.currentItem.sortTasksBy = ESorting.dateDesc;
                               textEditController.clear();
                               setState(() {});
@@ -179,31 +179,9 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         )
                       ],
                     )),
-                // Expanded(
-                //     child: RefreshIndicator(
-                //   onRefresh: () {
-                //     return controller.refreshData();
-                //   },
-                //   child: RawScrollbar(
-                //       thumbVisibility: true,
-                //       trackVisibility: true,
-                //       controller: scrollController,
-                //       thickness: width > 700 ? 10 : 0,
-                //       trackBorderColor: ControlOptions.instance.colorGreyLight,
-                //       trackColor: ControlOptions.instance.colorGreyLight,
-                //       thumbColor: ControlOptions.instance.colorPrimary.withOpacity(0.2),
-                //       radius: const Radius.circular(0),
-                //       child: SingleChildScrollView(
-                //           physics: const BouncingScrollPhysics(),
-                //           controller: scrollController,
-                //           child: controller.obx((state) {
-                //          //  return width > 500 ? NsgGrid(crossAxisCount: width ~/ 200, children: showTasks()) : Column(children: showTasks());
-                //
-                //           }))),
-                // )),
+                
                 controller.obx((state) => Expanded(child: getTaskList())),
-               
-                if (width < 700) const BottomMenu(),
+               if (width < 700) const BottomMenu(),
               ],
             )),
       ),
@@ -242,7 +220,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         ),
                       ),
                     ),
-                    if(columnName!='My New Tasks')
+                 
                       Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
                   ],
                 ),
