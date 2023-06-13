@@ -2,6 +2,7 @@ import 'package:nsg_data/nsg_data.dart';
 
 /// Периодичность задач
 class ETaskPeriodicity extends NsgEnum {
+  static ETaskPeriodicity unset = ETaskPeriodicity(0, '-');
   static ETaskPeriodicity hour = ETaskPeriodicity(1, 'Час');
   static ETaskPeriodicity day = ETaskPeriodicity(2, 'День');
   static ETaskPeriodicity week = ETaskPeriodicity(3, 'Неделя');
@@ -13,6 +14,7 @@ class ETaskPeriodicity extends NsgEnum {
   @override
   void initialize() {
     NsgEnum.listAllValues[runtimeType] = <int, ETaskPeriodicity>{
+      0: unset,
       1: hour,
       2: day,
       3: week,
