@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_task_file_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
@@ -35,7 +36,7 @@ class _TasksPageState extends State<TasksPage> {
   var notificationController = Get.find<NotificationController>();
   var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
-  var fileController = Get.find<TaskFilesController>();
+  var fileController = Get.find<TasksController>().isPeriodicController? Get.find<PeriodicTaskFilesController>(): Get.find<TaskFilesController>();
   var statuscon = Get.find<NewTaskStatusController>();
   late bool isCheckeddateRemind;
   late bool isCheckedDeadline;
@@ -481,13 +482,13 @@ class _TasksPageState extends State<TasksPage> {
 
   Widget imageGallery() {
     // return Get.find<TaskImageController>().obx((state) =>
-    return Get.find<TaskFilesController>().obx(
+    return fileController.obx(
       (state) => TTNsgFilePicker(
         useFilePicker: true,
         showAsWidget: true,
         callback: (value) async {},
         // objectsList: Get.find<TaskImageController>().images,
-        objectsList: Get.find<TaskFilesController>().files,
+        objectsList: fileController.files,
         //allowedFileFormats: const [],
       ),
     );

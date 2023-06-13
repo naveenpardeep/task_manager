@@ -81,9 +81,9 @@ class TmTopMenu extends StatelessWidget {
                       hoverColor: Colors.transparent,
                       onTap: () {
                         Get.find<TasksController>().isPeriodicController = true;
-                        // Get.find<PeriodicTasksController>().itemNewPageOpen(Routes.periodicTasksPage);
-                        Get.find<PeriodicTasksController>().refreshData();
-                        Get.offAndToNamed(Routes.periodicTasksPage);
+                         Get.find<PeriodicTasksController>().itemNewPageOpen(Routes.periodicTasksPage);
+                       // Get.find<PeriodicTasksController>().refreshData();
+                       // Get.offAndToNamed(Routes.periodicTasksPage);
                       },
                       child: Text(
                         'PeriodicTasks',
