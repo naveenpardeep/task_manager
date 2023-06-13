@@ -984,7 +984,6 @@ class _HomepageState extends State<Homepage> {
         var taskLoadforanotherstatus = taskController.tasksControllersList.where((element) => element.currentTaskStatus == data.taskStatus).toList();
 
         if (status.status != data.taskStatus) {
-         
           data.taskStatus = status.status;
           taskController.currentItem = data;
           taskController.currentItem.dateUpdated = DateTime.now();
@@ -995,14 +994,16 @@ class _HomepageState extends State<Homepage> {
           await taskController.postItems([taskController.currentItem]);
 
           progress.hide();
-         
+
           taskLoadC = taskLoadforcurrent[0];
           taskLoadC1 = taskLoadforanotherstatus[0];
-          taskLoadC.loadMoreTasks(1,);
-          taskLoadC1.loadMoreTasks(1,);
-        //  taskController.refreshData();
-      
-        
+          taskLoadC.loadMoreTasks(
+            1,
+          );
+          taskLoadC1.loadMoreTasks(
+            1,
+          );
+          //  taskController.refreshData();
         }
       },
     );
@@ -1198,6 +1199,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
       taskStatus(context, tasks);
     },
     onDoubleTap: () async {
+      Get.find<TasksController>().isPeriodicController = false;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;
@@ -1339,6 +1341,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
     ],
   ).then((value) async {
     if (value == 1) {
+      Get.find<TasksController>().isPeriodicController = false;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;

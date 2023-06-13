@@ -161,8 +161,7 @@ class TaskItemView extends StatelessWidget {
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
-          controller.itemPageOpen(controller.currentItem, Routes.taskEditPage);
-          
+          controller.itemPageOpen(task, Routes.taskEditPage);
         },
         child: Container(
           padding: const EdgeInsets.all(10),

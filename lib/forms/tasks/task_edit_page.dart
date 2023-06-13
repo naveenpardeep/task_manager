@@ -10,6 +10,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_page.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
 
+import '../periodic_tasks/periodic_tasks_controller.dart';
 import '../widgets/tt_tabs.dart';
 
 class TaskEditPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class TaskEditPage extends StatefulWidget {
 
 class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMixin {
   TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
-  var taskController = Get.find<TasksController>();
+  var taskController = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
   var commnetController = Get.find<TaskCommentsController>();
   var checkcontroller = Get.find<TaskCheckListController>();
 
