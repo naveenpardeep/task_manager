@@ -22,6 +22,8 @@ import 'package:task_manager_app/forms/organization/organization_user_add_page.d
 import 'package:task_manager_app/forms/organization/organization_user_rowPage.dart';
 import 'package:task_manager_app/forms/organization/organization_users_Mobile.dart';
 import 'package:task_manager_app/forms/organization/organization_viewPage_Mobile.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_binding.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_page.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
 import 'package:task_manager_app/forms/project/new_user_for_deletedUser.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
@@ -393,6 +395,11 @@ class AppPages {
       page: () => const NewTasklistPage(),
       binding: TaskListBinding(),
     ),
+     GetPage(
+      name: Routes.periodicTasksPage,
+      page: () => const PeriodicTasksPage(),
+      binding: PeriodicBinding(),
+    ),
   ];
 }
 
@@ -439,7 +446,7 @@ abstract class Routes {
   static const projectUserViewPage = '/projectUserviewPage';
   static const taskBoardStatusPage = '/taskBoardStatusPage';
   static const projectStatusPage = '/projectStatusPage';
-
+  static const periodicTasksPage ='/periodicTasksPage';
   static const loginConfirmPage = '/loginConfirmPage';
   static const startPage = '/start-page';
   static const organizationListMobilePage = '/organizationListMobile';

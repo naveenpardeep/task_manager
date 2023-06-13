@@ -85,6 +85,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                     // prefixIcon: Icon(Icons.search),
                                     hintText: 'Search Project...'),
                                 textAlignVertical: TextAlignVertical.bottom,
+                                
                                 style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: width > 700 ? 16 : 10),
                                 onChanged: (val) {
                                   setState(() {});

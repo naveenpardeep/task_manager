@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -63,15 +64,28 @@ class TmTopMenu extends StatelessWidget {
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () {
-                      //  Get.find<TaskListController>().refreshData();
-                      // Get.offAndToNamed(Routes.newTasklistPage);
-                        Get.find<TaskListController>()
-                             .itemNewPageOpen( Routes.newTasklistPage);
-                             Get.find<TaskListController>().refreshData();
-                      
+                        //  Get.find<TaskListController>().refreshData();
+                        // Get.offAndToNamed(Routes.newTasklistPage);
+                        Get.find<TaskListController>().itemNewPageOpen(Routes.newTasklistPage);
+                        Get.find<TaskListController>().refreshData();
                       },
                       child: Text(
                         'Tasklist',
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: () {
+                        Get.find<PeriodicTasksController>().itemNewPageOpen(Routes.periodicTasksPage);
+                        Get.find<PeriodicTasksController>().refreshData();
+                      //  Get.offAndToNamed(Routes.periodicTasksPage);
+                      },
+                      child: Text(
+                        'PeriodicTasks',
                         style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
@@ -85,7 +99,7 @@ class TmTopMenu extends StatelessWidget {
                       },
                       child: Text(
                         'Пользователи',
-                        style: TextStyle(color:const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
+                        style: TextStyle(color: const Color(0xff529FBF), fontSize: ControlOptions.instance.sizeXL),
                       ),
                     ),
                   ),
@@ -131,7 +145,7 @@ class TmTopMenu extends StatelessWidget {
                         },
                         child: const Icon(
                           Icons.insert_invitation_sharp,
-                          color:  Color(0xff529FBF),
+                          color: Color(0xff529FBF),
                         ),
                       ),
                     ),
@@ -147,7 +161,7 @@ class TmTopMenu extends StatelessWidget {
                         },
                         child: const Icon(
                           Icons.list_alt,
-                          color:  Color(0xff529FBF),
+                          color: Color(0xff529FBF),
                         ),
                       ),
                     ),
@@ -161,9 +175,9 @@ class TmTopMenu extends StatelessWidget {
                           //  Get.find<NotificationController>().newItemPageOpen(pageName: Routes.notificationPage
                           // );
                         },
-                        child:const  Icon(
+                        child: const Icon(
                           Icons.notifications,
-                          color:  Color(0xff529FBF),
+                          color: Color(0xff529FBF),
                           size: 32,
                         ),
                       ),

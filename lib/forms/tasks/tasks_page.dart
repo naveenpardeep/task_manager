@@ -125,7 +125,7 @@ class _TasksPageState extends State<TasksPage> {
                                     label: 'Название задачи',
                                     infoString: 'Укажите название задачи',
                                   ),
-                                   TTNsgInput(
+                                  TTNsgInput(
                                     selectionController: Get.find<TaskTypeController>(),
                                     dataItem: controller.currentItem,
                                     fieldName: TaskDocGenerated.nameTaskTypeId,
@@ -212,7 +212,7 @@ class _TasksPageState extends State<TasksPage> {
                                     child: NsgButton(
                                       borderRadius: 20,
                                       width: width,
-                                      height: 7,
+
                                       backColor: const Color.fromARGB(255, 173, 233, 230),
                                       color: Colors.black,
                                       text: 'Assign me',
@@ -278,12 +278,88 @@ class _TasksPageState extends State<TasksPage> {
                                           isCheckedDeadline = currentValue;
                                         });
                                       }),
+
                                   if (isCheckedDeadline == true)
                                     TTNsgInput(
                                       controller: controller,
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
+                                    ),
+                                  NsgCheckBox(
+                                      toggleInside: true,
+                                      key: GlobalKey(),
+                                      label: 'Periodic Task',
+                                      value: controller.currentItem.isPeriodic,
+                                      onPressed: (currentValue) {
+                                        setState(() {
+                                          controller.currentItem.isPeriodic = currentValue;
+                                        });
+                                      }),
+                                  if (controller.currentItem.isPeriodic)
+                                    TTNsgInput(
+                                      controller: controller,
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.namePeriodicNumberOfIterations,
+                                      label: 'Number Of Iterations',
+                                    ),
+                                     if (controller.currentItem.isPeriodic)
+                                    TTNsgInput(
+                                      controller: controller,
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.namePeriodicActualUntil,
+                                      label: 'PeriodicActualUntil',
+                                    ),
+                                     if (controller.currentItem.isPeriodic)
+                                    TTNsgInput(
+                                      controller: controller,
+                                      dataItem: controller.currentItem,
+                                      fieldName: TaskDocGenerated.namePeriodicLastClosed,
+                                      label: 'Periodic Last Closed',
+                                      infoString: 'Выберите дату',
+                                    ),
+                                  if (controller.currentItem.isPeriodic)
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.namePeriodicInterval,
+                                            label: 'Periodic Interval',
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.namePeriodicIntervalUnit,
+                                            label: 'Periodic Interval Unit',
+                                          ),
+                                         ),
+                                      ],
+                                    ),
+                                 
+                                  if (controller.currentItem.isPeriodic)
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.namePeriodicTimeLimit,
+                                            label: 'Periodic Time Limit',
+                                          ),
+                                        ),
+                                         Expanded(
+                                          child: TTNsgInput(
+                                            controller: controller,
+                                            dataItem: controller.currentItem,
+                                            fieldName: TaskDocGenerated.namePeriodicTimeLimitlUnit,
+                                            label: 'Periodic Time Limit Unit',
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
@@ -386,7 +462,7 @@ class _TasksPageState extends State<TasksPage> {
               onLongPress: () {},
               child: Column(children: [
                 Container(
-                  width: width>700? width / 2: width,
+                  width: width > 700 ? width / 2 : width,
                   color: controller.currentItem.taskStatus == status ? const Color.fromARGB(255, 208, 243, 209) : Colors.white,
                   child: Center(
                     child: Text(
