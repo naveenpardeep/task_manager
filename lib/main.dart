@@ -14,6 +14,7 @@ import 'middleware.dart';
 
 void main() {
   ControlOptions newinstance = ControlOptions(
+    nsgButtonHeight: 40,
       borderRadius: 3,
       appMaxWidth: double.infinity,
       appMinWidth: 375,

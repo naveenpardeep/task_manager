@@ -6,6 +6,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
@@ -32,7 +33,7 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   var nsgMultiImagePickerController = NsgMultiImagePickerController();
   var notificationController = Get.find<NotificationController>();
-  var controller = Get.find<TasksController>();
+  var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
   var fileController = Get.find<TaskFilesController>();
   var statuscon = Get.find<NewTaskStatusController>();
@@ -303,14 +304,14 @@ class _TasksPageState extends State<TasksPage> {
                                       fieldName: TaskDocGenerated.namePeriodicNumberOfIterations,
                                       label: 'Number Of Iterations',
                                     ),
-                                     if (controller.currentItem.isPeriodic)
+                                  if (controller.currentItem.isPeriodic)
                                     TTNsgInput(
                                       controller: controller,
                                       dataItem: controller.currentItem,
                                       fieldName: TaskDocGenerated.namePeriodicActualUntil,
                                       label: 'PeriodicActualUntil',
                                     ),
-                                     if (controller.currentItem.isPeriodic)
+                                  if (controller.currentItem.isPeriodic)
                                     TTNsgInput(
                                       controller: controller,
                                       dataItem: controller.currentItem,
@@ -336,10 +337,10 @@ class _TasksPageState extends State<TasksPage> {
                                             fieldName: TaskDocGenerated.namePeriodicIntervalUnit,
                                             label: 'Periodic Interval Unit',
                                           ),
-                                         ),
+                                        ),
                                       ],
                                     ),
-                                 
+
                                   if (controller.currentItem.isPeriodic)
                                     Row(
                                       children: [
@@ -351,7 +352,7 @@ class _TasksPageState extends State<TasksPage> {
                                             label: 'Periodic Time Limit',
                                           ),
                                         ),
-                                         Expanded(
+                                        Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
                                             dataItem: controller.currentItem,

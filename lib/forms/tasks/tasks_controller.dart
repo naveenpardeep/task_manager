@@ -24,6 +24,8 @@ class TasksController extends NsgDataController<TaskDoc> {
     ];
   }
 
+  bool isPeriodicController = false;
+
   List<TaskLoadController> tasksControllersList = [];
 
   void refreshAllTasksControllers() {
@@ -54,7 +56,7 @@ class TasksController extends NsgDataController<TaskDoc> {
     tasksControllersList = [];
     for (var status in taskStatusTableController.items) {
       var taskC = TaskLoadController(currentTasksStatus: status.status);
-     
+
       tasksControllersList.add(taskC);
       taskC.getTasks(0);
     }
