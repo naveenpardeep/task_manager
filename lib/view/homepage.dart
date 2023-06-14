@@ -62,6 +62,7 @@ class _HomepageState extends State<Homepage> {
   String searchvalue = '';
   DateTime searchDate = DateTime.now();
   DateFormat searchformat = DateFormat("dd-MM-yyyy");
+  var scrollController = ScrollController();
 
   DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
   @override
@@ -77,12 +78,13 @@ class _HomepageState extends State<Homepage> {
     if (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') != null) {
       serviceC.currentItem.boardId = (NsgUserSettings.controller!.getSettingItem('board_${projectController.currentItem.id}') as UserSettings).settings;
     }
+    scrollController.addListener(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     projectName = projectController.currentItem.name;
-    var scrollController = ScrollController();
+
     // screenName=taskBoardController.currentItem.name;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -664,6 +666,7 @@ class _HomepageState extends State<Homepage> {
                     child: wrapdragTarget(
                       status: status,
                       child: RawScrollbar(
+                        key: const PageStorageKey<String>('scrollController'),
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
@@ -770,7 +773,7 @@ class _HomepageState extends State<Homepage> {
                     Get.find<TaskFilesController>().requestItems();
                     Get.find<TaskCheckListController>().requestItems();
                     taskController.setAndRefreshSelectedItem(tasks, [TaskDocGenerated.nameCheckList, TaskDocGenerated.nameFiles]);
-
+                    scrollController.keepScrollOffset;
                     taskView = true;
                   });
                 } else {
@@ -859,6 +862,7 @@ class _HomepageState extends State<Homepage> {
                       child: wrapdragTarget(
                         status: status,
                         child: RawScrollbar(
+                          key: const PageStorageKey<String>('scrollController'),
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
