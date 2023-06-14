@@ -36,10 +36,11 @@ class _TasksPageState extends State<TasksPage> {
   var notificationController = Get.find<NotificationController>();
   var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
   var imageCont = Get.find<TaskFilesController>();
-  var fileController = Get.find<TasksController>().isPeriodicController? Get.find<PeriodicTaskFilesController>(): Get.find<TaskFilesController>();
+  var fileController = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskFilesController>() : Get.find<TaskFilesController>();
   var statuscon = Get.find<NewTaskStatusController>();
   late bool isCheckeddateRemind;
   late bool isCheckedDeadline;
+  final scrollController = ScrollController();
 
   bool isHidden = true;
   @override
@@ -48,6 +49,7 @@ class _TasksPageState extends State<TasksPage> {
     if (statuscon.lateInit) {
       statuscon.requestItems();
     }
+     scrollController.addListener(() {});
     if (controller.currentItem.dateRemind.toString() == '1754-01-01 00:00:00.000' ||
         controller.currentItem.dateRemind.toString() == '0001-01-01 00:00:00.000') {
       isCheckeddateRemind = false;
@@ -77,7 +79,7 @@ class _TasksPageState extends State<TasksPage> {
     // var todaydate = controller.currentItem.date;
     // var updatedate = controller.currentItem.dateUpdated;
 
-    final scrollController = ScrollController();
+    
     double width = MediaQuery.of(context).size.width;
     // String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
     // String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
@@ -97,6 +99,7 @@ class _TasksPageState extends State<TasksPage> {
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
                       child: RawScrollbar(
+                        key: const PageStorageKey<String>('scrollController'),
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,

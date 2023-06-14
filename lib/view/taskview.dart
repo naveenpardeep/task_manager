@@ -35,7 +35,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
   var commnetController = Get.find<TaskCommentsController>();
   late double height;
   late double width;
-  ScrollController scrollController = ScrollController();
+  ScrollController scrollController1 = ScrollController();
   ScrollController scrollController2 = ScrollController();
 
   @override
@@ -123,7 +123,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                           child: RawScrollbar(
                             thumbVisibility: true,
                             trackVisibility: true,
-                            controller: scrollController,
+                            controller: scrollController1,
                             thickness: 10,
                             trackBorderColor: ControlOptions.instance.colorGreyLight,
                             trackColor: ControlOptions.instance.colorGreyLight,
@@ -131,7 +131,7 @@ class _TaskViewPageState extends State<TaskViewPage> with TickerProviderStateMix
                             radius: const Radius.circular(0),
                             child: SingleChildScrollView(
                                 physics: const BouncingScrollPhysics(),
-                                controller: scrollController,
+                                controller: scrollController1,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

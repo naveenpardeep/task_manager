@@ -318,6 +318,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     if (taskView)
                       RawScrollbar(
+                       
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
@@ -330,7 +331,7 @@ class _HomepageState extends State<Homepage> {
                           radius: const Radius.circular(50),
                           child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
+                         
                               controller: scrollController,
                               child: SizedBox(
                                 width: width + 450,
@@ -676,8 +677,9 @@ class _HomepageState extends State<Homepage> {
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
+                         
                             scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
+                           
                             controller: scrollController,
                             child: getTaskListForTaskview(status.status)),
                       ),
@@ -872,7 +874,7 @@ class _HomepageState extends State<Homepage> {
                           thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                           radius: const Radius.circular(0),
                           child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(), controller: scrollController, child: getTaskListForTaskview(status.status)),
+                          controller: scrollController, child: getTaskListForTaskview(status.status)),
                         ),
                       ),
                     ),
