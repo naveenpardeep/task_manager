@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_task_comment_controller.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -14,13 +16,28 @@ import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class TasksCommentPage extends GetView<TaskCommentsController> {
+class TasksCommentPage extends StatefulWidget {
   const TasksCommentPage({Key? key}) : super(key: key);
+  @override
+  State<TasksCommentPage> createState() => _TasksCommentPageState();
+}
+
+class _TasksCommentPageState extends State<TasksCommentPage> {
+  var controller = Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
+  var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+  @override
+  void initState() {
+    super.initState();
+   
+  }
 
   @override
   Widget build(BuildContext context) {
     if (controller.lateInit) {
       controller.requestItems();
+    }
+     if (taskcontroller.lateInit) {
+      taskcontroller.requestItems();
     }
 
     return SafeArea(
@@ -42,7 +59,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                         autofocus: true,
                         onKey: (event) async {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                            controller.currentItem.ownerId = Get.find<TasksController>().currentItem.id;
+                            controller.currentItem.ownerId = taskcontroller.currentItem.id;
 
                             await controller.itemPagePost(goBack: false);
 
@@ -68,7 +85,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
                       ),
                       child: IconButton(
                           onPressed: () async {
-                            controller.currentItem.ownerId = Get.find<TasksController>().currentItem.id;
+                            controller.currentItem.ownerId = taskcontroller.currentItem.id;
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
@@ -110,7 +127,7 @@ class TasksCommentPage extends GetView<TaskCommentsController> {
               if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
                 showPopUpMenu(details.globalPosition, comment, context);
 
-               // showEditDelete(context, comment);
+                // showEditDelete(context, comment);
               }
             },
             child: Stack(

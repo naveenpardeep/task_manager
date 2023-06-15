@@ -770,6 +770,8 @@ class _HomepageState extends State<Homepage> {
               tasks.taskNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
             list.add(GestureDetector(
               onTap: () {
+                   Get.find<TasksController>().isPeriodicController = false;
+                   Get.find<TaskCommentsController>().isTaskCommentCont=true;
                 if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
                   setState(() {
                     Get.find<TaskFilesController>().requestItems();
@@ -1206,6 +1208,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
     },
     onDoubleTap: () async {
       Get.find<TasksController>().isPeriodicController = false;
+       Get.find<TaskCommentsController>().isTaskCommentCont=true;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;
@@ -1348,6 +1351,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
   ).then((value) async {
     if (value == 1) {
       Get.find<TasksController>().isPeriodicController = false;
+      Get.find<TaskCommentsController>().isTaskCommentCont=true;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;

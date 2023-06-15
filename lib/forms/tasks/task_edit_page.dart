@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_task_comment_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_page.dart';
@@ -23,14 +24,16 @@ class TaskEditPage extends StatefulWidget {
 class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMixin {
   TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
   var taskController = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
-  var commnetController = Get.find<TaskCommentsController>();
+ 
+   var commentcontroller = Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
+
   var checkcontroller = Get.find<TaskCheckListController>();
 
   @override
   void initState() {
     super.initState();
-    if (commnetController.lateInit) {
-      commnetController.requestItems();
+    if (commentcontroller.lateInit) {
+      commentcontroller.requestItems();
     }
   }
 
@@ -129,6 +132,6 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
     if (currentTab.name == 'Чеклист${donePercent.toStringAsFixed(1)}%' || currentTab.name == 'Чеклист') {
       return taskController.obx((state) => const ChecklistPage());
     }
-    return commnetController.obx((state) => const TasksCommentPage());
+    return commentcontroller.obx((state) => const TasksCommentPage());
   }
 }

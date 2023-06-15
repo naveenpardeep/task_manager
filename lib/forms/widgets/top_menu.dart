@@ -4,6 +4,7 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
+import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
@@ -81,8 +82,9 @@ class TmTopMenu extends StatelessWidget {
                       hoverColor: Colors.transparent,
                       onTap: () {
                         Get.find<TasksController>().isPeriodicController = true;
+                        Get.find<TaskCommentsController>().isTaskCommentCont=false;
                          Get.find<PeriodicTasksController>().itemNewPageOpen(Routes.periodicTasksPage);
-                       // Get.find<PeriodicTasksController>().refreshData();
+                        // Get.find<PeriodicTasksController>().refreshData();
                        // Get.offAndToNamed(Routes.periodicTasksPage);
                       },
                       child: Text(

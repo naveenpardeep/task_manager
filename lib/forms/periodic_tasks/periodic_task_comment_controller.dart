@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 
-import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class TaskCommentsController extends NsgDataController<TaskComment> {
-  TaskCommentsController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-    masterController = Get.find<TasksController>();
+class PeriodicTaskCommentsController extends NsgDataController<TaskComment> {
+  PeriodicTaskCommentsController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
+    masterController = Get.find<PeriodicTasksController>();
   }
-  bool isTaskCommentCont=true;
+  
  @override
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
@@ -23,7 +23,7 @@ class TaskCommentsController extends NsgDataController<TaskComment> {
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as TaskComment;
     element.id = Guid.newGuid();
-    element.ownerId = Get.find<TasksController>().currentItem.id;
+    element.ownerId = Get.find<PeriodicTasksController>().currentItem.id;
 
     return element;
   }
@@ -31,7 +31,7 @@ class TaskCommentsController extends NsgDataController<TaskComment> {
   @override
   NsgDataRequestParams get getRequestFilter {
     var cmp = NsgCompare();
-    var taskController = Get.find<TasksController>();
+    var taskController = Get.find<PeriodicTasksController>();
 
     cmp.add(
         name: TaskCommentGenerated.nameOwnerId,
