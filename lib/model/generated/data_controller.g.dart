@@ -177,4 +177,26 @@ class DataControllerGenerated extends NsgBaseController {
       progress.hide();
     }
   }
+
+  /// Доступные статусы для перехода
+  Future<List<TaskStatus>> getAccessibleStatuses(String currentStatusId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['currentStatusId'] = currentStatusId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgDataRequest<TaskStatus>().requestItems(
+          function: '/Data/GetAccessibleStatuses',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
 }
