@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
 
@@ -33,6 +34,7 @@ class TasksListBinding extends Bindings {
     Get.put(NotificationController());
     Get.put(TaskListFilesController());
     Get.put(PeriodicTaskFilesController());
+    Get.put(PeriodicTaskCheckListController());
     
   }
 }

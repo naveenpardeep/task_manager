@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
+import 'package:task_manager_app/forms/business_process/business_process_controller.dart';
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 import 'package:task_manager_app/forms/invitation/invitation_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
@@ -57,6 +58,8 @@ class ProjectBinding extends Bindings {
     Get.put(UserRoleController());
     Get.put(TaskListController());
     Get.put(PeriodicTasksController());
+    Get.put(BusinessProcessController());
+    Get.put(BusinessProcessTransitionTableController());
 
    
   }

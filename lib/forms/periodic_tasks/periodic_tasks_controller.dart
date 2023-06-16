@@ -8,7 +8,13 @@ import 'package:task_manager_app/model/data_controller_model.dart';
 
 class PeriodicTasksController extends NsgDataController<TaskDoc> {
   PeriodicTasksController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-    referenceList = [TaskDocGenerated.nameProjectId, TaskDocGenerated.nameTaskStatusId, TaskDocGenerated.nameAssigneeId, TaskDocGenerated.nameIsPeriodic];
+    referenceList = [
+      TaskDocGenerated.nameProjectId,
+      TaskDocGenerated.nameTaskStatusId,
+      TaskDocGenerated.nameAssigneeId,
+      TaskDocGenerated.nameIsPeriodic,
+      TaskDocGenerated.nameCheckList
+    ];
   }
   @override
   NsgDataRequestParams get getRequestFilter {
@@ -29,8 +35,8 @@ class PeriodicTasksController extends NsgDataController<TaskDoc> {
   }
 }
 
-class TasklistTaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
-  TasklistTaskCheckListController() : super(masterController: Get.find<PeriodicTasksController>(), tableFieldName: TaskDocGenerated.nameCheckList) {
+class PeriodicTaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
+  PeriodicTaskCheckListController() : super(masterController: Get.find<PeriodicTasksController>(), tableFieldName: TaskDocGenerated.nameCheckList) {
     readOnly = false;
     editModeAllowed = true;
     requestOnInit = true;
@@ -40,9 +46,9 @@ class TasklistTaskCheckListController extends NsgDataTableController<TaskDocChec
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
 
-    if (masterController!.selectedItem != null && currentItem.isEmpty) {
+    
       createNewItemAsync();
-    }
+    
   }
 
   @override

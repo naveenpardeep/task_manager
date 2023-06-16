@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class TaskChecklistPage extends GetView<TaskCheckListController> {
+class TaskChecklistPage extends StatefulWidget {
   const TaskChecklistPage({Key? key}) : super(key: key);
+  @override
+  State<TaskChecklistPage> createState() => _TaskChecklistPageState();
+}
 
+class _TaskChecklistPageState extends State<TaskChecklistPage> {
+  var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>();
+  var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
+    if (taskcontroller.lateInit) {
+      taskcontroller.requestItems();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -37,7 +55,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                   icon2: Icons.check,
                   onPressed2: () async {
                     await controller.itemPagePost();
-                    await Get.find<TasksController>().itemPagePost();
+                    await taskcontroller.itemPagePost();
                   },
                 ),
                 Expanded(
@@ -88,7 +106,7 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
                       text: 'Сохранить',
                       onTap: () async {
                         await controller.itemPagePost();
-                        await Get.find<TasksController>().itemPagePost();
+                        await taskcontroller.itemPagePost();
                       },
                     )),
                   ],
@@ -106,8 +124,8 @@ class TaskChecklistPage extends GetView<TaskCheckListController> {
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
       onPressed: () async {
-        Get.find<TasksController>().currentItem.checkList.removeRow(controller.currentItem);
-        await Get.find<TasksController>().itemPagePost();
+        taskcontroller.currentItem.checkList.removeRow(controller.currentItem);
+        await taskcontroller.itemPagePost();
 
         Get.back();
         Get.back();

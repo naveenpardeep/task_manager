@@ -27,13 +27,16 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
  
    var commentcontroller = Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
 
-  var checkcontroller = Get.find<TaskCheckListController>();
+  var checkcontroller =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>() ;
 
   @override
   void initState() {
     super.initState();
     if (commentcontroller.lateInit) {
       commentcontroller.requestItems();
+    }
+     if (checkcontroller.lateInit) {
+      checkcontroller.requestItems();
     }
   }
 
@@ -72,7 +75,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                     } else if (taskController.currentItem.name.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                     } else {
-                      Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
+                      checkcontroller.newItemPageOpen(pageName: Routes.taskChecklistPage);
                     }
                   },
                 ),
@@ -89,7 +92,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
                       taskController.currentItem.assignee = Get.find<ProjectController>().currentItem.defaultUser;
                     }
                     await taskController.itemPagePost(goBack: true);
-                    Get.find<TasksController>().refreshData();
+                    taskController.refreshData();
                     Get.back();
                   }
                 },

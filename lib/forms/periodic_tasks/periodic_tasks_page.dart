@@ -161,6 +161,7 @@ class TaskItemView extends StatelessWidget {
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
+       Get.find<PeriodicTaskCheckListController>().requestItems();
           controller.itemPageOpen(task, Routes.taskEditPage);
         },
         child: Container(

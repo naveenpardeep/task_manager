@@ -11,7 +11,7 @@ class PeriodicBinding extends Bindings {
     Get.put(PeriodicTasksController());
     Get.put(PeriodicTaskCommentsController());
     Get.put(PeriodicTaskFilesController());
-
+    Get.put(PeriodicTaskCheckListController());
 
    
   }

@@ -3,6 +3,7 @@ import 'package:task_manager_app/forms/TaskList/new_tasklistPage.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_checkList.dart';
 import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
 import 'package:task_manager_app/forms/TaskList/taskslist_binding.dart';
+import 'package:task_manager_app/forms/business_process/business_process_transition_page.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
@@ -59,10 +60,12 @@ import 'package:task_manager_app/forms/user_account/user_project_list_page.dart'
 import 'package:task_manager_app/forms/user_role/user_role_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
+import 'package:task_manager_app/model/business_process.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
 
+import 'forms/business_process/business_process_page.dart';
 import 'forms/invitation/invitaion_bindings.dart';
 import 'forms/project/project_binding.dart';
 import 'forms/project/project_list_page.dart';
@@ -400,6 +403,16 @@ class AppPages {
       page: () => const PeriodicTasksPage(),
       binding: PeriodicBinding(),
     ),
+     GetPage(
+      name: Routes.businessProcessPage,
+      page: () => const BusinessProcessPage(),
+      binding: PeriodicBinding(),
+    ),
+    GetPage(
+      name: Routes.businessProcessTransitionTablePage,
+      page: () => const BusinessProcessTransitionPage(),
+      binding: PeriodicBinding(),
+    ),
   ];
 }
 
@@ -471,4 +484,6 @@ abstract class Routes {
   static const tasklistchecklist='/tasklistchecklist';
   static const userRolePage='/userRolePage';
   static const newTasklistPage='/newTasklistpage';
+  static const businessProcessPage='/businessProcessPage';
+  static const businessProcessTransitionTablePage='/businessProcessTransitionTablePage';
 }

@@ -4,13 +4,32 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/generated/task_doc_check_list_table.g.dart';
 
-class EditChecklistPage extends GetView<TaskCheckListController> {
+import '../periodic_tasks/periodic_tasks_controller.dart';
+
+class EditChecklistPage extends StatefulWidget {
   const EditChecklistPage({Key? key}) : super(key: key);
+  @override
+  State<EditChecklistPage> createState() => _EditChecklistPageState();
+}
+
+class _EditChecklistPageState extends State<EditChecklistPage> {
+  var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>();
+  var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (controller.lateInit) {
+      controller.requestItems();
+    }
+    if (taskcontroller.lateInit) {
+      taskcontroller.requestItems();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    var controller = Get.find<TaskCheckListController>();
 
     return BodyWrap(
       child: Scaffold(
@@ -37,7 +56,7 @@ class EditChecklistPage extends GetView<TaskCheckListController> {
                   onPressed2: () async {
                     await controller.itemPagePost();
 
-                    await Get.find<TasksController>().itemPagePost();
+                    await taskcontroller.itemPagePost();
                   },
                 ),
                 Expanded(

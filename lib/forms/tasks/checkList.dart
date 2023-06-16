@@ -5,16 +5,36 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/task_doc_check_list_table.dart';
 
-class ChecklistPage extends GetView<TaskCheckListController> {
-  const ChecklistPage({Key? key}) : super(key: key);
 
+
+class ChecklistPage extends StatefulWidget {
+  const ChecklistPage({Key? key}) : super(key: key);
+  @override
+  State<ChecklistPage> createState() => _ChecklistPageState();
+}
+
+class _ChecklistPageState extends State<ChecklistPage> {
+   var controller =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>() ;
+var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+
+   @override
+  void initState() {
+    super.initState();
+     if (controller.lateInit) {
+      controller.requestItems();
+    }
+   if (taskcontroller.lateInit) {
+      taskcontroller.requestItems();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    var controller = Get.find<TaskCheckListController>();
+   
     double totalChecklist = controller.items.length.toDouble();
     double isDone = controller.items.where((element) => element.isDone == true).length.toDouble();
 
@@ -55,31 +75,7 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                                 progressColor: Colors.green,
                               ),
                             checkList(context),
-                            // NsgButton(
-                            //   text: 'Создать Чек-лист',
-                            //   onPressed: () {
-                            //     Get.find<TaskCheckListController>().newItemPageOpen(pageName: Routes.taskChecklistPage);
-                            //   },
-                            // ),
-                            //  NsgButton(
-                            //   text: 'Edit Чек-лист',
-                            //   onPressed: () {
-                            //      Get.find<TaskCheckListController>().itemPageOpen(controller.currentItem, Routes.editChecklistPage);
-                            //       },
-                            // )
-                            // NsgTable(
-                            //   controller: G,
-                            //   elementEditPageName: Routes.taskChecklistPage,
-                            //   availableButtons: const [
-                            //     NsgTableMenuButtonType.createNewElement,
-                            //     NsgTableMenuButtonType.editElement,
-                            //     NsgTableMenuButtonType.removeElement
-                            //   ],
-                            //   columns: [
-                            //     NsgTableColumn(name: TaskDocCheckListTableGenerated.nameText, expanded: true, presentation: 'CheckList Name'),
-                            //     NsgTableColumn(name: TaskDocCheckListTableGenerated.nameIsDone, width: 100, presentation: 'Done'),
-                            //   ],
-                            // ),
+                       
                           ],
                         ),
                       )),
@@ -170,10 +166,10 @@ class ChecklistPage extends GetView<TaskCheckListController> {
                             onPressed: (currentValue) async {
                               checkList.isDone = currentValue;
 
-                              await Get.find<TasksController>().postItems([Get.find<TasksController>().currentItem]);
+                              await taskcontroller.postItems([taskcontroller.currentItem]);
                               controller.refreshData();
 
-                              Get.find<TasksController>().refreshData();
+                              taskcontroller.refreshData();
                             })),
                   ],
                 ),
@@ -191,9 +187,9 @@ class ChecklistPage extends GetView<TaskCheckListController> {
     Widget okButton = ElevatedButton(
       child: const Text("Yes"),
       onPressed: () {
-        Get.find<TaskCheckListController>().currentItem = checkList;
-        Get.find<TasksController>().currentItem.checkList.removeRow(controller.currentItem);
-        Get.find<TasksController>().itemPagePost();
+        controller.currentItem = checkList;
+        taskcontroller.currentItem.checkList.removeRow(controller.currentItem);
+        taskcontroller.itemPagePost();
 
         Navigator.of(context).pop();
       },
@@ -234,10 +230,10 @@ class ChecklistPage extends GetView<TaskCheckListController> {
         return true;
       },
       onAccept: (data) async {
-        int newPosition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(checkList);
+        int newPosition = taskcontroller.currentItem.checkList.rows.indexOf(checkList);
         moveRow(data, newPosition);
         if (data != checkList) {
-          Get.find<TasksController>().sendNotify();
+          taskcontroller.sendNotify();
           controller.refreshData();
         }
       },
@@ -245,13 +241,13 @@ class ChecklistPage extends GetView<TaskCheckListController> {
   }
 
   void moveRow(TaskDocCheckListTable row, int newPosition) {
-    var oldPostition = Get.find<TasksController>().currentItem.checkList.rows.indexOf(row);
+    var oldPostition = taskcontroller.currentItem.checkList.rows.indexOf(row);
     if (oldPostition < newPosition) {
       oldPostition++;
     }
 
-    Get.find<TasksController>().currentItem.checkList.rows.remove(row);
+    taskcontroller.currentItem.checkList.rows.remove(row);
 
-    Get.find<TasksController>().currentItem.checkList.rows.insert(newPosition, row);
+    taskcontroller.currentItem.checkList.rows.insert(newPosition, row);
   }
 }

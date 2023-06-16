@@ -10,6 +10,7 @@ import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
 import 'package:task_manager_app/model/data_controller.dart';
+import 'package:task_manager_app/model/generated/task_doc.g.dart';
 import '../../app_pages.dart';
 
 class TmTopMenu extends StatelessWidget {
@@ -83,6 +84,8 @@ class TmTopMenu extends StatelessWidget {
                       onTap: () {
                         Get.find<TasksController>().isPeriodicController = true;
                         Get.find<TaskCommentsController>().isTaskCommentCont=false;
+                        
+   
                          Get.find<PeriodicTasksController>().itemNewPageOpen(Routes.periodicTasksPage);
                         // Get.find<PeriodicTasksController>().refreshData();
                        // Get.offAndToNamed(Routes.periodicTasksPage);
