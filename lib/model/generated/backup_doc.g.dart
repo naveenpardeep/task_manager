@@ -58,7 +58,7 @@ class BackupDocGenerated extends NsgDataItem {
 
   set objectId(String value) => setFieldValue(nameObjectId, value);
 
-  /// Автор
+  /// АвторИзмененийАккаунт
   String get authorId => getFieldValue(nameAuthorId).toString();
   UserAccount get author => getReferent<UserAccount>(nameAuthorId);
   Future<UserAccount> authorAsync() async {

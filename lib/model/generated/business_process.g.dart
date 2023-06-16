@@ -10,7 +10,6 @@ class BusinessProcessGenerated extends NsgDataItem {
   static const nameName = 'name';
   static const nameProjectId = 'projectId';
   static const nameStatusFromId = 'statusFromId';
-  static const nameStatusToId = 'statusToId';
   static const nameTransitionTable = 'transitionTable';
 
   static final Map<String, String> fieldNameDict = {
@@ -25,7 +24,6 @@ class BusinessProcessGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameStatusFromId), primaryKey: false);
-    addField(NsgDataReferenceField<TaskStatus>(nameStatusToId), primaryKey: false);
     addField(NsgDataReferenceListField<BusinessProcessTransitionTable>(nameTransitionTable), primaryKey: false);
   }
 
@@ -68,17 +66,6 @@ class BusinessProcessGenerated extends NsgDataItem {
   set statusFromId(String value) => setFieldValue(nameStatusFromId, value);
   set statusFrom(TaskStatus value) =>
     setFieldValue(nameStatusFromId, value.id);
-
-  /// КонечныйСтатус
-  String get statusToId => getFieldValue(nameStatusToId).toString();
-  TaskStatus get statusTo => getReferent<TaskStatus>(nameStatusToId);
-  Future<TaskStatus> statusToAsync() async {
-   return await getReferentAsync<TaskStatus>(nameStatusToId);
-  }
-
-  set statusToId(String value) => setFieldValue(nameStatusToId, value);
-  set statusTo(TaskStatus value) =>
-    setFieldValue(nameStatusToId, value.id);
 
   /// Переходы
   NsgDataTable<BusinessProcessTransitionTable> get transitionTable => NsgDataTable<BusinessProcessTransitionTable>(owner: this, fieldName: nameTransitionTable);
