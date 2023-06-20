@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -22,6 +23,14 @@ class TasksController extends NsgDataController<TaskDoc> {
       // TaskDocGenerated.nameCheckList,
       // TaskDocGenerated.nameFiles
     ];
+  }
+  var transitionstatusList = <TaskStatus>[];
+  @override
+  Future<NsgDataItem> refreshItem(NsgDataItem item, List<String>? referenceList) async {
+    var res = await super.refreshItem(item, referenceList) as TaskDoc;
+    transitionstatusList = await Get.find<DataController>().getAccessibleStatuses(res.taskStatusId);
+
+    return res;
   }
 
   bool isPeriodicController = false;

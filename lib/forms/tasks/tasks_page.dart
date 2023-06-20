@@ -148,7 +148,16 @@ class _TasksPageState extends State<TasksPage> {
                                   //   label: 'Статус',
                                   //   infoString: 'Укажите статус задачи',
                                   // ),
-                                  getStatuses(),
+                                  if (!Get.find<TasksController>().isPeriodicController)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+                                      child: Row(
+                                        children: [
+                                          Text('Статус  ${controller.currentItem.taskStatus} '),
+                                          getStatuses(),
+                                        ],
+                                      ),
+                                    ),
 
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
@@ -531,29 +540,24 @@ class _TasksPageState extends State<TasksPage> {
     );
   }
 
-  // Future getfromStatus(getStatus) async {
-  //   var datac = Get.find<DataController>();
-  //   await datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
-  // }
-
   Widget getStatuses() {
     List<Widget> list = [];
-   var datac = Get.find<DataController>();
-    var getStatus = <TaskStatus>[];
-    datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
- 
- 
-    for (var status in getStatus) {
+    var transitionstatus = Get.find<TasksController>().transitionstatusList;
+
+    for (var status in transitionstatus) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            controller.currentItem.taskStatus = status;
+            controller.sendNotify();
+          },
           child: Card(
             margin: EdgeInsets.zero,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(children: [
-                Text(status.toString()),
+                Text('Change to-> $status'),
               ]),
             ),
           ),
