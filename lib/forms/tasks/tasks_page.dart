@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/business_process/business_process_controller.dart';
 import 'package:task_manager_app/forms/notification/notification_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_task_file_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
@@ -12,6 +14,7 @@ import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/task%20type/task_type_controller.dart';
 import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/task_status/new_task_status_controller.dart';
+import 'package:task_manager_app/forms/task_status/task_status_controller.dart';
 
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/widgets/task_tuner_button.dart';
@@ -38,6 +41,7 @@ class _TasksPageState extends State<TasksPage> {
   var imageCont = Get.find<TaskFilesController>();
   var fileController = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskFilesController>() : Get.find<TaskFilesController>();
   var statuscon = Get.find<NewTaskStatusController>();
+  var dataController = Get.find<DataController>();
   late bool isCheckeddateRemind;
   late bool isCheckedDeadline;
   final scrollController = ScrollController();
@@ -49,7 +53,7 @@ class _TasksPageState extends State<TasksPage> {
     if (statuscon.lateInit) {
       statuscon.requestItems();
     }
-     scrollController.addListener(() {});
+    scrollController.addListener(() {});
     if (controller.currentItem.dateRemind.toString() == '1754-01-01 00:00:00.000' ||
         controller.currentItem.dateRemind.toString() == '0001-01-01 00:00:00.000') {
       isCheckeddateRemind = false;
@@ -79,7 +83,6 @@ class _TasksPageState extends State<TasksPage> {
     // var todaydate = controller.currentItem.date;
     // var updatedate = controller.currentItem.dateUpdated;
 
-    
     double width = MediaQuery.of(context).size.width;
     // String formatted = NsgDateFormat.dateFormat(todaydate, format: 'dd.MM.yy HH:mm');
     // String formatupdate = NsgDateFormat.dateFormat(updatedate, format: 'dd.MM.yy HH:mm');
@@ -109,7 +112,6 @@ class _TasksPageState extends State<TasksPage> {
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child: SingleChildScrollView(
-                         
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: Padding(
@@ -146,6 +148,8 @@ class _TasksPageState extends State<TasksPage> {
                                   //   label: 'Статус',
                                   //   infoString: 'Укажите статус задачи',
                                   // ),
+                                  getStatuses(),
+
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                     child: Column(
@@ -525,5 +529,36 @@ class _TasksPageState extends State<TasksPage> {
         );
       },
     );
+  }
+
+  Future getfromStatus(getStatus) async {
+    var datac = Get.find<DataController>();
+    await datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
+  }
+
+  Widget getStatuses() {
+    List<Widget> list = [];
+
+    var getStatus = <TaskStatus>[];
+   // var business=Get.find<BusinessProcessTransitionTableController>().items.where((element) => element.ownerId==Get.find<ProjectController>().currentItem.id);
+    getfromStatus(getStatus);
+    for (var status in getStatus) {
+      list.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: InkWell(
+          onTap: () {},
+          child: Card(
+            margin: EdgeInsets.zero,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(children: [
+                Text(status.toString()),
+              ]),
+            ),
+          ),
+        ),
+      ));
+    }
+    return SingleChildScrollView(child: Column(children: list));
   }
 }

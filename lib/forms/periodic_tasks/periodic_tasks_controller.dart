@@ -46,8 +46,9 @@ class PeriodicTaskCheckListController extends NsgDataTableController<TaskDocChec
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
 
-    
+     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();
+    }
     
   }
 

@@ -331,7 +331,6 @@ class _HomepageState extends State<Homepage> {
                           radius: const Radius.circular(50),
                           child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                         
                               controller: scrollController,
                               child: SizedBox(
                                 width: width + 450,
@@ -770,6 +769,7 @@ class _HomepageState extends State<Homepage> {
               tasks.taskNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
             list.add(GestureDetector(
               onTap: () {
+            
                    Get.find<TasksController>().isPeriodicController = false;
                    Get.find<TaskCommentsController>().isTaskCommentCont=true;
                 if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
