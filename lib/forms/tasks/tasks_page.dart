@@ -148,7 +148,7 @@ class _TasksPageState extends State<TasksPage> {
                                   //   label: 'Статус',
                                   //   infoString: 'Укажите статус задачи',
                                   // ),
-                                  if (!Get.find<TasksController>().isPeriodicController)
+                                  if (!Get.find<TasksController>().isPeriodicController && Get.find<TasksController>().transitionstatusList.isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                       child: Row(
