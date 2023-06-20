@@ -531,17 +531,18 @@ class _TasksPageState extends State<TasksPage> {
     );
   }
 
-  Future getfromStatus(getStatus) async {
-    var datac = Get.find<DataController>();
-    await datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
-  }
+  // Future getfromStatus(getStatus) async {
+  //   var datac = Get.find<DataController>();
+  //   await datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
+  // }
 
   Widget getStatuses() {
     List<Widget> list = [];
-
+   var datac = Get.find<DataController>();
     var getStatus = <TaskStatus>[];
-   // var business=Get.find<BusinessProcessTransitionTableController>().items.where((element) => element.ownerId==Get.find<ProjectController>().currentItem.id);
-    getfromStatus(getStatus);
+    datac.getAccessibleStatuses(controller.currentItem.taskStatusId).then((value) => getStatus = value);
+ 
+ 
     for (var status in getStatus) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
