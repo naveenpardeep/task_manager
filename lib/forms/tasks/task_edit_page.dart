@@ -24,10 +24,11 @@ class TaskEditPage extends StatefulWidget {
 class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMixin {
   TTTabsTab currentTab = TTTabsTab(name: 'Основное', onTap: (v) {});
   var taskController = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
- 
-   var commentcontroller = Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
 
-  var checkcontroller =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>() ;
+  var commentcontroller =
+      Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
+
+  var checkcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>();
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _TaskEditPageState extends State<TaskEditPage> with TickerProviderStateMix
     if (commentcontroller.lateInit) {
       commentcontroller.requestItems();
     }
-     if (checkcontroller.lateInit) {
+    if (checkcontroller.lateInit) {
       checkcontroller.requestItems();
     }
   }

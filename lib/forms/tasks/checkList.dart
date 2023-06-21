@@ -9,8 +9,6 @@ import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/model/task_doc_check_list_table.dart';
 
-
-
 class ChecklistPage extends StatefulWidget {
   const ChecklistPage({Key? key}) : super(key: key);
   @override
@@ -18,23 +16,24 @@ class ChecklistPage extends StatefulWidget {
 }
 
 class _ChecklistPageState extends State<ChecklistPage> {
-   var controller =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>() ;
-var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+  var controller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTaskCheckListController>() : Get.find<TaskCheckListController>();
+  var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
 
-   @override
+  @override
   void initState() {
     super.initState();
-     if (controller.lateInit) {
+    if (controller.lateInit) {
       controller.requestItems();
     }
-   if (taskcontroller.lateInit) {
+    if (taskcontroller.lateInit) {
       taskcontroller.requestItems();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-   
+
     double totalChecklist = controller.items.length.toDouble();
     double isDone = controller.items.where((element) => element.isDone == true).length.toDouble();
 
@@ -75,7 +74,6 @@ var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find
                                 progressColor: Colors.green,
                               ),
                             checkList(context),
-                       
                           ],
                         ),
                       )),

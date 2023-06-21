@@ -86,35 +86,32 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
     //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
-      //  key: scaffoldKey,
+        //  key: scaffoldKey,
         backgroundColor: Colors.white,
         body: controller.obx(
           (state) => Container(
-         //   key: GlobalKey(),
+            //   key: GlobalKey(),
             decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                 NsgAppBar(
-                //   backColor: const Color(0xff7876D9),
-                  text:  controller.currentItem.docNumber.toString().toUpperCase(),
+                NsgAppBar(
+                  //   backColor: const Color(0xff7876D9),
+                  text: controller.currentItem.docNumber.toString().toUpperCase(),
                   icon: Icons.arrow_back_ios_new,
-                //   color: Colors.white,
+                  //   color: Colors.white,
 
-                //   colorsInverted: true,
-                   // bottomCircular: true,
+                  //   colorsInverted: true,
+                  // bottomCircular: true,
                   onPressed: () {
                     controller.itemPageCancel();
-                   },
+                  },
                   icon2: Icons.check,
                   onPressed2: () async {
                     if (controller.currentItem.taskStatus.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Пожалуйста, выберите статус задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Пожалуйста, выберите статус задачи')));
                     } else if (controller.currentItem.name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('пожалуйста, введите название задачи')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('пожалуйста, введите название задачи')));
                     } else {
                       controller.currentItem.dateUpdated = DateTime.now();
                       // notificationController.currentItem.task.docNumber=controller.currentItem.docNumber;
@@ -178,11 +175,9 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                       },
                                     ),
                                   ),
-                                    
                                   if (width > 700)
                                     Row(
                                       children: [
-                                     
                                         Expanded(
                                           child: TTNsgInput(
                                             controller: controller,
@@ -204,7 +199,6 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                         ),
                                       ],
                                     ),
-                                     
                                   if (width < 700)
                                     // TTNsgInput(
                                     //   controller: controller,
@@ -231,21 +225,21 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                       label: 'Приоритет',
                                       infoString: 'Выберите приоритет задачи',
                                     ),
-                                    Center(
-                                      child: NsgButton(
-                                        borderRadius: 20,
-                                        width: width,
-                                        height: 7,
-                                         backColor: const Color.fromARGB(255, 173, 233, 230),
-                                         color: Colors.black,
-                                         text: 'Assign me',
-                                         onPressed: () {
-                                           controller.currentItem.assignee=Get.find<DataController>().currentUser;
-                                           controller.sendNotify();
-                                         },
-                                         //selectionForm: Routes.userAccountListPage,
-                                       ),
+                                  Center(
+                                    child: NsgButton(
+                                      borderRadius: 20,
+                                      width: width,
+                                      height: 7,
+                                      backColor: const Color.fromARGB(255, 173, 233, 230),
+                                      color: Colors.black,
+                                      text: 'Assign me',
+                                      onPressed: () {
+                                        controller.currentItem.assignee = Get.find<DataController>().currentUser;
+                                        controller.sendNotify();
+                                      },
+                                      //selectionForm: Routes.userAccountListPage,
                                     ),
+                                  ),
                                   NsgRichText(
                                       hint: 'Description',
                                       key: GlobalKey(),
@@ -261,7 +255,7 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                   ),
                                   NsgCheckBox(
                                       toggleInside: true,
-                                    //  key: GlobalKey(),
+                                      //  key: GlobalKey(),
                                       label: 'установить напоминание ',
                                       value: isCheckeddateRemind,
                                       onPressed: (currentValue) {
@@ -278,7 +272,7 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                     ),
                                   NsgCheckBox(
                                       toggleInside: true,
-                                   //   key: GlobalKey(),
+                                      //   key: GlobalKey(),
                                       label: 'задать дедлайн',
                                       value: isCheckedDeadline,
                                       onPressed: (currentValue) {
@@ -293,7 +287,6 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
                                       fieldName: TaskDocGenerated.nameDateDeadline,
                                       label: 'Срок выполнения',
                                     ),
-                                 
                                   Flexible(child: imageGallery()),
                                   if (controller.currentItem.name.isNotEmpty)
                                     NsgButton(
@@ -357,10 +350,9 @@ class _TaskEditPageMobileState extends State<TaskEditPageMobile> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (controller.currentItem.state== NsgDataItemState.create)
-               newtaskstatuslist(context),
-                if (controller.currentItem.state== NsgDataItemState.fill) 
-                statuslist(context)],
+              if (controller.currentItem.state == NsgDataItemState.create) newtaskstatuslist(context),
+              if (controller.currentItem.state == NsgDataItemState.fill) statuslist(context)
+            ],
           ),
         ),
       ),

@@ -17,12 +17,9 @@ class TaskUserAccountController extends NsgDataController<UserAccount> {
     var projectController = Get.find<ProjectController>();
     var ids = <String>[];
     if (projectController.currentItem.isNotEmpty) {
-      filter.compare.add(
-          name: UserAccountGenerated.nameOrganizationId,
-          value: projectController.currentItem.organizationId);
+      filter.compare.add(name: UserAccountGenerated.nameOrganizationId, value: projectController.currentItem.organizationId);
 
-      for (var row in projectController.currentItem.organization.tableUsers.rows
-          .where((element) => element.isAdmin)) {
+      for (var row in projectController.currentItem.organization.tableUsers.rows.where((element) => element.isAdmin)) {
         ids.add(row.userAccountId);
       }
       for (var row in projectController.currentItem.tableUsers.rows) {
