@@ -17,7 +17,7 @@ class PeriodicTasksController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameCheckList
     ];
   }
-   var transitionstatusList = <TaskStatus>[];
+  var transitionstatusList = <TaskStatus>[];
   @override
   Future<NsgDataItem> refreshItem(NsgDataItem item, List<String>? referenceList) async {
     var res = await super.refreshItem(item, referenceList) as TaskDoc;
@@ -25,6 +25,7 @@ class PeriodicTasksController extends NsgDataController<TaskDoc> {
 
     return res;
   }
+
   @override
   NsgDataRequestParams get getRequestFilter {
     var filter = super.getRequestFilter;
@@ -55,10 +56,9 @@ class PeriodicTaskCheckListController extends NsgDataTableController<TaskDocChec
   Future requestItems({List<NsgUpdateKey>? keys}) async {
     await super.requestItems(keys: keys);
 
-     if (masterController!.selectedItem != null && currentItem.isEmpty) {
+    if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();
     }
-    
   }
 
   @override

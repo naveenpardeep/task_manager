@@ -13,6 +13,7 @@ import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 import '../task_board/task_board_controller.dart';
+import '../tasks/tasks_controller.dart';
 import '../widgets/top_menu.dart';
 
 class PeriodicTasksPage extends StatefulWidget {
@@ -161,7 +162,8 @@ class TaskItemView extends StatelessWidget {
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
-       Get.find<PeriodicTaskCheckListController>().requestItems();
+          Get.find<PeriodicTaskCheckListController>().requestItems();
+          Get.find<TasksController>().isPeriodicController = true;
           controller.itemPageOpen(task, Routes.taskEditPage);
         },
         child: Container(

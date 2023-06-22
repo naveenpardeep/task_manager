@@ -158,6 +158,16 @@ class _TasksPageState extends State<TasksPage> {
                                         ],
                                       ),
                                     ),
+                                     if (Get.find<TasksController>().isPeriodicController && Get.find<PeriodicTasksController>().transitionstatusList.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+                                      child: Row(
+                                        children: [
+                                          Text('Статус  ${controller.currentItem.taskStatus} '),
+                                          getStatuses1(),
+                                        ],
+                                      ),
+                                    ),
 
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
@@ -542,7 +552,34 @@ class _TasksPageState extends State<TasksPage> {
 
   Widget getStatuses() {
     List<Widget> list = [];
-    var transitionstatus = Get.find<TasksController>().transitionstatusList;
+    var transitionstatus =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>().transitionstatusList : Get.find<TasksController>().transitionstatusList;
+
+    for (var status in transitionstatus) {
+      list.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: InkWell(
+          onTap: () {
+            controller.currentItem.taskStatus = status;
+            controller.sendNotify();
+          },
+          child: Card(
+            margin: EdgeInsets.zero,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(children: [
+                Text('Change to-> $status'),
+              ]),
+            ),
+          ),
+        ),
+      ));
+    }
+    return SingleChildScrollView(child: Column(children: list));
+  }
+
+   Widget getStatuses1() {
+    List<Widget> list = [];
+    var transitionstatus = Get.find<PeriodicTasksController>().transitionstatusList ;
 
     for (var status in transitionstatus) {
       list.add(Padding(
