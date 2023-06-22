@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/nsg_grid.dart';
 
 import 'package:task_manager_app/forms/invitation/acceptController.dart';
 
@@ -49,7 +50,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                         thumbVisibility: true,
                         trackVisibility: true,
                         controller: scrollController,
-                        thickness: width>700? 10: 0,
+                        thickness: width > 700 ? 10 : 0,
                         trackBorderColor: ControlOptions.instance.colorGreyLight,
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
@@ -58,9 +59,7 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                             physics: const BouncingScrollPhysics(),
                             controller: scrollController,
                             child: Column(
-                              children: [
-                                acceptRejectList(),
-                              ],
+                              children: [acceptRejectList(context)],
                             )),
                       )),
                 ),
@@ -72,10 +71,10 @@ class AcceptRejectListPage extends GetView<AccpetController> {
     );
   }
 
-  Widget acceptRejectList() {
+  Widget acceptRejectList(context) {
     DateFormat formateddate = DateFormat("dd-MM-yyyy   HH:mm:ss");
     List<Widget> list = [];
-
+    double width = MediaQuery.of(context).size.width;
     var invitations = controller.items.reversed;
 //if(dataController.respondToInvitation.isBlank==false)
     {
@@ -83,7 +82,6 @@ class AcceptRejectListPage extends GetView<AccpetController> {
         {
           list.add(GestureDetector(
             child: Row(
-            
               children: [
                 Expanded(
                   child: Padding(
@@ -93,17 +91,20 @@ class AcceptRejectListPage extends GetView<AccpetController> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Project Name:  ${invitation.project}',
+                            Text(
+                              'Project Name:  ${invitation.project}',
                             ),
                             Text('Author Name:  ${invitation.author}'),
-                            Text('Invited User:  ${invitation.invitedUser} ',
+                            Text(
+                              'Invited User:  ${invitation.invitedUser} ',
                             ),
                             Text('Mobile: ${invitation.invitedPhoneNumber}'),
                             Text('Accept  : ${invitation.isAccepted}'),
-                            Text('Reject  :  ${invitation.isRejected}',
+                            Text(
+                              'Reject  :  ${invitation.isRejected}',
                             ),
                             Text(
                               'Organization Name:  ${invitation.organization}',
@@ -141,10 +142,6 @@ class AcceptRejectListPage extends GetView<AccpetController> {
 
     return SingleChildScrollView(
         child: Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Column(
-        children: list,
-      ),
-    ));
+            padding: const EdgeInsets.only(right: 10), child: width > 700 ? NsgGrid(crossAxisCount: width ~/ 300, children: list) : Column(children: list)));
   }
 }
