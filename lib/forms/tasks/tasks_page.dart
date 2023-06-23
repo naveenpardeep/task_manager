@@ -152,18 +152,32 @@ class _TasksPageState extends State<TasksPage> {
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                       child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Статус  ${controller.currentItem.taskStatus} '),
+                                          Card(
+                                            margin: EdgeInsets.zero,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(10.0),
+                                              child: Text('Статус  ${controller.currentItem.taskStatus} '),
+                                            ),
+                                          ),
                                           getStatuses(),
                                         ],
                                       ),
                                     ),
-                                     if (Get.find<TasksController>().isPeriodicController && Get.find<PeriodicTasksController>().transitionstatusList.isNotEmpty)
+                                  if (Get.find<TasksController>().isPeriodicController && Get.find<PeriodicTasksController>().transitionstatusList.isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                                       child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Статус  ${controller.currentItem.taskStatus} '),
+                                          Card(
+                                            margin: EdgeInsets.zero,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(10.0),
+                                              child: Text('Статус  ${controller.currentItem.taskStatus} '),
+                                            ),
+                                          ),
                                           getStatuses1(),
                                         ],
                                       ),
@@ -552,7 +566,9 @@ class _TasksPageState extends State<TasksPage> {
 
   Widget getStatuses() {
     List<Widget> list = [];
-    var transitionstatus =Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>().transitionstatusList : Get.find<TasksController>().transitionstatusList;
+    var transitionstatus = Get.find<TasksController>().isPeriodicController
+        ? Get.find<PeriodicTasksController>().transitionstatusList
+        : Get.find<TasksController>().transitionstatusList;
 
     for (var status in transitionstatus) {
       list.add(Padding(
@@ -577,9 +593,9 @@ class _TasksPageState extends State<TasksPage> {
     return SingleChildScrollView(child: Column(children: list));
   }
 
-   Widget getStatuses1() {
+  Widget getStatuses1() {
     List<Widget> list = [];
-    var transitionstatus = Get.find<PeriodicTasksController>().transitionstatusList ;
+    var transitionstatus = Get.find<PeriodicTasksController>().transitionstatusList;
 
     for (var status in transitionstatus) {
       list.add(Padding(
