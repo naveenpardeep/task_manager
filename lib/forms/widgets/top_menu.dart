@@ -141,6 +141,22 @@ class TmTopMenu extends StatelessWidget {
                   //   ),
                   // ),
                   Tooltip(
+                    message: 'Chats',
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                           Get.toNamed(Routes.chatPage);
+                        },
+                        child: const Icon(
+                          Icons.chat,
+                          color: Color(0xff529FBF),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Tooltip(
                     message: 'Invitations',
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),

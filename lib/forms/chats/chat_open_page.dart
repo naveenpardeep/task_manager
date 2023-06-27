@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
+import 'package:task_manager_app/forms/chats/chat_controller.dart';
+import 'package:task_manager_app/forms/chats/chat_tasklist_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_task_comment_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
@@ -16,15 +18,15 @@ import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class TasksCommentPage extends StatefulWidget {
-  const TasksCommentPage({Key? key}) : super(key: key);
+class ChatOpenPage extends StatefulWidget {
+  const ChatOpenPage({Key? key}) : super(key: key);
   @override
-  State<TasksCommentPage> createState() => _TasksCommentPageState();
+  State<ChatOpenPage> createState() => _ChatOpenPageState();
 }
 
-class _TasksCommentPageState extends State<TasksCommentPage> {
-  var controller = Get.find<TaskCommentsController>().isTaskCommentCont ? Get.find<TaskCommentsController>() : Get.find<PeriodicTaskCommentsController>();
-  var taskcontroller = Get.find<TasksController>().isPeriodicController ? Get.find<PeriodicTasksController>() : Get.find<TasksController>();
+class _ChatOpenPageState extends State<ChatOpenPage> {
+  var controller = Get.find<ChatController>();
+  var taskcontroller = Get.find<ChatTaskListController>();
   @override
   void initState() {
     super.initState();
@@ -50,9 +52,30 @@ class _TasksCommentPageState extends State<TasksCommentPage> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipOval(
+                        child: Get.find<DataController>().currentUser.photoName.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 48,
+                                height: 48,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 20,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                ),
+                              )
+                            : Image.network(
+                                TaskFilesController.getFilePath(Get.find<DataController>().currentUser.photoName),
+                                fit: BoxFit.fill,
+                                width: 48,
+                                height: 48,
+                              ),
+                      )),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 0, 10, 5),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 10, 5),
                       child: RawKeyboardListener(
                         focusNode: FocusNode(),
                         autofocus: true,
@@ -65,6 +88,7 @@ class _TasksCommentPageState extends State<TasksCommentPage> {
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateUpdated = DateTime.now();
                             await taskcontroller.postItems([taskcontroller.currentItem]);
+                            taskcontroller.sendNotify();
                           }
                         },
                         child: TTNsgInput(
@@ -87,12 +111,13 @@ class _TasksCommentPageState extends State<TasksCommentPage> {
                       child: IconButton(
                           onPressed: () async {
                             controller.currentItem.ownerId = taskcontroller.currentItem.id;
-                            taskcontroller.currentItem.dateUpdated = DateTime.now();
+
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateUpdated = DateTime.now();
                             await taskcontroller.postItems([taskcontroller.currentItem]);
+                            taskcontroller.sendNotify();
                           },
                           icon: const Icon(
                             Icons.send_rounded,
@@ -207,14 +232,14 @@ class _TasksCommentPageState extends State<TasksCommentPage> {
       if (value == 1) {
         controller.currentItem.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.taskEditPage);
+        controller.itemPageOpen(comment, Routes.chatPage);
         controller.sendNotify();
       }
       if (value == 2) {
         controller.currentItem = comment;
         controller.deleteItems([controller.currentItem]);
-
-        controller.refreshData();
+        controller.currentItem.text = '';
+        controller.sendNotify();
       }
     });
   }

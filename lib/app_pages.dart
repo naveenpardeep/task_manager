@@ -4,6 +4,8 @@ import 'package:task_manager_app/forms/TaskList/tasklist_checkList.dart';
 import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
 import 'package:task_manager_app/forms/TaskList/taskslist_binding.dart';
 import 'package:task_manager_app/forms/business_process/business_process_transition_page.dart';
+import 'package:task_manager_app/forms/chats/chat_binding.dart';
+import 'package:task_manager_app/forms/chats/chat_page.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
 import 'package:task_manager_app/forms/invitation/acceptRejectList.dart';
@@ -413,6 +415,11 @@ class AppPages {
       page: () => const BusinessProcessTransitionPage(),
       binding: PeriodicBinding(),
     ),
+     GetPage(
+      name: Routes.chatPage,
+      page: () => const ChatPage(),
+      binding: ChatBinding(),
+    ),
   ];
 }
 
@@ -486,4 +493,5 @@ abstract class Routes {
   static const newTasklistPage='/newTasklistpage';
   static const businessProcessPage='/businessProcessPage';
   static const businessProcessTransitionTablePage='/businessProcessTransitionTablePage';
+  static const chatPage='/chatPage';
 }

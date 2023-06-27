@@ -17,6 +17,7 @@ class TaskListController extends NsgDataController<TaskDoc> {
      
     ];
   }
+   
   var totalcounttask = 100;
   int currentPage = 0;
   List<String> taskColumns=['My New Tasks','My Tasks','Created New','My Created Tasks','Deadline','Deadline created' ];
