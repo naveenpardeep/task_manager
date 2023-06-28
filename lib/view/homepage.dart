@@ -318,7 +318,6 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     if (taskView)
                       RawScrollbar(
-                       
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollController,
@@ -510,21 +509,23 @@ class _HomepageState extends State<Homepage> {
     return [
       if (width < 700)
         wrapFlexible(
-            child: NsgButton(
-                color: ControlOptions.instance.colorWhite,
-                height: 10,
-                borderRadius: 20,
-                onPressed: () {
-                  var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
-                      element.organizationId == projectController.currentItem.organizationId &&
-                      element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
-                  serviceC.currentItem.userAccount = user ?? UserAccount();
-                  taskController.refreshData();
-                  setState(() {
-                    taskView = false;
-                  });
-                },
-                text: 'My Tasks')),
+            child: SizedBox(
+          height: 40,
+          child: NsgButton(
+              color: ControlOptions.instance.colorWhite,
+              borderRadius: 20,
+              onPressed: () {
+                var user = Get.find<UserAccountController>().items.firstWhereOrNull((element) =>
+                    element.organizationId == projectController.currentItem.organizationId &&
+                    element.mainUserAccountId == Get.find<DataController>().mainProfile.id);
+                serviceC.currentItem.userAccount = user ?? UserAccount();
+                taskController.refreshData();
+                setState(() {
+                  taskView = false;
+                });
+              },
+              text: 'My Tasks'),
+        )),
       wrapFlexible(
         child: TTNsgInput(
           label: 'Исполнитель',
@@ -675,12 +676,8 @@ class _HomepageState extends State<Homepage> {
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
-                        child: SingleChildScrollView(
-                         
-                            scrollDirection: Axis.vertical,
-                           
-                            controller: scrollController,
-                            child: getTaskListForTaskview(status.status)),
+                        child:
+                            SingleChildScrollView(scrollDirection: Axis.vertical, controller: scrollController, child: getTaskListForTaskview(status.status)),
                       ),
                     ),
                   ),
@@ -769,9 +766,8 @@ class _HomepageState extends State<Homepage> {
               tasks.taskNumber.toString().toLowerCase().contains(searchvalue.toLowerCase())) {
             list.add(GestureDetector(
               onTap: () {
-            
-                   Get.find<TasksController>().isPeriodicController = false;
-                   Get.find<TaskCommentsController>().isTaskCommentCont=true;
+                Get.find<TasksController>().isPeriodicController = false;
+                Get.find<TaskCommentsController>().isTaskCommentCont = true;
                 if (kIsWeb || (Platform.isWindows || Platform.isLinux)) {
                   setState(() {
                     Get.find<TaskFilesController>().requestItems();
@@ -875,8 +871,7 @@ class _HomepageState extends State<Homepage> {
                           trackColor: ControlOptions.instance.colorGreyLight,
                           thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                           radius: const Radius.circular(0),
-                          child: SingleChildScrollView(
-                          controller: scrollController, child: getTaskListForTaskview(status.status)),
+                          child: SingleChildScrollView(controller: scrollController, child: getTaskListForTaskview(status.status)),
                         ),
                       ),
                     ),
@@ -1208,7 +1203,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
     },
     onDoubleTap: () async {
       Get.find<TasksController>().isPeriodicController = false;
-       Get.find<TaskCommentsController>().isTaskCommentCont=true;
+      Get.find<TaskCommentsController>().isTaskCommentCont = true;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;
@@ -1351,7 +1346,7 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
   ).then((value) async {
     if (value == 1) {
       Get.find<TasksController>().isPeriodicController = false;
-      Get.find<TaskCommentsController>().isTaskCommentCont=true;
+      Get.find<TaskCommentsController>().isTaskCommentCont = true;
       if (tasks.isReadByAssignee == false &&
           (Get.find<DataController>().currentUser == tasks.assignee || Get.find<DataController>().currentUser == tasks.assignee.mainUserAccount)) {
         tasks.isReadByAssignee = true;
