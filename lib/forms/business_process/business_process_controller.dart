@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/model/data_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -10,6 +11,8 @@ class BusinessProcessController extends NsgDataController<BusinessProcess> {
     masterController = Get.find<ProjectController>();
   }
 
+   
+ 
   @override
   Future<NsgDataItem> doCreateNewItem() async {
     var element = await super.doCreateNewItem() as BusinessProcess;

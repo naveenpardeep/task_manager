@@ -59,7 +59,7 @@ class BusinessProcessTransitionPage extends GetView<BusinessProcessTransitionTab
                               selectionController: Get.find<UserRoleController>(),
                               dataItem: controller.currentItem,
                               fieldName: BusinessProcessTransitionTableGenerated.nameUserRoleId,
-                              label: 'User Role',
+                              label: 'Give Permission to User',
                             ),
                             
                         
