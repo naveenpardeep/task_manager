@@ -83,23 +83,30 @@ class _ChatPageState extends State<ChatPage> {
                         trackColor: ControlOptions.instance.colorGreyLight,
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
-                        child: SingleChildScrollView(controller: scrollController, child: Column(
-                          children: [
-                            getAllTaskWithComments(context),
-                            if( tasklistCont.totalCount!>=tasklistCont. totalcounttask)
-                            TextButton(onPressed: (){
-                              tasklistCont.totalcounttask= 100+ tasklistCont.totalcounttask;
-                              tasklistCont.tasktop=100+tasklistCont.tasktop;
-                              tasklistCont.refreshData();
-                            }, child: const Text('Load more')),
-                            if( tasklistCont.totalCount!<=tasklistCont. totalcounttask)
-                            TextButton(onPressed: (){
-                              tasklistCont.totalcounttask=100;
-                              tasklistCont.tasktop=0;
-                              tasklistCont.refreshData();
-                            }, child: const Text('Reset'))
-                          ],
-                        )))),
+                        child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: Column(
+                              children: [
+                                getAllTaskWithComments(context),
+                                // if (tasklistCont.totalCount! >= tasklistCont.totalcounttask)
+                                //   TextButton(
+                                //       onPressed: () {
+                                //         tasklistCont.totalcounttask = 100 + tasklistCont.totalcounttask;
+                                //         tasklistCont.tasktop = 100 + tasklistCont.tasktop;
+                                //         tasklistCont.refreshData();
+                                //       },
+                                //       child: const Text('Load more')),
+                                // if (tasklistCont.totalCount! <= tasklistCont.totalcounttask)
+                                //   TextButton(
+                                //       onPressed: () {
+                                //         tasklistCont.totalcounttask = 100;
+                                //         tasklistCont.tasktop = 0;
+                                //         tasklistCont.refreshData();
+                                //       },
+                                //       child: const Text('Reset')),
+                                tasklistCont.obx((state) => tasklistCont.pagination(), onLoading: const SizedBox()),
+                              ],
+                            )))),
                   )
                 ],
               )),
