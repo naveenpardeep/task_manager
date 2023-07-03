@@ -147,7 +147,7 @@ class _ChatPageState extends State<ChatPage> {
                     Text(
                       "Project: ${tasks.project.name}",
                       maxLines: 1,
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
