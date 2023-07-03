@@ -37,6 +37,11 @@ class BusinessProcessTransitionPage extends GetView<BusinessProcessTransitionTab
                     await controller.itemPagePost();
                   },
                 ),
+                 const Padding(
+                   padding: EdgeInsets.all(4.0),
+                   child: Text('Add Transition status From Status to which you want to Change -> To Status'),
+                 ),
+                         
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
