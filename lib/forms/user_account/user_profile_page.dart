@@ -32,7 +32,7 @@ class _UserProfileState extends State<UserProfile> {
   var userImageController = Get.find<UserImageController>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final scrollController = ScrollController();
-  
+
   late NsgFilePicker picker;
   var currentTabIndex = 0;
   List<ProfileCard> profilesList = [];
@@ -82,7 +82,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return userAccountController.obx((state) {
       profilesList = getProfilesCards();
       userAccountController.currentItem = profilesList[currentTabIndex].profile;
@@ -105,23 +105,22 @@ class _UserProfileState extends State<UserProfile> {
                             userAccountController.currentItem = profilesList[current].profile;
                           },
                         ),
-                        if(width>700)
-                        TextButton(child:const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                             Text('Edit Profile'),
-                             Icon(Icons.edit)
-                          ],
-                        ),
-                        onPressed: () {
-                            var userAcC = Get.find<UserAccountController>();
-                            userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
-                        },),
+                        if (width > 700)
+                          TextButton(
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [Text('Edit Profile'), Icon(Icons.edit)],
+                            ),
+                            onPressed: () {
+                              var userAcC = Get.find<UserAccountController>();
+                              userAcC.itemPageOpen(userAcC.currentItem, Routes.profileEditPage);
+                            },
+                          ),
                         const Padding(padding: EdgeInsets.only(top: 20)),
                         TaskTextButton(
                           text: 'Выйти из аккаунта',
                           onTap: () async {
-                            await Get.find<DataController>().provider!.logout();
+                            await Get.find<DataController>().provider!.logout(Get.find<DataController>());
                             await Get.find<DataController>().provider!.connect(Get.find<DataController>());
                           },
                         )

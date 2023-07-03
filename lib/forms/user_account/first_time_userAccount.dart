@@ -145,7 +145,7 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
                         style: TaskButtonStyle.warning,
                         text: 'Выйти',
                         onTap: () async {
-                          await Get.find<DataController>().provider!.logout();
+                          await Get.find<DataController>().provider!.logout(Get.find<DataController>());
                           //await Get.find<DataController>().onInit();\
                           //await Get.find<DataController>().provider!.resetUserToken();
                           await Get.find<DataController>().provider!.connect(Get.find<DataController>());
@@ -227,8 +227,6 @@ class FirstTimeUserAccountPage extends GetView<UserAccountController> {
     // ),
     //);
   }
-
-
 
   Widget getHeader() {
     return Padding(
