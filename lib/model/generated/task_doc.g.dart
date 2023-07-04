@@ -12,6 +12,7 @@ class TaskDocGenerated extends NsgDataItem {
   static const nameDocNumber = 'docNumber';
   static const nameTaskNumber = 'taskNumber';
   static const nameDateClosed = 'dateClosed';
+  static const nameDateLastComment = 'dateLastComment';
   static const nameDateUpdated = 'dateUpdated';
   static const nameDateRemind = 'dateRemind';
   static const nameDateDeadline = 'dateDeadline';
@@ -45,6 +46,7 @@ class TaskDocGenerated extends NsgDataItem {
     nameDocNumber: 'Номер документа',
     nameTaskNumber: 'Номер задачи',
     nameDateClosed: 'Дата закрытия',
+    nameDateLastComment: 'Дата последнего комментария',
     nameDateUpdated: 'Дата обновления',
     nameDateRemind: 'Дата напоминания',
     nameDateDeadline: 'Срок выполнения',
@@ -63,6 +65,7 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameDocNumber), primaryKey: false);
     addField(NsgDataIntField(nameTaskNumber), primaryKey: false);
     addField(NsgDataDateField(nameDateClosed), primaryKey: false);
+    addField(NsgDataDateField(nameDateLastComment), primaryKey: false);
     addField(NsgDataDateField(nameDateUpdated), primaryKey: false);
     addField(NsgDataDateField(nameDateRemind), primaryKey: false);
     addField(NsgDataDateField(nameDateDeadline), primaryKey: false);
@@ -94,6 +97,7 @@ class TaskDocGenerated extends NsgDataItem {
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
     fieldList.fields[nameTaskNumber]?.presentation = 'Номер задачи';
     fieldList.fields[nameDateClosed]?.presentation = 'Дата закрытия';
+    fieldList.fields[nameDateLastComment]?.presentation = 'Дата последнего комментария';
     fieldList.fields[nameDateUpdated]?.presentation = 'Дата обновления';
     fieldList.fields[nameDateRemind]?.presentation = 'Дата напоминания';
     fieldList.fields[nameDateDeadline]?.presentation = 'Срок выполнения';
@@ -134,6 +138,11 @@ class TaskDocGenerated extends NsgDataItem {
   DateTime get dateClosed => getFieldValue(nameDateClosed) as DateTime;
 
   set dateClosed(DateTime value) => setFieldValue(nameDateClosed, value);
+
+  /// ДатаПоследнегоКомментария
+  DateTime get dateLastComment => getFieldValue(nameDateLastComment) as DateTime;
+
+  set dateLastComment(DateTime value) => setFieldValue(nameDateLastComment, value);
 
   /// ДатаОбновления
   DateTime get dateUpdated => getFieldValue(nameDateUpdated) as DateTime;
