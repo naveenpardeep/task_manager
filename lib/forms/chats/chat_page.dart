@@ -2,6 +2,7 @@ import 'package:dual_screen/dual_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/forms/chats/chat_controller.dart';
 import 'package:task_manager_app/forms/chats/chat_open_page.dart';
@@ -121,6 +122,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget getAllTaskWithComments(context) {
     List<Widget> taskList = [];
     double width = MediaQuery.of(context).size.width;
+    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
 
     for (var tasks in tasklistCont.items) {
       if (tasks.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
@@ -144,10 +146,21 @@ class _ChatPageState extends State<ChatPage> {
                       tasks.name.toString(),
                       maxLines: 1,
                     ),
-                    Text(
-                      "Project: ${tasks.project.name}",
-                      maxLines: 1,
-                      style: const TextStyle(fontSize: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Project: ${tasks.project.name}",
+                            maxLines: 1,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Text(
+                          formateddate.format(tasks.dateUpdated),
+                          maxLines: 1,
+                          style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                        ),
+                      ],
                     ),
                   ],
                 ),
