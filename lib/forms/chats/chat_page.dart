@@ -156,7 +156,7 @@ class _ChatPageState extends State<ChatPage> {
                           ),
                         ),
                         Text(
-                          formateddate.format(tasks.dateUpdated),
+                          formateddate.format(tasks.dateLastComment),
                           maxLines: 1,
                           style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
                         ),

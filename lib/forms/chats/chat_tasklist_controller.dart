@@ -22,7 +22,7 @@ class ChatTaskListController extends NsgDataController<TaskDoc> {
     filter.count = totalcounttask;
    // filter.top = tasktop;
 
-    filter.sorting = "${TaskDocGenerated.nameDateUpdated}-";
+    filter.sorting = "${TaskDocGenerated.nameDateLastComment}-";
     return filter;
   }
 
