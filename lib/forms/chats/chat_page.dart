@@ -155,11 +155,12 @@ class _ChatPageState extends State<ChatPage> {
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),
-                        Text(
-                          formateddate.format(tasks.dateLastComment),
-                          maxLines: 1,
-                          style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
-                        ),
+                        if (tasks.dateLastComment.toString() != '1754-01-01 00:00:00.000')
+                          Text(
+                            formateddate.format(tasks.dateLastComment),
+                            maxLines: 1,
+                            style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                          ),
                       ],
                     ),
                   ],
