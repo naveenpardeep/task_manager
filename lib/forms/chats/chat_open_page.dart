@@ -1,5 +1,6 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors
 
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -27,9 +28,23 @@ class ChatOpenPage extends StatefulWidget {
 class _ChatOpenPageState extends State<ChatOpenPage> {
   var controller = Get.find<ChatController>();
   var taskcontroller = Get.find<ChatTaskListController>();
+  final TextEditingController _controller = TextEditingController();
+  bool emojiShowing = false;
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  _onBackspacePressed() {
+    _controller
+      ..text = _controller.text.characters.toString()
+      ..selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
   }
 
   @override
@@ -73,6 +88,21 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                                 height: 48,
                               ),
                       )),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: IconButton(
+                      iconSize: 40,
+                      onPressed: () {
+                        setState(() {
+                          emojiShowing = !emojiShowing;
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.emoji_emotions,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 10, 5),
@@ -82,7 +112,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                         onKey: (event) async {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
                             controller.currentItem.ownerId = taskcontroller.currentItem.id;
-
+                            controller.currentItem.text = _controller.text;
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
@@ -91,18 +121,34 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             taskcontroller.refreshData();
                           }
                         },
-                        child: TTNsgInput(
-                          borderRadius: 100,
-                          dataItem: controller.currentItem,
-                          fieldName: TaskCommentGenerated.nameText,
-                          label: '',
-                          infoString: 'Комментарий',
+                        // child: TTNsgInput(
+
+                        //   borderRadius: 100,
+                        //   dataItem: controller.currentItem,
+                        //   fieldName: TaskCommentGenerated.nameText,
+                        //   label: '',
+                        //   infoString: 'Комментарий',
+                        // ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextField(
+                              controller: _controller,
+                              style: const TextStyle(fontSize: 20.0, color: Colors.black87),
+                              decoration: InputDecoration(
+                                hintText: 'Type a message',
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 8.0, right: 16.0),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                              )),
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 20, 0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -111,7 +157,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                       child: IconButton(
                           onPressed: () async {
                             controller.currentItem.ownerId = taskcontroller.currentItem.id;
-
+                            controller.currentItem.text = _controller.text;
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
@@ -125,8 +171,46 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             size: 15,
                           )),
                     ),
-                  )
+                  ),
                 ],
+              ),
+              Offstage(
+                offstage: !emojiShowing,
+                child: SizedBox(
+                    height: 250,
+                    child: EmojiPicker(
+                      textEditingController: _controller,
+                      onBackspacePressed: _onBackspacePressed,
+                      config: Config(
+                        columns: 7,
+                        emojiSizeMax: 32 * (GetPlatform.isIOS ? 1.30 : 1.0),
+                        verticalSpacing: 0,
+                        horizontalSpacing: 0,
+                        gridPadding: EdgeInsets.zero,
+                        initCategory: Category.RECENT,
+                        bgColor: const Color(0xFFF2F2F2),
+                        indicatorColor: Colors.blue,
+                        iconColor: Colors.grey,
+                        iconColorSelected: Colors.blue,
+                        backspaceColor: Colors.blue,
+                        skinToneDialogBgColor: Colors.white,
+                        skinToneIndicatorColor: Colors.grey,
+                        enableSkinTones: true,
+                        recentTabBehavior: RecentTabBehavior.RECENT,
+                        recentsLimit: 28,
+                        replaceEmojiOnLimitExceed: false,
+                        noRecents: const Text(
+                          'No Recents',
+                          style: TextStyle(fontSize: 20, color: Colors.black26),
+                          textAlign: TextAlign.center,
+                        ),
+                        loadingIndicator: const SizedBox.shrink(),
+                        tabIndicatorAnimDuration: kTabScrollDuration,
+                        categoryIcons: const CategoryIcons(),
+                        buttonMode: ButtonMode.MATERIAL,
+                        checkPlatformCompatibility: true,
+                      ),
+                    )),
               ),
             ],
           ),

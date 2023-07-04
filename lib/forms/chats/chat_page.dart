@@ -32,87 +32,89 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.white,
-        appBar: AppBar(
+    return Center(
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
-          title: const Text('Chats'),
-        ),
-        body: TwoPane(
-          padding: const EdgeInsets.all(10),
-          paneProportion: 0.3,
-          startPane: Container(
-              color: const Color(0xffEDEFF3),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30,
-                    child: TextField(
-                        controller: textEditController,
-                        decoration: InputDecoration(
-                            filled: false,
-                            fillColor: ControlOptions.instance.colorMainLight,
-                            prefixIcon: const Icon(Icons.search),
-                            border: OutlineInputBorder(
-                                gapPadding: 1,
-                                borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                borderRadius: const BorderRadius.all(Radius.circular(20))),
-                            suffixIcon: IconButton(
-                                hoverColor: Colors.transparent,
-                                padding: const EdgeInsets.only(bottom: 0),
-                                onPressed: (() {
-                                  setState(() {});
-                                  textEditController.clear();
-                                }),
-                                icon: const Icon(Icons.cancel)),
-                            hintText: 'Search ...'),
-                        textAlignVertical: TextAlignVertical.bottom,
-                        style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: 16),
-                        onChanged: (val) {
-                          setState(() {});
-                        }),
-                  ),
-                  Expanded(
-                    child: tasklistCont.obx((state) => RawScrollbar(
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        controller: scrollController,
-                        thickness: 10,
-                        trackBorderColor: ControlOptions.instance.colorGreyLight,
-                        trackColor: ControlOptions.instance.colorGreyLight,
-                        thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
-                        radius: const Radius.circular(0),
-                        child: SingleChildScrollView(
-                            controller: scrollController,
-                            child: Column(
-                              children: [
-                                getAllTaskWithComments(context),
-                                // if (tasklistCont.totalCount! >= tasklistCont.totalcounttask)
-                                //   TextButton(
-                                //       onPressed: () {
-                                //         tasklistCont.totalcounttask = 100 + tasklistCont.totalcounttask;
-                                //         tasklistCont.tasktop = 100 + tasklistCont.tasktop;
-                                //         tasklistCont.refreshData();
-                                //       },
-                                //       child: const Text('Load more')),
-                                // if (tasklistCont.totalCount! <= tasklistCont.totalcounttask)
-                                //   TextButton(
-                                //       onPressed: () {
-                                //         tasklistCont.totalcounttask = 100;
-                                //         tasklistCont.tasktop = 0;
-                                //         tasklistCont.refreshData();
-                                //       },
-                                //       child: const Text('Reset')),
-                                tasklistCont.obx((state) => tasklistCont.pagination(), onLoading: const SizedBox()),
-                              ],
-                            )))),
-                  )
-                ],
-              )),
-          endPane: Padding(padding: const EdgeInsets.all(16.0), child: controller.obx((state) => const ChatOpenPage())),
-          panePriority: TwoPanePriority.both,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: const Text('Chats'),
+          ),
+          body: TwoPane(
+            padding: const EdgeInsets.all(10),
+            paneProportion: 0.3,
+            startPane: Container(
+                color: const Color(0xffEDEFF3),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      child: TextField(
+                          controller: textEditController,
+                          decoration: InputDecoration(
+                              filled: false,
+                              fillColor: ControlOptions.instance.colorMainLight,
+                              prefixIcon: const Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  gapPadding: 1,
+                                  borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+                              suffixIcon: IconButton(
+                                  hoverColor: Colors.transparent,
+                                  padding: const EdgeInsets.only(bottom: 0),
+                                  onPressed: (() {
+                                    setState(() {});
+                                    textEditController.clear();
+                                  }),
+                                  icon: const Icon(Icons.cancel)),
+                              hintText: 'Search ...'),
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: 16),
+                          onChanged: (val) {
+                            setState(() {});
+                          }),
+                    ),
+                    Expanded(
+                      child: tasklistCont.obx((state) => RawScrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollController,
+                          thickness: 10,
+                          trackBorderColor: ControlOptions.instance.colorGreyLight,
+                          trackColor: ControlOptions.instance.colorGreyLight,
+                          thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
+                          radius: const Radius.circular(0),
+                          child: SingleChildScrollView(
+                              controller: scrollController,
+                              child: Column(
+                                children: [
+                                  getAllTaskWithComments(context),
+                                  // if (tasklistCont.totalCount! >= tasklistCont.totalcounttask)
+                                  //   TextButton(
+                                  //       onPressed: () {
+                                  //         tasklistCont.totalcounttask = 100 + tasklistCont.totalcounttask;
+                                  //         tasklistCont.tasktop = 100 + tasklistCont.tasktop;
+                                  //         tasklistCont.refreshData();
+                                  //       },
+                                  //       child: const Text('Load more')),
+                                  // if (tasklistCont.totalCount! <= tasklistCont.totalcounttask)
+                                  //   TextButton(
+                                  //       onPressed: () {
+                                  //         tasklistCont.totalcounttask = 100;
+                                  //         tasklistCont.tasktop = 0;
+                                  //         tasklistCont.refreshData();
+                                  //       },
+                                  //       child: const Text('Reset')),
+                                  tasklistCont.obx((state) => tasklistCont.pagination(), onLoading: const SizedBox()),
+                                ],
+                              )))),
+                    )
+                  ],
+                )),
+            endPane: Padding(padding: const EdgeInsets.all(16.0), child: controller.obx((state) => const ChatOpenPage())),
+            panePriority: TwoPanePriority.both,
+          ),
         ),
       ),
     );
@@ -146,6 +148,7 @@ class _ChatPageState extends State<ChatPage> {
                       tasks.name.toString(),
                       maxLines: 1,
                     ),
+                     
                     Row(
                       children: [
                         Expanded(
