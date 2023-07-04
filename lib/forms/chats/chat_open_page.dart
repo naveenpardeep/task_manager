@@ -314,7 +314,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
       elevation: 8.0,
     ).then((value) {
       if (value == 1) {
-        controller.currentItem.text = comment.text;
+        _controller.text = comment.text;
 
         controller.itemPageOpen(comment, Routes.chatPage);
         controller.sendNotify();
