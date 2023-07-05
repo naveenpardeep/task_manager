@@ -158,7 +158,7 @@ class _ChatPageState extends State<ChatPage> {
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),
-                        if (tasks.dateLastComment.toString() != '1754-01-01 00:00:00.000')
+                        if (tasks.dateLastComment.toString() != '1754-01-01 00:00:00.000' && tasks.dateLastComment.toString() != '0001-01-01 00:00:00.000')
                           Text(
                             formateddate.format(tasks.dateLastComment),
                             maxLines: 1,
