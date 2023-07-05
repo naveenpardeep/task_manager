@@ -30,6 +30,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
   var taskcontroller = Get.find<ChatTaskListController>();
   final TextEditingController _controller = TextEditingController();
   bool emojiShowing = false;
+  bool isReply = false;
   @override
   void initState() {
     super.initState();
@@ -64,6 +65,10 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
           (state) => Column(
             children: <Widget>[
               Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context))),
+              Offstage(
+                offstage: !isReply,
+                child: getRepylMessage(),
+              ),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -158,6 +163,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           onPressed: () async {
                             controller.currentItem.ownerId = taskcontroller.currentItem.id;
                             controller.currentItem.text = _controller.text;
+
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
@@ -235,21 +241,17 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
     for (var comment in comments) {
       {
         list.add(GestureDetector(
-          child: GestureDetector(
-            onTapDown: (TapDownDetails details) {
-              if (Get.find<DataController>().currentUser == comment.author.mainUserAccount) {
-                showPopUpMenu(details.globalPosition, comment, context);
+          onTapDown: (TapDownDetails details) {
+            showPopUpMenu(details.globalPosition, comment, context);
 
-                // showEditDelete(context, comment);
-              }
-            },
-            child: Stack(
-              children: [
-                Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                    ? currentUser(context, comment, width)
-                    : anotherUsers(context, comment, width)
-              ],
-            ),
+            // showEditDelete(context, comment);
+          },
+          child: Stack(
+            children: [
+              Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                  ? currentUser(context, comment, width)
+                  : anotherUsers(context, comment, width)
+            ],
           ),
         ));
       }
@@ -276,7 +278,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             )));
   }
 
-  Future<void> showPopUpMenu(Offset globalPosition, comment, BuildContext context) async {
+  Future<void> showPopUpMenu(Offset globalPosition, TaskComment comment, BuildContext context) async {
     double left = globalPosition.dx;
     double top = globalPosition.dy;
 
@@ -295,31 +297,49 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
           child: Padding(
             padding: EdgeInsets.only(left: 0, right: 40),
             child: Text(
-              "Edit",
+              "Reply",
               style: TextStyle(color: Colors.black),
             ),
           ),
         ),
-        const PopupMenuItem(
-          value: 2,
-          child: Padding(
-            padding: EdgeInsets.only(left: 0, right: 40),
-            child: Text(
-              "Delete",
-              style: TextStyle(color: Colors.black),
+        if (Get.find<DataController>().currentUser == comment.author.mainUserAccount)
+          const PopupMenuItem(
+            value: 2,
+            child: Padding(
+              padding: EdgeInsets.only(left: 0, right: 40),
+              child: Text(
+                "Edit",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
-        ),
+        if (Get.find<DataController>().currentUser == comment.author.mainUserAccount)
+          const PopupMenuItem(
+            value: 3,
+            child: Padding(
+              padding: EdgeInsets.only(left: 0, right: 40),
+              child: Text(
+                "Delete",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
       ],
       elevation: 8.0,
     ).then((value) {
       if (value == 1) {
+        controller.currentItem.mainComment = comment;
+        setState(() {
+          isReply = true;
+        });
+      }
+      if (value == 2) {
         _controller.text = comment.text;
 
         controller.itemPageOpen(comment, Routes.chatPage);
         controller.sendNotify();
       }
-      if (value == 2) {
+      if (value == 3) {
         controller.currentItem = comment;
         controller.deleteItems([controller.currentItem]);
         controller.currentItem.text = '';
@@ -328,59 +348,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
     });
   }
 
-  showEditDelete(BuildContext context, TaskComment comment) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    // set up the button
-    Widget edit = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        // elevation: 3,
-        minimumSize: Size(width, height * 0.08),
-      ),
-      child: const Text("Edit"),
-      onPressed: () {
-        controller.currentItem.text = comment.text;
-
-        controller.itemPageOpen(comment, Routes.taskEditPage);
-        controller.sendNotify();
-
-        Navigator.of(context).pop();
-      },
-    );
-    Widget delete = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        // elevation: 3,
-        minimumSize: Size(width, height * 0.08),
-      ),
-      child: const Text("Delete"),
-      onPressed: () async {
-        controller.currentItem = comment;
-        await controller.deleteItems([controller.currentItem]);
-
-        controller.refreshData();
-
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      actions: [edit, delete],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  Widget currentUser(context, comment, width) {
+  Widget currentUser(context, TaskComment comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -390,9 +358,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
-              decoration: BoxDecoration(
-                  color: const Color(0xfff0859ff),
-                  borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                  color: Color(0xfff0859ff),
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
@@ -406,6 +374,8 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
                     ),
                   ),
+                  if(comment.mainComment.isNotEmpty)
+                  getReply(comment),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
@@ -544,14 +514,16 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xfffdbeaea),
-                borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+                color: Color(0xfffdbeaea),
+                borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
             width: width <= 700 ? width * 0.65 : 300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                 if(comment.mainComment.isNotEmpty)
+                  getReply(comment),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
                   child: Align(
@@ -595,4 +567,95 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
       )
     ]);
   }
+
+  Widget getReply(TaskComment comment) {
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          Container(
+            color: Colors.green,
+            width: 8,
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: buildReplyMessage(comment)),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReplyMessage(TaskComment comment) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Text(
+                '${comment.mainComment.author}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                comment.mainComment.text.toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              // if (onCancelReply != null)
+              //   GestureDetector(
+              //     child: Icon(Icons.close, size: 16),
+              //     onTap: onCancelReply,
+              //   )
+            ],
+          ),
+          const SizedBox(height: 8),
+          //   Text(message.message, style: TextStyle(color: Colors.black54)),
+        ],
+      );
+
+  Widget getRepylMessage() {
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          Container(
+            color: Colors.green,
+            width: 8,
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: buildReplyMessageTop()),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReplyMessageTop() => Row(
+        children: [
+          const Icon(
+            Icons.forward,
+            size: 30,
+            color: Colors.green,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${controller.currentItem.mainComment.author}',
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                ),
+                Text(
+                  controller.currentItem.mainComment.text,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  maxLines: 3,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          GestureDetector(
+            child: const Icon(Icons.close, size: 30),
+            onTap: () {
+              isReply = false;
+              setState(() {});
+          
+            },
+          )
+          
+        ],
+      );
 }
