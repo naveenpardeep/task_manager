@@ -384,31 +384,26 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Flexible(
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
               decoration: BoxDecoration(
-                  color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
+                  color: const Color(0xfff0859ff),
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
               width: width <= 700 ? width * 0.65 : 300,
               child: Column(
-                crossAxisAlignment:
-                    Get.find<DataController>().currentUser == comment.author.mainUserAccount ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: Text(
-                        comment.author.toString(),
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)
-                            : const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                      child: Text(comment.author.toString(),
+                          style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
                     ),
                   ),
                   Padding(
@@ -418,24 +413,18 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                       child: Text(
                         comment.text,
                         softWrap: true,
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                            : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                        style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
-                      alignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Alignment.topRight : Alignment.topRight,
-                      child: Text(
-                        formateddate.format(comment.date),
-                        maxLines: 1,
-                        // textScaleFactor: 0.8,
-                        style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                            ? const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)
-                            : const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
-                      ),
+                      alignment: Alignment.topRight,
+                      child: Text(formateddate.format(comment.date),
+                          maxLines: 1,
+                          // textScaleFactor: 0.8,
+                          style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)),
                     ),
                   ),
                 ],
@@ -524,96 +513,86 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
 
   Widget anotherUsers(context, comment, width) {
     DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? MainAxisAlignment.end : MainAxisAlignment.start,
-        children: [
-          InkWell(
-            onTap: () {
-              showuser(context, comment);
-            },
-            child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: ClipOval(
-                  child: comment.author.photoName.isEmpty
-                      ? Container(
-                          decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                          width: 48,
-                          height: 48,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 20,
-                            color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                          ),
-                        )
-                      : Image.network(
-                          TaskFilesController.getFilePath(comment.author.photoName),
-                          fit: BoxFit.fill,
-                          width: 48,
-                          height: 48,
-                        ),
-                )),
-          ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color(0xfff0859ff) : const Color(0xfffdbeaea),
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
-                width: width <= 700 ? width * 0.65 : 300,
-                child: Column(
-                  crossAxisAlignment:
-                      Get.find<DataController>().currentUser == comment.author.mainUserAccount ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          comment.author.toString(),
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)
-                              : const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
-                        ),
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, mainAxisAlignment: MainAxisAlignment.start, children: [
+      InkWell(
+        onTap: () {
+          showuser(context, comment);
+        },
+        child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ClipOval(
+              child: comment.author.photoName.isEmpty
+                  ? Container(
+                      decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                      width: 48,
+                      height: 48,
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 20,
+                        color: ControlOptions.instance.colorMain.withOpacity(0.4),
                       ),
+                    )
+                  : Image.network(
+                      TaskFilesController.getFilePath(comment.author.photoName),
+                      fit: BoxFit.fill,
+                      width: 48,
+                      height: 48,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          comment.text,
-                          softWrap: true,
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white)
-                              : const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
-                        ),
-                      ),
+            )),
+      ),
+      Flexible(
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: const Color(0xfffdbeaea),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
+            width: width <= 700 ? width * 0.65 : 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      comment.author.toString(),
+                      style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Alignment.topRight : Alignment.topRight,
-                        child: Text(
-                          formateddate.format(comment.date),
-                          maxLines: 1,
-                          //  textScaleFactor: 0.8,
-                          style: Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                              ? const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)
-                              : const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      comment.text,
+                      softWrap: true,
+                      style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      formateddate.format(comment.date),
+                      maxLines: 1,
+                      //  textScaleFactor: 0.8,
+                      style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(
-            height: 70,
-          )
-        ]);
+        ),
+      ),
+      const SizedBox(
+        height: 70,
+      )
+    ]);
   }
 }
