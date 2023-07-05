@@ -9,6 +9,7 @@ class TaskCommentGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
   static const nameText = 'text';
+  static const nameMainCommentId = 'mainCommentId';
   static const nameDate = 'date';
   static const nameAuthorId = 'authorId';
 
@@ -25,6 +26,7 @@ class TaskCommentGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<TaskDoc>(nameOwnerId), primaryKey: false);
     addField(NsgDataStringField(nameText), primaryKey: false);
+    addField(NsgDataReferenceField<TaskComment>(nameMainCommentId), primaryKey: false);
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
     fieldList.fields[nameText]?.presentation = 'Текст';
@@ -58,6 +60,17 @@ class TaskCommentGenerated extends NsgDataItem {
   String get text => getFieldValue(nameText).toString();
 
   set text(String value) => setFieldValue(nameText, value);
+
+  /// ОсновнойКомментарий
+  String get mainCommentId => getFieldValue(nameMainCommentId).toString();
+  TaskComment get mainComment => getReferent<TaskComment>(nameMainCommentId);
+  Future<TaskComment> mainCommentAsync() async {
+   return await getReferentAsync<TaskComment>(nameMainCommentId);
+  }
+
+  set mainCommentId(String value) => setFieldValue(nameMainCommentId, value);
+  set mainComment(TaskComment value) =>
+    setFieldValue(nameMainCommentId, value.id);
 
   /// ДатаДокумента
   DateTime get date => getFieldValue(nameDate) as DateTime;
