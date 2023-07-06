@@ -374,8 +374,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
                     ),
                   ),
-                  if(comment.mainComment.isNotEmpty)
-                  getReply(comment),
+                  if (comment.mainComment.isNotEmpty) getReply(comment),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
@@ -522,8 +521,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 if(comment.mainComment.isNotEmpty)
-                  getReply(comment),
+                if (comment.mainComment.isNotEmpty) getReply(comment),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
                   child: Align(
@@ -652,10 +650,11 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             onTap: () {
               isReply = false;
               setState(() {});
-          
+              controller.selectedItem = null;
+
+              controller.refreshData();
             },
           )
-          
         ],
       );
 }
