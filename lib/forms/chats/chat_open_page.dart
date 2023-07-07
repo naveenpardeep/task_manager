@@ -645,6 +645,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             onTap: () {
               isReply = false;
               setState(() {});
+              controller.selectedItem = null;
+
+              controller.refreshData();
             },
           )
         ],
