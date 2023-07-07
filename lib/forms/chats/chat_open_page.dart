@@ -9,13 +9,8 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/chats/chat_controller.dart';
 import 'package:task_manager_app/forms/chats/chat_tasklist_controller.dart';
-import 'package:task_manager_app/forms/periodic_tasks/periodic_task_comment_controller.dart';
-import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
-import 'package:task_manager_app/forms/task_comment/task_comment_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
-import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
-import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
 
@@ -374,8 +369,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
                     ),
                   ),
-                  if(comment.mainComment.isNotEmpty)
-                  getReply(comment),
+                  if (comment.mainComment.isNotEmpty) getReply(comment),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
@@ -522,8 +516,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 if(comment.mainComment.isNotEmpty)
-                  getReply(comment),
+                if (comment.mainComment.isNotEmpty) getReply(comment),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
                   child: Align(
@@ -652,10 +645,8 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             onTap: () {
               isReply = false;
               setState(() {});
-          
             },
           )
-          
         ],
       );
 }

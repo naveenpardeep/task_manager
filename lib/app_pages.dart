@@ -62,7 +62,6 @@ import 'package:task_manager_app/forms/user_account/user_project_list_page.dart'
 import 'package:task_manager_app/forms/user_role/user_role_page.dart';
 import 'package:task_manager_app/login/login_confirm_page.dart';
 import 'package:task_manager_app/login/start_page.dart';
-import 'package:task_manager_app/model/business_process.dart';
 import 'package:task_manager_app/splash/splash_binding.dart';
 import 'package:task_manager_app/view/homepage.dart';
 import 'package:task_manager_app/view/taskview.dart';
@@ -116,7 +115,6 @@ class AppPages {
       page: () => const ProjectSettings(),
       binding: ProjectBinding(),
     ),
-   
     GetPage(
       name: Routes.taskStatusPage,
       page: () => const TaskStatusPage(),
@@ -380,12 +378,12 @@ class AppPages {
       page: () => const TaskTypePage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.taskTypeListPage,
-      page: () =>  TaskTypeListPage(),
+      page: () => TaskTypeListPage(),
       binding: ProjectBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.tasklistchecklist,
       page: () => const TasklistChecklistPage(),
       binding: TaskListBinding(),
@@ -400,12 +398,12 @@ class AppPages {
       page: () => const NewTasklistPage(),
       binding: TaskListBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.periodicTasksPage,
       page: () => const PeriodicTasksPage(),
       binding: PeriodicBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.businessProcessPage,
       page: () => const BusinessProcessPage(),
       binding: PeriodicBinding(),
@@ -415,7 +413,7 @@ class AppPages {
       page: () => const BusinessProcessTransitionPage(),
       binding: PeriodicBinding(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.chatPage,
       page: () => const ChatPage(),
       binding: ChatBinding(),
@@ -466,7 +464,7 @@ abstract class Routes {
   static const projectUserViewPage = '/projectUserviewPage';
   static const taskBoardStatusPage = '/taskBoardStatusPage';
   static const projectStatusPage = '/projectStatusPage';
-  static const periodicTasksPage ='/periodicTasksPage';
+  static const periodicTasksPage = '/periodicTasksPage';
   static const loginConfirmPage = '/loginConfirmPage';
   static const startPage = '/start-page';
   static const organizationListMobilePage = '/organizationListMobile';
@@ -486,12 +484,12 @@ abstract class Routes {
   static const taskopenForTaskList = '/taskopenForTaskList';
   static const taskEditPageMobile = '/taskEditpagemobile';
   static const taskEditPage = '/task-edit-page';
-  static const taskTypePage='/taskTypePage';
-  static const taskTypeListPage='/taskTypeListPage';
-  static const tasklistchecklist='/tasklistchecklist';
-  static const userRolePage='/userRolePage';
-  static const newTasklistPage='/newTasklistpage';
-  static const businessProcessPage='/businessProcessPage';
-  static const businessProcessTransitionTablePage='/businessProcessTransitionTablePage';
-  static const chatPage='/chatPage';
+  static const taskTypePage = '/taskTypePage';
+  static const taskTypeListPage = '/taskTypeListPage';
+  static const tasklistchecklist = '/tasklistchecklist';
+  static const userRolePage = '/userRolePage';
+  static const newTasklistPage = '/newTasklistpage';
+  static const businessProcessPage = '/businessProcessPage';
+  static const businessProcessTransitionTablePage = '/businessProcessTransitionTablePage';
+  static const chatPage = '/chatPage';
 }

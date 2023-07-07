@@ -12,7 +12,6 @@ import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.
 import '../../model/data_controller_model.dart';
 import '../../model/options/server_options.dart';
 
-
 class PeriodicTaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable> {
   PeriodicTaskFilesController() : super(masterController: Get.find<PeriodicTasksController>(), tableFieldName: TaskDocGenerated.nameFiles) {
     readOnly = false;
@@ -20,8 +19,8 @@ class PeriodicTaskFilesController extends NsgFilePickerTableController<TaskDocFi
     requestOnInit = true;
   }
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();

@@ -17,10 +17,10 @@ class TasksListPage extends GetView<TaskListController> {
   final _textTitle = 'Все задачи'.toUpperCase();
   final _textNoItems = 'Задачи ещё не добавлены';
   final _elementPage = Routes.taskPageFortaskList;
-  var serviceC = Get.find<ServiceObjectController>();
 
   @override
   Widget build(BuildContext context) {
+    var serviceC = Get.find<ServiceObjectController>();
     if (controller.lateInit) {
       controller.requestItems();
     }
@@ -47,7 +47,7 @@ class TasksListPage extends GetView<TaskListController> {
                                 dataItem: serviceC.currentItem,
                                 fieldName: ServiceObjectGenerated.nameProjectId,
                                 onEditingComplete: (p0, p1) {
-                                  controller.top=0;
+                                  controller.top = 0;
                                   controller.refreshData();
                                 },
                               ),

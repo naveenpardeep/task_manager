@@ -35,8 +35,8 @@ class UserAccountController extends NsgDataController<UserAccount> {
   //UserAccount backUp = UserAccount();
 
   @override
-  Future refreshData({List<NsgUpdateKey>? keys}) async {
-    await super.refreshData(keys: keys);
+  Future refreshData({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.refreshData(keys: keys, filter: filter);
     if (items.isNotEmpty) {
       var user = items.firstWhereOrNull((account) => account.organizationId.isEmpty);
       if (user != null) {

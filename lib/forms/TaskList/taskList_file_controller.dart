@@ -12,7 +12,6 @@ import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import '../../model/data_controller_model.dart';
 import '../../model/options/server_options.dart';
 
-
 class TaskListFilesController extends NsgFilePickerTableController<TaskDocFilesTable> {
   TaskListFilesController() : super(masterController: Get.find<TaskListController>(), tableFieldName: TaskDocGenerated.nameFiles) {
     readOnly = false;
@@ -20,8 +19,8 @@ class TaskListFilesController extends NsgFilePickerTableController<TaskDocFilesT
     requestOnInit = true;
   }
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();

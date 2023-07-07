@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/business_process/business_process_controller.dart';
-import 'package:task_manager_app/forms/task_status/project_status_controller.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-
 
 class BusinessProcessPage extends GetView<BusinessProcessController> {
   const BusinessProcessPage({Key? key}) : super(key: key);
@@ -14,7 +12,7 @@ class BusinessProcessPage extends GetView<BusinessProcessController> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return BodyWrap(
       child: Scaffold(
         key: scaffoldKey,
@@ -50,7 +48,7 @@ class BusinessProcessPage extends GetView<BusinessProcessController> {
                               fieldName: BusinessProcessGenerated.nameName,
                               label: 'Наименование',
                             ),
-                           const Text('Add Transition status From Status to which you want to Change -> To Status'),
+                            const Text('Add Transition status From Status to which you want to Change -> To Status'),
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: NsgTable(
@@ -69,7 +67,6 @@ class BusinessProcessPage extends GetView<BusinessProcessController> {
                                 ],
                               ),
                             ),
-
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Padding(
@@ -121,7 +118,6 @@ class BusinessProcessPage extends GetView<BusinessProcessController> {
             ),
             Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-             
                 child: SizedBox(
                     height: 40,
                     child: Padding(

@@ -19,8 +19,8 @@ class TaskFilesController extends NsgFilePickerTableController<TaskDocFilesTable
     requestOnInit = true;
   }
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();

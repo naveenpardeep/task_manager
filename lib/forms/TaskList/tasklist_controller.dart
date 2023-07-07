@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_control_options.dart';
 import 'package:nsg_data/nsg_data.dart';
-import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
@@ -14,13 +13,12 @@ class TaskListController extends NsgDataController<TaskDoc> {
       TaskDocGenerated.nameProjectId,
       TaskDocGenerated.nameTaskStatusId,
       TaskDocGenerated.nameAssigneeId,
-     
     ];
   }
-   
+
   var totalcounttask = 100;
   int currentPage = 0;
-  List<String> taskColumns=['My New Tasks','My Tasks','Created New','My Created Tasks','Deadline','Deadline created' ];
+  List<String> taskColumns = ['My New Tasks', 'My Tasks', 'Created New', 'My Created Tasks', 'Deadline', 'Deadline created'];
 
   @override
   NsgDataRequestParams get getRequestFilter {
@@ -29,32 +27,32 @@ class TaskListController extends NsgDataController<TaskDoc> {
 
     var serviceC = Get.find<ServiceObjectController>();
     if (serviceC.currentItem.sortTasksBy.isEmpty) {
-        filter.sorting = "${TaskDocGenerated.nameDate}-";
-      }
+      filter.sorting = "${TaskDocGenerated.nameDate}-";
+    }
     if (serviceC.currentItem.projectId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameProjectId, value: serviceC.currentItem.projectId);
     }
-   
+
     if (serviceC.currentItem.userAccountId.isNotEmpty) {
-      filter.compare.add(name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccount.mainUserAccountId);
+      filter.compare.add(
+          name: '${TaskDocGenerated.nameAssigneeId}.${UserAccountGenerated.nameMainUserAccountId}', value: serviceC.currentItem.userAccount.mainUserAccountId);
     }
     if (serviceC.currentItem.taskTypeId.isNotEmpty) {
       filter.compare.add(name: TaskDocGenerated.nameTaskTypeId, value: serviceC.currentItem.taskTypeId);
-    }    
+    }
     if (serviceC.currentItem.sortTasksBy == ESorting.dateAsc) {
-        filter.sorting = "${TaskDocGenerated.nameDate}+";
-      }
-      if (serviceC.currentItem.sortTasksBy == ESorting.dateDesc) {
-        filter.sorting = "${TaskDocGenerated.nameDate}-";
-      }
-      if (serviceC.currentItem.sortTasksBy == ESorting.priorityAsc) {
-        filter.sorting = "${TaskDocGenerated.namePriority}+";
-      }
-      if (serviceC.currentItem.sortTasksBy == ESorting.priorityDesc) {
-        filter.sorting = "${TaskDocGenerated.namePriority}-";
-      }
-   
-    
+      filter.sorting = "${TaskDocGenerated.nameDate}+";
+    }
+    if (serviceC.currentItem.sortTasksBy == ESorting.dateDesc) {
+      filter.sorting = "${TaskDocGenerated.nameDate}-";
+    }
+    if (serviceC.currentItem.sortTasksBy == ESorting.priorityAsc) {
+      filter.sorting = "${TaskDocGenerated.namePriority}+";
+    }
+    if (serviceC.currentItem.sortTasksBy == ESorting.priorityDesc) {
+      filter.sorting = "${TaskDocGenerated.namePriority}-";
+    }
+
     return filter;
   }
 
@@ -148,8 +146,6 @@ class TaskListController extends NsgDataController<TaskDoc> {
     // pageScrollController.jumpTo(0);
     await refreshData();
   }
-
-  
 }
 
 class TasklistTaskCheckListController extends NsgDataTableController<TaskDocCheckListTable> {
@@ -160,8 +156,8 @@ class TasklistTaskCheckListController extends NsgDataTableController<TaskDocChec
   }
 
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();

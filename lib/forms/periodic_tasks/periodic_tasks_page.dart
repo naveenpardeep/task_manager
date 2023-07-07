@@ -4,7 +4,6 @@ import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
-import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
@@ -12,7 +11,6 @@ import 'package:task_manager_app/forms/user_account/service_object_controller.da
 import 'package:task_manager_app/forms/widgets/bottom_menu.dart';
 import 'package:task_manager_app/forms/widgets/tt_nsg_input.dart';
 import 'package:task_manager_app/model/data_controller_model.dart';
-import '../task_board/task_board_controller.dart';
 import '../tasks/tasks_controller.dart';
 import '../widgets/top_menu.dart';
 
@@ -147,14 +145,14 @@ class _PeriodicTasksPageState extends State<PeriodicTasksPage> {
 }
 
 class TaskItemView extends StatelessWidget {
-  TaskItemView({super.key, required this.task, this.searchvalue});
+  const TaskItemView({super.key, required this.task, this.searchvalue});
 
   final TaskDoc task;
   final String? searchvalue;
-  var controller = Get.find<PeriodicTasksController>();
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<PeriodicTasksController>();
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
       child: InkWell(

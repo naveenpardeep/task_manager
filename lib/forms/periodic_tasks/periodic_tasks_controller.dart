@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_data/nsg_data.dart';
@@ -53,7 +52,7 @@ class PeriodicTaskCheckListController extends NsgDataTableController<TaskDocChec
   }
 
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
     await super.requestItems(keys: keys);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {

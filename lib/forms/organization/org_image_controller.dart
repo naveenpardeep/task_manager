@@ -9,7 +9,6 @@ import 'package:nsg_data/controllers/nsgImageController.dart';
 import 'package:nsg_data/nsg_data.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 
-
 import '../../model/data_controller_model.dart';
 
 class OrgImageController extends NsgImageController<Picture> {
@@ -65,8 +64,8 @@ class OrgImageController extends NsgImageController<Picture> {
   }
 
   @override
-  Future refreshData({List<NsgUpdateKey>? keys}) async {
-    await super.refreshData(keys: keys);
+  Future refreshData({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.refreshData(keys: keys, filter: filter);
     images.clear();
     for (var element in items) {
       images.add(NsgFilePickerObject(

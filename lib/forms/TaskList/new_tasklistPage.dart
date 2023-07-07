@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
-import 'package:nsg_controls/nsg_grid.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/TaskList/taskList_file_controller.dart';
 import 'package:task_manager_app/forms/TaskList/task_type_tasklist_controller.dart';
 import 'package:task_manager_app/forms/TaskList/tasklist_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
-import 'package:task_manager_app/forms/task_board/task_board_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/user_account/service_object_controller.dart';
 import 'package:task_manager_app/forms/user_account/user_account_controller.dart';
@@ -62,7 +60,6 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (width > 700) const TmTopMenu(),
-
                 Padding(
                     padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
                     child: Row(
@@ -169,7 +166,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                             onPressed: () {
                               serviceC.currentItem.taskTypeId = '';
                               serviceC.currentItem.projectId = '';
-                       
+
                               serviceC.currentItem.sortTasksBy = ESorting.dateDesc;
                               textEditController.clear();
                               setState(() {});
@@ -179,9 +176,8 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         )
                       ],
                     )),
-                
                 controller.obx((state) => Expanded(child: getTaskList())),
-               if (width < 700) const BottomMenu(),
+                if (width < 700) const BottomMenu(),
               ],
             )),
       ),
@@ -220,8 +216,7 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
                         ),
                       ),
                     ),
-                 
-                      Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
+                    Padding(padding: const EdgeInsets.only(left: 5), child: getTasklength(columnName)),
                   ],
                 ),
                 const Divider(thickness: 2, height: 20),
@@ -255,23 +250,28 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
     );
   }
 
-
   Widget getTaskListView(String columnName) {
     var user = Get.find<UserAccountController>().items.firstWhere((element) => element.mainUserAccount == Get.find<DataController>().currentUser);
-    serviceC.currentItem.userAccount = user ;
+    serviceC.currentItem.userAccount = user;
     List<Widget> list = [];
     var tasklist;
     if (columnName == 'My New Tasks') {
-      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
+      tasklist = controller.items
+          .where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
     }
     if (columnName == 'My Tasks') {
-      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee);
+      tasklist = controller.items.where((element) =>
+          element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+          element.taskStatus.isDone == false &&
+          element.isReadByAssignee);
     }
     if (columnName == 'Created New') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
+      tasklist = controller.items
+          .where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false);
     }
     if (columnName == 'My Created Tasks') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee);
+      tasklist = controller.items.where((element) =>
+          element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee);
     }
     if (columnName == 'Deadline') {
       tasklist = controller.items.where((element) =>
@@ -316,16 +316,30 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
   getTasklength(String columnName) {
     var tasklist;
     if (columnName == 'My New Tasks') {
-      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false).length;
+      tasklist = controller.items
+          .where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false)
+          .length;
     }
     if (columnName == 'My Tasks') {
-      tasklist = controller.items.where((element) => element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee).length;
+      tasklist = controller.items
+          .where((element) =>
+              element.assignee.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+              element.taskStatus.isDone == false &&
+              element.isReadByAssignee)
+          .length;
     }
-     if (columnName == 'Created New') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false).length;
+    if (columnName == 'Created New') {
+      tasklist = controller.items
+          .where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.isReadByAssignee == false)
+          .length;
     }
     if (columnName == 'My Created Tasks') {
-      tasklist = controller.items.where((element) => element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount && element.taskStatus.isDone == false && element.isReadByAssignee).length;
+      tasklist = controller.items
+          .where((element) =>
+              element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+              element.taskStatus.isDone == false &&
+              element.isReadByAssignee)
+          .length;
     }
     if (columnName == 'Deadline') {
       tasklist = controller.items
@@ -341,17 +355,19 @@ class _NewTasklistPageState extends State<NewTasklistPage> {
               !element.taskStatus.isDone)
           .length;
     }
-     if (columnName == 'Deadline created') {
-      tasklist = controller.items.where((element) =>
-          element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
-          ((element.dateDeadline.isBefore(DateTime.now())) ||
-              element.dateDeadline.day == DateTime.now().day ||
-              element.dateDeadline.day == DateTime.now().day + 1 ||
-              element.dateDeadline.day == DateTime.now().day + 2 ||
-              element.dateDeadline.day == DateTime.now().day + 3) &&
-          element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
-          element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
-          !element.taskStatus.isDone).length;
+    if (columnName == 'Deadline created') {
+      tasklist = controller.items
+          .where((element) =>
+              element.author.mainUserAccount == serviceC.currentItem.userAccount.mainUserAccount &&
+              ((element.dateDeadline.isBefore(DateTime.now())) ||
+                  element.dateDeadline.day == DateTime.now().day ||
+                  element.dateDeadline.day == DateTime.now().day + 1 ||
+                  element.dateDeadline.day == DateTime.now().day + 2 ||
+                  element.dateDeadline.day == DateTime.now().day + 3) &&
+              element.dateDeadline.toString() != '1754-01-01 00:00:00.000' &&
+              element.dateDeadline.toString() != '0001-01-01 00:00:00.000' &&
+              !element.taskStatus.isDone)
+          .length;
     }
 
     return Text(
@@ -379,14 +395,14 @@ Color getTaskPriorityColor(EPriority priority) {
 }
 
 class TaskItemView extends StatelessWidget {
-  TaskItemView({super.key, required this.task, this.searchvalue});
+  const TaskItemView({super.key, required this.task, this.searchvalue});
 
   final TaskDoc task;
   final String? searchvalue;
-  var controller = Get.find<TaskListController>();
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<TaskListController>();
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
       child: InkWell(

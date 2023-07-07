@@ -9,10 +9,10 @@ class PeriodicTaskCommentsController extends NsgDataController<TaskComment> {
   PeriodicTaskCommentsController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
     masterController = Get.find<PeriodicTasksController>();
   }
-  
- @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+
+  @override
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (currentItem.isEmpty) {
       createNewItemAsync();
@@ -33,10 +33,7 @@ class PeriodicTaskCommentsController extends NsgDataController<TaskComment> {
     var cmp = NsgCompare();
     var taskController = Get.find<PeriodicTasksController>();
 
-    cmp.add(
-        name: TaskCommentGenerated.nameOwnerId,
-        value: taskController.currentItem.id);
+    cmp.add(name: TaskCommentGenerated.nameOwnerId, value: taskController.currentItem.id);
     return NsgDataRequestParams(compare: cmp);
   }
-
 }

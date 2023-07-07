@@ -64,8 +64,8 @@ class UserImageController extends NsgImageController<Picture> {
   }
 
   @override
-  Future refreshData({List<NsgUpdateKey>? keys}) async {
-    await super.refreshData(keys: keys);
+  Future refreshData({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.refreshData(keys: keys, filter: filter);
     images.clear();
     for (var element in items) {
       images.add(NsgFilePickerObject(

@@ -46,13 +46,13 @@ class TasksController extends NsgDataController<TaskDoc> {
   }
 
   @override
-  Future refreshData({List<NsgUpdateKey>? keys}) {
+  Future refreshData({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) {
     refreshAllTasksControllers();
-    return super.refreshData(keys: keys);
+    return super.refreshData(keys: keys, filter: filter);
   }
 
   @override
-  Future<List<NsgDataItem>> doRequestItems() async {
+  Future<List<NsgDataItem>> doRequestItems({NsgDataRequestParams? filter}) async {
     //Запрос данных через этот контроллер потерял смысл: так как запрос задач идет через контроллеры статусов
     return [];
   }
@@ -102,8 +102,8 @@ class CommentTableTasksController extends NsgDataTableController<TaskDocComments
   }
 
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();
@@ -126,8 +126,8 @@ class TaskCheckListController extends NsgDataTableController<TaskDocCheckListTab
   }
 
   @override
-  Future requestItems({List<NsgUpdateKey>? keys}) async {
-    await super.requestItems(keys: keys);
+  Future requestItems({List<NsgUpdateKey>? keys, NsgDataRequestParams? filter}) async {
+    await super.requestItems(keys: keys, filter: filter);
 
     if (masterController!.selectedItem != null && currentItem.isEmpty) {
       createNewItemAsync();
