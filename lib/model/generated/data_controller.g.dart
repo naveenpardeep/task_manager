@@ -40,8 +40,6 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(TaskBoard(), remoteProvider: provider);
     NsgDataClient.client
-        .registerDataItem(ChatNotification(), remoteProvider: provider);
-    NsgDataClient.client
         .registerDataItem(TaskBoardStatusTable(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(TaskBoardTypeTable(), remoteProvider: provider);
@@ -191,6 +189,29 @@ class DataControllerGenerated extends NsgBaseController {
       filter.params ??= params;
       var res = await NsgDataRequest<TaskStatus>().requestItems(
           function: '/Data/GetAccessibleStatuses',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
+
+  /// Пометить уведомление прочитанным
+  Future<List<bool>> markNotificationAsRead(String notificationId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['notificationId'] = notificationId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<bool>().requestItems(
+          provider: provider!,
+          function: '/Data/MarkNotificationAsRead',
           method: 'POST',
           filter: filter,
           autoRepeate: true,

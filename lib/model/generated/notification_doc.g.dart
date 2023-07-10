@@ -19,6 +19,11 @@ class NotificationDocGenerated extends NsgDataItem {
   static const nameOrganizationId = 'organizationId';
   static const nameInvitationId = 'invitationId';
   static const nameNotificationType = 'notificationType';
+  static const nameChatNumberOfUnreadMessages = 'chatNumberOfUnreadMessages';
+  static const nameChatDateUnread1 = 'chatDateUnread1';
+  static const nameChatDateUnread2 = 'chatDateUnread2';
+  static const nameIsSent = 'isSent';
+  static const nameNumberOfAttemptsToSend = 'numberOfAttemptsToSend';
   static const nameUserAccountId = 'userAccountId';
 
   static final Map<String, String> fieldNameDict = {
@@ -44,6 +49,11 @@ class NotificationDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     addField(NsgDataReferenceField<Invitation>(nameInvitationId), primaryKey: false);
     addField(NsgDataEnumReferenceField<ENotificationType>(nameNotificationType), primaryKey: false);
+    addField(NsgDataIntField(nameChatNumberOfUnreadMessages), primaryKey: false);
+    addField(NsgDataDateField(nameChatDateUnread1), primaryKey: false);
+    addField(NsgDataDateField(nameChatDateUnread2), primaryKey: false);
+    addField(NsgDataBoolField(nameIsSent), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfAttemptsToSend), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDateRead]?.presentation = 'Дата просмотра';
@@ -156,6 +166,31 @@ class NotificationDocGenerated extends NsgDataItem {
   ENotificationType get notificationType => NsgEnum.fromValue(ENotificationType, getFieldValue(nameNotificationType)) as ENotificationType;
 
   set notificationType(ENotificationType value) => setFieldValue(nameNotificationType, value);
+
+  /// ЧатКоличествоНепрочитанных
+  int get chatNumberOfUnreadMessages => getFieldValue(nameChatNumberOfUnreadMessages) as int;
+
+  set chatNumberOfUnreadMessages(int value) => setFieldValue(nameChatNumberOfUnreadMessages, value);
+
+  /// ЧатДатаНепрочитанного1
+  DateTime get chatDateUnread1 => getFieldValue(nameChatDateUnread1) as DateTime;
+
+  set chatDateUnread1(DateTime value) => setFieldValue(nameChatDateUnread1, value);
+
+  /// ЧатДатаНепрочитанного2
+  DateTime get chatDateUnread2 => getFieldValue(nameChatDateUnread2) as DateTime;
+
+  set chatDateUnread2(DateTime value) => setFieldValue(nameChatDateUnread2, value);
+
+  /// Отправлено
+  bool get isSent => getFieldValue(nameIsSent) as bool;
+
+  set isSent(bool value) => setFieldValue(nameIsSent, value);
+
+  /// ПопытокОтправки
+  int get numberOfAttemptsToSend => getFieldValue(nameNumberOfAttemptsToSend) as int;
+
+  set numberOfAttemptsToSend(int value) => setFieldValue(nameNumberOfAttemptsToSend, value);
 
   /// АккаунтПользователя
   String get userAccountId => getFieldValue(nameUserAccountId).toString();

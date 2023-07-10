@@ -8,6 +8,8 @@ class ENotificationType extends NsgEnum {
   static ENotificationType userAdded = ENotificationType(3, 'Пользователь добавлен');
   static ENotificationType invitationAccepted = ENotificationType(4, 'Приглашение принято');
   static ENotificationType invitationRejected = ENotificationType(5, 'Приглашение отклонено');
+  static ENotificationType invitationRecieved = ENotificationType(6, 'Получено приглашение');
+  static ENotificationType unreadChatMessage = ENotificationType(7, 'Непрочитанное сообщение в чате');
 
   ENotificationType(dynamic value, String name) : super(value: value, name: name);
 
@@ -20,6 +22,8 @@ class ENotificationType extends NsgEnum {
       3: userAdded,
       4: invitationAccepted,
       5: invitationRejected,
+      6: invitationRecieved,
+      7: unreadChatMessage,
     };
   }
 }
