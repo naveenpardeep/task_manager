@@ -49,6 +49,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   title: 'Уведомления'.toUpperCase(),
                   leftIcons: [
                     NsgLigthAppBarIcon(
+                      color: Colors.black,
                       icon: Icons.arrow_back_ios_new,
                       onTap: () {
                         controller.itemPageCancel();
