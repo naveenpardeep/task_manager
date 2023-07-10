@@ -54,26 +54,28 @@ class _ProjectListPageState extends State<ProjectListPage> {
                     padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                     child: Row(
                       children: [
-                        if(width>700)
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            'Проекты',
-                            style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: TextButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.archProjectListPage);
-                            },
+                        if (width > 700)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Text(
-                            'Архивные проекты',
-                            style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
+                              'Проекты',
+                              style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
+                            ),
                           ),
-                        )),
-                        Expanded(
+                        Flexible(
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: TextButton(
+                                onPressed: () {
+                                  Get.toNamed(Routes.archProjectListPage);
+                                },
+                                child: Text(
+                                  'Архивные проекты',
+                                  style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
+                                ),
+                              )),
+                        ),
+                        Flexible(
                           child: SizedBox(
                             height: width > 700 ? 30 : 30,
                             child: TextField(
