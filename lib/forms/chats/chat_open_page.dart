@@ -583,11 +583,11 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             children: [
               Text(
                 '${comment.mainComment.author}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold, color:Color.fromARGB(255, 3, 235, 243)),
               ),
               Text(
                 comment.mainComment.text.toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Color.fromARGB(255, 3, 235, 243)),
               ),
               // if (onCancelReply != null)
               //   GestureDetector(
