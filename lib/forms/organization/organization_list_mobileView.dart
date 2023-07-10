@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_light_app_bar.dart';
 import 'package:task_manager_app/app_pages.dart';
 
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
@@ -22,10 +23,11 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
             backgroundColor: Colors.white,
             body: Column(
               children: [
-                TTAppBar(
+                NsgLightAppBar(
                   title: 'Компании',
                   leftIcons: [
-                    TTAppBarIcon(
+                    NsgLigthAppBarIcon(
+                      color: Colors.black,
                       icon: Icons.arrow_back_ios_new,
                       onTap: () {
                         Get.toNamed(Routes.projectListPage);
@@ -33,7 +35,8 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                     ),
                   ],
                   rightIcons: [
-                    TTAppBarIcon(
+                    NsgLigthAppBarIcon(
+                      color: Colors.black,
                       icon: Icons.add,
                       onTap: () {
                         controller.itemNewPageOpen(Routes.createOrganizationPage);
@@ -107,7 +110,7 @@ class OrganizationListMobileView extends GetView<OrganizationController> {
                         ],
                       ),
                     ),
-                   // const Icon(Icons.arrow_forward_ios),
+                    // const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ),

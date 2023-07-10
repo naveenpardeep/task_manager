@@ -69,6 +69,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                       title: controller.currentItem.name.toString().toUpperCase(),
                       leftIcons: [
                         NsgLigthAppBarIcon(
+                          color: Colors.black,
                             onTap: () {
                               Get.toNamed(Routes.organizationListMobilePage);
                             },
@@ -77,6 +78,7 @@ class _OrganizationViewPageMobileState extends State<OrganizationViewPageMobile>
                       rightIcons: [
                         if (currentTab.name == 'Основное')
                           NsgLigthAppBarIcon(
+                            color: Colors.black,
                               onTap: () {
                                 controller.itemPageOpen(controller.currentItem, Routes.createOrganizationPage, needRefreshSelectedItem: true);
                               },
