@@ -122,7 +122,7 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
   bool get expanded => throw UnimplementedError();
 
   @override
-  Widget build(BuildContext context, quil.QuillController controller, quil.Embed node, bool readOnly, bool inline, TextStyle) {
+  Widget build(BuildContext context, quil.QuillController controller, quil.Embed node, bool readOnly, bool inline) {
     // TODO: implement build
     throw UnimplementedError();
   }

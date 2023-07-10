@@ -20,6 +20,8 @@ export 'task_type.dart';
 export 'generated/task_type.g.dart';
 export 'task_board.dart';
 export 'generated/task_board.g.dart';
+export 'chat_notification.dart';
+export 'generated/chat_notification.g.dart';
 export 'task_board_status_table.dart';
 export 'generated/task_board_status_table.g.dart';
 export 'task_board_type_table.dart';
