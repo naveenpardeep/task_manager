@@ -28,6 +28,7 @@ import 'package:task_manager_app/forms/organization/organization_viewPage_Mobile
 import 'package:task_manager_app/forms/periodic_tasks/periodic_binding.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_page.dart';
 import 'package:task_manager_app/forms/project/add_user_to_Project.dart';
+import 'package:task_manager_app/forms/project/arch_project_list_page.dart';
 import 'package:task_manager_app/forms/project/new_user_for_deletedUser.dart';
 import 'package:task_manager_app/forms/project/projectUserMobile.dart';
 import 'package:task_manager_app/forms/project/project_edit_page.dart';
@@ -418,6 +419,11 @@ class AppPages {
       page: () => const ChatPage(),
       binding: ChatBinding(),
     ),
+    GetPage(
+      name: Routes.archProjectListPage,
+      page: () => const ArchProjectListPage(),
+      binding: ProjectBinding(),
+    ),
   ];
 }
 
@@ -492,4 +498,5 @@ abstract class Routes {
   static const businessProcessPage = '/businessProcessPage';
   static const businessProcessTransitionTablePage = '/businessProcessTransitionTablePage';
   static const chatPage = '/chatPage';
+  static const archProjectListPage='/archProjectlistPage';
 }

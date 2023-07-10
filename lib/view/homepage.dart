@@ -223,7 +223,7 @@ class _HomepageState extends State<Homepage> {
                               },
                               text: 'My Tasks'),
                         ),
-                      //  if (width > 700)
+                       if (projectController.currentItem.isArchived==false)
                       Expanded(
                         child: SizedBox(
                           height: 30,

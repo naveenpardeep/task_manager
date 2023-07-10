@@ -15,13 +15,13 @@ import '../task_board/task_board_controller.dart';
 import '../widgets/top_menu.dart';
 
 // ignore: must_be_immutable
-class ProjectListPage extends StatefulWidget {
-  const ProjectListPage({Key? key}) : super(key: key);
+class ArchProjectListPage extends StatefulWidget {
+  const ArchProjectListPage({Key? key}) : super(key: key);
   @override
-  State<ProjectListPage> createState() => _ProjectListPageState();
+  State<ArchProjectListPage> createState() => _ArchProjectListPageState();
 }
 
-class _ProjectListPageState extends State<ProjectListPage> {
+class _ArchProjectListPageState extends State<ArchProjectListPage> {
   var controller = Get.find<ProjectController>();
   ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -58,21 +58,11 @@ class _ProjectListPageState extends State<ProjectListPage> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
-                            'Проекты',
-                            style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: TextButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.archProjectListPage);
-                            },
-                            child: Text(
                             'Архивные проекты',
                             style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
                           ),
-                        )),
+                        ),
+                       
                         Expanded(
                           child: SizedBox(
                             height: width > 700 ? 30 : 30,
@@ -103,28 +93,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                 }),
                           ),
                         ),
-                        SizedBox(
-                          width: width < 700 ? 50 : 150,
-                          height: 30,
-                          child: IconButton(
-                            iconSize: 30,
-                            hoverColor: Colors.transparent,
-                            padding: EdgeInsets.zero,
-                            icon: width < 700
-                                ? const Icon(
-                                    Icons.add,
-                                    size: 24,
-                                  )
-                                : const Text(
-                                    '+ Создать проект',
-                                    style: TextStyle(fontFamily: 'Inter', fontSize: 16),
-                                  ),
-                            color: Colors.black,
-                            onPressed: () {
-                              Get.find<ProjectController>().newItemPageOpen(pageName: Routes.projectSettingsPage);
-                            },
-                          ),
-                        ),
+                        
                       ],
                     )),
                 Expanded(
@@ -157,7 +126,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
 
   List<Widget> showProjects() {
     List<Widget> list = [];
-    for (var project in controller.items.where((element) => !element.isArchived)) {
+    for (var project in controller.items.where((element) => element.isArchived)) {
       if (project.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
         list.add(ProjectItemView(
           project: project,
@@ -186,9 +155,9 @@ class ProjectItemView extends StatelessWidget {
         hoverColor: Colors.transparent,
         onTap: () async {
           await Get.find<TaskBoardController>().refreshData();
-          //await Get.find<TasksController>().refreshData();
+         
           controller.itemPageOpen(project, Routes.homePage, needRefreshSelectedItem: false);
-          //Get.find<TasksController>().getTasksControllers();
+         
         },
         onLongPress: () {
           pinDialog(context, project);
@@ -394,7 +363,7 @@ class ProjectItemView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 0, right: 40),
             child: Text(
-              "Архив проекта",
+              "Разархивировать проект",
               style: TextStyle(color: Colors.black),
             ),
           ),
@@ -444,7 +413,7 @@ class ProjectItemView extends StatelessWidget {
         pinDialog(context, project);
       }
       if (value == 3) {
-        project.isArchived = true;
+        project.isArchived = false;
         controller.postItems([project]);
         controller.refreshData();
       }
