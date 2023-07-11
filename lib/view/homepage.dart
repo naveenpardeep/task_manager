@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -168,7 +167,6 @@ class _HomepageState extends State<Homepage> {
                               Icons.refresh,
                               size: width < 700 ? 16 : 24,
                             )),
-
                       if (width > 700)
                         Flexible(
                           child: SizedBox(
@@ -224,32 +222,32 @@ class _HomepageState extends State<Homepage> {
                               },
                               text: 'My Tasks'),
                         ),
-                       if (projectController.currentItem.isArchived==false)
-                      Expanded(
-                        child: SizedBox(
-                          height: 30,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: NsgButton(
-                              borderRadius: 10,
-                              width: width > 700 ? 150 : 35,
-                              margin: EdgeInsets.zero,
-                              padding: EdgeInsets.zero,
-                              icon: Icons.add,
-                              text: width > 700 ? 'Новая Задача' : '',
-                              color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
-                              backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
-                              onPressed: () {
-                                setState(() {
-                                  taskView = false;
-                                });
-                                Get.find<TasksController>().selectedItem == null;
-                                Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
-                              },
+                      if (projectController.currentItem.isArchived == false)
+                        Expanded(
+                          child: SizedBox(
+                            height: 30,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: NsgButton(
+                                borderRadius: 10,
+                                width: width > 700 ? 150 : 35,
+                                margin: EdgeInsets.zero,
+                                padding: EdgeInsets.zero,
+                                icon: Icons.add,
+                                text: width > 700 ? 'Новая Задача' : '',
+                                color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
+                                backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                                onPressed: () {
+                                  setState(() {
+                                    taskView = false;
+                                  });
+                                  Get.find<TasksController>().selectedItem == null;
+                                  Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   )),
               width > 700
@@ -678,8 +676,7 @@ class _HomepageState extends State<Homepage> {
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child:
-                            SingleChildScrollView(scrollDirection: Axis.vertical, controller: scrollController, 
-                            child: getTaskListForTaskview(status.status)),
+                            SingleChildScrollView(scrollDirection: Axis.vertical, controller: scrollController, child: getTaskListForTaskview(status.status)),
                       ),
                     ),
                   ),
