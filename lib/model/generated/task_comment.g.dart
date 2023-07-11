@@ -12,6 +12,8 @@ class TaskCommentGenerated extends NsgDataItem {
   static const nameMainCommentId = 'mainCommentId';
   static const nameDate = 'date';
   static const nameAuthorId = 'authorId';
+  static const nameProjectId = 'projectId';
+  static const nameOrganizationId = 'organizationId';
 
   static final Map<String, String> fieldNameDict = {
     nameText: 'Текст',
@@ -29,6 +31,8 @@ class TaskCommentGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<TaskComment>(nameMainCommentId), primaryKey: false);
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameAuthorId), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
+    addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     fieldList.fields[nameText]?.presentation = 'Текст';
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
   }
@@ -87,6 +91,28 @@ class TaskCommentGenerated extends NsgDataItem {
   set authorId(String value) => setFieldValue(nameAuthorId, value);
   set author(UserAccount value) =>
     setFieldValue(nameAuthorId, value.id);
+
+  /// Проект
+  String get projectId => getFieldValue(nameProjectId).toString();
+  ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
+  Future<ProjectItem> projectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameProjectId);
+  }
+
+  set projectId(String value) => setFieldValue(nameProjectId, value);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
+
+  /// Организация
+  String get organizationId => getFieldValue(nameOrganizationId).toString();
+  OrganizationItem get organization => getReferent<OrganizationItem>(nameOrganizationId);
+  Future<OrganizationItem> organizationAsync() async {
+   return await getReferentAsync<OrganizationItem>(nameOrganizationId);
+  }
+
+  set organizationId(String value) => setFieldValue(nameOrganizationId, value);
+  set organization(OrganizationItem value) =>
+    setFieldValue(nameOrganizationId, value.id);
 
   @override
   String get apiRequestItems {

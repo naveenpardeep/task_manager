@@ -34,6 +34,8 @@ export 'invitation.dart';
 export 'generated/invitation.g.dart';
 export 'notification_doc.dart';
 export 'generated/notification_doc.g.dart';
+export 'chat_item.dart';
+export 'generated/chat_item.g.dart';
 export 'picture.dart';
 export 'generated/picture.g.dart';
 export 'organization_item.dart';
