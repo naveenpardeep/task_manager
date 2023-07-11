@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
@@ -114,7 +115,9 @@ class _ArchProjectListPageState extends State<ArchProjectListPage> {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: controller.obx((state) {
-                            return width > 700 ? NsgGrid(crossAxisCount: width ~/ 400, children: showProjects()) : Column(children: showProjects());
+                            return width > 700 ? Animate(
+                              effects: const [FlipEffect()],
+                              child: NsgGrid(crossAxisCount: width ~/ 400, children: showProjects())) : Column(children: showProjects());
                           }))),
                 )),
                 if (width < 700) const BottomMenu(),

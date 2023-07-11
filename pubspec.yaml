@@ -71,6 +71,7 @@ dependencies:
   url_launcher: ^6.1.10
   desktop_drop: ^0.4.1
   dual_screen: ^1.0.4
+  flutter_animate: ^4.2.0
   emoji_picker_flutter: ^1.6.1
 
   

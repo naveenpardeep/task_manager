@@ -3,6 +3,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
@@ -59,7 +60,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
         body: controller.obx(
           (state) => Column(
             children: <Widget>[
-              Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context))),
+              Animate(
+              effects: const [FlipEffect()],
+              child: Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context)))),
               Offstage(
                 offstage: !isReply,
                 child: getRepylMessage(),
