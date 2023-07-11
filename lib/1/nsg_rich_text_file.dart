@@ -126,4 +126,10 @@ class NsgRichTextFileBuilder implements quil.EmbedBuilder {
     // TODO: implement build
     throw UnimplementedError();
   }
+
+  @override
+  String toPlainText(quil.Embed node) {
+    // TODO: implement toPlainText
+    throw UnimplementedError();
+  }
 }
