@@ -54,6 +54,8 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(NotificationDoc(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(ChatItem(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(Picture(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(OrganizationItem(), remoteProvider: provider);
@@ -201,11 +203,12 @@ class DataControllerGenerated extends NsgBaseController {
   }
 
   /// Пометить уведомление прочитанным
-  Future<List<bool>> markNotificationAsRead(String notificationId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+  Future<List<bool>> markNotificationAsRead(String notificationId, DateTime commentDate, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
     var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
     try {
       var params = <String, dynamic>{};
       params['notificationId'] = notificationId;
+      params['commentDate'] = commentDate.toIso8601String();
       filter ??= NsgDataRequestParams();
       filter.params?.addAll(params);
       filter.params ??= params;

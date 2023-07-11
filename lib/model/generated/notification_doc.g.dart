@@ -10,6 +10,7 @@ class NotificationDocGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameDate = 'date';
   static const nameDateRead = 'dateRead';
+  static const nameHeader = 'header';
   static const nameComment = 'comment';
   static const nameTaskId = 'taskId';
   static const nameTaskOldStatusId = 'taskOldStatusId';
@@ -29,6 +30,7 @@ class NotificationDocGenerated extends NsgDataItem {
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
     nameDateRead: 'Дата просмотра',
+    nameHeader: 'Заголовок',
     nameComment: 'Комментарий',
   };
 
@@ -40,6 +42,7 @@ class NotificationDocGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataDateField(nameDate), primaryKey: false);
     addField(NsgDataDateField(nameDateRead), primaryKey: false);
+    addField(NsgDataStringField(nameHeader), primaryKey: false);
     addField(NsgDataStringField(nameComment), primaryKey: false);
     addField(NsgDataReferenceField<TaskDoc>(nameTaskId), primaryKey: false);
     addField(NsgDataReferenceField<TaskStatus>(nameTaskOldStatusId), primaryKey: false);
@@ -57,6 +60,7 @@ class NotificationDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDateRead]?.presentation = 'Дата просмотра';
+    fieldList.fields[nameHeader]?.presentation = 'Заголовок';
     fieldList.fields[nameComment]?.presentation = 'Комментарий';
   }
 
@@ -79,6 +83,11 @@ class NotificationDocGenerated extends NsgDataItem {
   DateTime get dateRead => getFieldValue(nameDateRead) as DateTime;
 
   set dateRead(DateTime value) => setFieldValue(nameDateRead, value);
+
+  /// Заголовок
+  String get header => getFieldValue(nameHeader).toString();
+
+  set header(String value) => setFieldValue(nameHeader, value);
 
   /// Комментарий
   String get comment => getFieldValue(nameComment).toString();
