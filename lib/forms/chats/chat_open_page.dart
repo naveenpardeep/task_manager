@@ -361,7 +361,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                   color: Color(0xfff0859ff),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
-              width: width <= 700 ? width * 0.65 : 300,
+              width: width <= 700 ? width * 0.65 : 450,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -516,7 +516,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                 color: Color(0xfffdbeaea),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
-            width: width <= 700 ? width * 0.65 : 300,
+            width: width <= 700 ? width * 0.65 : 450,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
