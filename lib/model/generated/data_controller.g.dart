@@ -225,4 +225,50 @@ class DataControllerGenerated extends NsgBaseController {
       progress.hide();
     }
   }
+
+  /// Подписаться на обновления задачи
+  Future<List<bool>> subscribeToTask(String taskId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['taskId'] = taskId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<bool>().requestItems(
+          provider: provider!,
+          function: '/Data/SubscribeToTask',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
+
+  /// Отписаться от обновлений задачи
+  Future<List<bool>> unsubscribeToTask(String taskId, {NsgDataRequestParams? filter, bool showProgress = false, bool isStoppable = false, String? textDialog}) async {
+    var progress = NsgProgressDialogHelper(showProgress: showProgress, isStoppable: isStoppable, textDialog: textDialog);
+    try {
+      var params = <String, dynamic>{};
+      params['taskId'] = taskId;
+      filter ??= NsgDataRequestParams();
+      filter.params?.addAll(params);
+      filter.params ??= params;
+      var res = await NsgSimpleRequest<bool>().requestItems(
+          provider: provider!,
+          function: '/Data/UnsubscribeToTask',
+          method: 'POST',
+          filter: filter,
+          autoRepeate: true,
+          autoRepeateCount: 3,
+          cancelToken: progress.cancelToken);
+      return res;
+    } finally {
+      progress.hide();
+    }
+  }
 }

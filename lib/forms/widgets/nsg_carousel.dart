@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 
+// ignore: must_be_immutable
 class NsgCarousel extends StatefulWidget {
   NsgCarousel(
       {super.key,
@@ -92,7 +93,7 @@ class _NsgCarouselState extends State<NsgCarousel> {
             )
           : Text(
               '${widget.currentTab + 1}/${widget.widgetList.length}',
-              style: TextStyle(color: ControlOptions.instance.colorPrimary , fontFamily: 'Inter', fontWeight: FontWeight.w400),
+              style: TextStyle(color: ControlOptions.instance.colorPrimary, fontFamily: 'Inter', fontWeight: FontWeight.w400),
             ),
     ];
   }
