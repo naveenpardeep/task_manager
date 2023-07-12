@@ -168,7 +168,6 @@ class _HomepageState extends State<Homepage> {
                               Icons.refresh,
                               size: width < 700 ? 16 : 24,
                             )),
-
                       if (width > 700)
                         Flexible(
                           child: SizedBox(
@@ -224,32 +223,32 @@ class _HomepageState extends State<Homepage> {
                               },
                               text: 'My Tasks'),
                         ),
-                       if (projectController.currentItem.isArchived==false)
-                      Expanded(
-                        child: SizedBox(
-                          height: 30,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: NsgButton(
-                              borderRadius: 10,
-                              width: width > 700 ? 150 : 35,
-                              margin: EdgeInsets.zero,
-                              padding: EdgeInsets.zero,
-                              icon: Icons.add,
-                              text: width > 700 ? 'Новая Задача' : '',
-                              color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
-                              backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
-                              onPressed: () {
-                                setState(() {
-                                  taskView = false;
-                                });
-                                Get.find<TasksController>().selectedItem == null;
-                                Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
-                              },
+                      if (projectController.currentItem.isArchived == false)
+                        Expanded(
+                          child: SizedBox(
+                            height: 30,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: NsgButton(
+                                borderRadius: 10,
+                                width: width > 700 ? 150 : 35,
+                                margin: EdgeInsets.zero,
+                                padding: EdgeInsets.zero,
+                                icon: Icons.add,
+                                text: width > 700 ? 'Новая Задача' : '',
+                                color: width > 700 ? Colors.white : ControlOptions.instance.colorMain,
+                                backColor: width > 700 ? ControlOptions.instance.colorMain : Colors.transparent,
+                                onPressed: () {
+                                  setState(() {
+                                    taskView = false;
+                                  });
+                                  Get.find<TasksController>().selectedItem == null;
+                                  Get.find<TasksController>().newItemPageOpen(pageName: Routes.taskEditPage);
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   )),
               width > 700
@@ -338,30 +337,33 @@ class _HomepageState extends State<Homepage> {
                               ))),
                     if (taskView == false) Container(child: getStatusList()),
                     if (taskView == true)
-                      ResizableWidget(
-                          percentages: width > 750 ? [0.65, 0.35, 0] : [0, 1, 0],
-                          isHorizontalSeparator: false,
-                          isDisabledSmartHide: false,
-                          separatorColor: Colors.grey,
-                          separatorSize: width > 750 ? 7 : 0,
-                          children: [
-                            const SizedBox(),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
-                            ),
-                            if (taskView)
+                      Animate(
+                        effects: const [FlipEffect()],
+                        child: ResizableWidget(
+                            percentages: width > 750 ? [0.65, 0.35, 0] : [0, 1, 0],
+                            isHorizontalSeparator: false,
+                            isDisabledSmartHide: false,
+                            separatorColor: Colors.grey,
+                            separatorSize: width > 750 ? 7 : 0,
+                            children: [
+                              const SizedBox(),
                               Align(
-                                alignment: AlignmentDirectional.topStart,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        taskView = false;
-                                      });
-                                    },
-                                    icon: const Icon(Icons.close)),
+                                alignment: Alignment.centerRight,
+                                child: taskController.obx((state) => Container(key: GlobalKey(), child: const TaskViewPage())),
                               ),
-                          ]),
+                              if (taskView)
+                                Align(
+                                  alignment: AlignmentDirectional.topStart,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          taskView = false;
+                                        });
+                                      },
+                                      icon: const Icon(Icons.close)),
+                                ),
+                            ]),
+                      ),
                     if (taskView)
                       Align(
                         alignment: Alignment.topRight,
@@ -678,8 +680,7 @@ class _HomepageState extends State<Homepage> {
                         thumbColor: ControlOptions.instance.colorMain.withOpacity(0.2),
                         radius: const Radius.circular(0),
                         child:
-                            SingleChildScrollView(scrollDirection: Axis.vertical, controller: scrollController, 
-                            child: getTaskListForTaskview(status.status)),
+                            SingleChildScrollView(scrollDirection: Axis.vertical, controller: scrollController, child: getTaskListForTaskview(status.status)),
                       ),
                     ),
                   ),
