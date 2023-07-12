@@ -185,6 +185,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                     child: EmojiPicker(
                       textEditingController: _controller,
                       onBackspacePressed: _onBackspacePressed,
+                      
                       config: Config(
                         columns: 7,
                         emojiSizeMax: 32 * (GetPlatform.isIOS ? 1.30 : 1.0),
