@@ -148,9 +148,9 @@ class _ProjectListPageState extends State<ProjectListPage> {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: controller.obx((state) {
-                            return width > 700 ? Animate(
-                              effects: const [ScaleEffect()],
-                              child: NsgGrid(crossAxisCount: width ~/ 400, children: showProjects())) : Column(children: showProjects());
+                            return width > 700
+                                ? Animate(effects: const [ScaleEffect()], child: NsgGrid(crossAxisCount: width ~/ 400, children: showProjects()))
+                                : Column(children: showProjects());
                           }))),
                 )),
                 if (width < 700) const BottomMenu(),
@@ -374,33 +374,42 @@ class ProjectItemView extends StatelessWidget {
       context: context,
       position: RelativeRect.fromLTRB(left, top, left + 1, top + 1),
       items: [
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 1,
-          child: Padding(
-            padding: EdgeInsets.only(left: 0, right: 40),
-            child: Text(
-              "Редактировать",
-              style: TextStyle(color: Colors.black),
+          child: Animate(
+            effects: const [FlipEffect()],
+            child: const Padding(
+              padding: EdgeInsets.only(left: 0, right: 40),
+              child: Text(
+                "Редактировать",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
         ),
-        const PopupMenuItem(
+         PopupMenuItem(
           value: 2,
-          child: Padding(
-            padding: EdgeInsets.only(left: 0, right: 40),
-            child: Text(
-              "Закрепить",
-              style: TextStyle(color: Colors.black),
+          child: Animate(
+            effects: const [FlipEffect()],
+            child: const Padding(
+              padding: EdgeInsets.only(left: 0, right: 40),
+              child: Text(
+                "Закрепить",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
         ),
-        const PopupMenuItem(
+         PopupMenuItem(
           value: 3,
-          child: Padding(
-            padding: EdgeInsets.only(left: 0, right: 40),
-            child: Text(
-              "Архив проекта",
-              style: TextStyle(color: Colors.black),
+          child: Animate(
+            effects: const [FlipEffect()],
+            child: const Padding(
+              padding: EdgeInsets.only(left: 0, right: 40),
+              child: Text(
+                "Архив проекта",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
         ),
