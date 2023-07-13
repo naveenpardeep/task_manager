@@ -33,7 +33,7 @@ class ChatController extends NsgDataController<TaskComment> {
     var cmp = NsgCompare();
     var taskController = Get.find<ChatTaskListController>();
 
-    cmp.add(name: TaskCommentGenerated.nameOwnerId, value: taskController.currentItem.id);
+    cmp.add(name: TaskCommentGenerated.nameOwnerId, value: taskController.currentItem.ownerId ,comparisonOperator: NsgComparisonOperator.equal);
     return NsgDataRequestParams(compare: cmp);
   }
 }

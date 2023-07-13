@@ -60,9 +60,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
         body: controller.obx(
           (state) => Column(
             children: <Widget>[
-              Animate(
-              effects: const [FlipEffect()],
-              child: Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context)))),
+              Animate(effects: const [FlipEffect()], child: Expanded(child: SingleChildScrollView(reverse: true, child: commentList(context)))),
               Offstage(
                 offstage: !isReply,
                 child: getRepylMessage(),
@@ -114,13 +112,13 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                         autofocus: true,
                         onKey: (event) async {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                            controller.currentItem.ownerId = taskcontroller.currentItem.id;
+                            controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
                             controller.currentItem.text = _controller.text;
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
-                            taskcontroller.currentItem.dateLastComment = DateTime.now();
-                            await taskcontroller.postItems([taskcontroller.currentItem]);
+                            //  taskcontroller.currentItem.dateLastComment = DateTime.now();
+                            //  await taskcontroller.postItems([taskcontroller.currentItem]);
                             taskcontroller.refreshData();
                           }
                         },
@@ -159,14 +157,14 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                       ),
                       child: IconButton(
                           onPressed: () async {
-                            controller.currentItem.ownerId = taskcontroller.currentItem.id;
+                            controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
                             controller.currentItem.text = _controller.text;
 
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
-                            taskcontroller.currentItem.dateLastComment = DateTime.now();
-                            await taskcontroller.postItems([taskcontroller.currentItem]);
+                            // taskcontroller.currentItem.dateLastMessage = DateTime.now();
+                            // await taskcontroller.postItems([taskcontroller.currentItem]);
                             taskcontroller.refreshData();
                           },
                           icon: const Icon(
@@ -185,7 +183,6 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                     child: EmojiPicker(
                       textEditingController: _controller,
                       onBackspacePressed: _onBackspacePressed,
-                      
                       config: Config(
                         columns: 7,
                         emojiSizeMax: 32 * (GetPlatform.isIOS ? 1.30 : 1.0),
@@ -239,19 +236,12 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
 
     for (var comment in comments) {
       {
-        list.add(GestureDetector(
-          onTapDown: (TapDownDetails details) {
-            showPopUpMenu(details.globalPosition, comment, context);
-
-            // showEditDelete(context, comment);
-          },
-          child: Stack(
-            children: [
-              Get.find<DataController>().currentUser == comment.author.mainUserAccount
-                  ? currentUser(context, comment, width)
-                  : anotherUsers(context, comment, width)
-            ],
-          ),
+        list.add(Stack(
+          children: [
+            Get.find<DataController>().currentUser == comment.author.mainUserAccount
+                ? currentUser(context, comment, width)
+                : anotherUsers(context, comment, width)
+          ],
         ));
       }
     }
@@ -353,49 +343,54 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Flexible(
+       Flexible(
+            child:  GestureDetector(
+          onTapDown: (TapDownDetails details) {
+            showPopUpMenu(details.globalPosition, comment, context);
+          },
           child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Color(0xfff0859ff),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
-              width: width <= 700 ? width * 0.65 : 450,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(comment.author.toString(),
-                          style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
-                    ),
-                  ),
-                  if (comment.mainComment.isNotEmpty) getReply(comment),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        comment.text,
-                        softWrap: true,
-                        style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white),
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Color(0xfff0859ff),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(0), bottomLeft: Radius.circular(10))),
+                width: width <= 700 ? width * 0.65 : 450,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(comment.author.toString(),
+                            style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white)),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text(formateddate.format(comment.date),
-                          maxLines: 1,
-                          // textScaleFactor: 0.8,
-                          style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)),
+                    if (comment.mainComment.isNotEmpty) getReply(comment),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          comment.text,
+                          softWrap: true,
+                          style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14, color: Colors.white),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(formateddate.format(comment.date),
+                            maxLines: 1,
+                            // textScaleFactor: 0.8,
+                            style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Colors.white70)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -509,52 +504,58 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             )),
       ),
       Flexible(
+          child:  GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          showPopUpMenu(details.globalPosition, comment, context);
+        },
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Container(
-            decoration: const BoxDecoration(
-                color: Color(0xfffdbeaea),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
-            width: width <= 700 ? width * 0.65 : 450,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (comment.mainComment.isNotEmpty) getReply(comment),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      comment.author.toString(),
-                      style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                  color: Color(0xfffdbeaea),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(0))),
+              width: width <= 700 ? width * 0.65 : 450,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                 
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        comment.author.toString(),
+                        style: const TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.normal),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      comment.text,
-                      softWrap: true,
-                      style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                   if (comment.mainComment.isNotEmpty) getReply(comment),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        comment.text,
+                        softWrap: true,
+                        style: const TextStyle(fontFamily: 'NotoSans', fontSize: 14),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      formateddate.format(comment.date),
-                      maxLines: 1,
-                      //  textScaleFactor: 0.8,
-                      style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        formateddate.format(comment.date),
+                        maxLines: 1,
+                        //  textScaleFactor: 0.8,
+                        style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -571,9 +572,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
         children: [
           Container(
             color: Colors.green,
-            width: 8,
+            width: 7,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 7),
           Expanded(child: buildReplyMessage(comment)),
         ],
       ),
@@ -587,11 +588,12 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             children: [
               Text(
                 '${comment.mainComment.author}',
-                style: const TextStyle(fontWeight: FontWeight.bold, color:Color.fromARGB(255, 3, 235, 243)),
+                style:  TextStyle(fontWeight: FontWeight.bold, 
+                color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Color.fromARGB(255, 3, 235, 243) : Colors.black),
               ),
               Text(
                 comment.mainComment.text.toString(),
-                style: const TextStyle(color: Color.fromARGB(255, 3, 235, 243)),
+                style:  TextStyle(color:  Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Color.fromARGB(255, 3, 235, 243) : Colors.black),
               ),
               // if (onCancelReply != null)
               //   GestureDetector(
@@ -600,7 +602,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
               //   )
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 7),
           //   Text(message.message, style: TextStyle(color: Colors.black54)),
         ],
       );
@@ -611,9 +613,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
         children: [
           Container(
             color: Colors.green,
-            width: 8,
+            width: 7,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 7),
           Expanded(child: buildReplyMessageTop()),
         ],
       ),

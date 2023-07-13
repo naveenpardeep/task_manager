@@ -145,21 +145,21 @@ class _ChatPageState extends State<ChatPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tasks.name.toString(),
+                      tasks.owner.toString(),
                       maxLines: 1,
                     ),
                     Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            "Project: ${tasks.project.name}",
-                            maxLines: 1,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        if (tasks.dateLastComment.toString() != '1754-01-01 00:00:00.000' && tasks.dateLastComment.toString() != '0001-01-01 00:00:00.000')
+                        // Expanded(
+                        //   child: Text(
+                        //     "Project: ${tasks.project.name}",
+                        //     maxLines: 1,
+                        //     style: const TextStyle(fontSize: 12),
+                        //   ),
+                        // ),
+                     //   if (tasks.dateLastMessage.toString() != '1754-01-01 00:00:00.000' && tasks.dateLastMessage.toString() != '0001-01-01 00:00:00.000')
                           Text(
-                            formateddate.format(tasks.dateLastComment),
+                            formateddate.format(tasks.dateLastMessage),
                             maxLines: 1,
                             style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
                           ),

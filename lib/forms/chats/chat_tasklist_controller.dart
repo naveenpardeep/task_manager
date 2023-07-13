@@ -1,17 +1,18 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nsg_controls/nsg_control_options.dart';
 import 'package:nsg_data/nsg_data.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
-class ChatTaskListController extends NsgDataController<TaskDoc> {
+class ChatTaskListController extends NsgDataController<ChatItem> {
   ChatTaskListController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-    referenceList = [
-      TaskDocGenerated.nameProjectId,
-      TaskDocGenerated.nameTaskStatusId,
-      TaskDocGenerated.nameAssigneeId,
+     referenceList = [
+      ChatItemGenerated.nameOwnerId,
+      ChatItemGenerated.nameId
     ];
   }
   var totalcounttask = 100;
@@ -22,10 +23,10 @@ class ChatTaskListController extends NsgDataController<TaskDoc> {
     var filter = super.getRequestFilter;
     filter.count = totalcounttask;
     // filter.top = tasktop;
- 
-    filter.sorting = "${TaskDocGenerated.nameDateLastComment}-";
+    filter.sorting = "${ChatItemGenerated.nameDateLastMessage}-";
     return filter;
   }
+   
 
   Widget pagination() {
     List<Widget> list = [];
