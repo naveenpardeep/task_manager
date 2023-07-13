@@ -343,12 +343,12 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-       Flexible(
-            child:  GestureDetector(
-          onTapDown: (TapDownDetails details) {
-            showPopUpMenu(details.globalPosition, comment, context);
-          },
-          child: Padding(
+        Flexible(
+          child: GestureDetector(
+            onTapDown: (TapDownDetails details) {
+              showPopUpMenu(details.globalPosition, comment, context);
+            },
+            child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: const BoxDecoration(
@@ -504,11 +504,11 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             )),
       ),
       Flexible(
-          child:  GestureDetector(
-        onTapDown: (TapDownDetails details) {
-          showPopUpMenu(details.globalPosition, comment, context);
-        },
-        child: Padding(
+        child: GestureDetector(
+          onTapDown: (TapDownDetails details) {
+            showPopUpMenu(details.globalPosition, comment, context);
+          },
+          child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
               decoration: const BoxDecoration(
@@ -519,7 +519,6 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
                     child: Align(
@@ -530,7 +529,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                       ),
                     ),
                   ),
-                   if (comment.mainComment.isNotEmpty) getReply(comment),
+                  if (comment.mainComment.isNotEmpty) getReply(comment),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 8, 4),
                     child: Align(
@@ -588,12 +587,16 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
             children: [
               Text(
                 '${comment.mainComment.author}',
-                style:  TextStyle(fontWeight: FontWeight.bold, 
-                color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Color.fromARGB(255, 3, 235, 243) : Colors.black),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color.fromARGB(255, 7, 241, 46) : Colors.black,
+                    fontSize: 13),
               ),
               Text(
                 comment.mainComment.text.toString(),
-                style:  TextStyle(color:  Get.find<DataController>().currentUser == comment.author.mainUserAccount ? Color.fromARGB(255, 3, 235, 243) : Colors.black),
+                style: TextStyle(
+                    color: Get.find<DataController>().currentUser == comment.author.mainUserAccount ? const Color.fromARGB(255, 3, 235, 243) : Colors.black,
+                    fontSize: 13),
               ),
               // if (onCancelReply != null)
               //   GestureDetector(
