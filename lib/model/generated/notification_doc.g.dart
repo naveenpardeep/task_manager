@@ -20,6 +20,7 @@ class NotificationDocGenerated extends NsgDataItem {
   static const nameOrganizationId = 'organizationId';
   static const nameInvitationId = 'invitationId';
   static const nameNotificationType = 'notificationType';
+  static const nameChatId = 'chatId';
   static const nameChatNumberOfUnreadMessages = 'chatNumberOfUnreadMessages';
   static const nameChatDateUnread1 = 'chatDateUnread1';
   static const nameChatDateUnread2 = 'chatDateUnread2';
@@ -52,6 +53,7 @@ class NotificationDocGenerated extends NsgDataItem {
     addField(NsgDataReferenceField<OrganizationItem>(nameOrganizationId), primaryKey: false);
     addField(NsgDataReferenceField<Invitation>(nameInvitationId), primaryKey: false);
     addField(NsgDataEnumReferenceField<ENotificationType>(nameNotificationType), primaryKey: false);
+    addField(NsgDataReferenceField<ChatItem>(nameChatId), primaryKey: false);
     addField(NsgDataIntField(nameChatNumberOfUnreadMessages), primaryKey: false);
     addField(NsgDataDateField(nameChatDateUnread1), primaryKey: false);
     addField(NsgDataDateField(nameChatDateUnread2), primaryKey: false);
@@ -175,6 +177,17 @@ class NotificationDocGenerated extends NsgDataItem {
   ENotificationType get notificationType => NsgEnum.fromValue(ENotificationType, getFieldValue(nameNotificationType)) as ENotificationType;
 
   set notificationType(ENotificationType value) => setFieldValue(nameNotificationType, value);
+
+  /// Чат
+  String get chatId => getFieldValue(nameChatId).toString();
+  ChatItem get chat => getReferent<ChatItem>(nameChatId);
+  Future<ChatItem> chatAsync() async {
+   return await getReferentAsync<ChatItem>(nameChatId);
+  }
+
+  set chatId(String value) => setFieldValue(nameChatId, value);
+  set chat(ChatItem value) =>
+    setFieldValue(nameChatId, value.id);
 
   /// ЧатКоличествоНепрочитанных
   int get chatNumberOfUnreadMessages => getFieldValue(nameChatNumberOfUnreadMessages) as int;
