@@ -4,9 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nsg_controls/nsg_controls.dart';
+import 'package:nsg_controls/widgets/nsg_circle.dart';
+import 'package:nsg_data/helpers/nsg_data_format.dart';
 import 'package:task_manager_app/forms/chats/chat_controller.dart';
 import 'package:task_manager_app/forms/chats/chat_open_page.dart';
 import 'package:task_manager_app/forms/chats/chat_tasklist_controller.dart';
+import 'package:task_manager_app/forms/notification/notification_controller.dart';
+import 'package:task_manager_app/model/data_controller.dart';
+import 'package:task_manager_app/model/data_controller_model.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -17,6 +22,8 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   var controller = Get.find<ChatController>();
   var tasklistCont = Get.find<ChatTaskListController>();
+  var notificationController = Get.find<NotificationController>();
+  var datacontroller = Get.find<DataController>();
   var textEditController = TextEditingController();
   var scrollController = ScrollController();
   @override
@@ -27,6 +34,9 @@ class _ChatPageState extends State<ChatPage> {
     }
     if (tasklistCont.lateInit) {
       tasklistCont.requestItems();
+    }
+    if (notificationController.lateInit) {
+      notificationController.requestItems();
     }
   }
 
@@ -124,15 +134,20 @@ class _ChatPageState extends State<ChatPage> {
   Widget getAllTaskWithComments(context) {
     List<Widget> taskList = [];
     double width = MediaQuery.of(context).size.width;
-    DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
+    //   DateFormat formateddate = DateFormat("dd.MM.yyyy   HH:mm");
 
     for (var tasks in tasklistCont.items) {
       if (tasks.name.toString().toLowerCase().contains(textEditController.text.toLowerCase())) {
         taskList.add(InkWell(
           onTap: () {
             Get.find<ChatTaskListController>().currentItem = tasks;
+              tasklistCont.refreshItem(tasks, [ChatItemGenerated.nameNumberOfUnreadMessages]);
+            // tasklistCont.setAndRefreshSelectedItem(tasks, [ChatItemGenerated.nameNumberOfUnreadMessages]);
+
             controller.sendNotify();
+
             setState(() {});
+            tasklistCont.sendNotify();
           },
           child: Card(
             child: Container(
@@ -144,25 +159,43 @@ class _ChatPageState extends State<ChatPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      tasks.owner.toString(),
-                      maxLines: 1,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            tasks.owner.toString(),
+                            maxLines: 1,
+                          ),
+                        ),
+                        if (tasks.numberOfUnreadMessages.isGreaterThan(0))
+                          NsgCircle(
+                            height: 20,
+                            width: 20,
+                            fontSize: 10,
+                            text: tasks.numberOfUnreadMessages.toString(),
+                          ),
+                        // if (notificationController.items.where((element) => element.chatId == tasks.id).isNotEmpty)
+                        //   notificationController.obx(
+                        //     (state) => NsgCircle(
+                        //       text: notificationController.items.where((element) => element.chatId == tasks.id).first.chatNumberOfUnreadMessages.toString(),
+                        //     ),
+                        //  )
+                      ],
                     ),
                     Row(
                       children: [
-                        // Expanded(
-                        //   child: Text(
-                        //     "Project: ${tasks.project.name}",
-                        //     maxLines: 1,
-                        //     style: const TextStyle(fontSize: 12),
-                        //   ),
-                        // ),
-                     //   if (tasks.dateLastMessage.toString() != '1754-01-01 00:00:00.000' && tasks.dateLastMessage.toString() != '0001-01-01 00:00:00.000')
-                          Text(
-                            formateddate.format(tasks.dateLastMessage),
+                        Expanded(
+                          child: Text(
+                            "Project: ${tasks.project.name}",
                             maxLines: 1,
-                            style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                            style: const TextStyle(fontSize: 12),
                           ),
+                        ),
+                        Text(
+                          getDate(tasks),
+                          maxLines: 1,
+                          style: const TextStyle(fontSize: 10, fontFamily: 'Inter', color: Color(0xfff3ea8ab)),
+                        ),
                       ],
                     ),
                   ],
@@ -179,5 +212,31 @@ class _ChatPageState extends State<ChatPage> {
         children: taskList,
       ),
     );
+  }
+
+  String getDate(ChatItem tasks) {
+    var todayDate = DateTime.now();
+    final lastDate = tasks.dateLastMessage;
+    var daysleft = todayDate.difference(lastDate).inDays;
+    if (daysleft > 7) {
+      return '${NsgDateFormat.dateFormat(tasks.dateLastMessage, format: 'dd.MM.yy HH:mm')}';
+    }
+    var minutes = todayDate.difference(lastDate).inMinutes;
+    if (minutes == 0) {
+      return 'только что';
+    }
+    if (minutes < 60) {
+      return '$minutes мин. назад';
+    }
+    var hours = todayDate.difference(lastDate).inHours;
+    if (hours <= 24) {
+      return '$hours Час. назад';
+    }
+
+    if (daysleft <= 7) {
+      return '$daysleft дн. назад';
+    }
+
+    return '$daysleft дн. назад';
   }
 }

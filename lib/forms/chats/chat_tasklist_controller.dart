@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,12 +6,11 @@ import 'package:nsg_data/nsg_data.dart';
 
 import 'package:task_manager_app/model/data_controller_model.dart';
 
+import '../../model/data_controller.dart';
+
 class ChatTaskListController extends NsgDataController<ChatItem> {
   ChatTaskListController() : super(requestOnInit: false, autoRepeate: true, autoRepeateCount: 100) {
-     referenceList = [
-      ChatItemGenerated.nameOwnerId,
-      ChatItemGenerated.nameId
-    ];
+    referenceList = [ChatItemGenerated.nameOwnerId, ChatItemGenerated.nameId, ChatItemGenerated.nameNumberOfUnreadMessages];
   }
   var totalcounttask = 100;
   var tasktop = 0;
@@ -26,7 +23,14 @@ class ChatTaskListController extends NsgDataController<ChatItem> {
     filter.sorting = "${ChatItemGenerated.nameDateLastMessage}-";
     return filter;
   }
-   
+
+  @override
+  Future<NsgDataItem> refreshItem(NsgDataItem item, List<String>? referenceList) async {
+    var res = await super.refreshItem(item, referenceList) as ChatItem;
+    await Get.find<DataController>().markNotificationAsRead(res.id, DateTime.now());
+
+    return res;
+  }
 
   Widget pagination() {
     List<Widget> list = [];
