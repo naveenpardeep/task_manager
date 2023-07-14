@@ -10,6 +10,8 @@ class ChatItemGenerated extends NsgDataItem {
   static const nameName = 'name';
   static const nameDateFirstMessage = 'dateFirstMessage';
   static const nameDateLastMessage = 'dateLastMessage';
+  static const nameNumberOfUnreadMessages = 'numberOfUnreadMessages';
+  static const nameProjectId = 'projectId';
   static const nameOwnerId = 'ownerId';
 
   static final Map<String, String> fieldNameDict = {
@@ -24,6 +26,8 @@ class ChatItemGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameName), primaryKey: false);
     addField(NsgDataDateField(nameDateFirstMessage), primaryKey: false);
     addField(NsgDataDateField(nameDateLastMessage), primaryKey: false);
+    addField(NsgDataIntField(nameNumberOfUnreadMessages), primaryKey: false);
+    addField(NsgDataReferenceField<ProjectItem>(nameProjectId), primaryKey: false);
     addField(NsgDataUntypedReferenceField(nameOwnerId, defaultReferentType: TaskDoc), primaryKey: false);
   }
 
@@ -54,6 +58,22 @@ class ChatItemGenerated extends NsgDataItem {
   DateTime get dateLastMessage => getFieldValue(nameDateLastMessage) as DateTime;
 
   set dateLastMessage(DateTime value) => setFieldValue(nameDateLastMessage, value);
+
+  /// КоличествоНепрочитанныхСообщений
+  int get numberOfUnreadMessages => getFieldValue(nameNumberOfUnreadMessages) as int;
+
+  set numberOfUnreadMessages(int value) => setFieldValue(nameNumberOfUnreadMessages, value);
+
+  /// Проект
+  String get projectId => getFieldValue(nameProjectId).toString();
+  ProjectItem get project => getReferent<ProjectItem>(nameProjectId);
+  Future<ProjectItem> projectAsync() async {
+   return await getReferentAsync<ProjectItem>(nameProjectId);
+  }
+
+  set projectId(String value) => setFieldValue(nameProjectId, value);
+  set project(ProjectItem value) =>
+    setFieldValue(nameProjectId, value.id);
 
   /// Владелец
   @override
