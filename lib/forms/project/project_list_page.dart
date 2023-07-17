@@ -387,7 +387,7 @@ class ProjectItemView extends StatelessWidget {
             ),
           ),
         ),
-         PopupMenuItem(
+        PopupMenuItem(
           value: 2,
           child: Animate(
             effects: const [FlipEffect()],
@@ -400,7 +400,7 @@ class ProjectItemView extends StatelessWidget {
             ),
           ),
         ),
-         PopupMenuItem(
+        PopupMenuItem(
           value: 3,
           child: Animate(
             effects: const [FlipEffect()],
@@ -458,10 +458,43 @@ class ProjectItemView extends StatelessWidget {
         pinDialog(context, project);
       }
       if (value == 3) {
+        archiveProject(context, project);
+      }
+    });
+  }
+
+  archiveProject(BuildContext context, project) {
+    Widget yesButton = TextButton(
+      child: const Text("Yes"),
+      onPressed: () {
         project.isArchived = true;
         controller.postItems([project]);
         controller.refreshData();
-      }
-    });
+        Navigator.of(context).pop();
+      },
+    );
+    Widget noButton = TextButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: const Text("Do you want to Archive this Project?"),
+      actions: [
+        yesButton,
+        noButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
