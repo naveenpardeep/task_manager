@@ -1001,15 +1001,15 @@ class _HomepageState extends State<Homepage> {
 
           progress.hide();
 
-          taskLoadC = taskLoadforcurrent[0];
-          taskLoadC1 = taskLoadforanotherstatus[0];
-          taskLoadC.loadMoreTasks(
-            1,
-          );
-          taskLoadC1.loadMoreTasks(
-            1,
-          );
-          //  taskController.refreshData();
+          // taskLoadC = taskLoadforcurrent[0];
+          // taskLoadC1 = taskLoadforanotherstatus[0];
+          // taskLoadC.loadMoreTasks(
+          //   1,
+          // );
+          // taskLoadC1.loadMoreTasks(
+          //   1,
+          // );
+           taskController.refreshData();
         }
       },
     );
