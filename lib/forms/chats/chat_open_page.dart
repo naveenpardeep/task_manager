@@ -98,9 +98,9 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           emojiShowing = !emojiShowing;
                         });
                       },
-                      icon: const Icon(
+                      icon:  const Icon(
                         Icons.emoji_emotions,
-                        color: Color.fromARGB(255, 238, 221, 67),
+                        color: Color.fromARGB(255, 250, 221, 60),
                       ),
                     ),
                   ),
