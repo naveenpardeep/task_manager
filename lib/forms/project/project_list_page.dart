@@ -482,7 +482,7 @@ class ProjectItemView extends StatelessWidget {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      content: const Text("Do you want to Archive this Project?"),
+      content:  Text('Do you want to Archive ' "${project.name} Project?"),
       actions: [
         yesButton,
         noButton,
