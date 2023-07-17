@@ -163,7 +163,7 @@ class _ChatPageState extends State<ChatPage> {
                       children: [
                         Expanded(
                           child: Text(
-                            tasks.owner.toString(),
+                            tasks.name.toString(),
                             maxLines: 1,
                           ),
                         ),
