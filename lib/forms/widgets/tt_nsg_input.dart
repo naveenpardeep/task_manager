@@ -520,7 +520,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
               setState(() {});
             }
             return;
-          },
+          }, context: context,
         );
       } else {
         //Иначе - вызываем переданную форму для подбора
@@ -554,7 +554,7 @@ class _TTNsgInputState extends State<TTNsgInput> {
           }
           setState(() {});
           return null;
-        },
+        }, context: context,
       );
     } else if (inputType == NsgInputType.referenceList) {
       var form = NsgMultiSelection(controller: selectionController!);

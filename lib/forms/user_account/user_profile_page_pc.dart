@@ -244,7 +244,7 @@ class _UserProfileState extends State<UserProfile> {
         setState(() {
           organizationName = userAccountController.currentItem.organization.toString();
         });
-      },
+      }, context: context,
     );
   }
 

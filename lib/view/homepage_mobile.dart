@@ -975,7 +975,7 @@ class RotatingCardState extends State<RotatingCard> {
   }
 }
 
-changeTaskStatus(TaskDoc tasks) {
+changeTaskStatus(TaskDoc tasks,context) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
@@ -991,11 +991,11 @@ changeTaskStatus(TaskDoc tasks) {
 
       //Get.find<TaskStatusTableController>().sendNotify();
       //taskBoardController.sendNotify();*/
-    },
+    }, context: context,
   );
 }
 
-changeStatus(TaskDoc tasks) {
+changeStatus(TaskDoc tasks,context) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
@@ -1011,7 +1011,7 @@ changeStatus(TaskDoc tasks) {
 
       //Get.find<TaskStatusTableController>().sendNotify();
       //taskBoardController.sendNotify();*/
-    },
+    }, context: context,
   );
 }
 
@@ -1020,7 +1020,7 @@ Widget taskCard(TaskDoc tasks, BoxConstraints constraints, context) {
   var taskC = Get.find<TasksController>();
   return GestureDetector(
       onLongPress: () {
-        changeStatus(tasks);
+        changeStatus(tasks,context);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
@@ -1729,7 +1729,7 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Change Status"),
     onPressed: () {
-      changeTaskStatus(tasks);
+      changeTaskStatus(tasks,context);
     },
   );
 

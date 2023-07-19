@@ -1160,7 +1160,7 @@ Widget statuslist(context, TaskDoc taskDoc) {
   return SingleChildScrollView(child: Column(children: list));
 }
 
-changeTaskStatus(TaskDoc tasks, [int? value]) {
+changeTaskStatus(TaskDoc tasks,context, [int? value]) {
   var form = NsgSelection(
     selectedElement: tasks.taskStatus,
     inputType: NsgInputType.reference,
@@ -1177,7 +1177,7 @@ changeTaskStatus(TaskDoc tasks, [int? value]) {
 
       //Get.find<TaskStatusTableController>().sendNotify();
       //taskBoardController.sendNotify();*/
-    },
+    }, context: context,
   );
 }
 
@@ -1366,10 +1366,10 @@ Future<void> showPopUpMenu(Offset globalPosition, tasks, context) async {
       taskStatus(context, tasks);
     }
     if (value == 3) {
-      selectProjectMove(tasks);
+      selectProjectMove(tasks,context);
     }
     if (value == 4) {
-      selectProjectCopy(tasks);
+      selectProjectCopy(tasks,context);
     }
     if (value == 5) {
       tasks.assignee = Get.find<DataController>().currentUser;
@@ -1499,7 +1499,7 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Copy Task to another Project"),
     onPressed: () {
-      selectProjectCopy(tasks);
+      selectProjectCopy(tasks,context);
     },
   );
   Widget move = ElevatedButton(
@@ -1510,7 +1510,7 @@ openTaskDialog(tasks, context) {
     ),
     child: const Text("Move Task to another Project"),
     onPressed: () {
-      selectProjectMove(tasks);
+      selectProjectMove(tasks,context);
     },
   );
   // set up the AlertDialog
@@ -1527,7 +1527,7 @@ openTaskDialog(tasks, context) {
   );
 }
 
-selectProjectCopy(TaskDoc tasks) {
+selectProjectCopy(TaskDoc tasks,context) {
   var form = NsgSelection(
     selectedElement: ProjectItem(),
     inputType: NsgInputType.reference,
@@ -1557,11 +1557,11 @@ selectProjectCopy(TaskDoc tasks) {
 
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
-    },
+    }, context: context,
   );
 }
 
-selectProjectMove(TaskDoc tasks) {
+selectProjectMove(TaskDoc tasks,context) {
   var form = NsgSelection(
     selectedElement: ProjectItem(),
     inputType: NsgInputType.reference,
@@ -1588,7 +1588,7 @@ selectProjectMove(TaskDoc tasks) {
       }
       await Get.find<TasksController>().postItems([tasks]);
       Get.find<TasksController>().itemPageOpen(tasks, Routes.taskEditPage, needRefreshSelectedItem: true);
-    },
+    }, context: context,
   );
 }
 
