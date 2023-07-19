@@ -117,9 +117,8 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
-                            //  taskcontroller.currentItem.dateLastComment = DateTime.now();
-                            //  await taskcontroller.postItems([taskcontroller.currentItem]);
-                            taskcontroller.refreshData();
+                            taskcontroller.currentItem.dateLastMessage = DateTime.now();
+                            // taskcontroller.refreshData();
                           }
                         },
                         // child: TTNsgInput(
@@ -163,9 +162,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             await controller.itemPagePost(goBack: false);
 
                             await controller.createNewItemAsync();
-                            // taskcontroller.currentItem.dateLastMessage = DateTime.now();
-                            // await taskcontroller.postItems([taskcontroller.currentItem]);
-                            taskcontroller.refreshData();
+                            taskcontroller.currentItem.dateLastMessage = DateTime.now();
                           },
                           icon: const Icon(
                             Icons.send_rounded,
