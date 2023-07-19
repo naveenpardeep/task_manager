@@ -114,11 +114,13 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
                             controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
                             controller.currentItem.text = _controller.text;
-                            await controller.itemPagePost(goBack: false);
+                            await controller.currentItem.post();
+                            controller.items.add(controller.currentItem);
+                            _controller.text = '';
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateLastMessage = DateTime.now();
-                            // taskcontroller.refreshData();
+                            taskcontroller.requestItems();
                           }
                         },
                         // child: TTNsgInput(
@@ -159,10 +161,15 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
                             controller.currentItem.text = _controller.text;
 
-                            await controller.itemPagePost(goBack: false);
+                            //  await controller.itemPagePost(goBack: false);
+
+                            await controller.currentItem.post();
+                            controller.items.add(controller.currentItem);
+                            _controller.text = '';
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateLastMessage = DateTime.now();
+                            taskcontroller.requestItems();
                           },
                           icon: const Icon(
                             Icons.send_rounded,
