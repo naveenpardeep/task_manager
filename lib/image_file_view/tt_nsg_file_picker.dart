@@ -702,7 +702,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                           onConfirm: () {
                             widget.objectsList.remove(element);
                             setState(() {});
-                            Get.back();
+                            
                           },
                         ));
                       },
