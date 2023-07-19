@@ -117,6 +117,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             await controller.currentItem.post();
                             controller.items.add(controller.currentItem);
                             _controller.text = '';
+                            isReply=false;
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateLastMessage = DateTime.now();
@@ -166,6 +167,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             await controller.currentItem.post();
                             controller.items.add(controller.currentItem);
                             _controller.text = '';
+                            isReply=false;
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateLastMessage = DateTime.now();
