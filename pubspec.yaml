@@ -73,6 +73,7 @@ dependencies:
   dual_screen: ^1.0.4
   flutter_animate: ^4.2.0
   emoji_picker_flutter: ^1.6.1
+  download: ^1.0.0
 
   
   
@@ -86,6 +87,7 @@ dependencies:
   glass: ^1.0.1+1
   pasteboard: ^0.2.0
   http: ^0.13.6
+
  
 
 dev_dependencies:

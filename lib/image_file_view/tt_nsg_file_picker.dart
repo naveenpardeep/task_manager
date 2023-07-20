@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:download/download.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
@@ -579,72 +581,44 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   }
 
   Future saveFile(NsgFilePickerObject fileObject) async {
-    // if (GetPlatform.isIOS || GetPlatform.isAndroid) {
-    //   String? message;
-    //   String? imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
-
-    //   try {
-    //     // Download image
-    //     final http.Response response = await http.get(Uri.parse(imagepath));
-
-    //     // Get temporary directory
-    //     final dir = await getTemporaryDirectory();
-
-    //     // Create an image name
-    //     var filename = '${dir.path}/filename';
-
-    //     // Save to filesystem
-    //     final file = File(filename);
-    //     await file.writeAsBytes(response.bodyBytes);
-
-    //     final params = SaveFileDialogParams(sourceFilePath: file.path);
-    //     final finalPath = await FlutterFileDialog.saveFile(params: params);
-
-    //     if (finalPath != null) {
-    //       message = 'Image saved';
-    //     }
-    //   } catch (e) {
-    //     message = 'An error occurred while saving the image';
-    //   }
-
-    //   if (message != null) {
-    //     Get.snackbar('', message);
-    //   }
-    // } else {
-      FileType fileType = FileType.any;
-
-      switch (fileObject.fileType) {
-        case NsgFilePickerObjectType.image:
-          fileType = FileType.image;
-          break;
-        case NsgFilePickerObjectType.video:
-          fileType = FileType.video;
-          break;
-        case NsgFilePickerObjectType.pdf:
-          fileType = FileType.any;
-          break;
-        default:
-          fileType = FileType.any;
-      }
-      var fileName =kIsWeb? fileObject.description: await FilePicker.platform
+    FileType fileType = FileType.any;
+    switch (fileObject.fileType) {
+      case NsgFilePickerObjectType.image:
+        fileType = FileType.image;
+        break;
+      case NsgFilePickerObjectType.video:
+        fileType = FileType.video;
+        break;
+      case NsgFilePickerObjectType.pdf:
+        fileType = FileType.any;
+        break;
+      default:
+        fileType = FileType.any;
+    }
+    if (!kIsWeb) {
+      var fileName = await FilePicker.platform
           .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
       if (fileName == null) return;
       var ext = extension(fileName);
       if (ext.isEmpty) {
         fileName += extension(fileObject.filePath);
       }
-      var filepath=fileType==FileType.image?fileObject.image.toString().replaceAll('Image(image: NetworkImage("', '').replaceAll(', scale: 1), frameBuilder: null, loadingBuilder: null, alignment: Alignment.center, this.excludeFromSemantics: false, filterQuality: low))', ''): fileObject.filePath;
 
-//TODO: add progress
+      //TODO: add progress
       dio.Dio io = dio.Dio();
-      await io.download(filepath.replaceAll(', scale: 1.0), frameBuilder: null, loadingBuilder: null, alignment: Alignment.center, this.excludeFromSemantics: false, filterQuality: low)"', '').replaceAll('"', ''), fileName, onReceiveProgress: (receivedBytes, totalBytes) {
-//setState(() {
-// downloading = true;
-// progress =
-// ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+      await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
+        //setState(() {
+        // downloading = true;
+        // progress =
+        //     ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
       });
       await launchUrlString('file:$fileName');
-   // }
+    }
+    if (kIsWeb) {
+      var stream = Stream.fromIterable(fileObject.filePath.codeUnits);
+
+      download(stream, "Tasktunerfile");
+    }
   }
 
   /// Вывод галереи на экран
@@ -673,23 +647,24 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Material(
-                    color: ControlOptions.instance.colorMain.withOpacity(0),
-                    child: InkWell(
-                      //   hoverColor: ControlOptions.instance.colorMainDark,
-                      onTap: () {
-                        saveFile(element);
-                      },
-                      child: Container(
-                        height: 38,
-                        padding: const EdgeInsets.all(5),
-                        child: Icon(Icons.save_as, size: 18, color: ControlOptions.instance.colorInverted),
+                if (element.image == null)
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      color: ControlOptions.instance.colorMain.withOpacity(0),
+                      child: InkWell(
+                        //   hoverColor: ControlOptions.instance.colorMainDark,
+                        onTap: () {
+                          saveFile(element);
+                        },
+                        child: Container(
+                          height: 38,
+                          padding: const EdgeInsets.all(5),
+                          child: Icon(Icons.save_as, size: 18, color: ControlOptions.instance.colorInverted),
+                        ),
                       ),
                     ),
                   ),
-                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Material(
@@ -703,7 +678,6 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
                           onConfirm: () {
                             widget.objectsList.remove(element);
                             setState(() {});
-                            
                           },
                         ));
                       },
@@ -993,7 +967,6 @@ class NsgImagePickerButton extends StatelessWidget {
                         filePath: kIsWeb ? '' : listfile.path,
                         file: kIsWeb ? null : File(listfile.path),
                         fileType: fileType,
-                        
                       ));
                     }
 
