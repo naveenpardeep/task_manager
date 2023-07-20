@@ -122,9 +122,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                     controller: Get.find<ProjectItemUserTableController>(),
                                     elementEditPageName: Routes.projectUserViewPage,
                                     availableButtons: const [
-                                      NsgTableMenuButtonType.createNewElement,
                                       NsgTableMenuButtonType.editElement,
-                                      NsgTableMenuButtonType.removeElement,
                                     ],
                                     columns: [
                                       NsgTableColumn(name: ProjectItemUserTableGenerated.nameUserAccountId, expanded: true, presentation: 'Name'),
