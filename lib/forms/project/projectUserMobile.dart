@@ -126,6 +126,8 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                                     ],
                                     columns: [
                                       NsgTableColumn(name: ProjectItemUserTableGenerated.nameUserAccountId, expanded: true, presentation: 'Name'),
+                                      NsgTableColumn(name: ProjectItemUserTableGenerated.nameUserEmail, expanded: true, presentation: 'Email'),
+                                      NsgTableColumn(name: ProjectItemUserTableGenerated.nameUserPhone, expanded: true, presentation: 'Phone'),
                                       NsgTableColumn(name: ProjectItemUserTableGenerated.nameRoleId, expanded: true, presentation: 'User Role'),
                                     ],
                                   ),
