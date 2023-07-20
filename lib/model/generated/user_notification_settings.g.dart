@@ -103,7 +103,6 @@ class UserNotificationSettingsGenerated extends NsgDataItem {
   /// ТаблицаСтатусы
   NsgDataTable<UserNotificationSettingsStatusTable> get statusTable => NsgDataTable<UserNotificationSettingsStatusTable>(owner: this, fieldName: nameStatusTable);
 
-
   @override
   String get apiRequestItems {
     return '/Data/UserNotificationSettings';

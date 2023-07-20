@@ -212,7 +212,6 @@ class ProjectItemGenerated extends NsgDataItem {
   /// ТаблицаПользователи
   NsgDataTable<ProjectItemUserTable> get tableUsers => NsgDataTable<ProjectItemUserTable>(owner: this, fieldName: nameTableUsers);
 
-
   @override
   String get apiRequestItems {
     return '/Data/Project';

@@ -82,7 +82,6 @@ class BackupDocGenerated extends NsgDataItem {
   /// Значения
   NsgDataTable<BackupDocValuesTable> get objectValues => NsgDataTable<BackupDocValuesTable>(owner: this, fieldName: nameObjectValues);
 
-
   @override
   String get apiRequestItems {
     return '/Data/BackupDoc';

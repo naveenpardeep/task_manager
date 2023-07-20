@@ -76,10 +76,8 @@ class TaskBoardGenerated extends NsgDataItem {
   /// Статусы
   NsgDataTable<TaskBoardStatusTable> get statusTable => NsgDataTable<TaskBoardStatusTable>(owner: this, fieldName: nameStatusTable);
 
-
   /// ТипыЗадач
   NsgDataTable<TaskBoardTypeTable> get typeTable => NsgDataTable<TaskBoardTypeTable>(owner: this, fieldName: nameTypeTable);
-
 
   @override
   String get apiRequestItems {

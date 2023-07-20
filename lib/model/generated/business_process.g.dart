@@ -70,7 +70,6 @@ class BusinessProcessGenerated extends NsgDataItem {
   /// Переходы
   NsgDataTable<BusinessProcessTransitionTable> get transitionTable => NsgDataTable<BusinessProcessTransitionTable>(owner: this, fieldName: nameTransitionTable);
 
-
   @override
   String get apiRequestItems {
     return '/Data/BusinessProcess';

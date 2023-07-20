@@ -89,7 +89,6 @@ class OrganizationItemGenerated extends NsgDataItem {
   /// Сотрудники
   NsgDataTable<OrganizationItemUserTable> get tableUsers => NsgDataTable<OrganizationItemUserTable>(owner: this, fieldName: nameTableUsers);
 
-
   @override
   String get apiRequestItems {
     return '/Data/Organization';

@@ -9,6 +9,8 @@ class ProjectItemUserTableGenerated extends NsgDataItem {
   static const nameId = 'id';
   static const nameOwnerId = 'ownerId';
   static const nameUserAccountId = 'userAccountId';
+  static const nameUserEmail = 'userEmail';
+  static const nameUserPhone = 'userPhone';
   static const nameRoleId = 'roleId';
   static const nameIsAdmin = 'isAdmin';
 
@@ -23,6 +25,8 @@ class ProjectItemUserTableGenerated extends NsgDataItem {
     addField(NsgDataStringField(nameId), primaryKey: true);
     addField(NsgDataReferenceField<ProjectItem>(nameOwnerId), primaryKey: false);
     addField(NsgDataReferenceField<UserAccount>(nameUserAccountId), primaryKey: false);
+    addField(NsgDataStringField(nameUserEmail), primaryKey: false);
+    addField(NsgDataStringField(nameUserPhone), primaryKey: false);
     addField(NsgDataReferenceField<UserRole>(nameRoleId), primaryKey: false);
     addField(NsgDataBoolField(nameIsAdmin), primaryKey: false);
   }
@@ -60,6 +64,16 @@ class ProjectItemUserTableGenerated extends NsgDataItem {
   set userAccountId(String value) => setFieldValue(nameUserAccountId, value);
   set userAccount(UserAccount value) =>
     setFieldValue(nameUserAccountId, value.id);
+
+  /// АккаунтПользователя.Email
+  String get userEmail => getFieldValue(nameUserEmail).toString();
+
+  set userEmail(String value) => setFieldValue(nameUserEmail, value);
+
+  /// АккаунтПользователя.НомерТелефона
+  String get userPhone => getFieldValue(nameUserPhone).toString();
+
+  set userPhone(String value) => setFieldValue(nameUserPhone, value);
 
   /// Роль
   String get roleId => getFieldValue(nameRoleId).toString();

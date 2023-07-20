@@ -221,14 +221,11 @@ class TaskDocGenerated extends NsgDataItem {
   /// ТаблицаКомментарии
   NsgDataTable<TaskDocCommentsTable> get tableComments => NsgDataTable<TaskDocCommentsTable>(owner: this, fieldName: nameTableComments);
 
-
   /// ЧекЛист
   NsgDataTable<TaskDocCheckListTable> get checkList => NsgDataTable<TaskDocCheckListTable>(owner: this, fieldName: nameCheckList);
 
-
   /// ТаблицаФайлы
   NsgDataTable<TaskDocFilesTable> get files => NsgDataTable<TaskDocFilesTable>(owner: this, fieldName: nameFiles);
-
 
   /// Автор
   String get authorId => getFieldValue(nameAuthorId).toString();

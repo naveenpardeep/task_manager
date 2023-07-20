@@ -59,7 +59,6 @@ class SprintDocGenerated extends NsgDataItem {
   /// ТаблицаЗадач
   NsgDataTable<SprintDocTaskTable> get taskTable => NsgDataTable<SprintDocTaskTable>(owner: this, fieldName: nameTaskTable);
 
-
   @override
   String get apiRequestItems {
     return '/Data/SprintDoc';

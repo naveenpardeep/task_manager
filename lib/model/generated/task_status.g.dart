@@ -77,7 +77,6 @@ class TaskStatusGenerated extends NsgDataItem {
   /// СтатусыПерехода
   NsgDataTable<TaskStatusTransitionTable> get transitionTable => NsgDataTable<TaskStatusTransitionTable>(owner: this, fieldName: nameTransitionTable);
 
-
   @override
   String get apiRequestItems {
     return '/Data/TaskStatus';
