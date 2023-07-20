@@ -34,6 +34,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
     if (Get.find<ProjectController>().lateInit) {
       Get.find<ProjectController>().requestItems();
     }
+    double width = MediaQuery.of(context).size.width;
     //  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -122,7 +123,7 @@ class _ProjectUserRowPageState extends State<ProjectUserRowPage> {
                             const Divider(
                               height: 2,
                             ),
-
+                         
                             getProjectuser(context),
                           ],
                         ),

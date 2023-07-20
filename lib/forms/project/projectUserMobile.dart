@@ -14,7 +14,10 @@ import 'package:task_manager_app/forms/project/project_userViewpage.dart';
 import 'package:task_manager_app/forms/project/project_user_controller.dart';
 import 'package:task_manager_app/forms/tasks/task_file_controller.dart';
 import 'package:task_manager_app/forms/widgets/tt_app_bar.dart';
+import 'package:task_manager_app/model/generated/project_item_user_table.g.dart';
 import 'package:task_manager_app/model/project_item_user_table.dart';
+
+import '../../model/generated/user_account.g.dart';
 
 class ProjectUserMobile extends StatefulWidget {
   const ProjectUserMobile({Key? key}) : super(key: key);
@@ -43,6 +46,7 @@ class _ProjectpageState extends State<ProjectUserMobile> {
   @override
   Widget build(BuildContext context) {
     var scrollController = ScrollController();
+    double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -77,57 +81,75 @@ class _ProjectpageState extends State<ProjectUserMobile> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              if (controller.currentItem.name.isNotEmpty)
-                              SizedBox(
-                                height: 35,
-                                child: TextField(
-                                    controller: textEditController,
-                                    decoration: InputDecoration(
-                                        filled: false,
-                                        fillColor: ControlOptions.instance.colorMainLight,
-                                        prefixIcon: const Icon(Icons.search),
-                                        border: OutlineInputBorder(
-                                            gapPadding: 1,
-                                            borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
-                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                        suffixIcon: IconButton(
-                                            padding: const EdgeInsets.only(bottom: 0),
-                                            onPressed: (() {
-                                              setState(() {});
-                                              textEditController.clear();
-                                              searchvalue = '';
-                                            }),
-                                            icon: const Icon(Icons.cancel)),
-                                        // prefixIcon: Icon(Icons.search),
-                                        hintText: 'Search Users'),
-                                    textAlignVertical: TextAlignVertical.bottom,
-                                    style: TextStyle(color: ControlOptions.instance.colorMainLight),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        searchvalue = val;
-                                      });
-                                    }),
-                              ),
+                              if (controller.currentItem.name.isNotEmpty && width < 700)
+                                SizedBox(
+                                  height: 35,
+                                  child: TextField(
+                                      controller: textEditController,
+                                      decoration: InputDecoration(
+                                          filled: false,
+                                          fillColor: ControlOptions.instance.colorMainLight,
+                                          prefixIcon: const Icon(Icons.search),
+                                          border: OutlineInputBorder(
+                                              gapPadding: 1,
+                                              borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                                              borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                          suffixIcon: IconButton(
+                                              padding: const EdgeInsets.only(bottom: 0),
+                                              onPressed: (() {
+                                                setState(() {});
+                                                textEditController.clear();
+                                                searchvalue = '';
+                                              }),
+                                              icon: const Icon(Icons.cancel)),
+                                          // prefixIcon: Icon(Icons.search),
+                                          hintText: 'Search Users'),
+                                      textAlignVertical: TextAlignVertical.bottom,
+                                      style: TextStyle(color: ControlOptions.instance.colorMainLight),
+                                      onChanged: (val) {
+                                        setState(() {
+                                          searchvalue = val;
+                                        });
+                                      }),
+                                ),
                               invitations.obx((state) => projectuserInvitations(context)),
-                              projectUsersList(context),
+                              if (width < 700) projectUsersList(context),
+                              if (width > 700)
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: NsgTable(
+                                    showIconFalse: false,
+                                    controller: Get.find<ProjectItemUserTableController>(),
+                                    elementEditPageName: Routes.projectUserViewPage,
+                                    availableButtons: const [
+                                      NsgTableMenuButtonType.createNewElement,
+                                      NsgTableMenuButtonType.editElement,
+                                      NsgTableMenuButtonType.removeElement,
+                                    ],
+                                    columns: [
+                                      NsgTableColumn(name: ProjectItemUserTableGenerated.nameUserAccountId, expanded: true, presentation: 'Name'),
+                                      NsgTableColumn(name: ProjectItemUserTableGenerated.nameRoleId, expanded: true, presentation: 'User Role'),
+                                    ],
+                                  ),
+                                ),
                             ],
                           ),
                         ),
                       )),
                 )),
                 if (controller.currentItem.name.isNotEmpty)
-                NsgButton(
-                  borderRadius: 30,
-                  color: Colors.white,
-                  backColor: const Color(0xff0859ff),
-                  text: '+ Добавить участника в проект',
-                  onPressed: () async {
-                    await Get.find<ProjectUserController>().requestItems();
-                    Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
+                  NsgButton(
+                    borderRadius: 30,
+                    color: Colors.white,
+                    backColor: const Color(0xff0859ff),
+                    text: '+ Добавить участника в проект',
+                    onPressed: () async {
+                      await Get.find<ProjectUserController>().requestItems();
+                      Get.find<ProjectItemUserTableController>().prepapreProjectUsers();
 
-                    Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
-                  },
-                ),
+                      Get.find<ProjectItemUserTableController>().newItemPageOpen(pageName: Routes.projectuserRowpage);
+                    },
+                  ),
               ],
             ),
           ),
@@ -358,10 +380,10 @@ class _ProjectpageState extends State<ProjectUserMobile> {
               rightIcons: [
                 TTAppBarIcon(
                   icon: Icons.check,
-                  onTap: ()async {
-                     await Get.find<ProjectItemUserTableController>().itemPagePost(goBack: false);
+                  onTap: () async {
+                    await Get.find<ProjectItemUserTableController>().itemPagePost(goBack: false);
                     await Get.find<ProjectController>().itemPagePost(goBack: false);
-                    if(context.mounted){
+                    if (context.mounted) {
                       Navigator.pop(context);
                     }
                   },

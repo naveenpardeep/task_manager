@@ -579,38 +579,38 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
   }
 
   Future saveFile(NsgFilePickerObject fileObject) async {
-    if (GetPlatform.isIOS || GetPlatform.isAndroid) {
-      String? message;
-      String? imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
+    // if (GetPlatform.isIOS || GetPlatform.isAndroid) {
+    //   String? message;
+    //   String? imagepath = TaskFilesController.getFilePath(fileObject.image.toString());
 
-      try {
-        // Download image
-        final http.Response response = await http.get(Uri.parse(imagepath));
+    //   try {
+    //     // Download image
+    //     final http.Response response = await http.get(Uri.parse(imagepath));
 
-        // Get temporary directory
-        final dir = await getTemporaryDirectory();
+    //     // Get temporary directory
+    //     final dir = await getTemporaryDirectory();
 
-        // Create an image name
-        var filename = '${dir.path}/filename';
+    //     // Create an image name
+    //     var filename = '${dir.path}/filename';
 
-        // Save to filesystem
-        final file = File(filename);
-        await file.writeAsBytes(response.bodyBytes);
+    //     // Save to filesystem
+    //     final file = File(filename);
+    //     await file.writeAsBytes(response.bodyBytes);
 
-        final params = SaveFileDialogParams(sourceFilePath: file.path);
-        final finalPath = await FlutterFileDialog.saveFile(params: params);
+    //     final params = SaveFileDialogParams(sourceFilePath: file.path);
+    //     final finalPath = await FlutterFileDialog.saveFile(params: params);
 
-        if (finalPath != null) {
-          message = 'Image saved';
-        }
-      } catch (e) {
-        message = 'An error occurred while saving the image';
-      }
+    //     if (finalPath != null) {
+    //       message = 'Image saved';
+    //     }
+    //   } catch (e) {
+    //     message = 'An error occurred while saving the image';
+    //   }
 
-      if (message != null) {
-        Get.snackbar('', message);
-      }
-    } else {
+    //   if (message != null) {
+    //     Get.snackbar('', message);
+    //   }
+    // } else {
       FileType fileType = FileType.any;
 
       switch (fileObject.fileType) {
@@ -626,24 +626,25 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         default:
           fileType = FileType.any;
       }
-      var fileName = await FilePicker.platform
+      var fileName =kIsWeb? fileObject.description: await FilePicker.platform
           .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
       if (fileName == null) return;
       var ext = extension(fileName);
       if (ext.isEmpty) {
         fileName += extension(fileObject.filePath);
       }
+      var filepath=fileType==FileType.image?fileObject.image.toString().replaceAll('Image(image: NetworkImage("', '').replaceAll(', scale: 1), frameBuilder: null, loadingBuilder: null, alignment: Alignment.center, this.excludeFromSemantics: false, filterQuality: low))', ''): fileObject.filePath;
 
 //TODO: add progress
       dio.Dio io = dio.Dio();
-      await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
+      await io.download(filepath.replaceAll(', scale: 1.0), frameBuilder: null, loadingBuilder: null, alignment: Alignment.center, this.excludeFromSemantics: false, filterQuality: low)"', '').replaceAll('"', ''), fileName, onReceiveProgress: (receivedBytes, totalBytes) {
 //setState(() {
 // downloading = true;
 // progress =
 // ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
       });
       await launchUrlString('file:$fileName');
-    }
+   // }
   }
 
   /// Вывод галереи на экран
