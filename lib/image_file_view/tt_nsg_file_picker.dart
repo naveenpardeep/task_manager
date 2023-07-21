@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_text.dart';
 import 'package:nsg_data/nsg_data.dart';
-
+import 'package:universal_html/html.dart' as html;
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -615,9 +615,28 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
       await launchUrlString('file:$fileName');
     }
     if (kIsWeb) {
-      var stream = Stream.fromIterable(fileObject.filePath.codeUnits);
+      // var stream = Stream.fromIterable(fileObject.filePath.codeUnits);
 
-      download(stream, "Tasktunerfile");
+      // download(stream, "Tasktunerfile");
+
+      try {
+        final response = await http.get(Uri.parse(fileObject.filePath));
+
+        if (response.statusCode == 200) {
+          final blob = html.Blob([response.bodyBytes]);
+
+          final url = html.Url.createObjectUrlFromBlob(blob);
+
+          final anchor = html.AnchorElement(href: url)..setAttribute("download", 'TaskTunerfile${extension(fileObject.filePath)}');
+          anchor.click();
+
+          html.Url.revokeObjectUrl(url);
+        } else {
+          Get.snackbar('failed download', 'Failed to download file');
+        }
+      } catch (e) {
+        Get.snackbar('error', 'Error while downloading file: $e');
+      }
     }
   }
 
