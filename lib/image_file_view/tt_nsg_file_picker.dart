@@ -632,7 +632,7 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
           html.Url.revokeObjectUrl(url);
         } else {
-          Get.snackbar('failed download', 'Failed to download file');
+          Get.snackbar('failed download', 'Failed to download file try again');
         }
       } catch (e) {
         Get.snackbar('error', 'Error while downloading file: $e');
