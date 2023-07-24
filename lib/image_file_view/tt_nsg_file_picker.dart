@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:desktop_drop/desktop_drop.dart';
-import 'package:download/download.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
