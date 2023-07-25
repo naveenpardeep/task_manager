@@ -53,6 +53,33 @@ class _ChatPageState extends State<ChatPage> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.white,
+            title: SizedBox(
+              height: 30,
+              child: TextField(
+                  controller: textEditController,
+                  decoration: InputDecoration(
+                      filled: false,
+                      fillColor: ControlOptions.instance.colorMainLight,
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                          gapPadding: 1,
+                          borderSide: BorderSide(color: ControlOptions.instance.colorMainDark),
+                          borderRadius: const BorderRadius.all(Radius.circular(20))),
+                      suffixIcon: IconButton(
+                          hoverColor: Colors.transparent,
+                          padding: const EdgeInsets.only(bottom: 0),
+                          onPressed: (() {
+                            setState(() {});
+                            textEditController.clear();
+                          }),
+                          icon: const Icon(Icons.cancel)),
+                      hintText: 'Search ...'),
+                  textAlignVertical: TextAlignVertical.bottom,
+                  style: TextStyle(color: ControlOptions.instance.colorMainLight, fontFamily: 'Inter', fontSize: 16),
+                  onChanged: (val) {
+                    setState(() {});
+                  }),
+            ),
             leading: width > 700
                 ? IconButton(
                     onPressed: () {
