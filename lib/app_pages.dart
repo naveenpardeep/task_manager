@@ -5,6 +5,7 @@ import 'package:task_manager_app/forms/TaskList/taskopen_for_tasklist.dart';
 import 'package:task_manager_app/forms/TaskList/taskslist_binding.dart';
 import 'package:task_manager_app/forms/business_process/business_process_transition_page.dart';
 import 'package:task_manager_app/forms/chats/chat_binding.dart';
+import 'package:task_manager_app/forms/chats/chat_open_page.dart';
 import 'package:task_manager_app/forms/chats/chat_page.dart';
 import 'package:task_manager_app/forms/first_start/first_start_binding.dart';
 import 'package:task_manager_app/forms/first_start/first_start_page.dart';
@@ -420,6 +421,11 @@ class AppPages {
       binding: ChatBinding(),
     ),
     GetPage(
+      name: Routes.chatopenpage,
+      page: () => const ChatOpenPage(),
+      binding: ChatBinding(),
+    ),
+    GetPage(
       name: Routes.archProjectListPage,
       page: () => const ArchProjectListPage(),
       binding: ProjectBinding(),
@@ -498,5 +504,6 @@ abstract class Routes {
   static const businessProcessPage = '/businessProcessPage';
   static const businessProcessTransitionTablePage = '/businessProcessTransitionTablePage';
   static const chatPage = '/chatPage';
+  static const chatopenpage='/chatopenpage';
   static const archProjectListPage='/archProjectlistPage';
 }

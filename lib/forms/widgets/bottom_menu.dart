@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_data/nsg_data.dart';
+import 'package:task_manager_app/forms/chats/chat_tasklist_controller.dart';
 import 'package:task_manager_app/forms/organization/organization_controller.dart';
 import 'package:task_manager_app/forms/project/project_controller.dart';
 import 'package:task_manager_app/forms/tasks/tasks_controller.dart';
@@ -38,6 +39,12 @@ class BottomMenu extends StatelessWidget {
           icon: Icons.apartment,
           link: Routes.organizationListMobilePage,
           controller: Get.find<OrganizationController>(),
+        ),
+        NsgBottomMenuItem(
+          'Chat',
+          icon: Icons.chat,
+          link: Routes.chatPage,
+          controller: Get.find<ChatTaskListController>(),
         ),
         NsgBottomMenuItem(
           'Аккаунт',

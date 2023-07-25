@@ -12,5 +12,6 @@ class ChatBinding extends Bindings {
     Get.put(TasksController());
     Get.put(ProjectStatusController());
     Get.put(ChatTaskListController());
+   
   }
 }

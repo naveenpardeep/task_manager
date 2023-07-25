@@ -46,6 +46,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     if (controller.lateInit) {
       controller.requestItems();
     }
@@ -55,6 +56,18 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: width < 700
+            ? AppBar(
+                backgroundColor: Colors.white,
+                title: const Text('Chat'),
+                leading: IconButton(
+                    onPressed: () {
+                      taskcontroller.selectedItem = null;
+                      Get.back();
+                    },
+                    icon: const Icon(Icons.arrow_back_ios_new)),
+              )
+            : null,
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: controller.obx(
@@ -68,31 +81,32 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: ClipOval(
-                        child: Get.find<DataController>().currentUser.photoName.isEmpty
-                            ? Container(
-                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                                width: 48,
-                                height: 48,
-                                child: Icon(
-                                  Icons.account_circle,
-                                  size: 20,
-                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                  if (width > 700)
+                    Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ClipOval(
+                          child: Get.find<DataController>().currentUser.photoName.isEmpty
+                              ? Container(
+                                  decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                  width: 48,
+                                  height: 48,
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    size: 20,
+                                    color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                  ),
+                                )
+                              : Image.network(
+                                  TaskFilesController.getFilePath(Get.find<DataController>().currentUser.photoName),
+                                  fit: BoxFit.fill,
+                                  width: 48,
+                                  height: 48,
                                 ),
-                              )
-                            : Image.network(
-                                TaskFilesController.getFilePath(Get.find<DataController>().currentUser.photoName),
-                                fit: BoxFit.fill,
-                                width: 48,
-                                height: 48,
-                              ),
-                      )),
+                        )),
                   Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: IconButton(
-                      iconSize: 40,
+                      iconSize: width > 700 ? 40 : 28,
                       onPressed: () {
                         setState(() {
                           emojiShowing = !emojiShowing;
@@ -105,48 +119,45 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                     ),
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 10, 5),
-                      child: RawKeyboardListener(
-                        focusNode: FocusNode(),
-                        autofocus: true,
-                        onKey: (event) async {
-                          if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-                            controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
-                            controller.currentItem.text = _controller.text;
-                            await controller.currentItem.post();
-                            controller.items.add(controller.currentItem);
-                            _controller.text = '';
-                            isReply=false;
+                    child: RawKeyboardListener(
+                      focusNode: FocusNode(),
+                      autofocus: true,
+                      onKey: (event) async {
+                        if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+                          controller.currentItem.ownerId = taskcontroller.currentItem.ownerId;
+                          controller.currentItem.text = _controller.text;
+                          await controller.currentItem.post();
+                          controller.items.add(controller.currentItem);
+                          _controller.text = '';
+                          isReply = false;
 
-                            await controller.createNewItemAsync();
-                            taskcontroller.currentItem.dateLastMessage = DateTime.now();
-                            taskcontroller.requestItems();
-                          }
-                        },
-                        // child: TTNsgInput(
+                          await controller.createNewItemAsync();
+                          taskcontroller.currentItem.dateLastMessage = DateTime.now();
+                          taskcontroller.requestItems();
+                        }
+                      },
+                      // child: TTNsgInput(
 
-                        //   borderRadius: 100,
-                        //   dataItem: controller.currentItem,
-                        //   fieldName: TaskCommentGenerated.nameText,
-                        //   label: '',
-                        //   infoString: 'Комментарий',
-                        // ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: TextField(
-                              controller: _controller,
-                              style: const TextStyle(fontSize: 20.0, color: Colors.black87),
-                              decoration: InputDecoration(
-                                hintText: 'Type a message',
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 8.0, right: 16.0),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                              )),
-                        ),
+                      //   borderRadius: 100,
+                      //   dataItem: controller.currentItem,
+                      //   fieldName: TaskCommentGenerated.nameText,
+                      //   label: '',
+                      //   infoString: 'Комментарий',
+                      // ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: TextField(
+                            controller: _controller,
+                            style: const TextStyle(fontSize: 20.0, color: Colors.black87),
+                            decoration: InputDecoration(
+                              hintText: 'Type a message',
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.only(left: 10.0, bottom: 8.0, top: 8.0, right: 16.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                            )),
                       ),
                     ),
                   ),
@@ -167,7 +178,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
                             await controller.currentItem.post();
                             controller.items.add(controller.currentItem);
                             _controller.text = '';
-                            isReply=false;
+                            isReply = false;
 
                             await controller.createNewItemAsync();
                             taskcontroller.currentItem.dateLastMessage = DateTime.now();
@@ -276,6 +287,7 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
   Future<void> showPopUpMenu(Offset globalPosition, TaskComment comment, BuildContext context) async {
     double left = globalPosition.dx;
     double top = globalPosition.dy;
+    double width = MediaQuery.of(context).size.width;
 
     await showMenu(
       shape: const RoundedRectangleBorder(
@@ -331,7 +343,12 @@ class _ChatOpenPageState extends State<ChatOpenPage> {
       if (value == 2) {
         _controller.text = comment.text;
 
-        controller.itemPageOpen(comment, Routes.chatPage);
+        if (width > 700) {
+          controller.itemPageOpen(comment, Routes.chatPage);
+        }
+        else{
+          controller.itemPageOpen(comment, Routes.chatopenpage);
+        }
         controller.sendNotify();
       }
       if (value == 3) {
