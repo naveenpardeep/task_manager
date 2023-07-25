@@ -20,6 +20,7 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
   @override
   Widget build(BuildContext context) {
     bool res;
+    double width = MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BodyWrap(
       child: Scaffold(
@@ -32,23 +33,24 @@ class ProjectUserViewPage extends GetView<ProjectItemUserTableController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                NsgAppBar(
-                  color: Colors.black,
-                  backColor: Colors.white,
-                  text: controller.currentItem.userAccount.name,
-                  icon: Icons.arrow_back_ios_new,
-                  colorsInverted: true,
-                  bottomCircular: true,
-                  onPressed: () {
-                    controller.itemPageCancel();
-                  },
-                  icon2: Icons.check,
-                  onPressed2: () async {
-                    await controller.itemPagePost(goBack: false);
-                    await Get.find<ProjectController>().itemPagePost(goBack: false);
-                    Get.back();
-                  },
-                 ),
+                if (width > 700)
+                  NsgAppBar(
+                    color: Colors.black,
+                    backColor: Colors.white,
+                    text: controller.currentItem.userAccount.name,
+                    icon: Icons.arrow_back_ios_new,
+                    colorsInverted: true,
+                    bottomCircular: true,
+                    onPressed: () {
+                      controller.itemPageCancel();
+                    },
+                    icon2: Icons.check,
+                    onPressed2: () async {
+                      await controller.itemPagePost(goBack: false);
+                      await Get.find<ProjectController>().itemPagePost(goBack: false);
+                      Get.back();
+                    },
+                  ),
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.fromLTRB(5, 10, 5, 15),
