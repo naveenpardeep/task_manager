@@ -60,7 +60,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Text(
                               'Проекты',
-                              style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
+                              style: TextStyle(fontSize: 16 , fontFamily: 'Inter'),
                             ),
                           ),
                         Flexible(
@@ -72,7 +72,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                                 },
                                 child: Text(
                                   'Архивные проекты',
-                                  style: TextStyle(fontSize: width > 700 ? 20 : 16, fontFamily: 'Inter'),
+                                  style: TextStyle(fontSize: width > 700 ? 16 : 12, fontFamily: 'Inter'),
                                 ),
                               )),
                         ),
