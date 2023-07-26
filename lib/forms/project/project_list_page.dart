@@ -56,8 +56,8 @@ class _ProjectListPageState extends State<ProjectListPage> {
                     child: Row(
                       children: [
                         if (width > 700)
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Text(
                               'Проекты',
                               style: TextStyle(fontSize: 16 , fontFamily: 'Inter'),
