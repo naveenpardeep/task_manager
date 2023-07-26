@@ -606,6 +606,8 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
 
         dio.Dio io = dio.Dio();
         await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {});
+        //fileName = '/Users/zenalex/Downloads/ttt.docx';
+        fileName = Uri.encodeFull(fileName);
         await launchUrlString('file:$fileName');
       } else {
         String fileName = 'TaskTunerfile${extension(fileObject.filePath)}';
