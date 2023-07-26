@@ -595,28 +595,34 @@ class _TTNsgFilePickerState extends State<TTNsgFilePicker> {
         fileType = FileType.any;
     }
     if (!kIsWeb) {
-      var fileName = await FilePicker.platform
-          .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
-      if (fileName == null) return;
-      var ext = extension(fileName);
-      if (ext.isEmpty) {
-        fileName += extension(fileObject.filePath);
-      }
+      if (!GetPlatform.isAndroid && !GetPlatform.isIOS) {
+        var fileName = await FilePicker.platform
+            .saveFile(dialogTitle: 'Сохранить файл', type: fileType, allowedExtensions: [extension(fileObject.filePath).replaceAll('.', '')]);
+        if (fileName == null) return;
+        var ext = extension(fileName);
+        if (ext.isEmpty) {
+          fileName += extension(fileObject.filePath);
+        }
 
-      //TODO: add progress
-      dio.Dio io = dio.Dio();
-      await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {
-        //setState(() {
-        // downloading = true;
-        // progress =
-        //     ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
-      });
-      await launchUrlString('file:$fileName');
+        dio.Dio io = dio.Dio();
+        await io.download(fileObject.filePath, fileName, onReceiveProgress: (receivedBytes, totalBytes) {});
+        await launchUrlString('file:$fileName');
+      } else {
+        String fileName = 'TaskTunerfile${extension(fileObject.filePath)}';
+         Directory appDir ;
+      if (Platform.isIOS) {
+        appDir = await getApplicationDocumentsDirectory();
+      } else {
+        appDir = Directory('/storage/emulated/0/Download');
+      }
+       
+        String filePath = '${appDir.path}/$fileName';
+        dio.Dio io = dio.Dio();
+        await io.download(fileObject.filePath, filePath, onReceiveProgress: (receivedBytes, totalBytes) {});
+      }
     }
     if (kIsWeb) {
-      // var stream = Stream.fromIterable(fileObject.filePath.codeUnits);
 
-      // download(stream, "Tasktunerfile");
 
       try {
         final response = await http.get(Uri.parse(fileObject.filePath));
