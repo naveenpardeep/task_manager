@@ -40,6 +40,9 @@ class TaskDocGenerated extends NsgDataItem {
   static const namePeriodicLastClosed = 'periodicLastClosed';
   static const namePeriodicTimeLimit = 'periodicTimeLimit';
   static const namePeriodicTimeLimitlUnit = 'periodicTimeLimitlUnit';
+  static const nameIsCondition = 'isCondition';
+  static const nameConditionObjectId = 'conditionObjectId';
+  static const nameTableConditionObjects = 'tableConditionObjects';
 
   static final Map<String, String> fieldNameDict = {
     nameDate: 'Дата документа',
@@ -93,6 +96,9 @@ class TaskDocGenerated extends NsgDataItem {
     addField(NsgDataDateField(namePeriodicLastClosed), primaryKey: false);
     addField(NsgDataIntField(namePeriodicTimeLimit), primaryKey: false);
     addField(NsgDataEnumReferenceField<ETaskPeriodicity>(namePeriodicTimeLimitlUnit), primaryKey: false);
+    addField(NsgDataBoolField(nameIsCondition), primaryKey: false);
+    addField(NsgDataReferenceField<ControlledObject>(nameConditionObjectId), primaryKey: false);
+    addField(NsgDataReferenceListField<TaskDocConditionObjectsTable>(nameTableConditionObjects), primaryKey: false);
     fieldList.fields[nameDate]?.presentation = 'Дата документа';
     fieldList.fields[nameDocNumber]?.presentation = 'Номер документа';
     fieldList.fields[nameTaskNumber]?.presentation = 'Номер задачи';
@@ -314,6 +320,25 @@ class TaskDocGenerated extends NsgDataItem {
   ETaskPeriodicity get periodicTimeLimitlUnit => NsgEnum.fromValue(ETaskPeriodicity, getFieldValue(namePeriodicTimeLimitlUnit)) as ETaskPeriodicity;
 
   set periodicTimeLimitlUnit(ETaskPeriodicity value) => setFieldValue(namePeriodicTimeLimitlUnit, value);
+
+  /// ЭтоСостояние
+  bool get isCondition => getFieldValue(nameIsCondition) as bool;
+
+  set isCondition(bool value) => setFieldValue(nameIsCondition, value);
+
+  /// ОбъектСостояния
+  String get conditionObjectId => getFieldValue(nameConditionObjectId).toString();
+  ControlledObject get conditionObject => getReferent<ControlledObject>(nameConditionObjectId);
+  Future<ControlledObject> conditionObjectAsync() async {
+   return await getReferentAsync<ControlledObject>(nameConditionObjectId);
+  }
+
+  set conditionObjectId(String value) => setFieldValue(nameConditionObjectId, value);
+  set conditionObject(ControlledObject value) =>
+    setFieldValue(nameConditionObjectId, value.id);
+
+  /// ТаблицаОбъектыКонтроля
+  NsgDataTable<TaskDocConditionObjectsTable> get tableConditionObjects => NsgDataTable<TaskDocConditionObjectsTable>(owner: this, fieldName: nameTableConditionObjects);
 
   @override
   String get apiRequestItems {

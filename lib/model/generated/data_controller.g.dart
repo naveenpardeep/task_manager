@@ -30,6 +30,10 @@ class DataControllerGenerated extends NsgBaseController {
     NsgDataClient.client
         .registerDataItem(TaskDocFilesTable(), remoteProvider: provider);
     NsgDataClient.client
+        .registerDataItem(TaskDocConditionObjectsTable(), remoteProvider: provider);
+    NsgDataClient.client
+        .registerDataItem(ControlledObject(), remoteProvider: provider);
+    NsgDataClient.client
         .registerDataItem(TaskComment(), remoteProvider: provider);
     NsgDataClient.client
         .registerDataItem(TaskStatus(), remoteProvider: provider);
