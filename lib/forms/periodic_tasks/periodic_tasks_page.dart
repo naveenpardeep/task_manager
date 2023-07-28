@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nsg_controls/nsg_controls.dart';
 import 'package:nsg_controls/nsg_grid.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import 'package:task_manager_app/app_pages.dart';
 import 'package:task_manager_app/forms/periodic_tasks/periodic_tasks_controller.dart';
@@ -153,8 +154,9 @@ class TaskItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PeriodicTasksController>();
+    double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: InkWell(
         focusColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -165,7 +167,7 @@ class TaskItemView extends StatelessWidget {
           controller.itemPageOpen(task, Routes.taskEditPage);
         },
         child: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color(0xffEDEFF3),
@@ -203,38 +205,54 @@ class TaskItemView extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                      Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                      Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
-                    ],
-                  )),
-                  const Padding(padding: EdgeInsets.only(left: 10)),
-                  ClipOval(
-                      child: task.assignee.photoName.isEmpty
-                          ? Container(
-                              decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
-                              width: 32,
-                              height: 32,
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 20,
-                                color: ControlOptions.instance.colorMain.withOpacity(0.4),
-                              ),
-                            )
-                          : Image.network(
-                              TaskFilesController.getFilePath(task.assignee.photoName),
-                              fit: BoxFit.cover,
-                              width: 32,
-                              height: 32,
-                            )),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Aut.: ${task.author.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                        Text('Assig.: ${task.assignee.name}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                        Text('Proj.: ${task.project}', style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: Color(0xff529FBF))),
+                      ],
+                    )),
+                    const Padding(padding: EdgeInsets.only(left: 10)),
+                    ClipOval(
+                        child: task.assignee.photoName.isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(color: ControlOptions.instance.colorMain.withOpacity(0.2)),
+                                width: 32,
+                                height: 32,
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 20,
+                                  color: ControlOptions.instance.colorMain.withOpacity(0.4),
+                                ),
+                              )
+                            : Image.network(
+                                TaskFilesController.getFilePath(task.assignee.photoName),
+                                fit: BoxFit.cover,
+                                width: 32,
+                                height: 32,
+                              )),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: LinearPercentIndicator(
+                  key: GlobalKey(),
+                  center: Text(
+                    ('${(task.periodicLastClosed.day / task.periodicActualUntil.day * 100).toStringAsFixed(2)}%'),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  lineHeight: 20,
+                  percent: task.periodicLastClosed.day / task.periodicActualUntil.day,
+                  backgroundColor: const Color.fromARGB(255, 207, 200, 200),
+                  progressColor: task.periodicLastClosed.day / task.periodicActualUntil.day * 100 == 100 ? Colors.green : Colors.red,
+                ),
               ),
             ],
           ),
